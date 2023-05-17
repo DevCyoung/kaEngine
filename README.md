@@ -3,6 +3,7 @@
 게임엔진 만들기 프로젝트! :)
 
 ## Description
+* [Tstory](https://kingo-of-tensorflow.tistory.com/category/DirectX11_2D)
 정적 라이브러리 등등
 
 ## Getting Started
