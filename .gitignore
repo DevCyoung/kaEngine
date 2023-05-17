@@ -1,8 +1,8 @@
 .vs
 **/x64/
 *.obj
-*/bin_d/*.exe
-*/bin_d/*.pdb
-*/bin/*.exe
-*/bin/*.pdb
+**/bin_d/*.exe
+**/bin_d/*.pdb
+**/bin/*.exe
+**/bin/*.pdb
 
