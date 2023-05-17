@@ -7,6 +7,6 @@
 **/bin/*.exe
 **/bin/*.pdb
 
-**/Library/*.lib
-**/Library/*.idb
-**/Library/*.pdb
+**/Library*.lib
+**/Library*.idb
+**/Library*.pdb
