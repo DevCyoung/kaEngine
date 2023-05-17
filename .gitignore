@@ -7,6 +7,10 @@
 **/bin/*.exe
 **/bin/*.pdb
 
-**/Library*.lib
-**/Library*.idb
-**/Library*.pdb
+**/Content/*.lib
+**/Content/*.idb
+**/Content/*.pdb
+
+**/Engine/*.lib
+**/Engine/*.idb
+**/Engine/*.pdb
