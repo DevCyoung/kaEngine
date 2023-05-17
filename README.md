@@ -23,7 +23,7 @@
 * Step-by-step bullets
 
 ```
-current nothing...
+git clone https://github.com/DevCyoung/DirectX2D_Engine.git
 ```
 
 ## Help
