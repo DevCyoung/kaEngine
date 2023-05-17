@@ -36,10 +36,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                      _In_ int       nCmdShow)
 {
     UNREFERENCED_PARAMETER(hPrevInstance);
-    UNREFERENCED_PARAMETER(lpCmdLine);
-    ADD(1, 2);
-    
-    
+    UNREFERENCED_PARAMETER(lpCmdLine);                
     // TODO: 여기에 코드를 입력합니다.
 
     // 전역 문자열을 초기화합니다.
