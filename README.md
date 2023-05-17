@@ -4,7 +4,8 @@
 
 ## Description
 * [Tstory](https://kingo-of-tensorflow.tistory.com/category/DirectX11_2D)
-
+* [Notion](https://www.notion.so/DirectX2D-57b6d5d810174410b7a1fe68371c2a1f)
+* 
 ## Getting Started
 
 ### Dependencies
