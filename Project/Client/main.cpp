@@ -6,18 +6,16 @@
 
 #define MAX_LOADSTRING 100
 
-#pragma region LIB
-
 #ifdef _DEBUG
-#pragma comment(lib, "Content_d")
+#pragma comment(lib, "Content/Content_d.lib")
+#pragma comment(lib, "Engine/Engine_d.lib")
 #else
-#pragma comment(lib, "Content")
+#pragma comment(lib, "Content/Content.lib")
+#pragma comment(lib, "Engine/Engine.lib")
 #endif
 
-#pragma endregion
-
 #include <Content/MathTest.h>
-
+#include <Engine/EngineTest.h>
 
 // 전역 변수:
 HINSTANCE hInst;                                // 현재 인스턴스입니다.
