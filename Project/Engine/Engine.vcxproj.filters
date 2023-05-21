@@ -12,6 +12,21 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{078f7a60-0f22-4edc-9272-bb057849412a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Math">
+      <UniqueIdentifier>{c6fe055c-5313-4b7b-b8b0-9caf2912f921}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\NewFilter1">
+      <UniqueIdentifier>{85bdc183-3bff-4c6e-883d-b21177a75d19}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Entity">
+      <UniqueIdentifier>{0febf985-2089-4d69-9d73-46a0d133a463}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Core">
+      <UniqueIdentifier>{7f04372e-c8ef-4ba2-ac02-d344a61c6f54}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -23,6 +38,18 @@
     <ClInclude Include="EngineTest.h">
       <Filter>Windows\헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="DXMath.h">
+      <Filter>Source\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine.h">
+      <Filter>Source\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums.h">
+      <Filter>Source\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="EnumFlag.h">
+      <Filter>Source\Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -31,5 +58,13 @@
     <ClCompile Include="EngineTest.cpp">
       <Filter>Windows\소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="DXMath.cpp">
+      <Filter>Source\Math</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="DXMath.inl">
+      <Filter>Source\Math</Filter>
+    </None>
   </ItemGroup>
 </Project>
