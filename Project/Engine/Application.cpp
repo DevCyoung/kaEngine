@@ -21,6 +21,7 @@ namespace engine
 
     void Application::Run()
     {        
+        
     }
 
     void Application::Update()
@@ -43,7 +44,7 @@ namespace engine
             mWidth = width;
             mHeight = height;
 
-            mGraphicDevice = std::make_unique<graphics::GraphicDeviceDx11>();
+            mGraphicDevice = std::make_unique<graphics::GraphicDeviceDX11>();
         }
 
         RECT wdScreen = { 0, 0, static_cast<LONG>(width), static_cast<LONG>(height) };

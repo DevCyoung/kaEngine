@@ -25,12 +25,12 @@ namespace engine
 
     private:        
         //smart pointer
-        std::unique_ptr<engine::graphics::GraphicDeviceDx11> mGraphicDevice;
+        std::unique_ptr<engine::graphics::GraphicDeviceDX11> mGraphicDevice;
 
         HWND mHwnd;
         UINT mWidth;
         UINT mHeight;       
 
-        bool mbInitialize;
+        bool mbInitialize = false;
     };
 }

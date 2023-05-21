@@ -62,6 +62,6 @@ namespace engine
 
 	private:
 		static std::vector<Key> mKeys;
-		static ya::math::Vector2 mMousePos;
+		static engine::math::Vector2 mMousePos;
     };
 };

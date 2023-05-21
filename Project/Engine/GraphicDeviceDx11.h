@@ -7,15 +7,13 @@
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "d3dcompiler.lib")
 
-
-
 namespace engine::graphics
 {
-    class GraphicDeviceDx11
+    class GraphicDeviceDX11
     {
     public:
-        GraphicDeviceDx11();
-        virtual ~GraphicDeviceDx11();
+        GraphicDeviceDX11();
+        virtual ~GraphicDeviceDX11();
 
     private:
         Microsoft::WRL::ComPtr<ID3D11Device> mDevice;

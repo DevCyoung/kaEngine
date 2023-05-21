@@ -1,43 +1,52 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Windows">
-      <UniqueIdentifier>{fa146637-41d5-4cfd-a22f-e855ac8d7bc2}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source">
       <UniqueIdentifier>{078f7a60-0f22-4edc-9272-bb057849412a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Math">
-      <UniqueIdentifier>{c6fe055c-5313-4b7b-b8b0-9caf2912f921}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Entity">
-      <UniqueIdentifier>{0febf985-2089-4d69-9d73-46a0d133a463}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source\Core">
       <UniqueIdentifier>{7f04372e-c8ef-4ba2-ac02-d344a61c6f54}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Time">
-      <UniqueIdentifier>{942ebe70-fdee-4307-8221-98dbfc5e1edd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Interface">
-      <UniqueIdentifier>{e6430191-00da-4151-afd7-1c9c3cd0ce20}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\Graphics">
       <UniqueIdentifier>{8231d530-7a53-4699-a9cc-a474fbba78b9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Input">
+    <Filter Include="Source\Helper">
+      <UniqueIdentifier>{c549a15d-9112-48dc-b1ab-cc8178f448bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Helper\File">
+      <UniqueIdentifier>{2d9164a7-f9d1-44ba-b093-7a129be4a17c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Helper\Math">
+      <UniqueIdentifier>{d7d73e82-bba5-4845-9e28-83522d5f93c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Core\Math">
+      <UniqueIdentifier>{c6fe055c-5313-4b7b-b8b0-9caf2912f921}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Core\Interface">
+      <UniqueIdentifier>{e6430191-00da-4151-afd7-1c9c3cd0ce20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Core\Input">
       <UniqueIdentifier>{13a6a959-909c-4762-ba4c-c888cd9168a9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Resource">
+    <Filter Include="Source\Core\Resources">
+      <UniqueIdentifier>{2ff371fd-1518-4749-bfd5-6cdb96856c85}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Core\Resource">
       <UniqueIdentifier>{6fd5e19a-f00d-4990-ba98-d245caa6d931}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Resources">
-      <UniqueIdentifier>{2ff371fd-1518-4749-bfd5-6cdb96856c85}</UniqueIdentifier>
+    <Filter Include="Source\Core\Time">
+      <UniqueIdentifier>{942ebe70-fdee-4307-8221-98dbfc5e1edd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Entity">
+      <UniqueIdentifier>{0febf985-2089-4d69-9d73-46a0d133a463}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Windows">
+      <UniqueIdentifier>{fa146637-41d5-4cfd-a22f-e855ac8d7bc2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DXMath.h">
-      <Filter>Source\Math</Filter>
+      <Filter>Source\Core\Math</Filter>
     </ClInclude>
     <ClInclude Include="Engine.h">
       <Filter>Source\Core</Filter>
@@ -52,7 +61,7 @@
       <Filter>Source\Entity</Filter>
     </ClInclude>
     <ClInclude Include="Time.h">
-      <Filter>Source\Time</Filter>
+      <Filter>Source\Core\Time</Filter>
     </ClInclude>
     <ClInclude Include="EngineTest.h">
       <Filter>Windows</Filter>
@@ -64,30 +73,30 @@
       <Filter>Windows</Filter>
     </ClInclude>
     <ClInclude Include="Application.h">
-      <Filter>Source\Interface</Filter>
+      <Filter>Source\Core\Interface</Filter>
     </ClInclude>
-    <ClInclude Include="GraphicDeviceDx11.h">
+    <ClInclude Include="GraphicDeviceDX11.h">
       <Filter>Source\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="Input.h">
-      <Filter>Source\Input</Filter>
+      <Filter>Source\Core\Input</Filter>
     </ClInclude>
     <ClInclude Include="Resource.h">
-      <Filter>Source\Resource</Filter>
+      <Filter>Source\Core\Resource</Filter>
     </ClInclude>
     <ClInclude Include="Resources.h">
-      <Filter>Source\Resources</Filter>
+      <Filter>Source\Core\Resources</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DXMath.cpp">
-      <Filter>Source\Math</Filter>
+      <Filter>Source\Core\Math</Filter>
     </ClCompile>
     <ClCompile Include="Entity.cpp">
       <Filter>Source\Entity</Filter>
     </ClCompile>
     <ClCompile Include="Time.cpp">
-      <Filter>Source\Time</Filter>
+      <Filter>Source\Core\Time</Filter>
     </ClCompile>
     <ClCompile Include="Engine.cpp">
       <Filter>Windows</Filter>
@@ -96,24 +105,24 @@
       <Filter>Windows</Filter>
     </ClCompile>
     <ClCompile Include="Application.cpp">
-      <Filter>Source\Interface</Filter>
+      <Filter>Source\Core\Interface</Filter>
     </ClCompile>
-    <ClCompile Include="GraphicDeviceDx11.cpp">
+    <ClCompile Include="GraphicDeviceDX11.cpp">
       <Filter>Source\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="Input.cpp">
-      <Filter>Source\Input</Filter>
+      <Filter>Source\Core\Input</Filter>
     </ClCompile>
     <ClCompile Include="Resource.cpp">
-      <Filter>Source\Resource</Filter>
+      <Filter>Source\Core\Resource</Filter>
     </ClCompile>
     <ClCompile Include="Resources.cpp">
-      <Filter>Source\Resources</Filter>
+      <Filter>Source\Core\Resources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="DXMath.inl">
-      <Filter>Source\Math</Filter>
+      <Filter>Source\Core\Math</Filter>
     </None>
   </ItemGroup>
 </Project>

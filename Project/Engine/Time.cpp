@@ -1,4 +1,8 @@
 #include "Time.h"
+#include "Application.h"
+
+
+extern engine::Application application;
 
 namespace engine
 {
@@ -33,7 +37,7 @@ namespace engine
 
         const double differnceFrequency = static_cast<double>(mCurFrequency.QuadPart - mPrevFrequency.QuadPart);
 
-        mDeltaTime = differnceFrequency / mCpuFrequency.QuadPart;
+        mDeltaTime = differnceFrequency / static_cast<double>(mCpuFrequency.QuadPart);
 
         mPrevFrequency.QuadPart = mCurFrequency.QuadPart;
     }
@@ -44,12 +48,15 @@ namespace engine
 
         if (mSecond > 1.0l)
         {
-            //const HWND hWnd = application.GetHwnd();
+            const HWND hWnd = application.GetHwnd();            
 
             wchar_t buffer[256] = {};
-            double fps = 1.0l / mDeltaTime;
-            //swprintf_s(hWnd, buffer)
-            
+            const double fps = 1.0l / mDeltaTime;
+
+            swprintf_s(buffer, 256, L"FPS : %lf", fps);
+            SetWindowText(hWnd, buffer);
+
+            mSecond = 0.0l;                                    
         }
     }
 }

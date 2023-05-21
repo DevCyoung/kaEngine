@@ -18,7 +18,7 @@
 using namespace DirectX;
 using namespace DirectX::PackedVector;
 
-namespace ya
+namespace engine
 {
     namespace math
     {

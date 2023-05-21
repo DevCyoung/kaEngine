@@ -5,7 +5,7 @@ namespace engine
 {
     extern Application application;
 
-    using namespace ya::math;
+    using namespace engine::math;
 
     int ASCII[(UINT)eKeyCode::END] =
     {
