@@ -1,11 +1,6 @@
 ﻿// Client.cpp : 애플리케이션에 대한 진입점을 정의합니다.
 //
 
-#include "framework.h"
-#include "Client.h"
-
-#define MAX_LOADSTRING 100
-
 #ifdef _DEBUG
 #pragma comment(lib, "Content/Content_d.lib")
 #pragma comment(lib, "Engine/Engine_d.lib")
@@ -14,8 +9,16 @@
 #pragma comment(lib, "Engine/Engine.lib")
 #endif
 
+#define MAX_LOADSTRING 100
+
+#include "framework.h"
+#include "Client.h"
+#include  <Engine/Application.h>
+
 #include <Content/MathTest.h>
 #include <Engine/EngineTest.h>
+
+engine::Application application;
 
 // 전역 변수:
 HINSTANCE hInst;                                // 현재 인스턴스입니다.
@@ -54,13 +57,23 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     MSG msg;
 
-    // 기본 메시지 루프입니다:
-    while (GetMessage(&msg, nullptr, 0, 0))
+    while (true)
     {
-        if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
+        if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
         {
-            TranslateMessage(&msg);
-            DispatchMessage(&msg);
+            if (WM_QUIT == msg.message)
+                break;
+
+            if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
+            {
+                TranslateMessage(&msg);
+                DispatchMessage(&msg);
+            }
+        }
+        else
+        {
+            // 여기서 게임 로직이 돌아가야한다.
+            application.Run();
         }
     }
 
