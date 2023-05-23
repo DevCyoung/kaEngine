@@ -2,7 +2,7 @@
 #include "Application.h"
 
 
-extern engine::Application application;
+extern engine::Application gApplication;
 
 namespace engine
 {
@@ -48,7 +48,7 @@ namespace engine
 
         if (mSecond > 1.0l)
         {
-            const HWND hWnd = application.GetHwnd();            
+            const HWND hWnd = gApplication.GetHwnd();            
 
             wchar_t buffer[256] = {};
             const double fps = 1.0l / mDeltaTime;

@@ -21,7 +21,9 @@ namespace engine
 
     void Application::Run()
     {        
-        
+        Update();
+        LateUpdate();
+        Render();
     }
 
     void Application::Update()
@@ -34,6 +36,7 @@ namespace engine
 
     void Application::Render()
     {
+        mGraphicDevice->Draw();
     }
 
     void Application::SetWindow(const HWND hwnd, const UINT width, const UINT height)

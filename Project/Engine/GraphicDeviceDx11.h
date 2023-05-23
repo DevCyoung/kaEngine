@@ -16,13 +16,20 @@ namespace engine::graphics
         virtual ~GraphicDeviceDX11();
 
     private:
-        Microsoft::WRL::ComPtr<ID3D11Device> mDevice;
-        Microsoft::WRL::ComPtr<ID3D11DeviceContext> mDeviceContext;
+        HRESULT CreateSwapChain(const HWND hWnd, DXGI_SWAP_CHAIN_DESC* const desc);
+        //HRESULT CreateTexture(const D3D11_TEXTURE2D_DESC& desc, const void* const data);
 
-        Microsoft::WRL::ComPtr<ID3D11Texture2D> mRenderTarget;
+    public:
+        void Draw();
+
+    private:
+        Microsoft::WRL::ComPtr<ID3D11Device> mDevice;
+        Microsoft::WRL::ComPtr<ID3D11DeviceContext> mContext;
+
+        Microsoft::WRL::ComPtr<ID3D11Texture2D> mRenderTargetTexture;
         Microsoft::WRL::ComPtr<ID3D11RenderTargetView> mRenderTargetView;
 
-        Microsoft::WRL::ComPtr<ID3D11Texture2D> mDepthStencilBuffer;
+        Microsoft::WRL::ComPtr<ID3D11Texture2D> mDepthStencilTexture;
         Microsoft::WRL::ComPtr<ID3D11DepthStencilView> mDepthStencilView;
         
         Microsoft::WRL::ComPtr<IDXGISwapChain> mSwapChain;
