@@ -16,14 +16,18 @@ namespace engine
     public:
         void Initialize();
         void Run();
-        void Update();
-        void LateUpdate();
-        void Render();        
 
         void SetWindow(const HWND hwnd, const UINT width, const UINT height);
         UINT GetWidth() const { return mWidth; }
         UINT GetHeight() const { return mHeight; }
         HWND GetHwnd() const { return mHwnd; }
+
+    private:
+        void Update();
+        void LateUpdate();
+        void Render();        
+
+        
 
     private:                
         //smart pointer
