@@ -2,8 +2,7 @@
 #include "Application.h"
 
 namespace engine
-{
-    extern Application application;
+{    
 
     using namespace engine::math;
 
@@ -46,6 +45,8 @@ namespace engine
 
     void Input::Update()
     {
+        const engine::Application* const application = engine::Application::GetApplication();
+
         if (GetFocus())
         {
             for (UINT i = 0; i < static_cast<UINT>(eKeyCode::END); i++)
@@ -82,7 +83,8 @@ namespace engine
             POINT mousePos = {};
             GetCursorPos(&mousePos);
 
-            ScreenToClient(application.GetHwnd(), &mousePos);
+            ScreenToClient(application->GetHwnd(), &mousePos);
+
             mMousePos.x = static_cast<float>(mousePos.x);
             mMousePos.y = static_cast<float>(mousePos.y);
         }

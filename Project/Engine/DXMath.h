@@ -981,7 +981,7 @@ namespace engine
 #endif
             static RECT __cdecl ComputeTitleSafeArea(UINT backBufferWidth, UINT backBufferHeight) noexcept;
         };
-
-#include "DXMath.inl"
     }
 }
+
+#include "DXMath.inl"

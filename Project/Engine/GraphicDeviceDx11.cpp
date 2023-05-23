@@ -1,15 +1,15 @@
 #include "GraphicDeviceDX11.h"
 #include "Application.h"
 
-extern engine::Application gApplication;
-
 namespace engine::graphics
 {
     GraphicDeviceDX11::GraphicDeviceDX11()
     {
-        const HWND hWnd = gApplication.GetHwnd();        
-        const UINT screenWidth = gApplication.GetWidth();
-        const UINT screenHeight = gApplication.GetHeight();
+        const Application* const application = Application::GetApplication();
+
+        const HWND hWnd = application->GetHwnd();
+        const UINT screenWidth = application->GetWidth();
+        const UINT screenHeight = application->GetHeight();
         const UINT deviceFlag = D3D11_CREATE_DEVICE_DEBUG;
 
         D3D_FEATURE_LEVEL featureLevel = static_cast<D3D_FEATURE_LEVEL>(0);
@@ -25,7 +25,7 @@ namespace engine::graphics
         {
             DXGI_SWAP_CHAIN_DESC swapChainDesc = {};
 
-            swapChainDesc.BufferCount = 2;
+            swapChainDesc.BufferCount = 2;  
             swapChainDesc.SampleDesc.Count = 1;
             swapChainDesc.SampleDesc.Quality = 0;
 
@@ -124,6 +124,8 @@ namespace engine::graphics
         {
             return S_FALSE;
         }
+        (void)hWnd;
+
         return S_OK;
     }
 

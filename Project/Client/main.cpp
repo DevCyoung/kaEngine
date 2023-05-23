@@ -18,8 +18,6 @@
 #include <Content/MathTest.h>
 #include <Engine/EngineTest.h>
 
-engine::Application gApplication;
-
 // 전역 변수:
 HINSTANCE hInst;                                // 현재 인스턴스입니다.
 WCHAR szTitle[MAX_LOADSTRING];                  // 제목 표시줄 텍스트입니다.
@@ -58,6 +56,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     MSG msg;
 
+    engine::Application* application = engine::Application::GetApplication();
+
+
     while (true)
     {
         if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
@@ -74,7 +75,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         else
         {
             // 여기서 게임 로직이 돌아가야한다.
-            gApplication.Run();
+            application->Run();
         }
     }
 
@@ -131,7 +132,9 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
       return FALSE;
    }
 
-   gApplication.SetWindow(hWnd, 1600, 900);
+   engine::Application::GetApplication()->SetWindow(hWnd, 1600, 900);
+
+
    ShowWindow(hWnd, nCmdShow);
    UpdateWindow(hWnd);
 

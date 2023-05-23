@@ -9,7 +9,7 @@
 //-------------------------------------------------------------------------------------
 
 #pragma once
-using namespace engine::math;
+//using namespace engine::math;
 
 /****************************************************************************
 *
@@ -21,6 +21,7 @@ using namespace engine::math;
 // Rectangle operations
 //------------------------------------------------------------------------------
 //namespace ya::math
+using namespace engine::math;
 
 
 inline Vector2 Rectangle::Location() const noexcept

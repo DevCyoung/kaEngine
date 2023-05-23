@@ -43,6 +43,9 @@
     <Filter Include="Windows">
       <UniqueIdentifier>{fa146637-41d5-4cfd-a22f-e855ac8d7bc2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Singleton">
+      <UniqueIdentifier>{ee78ce07-d9a5-4e30-bcf8-2e77dbd9fa7d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DXMath.h">
@@ -86,6 +89,9 @@
     </ClInclude>
     <ClInclude Include="Resources.h">
       <Filter>Source\Core\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Singleton.h">
+      <Filter>Source\Singleton</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

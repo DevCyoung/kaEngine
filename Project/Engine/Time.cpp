@@ -51,12 +51,14 @@ namespace engine
             const HWND hWnd = gApplication.GetHwnd();            
 
             wchar_t buffer[256] = {};
-            const double fps = 1.0l / mDeltaTime;
+            const double fps = 1.0 / mDeltaTime;
 
             swprintf_s(buffer, 256, L"FPS : %lf", fps);
             SetWindowText(hWnd, buffer);
 
             mSecond = 0.0l;                                    
         }
+
+        (void)hdc;
     }
 }

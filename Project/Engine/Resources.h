@@ -12,7 +12,7 @@ namespace engine
 		{
 			//리소스맵에서 데이터를 탐색한다 데이터가 있다면 해당데이터를 반환하고
 			//데이터가 없다면 end를 반환해준다.
-			std::map<std::wstring, Resource*>::iterator iter = mResources.find(key);
+			std::map<std::wstring, Resource*>::const_iterator iter = mResources.find(key);
 
 			//찾고자 하는 데이터가 존재한다면
 			//해당타입으로 형변환하여 반환
