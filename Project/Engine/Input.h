@@ -25,6 +25,8 @@ namespace engine
 	class Input
 	{
 	private:
+		friend class Application;
+	private:
 		Input();
         virtual ~Input();
 
@@ -36,10 +38,12 @@ namespace engine
 			bool bPressed;
 		};
 
+	private:
 		static void Initialize();
 		static void Update();
 		static void Render();
 
+	public:
 		static eKeyState GetKeyState(const eKeyCode key)
 		{
 			return mKeys[static_cast<UINT>(key)].state;

@@ -16,7 +16,7 @@ namespace engine::graphics
         virtual ~GraphicDeviceDX11();
 
     private:
-        HRESULT CreateSwapChain(const HWND hWnd, DXGI_SWAP_CHAIN_DESC* const desc);
+        HRESULT CreateSwapChain(const HWND hWnd, const DXGI_SWAP_CHAIN_DESC& desc);
         //HRESULT CreateTexture(const D3D11_TEXTURE2D_DESC& desc, const void* const data);
 
     public:
@@ -33,5 +33,7 @@ namespace engine::graphics
         Microsoft::WRL::ComPtr<ID3D11DepthStencilView> mDepthStencilView;
         
         Microsoft::WRL::ComPtr<IDXGISwapChain> mSwapChain;
+
+        
     };
 }

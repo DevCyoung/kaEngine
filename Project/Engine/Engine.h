@@ -20,3 +20,4 @@
 #include "EnumFlag.h"
 #include "DXMath.h"
 #include "Enums.h"
+#include "MacroDefine.h"

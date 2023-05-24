@@ -2,6 +2,7 @@
 #include "Engine.h"
 #include "Singleton.h"
 
+
 namespace engine::graphics
 {
     class GraphicDeviceDX11;
@@ -14,10 +15,10 @@ namespace engine
         SINGLETON(Application);
 
     public:
-        void Initialize();
+        void Initialize();           
         void Run();
 
-        void SetWindow(const HWND hwnd, const UINT width, const UINT height);
+        void SetWindow(const HWND hwnd, const UINT width, const UINT height);        
         UINT GetWidth() const { return mWidth; }
         UINT GetHeight() const { return mHeight; }
         HWND GetHwnd() const { return mHwnd; }
@@ -26,8 +27,6 @@ namespace engine
         void Update();
         void LateUpdate();
         void Render();        
-
-        
 
     private:                
         //smart pointer

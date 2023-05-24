@@ -6,15 +6,19 @@ namespace engine
     class Time
     {
 	private:
+		friend class Application;
+
+	private:
 		Time();
         virtual ~Time();
 
-	public:
-		static void Initiailize();
-		static void Update();
+	private:
+		static void Initiailize();	
+		static void Update();	
 		static void Render(const HDC hdc);
 
-		__forceinline static double DeltaTime() { return mDeltaTime; }
+	public:
+		static double DeltaTime() { return mDeltaTime; }
 
 	private:
 		static double mDeltaTime;

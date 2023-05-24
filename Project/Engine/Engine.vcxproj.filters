@@ -93,6 +93,9 @@
     <ClInclude Include="Singleton.h">
       <Filter>Source\Singleton</Filter>
     </ClInclude>
+    <ClInclude Include="MacroDefine.h">
+      <Filter>Source\Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DXMath.cpp">

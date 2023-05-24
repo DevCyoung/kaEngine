@@ -5,21 +5,25 @@ namespace engine::graphics
 {
     GraphicDeviceDX11::GraphicDeviceDX11()
     {
-        const Application* const application = Application::GetApplication();
+        const Application* const application = Application::GetInst();
 
         const HWND hWnd = application->GetHwnd();
         const UINT screenWidth = application->GetWidth();
         const UINT screenHeight = application->GetHeight();
         const UINT deviceFlag = D3D11_CREATE_DEVICE_DEBUG;
 
-        D3D_FEATURE_LEVEL featureLevel = static_cast<D3D_FEATURE_LEVEL>(0);
-        
-        if (FAILED(D3D11CreateDevice(nullptr, D3D_DRIVER_TYPE_HARDWARE, nullptr, deviceFlag, nullptr, 0, D3D11_SDK_VERSION,
-            mDevice.GetAddressOf(), &featureLevel, mContext.GetAddressOf())))
+        //Device
         {
-            MessageBox(hWnd, L"Failed to create device", L"Error", MB_OK);
-            return;
-        }       
+            D3D_FEATURE_LEVEL featureLevel = static_cast<D3D_FEATURE_LEVEL>(0);
+            if (FAILED(D3D11CreateDevice(nullptr, D3D_DRIVER_TYPE_HARDWARE, 
+                                         nullptr, deviceFlag, nullptr, 0, D3D11_SDK_VERSION,
+                                         mDevice.GetAddressOf(), &featureLevel, 
+                                         mContext.GetAddressOf())))
+            {                
+                MessageBox(hWnd, L"Failed to create device", L"Error", MB_OK);
+                return;
+            }
+        }        
 
         //SwapChain
         {
@@ -44,7 +48,7 @@ namespace engine::graphics
             swapChainDesc.BufferDesc.Format = DXGI_FORMAT::DXGI_FORMAT_R8G8B8A8_UNORM; //픽셀 포맷                        
             
 
-            if (FAILED(CreateSwapChain(hWnd, &swapChainDesc)))
+            if (FAILED(CreateSwapChain(hWnd, swapChainDesc)))
             {
                 MessageBox(hWnd, L"Failed to create swap chain", L"Error", MB_OK);
                 return;
@@ -99,31 +103,34 @@ namespace engine::graphics
     {
     }
 
-    HRESULT GraphicDeviceDX11::CreateSwapChain(const HWND hWnd, DXGI_SWAP_CHAIN_DESC* const desc)
+    HRESULT GraphicDeviceDX11::CreateSwapChain(const HWND hWnd, const DXGI_SWAP_CHAIN_DESC& desc)
     {
-        Microsoft::WRL::ComPtr<IDXGIDevice> pDXGIDevice = nullptr;
-        Microsoft::WRL::ComPtr<IDXGIAdapter> pDXGIAdapter = nullptr;
-        Microsoft::WRL::ComPtr<IDXGIFactory> pDXGIFactory = nullptr;
+        DXGI_SWAP_CHAIN_DESC swapChainDesc = desc;
 
-        if (FAILED(mDevice->QueryInterface(__uuidof(IDXGIDevice), reinterpret_cast<void**>(pDXGIDevice.GetAddressOf()))))
+        IDXGIDevice* pDXGIDevice = nullptr;
+        IDXGIAdapter* pDXGIAdapter = nullptr;
+        IDXGIFactory* pDXGIFactory = nullptr;
+
+        if (FAILED(mDevice->QueryInterface(__uuidof(IDXGIDevice), reinterpret_cast<void**>(&pDXGIDevice))))
         {
             return S_FALSE;
         }
 
-        if (FAILED(pDXGIDevice->GetParent(__uuidof(IDXGIAdapter), reinterpret_cast<void**>(pDXGIAdapter.GetAddressOf()))))
+        if (FAILED(pDXGIDevice->GetParent(__uuidof(IDXGIAdapter), reinterpret_cast<void**>(&pDXGIAdapter))))
         {
             return S_FALSE;
         }
 
-        if (FAILED(pDXGIAdapter->GetParent(__uuidof(IDXGIFactory), reinterpret_cast<void**>(pDXGIFactory.GetAddressOf()))))
+        if (FAILED(pDXGIAdapter->GetParent(__uuidof(IDXGIFactory), reinterpret_cast<void**>(&pDXGIFactory))))
         {
             return S_FALSE;
         }
 
-        if (FAILED(pDXGIFactory->CreateSwapChain(mDevice.Get(), desc, mSwapChain.GetAddressOf())))
+        if (FAILED(pDXGIFactory->CreateSwapChain(mDevice.Get(), &swapChainDesc, mSwapChain.GetAddressOf())))
         {
             return S_FALSE;
         }
+
         (void)hWnd;
 
         return S_OK;
@@ -132,10 +139,8 @@ namespace engine::graphics
     void GraphicDeviceDX11::Draw()
     {
         //검은색 background는 자제할것
-        FLOAT bgColor[4] = { 0.4f, 0.4f, 0.4f, 1.0f };
-
+        const FLOAT bgColor[4] = { 0.4f, 0.4f, 0.4f, 1.0f };
         mContext->ClearRenderTargetView(mRenderTargetView.Get(), bgColor);
-
 
         //Swap backbuffer, frontbuffer
          mSwapChain->Present(0, 0);

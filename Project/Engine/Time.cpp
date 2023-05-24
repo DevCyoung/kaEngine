@@ -1,9 +1,6 @@
 #include "Time.h"
 #include "Application.h"
 
-
-extern engine::Application gApplication;
-
 namespace engine
 {
     double Time::mDeltaTime = 0.0l;
@@ -48,7 +45,7 @@ namespace engine
 
         if (mSecond > 1.0l)
         {
-            const HWND hWnd = gApplication.GetHwnd();            
+            const HWND hWnd = Application::GetInst()->GetHwnd();
 
             wchar_t buffer[256] = {};
             const double fps = 1.0 / mDeltaTime;

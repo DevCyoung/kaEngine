@@ -45,7 +45,7 @@ namespace engine
 
     void Input::Update()
     {
-        const engine::Application* const application = engine::Application::GetApplication();
+        const engine::Application* const application = engine::Application::GetInst();
 
         if (GetFocus())
         {

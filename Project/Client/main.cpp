@@ -1,6 +1,8 @@
 ﻿// Client.cpp : 애플리케이션에 대한 진입점을 정의합니다.
 //
 
+
+
 #ifdef _DEBUG
 #pragma comment(lib, "Content/Content_d.lib")
 #pragma comment(lib, "Engine/Engine_d.lib")
@@ -17,6 +19,7 @@
 
 #include <Content/MathTest.h>
 #include <Engine/EngineTest.h>
+#include <Engine/Time.h>
 
 // 전역 변수:
 HINSTANCE hInst;                                // 현재 인스턴스입니다.
@@ -49,15 +52,15 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     // 애플리케이션 초기화를 수행합니다:
     if (!InitInstance (hInstance, nCmdShow))
     {
-        return FALSE;
+        return static_cast<int>(FALSE);
     }
 
     HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_CLIENT));
-
     MSG msg;
 
-    engine::Application* application = engine::Application::GetApplication();
-
+    engine::Application* const application = engine::Application::GetInst();
+    
+    application->Initialize();
 
     while (true)
     {
@@ -73,13 +76,11 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
             }
         }
         else
-        {
-            // 여기서 게임 로직이 돌아가야한다.
+        {            
             application->Run();
         }
-    }
-
-    return (int) msg.wParam;
+    }    
+    return static_cast<int>(msg.wParam);
 }
 
 
@@ -132,7 +133,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
       return FALSE;
    }
 
-   engine::Application::GetApplication()->SetWindow(hWnd, 1600, 900);
+   engine::Application::GetInst()->SetWindow(hWnd, 1600, 900);
 
 
    ShowWindow(hWnd, nCmdShow);
@@ -197,15 +198,15 @@ INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
     switch (message)
     {
     case WM_INITDIALOG:
-        return (INT_PTR)TRUE;
+        return static_cast<INT_PTR>(TRUE);
 
     case WM_COMMAND:
         if (LOWORD(wParam) == IDOK || LOWORD(wParam) == IDCANCEL)
         {
             EndDialog(hDlg, LOWORD(wParam));
-            return (INT_PTR)TRUE;
+            return static_cast<INT_PTR>(TRUE);
         }
         break;
     }
-    return (INT_PTR)FALSE;
+    return static_cast<INT_PTR>(FALSE);
 }

@@ -1,6 +1,9 @@
 #include "Application.h"
 #include "GraphicDeviceDx11.h"
 
+#include "Input.h"
+#include "Time.h"
+
 namespace engine
 {
     Application::Application()
@@ -17,7 +20,9 @@ namespace engine
     }
 
     void Application::Initialize()
-    {        
+    {
+        Time::Initiailize();  
+        Input::Initialize();
     }
 
     void Application::Run()
@@ -29,6 +34,8 @@ namespace engine
 
     void Application::Update()
     {
+        Time::Update();
+        Input::Update();        
     }
 
     void Application::LateUpdate()
@@ -36,8 +43,9 @@ namespace engine
     }
 
     void Application::Render()
-    {
+    {        
         mGraphicDevice->Draw();
+        //Time::Render(mHwnd);
     }
 
     void Application::SetWindow(const HWND hwnd, const UINT width, const UINT height)
