@@ -1,15 +1,15 @@
 #include "GraphicDeviceDX11.h"
-#include "Application.h"
+#include "Engine.h"
 
 namespace engine::graphics
 {
     GraphicDeviceDX11::GraphicDeviceDX11()
     {
-        const Application* const application = Application::GetInst();
+        const Engine* const engine = Engine::GetInst();
 
-        const HWND hWnd = application->GetHwnd();
-        const UINT screenWidth = application->GetWidth();
-        const UINT screenHeight = application->GetHeight();
+        const HWND hWnd = engine->GetHwnd();
+        const UINT screenWidth = engine->GetScreenWidth();
+        const UINT screenHeight = engine->GetScreenHeight();
         const UINT deviceFlag = D3D11_CREATE_DEVICE_DEBUG;
 
         //Device
@@ -43,7 +43,9 @@ namespace engine::graphics
             swapChainDesc.BufferDesc.Scaling = DXGI_MODE_SCALING_UNSPECIFIED;
             swapChainDesc.BufferDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER::DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;
 
-            swapChainDesc.SwapEffect = DXGI_SWAP_EFFECT::DXGI_SWAP_EFFECT_DISCARD;
+            //OLD? DXGI_SWAP_EFFECT_DISCARD
+            swapChainDesc.SwapEffect = DXGI_SWAP_EFFECT::DXGI_SWAP_EFFECT_FLIP_DISCARD;
+            
             swapChainDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
             swapChainDesc.BufferDesc.Format = DXGI_FORMAT::DXGI_FORMAT_R8G8B8A8_UNORM; //ÇÈ¼¿ Æ÷¸Ë                        
             
@@ -130,6 +132,9 @@ namespace engine::graphics
         {
             return S_FALSE;
         }
+        pDXGIDevice->Release();
+        pDXGIAdapter->Release();
+        pDXGIFactory->Release();
 
         (void)hWnd;
 

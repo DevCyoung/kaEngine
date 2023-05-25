@@ -25,7 +25,7 @@ namespace engine
 	class Input
 	{
 	private:
-		friend class Application;
+		friend class Engine;
 	private:
 		Input();
         virtual ~Input();

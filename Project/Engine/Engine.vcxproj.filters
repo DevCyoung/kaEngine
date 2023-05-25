@@ -46,19 +46,13 @@
     <Filter Include="Source\Singleton">
       <UniqueIdentifier>{ee78ce07-d9a5-4e30-bcf8-2e77dbd9fa7d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Core\Include">
+      <UniqueIdentifier>{75a58b25-b5b9-4fcb-ab41-d8b4a2cbedb8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DXMath.h">
       <Filter>Source\Core\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine.h">
-      <Filter>Source\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Enums.h">
-      <Filter>Source\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="EnumFlag.h">
-      <Filter>Source\Core</Filter>
     </ClInclude>
     <ClInclude Include="Entity.h">
       <Filter>Source\Entity</Filter>
@@ -66,16 +60,13 @@
     <ClInclude Include="Time.h">
       <Filter>Source\Core\Time</Filter>
     </ClInclude>
-    <ClInclude Include="EngineTest.h">
-      <Filter>Windows</Filter>
-    </ClInclude>
     <ClInclude Include="framework.h">
       <Filter>Windows</Filter>
     </ClInclude>
     <ClInclude Include="pch.h">
       <Filter>Windows</Filter>
     </ClInclude>
-    <ClInclude Include="Application.h">
+    <ClInclude Include="Engine.h">
       <Filter>Source\Core\Interface</Filter>
     </ClInclude>
     <ClInclude Include="GraphicDeviceDX11.h">
@@ -93,8 +84,17 @@
     <ClInclude Include="Singleton.h">
       <Filter>Source\Singleton</Filter>
     </ClInclude>
+    <ClInclude Include="EngineIncludes.h">
+      <Filter>Source\Core\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="EnumFlag.h">
+      <Filter>Source\Core\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums.h">
+      <Filter>Source\Core\Include</Filter>
+    </ClInclude>
     <ClInclude Include="MacroDefine.h">
-      <Filter>Source\Core</Filter>
+      <Filter>Source\Core\Include</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -108,12 +108,6 @@
       <Filter>Source\Core\Time</Filter>
     </ClCompile>
     <ClCompile Include="Engine.cpp">
-      <Filter>Windows</Filter>
-    </ClCompile>
-    <ClCompile Include="EngineTest.cpp">
-      <Filter>Windows</Filter>
-    </ClCompile>
-    <ClCompile Include="Application.cpp">
       <Filter>Source\Core\Interface</Filter>
     </ClCompile>
     <ClCompile Include="GraphicDeviceDX11.cpp">

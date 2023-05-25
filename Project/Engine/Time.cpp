@@ -1,5 +1,5 @@
 #include "Time.h"
-#include "Application.h"
+#include "Engine.h"
 
 namespace engine
 {
@@ -39,13 +39,13 @@ namespace engine
         mPrevFrequency.QuadPart = mCurFrequency.QuadPart;
     }
 
-    void Time::Render(const HDC hdc)
+    void Time::Render()
     {
         mSecond += mDeltaTime;
 
         if (mSecond > 1.0l)
         {
-            const HWND hWnd = Application::GetInst()->GetHwnd();
+            const HWND hWnd = Engine::GetInst()->GetHwnd();
 
             wchar_t buffer[256] = {};
             const double fps = 1.0 / mDeltaTime;
@@ -54,8 +54,6 @@ namespace engine
             SetWindowText(hWnd, buffer);
 
             mSecond = 0.0l;                                    
-        }
-
-        (void)hdc;
+        }        
     }
 }

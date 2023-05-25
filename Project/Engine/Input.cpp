@@ -1,5 +1,5 @@
 #include "Input.h"
-#include "Application.h"
+#include "Engine.h"
 
 namespace engine
 {    
@@ -45,7 +45,7 @@ namespace engine
 
     void Input::Update()
     {
-        const engine::Application* const application = engine::Application::GetInst();
+        const engine::Engine* const application = engine::Engine::GetInst();        
 
         if (GetFocus())
         {

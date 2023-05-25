@@ -1,23 +1,45 @@
 #pragma once
-#include <string>
-#include <Windows.h>
-#include <assert.h>
 
-#include <vector> // 배열
-#include <list> //링크드리스트 
-#include <map> // 2진트리
-#include <bitset> // 비트 배열 편하게 사용해주는 라이브러리
-#include <set> // 해시 테이블
-#include <functional> // 함수 포인터
+#include "EngineIncludes.h"
+#include "Singleton.h"
 
-#include <cmath> //수학
-#include <algorithm> //정렬 알고리즘
-#include <limits> //부동 소수점 표현 및 반올림과 관련된 클래스 템플릿 numeric_limits 및 두 개의 열거형을 정의합니다.
-#include <memory> //메모리 관련된 라이브러리
-#include <filesystem> // 파일입출력 편하게 도와주는 라이브러리
-#include <wrl.h>
 
-#include "EnumFlag.h"
-#include "DXMath.h"
-#include "Enums.h"
-#include "MacroDefine.h"
+namespace engine::graphics
+{
+    class GraphicDeviceDX11;
+}
+
+namespace engine
+{
+    class Engine
+    {    
+        SINGLETON(Engine);
+        friend int APIENTRY ::wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
+            _In_ LPWSTR    lpCmdLine, _In_ int       nCmdShow);
+
+    private:        
+        void Initialize();                   
+        void SetWindow(const HWND hwnd, const UINT width, const UINT height);
+
+        void Run();
+
+        void Update();
+        void LateUpdate();        
+        void Render();
+
+
+    public:        
+        UINT GetScreenWidth() const { return mWidth; }
+        UINT GetScreenHeight() const { return mHeight; }
+        HWND GetHwnd() const { return mHwnd; }                   
+
+    private:        
+        std::unique_ptr<engine::graphics::GraphicDeviceDX11> mGraphicDevice;
+
+        HWND mHwnd;
+        UINT mWidth;
+        UINT mHeight;       
+
+        bool mbInitialize = false;
+    };    
+}

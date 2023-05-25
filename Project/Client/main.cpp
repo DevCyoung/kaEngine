@@ -15,17 +15,16 @@
 
 #include "framework.h"
 #include "Client.h"
-#include  <Engine/Application.h>
+#include  <Engine/Engine.h>
 
 #include <Content/MathTest.h>
-#include <Engine/EngineTest.h>
 #include <Engine/Time.h>
 
 // 전역 변수:
 HINSTANCE hInst;                                // 현재 인스턴스입니다.
 WCHAR szTitle[MAX_LOADSTRING];                  // 제목 표시줄 텍스트입니다.
 WCHAR szWindowClass[MAX_LOADSTRING];            // 기본 창 클래스 이름입니다.
-    
+HWND gHwnd;
 
 // 이 코드 모듈에 포함된 함수의 선언을 전달합니다:
 ATOM                MyRegisterClass(HINSTANCE hInstance);
@@ -48,6 +47,10 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     LoadStringW(hInstance, IDC_CLIENT, szWindowClass, MAX_LOADSTRING);
     MyRegisterClass(hInstance);
    
+    engine::Engine* const engine = engine::Engine::GetInst();
+    engine->Initialize();
+
+    
 
     // 애플리케이션 초기화를 수행합니다:
     if (!InitInstance (hInstance, nCmdShow))
@@ -55,12 +58,11 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         return static_cast<int>(FALSE);
     }
 
-    HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_CLIENT));
-    MSG msg;
+    engine->SetWindow(gHwnd, 1600, 900);
 
-    engine::Application* const application = engine::Application::GetInst();
-    
-    application->Initialize();
+
+    HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_CLIENT));
+    MSG msg;    
 
     while (true)
     {
@@ -77,7 +79,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         }
         else
         {            
-            application->Run();
+            engine->Run();
         }
     }    
     return static_cast<int>(msg.wParam);
@@ -133,8 +135,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
       return FALSE;
    }
 
-   engine::Application::GetInst()->SetWindow(hWnd, 1600, 900);
-
+   gHwnd = hWnd;
 
    ShowWindow(hWnd, nCmdShow);
    UpdateWindow(hWnd);

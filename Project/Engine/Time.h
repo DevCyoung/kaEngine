@@ -6,7 +6,7 @@ namespace engine
     class Time
     {
 	private:
-		friend class Application;
+		friend class Engine;
 
 	private:
 		Time();
@@ -15,7 +15,7 @@ namespace engine
 	private:
 		static void Initiailize();	
 		static void Update();	
-		static void Render(const HDC hdc);
+		static void Render();
 
 	public:
 		static double DeltaTime() { return mDeltaTime; }
