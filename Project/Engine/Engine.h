@@ -1,13 +1,17 @@
 #pragma once
-
 #include "EngineIncludes.h"
 #include "Singleton.h"
 
-
-namespace engine::graphics
+namespace engine
 {
-    class GraphicDeviceDX11;
+    namespace graphics
+    {
+        class GraphicDeviceDX11;
+    }
 }
+
+struct ID3D11Device;
+struct ID3D11DeviceContext;
 
 namespace engine
 {
@@ -31,7 +35,10 @@ namespace engine
     public:        
         UINT GetScreenWidth() const { return mWidth; }
         UINT GetScreenHeight() const { return mHeight; }
-        HWND GetHwnd() const { return mHwnd; }                   
+        HWND GetHwnd() const { return mHwnd; }
+
+        inline ID3D11Device* GetDevice() const;
+        inline ID3D11DeviceContext* GetContext() const;
 
     private:        
         std::unique_ptr<engine::graphics::GraphicDeviceDX11> mGraphicDevice;

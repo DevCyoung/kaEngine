@@ -96,6 +96,9 @@
     <ClInclude Include="MacroDefine.h">
       <Filter>Source\Core\Include</Filter>
     </ClInclude>
+    <ClInclude Include="Renderer.h">
+      <Filter>Source\Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DXMath.cpp">
@@ -122,10 +125,17 @@
     <ClCompile Include="Resources.cpp">
       <Filter>Source\Core\Resources</Filter>
     </ClCompile>
+    <ClCompile Include="Renderer.cpp">
+      <Filter>Source\Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="DXMath.inl">
       <Filter>Source\Core\Math</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="..\Shader\VertexShader.hlsl" />
+    <FxCompile Include="..\Shader\PixelShader.hlsl" />
   </ItemGroup>
 </Project>

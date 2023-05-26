@@ -143,7 +143,7 @@
       <PrecompiledHeaderFile>
       </PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile />
-      <LanguageStandard>Default</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
       <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
@@ -166,6 +166,7 @@
     <ClInclude Include="Input.h" />
     <ClInclude Include="MacroDefine.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="Renderer.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Resources.h" />
     <ClInclude Include="Singleton.h" />
@@ -177,12 +178,31 @@
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="GraphicDeviceDX11.cpp" />
     <ClCompile Include="Input.cpp" />
+    <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Resource.cpp" />
     <ClCompile Include="Resources.cpp" />
     <ClCompile Include="Time.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="DXMath.inl" />
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="..\Shader\PixelShader.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="..\Shader\VertexShader.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+    </FxCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

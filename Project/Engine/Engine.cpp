@@ -1,6 +1,5 @@
 #include "Engine.h"
 #include "GraphicDeviceDx11.h"
-
 #include "Input.h"
 #include "Time.h"
 
@@ -34,6 +33,9 @@ namespace engine
 
     void Engine::Update()
     {
+        (void)mGraphicDevice->mDevice;
+
+
         Time::Update();
         Input::Update();        
     }
@@ -46,6 +48,18 @@ namespace engine
     {        
         mGraphicDevice->Draw();
         Time::Render();
+    }
+
+    inline ID3D11Device* Engine::GetDevice() const
+    {
+        return mGraphicDevice->mDevice.Get();
+    }
+
+    inline ID3D11DeviceContext* Engine::GetContext() const 
+    {
+        Engine::GetInst()->GetDevice();
+
+        return mGraphicDevice->mContext.Get();
     }
 
     void Engine::SetWindow(const HWND hwnd, const UINT width, const UINT height)
