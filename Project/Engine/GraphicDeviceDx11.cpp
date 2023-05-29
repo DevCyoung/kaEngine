@@ -11,6 +11,8 @@
 * 부분을 DXGI_SWAP_EFFECT::DXGI_SWAP_EFFECT_FLIP_DISCARD 으로 교체하면 Warning은 사라지지만 프레임이 60으로 고정
 * 되거나 혹은 떨어지는 현상이 발생한다.
 * 해결하려고 시도중입니다.
+* Date : 2023-05-29
+* 아직진행중...
 */
 
 namespace engine::graphics
