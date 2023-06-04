@@ -49,6 +49,9 @@
     <Filter Include="Source\Core\Include">
       <UniqueIdentifier>{75a58b25-b5b9-4fcb-ab41-d8b4a2cbedb8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Shader">
+      <UniqueIdentifier>{334c80dd-f244-4165-8f5a-307e5849ab32}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DXMath.h">
@@ -135,7 +138,11 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="..\Shader\VertexShader.hlsl" />
-    <FxCompile Include="..\Shader\PixelShader.hlsl" />
+    <FxCompile Include="..\Shader\PixelShader.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="..\Shader\VertexShader.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

@@ -75,9 +75,12 @@ namespace engine
         
         RECT wdScreen = { 0, 0, static_cast<LONG>(width), static_cast<LONG>(height) };
         AdjustWindowRect(&wdScreen, WS_OVERLAPPEDWINDOW, FALSE);
-        SetWindowPos(mHwnd, nullptr /*HWND_TOP*/, 0, 0, wdScreen.right - wdScreen.left, wdScreen.bottom - wdScreen.top, 0/*SWP_NOMOVE | SWP_NOZORDER*/);
+        SetWindowPos(mHwnd, 
+            nullptr /*HWND_TOP*/, 0, 0, 
+            wdScreen.right - wdScreen.left, 
+            wdScreen.bottom - wdScreen.top, 0/*SWP_NOMOVE | SWP_NOZORDER*/);
 
         ShowWindow(mHwnd, true);
         UpdateWindow(mHwnd);
     }    						
-}   
+}

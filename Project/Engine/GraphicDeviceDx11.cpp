@@ -18,7 +18,7 @@
 namespace engine::graphics
 {
     struct Vertex
-    {
+    {\
         Vector3 pos;
         Vector4 color;
     };
@@ -56,7 +56,11 @@ namespace engine::graphics
             triangleDesc.CPUAccessFlags = D3D11_CPU_ACCESS_FLAG::D3D11_CPU_ACCESS_WRITE;
 
             D3D11_SUBRESOURCE_DATA triangleData = {};
-            Vertex triVertexes[6] = {};
+            Vertex triVertexes[6] = {};            
+            
+            Microsoft::WRL::ComPtr<IUnknown> ptr;                        
+
+         
 
             triVertexes[0].pos = Vector3(-0.5f, 0.5f, 0.0f);
             triVertexes[0].color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
@@ -86,7 +90,7 @@ namespace engine::graphics
             }
 
             //RectBuffer
-            const UINT rectDataCount = 4;
+            constexpr UINT rectDataCount = 4;
             D3D11_BUFFER_DESC rectDesc = {};
             rectDesc.Usage = D3D11_USAGE::D3D11_USAGE_DYNAMIC;
             rectDesc.ByteWidth = sizeof(Vertex) * rectDataCount;
@@ -95,7 +99,7 @@ namespace engine::graphics
 
             D3D11_SUBRESOURCE_DATA rectData = {};
             Vertex rectVertexes[rectDataCount] = {};
-
+            
             rectVertexes[0].pos   = Vector3(-0.5f, 0.5f, 0.0f);
             rectVertexes[0].color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
 

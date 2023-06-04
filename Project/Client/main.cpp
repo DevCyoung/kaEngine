@@ -15,11 +15,8 @@
 
 #include "framework.h"
 #include "Client.h"
-#include <Engine/Engine.h>
-#include <Engine/Renderer.h>
 
-#include <Content/MathTest.h>
-#include <Engine/Time.h>
+#include <Engine/Engine.h>
 
 // 전역 변수:
 HINSTANCE hInst;                                // 현재 인스턴스입니다.
@@ -49,8 +46,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
    
     engine::Engine* const engine = engine::Engine::GetInst();
     engine->Initialize();
-
-    
 
     // 애플리케이션 초기화를 수행합니다:
     if (!InitInstance (hInstance, nCmdShow))
