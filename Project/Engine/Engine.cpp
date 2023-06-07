@@ -18,20 +18,20 @@ namespace engine
     {
     }
 
-    void Engine::Initialize()
+    void Engine::initialize()
     {
         Time::Initiailize();  
         Input::Initialize();
     }
 
-    void Engine::Run()
+    void Engine::run()
     {        
-        Update();
-        LateUpdate();
-        Render();
+        update();
+        lateUpdate();
+        render();
     }
 
-    void Engine::Update()
+    void Engine::update()
     {
         (void)mGraphicDevice->mDevice;
 
@@ -40,11 +40,11 @@ namespace engine
         Input::Update();        
     }
 
-    void Engine::LateUpdate()
+    void Engine::lateUpdate()
     {
     }
 
-    void Engine::Render()
+    void Engine::render()
     {        
         mGraphicDevice->Draw();
         Time::Render();
@@ -62,7 +62,7 @@ namespace engine
         return mGraphicDevice->mContext.Get();
     }
 
-    void Engine::SetWindow(const HWND hwnd, const UINT width, const UINT height)
+    void Engine::setWindow(const HWND hwnd, const UINT width, const UINT height)
     {
         if (nullptr == mGraphicDevice)
         {

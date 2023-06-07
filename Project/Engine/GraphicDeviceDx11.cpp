@@ -1,6 +1,9 @@
 #include "GraphicDeviceDX11.h"
 #include "Engine.h"
 
+#pragma comment(lib, "d3d11.lib")
+#pragma comment(lib, "d3dcompiler.lib")
+
 /*
 * Trouble : Fxing
 * Date : 2023-05-26
@@ -18,7 +21,7 @@
 namespace engine::graphics
 {
     struct Vertex
-    {\
+    {
         Vector3 pos;
         Vector4 color;
     };
@@ -27,16 +30,25 @@ namespace engine::graphics
 
     GraphicDeviceDX11::GraphicDeviceDX11()
     {
+        
         const Engine* const engine = Engine::GetInst();
 
         const HWND hWnd = engine->GetHwnd();
         const UINT screenWidth = engine->GetScreenWidth();
         const UINT screenHeight = engine->GetScreenHeight();
+
+#ifdef _DEBUG
         const UINT deviceFlag = D3D11_CREATE_DEVICE_DEBUG;
+#else
+        const UINT deviceFlag = D3D11_CREATE_DEVICE_SINGLETHREADED;
+#endif
+
+        
 
         //Create Device
         {
             D3D_FEATURE_LEVEL featureLevel = static_cast<D3D_FEATURE_LEVEL>(0);
+
             if (FAILED(D3D11CreateDevice(nullptr, D3D_DRIVER_TYPE_HARDWARE,
                 nullptr, deviceFlag, nullptr, 0, D3D11_SDK_VERSION,
                 mDevice.GetAddressOf(), &featureLevel,
@@ -60,7 +72,7 @@ namespace engine::graphics
             
             Microsoft::WRL::ComPtr<IUnknown> ptr;                        
 
-         
+            //mContext->OMSetRenderTargets()         
 
             triVertexes[0].pos = Vector3(-0.5f, 0.5f, 0.0f);
             triVertexes[0].color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);

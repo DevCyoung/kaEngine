@@ -1,12 +1,16 @@
 #include "Entity.h"
 
+
+
 namespace engine
 {
+
+    UINT64 Entity::sID = 0;
+
     Entity::Entity()
         : mName(L"")
-        , mID(0)
-    {
-        mID = reinterpret_cast<UINT64>(this);        
+        , mID(sID++)
+    {        
     }
 
     Entity::~Entity()

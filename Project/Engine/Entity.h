@@ -1,4 +1,5 @@
 #pragma once
+
 #include "Engine.h"
 
 namespace engine
@@ -8,6 +9,8 @@ namespace engine
     public:
         Entity();        
         virtual ~Entity();
+    private:
+        static UINT64 sID;
 
     public:
         void SetName(const std::wstring& name) { mName = name; }

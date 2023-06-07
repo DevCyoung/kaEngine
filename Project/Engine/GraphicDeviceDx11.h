@@ -1,28 +1,33 @@
 #pragma once
-#include "Engine.h"
+
 #include <d3d11.h>
 #include <d3dcompiler.h>
+#include <wrl/client.h>
 
-#pragma comment(lib, "d3d11.lib")
-#pragma comment(lib, "d3dcompiler.lib")
+class Engine;
+class Shader;
+class Texture;
 
 namespace engine::graphics
 {
     class GraphicDeviceDX11
     {
-        friend class Engine;
-
+        friend class Engine;            
     public:
         GraphicDeviceDX11();
         virtual ~GraphicDeviceDX11();
 
     private:
-        //HRESULT CreateSwapChain(const HWND hWnd, const DXGI_SWAP_CHAIN_DESC& desc);
-        //HRESULT CreateTexture(const D3D11_TEXTURE2D_DESC& desc, const void* const data);
+        void BindClear();
+        void BindConstantBuffer();
+
+        void BindRenderTarget(const Texture& texture);
+        void BindPixelShader(const Shader& pixelShader);
+        void BindVertexShader(const Shader& vertexShader);
+        
 
     public:
         void Draw();
-
     private:
         Microsoft::WRL::ComPtr<ID3D11Device> mDevice;
         Microsoft::WRL::ComPtr<ID3D11DeviceContext> mContext;
@@ -34,7 +39,6 @@ namespace engine::graphics
         Microsoft::WRL::ComPtr<ID3D11DepthStencilView> mDepthStencilView;        
 
         Microsoft::WRL::ComPtr<IDXGISwapChain> mSwapChain;
-
         Microsoft::WRL::ComPtr<ID3D11InputLayout> mInputLayout;
 
 

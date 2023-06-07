@@ -7,9 +7,6 @@
     <Filter Include="Source\Core">
       <UniqueIdentifier>{7f04372e-c8ef-4ba2-ac02-d344a61c6f54}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Graphics">
-      <UniqueIdentifier>{8231d530-7a53-4699-a9cc-a474fbba78b9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\Helper">
       <UniqueIdentifier>{c549a15d-9112-48dc-b1ab-cc8178f448bc}</UniqueIdentifier>
     </Filter>
@@ -52,6 +49,18 @@
     <Filter Include="Shader">
       <UniqueIdentifier>{334c80dd-f244-4165-8f5a-307e5849ab32}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Core\Graphics">
+      <UniqueIdentifier>{8231d530-7a53-4699-a9cc-a474fbba78b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Core\Texture">
+      <UniqueIdentifier>{7ee995f9-2bd7-4ac3-88ba-6a2ce18b291e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Core\Shader">
+      <UniqueIdentifier>{6e853aac-cd23-41af-9a41-92878832d38b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Helper\String">
+      <UniqueIdentifier>{8a8f7d10-2e43-4c78-93bc-2cd3bc497544}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DXMath.h">
@@ -73,7 +82,7 @@
       <Filter>Source\Core\Interface</Filter>
     </ClInclude>
     <ClInclude Include="GraphicDeviceDX11.h">
-      <Filter>Source\Graphics</Filter>
+      <Filter>Source\Core\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="Input.h">
       <Filter>Source\Core\Input</Filter>
@@ -102,6 +111,15 @@
     <ClInclude Include="Renderer.h">
       <Filter>Source\Core</Filter>
     </ClInclude>
+    <ClInclude Include="Textrue.h">
+      <Filter>Source\Core\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader.h">
+      <Filter>Source\Core\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="String.h">
+      <Filter>Source\Helper\String</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DXMath.cpp">
@@ -117,7 +135,7 @@
       <Filter>Source\Core\Interface</Filter>
     </ClCompile>
     <ClCompile Include="GraphicDeviceDX11.cpp">
-      <Filter>Source\Graphics</Filter>
+      <Filter>Source\Core\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="Input.cpp">
       <Filter>Source\Core\Input</Filter>
@@ -130,6 +148,15 @@
     </ClCompile>
     <ClCompile Include="Renderer.cpp">
       <Filter>Source\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Textrue.cpp">
+      <Filter>Source\Core\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="Shader.cpp">
+      <Filter>Source\Core\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="String.cpp">
+      <Filter>Source\Helper\String</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

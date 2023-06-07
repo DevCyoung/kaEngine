@@ -2,7 +2,6 @@
 //
 
 
-
 #ifdef _DEBUG
 #pragma comment(lib, "Content/Content_d.lib")
 #pragma comment(lib, "Engine/Engine_d.lib")
@@ -17,6 +16,8 @@
 #include "Client.h"
 
 #include <Engine/Engine.h>
+
+
 
 // 전역 변수:
 HINSTANCE hInst;                                // 현재 인스턴스입니다.
@@ -45,7 +46,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     MyRegisterClass(hInstance);
    
     engine::Engine* const engine = engine::Engine::GetInst();
-    engine->Initialize();
+    engine->initialize();
 
     // 애플리케이션 초기화를 수행합니다:
     if (!InitInstance (hInstance, nCmdShow))
@@ -53,7 +54,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         return static_cast<int>(FALSE);
     }
 
-    engine->SetWindow(gHwnd, 1600, 900);
+    engine->setWindow(gHwnd, 1600, 900);
 
 
     HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_CLIENT));
@@ -74,7 +75,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         }
         else
         {            
-            engine->Run();
+            engine->run();
         }
     }    
     return static_cast<int>(msg.wParam);

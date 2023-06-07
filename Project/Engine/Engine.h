@@ -22,14 +22,12 @@ namespace engine
             _In_ LPWSTR    lpCmdLine, _In_ int       nCmdShow);
 
     private:        
-        void Initialize();                   
-        void SetWindow(const HWND hwnd, const UINT width, const UINT height);
-
-        void Run();
-
-        void Update();
-        void LateUpdate();        
-        void Render();
+        void initialize();                   
+        void setWindow(const HWND hwnd, const UINT width, const UINT height);
+        void run();
+        void update();
+        void lateUpdate();        
+        void render();
 
 
     public:        
@@ -40,7 +38,7 @@ namespace engine
         inline ID3D11Device* GetDevice() const;
         inline ID3D11DeviceContext* GetContext() const;
 
-    private:        
+    private: 
         std::unique_ptr<engine::graphics::GraphicDeviceDX11> mGraphicDevice;
 
         HWND mHwnd;

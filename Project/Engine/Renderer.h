@@ -5,8 +5,8 @@
 namespace engine
 {
 
-#define DEVICE Engine::GetInst()->GetDevice()
-#define CONTEXT Engine::GetInst()->GetContext()
+//#define DEVICE Engine::GetInst()->GetDevice()
+//#define CONTEXT Engine::GetInst()->GetContext()
 
     struct Vertex
     {
