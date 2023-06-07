@@ -29,7 +29,7 @@ namespace engine
 	{
 	}
 
-	void Shader::CreateShader(const eShaderType sType, const std::wstring& version,
+	void Shader::createShader(const eShaderType sType, const std::wstring& version,
 		const std::wstring& fileName, const std::wstring& funName)
 	{
 		const HWND hWnd = Engine::GetInst()->GetHwnd();
@@ -85,7 +85,7 @@ namespace engine
 
 	inline void Shader::CreateVSShader(const std::wstring& vsFileName, const std::wstring& vsFunName)
 	{
-		CreateShader(eShaderType::VS, L"vs_5_0", vsFileName, vsFunName);
+		createShader(eShaderType::VS, L"vs_5_0", vsFileName, vsFunName);
 	}
 
 	inline void Shader::CreateHSShader(const std::wstring& hsFileName, const std::wstring& hsFunName)
@@ -113,7 +113,7 @@ namespace engine
 
 	inline void Shader::CreatePSShader(const std::wstring& psFileName, const std::wstring& psFunName)
 	{
-		CreateShader(eShaderType::PS, L"ps_5_0", psFileName, psFunName);
+		createShader(eShaderType::PS, L"ps_5_0", psFileName, psFunName);
 	}
 
 	HRESULT Shader::Load(const std::wstring& path)

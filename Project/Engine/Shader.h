@@ -24,7 +24,7 @@ namespace engine
 			const std::wstring& psFileName, const std::wstring psFunName);		
 		virtual ~Shader();	
 	private:
-		void CreateShader(const eShaderType sType, const std::wstring& version, const std::wstring& fileName, const std::wstring& funName);
+		void createShader(const eShaderType sType, const std::wstring& version, const std::wstring& fileName, const std::wstring& funName);
 
 	public:
 		inline void CreateVSShader(const std::wstring& vsFileName, const std::wstring& vsFunName);
