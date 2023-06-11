@@ -1,28 +1,30 @@
 #include "Shader.h"
-
-
 #include "String.h"
+
+//#include "Engine.h"
 
 namespace engine
 {
+	Shader::Shader(const std::wstring& vsFileName, const std::wstring& vsFunName, 
+		const std::wstring& psFileName, const std::wstring psFunName)
+		: Shader(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST, 
+			vsFileName, vsFunName, psFileName, psFunName)
+	{
+	}
+
 	Shader::Shader(const D3D11_PRIMITIVE_TOPOLOGY topology,
 		const std::wstring& vsFileName, const std::wstring& vsFunName,
 		const std::wstring& psFileName, const std::wstring psFunName)
 		: mTopology(topology)
-		, mInputLayout(nullptr)
-		, mVSBlob(nullptr)
-		, mHSBlob(nullptr)
-		, mDSBlob(nullptr)
-		, mGSBlob(nullptr)
-		, mPSBlob(nullptr)
+		, mInputLayout(nullptr)		
 		, mVS(nullptr)
 		, mHS(nullptr)
 		, mDS(nullptr)
 		, mGS(nullptr)
 		, mPS(nullptr)
 	{		
-		CreateVSShader(vsFileName, vsFunName);
-		CreatePSShader(psFileName, psFunName);
+		createVSShader(vsFileName, vsFunName);
+		createPSShader(psFileName, psFunName);		
 	}
 
 	Shader::~Shader()
@@ -32,35 +34,65 @@ namespace engine
 	void Shader::createShader(const eShaderType sType, const std::wstring& version,
 		const std::wstring& fileName, const std::wstring& funName)
 	{
+		Microsoft::WRL::ComPtr<ID3DBlob> vsBlob;		
+		Microsoft::WRL::ComPtr<ID3DBlob> psBlob;
+		Microsoft::WRL::ComPtr<ID3DBlob> errBlob;
+
 		const HWND hWnd = Engine::GetInst()->GetHwnd();
 		const std::string strFunName(String::WStrToStr(funName));
-		const std::string strVersion(String::WStrToStr(version));		
+		const std::string strVersion(String::WStrToStr(version));
 
 		std::filesystem::path shaderPath = std::filesystem::current_path().parent_path();
 		shaderPath += L"\\Shader\\";
 		shaderPath += fileName;
 
-		Microsoft::WRL::ComPtr<ID3DBlob> errBlob;
-
-
-		if (FAILED(D3DCompileFromFile(shaderPath.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE,
-			strFunName.c_str(), strVersion.c_str(), 0, 0, mVSBlob.GetAddressOf(), errBlob.GetAddressOf())))
-		{
-			MessageBox(hWnd, L"Failed to compile shader", L"Error", MB_OK);
-			return;
-		}
-
-
 		switch (sType)
 		{
 		case eShaderType::VS:
-			if (FAILED(Engine::GetInst()->GetDevice()->CreateVertexShader(mVSBlob->GetBufferPointer(),
-				mVSBlob->GetBufferSize(), nullptr, mVS.GetAddressOf())))
+			if (FAILED(D3DCompileFromFile(shaderPath.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE,
+				strFunName.c_str(), strVersion.c_str(), 0, 0, vsBlob.GetAddressOf(), errBlob.GetAddressOf())))
+			{
+				MessageBox(hWnd, L"Failed to compile shader", L"Error", MB_OK);
+				return;
+			}
+
+			if (FAILED(Engine::GetInst()->GetDevice()->CreateVertexShader(vsBlob->GetBufferPointer(),
+				vsBlob->GetBufferSize(), nullptr, mVS.GetAddressOf())))
 			{
 				MessageBox(hWnd, L"Failed to create vertex shader", L"Error", MB_OK);
 				return;
 			}
+			
+			{
+				//Input layout
+				constexpr int MAX_INPUT_ELEMENT = 2;
+				D3D11_INPUT_ELEMENT_DESC arrLayout[MAX_INPUT_ELEMENT] = {};
 
+				arrLayout[0].AlignedByteOffset = 0;
+				arrLayout[0].Format = DXGI_FORMAT::DXGI_FORMAT_R32G32B32_FLOAT;
+				arrLayout[0].InputSlot = 0;
+				arrLayout[0].InputSlotClass = D3D11_INPUT_CLASSIFICATION::D3D11_INPUT_PER_VERTEX_DATA;
+				arrLayout[0].SemanticName = "POSITION";
+				arrLayout[0].SemanticIndex = 0;
+
+				arrLayout[1].AlignedByteOffset = 12;
+				arrLayout[1].Format = DXGI_FORMAT::DXGI_FORMAT_R32G32B32A32_FLOAT;
+				arrLayout[1].InputSlot = 0;
+				arrLayout[1].InputSlotClass = D3D11_INPUT_CLASSIFICATION::D3D11_INPUT_PER_VERTEX_DATA;
+				arrLayout[1].SemanticName = "COLOR";
+				arrLayout[1].SemanticIndex = 0;
+
+
+				if (FAILED(Engine::GetInst()->GetDevice()->CreateInputLayout(arrLayout, MAX_INPUT_ELEMENT
+					, vsBlob->GetBufferPointer()
+					, vsBlob->GetBufferSize()
+					, mInputLayout.GetAddressOf())))
+				{
+					MessageBox(hWnd, L"Failed to create input layout", L"Error", MB_OK);
+					return;
+				}
+			}
+		
 			break;
 		case eShaderType::HS:
 			break;
@@ -69,22 +101,29 @@ namespace engine
 		case eShaderType::GS:
 			break;
 		case eShaderType::PS:
-			if (FAILED(Engine::GetInst()->GetDevice()->CreatePixelShader(mPSBlob->GetBufferPointer(),
-				mPSBlob->GetBufferSize(), nullptr, mPS.GetAddressOf())))
+			if (FAILED(D3DCompileFromFile(shaderPath.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE,
+				strFunName.c_str(), strVersion.c_str(), 0, 0, psBlob.GetAddressOf(), errBlob.GetAddressOf())))
+			{
+				MessageBox(hWnd, L"Failed to compile shader", L"Error", MB_OK);
+				return;
+			}
+
+			if (FAILED(Engine::GetInst()->GetDevice()->CreatePixelShader(psBlob->GetBufferPointer(),
+				psBlob->GetBufferSize(), nullptr, mPS.GetAddressOf())))
 			{
 				MessageBox(hWnd, L"Failed to create pixel shader", L"Error", MB_OK);
 				return;
 			}
-
+		
 			break;
 		default:
 			break;
 		}
-
 	}
 
-	inline void Shader::CreateVSShader(const std::wstring& vsFileName, const std::wstring& vsFunName)
+	inline void Shader::createVSShader(const std::wstring& vsFileName, const std::wstring& vsFunName)
 	{
+		assert(!mVS.Get());
 		createShader(eShaderType::VS, L"vs_5_0", vsFileName, vsFunName);
 	}
 
@@ -111,8 +150,9 @@ namespace engine
 		(void)gsFunName;
 	}
 
-	inline void Shader::CreatePSShader(const std::wstring& psFileName, const std::wstring& psFunName)
+	inline void Shader::createPSShader(const std::wstring& psFileName, const std::wstring& psFunName)
 	{
+		assert(!mPS.Get());
 		createShader(eShaderType::PS, L"ps_5_0", psFileName, psFunName);
 	}
 

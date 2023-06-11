@@ -27,7 +27,7 @@ namespace engine
     {
     }
 
-    void Input::Initialize()
+    void Input::initialize()
     {
         mKeys.reserve(static_cast<size_t>(eKeyCode::END));
 
@@ -43,7 +43,7 @@ namespace engine
         }
     }
 
-    void Input::Update()
+    void Input::update()
     {
         const engine::Engine* const application = engine::Engine::GetInst();        
 
@@ -106,7 +106,7 @@ namespace engine
         }
     }
 
-    void Input::Render()
+    void Input::render()
     {
     }
 

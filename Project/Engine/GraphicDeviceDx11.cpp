@@ -1,6 +1,8 @@
 #include "GraphicDeviceDX11.h"
 #include "Engine.h"
 
+//#include "Shader.h"
+
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "d3dcompiler.lib")
 
@@ -40,7 +42,8 @@ namespace engine::graphics
 #ifdef _DEBUG
         const UINT deviceFlag = D3D11_CREATE_DEVICE_DEBUG;
 #else
-        const UINT deviceFlag = D3D11_CREATE_DEVICE_SINGLETHREADED;
+        //const UINT deviceFlag = D3D11_CREATE_DEVICE_SINGLETHREADED;
+        const UINT deviceFlag = D3D11_CREATE_DEVICE_DEBUG;
 #endif
 
         
@@ -317,72 +320,76 @@ namespace engine::graphics
         }
 
 
-        //Create shader
-        {
-            std::filesystem::path shaderPath = std::filesystem::current_path().parent_path();
-            shaderPath += L"\\Shader\\";
+        ////Create shader
+        //{
+        //    Shader* shader = new Shader(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST,
+        //        L"VertexShader.hlsl", L"main", L"PixelShader.hlsl", L"main");
+        //    (void)shader;
 
-            std::filesystem::path vsPath(shaderPath);
-            vsPath += L"VertexShader.hlsl";
+        //    std::filesystem::path shaderPath = std::filesystem::current_path().parent_path();
+        //    shaderPath += L"\\Shader\\";
+
+        //    std::filesystem::path vsPath(shaderPath);
+        //    vsPath += L"VertexShader.hlsl";
 
 
-            if (FAILED(D3DCompileFromFile(vsPath.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE, "main", "vs_5_0",
-                0, 0, mVertexBlob.GetAddressOf(), mErrorBlob.GetAddressOf())))
-            {
-                MessageBox(hWnd, L"Failed to compile vertex shader", L"Error", MB_OK);
-                return;
-            }
+        //    if (FAILED(D3DCompileFromFile(vsPath.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE, "main", "vs_5_0",
+        //        0, 0, mVertexBlob.GetAddressOf(), mErrorBlob.GetAddressOf())))
+        //    {
+        //        MessageBox(hWnd, L"Failed to compile vertex shader", L"Error", MB_OK);
+        //        return;
+        //    }
 
-            if (FAILED(mDevice->CreateVertexShader(mVertexBlob->GetBufferPointer(), mVertexBlob->GetBufferSize(), nullptr, mVertexShader.GetAddressOf())))
-            {
-                MessageBox(hWnd, L"Failed to create vertex shader", L"Error", MB_OK);
-                return;
-            }
+        //    if (FAILED(mDevice->CreateVertexShader(mVertexBlob->GetBufferPointer(), mVertexBlob->GetBufferSize(), nullptr, mVertexShader.GetAddressOf())))
+        //    {
+        //        MessageBox(hWnd, L"Failed to create vertex shader", L"Error", MB_OK);
+        //        return;
+        //    }
 
-            std::filesystem::path psPath(shaderPath);
-            psPath += L"PixelShader.hlsl";
+        //    std::filesystem::path psPath(shaderPath);
+        //    psPath += L"PixelShader.hlsl";
 
-            if (FAILED(D3DCompileFromFile(psPath.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE, "main", "ps_5_0",
-                0, 0, mPixelBlob.GetAddressOf(), mErrorBlob.GetAddressOf())))
-            {
-                MessageBox(hWnd, L"Failed to compile pixel shader", L"Error", MB_OK);
-                return;
-            }
+        //    if (FAILED(D3DCompileFromFile(psPath.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE, "main", "ps_5_0",
+        //        0, 0, mPixelBlob.GetAddressOf(), mErrorBlob.GetAddressOf())))
+        //    {
+        //        MessageBox(hWnd, L"Failed to compile pixel shader", L"Error", MB_OK);
+        //        return;
+        //    }
 
-            if (FAILED(mDevice->CreatePixelShader(mPixelBlob->GetBufferPointer(), mPixelBlob->GetBufferSize(), nullptr, mPixelShader.GetAddressOf())))
-            {
-                MessageBox(hWnd, L"Failed to create pixel shader", L"Error", MB_OK);
-                return;
-            }
-        }
+        //    if (FAILED(mDevice->CreatePixelShader(mPixelBlob->GetBufferPointer(), mPixelBlob->GetBufferSize(), nullptr, mPixelShader.GetAddressOf())))
+        //    {
+        //        MessageBox(hWnd, L"Failed to create pixel shader", L"Error", MB_OK);
+        //        return;
+        //    }
+        //}
 
-        //InputLayout
-        {
-            D3D11_INPUT_ELEMENT_DESC arrLayout[2] = {};
+        ////InputLayout
+        //{
+        //    D3D11_INPUT_ELEMENT_DESC arrLayout[2] = {};
 
-            arrLayout[0].AlignedByteOffset = 0;
-            arrLayout[0].Format = DXGI_FORMAT_R32G32B32_FLOAT;
-            arrLayout[0].InputSlot = 0;
-            arrLayout[0].InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
-            arrLayout[0].SemanticName = "POSITION";
-            arrLayout[0].SemanticIndex = 0;
+        //    arrLayout[0].AlignedByteOffset = 0;
+        //    arrLayout[0].Format = DXGI_FORMAT_R32G32B32_FLOAT;
+        //    arrLayout[0].InputSlot = 0;
+        //    arrLayout[0].InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
+        //    arrLayout[0].SemanticName = "POSITION";
+        //    arrLayout[0].SemanticIndex = 0;
 
-            arrLayout[1].AlignedByteOffset = 12;
-            arrLayout[1].Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
-            arrLayout[1].InputSlot = 0;
-            arrLayout[1].InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
-            arrLayout[1].SemanticName = "COLOR";
-            arrLayout[1].SemanticIndex = 0;
+        //    arrLayout[1].AlignedByteOffset = 12;
+        //    arrLayout[1].Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
+        //    arrLayout[1].InputSlot = 0;
+        //    arrLayout[1].InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
+        //    arrLayout[1].SemanticName = "COLOR";
+        //    arrLayout[1].SemanticIndex = 0;
 
-            if (FAILED(mDevice->CreateInputLayout(arrLayout, 2
-                , mVertexBlob->GetBufferPointer()
-                , mVertexBlob->GetBufferSize()
-                , mInputLayout.GetAddressOf())))
-            {
-                MessageBox(hWnd, L"Failed to create input layout", L"Error", MB_OK);
-                return;
-            }
-        }
+        //    if (FAILED(mDevice->CreateInputLayout(arrLayout, 2
+        //        , mVertexBlob->GetBufferPointer()
+        //        , mVertexBlob->GetBufferSize()
+        //        , mInputLayout.GetAddressOf())))
+        //    {
+        //        MessageBox(hWnd, L"Failed to create input layout", L"Error", MB_OK);
+        //        return;
+        //    }
+        //}
 
         //OM단계 셋팅
         {
@@ -397,50 +404,54 @@ namespace engine::graphics
 
     void GraphicDeviceDX11::Draw()
     {
+       
+
+        // input assembler 정점데이터 정보 지정
+        //UINT vertexsize = sizeof(Vertex);
+        //UINT offset = 0;
+
+        //mContext->IASetInputLayout(mInputLayout.Get());
+        //mContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+        ////Bind VS, PS 
+        //mContext->VSSetShader(mVertexShader.Get(), 0, 0);
+        //mContext->PSSetShader(mPixelShader.Get(), 0, 0);
+
+
+        //for (UINT i = 0; i < SHAPE_COUNT; ++i)
+        //{
+        //    mContext->IASetVertexBuffers(0, 1, shapeBuffers[i].GetAddressOf(), &vertexsize, &offset);            
+        //    // Draw Render Target
+        //    mContext->Draw(12 + i * 3, 0);
+        //}       
+    }
+
+
+    void GraphicDeviceDX11::clearRenderTarget()
+    {
         //검은색 background는 자제할것
-        const FLOAT bgColor[4] = { 0.4f, 0.4f, 0.4f, 1.0f };
+        constexpr FLOAT bgColor[4] = { 0.4f, 0.4f, 0.4f, 1.0f };
+
         mContext->ClearRenderTargetView(mRenderTargetView.Get(), bgColor);
         mContext->ClearDepthStencilView(mDepthStencilView.Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
 
-        //IA
-        //mContext->IASetVertexBuffers(0, 1, &)
-        //        
         const FLOAT scerenWidth = static_cast<FLOAT>(Engine::GetInst()->GetScreenWidth());
         const FLOAT screnHeight = static_cast<FLOAT>(Engine::GetInst()->GetScreenHeight());
 
-        Engine::GetInst()->GetScreenHeight();
         D3D11_VIEWPORT mViewPort =
         {
-            0.0f, 0.0f,        
+            0.0f, 0.0f,
             scerenWidth, screnHeight,
             0.0f, 1.0f
         };
+
         mContext->RSSetViewports(1, &mViewPort);
-
         mContext->OMSetRenderTargets(1, mRenderTargetView.GetAddressOf(), mDepthStencilView.Get());
+    }
 
 
-        // input assembler 정점데이터 정보 지정
-        UINT vertexsize = sizeof(Vertex);
-        UINT offset = 0;
-
-        mContext->IASetInputLayout(mInputLayout.Get());
-        mContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-
-        //Bind VS, PS 
-        mContext->VSSetShader(mVertexShader.Get(), 0, 0);
-        mContext->PSSetShader(mPixelShader.Get(), 0, 0);
-
-
-        for (UINT i = 0; i < SHAPE_COUNT; ++i)
-        {
-            mContext->IASetVertexBuffers(0, 1, shapeBuffers[i].GetAddressOf(), &vertexsize, &offset);            
-            // Draw Render Target
-            mContext->Draw(12 + i * 3, 0);
-        }
-        
-
-        //Swap backbuffer, frontbuffer
+    void GraphicDeviceDX11::present()
+    {        
         mSwapChain->Present(0, 0);
     }
 }

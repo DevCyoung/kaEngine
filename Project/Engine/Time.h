@@ -13,9 +13,9 @@ namespace engine
         virtual ~Time();
 
 	private:
-		static void Initiailize();	
-		static void Update();	
-		static void Render();
+		static void initiailize();	
+		static void update();	
+		static void render();
 
 	public:
 		static double DeltaTime() { return mDeltaTime; }

@@ -1,7 +1,5 @@
 #include "Entity.h"
 
-
-
 namespace engine
 {
 
@@ -10,7 +8,7 @@ namespace engine
     Entity::Entity()
         : mName(L"")
         , mID(sID++)
-    {        
+    {                        
     }
 
     Entity::~Entity()

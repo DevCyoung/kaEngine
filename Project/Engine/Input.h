@@ -23,13 +23,8 @@ namespace engine
 	};
 
 	class Input
-	{
-	private:
+	{	
 		friend class Engine;
-	private:
-		Input();
-        virtual ~Input();
-
 	public:
 		struct Key
 		{
@@ -39,9 +34,11 @@ namespace engine
 		};
 
 	private:
-		static void Initialize();
-		static void Update();
-		static void Render();
+		Input();
+        virtual ~Input();	
+		static void initialize();
+		static void update();
+		static void render();
 
 	public:
 		static eKeyState GetKeyState(const eKeyCode key)

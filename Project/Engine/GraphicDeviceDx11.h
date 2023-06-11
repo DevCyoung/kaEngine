@@ -18,12 +18,13 @@ namespace engine::graphics
         virtual ~GraphicDeviceDX11();
 
     private:
-        void BindClear();
-        void BindConstantBuffer();
+        void clearRenderTarget();
+        void present();
+        //void BindConstantBuffer();
 
-        void BindRenderTarget(const Texture& texture);
-        void BindPixelShader(const Shader& pixelShader);
-        void BindVertexShader(const Shader& vertexShader);
+        //void BindRenderTarget(const Texture& texture);
+        //void BindPixelShader(const Shader& pixelShader);
+        //void BindVertexShader(const Shader& vertexShader);
         
 
     public:
@@ -39,7 +40,7 @@ namespace engine::graphics
         Microsoft::WRL::ComPtr<ID3D11DepthStencilView> mDepthStencilView;        
 
         Microsoft::WRL::ComPtr<IDXGISwapChain> mSwapChain;
-        Microsoft::WRL::ComPtr<ID3D11InputLayout> mInputLayout;
+        /*Microsoft::WRL::ComPtr<ID3D11InputLayout> mInputLayout;
 
 
         Microsoft::WRL::ComPtr<ID3DBlob> mErrorBlob;
@@ -48,7 +49,7 @@ namespace engine::graphics
         Microsoft::WRL::ComPtr<ID3D11VertexShader> mVertexShader;
 
         Microsoft::WRL::ComPtr<ID3DBlob> mPixelBlob;
-        Microsoft::WRL::ComPtr<ID3D11PixelShader> mPixelShader;
+        Microsoft::WRL::ComPtr<ID3D11PixelShader> mPixelShader;*/
 
         Microsoft::WRL::ComPtr<ID3D11Buffer> triangleBuffer;
         Microsoft::WRL::ComPtr<ID3D11Buffer> rectBuffer;

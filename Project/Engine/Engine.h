@@ -15,13 +15,16 @@ struct ID3D11DeviceContext;
 
 namespace engine
 {
+    class Scene;
+
+
     class Engine
     {    
         SINGLETON(Engine);
         friend int APIENTRY ::wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
             _In_ LPWSTR    lpCmdLine, _In_ int       nCmdShow);
 
-    private:        
+    private:    
         void initialize();                   
         void setWindow(const HWND hwnd, const UINT width, const UINT height);
         void run();
@@ -35,16 +38,18 @@ namespace engine
         UINT GetScreenHeight() const { return mHeight; }
         HWND GetHwnd() const { return mHwnd; }
 
-        inline ID3D11Device* GetDevice() const;
-        inline ID3D11DeviceContext* GetContext() const;
+        ID3D11Device* GetDevice() const;
+        ID3D11DeviceContext* GetContext() const;
 
     private: 
         std::unique_ptr<engine::graphics::GraphicDeviceDX11> mGraphicDevice;
 
         HWND mHwnd;
         UINT mWidth;
-        UINT mHeight;       
-
+        UINT mHeight;        
         bool mbInitialize = false;
+
+        //test
+        Scene* mCurrentScene;
     };    
 }

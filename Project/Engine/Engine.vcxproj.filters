@@ -19,9 +19,6 @@
     <Filter Include="Source\Core\Math">
       <UniqueIdentifier>{c6fe055c-5313-4b7b-b8b0-9caf2912f921}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Core\Interface">
-      <UniqueIdentifier>{e6430191-00da-4151-afd7-1c9c3cd0ce20}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\Core\Input">
       <UniqueIdentifier>{13a6a959-909c-4762-ba4c-c888cd9168a9}</UniqueIdentifier>
     </Filter>
@@ -61,6 +58,15 @@
     <Filter Include="Source\Helper\String">
       <UniqueIdentifier>{8a8f7d10-2e43-4c78-93bc-2cd3bc497544}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Core\Scene">
+      <UniqueIdentifier>{685c70d2-48e1-49d1-9f6e-24916c88ecf2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Core\GameObject">
+      <UniqueIdentifier>{7ea5e00e-4716-4077-874d-183be25aae78}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Core\Engine">
+      <UniqueIdentifier>{e6430191-00da-4151-afd7-1c9c3cd0ce20}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DXMath.h">
@@ -79,7 +85,7 @@
       <Filter>Windows</Filter>
     </ClInclude>
     <ClInclude Include="Engine.h">
-      <Filter>Source\Core\Interface</Filter>
+      <Filter>Source\Core\Engine</Filter>
     </ClInclude>
     <ClInclude Include="GraphicDeviceDX11.h">
       <Filter>Source\Core\Graphics</Filter>
@@ -120,6 +126,12 @@
     <ClInclude Include="String.h">
       <Filter>Source\Helper\String</Filter>
     </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Source\Core\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Source\Core\Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DXMath.cpp">
@@ -132,7 +144,7 @@
       <Filter>Source\Core\Time</Filter>
     </ClCompile>
     <ClCompile Include="Engine.cpp">
-      <Filter>Source\Core\Interface</Filter>
+      <Filter>Source\Core\Engine</Filter>
     </ClCompile>
     <ClCompile Include="GraphicDeviceDX11.cpp">
       <Filter>Source\Core\Graphics</Filter>
@@ -157,6 +169,12 @@
     </ClCompile>
     <ClCompile Include="String.cpp">
       <Filter>Source\Helper\String</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Source\Core\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Source\Core\Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

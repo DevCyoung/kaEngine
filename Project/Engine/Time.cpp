@@ -18,7 +18,7 @@ namespace engine
     {
     }
 
-    void Time::Initiailize()
+    void Time::initiailize()
     {
         // CPU 고유 진동수 가져오기
         QueryPerformanceFrequency(&mCpuFrequency);
@@ -27,7 +27,7 @@ namespace engine
         QueryPerformanceCounter(&mPrevFrequency);
     }
 
-    void Time::Update()
+    void Time::update()
     {
         //갱신
         QueryPerformanceCounter(&mCurFrequency);
@@ -39,7 +39,7 @@ namespace engine
         mPrevFrequency.QuadPart = mCurFrequency.QuadPart;
     }
 
-    void Time::Render()
+    void Time::render()
     {
         mSecond += mDeltaTime;
 

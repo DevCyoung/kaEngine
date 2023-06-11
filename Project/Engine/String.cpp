@@ -23,7 +23,6 @@ namespace engine
 	}
 
 	std::string String::WStrToStr(const std::wstring& wstr)
-
 	{		
 		std::wstring_convert<std::codecvt_utf8<wchar_t>, wchar_t> converter;
 		return std::string(converter.to_bytes(wstr));
