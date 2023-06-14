@@ -23,13 +23,13 @@ namespace engine
         void Initialize();        
 
     private:        
-        Microsoft::WRL::ComPtr<ID3D11InputLayout> mInputLayout;
-        Microsoft::WRL::ComPtr<ID3D11Buffer> mVertexBuffer;
-        Microsoft::WRL::ComPtr<ID3DBlob> mErrorBlob;
-
-        Microsoft::WRL::ComPtr<ID3DBlob> mVertexShaderBlob;        
-        Microsoft::WRL::ComPtr<ID3D11VertexShader> mVertexShader;
-        Microsoft::WRL::ComPtr<ID3DBlob> mPixelShaderBlob;
-        Microsoft::WRL::ComPtr<ID3D11PixelShader> mPixelShader;
+        //Microsoft::WRL::ComPtr<ID3D11InputLayout> mInputLayout;
+        //Microsoft::WRL::ComPtr<ID3D11Buffer> mVertexBuffer;
+        //Microsoft::WRL::ComPtr<ID3DBlob> mErrorBlob;
+        //
+        //Microsoft::WRL::ComPtr<ID3DBlob> mVertexShaderBlob;        
+        //Microsoft::WRL::ComPtr<ID3D11VertexShader> mVertexShader;
+        //Microsoft::WRL::ComPtr<ID3DBlob> mPixelShaderBlob;
+        //Microsoft::WRL::ComPtr<ID3D11PixelShader> mPixelShader;
     };
 }
