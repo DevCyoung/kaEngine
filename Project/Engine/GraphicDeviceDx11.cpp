@@ -1,7 +1,6 @@
 #include "pch.h"
 #include "GraphicDeviceDX11.h"
 #include "Engine.h"
-//#include "ConstantBuffer.h"
 
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "d3dcompiler.lib")
@@ -94,121 +93,7 @@ namespace engine::graphics
 			return;
 		}
 
-		//RectBuffer
-		//constexpr UINT rectDataCount = 4;
-		//D3D11_BUFFER_DESC rectDesc = {};
-		//rectDesc.Usage = D3D11_USAGE::D3D11_USAGE_DYNAMIC;
-		//rectDesc.ByteWidth = sizeof(Vertex) * rectDataCount;
-		//rectDesc.BindFlags = D3D11_BIND_FLAG::D3D11_BIND_VERTEX_BUFFER;
-		//rectDesc.CPUAccessFlags = D3D11_CPU_ACCESS_FLAG::D3D11_CPU_ACCESS_WRITE;
-
-		//D3D11_SUBRESOURCE_DATA rectData = {};
-		//Vertex rectVertexes[rectDataCount] = {};
-
-		//rectVertexes[0].pos = Vector3(-0.5f, 0.5f, 0.0f);
-		//rectVertexes[0].color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
-
-		//rectVertexes[1].pos = Vector3(0.5f, 0.5f, 0.0f);
-		//rectVertexes[1].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
-
-		//rectVertexes[2].pos = Vector3(0.5f, -0.5f, 0.0f);
-		//rectVertexes[2].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
-
-		//rectVertexes[3].pos = Vector3(-0.5f, -0.5f, 0.0f);
-		//rectVertexes[3].color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
-
-
-		//rectData.pSysMem = rectVertexes;
-		//if (FAILED(mDevice->CreateBuffer(&rectDesc, &rectData, rectBuffer.GetAddressOf())))
-		//{
-		//	MessageBox(hWnd, L"Failed to create triangle buffer", L"Error", MB_OK);
-		//	return;
-		//}
-
-
-
-
-
-		//const float PI = 3.141592f;
-		//const UINT shapeCount[4] = { 4, 5, 6 };
-
-		//float yde = 0.77f;
-		//float xde = -0.89f;
-
-		//for (UINT i = 0; i <= SHAPE_COUNT; ++i)
-		//{
-		//	D3D11_BUFFER_DESC shapeDesc = {};
-		//	shapeDesc.Usage = D3D11_USAGE::D3D11_USAGE_DYNAMIC;
-		//	shapeDesc.ByteWidth = sizeof(Vertex) * (i + 4) * 3;
-		//	shapeDesc.BindFlags = D3D11_BIND_FLAG::D3D11_BIND_VERTEX_BUFFER;
-		//	shapeDesc.CPUAccessFlags = D3D11_CPU_ACCESS_FLAG::D3D11_CPU_ACCESS_WRITE;
-
-		//	D3D11_SUBRESOURCE_DATA shapeData = {};
-
-		//	Vector3 shapePoints[1000];
-		//	Vertex shapeVertexes[1000];
-
-		//	if (i % 9 == 0 && i != 0)
-		//	{
-		//		yde -= 0.37f;
-		//		xde = -0.89f;
-		//	}
-
-
-
-
-
-		//	const float perRadin = (float)(2 * PI) / (float)(i + 4);
-
-		//	shapePoints[0] = Vector3(0.0f, 0.0f, 0.0f);
-
-
-		//	//길이정규화
-		//	float ratio = (float)Engine::GetInst()->GetScreenHeight() / (float)Engine::GetInst()->GetScreenWidth();
-		//	for (UINT j = 1; j <= (i + 5); ++j)
-		//	{
-		//		float radin = perRadin * (j - 1);
-		//		float angle = radin * 180.0f / PI;
-		//		(void)angle;
-
-
-		//		(void)ratio;
-		//		//Engine::GetInst()->GetScreenWidth();
-		//		//Engine::GetInst()->GetScreenHeight();
-
-
-		//		float x = cosf(radin) * ratio * 0.15f; // -1 ~ 1
-		//		float y = sinf(radin) * 0.15f; // -1 ~ 1
-
-		//		shapePoints[j] = Vector3(x, y, 0.0f);
-		//	}
-
-
-		//	for (UINT j = 0; j < (i + 4); ++j)
-		//	{
-		//		shapeVertexes[j * 3 + 0].pos = shapePoints[j + 2];
-		//		shapeVertexes[j * 3 + 0].pos += Vector3(xde, yde, 0.0f);
-
-		//		shapeVertexes[j * 3 + 1].pos = shapePoints[j + 1];
-		//		shapeVertexes[j * 3 + 1].pos += Vector3(xde, yde, 0.0f);
-
-		//		shapeVertexes[j * 3 + 2].pos = shapePoints[0];
-		//		shapeVertexes[j * 3 + 2].pos += Vector3(xde, yde, 0.0f);
-
-		//		shapeVertexes[j * 3 + 0].color = Vector4(0.f, 0.f, 0.0f, 1.f);
-		//		shapeVertexes[j * 3 + 1].color = Vector4(j * 0.05f, 1.0f, 0.0f, 1.f);
-		//		shapeVertexes[j * 3 + 2].color = Vector4(j * 0.05f, 1.0f, 0.0f, 1.f);
-		//	}
-
-		//	shapeData.pSysMem = shapeVertexes;
-		//	if (FAILED(mDevice->CreateBuffer(&shapeDesc, &shapeData, shapeBuffers[i].GetAddressOf())))
-		//	{
-		//		MessageBox(hWnd, L"Failed to create triangle buffer", L"Error", MB_OK);
-		//		return;
-		//	}
-
-		//	xde += 0.22f;
-		//}
+		
 
 
 
@@ -293,7 +178,6 @@ namespace engine::graphics
 		depthStencilDesc.SampleDesc.Count = 1;
 		depthStencilDesc.MiscFlags = 0;
 
-
 		if (FAILED(mDevice->CreateTexture2D(&depthStencilDesc, nullptr, mDepthStencilTexture.GetAddressOf())))
 		{
 			MessageBox(hWnd, L"Failed to create depth stencil texture", L"Error", MB_OK);
@@ -306,13 +190,11 @@ namespace engine::graphics
 			return;
 		}
 #pragma endregion
-
 	}
 
 	GraphicDeviceDX11::~GraphicDeviceDX11()
 	{
 	}
-
 
 	void GraphicDeviceDX11::BindIA(const Shader& shader)
 	{
@@ -331,6 +213,18 @@ namespace engine::graphics
 	{
 		assert(shader.mPS.Get());
 		mContext->PSSetShader(shader.mPS.Get(), nullptr, 0);
+	}
+
+	void GraphicDeviceDX11::PassCB(ConstantBuffer& CB, const void* const data)
+	{
+		assert(data);
+		D3D11_MAPPED_SUBRESOURCE subResource = {};
+
+		mContext->Map(CB.mBuffer.Get(), 0, D3D11_MAP::D3D11_MAP_WRITE_DISCARD, 0, &subResource);
+		{
+			memcpy_s(subResource.pData, CB.mDesc.ByteWidth, data, CB.mDesc.ByteWidth);
+		}
+		mContext->Unmap(CB.mBuffer.Get(), 0);
 	}
 
 	void GraphicDeviceDX11::BindCB(const eShaderStage stage, const ConstantBuffer& CB)
@@ -358,7 +252,7 @@ namespace engine::graphics
 			mContext->CSSetConstantBuffers(startSlot, 1, CB.mBuffer.GetAddressOf());
 			break;
 		default:
-			assert(nullptr);
+			assert(false);
 			break;
 		}
 	}
@@ -385,12 +279,10 @@ namespace engine::graphics
 			scerenWidth, screnHeight,
 			0.0f, 1.0f
 		};
-
 		mContext->OMSetRenderTargets(1, mRenderTargetView.GetAddressOf(), mDepthStencilView.Get());
 		mContext->RSSetViewports(1, &mViewPort);
 		mContext->ClearRenderTargetView(mRenderTargetView.Get(), bgColor);
 		mContext->ClearDepthStencilView(mDepthStencilView.Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
-
 	}
 
 	void GraphicDeviceDX11::present()

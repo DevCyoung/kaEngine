@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Entity.h"
 #include <wrl.h>
 #include <d3d11.h>
+#include "Engine.h"
 
 namespace engine
 {
@@ -28,10 +28,8 @@ namespace engine
 		friend class graphics::GraphicDeviceDX11;
 
 	public:
-		ConstantBuffer(const eCBType type, const UINT size);		
-		virtual ~ConstantBuffer();
-		void SetData(const void* const data);
-		//void Bind(const eShaderStage stage) const;
+		ConstantBuffer(const eCBType type, const UINT size);
+		virtual ~ConstantBuffer();		
 
 	private:
 		eCBType mType;

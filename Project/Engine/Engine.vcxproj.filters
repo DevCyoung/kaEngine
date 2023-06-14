@@ -156,6 +156,7 @@
     <ClInclude Include="Renderer.h">
       <Filter>Source</Filter>
     </ClInclude>
+    <ClInclude Include="Layer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DXMath.cpp">
@@ -215,6 +216,7 @@
     <ClCompile Include="Renderer.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="Layer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="DXMath.inl">

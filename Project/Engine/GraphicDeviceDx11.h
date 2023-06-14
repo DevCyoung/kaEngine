@@ -36,8 +36,11 @@ namespace engine::graphics
         void BindIA(const Shader& shader);
         void BindVS(const Shader& shader);
         void BindPS(const Shader& shader);
-        //void BindVB();
+        void PassCB(ConstantBuffer& CB, const void* const data);        
         void BindCB(const eShaderStage stage, const ConstantBuffer& CB);
+        //void BindVB();
+
+        
 
             
 

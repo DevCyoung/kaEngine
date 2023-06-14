@@ -15,6 +15,6 @@ namespace engine
 		ConstantBuffer& GetCBTransform() { return transform; }
 
 	private:
-		ConstantBuffer transform;	
+		ConstantBuffer transform;
 	};
 }

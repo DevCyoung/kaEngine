@@ -6,7 +6,7 @@ namespace engine
 {
 	class GameObject : public Entity
 	{
-		friend class Scene;
+		friend class Layer;
 	public:
 		enum eState
 		{

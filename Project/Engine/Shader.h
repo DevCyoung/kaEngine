@@ -2,7 +2,7 @@
 #include "Resource.h"
 #include <d3d11.h>
 #include <d3dcompiler.h>
-
+#include "Engine.h"
 namespace engine
 {	
 	enum class eShaderType

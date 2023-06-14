@@ -23,46 +23,4 @@ namespace engine
 	ConstantBuffer::~ConstantBuffer()
 	{
 	}
-
-	void ConstantBuffer::SetData(const void* const data)
-	{
-		assert(data);
-
-		D3D11_MAPPED_SUBRESOURCE subResource = {};		
-		gContext->Map(mBuffer.Get(), 0, D3D11_MAP::D3D11_MAP_WRITE_DISCARD, 0, &subResource);
-		{
-			memcpy_s(subResource.pData, mDesc.ByteWidth, data, mDesc.ByteWidth);
-		}
-		gContext->Unmap(mBuffer.Get(), 0);
-	}
-
-	/*void ConstantBuffer::Bind(const eShaderStage stage) const
-	{
-		const UINT startSlot = static_cast<UINT>(mType);
-
-		switch (stage)
-		{
-		case eShaderStage::VS:
-			Engine::GetInst()->GetContext()->VSSetConstantBuffers(startSlot, 1, mBuffer.GetAddressOf());
-			break;
-		case eShaderStage::HS:
-			Engine::GetInst()->GetContext()->HSSetConstantBuffers(startSlot, 1, mBuffer.GetAddressOf());
-			break;
-		case eShaderStage::DS:
-			Engine::GetInst()->GetContext()->DSSetConstantBuffers(startSlot, 1, mBuffer.GetAddressOf());
-			break;
-		case eShaderStage::GS:
-			Engine::GetInst()->GetContext()->GSSetConstantBuffers(startSlot, 1, mBuffer.GetAddressOf());
-			break;
-		case eShaderStage::PS:
-			Engine::GetInst()->GetContext()->PSSetConstantBuffers(startSlot, 1, mBuffer.GetAddressOf());
-			break;
-		case eShaderStage::CS:
-			Engine::GetInst()->GetContext()->CSSetConstantBuffers(startSlot, 1, mBuffer.GetAddressOf());
-			break;		
-		default:
-			assert(nullptr);
-			break;
-		}
-	}*/
 }

@@ -3,8 +3,7 @@
 #include "Engine.h"
 
 namespace engine
-{
-
+{	
 	TimeManager::TimeManager()
 		: mDeltaTime(0.0l)
 		, mSecond(0.0l)
@@ -31,7 +30,6 @@ namespace engine
 
 	}
 
-
 	void TimeManager::update()
 	{
 		//°»½Å
@@ -55,7 +53,7 @@ namespace engine
 			wchar_t buffer[256] = {};
 			const float fps = 1.0f / mDeltaTime;
 
-			swprintf_s(buffer, 256, L"FPS : %f", fps);
+			swprintf_s(buffer, 256, L"<SEO Egine> FPS : %f", fps);
 			SetWindowText(hWnd, buffer);
 
 			mSecond = 0.0l;

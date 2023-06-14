@@ -10,8 +10,7 @@ namespace engine
 		String();
 		virtual ~String();
 
-	public:
-		
+	public:		
 		static std::wstring StrToWStr(const std::string& str);
 		static std::string WStrToStr(const std::wstring& wstr);
 	};

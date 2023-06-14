@@ -4,7 +4,6 @@
 
 namespace engine
 {
-
 	using namespace engine::math;
 
 	static int ASCII[(UINT)eKeyCode::END] =
@@ -15,7 +14,7 @@ namespace engine
 
 		VK_UP, VK_DOWN, VK_LEFT ,VK_RIGHT, VK_SPACE,
 		VK_LBUTTON, VK_RBUTTON,
-	};	
+	};
 
 	InputManager::InputManager()
 		: mKeyInfos()
@@ -26,8 +25,6 @@ namespace engine
 	InputManager::~InputManager()
 	{
 	}
-
-
 
 	void InputManager::initialize()
 	{
@@ -42,7 +39,6 @@ namespace engine
 			keyInfo.key = static_cast<eKeyCode>(i);
 			keyInfo.state = eKeyState::None;
 			keyInfo.bPressed = false;
-
 			sInstance->mKeyInfos.push_back(keyInfo);
 		}
 	}
@@ -80,9 +76,6 @@ namespace engine
 					}
 				}
 			}
-
-
-			
 			POINT mousePos = {};
 			GetCursorPos(&mousePos);
 
@@ -92,20 +85,21 @@ namespace engine
 			mMousePos.y = static_cast<float>(mousePos.y);
 		}
 		else
-		{		
+		{
 			for (tKeyInfo& keyInfo : mKeyInfos)
-			{				
-				if (eKeyState::Down == keyInfo.state || eKeyState::Pressed == keyInfo.state)
+			{
+				switch (keyInfo.state)
 				{
+				case eKeyState::Down:
+				case eKeyState::Pressed:
 					keyInfo.state = eKeyState::Up;
+					keyInfo.bPressed = false;
+				break;
+				case eKeyState::Up:
+					keyInfo.state = eKeyState::None;					
+				default:
+					break;
 				}
-				else if (eKeyState::Up == keyInfo.state)
-				{
-					keyInfo.state = eKeyState::None;
-				}
-
-				keyInfo.bPressed = false;
-
 			}
 		}
 	}

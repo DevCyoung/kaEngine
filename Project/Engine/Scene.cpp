@@ -7,49 +7,49 @@
 namespace engine
 {
 	Scene::Scene()
-		: mGameObjects()
+		: mLayers()
 	{
 	}
 
 	Scene::~Scene()
 	{
-		for (GameObject* const gameObject : mGameObjects)
+		for (Layer* const layer : mLayers)
 		{
-			delete gameObject;
-		}
+			delete layer;			
+		}		
 	}
 
 	void Scene::initialize()
 	{
-		mGameObjects.push_back(new GameObject);
+		mLayers.push_back(new Layer);
 
-		for (GameObject* const gameObject : mGameObjects)
+		for (Layer* const layer : mLayers)
 		{
-			gameObject->initialize();			
+			layer->initialize();
 		}		
 	}
 
 	void Scene::update()
 	{
-		for (GameObject* const gameObject : mGameObjects)
+		for (Layer* const layer : mLayers)
 		{
-			gameObject->update();
+			layer->update();
 		}
 	}
 
 	void Scene::lateUpdate()
 	{
-		for (GameObject* const gameObject : mGameObjects)
+		for (Layer* const layer : mLayers)
 		{
-			gameObject->lateUpdate();
+			layer->lateUpdate();
 		}
 	}
 
 	void Scene::render(/*mGraphicDevice*/)
 	{
-		for (GameObject* const gameObject : mGameObjects)
+		for (Layer* const layer : mLayers)
 		{
-			gameObject->render(/*mGraphicDevice*/);			
+			layer->render(/*mGraphicDevice*/);
 		}
 	}
 

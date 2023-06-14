@@ -1,7 +1,4 @@
 #pragma once
-#include "Engine.h"
-
-
 #include <math.h>
 //https://github.com/microsoft/DirectXMath
 #if __has_include("DirectXMath.h")

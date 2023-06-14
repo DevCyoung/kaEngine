@@ -38,6 +38,7 @@ namespace engine
 
         ID3D11Device* GetDevice() const;
         ID3D11DeviceContext* GetContext() const;
+
         graphics::GraphicDeviceDX11* GetGraphicDevice() const;
         CBCollection* GetCBCollection() { return mCBCollection.get(); }
 

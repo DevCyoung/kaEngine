@@ -23,8 +23,7 @@ namespace engine
 		LARGE_INTEGER mCpuFrequency;
 		LARGE_INTEGER mPrevFrequency;
 		LARGE_INTEGER mCurFrequency;
-    };
-	
+    };	
 }
 
 #define gDeltaTime engine::TimeManager::GetInstance()->GetDeltaTime()

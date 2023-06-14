@@ -3,7 +3,6 @@
 
 namespace engine
 {	
-
 	SceneManager::SceneManager()
 		: mCurrentScene(nullptr)
 	{		
@@ -24,7 +23,6 @@ namespace engine
 		sInstance->mCurrentScene->initialize();		
 	}
 
-
 	void SceneManager::update()
 	{
 		mCurrentScene->update();
@@ -37,5 +35,4 @@ namespace engine
 	{
 		mCurrentScene->render();
 	}
-
 }

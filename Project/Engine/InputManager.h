@@ -1,12 +1,8 @@
 #pragma once
-
-#include "Engine.h"
 #include "Singleton.h"
 
 namespace engine
 {	
-	using namespace math;
-
 	enum class eKeyCode
 	{
 		Q, W, E, R, T, Y, U, I, O, P,

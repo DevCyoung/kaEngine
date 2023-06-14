@@ -46,16 +46,17 @@ namespace engine
 			mX += speed * gDeltaTime;
 		}
 
-		const Vector4 pos = { mX, mY, 0.f, 0.f };
-		gConstantBuffers->GetCBTransform().SetData(&pos);
+		const Vector4 pos = { mX, mY, 0.f, 0.f };		
+		gGraphicDevice->PassCB(gConstantBuffers->GetCBTransform(), &pos);
 	}
 
 	void GameObject::lateUpdate()
 	{
+
 	}
 
 	void GameObject::render(/*mGraphicDevice*/)
-	{	
+	{			
 		gGraphicDevice->BindIA(mShader);
 		gGraphicDevice->BindPS(mShader);
 		gGraphicDevice->BindVS(mShader);
