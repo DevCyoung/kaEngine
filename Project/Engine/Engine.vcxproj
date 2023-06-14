@@ -173,10 +173,6 @@
     <ClInclude Include="Resources.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
-    <ClInclude Include="SEOEngineManager.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="String.h" />
@@ -201,10 +197,6 @@
     <ClCompile Include="Resources.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
-    <ClCompile Include="SEOEngineManager.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="String.cpp" />
     <ClCompile Include="Textrue.cpp" />

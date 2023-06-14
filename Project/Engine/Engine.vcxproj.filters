@@ -156,7 +156,6 @@
     <ClInclude Include="Renderer.h">
       <Filter>Source</Filter>
     </ClInclude>
-    <ClInclude Include="SEOEngineManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DXMath.cpp">
@@ -216,7 +215,6 @@
     <ClCompile Include="Renderer.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="SEOEngineManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="DXMath.inl">
