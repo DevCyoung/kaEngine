@@ -8,6 +8,9 @@ namespace engine
 	class Scene : public Entity
 	{
 		friend class Engine;	
+		friend class SceneManager;
+
+	private:
 		Scene();
 		virtual ~Scene();
 

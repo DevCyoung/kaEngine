@@ -1,5 +1,6 @@
 #pragma once
 #include "Entity.h"
+#include "Shader.h"
 
 namespace engine
 {
@@ -24,7 +25,10 @@ namespace engine
 
 	private:
 		eState mState;
+		Shader mShader;
 		//std::vector<Component*> mComponents;
+		float mX;
+		float mY;
 		//int y;
 		//int x;
 	};

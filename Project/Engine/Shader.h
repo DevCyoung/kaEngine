@@ -14,8 +14,10 @@ namespace engine
 		PS
 	};
 
-	class Shader : public Resource
+	class	Shader : public Resource
 	{
+		friend class graphics::GraphicDeviceDX11;
+
 	public:
 		Shader(const std::wstring& vsFileName, const std::wstring& vsFunName,
 			const std::wstring& psFileName, const std::wstring psFunName);
@@ -25,7 +27,8 @@ namespace engine
 		virtual ~Shader();
 		inline void CreateHSShader(const std::wstring& hsFileName, const std::wstring& hsFunName);
 		inline void CreateDSShader(const std::wstring& dsFileName, const std::wstring& dsFunName);
-		inline void CreateGSShader(const std::wstring& gsFileName, const std::wstring& gsFunName);		
+		inline void CreateGSShader(const std::wstring& gsFileName, const std::wstring& gsFunName);
+		
 
 	private:
 		Shader(const Shader&) = delete;

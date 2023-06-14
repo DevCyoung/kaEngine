@@ -16,6 +16,8 @@
 #include "Client.h"
 
 #include <Engine/Engine.h>
+#include <Engine/EngineIncludes.h>
+
 
 
 
@@ -40,13 +42,18 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     UNREFERENCED_PARAMETER(lpCmdLine);                
     // TODO: 여기에 코드를 입력합니다.        
 
+#ifdef _DEBUG
+    _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+    //_CrtSetBreakAlloc(263);
+#endif
+    
+ 
     // 전역 문자열을 초기화합니다.
     LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
     LoadStringW(hInstance, IDC_CLIENT, szWindowClass, MAX_LOADSTRING);
     MyRegisterClass(hInstance);
    
-    engine::Engine* const engine = engine::Engine::GetInst();
-    engine->initialize();
+    //engine::Engine* const engine = gEngine;
 
     // 애플리케이션 초기화를 수행합니다:
     if (!InitInstance (hInstance, nCmdShow))
@@ -54,7 +61,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         return static_cast<int>(FALSE);
     }
 
-    engine->setWindow(gHwnd, 1600, 900);
+    //gEngine
+    engine::Engine::initialize(gHwnd, 1600, 900);
 
     HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_CLIENT));
     MSG msg;    
@@ -73,10 +81,12 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
             }
         }
         else
-        {            
-            engine->run();
+        {        
+            engine::Engine::GetInstance()->run();
         }
-    }    
+    }
+
+    engine::Engine::deleteInstance();
     return static_cast<int>(msg.wParam);
 }
 

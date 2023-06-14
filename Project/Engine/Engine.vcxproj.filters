@@ -13,23 +13,8 @@
     <Filter Include="Source\Helper\File">
       <UniqueIdentifier>{2d9164a7-f9d1-44ba-b093-7a129be4a17c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Helper\Math">
-      <UniqueIdentifier>{d7d73e82-bba5-4845-9e28-83522d5f93c0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Core\Math">
-      <UniqueIdentifier>{c6fe055c-5313-4b7b-b8b0-9caf2912f921}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Core\Input">
-      <UniqueIdentifier>{13a6a959-909c-4762-ba4c-c888cd9168a9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Core\Resources">
-      <UniqueIdentifier>{2ff371fd-1518-4749-bfd5-6cdb96856c85}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\Core\Resource">
       <UniqueIdentifier>{6fd5e19a-f00d-4990-ba98-d245caa6d931}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Core\Time">
-      <UniqueIdentifier>{942ebe70-fdee-4307-8221-98dbfc5e1edd}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source\Entity">
       <UniqueIdentifier>{0febf985-2089-4d69-9d73-46a0d133a463}</UniqueIdentifier>
@@ -49,34 +34,61 @@
     <Filter Include="Source\Core\Graphics">
       <UniqueIdentifier>{8231d530-7a53-4699-a9cc-a474fbba78b9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Core\Texture">
-      <UniqueIdentifier>{7ee995f9-2bd7-4ac3-88ba-6a2ce18b291e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Core\Shader">
-      <UniqueIdentifier>{6e853aac-cd23-41af-9a41-92878832d38b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\Helper\String">
       <UniqueIdentifier>{8a8f7d10-2e43-4c78-93bc-2cd3bc497544}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Core\Scene">
+    <Filter Include="Source\Constant">
+      <UniqueIdentifier>{86007f0a-87c4-4846-8ce4-366ac4909a67}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scene">
       <UniqueIdentifier>{685c70d2-48e1-49d1-9f6e-24916c88ecf2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Core\GameObject">
+    <Filter Include="Source\GameObject">
       <UniqueIdentifier>{7ea5e00e-4716-4077-874d-183be25aae78}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\CBCollection">
+      <UniqueIdentifier>{446fb547-654a-4ebf-bc5f-38001f02c35b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Manager">
+      <UniqueIdentifier>{70d59ca5-f5ea-433b-beb7-f0fc6a430f5f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Manager\Scene">
+      <UniqueIdentifier>{c48e7023-e96c-4b8b-a4f3-98e7f7c3e42a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Manager\Input">
+      <UniqueIdentifier>{13a6a959-909c-4762-ba4c-c888cd9168a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Manager\Time">
+      <UniqueIdentifier>{942ebe70-fdee-4307-8221-98dbfc5e1edd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\ConstantBufferManager">
+      <UniqueIdentifier>{ffd2cc87-b85c-4ead-b5ec-4d4881e7af3b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Texture">
+      <UniqueIdentifier>{7ee995f9-2bd7-4ac3-88ba-6a2ce18b291e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Resources">
+      <UniqueIdentifier>{2ff371fd-1518-4749-bfd5-6cdb96856c85}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Shader">
+      <UniqueIdentifier>{6e853aac-cd23-41af-9a41-92878832d38b}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source\Core\Engine">
       <UniqueIdentifier>{e6430191-00da-4151-afd7-1c9c3cd0ce20}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Helper\Math">
+      <UniqueIdentifier>{c6fe055c-5313-4b7b-b8b0-9caf2912f921}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DXMath.h">
-      <Filter>Source\Core\Math</Filter>
+      <Filter>Source\Helper\Math</Filter>
     </ClInclude>
     <ClInclude Include="Entity.h">
       <Filter>Source\Entity</Filter>
     </ClInclude>
-    <ClInclude Include="Time.h">
-      <Filter>Source\Core\Time</Filter>
+    <ClInclude Include="TimeManager.h">
+      <Filter>Source\Manager\Time</Filter>
     </ClInclude>
     <ClInclude Include="framework.h">
       <Filter>Windows</Filter>
@@ -90,14 +102,14 @@
     <ClInclude Include="GraphicDeviceDX11.h">
       <Filter>Source\Core\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="Input.h">
-      <Filter>Source\Core\Input</Filter>
+    <ClInclude Include="InputManager.h">
+      <Filter>Source\Manager\Input</Filter>
     </ClInclude>
     <ClInclude Include="Resource.h">
       <Filter>Source\Core\Resource</Filter>
     </ClInclude>
     <ClInclude Include="Resources.h">
-      <Filter>Source\Core\Resources</Filter>
+      <Filter>Source\Resources</Filter>
     </ClInclude>
     <ClInclude Include="Singleton.h">
       <Filter>Source\Singleton</Filter>
@@ -114,34 +126,47 @@
     <ClInclude Include="MacroDefine.h">
       <Filter>Source\Core\Include</Filter>
     </ClInclude>
-    <ClInclude Include="Renderer.h">
-      <Filter>Source\Core</Filter>
-    </ClInclude>
     <ClInclude Include="Textrue.h">
-      <Filter>Source\Core\Texture</Filter>
+      <Filter>Source\Texture</Filter>
     </ClInclude>
     <ClInclude Include="Shader.h">
-      <Filter>Source\Core\Shader</Filter>
+      <Filter>Source\Shader</Filter>
     </ClInclude>
     <ClInclude Include="String.h">
       <Filter>Source\Helper\String</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.h">
-      <Filter>Source\Core\GameObject</Filter>
+      <Filter>Source\GameObject</Filter>
     </ClInclude>
     <ClInclude Include="Scene.h">
-      <Filter>Source\Core\Scene</Filter>
+      <Filter>Source\Scene</Filter>
     </ClInclude>
+    <ClInclude Include="ConstantBuffer.h">
+      <Filter>Source\Constant</Filter>
+    </ClInclude>
+    <ClInclude Include="CBCollection.h">
+      <Filter>Source\CBCollection</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>Source\Manager\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstantBufferManager.h">
+      <Filter>Source\ConstantBufferManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SEOEngineManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DXMath.cpp">
-      <Filter>Source\Core\Math</Filter>
+      <Filter>Source\Helper\Math</Filter>
     </ClCompile>
     <ClCompile Include="Entity.cpp">
       <Filter>Source\Entity</Filter>
     </ClCompile>
-    <ClCompile Include="Time.cpp">
-      <Filter>Source\Core\Time</Filter>
+    <ClCompile Include="TimeManager.cpp">
+      <Filter>Source\Manager\Time</Filter>
     </ClCompile>
     <ClCompile Include="Engine.cpp">
       <Filter>Source\Core\Engine</Filter>
@@ -149,37 +174,53 @@
     <ClCompile Include="GraphicDeviceDX11.cpp">
       <Filter>Source\Core\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="Input.cpp">
-      <Filter>Source\Core\Input</Filter>
+    <ClCompile Include="InputManager.cpp">
+      <Filter>Source\Manager\Input</Filter>
     </ClCompile>
     <ClCompile Include="Resource.cpp">
       <Filter>Source\Core\Resource</Filter>
     </ClCompile>
     <ClCompile Include="Resources.cpp">
-      <Filter>Source\Core\Resources</Filter>
-    </ClCompile>
-    <ClCompile Include="Renderer.cpp">
-      <Filter>Source\Core</Filter>
+      <Filter>Source\Resources</Filter>
     </ClCompile>
     <ClCompile Include="Textrue.cpp">
-      <Filter>Source\Core\Texture</Filter>
+      <Filter>Source\Texture</Filter>
     </ClCompile>
     <ClCompile Include="Shader.cpp">
-      <Filter>Source\Core\Shader</Filter>
+      <Filter>Source\Shader</Filter>
     </ClCompile>
     <ClCompile Include="String.cpp">
       <Filter>Source\Helper\String</Filter>
     </ClCompile>
     <ClCompile Include="GameObject.cpp">
-      <Filter>Source\Core\GameObject</Filter>
+      <Filter>Source\GameObject</Filter>
     </ClCompile>
     <ClCompile Include="Scene.cpp">
-      <Filter>Source\Core\Scene</Filter>
+      <Filter>Source\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="ConstantBuffer.cpp">
+      <Filter>Source\Constant</Filter>
+    </ClCompile>
+    <ClCompile Include="CBCollection.cpp">
+      <Filter>Source\CBCollection</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>Source\Manager\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="ConstantBufferManager.cpp">
+      <Filter>Source\ConstantBufferManager</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SEOEngineManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="DXMath.inl">
-      <Filter>Source\Core\Math</Filter>
+      <Filter>Source\Helper\Math</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

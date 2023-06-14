@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "Shader.h"
 #include "String.h"
 
@@ -15,7 +16,8 @@ namespace engine
 	Shader::Shader(const D3D11_PRIMITIVE_TOPOLOGY topology,
 		const std::wstring& vsFileName, const std::wstring& vsFunName,
 		const std::wstring& psFileName, const std::wstring psFunName)
-		: mTopology(topology)
+		: Resource()
+		, mTopology(topology)
 		, mInputLayout(nullptr)		
 		, mVS(nullptr)
 		, mHS(nullptr)
@@ -34,11 +36,11 @@ namespace engine
 	void Shader::createShader(const eShaderType sType, const std::wstring& version,
 		const std::wstring& fileName, const std::wstring& funName)
 	{
-		Microsoft::WRL::ComPtr<ID3DBlob> vsBlob;		
+		Microsoft::WRL::ComPtr<ID3DBlob> vsBlob;
 		Microsoft::WRL::ComPtr<ID3DBlob> psBlob;
 		Microsoft::WRL::ComPtr<ID3DBlob> errBlob;
-
-		const HWND hWnd = Engine::GetInst()->GetHwnd();
+		
+		const HWND hWnd = gEngine->GetHwnd();
 		const std::string strFunName(String::WStrToStr(funName));
 		const std::string strVersion(String::WStrToStr(version));
 
@@ -49,6 +51,7 @@ namespace engine
 		switch (sType)
 		{
 		case eShaderType::VS:
+
 			if (FAILED(D3DCompileFromFile(shaderPath.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE,
 				strFunName.c_str(), strVersion.c_str(), 0, 0, vsBlob.GetAddressOf(), errBlob.GetAddressOf())))
 			{
@@ -56,7 +59,7 @@ namespace engine
 				return;
 			}
 
-			if (FAILED(Engine::GetInst()->GetDevice()->CreateVertexShader(vsBlob->GetBufferPointer(),
+			if (FAILED(gDevie->CreateVertexShader(vsBlob->GetBufferPointer(),
 				vsBlob->GetBufferSize(), nullptr, mVS.GetAddressOf())))
 			{
 				MessageBox(hWnd, L"Failed to create vertex shader", L"Error", MB_OK);
@@ -83,7 +86,7 @@ namespace engine
 				arrLayout[1].SemanticIndex = 0;
 
 
-				if (FAILED(Engine::GetInst()->GetDevice()->CreateInputLayout(arrLayout, MAX_INPUT_ELEMENT
+				if (FAILED(gDevie->CreateInputLayout(arrLayout, MAX_INPUT_ELEMENT
 					, vsBlob->GetBufferPointer()
 					, vsBlob->GetBufferSize()
 					, mInputLayout.GetAddressOf())))
@@ -108,7 +111,7 @@ namespace engine
 				return;
 			}
 
-			if (FAILED(Engine::GetInst()->GetDevice()->CreatePixelShader(psBlob->GetBufferPointer(),
+			if (FAILED(gDevie->CreatePixelShader(psBlob->GetBufferPointer(),
 				psBlob->GetBufferSize(), nullptr, mPS.GetAddressOf())))
 			{
 				MessageBox(hWnd, L"Failed to create pixel shader", L"Error", MB_OK);

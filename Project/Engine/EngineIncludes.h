@@ -1,6 +1,7 @@
 #pragma once
-#include <string>
+
 #include <Windows.h>
+#include <string>
 #include <assert.h>
 
 #include <vector> // 배열
@@ -16,8 +17,10 @@
 #include <memory> //메모리 관련된 라이브러리
 #include <filesystem> // 파일입출력 편하게 도와주는 라이브러리
 #include <wrl.h>
+#include "DXMath.h"
 
 #include "EnumFlag.h"
-#include "DXMath.h"
 #include "Enums.h"
 #include "MacroDefine.h"
+
+using namespace engine::math;

@@ -1,11 +1,5 @@
-#define _SILENCE_CXX17_CODECVT_HEADER_DEPRECATION_WARNING
-#define _SILENCE_ALL_CXX17_DEPRECATION_WARNINGS
-
+#include "pch.h"
 #include "String.h"
-#include <codecvt>
-#include <locale>
-
-
 
 namespace engine
 {
@@ -16,15 +10,21 @@ namespace engine
 	{
 	}
 
+	//현재핵으로 하였음 추후에 정확히 사용법을 익힐것
 	std::wstring String::StrToWStr(const std::string& str)
 	{
-		std::wstring_convert<std::codecvt_utf8<wchar_t>> converter;
-		return std::wstring(converter.from_bytes(str));
+		const int size = MultiByteToWideChar(CP_UTF8, 0, str.c_str(), -1, nullptr, 0);
+		std::wstring wstr(size, 0);
+		MultiByteToWideChar(CP_UTF8, 0, str.c_str(), -1, wstr.data(), size);
+		return wstr;
 	}
 
 	std::string String::WStrToStr(const std::wstring& wstr)
-	{		
-		std::wstring_convert<std::codecvt_utf8<wchar_t>, wchar_t> converter;
-		return std::string(converter.to_bytes(wstr));
+	{
+		const int size = WideCharToMultiByte(CP_UTF8, 0, wstr.c_str(), -1, nullptr, 0, nullptr, nullptr);
+		std::string str(size, 0);
+		WideCharToMultiByte(CP_UTF8, 0, wstr.c_str(), -1, str.data(), size, nullptr, nullptr);
+		return str;
 	}
+	//핵핵핵
 }

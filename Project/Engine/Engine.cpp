@@ -1,116 +1,108 @@
+#include "pch.h"
 #include "Engine.h"
+
 #include "GraphicDeviceDx11.h"
+#include "CBCollection.h"
 
-#include "Input.h"
-#include "Time.h"
-
-#include "Scene.h"
-#include "Shader.h"
+#include "TimeManager.h"
+#include "InputManager.h"
+#include "SceneManager.h"
+#include "ConstantBufferManager.h"
 
 
 namespace engine
 {
-    Engine::Engine()
-        : mGraphicDevice(nullptr)
-        , mHwnd(nullptr)
-        , mWidth(static_cast<UINT>(-1))
-        , mHeight(static_cast<UINT>(-1))
-        , mbInitialize(false)
-        , mCurrentScene(nullptr)
-    {
-    }
+	Engine::Engine()
+		: mGraphicDevice(nullptr)
+		, mCBCollection()
+		, mHwnd(nullptr)
+		, mWidth(static_cast<UINT>(-1))
+		, mHeight(static_cast<UINT>(-1))
+		, mbInitialize(false)
+	{
+	}
 
-    Engine::~Engine()
-    {
-        if (nullptr != mCurrentScene)
-        {
-            delete mCurrentScene;
-        }
-    }
+	Engine::~Engine()
+	{
+		//ConstantBufferManager::deleteInstance();
+		TimeManager::deleteInstance();
+		InputManager::deleteInstance();
+		SceneManager::deleteInstance();
+	}
 
-    ID3D11Device* Engine::GetDevice() const
-    {
-        return mGraphicDevice->mDevice.Get();
-    }
+	ID3D11Device* Engine::GetDevice() const
+	{
+		return mGraphicDevice->mDevice.Get();
+	}
 
-    ID3D11DeviceContext* Engine::GetContext() const
-    {
-        return mGraphicDevice->mContext.Get();
-    }
+	ID3D11DeviceContext* Engine::GetContext() const
+	{
+		return mGraphicDevice->mContext.Get();
+	}
 
-    void Engine::initialize()
-    {       
-        Time::initiailize();  
+	graphics::GraphicDeviceDX11* Engine::GetGraphicDevice() const
+	{
+		return mGraphicDevice.get();
+	}
 
-        Input::initialize();
+	void Engine::initialize(const HWND hwnd, const UINT width, const UINT height)
+	{
+		assert(!sInstance);
+		sInstance = new Engine();
 
-        mCurrentScene = new Scene();        
-    }
+		sInstance->setWindow(hwnd, width, height);
 
-    void Engine::run()
-    {        
-        update();
+		sInstance->mGraphicDevice = std::make_unique<graphics::GraphicDeviceDX11>();
+		sInstance->mCBCollection = std::make_unique<CBCollection>();
 
-        lateUpdate();
+		//ConstantBufferManager::initialize();
+		TimeManager::initialize();
+		InputManager::initialize();
+		SceneManager::initialize();
+	}
 
-        render();
-    }
+	void Engine::run()
+	{
+		update();
+		lateUpdate();
+		render();
+	}
 
-    void Engine::update()
-    {
-        Time::update();
+	void Engine::update()
+	{
+		TimeManager::GetInstance()->update();
+		InputManager::GetInstance()->update();
+		SceneManager::GetInstance()->update();
+	}
 
-        Input::update();
+	void Engine::lateUpdate()
+	{
+		SceneManager::GetInstance()->lateUpdate();
+	}
 
-        if (nullptr != mCurrentScene)
-        {
-            mCurrentScene->update();
-        }        
-    }
+	void Engine::render()
+	{
+		TimeManager::GetInstance()->render();
 
-    void Engine::lateUpdate()
-    {
-        if (nullptr != mCurrentScene)
-        {
-            mCurrentScene->lateUpdate();
-        }
-    }
+		mGraphicDevice->clearRenderTarget();
+		SceneManager::GetInstance()->render();
+		mGraphicDevice->present();
+	}
 
-    void Engine::render()
-    {        
-        Time::render();
+	void Engine::setWindow(const HWND hwnd, const UINT width, const UINT height)
+	{
+		mHwnd = hwnd;
+		mWidth = width;
+		mHeight = height;
 
-        mGraphicDevice->clearRenderTarget();
+		RECT wdScreen = { 0, 0, static_cast<LONG>(width), static_cast<LONG>(height) };
+		AdjustWindowRect(&wdScreen, WS_OVERLAPPEDWINDOW, FALSE);
+		SetWindowPos(mHwnd,
+			nullptr /*HWND_TOP*/, 0, 0,
+			wdScreen.right - wdScreen.left,
+			wdScreen.bottom - wdScreen.top, 0/*SWP_NOMOVE | SWP_NOZORDER*/);
 
-
-        if (nullptr != mCurrentScene)
-        {
-            mCurrentScene->render();
-        }
-        
-
-        mGraphicDevice->present();
-    }
-
-    void Engine::setWindow(const HWND hwnd, const UINT width, const UINT height)
-    {
-        if (nullptr == mGraphicDevice)
-        {
-            mHwnd = hwnd;
-            mWidth = width;
-            mHeight = height;
-
-            mGraphicDevice = std::make_unique<graphics::GraphicDeviceDX11>();
-        }
-
-        RECT wdScreen = { 0, 0, static_cast<LONG>(width), static_cast<LONG>(height) };
-        AdjustWindowRect(&wdScreen, WS_OVERLAPPEDWINDOW, FALSE);
-        SetWindowPos(mHwnd,
-            nullptr /*HWND_TOP*/, 0, 0,
-            wdScreen.right - wdScreen.left,
-            wdScreen.bottom - wdScreen.top, 0/*SWP_NOMOVE | SWP_NOZORDER*/);
-
-        ShowWindow(mHwnd, true);
-        UpdateWindow(mHwnd);
-    }
+		ShowWindow(mHwnd, true);
+		UpdateWindow(mHwnd);
+	}
 }
