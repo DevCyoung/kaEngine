@@ -13,6 +13,6 @@ namespace engine
 
     void Renderer::Initialize()
     {
-
+        int a = 0;
     }
 }
