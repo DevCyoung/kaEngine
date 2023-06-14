@@ -13,6 +13,8 @@ namespace engine
 
     void Renderer::Initialize()
     {
-        int a = 0;
+        //int a = 0;
+        int b = 15;
+        int ppap = 1;
     }
 }
