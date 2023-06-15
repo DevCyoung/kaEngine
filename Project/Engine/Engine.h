@@ -1,9 +1,11 @@
 #pragma once
-
-#include "Singleton.h"
 #include <memory>
 #include <assert.h>
 
+#include "Singleton.h"
+
+struct ID3D11Device;
+struct ID3D11DeviceContext;
 
 namespace engine
 {
@@ -11,18 +13,6 @@ namespace engine
     {
         class GraphicDeviceDX11;
     }
-}
-
-struct ID3D11Device;
-struct ID3D11DeviceContext;
-
-
-
-namespace engine
-{
-    class Scene;
-    class CBCollection;
-
 
     class Engine
     {    
@@ -36,11 +26,10 @@ namespace engine
         UINT GetScreenHeight() const { return mHeight; }
         HWND GetHwnd() const { return mHwnd; }
 
-        ID3D11Device* GetDevice() const;
-        ID3D11DeviceContext* GetContext() const;
+        //ID3D11Device* GetDevice() const;
+        //ID3D11DeviceContext* GetContext() const;
 
-        graphics::GraphicDeviceDX11* GetGraphicDevice() const;
-        CBCollection* GetCBCollection() { return mCBCollection.get(); }
+        graphics::GraphicDeviceDX11* GetGraphicDevice() const;        
 
     private:    
         static void initialize(const HWND hwnd, const UINT width, const UINT height);
@@ -52,21 +41,17 @@ namespace engine
         void render();    
 
     private: 
-        std::unique_ptr<engine::graphics::GraphicDeviceDX11> mGraphicDevice;
-        std::unique_ptr<CBCollection> mCBCollection;
+        std::unique_ptr<engine::graphics::GraphicDeviceDX11> mGraphicDevice;  
 
         HWND mHwnd;
         UINT mWidth;
         UINT mHeight;        
-        bool mbInitialize = false;
-
-        //test
-        //Scene* mTestCurrentScene;
+        bool mbInitialize = false;                
     };    
 }
 
 #define gEngine engine::Engine::GetInstance()
 #define gGraphicDevice gEngine->GetGraphicDevice()
-#define gDevie gEngine->GetDevice()
-#define gContext gEngine->GetContext()
+//#define gDevie gEngine->GetDevice()
+//#define gContext gEngine->GetContext()
 #define gConstantBuffers gEngine->GetCBCollection()

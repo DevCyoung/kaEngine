@@ -6,15 +6,15 @@
 namespace engine
 {
 	Shader::Shader(const std::wstring& vsFileName, const std::wstring& vsFunName, 
-		const std::wstring& psFileName, const std::wstring psFunName)
+		const std::wstring& psFileName, const std::wstring psFunName, ID3D11Device* const device)
 		: Shader(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST, 
-			vsFileName, vsFunName, psFileName, psFunName)
+			vsFileName, vsFunName, psFileName, psFunName, device)
 	{
 	}
 
 	Shader::Shader(const D3D11_PRIMITIVE_TOPOLOGY topology,
 		const std::wstring& vsFileName, const std::wstring& vsFunName,
-		const std::wstring& psFileName, const std::wstring psFunName)
+		const std::wstring& psFileName, const std::wstring psFunName, ID3D11Device* const device)
 		: Resource()
 		, mTopology(topology)
 		, mInputLayout(nullptr)		
@@ -24,16 +24,16 @@ namespace engine
 		, mGS(nullptr)
 		, mPS(nullptr)
 	{		
-		createVSShader(vsFileName, vsFunName);
-		createPSShader(psFileName, psFunName);		
+		createVSShader(vsFileName, vsFunName, device);
+		createPSShader(psFileName, psFunName, device);		
 	}
 
 	Shader::~Shader()
 	{
 	}
 
-	void Shader::createShader(const eShaderType sType, const std::wstring& version,
-		const std::wstring& fileName, const std::wstring& funName)
+	void Shader::createShader(const eShaderBindType sType, const std::wstring& version,
+		const std::wstring& fileName, const std::wstring& funName, ID3D11Device* const device)
 	{
 		Microsoft::WRL::ComPtr<ID3DBlob> vsBlob;
 		Microsoft::WRL::ComPtr<ID3DBlob> psBlob;
@@ -49,7 +49,7 @@ namespace engine
 
 		switch (sType)
 		{
-		case eShaderType::VS:
+		case eShaderBindType::VS:
 
 			if (FAILED(D3DCompileFromFile(shaderPath.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE,
 				strFunName.c_str(), strVersion.c_str(), 0, 0, vsBlob.GetAddressOf(), errBlob.GetAddressOf())))
@@ -58,7 +58,7 @@ namespace engine
 				return;
 			}
 
-			if (FAILED(gDevie->CreateVertexShader(vsBlob->GetBufferPointer(),
+			if (FAILED(device->CreateVertexShader(vsBlob->GetBufferPointer(),
 				vsBlob->GetBufferSize(), nullptr, mVS.GetAddressOf())))
 			{
 				MessageBox(hWnd, L"Failed to create vertex shader", L"Error", MB_OK);
@@ -85,7 +85,7 @@ namespace engine
 				arrLayout[1].SemanticIndex = 0;
 
 
-				if (FAILED(gDevie->CreateInputLayout(arrLayout, MAX_INPUT_ELEMENT
+				if (FAILED(device->CreateInputLayout(arrLayout, MAX_INPUT_ELEMENT
 					, vsBlob->GetBufferPointer()
 					, vsBlob->GetBufferSize()
 					, mInputLayout.GetAddressOf())))
@@ -96,13 +96,13 @@ namespace engine
 			}
 		
 			break;
-		case eShaderType::HS:
+		case eShaderBindType::HS:
 			break;
-		case eShaderType::DS:
+		case eShaderBindType::DS:
 			break;
-		case eShaderType::GS:
+		case eShaderBindType::GS:
 			break;
-		case eShaderType::PS:
+		case eShaderBindType::PS:
 			if (FAILED(D3DCompileFromFile(shaderPath.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE,
 				strFunName.c_str(), strVersion.c_str(), 0, 0, psBlob.GetAddressOf(), errBlob.GetAddressOf())))
 			{
@@ -110,7 +110,7 @@ namespace engine
 				return;
 			}
 
-			if (FAILED(gDevie->CreatePixelShader(psBlob->GetBufferPointer(),
+			if (FAILED(device->CreatePixelShader(psBlob->GetBufferPointer(),
 				psBlob->GetBufferSize(), nullptr, mPS.GetAddressOf())))
 			{
 				MessageBox(hWnd, L"Failed to create pixel shader", L"Error", MB_OK);
@@ -123,39 +123,41 @@ namespace engine
 		}
 	}
 
-	inline void Shader::createVSShader(const std::wstring& vsFileName, const std::wstring& vsFunName)
+	inline void Shader::createVSShader(const std::wstring& vsFileName, const std::wstring& vsFunName, ID3D11Device* const device)
 	{
 		assert(!mVS.Get());
-		createShader(eShaderType::VS, L"vs_5_0", vsFileName, vsFunName);
+		createShader(eShaderBindType::VS, L"vs_5_0", vsFileName, vsFunName, device);
 	}
 
-	inline void Shader::CreateHSShader(const std::wstring& hsFileName, const std::wstring& hsFunName)
+	inline void Shader::CreateHSShader(const std::wstring& hsFileName, const std::wstring& hsFunName, ID3D11Device* const device)
 	{
 		assert(nullptr);
 		(void)hsFileName;
 		(void)hsFunName;
+		(void)device;
 
 	}
 
-	inline void Shader::CreateDSShader(const std::wstring& dsFileName, const std::wstring& dsFunName)
+	inline void Shader::CreateDSShader(const std::wstring& dsFileName, const std::wstring& dsFunName, ID3D11Device* const device)
 	{
 		assert(nullptr);
 		(void)dsFileName;
 		(void)dsFunName;
-
+		(void)device;
 	}
 
-	inline void Shader::CreateGSShader(const std::wstring& gsFileName, const std::wstring& gsFunName)
+	inline void Shader::CreateGSShader(const std::wstring& gsFileName, const std::wstring& gsFunName, ID3D11Device* const device)
 	{
 		assert(nullptr);
 		(void)gsFileName;
 		(void)gsFunName;
+		(void)device;
 	}
 
-	inline void Shader::createPSShader(const std::wstring& psFileName, const std::wstring& psFunName)
+	inline void Shader::createPSShader(const std::wstring& psFileName, const std::wstring& psFunName, ID3D11Device* const device)
 	{
 		assert(!mPS.Get());
-		createShader(eShaderType::PS, L"ps_5_0", psFileName, psFunName);
+		createShader(eShaderBindType::PS, L"ps_5_0", psFileName, psFunName, device);
 	}
 
 	HRESULT Shader::Load(const std::wstring& path)

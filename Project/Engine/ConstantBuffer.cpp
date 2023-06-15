@@ -4,11 +4,12 @@
 
 namespace engine
 {
-	ConstantBuffer::ConstantBuffer(const eCBType type, const UINT size)
+	ConstantBuffer::ConstantBuffer(const eCBType type, const UINT size, ID3D11Device* const device)
 		: mType(type)
 		, mDesc{}
 		, mBuffer(nullptr)
 	{
+		assert(device);
 		assert((size % 16) == 0);
 
 		mDesc.ByteWidth = size;
@@ -16,7 +17,7 @@ namespace engine
 		mDesc.CPUAccessFlags = D3D11_CPU_ACCESS_FLAG::D3D11_CPU_ACCESS_WRITE;
 		mDesc.Usage = D3D11_USAGE::D3D11_USAGE_DYNAMIC;
 
-		gDevie->CreateBuffer(&mDesc, nullptr, mBuffer.GetAddressOf());
+		device->CreateBuffer(&mDesc, nullptr, mBuffer.GetAddressOf());
 		assert(mBuffer.Get());
 	}
 

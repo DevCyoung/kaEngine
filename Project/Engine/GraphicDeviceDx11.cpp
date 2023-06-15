@@ -2,9 +2,15 @@
 #include "GraphicDeviceDX11.h"
 #include "Engine.h"
 
+//#include "Shader.h"
+
+#include "CBCollection.h"
+#include "ShaderCollection.h"
+
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "d3dcompiler.lib")
 
+#pragma region Comment Date : 2023-05-26 
 /*
 * Trouble : Fxing
 * Date : 2023-05-26
@@ -18,6 +24,7 @@
 * Date : 2023-05-29
 * 아직진행중...
 */
+#pragma endregion
 
 namespace engine::graphics
 {
@@ -27,10 +34,12 @@ namespace engine::graphics
 		Vector4 color;
 	};
 
+#pragma region Constructor
 #define SHAPE_COUNT 45
-
-	GraphicDeviceDX11::GraphicDeviceDX11()		
-	{		
+	GraphicDeviceDX11::GraphicDeviceDX11()
+		: mConstantBuffers(nullptr)
+		, mShaders(nullptr)
+	{
 		const HWND hWnd = gEngine->GetHwnd();
 		const UINT screenWidth = gEngine->GetScreenWidth();
 		const UINT screenHeight = gEngine->GetScreenHeight();
@@ -38,6 +47,7 @@ namespace engine::graphics
 #ifdef _DEBUG
 		const UINT deviceFlag = D3D11_CREATE_DEVICE_DEBUG;
 #else
+		//둘중 어떤걸로 해야하는지 고민중...
 		//const UINT deviceFlag = D3D11_CREATE_DEVICE_SINGLETHREADED;
 		const UINT deviceFlag = D3D11_CREATE_DEVICE_DEBUG;
 #endif
@@ -93,7 +103,7 @@ namespace engine::graphics
 			return;
 		}
 
-		
+
 
 
 
@@ -190,35 +200,57 @@ namespace engine::graphics
 			return;
 		}
 #pragma endregion
+
+#pragma region Create CBCollection		
+		mConstantBuffers = new CBCollection(mDevice.Get());
+#pragma endregion
+
+#pragma region Create Shaders
+		mShaders = new ShaderCollection(mDevice.Get());
+#pragma endregion
+
 	}
+#pragma endregion
 
 	GraphicDeviceDX11::~GraphicDeviceDX11()
 	{
+		delete mConstantBuffers;
+		mConstantBuffers = nullptr;
+		
+		delete mShaders;
+		mShaders = nullptr;
 	}
 
-	void GraphicDeviceDX11::BindIA(const Shader& shader)
+	void GraphicDeviceDX11::BindIA(const eShaderType type)
 	{
+		Shader& shader = mShaders->GetShader(type);
+
 		assert(shader.mInputLayout.Get());
 		mContext->IASetInputLayout(shader.mInputLayout.Get());
 		mContext->IASetPrimitiveTopology(shader.mTopology);
 	}
 
-	void GraphicDeviceDX11::BindVS(const Shader& shader)
+	void GraphicDeviceDX11::BindVS(const eShaderType type)
 	{
+		Shader& shader = mShaders->GetShader(type);
+
 		assert(shader.mVS.Get());
 		mContext->VSSetShader(shader.mVS.Get(), nullptr, 0);
 	}
 
-	void GraphicDeviceDX11::BindPS(const Shader& shader)
+	void GraphicDeviceDX11::BindPS(const eShaderType type)
 	{
+		Shader& shader = mShaders->GetShader(type);
+
 		assert(shader.mPS.Get());
 		mContext->PSSetShader(shader.mPS.Get(), nullptr, 0);
 	}
 
-	void GraphicDeviceDX11::PassCB(ConstantBuffer& CB, const void* const data)
+	void GraphicDeviceDX11::PassCB(const eCBType type, const void* const data)
 	{
 		assert(data);
 		D3D11_MAPPED_SUBRESOURCE subResource = {};
+		ConstantBuffer& CB = mConstantBuffers->GetConstantBuffer(type);
 
 		mContext->Map(CB.mBuffer.Get(), 0, D3D11_MAP::D3D11_MAP_WRITE_DISCARD, 0, &subResource);
 		{
@@ -227,8 +259,9 @@ namespace engine::graphics
 		mContext->Unmap(CB.mBuffer.Get(), 0);
 	}
 
-	void GraphicDeviceDX11::BindCB(const eShaderStage stage, const ConstantBuffer& CB)
+	void GraphicDeviceDX11::BindCB(const eCBType type, const eShaderStage stage)
 	{
+		ConstantBuffer& CB = mConstantBuffers->GetConstantBuffer(type);
 		const UINT startSlot = static_cast<UINT>(CB.mType);
 
 		switch (stage)
@@ -267,7 +300,6 @@ namespace engine::graphics
 		mContext->Draw(6, 0);
 	}
 
-
 	void GraphicDeviceDX11::clearRenderTarget()
 	{
 		constexpr FLOAT bgColor[4] = { 0.2f, 0.2f, 0.2f, 1.0f };
@@ -287,6 +319,6 @@ namespace engine::graphics
 
 	void GraphicDeviceDX11::present()
 	{
-		mSwapChain->Present(0, 0);
+		mSwapChain->Present(0, 0);	
 	}
 }

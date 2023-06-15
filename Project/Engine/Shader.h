@@ -1,11 +1,19 @@
 #pragma once
-#include "Resource.h"
 #include <d3d11.h>
 #include <d3dcompiler.h>
-#include "Engine.h"
+
+#include "Resource.h"
+
+
+
 namespace engine
 {	
-	enum class eShaderType
+	namespace graphics
+	{
+		class GraphicDeviceDX11;
+	}
+
+	enum class eShaderBindType
 	{
 		VS,
 		HS,
@@ -17,25 +25,26 @@ namespace engine
 	class	Shader : public Resource
 	{
 		friend class graphics::GraphicDeviceDX11;
+		friend class ShaderCollection;
 
 	public:
 		Shader(const std::wstring& vsFileName, const std::wstring& vsFunName,
-			const std::wstring& psFileName, const std::wstring psFunName);
+			const std::wstring& psFileName, const std::wstring psFunName, ID3D11Device* const device);
 		Shader(const D3D11_PRIMITIVE_TOPOLOGY topology,
 			const std::wstring& vsFileName, const std::wstring& vsFunName,
-			const std::wstring& psFileName, const std::wstring psFunName);
+			const std::wstring& psFileName, const std::wstring psFunName, ID3D11Device* const device);
 		virtual ~Shader();
-		inline void CreateHSShader(const std::wstring& hsFileName, const std::wstring& hsFunName);
-		inline void CreateDSShader(const std::wstring& dsFileName, const std::wstring& dsFunName);
-		inline void CreateGSShader(const std::wstring& gsFileName, const std::wstring& gsFunName);
+		inline void CreateHSShader(const std::wstring& hsFileName, const std::wstring& hsFunName, ID3D11Device* const device);
+		inline void CreateDSShader(const std::wstring& dsFileName, const std::wstring& dsFunName, ID3D11Device* const device);
+		inline void CreateGSShader(const std::wstring& gsFileName, const std::wstring& gsFunName, ID3D11Device* const device);
 		
 
 	private:
 		Shader(const Shader&) = delete;
-		inline void createVSShader(const std::wstring& vsFileName, const std::wstring& vsFunName);
-		inline void createPSShader(const std::wstring& psFileName, const std::wstring& psFunName);
-		void createShader(const eShaderType sType, const std::wstring& version, 
-			const std::wstring& fileName, const std::wstring& funName);	
+		inline void createVSShader(const std::wstring& vsFileName, const std::wstring& vsFunName, ID3D11Device* const device);
+		inline void createPSShader(const std::wstring& psFileName, const std::wstring& psFunName, ID3D11Device* const device);
+		void createShader(const eShaderBindType sType, const std::wstring& version,
+			const std::wstring& fileName, const std::wstring& funName, ID3D11Device* const device);
 	virtual HRESULT Load(const std::wstring& path) override;
 
 	private:

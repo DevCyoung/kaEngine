@@ -31,23 +31,14 @@
     <Filter Include="Shader">
       <UniqueIdentifier>{334c80dd-f244-4165-8f5a-307e5849ab32}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Core\Graphics">
-      <UniqueIdentifier>{8231d530-7a53-4699-a9cc-a474fbba78b9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\Helper\String">
       <UniqueIdentifier>{8a8f7d10-2e43-4c78-93bc-2cd3bc497544}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Constant">
-      <UniqueIdentifier>{86007f0a-87c4-4846-8ce4-366ac4909a67}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source\Scene">
       <UniqueIdentifier>{685c70d2-48e1-49d1-9f6e-24916c88ecf2}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source\GameObject">
       <UniqueIdentifier>{7ea5e00e-4716-4077-874d-183be25aae78}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\CBCollection">
-      <UniqueIdentifier>{446fb547-654a-4ebf-bc5f-38001f02c35b}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source\Manager">
       <UniqueIdentifier>{70d59ca5-f5ea-433b-beb7-f0fc6a430f5f}</UniqueIdentifier>
@@ -61,23 +52,26 @@
     <Filter Include="Source\Manager\Time">
       <UniqueIdentifier>{942ebe70-fdee-4307-8221-98dbfc5e1edd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\ConstantBufferManager">
-      <UniqueIdentifier>{ffd2cc87-b85c-4ead-b5ec-4d4881e7af3b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\Texture">
       <UniqueIdentifier>{7ee995f9-2bd7-4ac3-88ba-6a2ce18b291e}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source\Resources">
       <UniqueIdentifier>{2ff371fd-1518-4749-bfd5-6cdb96856c85}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Shader">
-      <UniqueIdentifier>{6e853aac-cd23-41af-9a41-92878832d38b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Core\Engine">
-      <UniqueIdentifier>{e6430191-00da-4151-afd7-1c9c3cd0ce20}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\Helper\Math">
       <UniqueIdentifier>{c6fe055c-5313-4b7b-b8b0-9caf2912f921}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Graphics">
+      <UniqueIdentifier>{8231d530-7a53-4699-a9cc-a474fbba78b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Engine">
+      <UniqueIdentifier>{e6430191-00da-4151-afd7-1c9c3cd0ce20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Graphics\Shader">
+      <UniqueIdentifier>{6e853aac-cd23-41af-9a41-92878832d38b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Graphics\Constant">
+      <UniqueIdentifier>{86007f0a-87c4-4846-8ce4-366ac4909a67}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -97,10 +91,10 @@
       <Filter>Windows</Filter>
     </ClInclude>
     <ClInclude Include="Engine.h">
-      <Filter>Source\Core\Engine</Filter>
+      <Filter>Source\Engine</Filter>
     </ClInclude>
     <ClInclude Include="GraphicDeviceDX11.h">
-      <Filter>Source\Core\Graphics</Filter>
+      <Filter>Source\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="InputManager.h">
       <Filter>Source\Manager\Input</Filter>
@@ -130,7 +124,7 @@
       <Filter>Source\Texture</Filter>
     </ClInclude>
     <ClInclude Include="Shader.h">
-      <Filter>Source\Shader</Filter>
+      <Filter>Source\Graphics\Shader</Filter>
     </ClInclude>
     <ClInclude Include="String.h">
       <Filter>Source\Helper\String</Filter>
@@ -142,21 +136,21 @@
       <Filter>Source\Scene</Filter>
     </ClInclude>
     <ClInclude Include="ConstantBuffer.h">
-      <Filter>Source\Constant</Filter>
-    </ClInclude>
-    <ClInclude Include="CBCollection.h">
-      <Filter>Source\CBCollection</Filter>
+      <Filter>Source\Graphics\Constant</Filter>
     </ClInclude>
     <ClInclude Include="SceneManager.h">
       <Filter>Source\Manager\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="ConstantBufferManager.h">
-      <Filter>Source\ConstantBufferManager</Filter>
     </ClInclude>
     <ClInclude Include="Renderer.h">
       <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="Layer.h" />
+    <ClInclude Include="ShaderCollection.h">
+      <Filter>Source\Graphics\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="CBCollection.h">
+      <Filter>Source\Graphics\Constant</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DXMath.cpp">
@@ -169,10 +163,10 @@
       <Filter>Source\Manager\Time</Filter>
     </ClCompile>
     <ClCompile Include="Engine.cpp">
-      <Filter>Source\Core\Engine</Filter>
+      <Filter>Source\Engine</Filter>
     </ClCompile>
     <ClCompile Include="GraphicDeviceDX11.cpp">
-      <Filter>Source\Core\Graphics</Filter>
+      <Filter>Source\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="InputManager.cpp">
       <Filter>Source\Manager\Input</Filter>
@@ -187,7 +181,7 @@
       <Filter>Source\Texture</Filter>
     </ClCompile>
     <ClCompile Include="Shader.cpp">
-      <Filter>Source\Shader</Filter>
+      <Filter>Source\Graphics\Shader</Filter>
     </ClCompile>
     <ClCompile Include="String.cpp">
       <Filter>Source\Helper\String</Filter>
@@ -199,16 +193,10 @@
       <Filter>Source\Scene</Filter>
     </ClCompile>
     <ClCompile Include="ConstantBuffer.cpp">
-      <Filter>Source\Constant</Filter>
-    </ClCompile>
-    <ClCompile Include="CBCollection.cpp">
-      <Filter>Source\CBCollection</Filter>
+      <Filter>Source\Graphics\Constant</Filter>
     </ClCompile>
     <ClCompile Include="SceneManager.cpp">
       <Filter>Source\Manager\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="ConstantBufferManager.cpp">
-      <Filter>Source\ConstantBufferManager</Filter>
     </ClCompile>
     <ClCompile Include="pch.cpp">
       <Filter>Windows</Filter>
@@ -217,6 +205,12 @@
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="Layer.cpp" />
+    <ClCompile Include="ShaderCollection.cpp">
+      <Filter>Source\Graphics\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="CBCollection.cpp">
+      <Filter>Source\Graphics\Constant</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="DXMath.inl">

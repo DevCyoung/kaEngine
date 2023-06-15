@@ -7,14 +7,13 @@
 #include "TimeManager.h"
 #include "InputManager.h"
 #include "SceneManager.h"
-#include "ConstantBufferManager.h"
+
 
 
 namespace engine
 {
 	Engine::Engine()
-		: mGraphicDevice(nullptr)
-		, mCBCollection()
+		: mGraphicDevice(nullptr)		
 		, mHwnd(nullptr)
 		, mWidth(static_cast<UINT>(-1))
 		, mHeight(static_cast<UINT>(-1))
@@ -23,22 +22,22 @@ namespace engine
 	}
 
 	Engine::~Engine()
-	{
-		//ConstantBufferManager::deleteInstance();
-		TimeManager::deleteInstance();
-		InputManager::deleteInstance();
+	{		
 		SceneManager::deleteInstance();
+		InputManager::deleteInstance();
+		TimeManager::deleteInstance();
+
 	}
 
-	ID3D11Device* Engine::GetDevice() const
-	{
-		return mGraphicDevice->mDevice.Get();
-	}
-
-	ID3D11DeviceContext* Engine::GetContext() const
-	{
-		return mGraphicDevice->mContext.Get();
-	}
+	//ID3D11Device* Engine::GetDevice() const
+	//{
+	//	return mGraphicDevice->mDevice.Get();
+	//}
+	//
+	//ID3D11DeviceContext* Engine::GetContext() const
+	//{
+	//	return mGraphicDevice->mContext.Get();
+	//}
 
 	graphics::GraphicDeviceDX11* Engine::GetGraphicDevice() const
 	{
@@ -53,9 +52,9 @@ namespace engine
 		sInstance->setWindow(hwnd, width, height);
 
 		sInstance->mGraphicDevice = std::make_unique<graphics::GraphicDeviceDX11>();
-		sInstance->mCBCollection = std::make_unique<CBCollection>();
+		//sInstance->mCBCollection = std::make_unique<CBCollection>();
 
-		//ConstantBufferManager::initialize();
+		
 		TimeManager::initialize();
 		InputManager::initialize();
 		SceneManager::initialize();

@@ -1,35 +1,29 @@
 #pragma once
-
 #include <wrl.h>
 #include <d3d11.h>
-#include "Engine.h"
+
+namespace graphics
+{
+	class GraphicDeviceDX11;
+}
 
 namespace engine
 {
-	enum class eShaderStage
-	{
-		VS,
-		HS,
-		DS,
-		GS,
-		PS,
-		CS,
-		End,
-	};
-
 	enum class eCBType
 	{
 		Transform,
+		Dummy,
 		End,
 	};
 
 	class ConstantBuffer
-	{
+	{			
+		friend class CBCollection;
 		friend class graphics::GraphicDeviceDX11;
 
-	public:
-		ConstantBuffer(const eCBType type, const UINT size);
-		virtual ~ConstantBuffer();		
+	private:
+		ConstantBuffer(const eCBType type, const UINT size, ID3D11Device* const device);
+		virtual ~ConstantBuffer();
 
 	private:
 		eCBType mType;

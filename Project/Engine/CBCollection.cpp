@@ -3,16 +3,16 @@
 
 namespace engine
 {
-	CBCollection::CBCollection()
-		: transform(eCBType::Transform, 16)
+	CBCollection::CBCollection(ID3D11Device* const device)
+		: mConstantBuffers
+		{			
+			ConstantBuffer(eCBType::Transform, 16, device),
+			ConstantBuffer(eCBType::Dummy, 16, device),
+		}
 	{		
 	}
 
 	CBCollection::~CBCollection()
-	{
-	}
-
-	void CBCollection::Initialize()
 	{
 	}
 }

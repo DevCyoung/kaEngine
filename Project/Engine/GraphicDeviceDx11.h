@@ -1,71 +1,66 @@
 #pragma once
-
 #include <d3d11.h>
 #include <d3dcompiler.h>
 #include <wrl/client.h>
-#include "Shader.h"
-#include "ConstantBuffer.h"
 
-class Engine;
-class Texture;
+namespace engine
+{
+	class CBCollection;
+	class ShaderCollection;
+	class Shader;
+
+	enum class eShaderType;
+	enum class eCBType;	
+	enum class eShaderStage
+	{
+		VS, HS, DS, GS, PS, CS, End,
+	};
+}
 
 namespace engine::graphics
 {
-    struct tTransform
-    {
-        Vector4 pos;
+	struct tTransform
+	{
+		Vector4 pos;
+	};
 
-    };
+	class GraphicDeviceDX11
+	{
+		friend class Engine;
+	public:
+		GraphicDeviceDX11();
+		virtual ~GraphicDeviceDX11();	
+		void BindIA(const eShaderType type);
+		void BindVS(const eShaderType type);
+		void BindPS(const eShaderType type);
+		void PassCB(const eCBType type, const void* const data);
+		void BindCB(const eCBType type, const eShaderStage stage);
+		//void BindVB();
+		void Draw();
 
-    class GraphicDeviceDX11
-    {
-        friend class Engine;            
-    public:
-        GraphicDeviceDX11();        
-        virtual ~GraphicDeviceDX11();
+	private:
+		void clearRenderTarget();
+		void present();
+		//void BindConstantBuffer();
+		//void BindRenderTarget(const Texture& texture);
+		//void BindPixelShader(const Shader& pixelShader);
+		//void BindVertexShader(const Shader& vertexShader);
 
-    private:
-        void clearRenderTarget();
-        void present();
-        //void BindConstantBuffer();
+	private:
+		Microsoft::WRL::ComPtr<ID3D11Device> mDevice;
+		Microsoft::WRL::ComPtr<ID3D11DeviceContext> mContext;
+		Microsoft::WRL::ComPtr<ID3D11Texture2D> mRenderTargetTexture;
+		Microsoft::WRL::ComPtr<ID3D11RenderTargetView> mRenderTargetView;
+		Microsoft::WRL::ComPtr<ID3D11Texture2D> mDepthStencilTexture;
+		Microsoft::WRL::ComPtr<ID3D11DepthStencilView> mDepthStencilView;
 
-        //void BindRenderTarget(const Texture& texture);
-        //void BindPixelShader(const Shader& pixelShader);
-        //void BindVertexShader(const Shader& vertexShader);
-    public:
-        void BindIA(const Shader& shader);
-        void BindVS(const Shader& shader);
-        void BindPS(const Shader& shader);
-        void PassCB(ConstantBuffer& CB, const void* const data);        
-        void BindCB(const eShaderStage stage, const ConstantBuffer& CB);
-        //void BindVB();
+		Microsoft::WRL::ComPtr<IDXGISwapChain> mSwapChain;
 
-        
+		Microsoft::WRL::ComPtr<ID3D11Buffer> triangleBuffer;
+		Microsoft::WRL::ComPtr<ID3D11Buffer> rectBuffer;
+		Microsoft::WRL::ComPtr<ID3D11Buffer> shapeBuffers[1000];
 
-            
-
-    public:
-        void Draw();
-
-    private:
-        Microsoft::WRL::ComPtr<ID3D11Device> mDevice;
-        Microsoft::WRL::ComPtr<ID3D11DeviceContext> mContext;
-
-        Microsoft::WRL::ComPtr<ID3D11Texture2D> mRenderTargetTexture;
-        Microsoft::WRL::ComPtr<ID3D11RenderTargetView> mRenderTargetView;
-
-        Microsoft::WRL::ComPtr<ID3D11Texture2D> mDepthStencilTexture;
-        Microsoft::WRL::ComPtr<ID3D11DepthStencilView> mDepthStencilView;        
-
-        Microsoft::WRL::ComPtr<IDXGISwapChain> mSwapChain;
-
-        Microsoft::WRL::ComPtr<ID3D11Buffer> triangleBuffer;
-        Microsoft::WRL::ComPtr<ID3D11Buffer> rectBuffer;
-
-        Microsoft::WRL::ComPtr<ID3D11Buffer> shapeBuffers[1000];
-
-        
-
-        //Shader* mTestShader;
-    };
+		CBCollection*	mConstantBuffers;
+		ShaderCollection* mShaders;
+	};
 }
