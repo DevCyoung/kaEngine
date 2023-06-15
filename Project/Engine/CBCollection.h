@@ -3,21 +3,22 @@
 
 struct ID3D11Device;
 
-namespace graphics
-{
-	class GraphicDeviceDX11;	
-}
-
 namespace engine
 {
+	namespace graphics
+	{
+		class GraphicDeviceDX11;
+	}
+
 	class CBCollection
 	{
 		friend class graphics::GraphicDeviceDX11;
 	private:
 		CBCollection(ID3D11Device* device);
-		CBCollection(const CBCollection& other) = delete;
-		CBCollection& operator =(const CBCollection& other) = delete;				
 		virtual ~CBCollection();
+		CBCollection(const CBCollection&) = delete;
+		CBCollection& operator=(const CBCollection&) = delete;
+
 		ConstantBuffer& GetConstantBuffer(const eCBType type)
 		{
 			return mConstantBuffers[static_cast<UINT>(type)];

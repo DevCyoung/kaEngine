@@ -14,18 +14,19 @@ namespace engine
 		END,
 	};
 
-	enum class eKeyState
-	{
-		Down,
-		Pressed,
-		Up,
-		None,
-	};
-
 	class InputManager
 	{	
 		friend class Engine;
 		SINGLETON_DECLARE(InputManager);
+	private:
+		enum class eKeyState
+		{
+			Down,
+			Pressed,
+			Up,
+			None,
+		};
+
 	public:
 		eKeyState GetKeyState(const eKeyCode key)
 		{
@@ -47,7 +48,7 @@ namespace engine
 			return mKeyInfos[static_cast<UINT>(key)].state == eKeyState::Up;
 		};
 
-		Vector2 GetMousePos()
+		const Vector2& GetMousePos() const
 		{
 			return mMousePos;
 		}

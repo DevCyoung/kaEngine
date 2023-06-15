@@ -7,15 +7,11 @@ namespace engine
 {
 	namespace safe
 	{
-		
-
 		template<typename T, UINT Size>
 		void DeleteArray(T* (&arr)[Size])
 		{
 			for (UINT i = 0; i < Size; ++i)
 			{
-				assert(arr[i]);
-
 				delete arr[i];
 				arr[i] = nullptr;
 			}
@@ -47,5 +43,5 @@ namespace engine
 
 			map.clear();
 		}
-		}
 	}
+}

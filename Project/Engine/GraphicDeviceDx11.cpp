@@ -1,6 +1,5 @@
 #include "pch.h"
 #include "GraphicDeviceDX11.h"
-#include "Engine.h"
 #include "MeshCollection.h"
 #include "CBCollection.h"
 #include "ShaderCollection.h"
@@ -60,50 +59,6 @@ namespace engine::graphics
 		}
 #pragma endregion
 
-#pragma region Create Vertex Buffer
-		D3D11_BUFFER_DESC triangleDesc = {};
-		triangleDesc.Usage = D3D11_USAGE::D3D11_USAGE_DYNAMIC;
-		triangleDesc.ByteWidth = sizeof(Vertex) * 6;
-		triangleDesc.BindFlags = D3D11_BIND_FLAG::D3D11_BIND_VERTEX_BUFFER;
-		triangleDesc.CPUAccessFlags = D3D11_CPU_ACCESS_FLAG::D3D11_CPU_ACCESS_WRITE;
-
-		D3D11_SUBRESOURCE_DATA triangleData = {};
-		Vertex triVertexes[6] = {};
-
-		Microsoft::WRL::ComPtr<IUnknown> ptr;
-		triVertexes[0].pos = Vector3(-0.5f, 0.5f, 0.0f);
-		triVertexes[0].color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
-
-		triVertexes[1].pos = Vector3(0.5f, -0.5f, 0.0f);
-		triVertexes[1].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
-
-		triVertexes[2].pos = Vector3(-0.5f, -0.5f, 0.0f);
-		triVertexes[2].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
-
-
-		triVertexes[3].pos = Vector3(-0.5f, 0.5f, 0.0f);
-		triVertexes[3].color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
-
-		triVertexes[4].pos = Vector3(0.5f, 0.5f, 0.0f);
-		triVertexes[4].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
-
-		triVertexes[5].pos = Vector3(0.5f, -0.5f, 0.0f);
-		triVertexes[5].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
-
-
-		triangleData.pSysMem = triVertexes;
-		if (FAILED(mDevice->CreateBuffer(&triangleDesc, &triangleData, triangleBuffer.GetAddressOf())))
-		{
-			MessageBox(hWnd, L"Failed to create triangle buffer", L"Error", MB_OK);
-			return;
-		}
-
-
-
-
-
-
-#pragma endregion
 
 #pragma region Create SwaphChain
 		DXGI_SWAP_CHAIN_DESC swapChainDesc = {};
@@ -207,10 +162,6 @@ namespace engine::graphics
 #pragma region Create ConstantBuffers		
 		mConstantBuffers = new CBCollection(mDevice.Get());
 #pragma endregion
-
-
-
-
 	}
 #pragma endregion
 
@@ -259,29 +210,29 @@ namespace engine::graphics
 		mContext->Unmap(CB.mBuffer.Get(), 0);
 	}
 
-	void GraphicDeviceDX11::BindCB(const eCBType type, const eShaderStage stage)
+	void GraphicDeviceDX11::BindCB(const eCBType type, const eShaderBindType stage)
 	{
 		ConstantBuffer& CB = mConstantBuffers->GetConstantBuffer(type);
 		const UINT startSlot = static_cast<UINT>(CB.mType);
 
 		switch (stage)
 		{
-		case eShaderStage::VS:
+		case eShaderBindType::VS:
 			mContext->VSSetConstantBuffers(startSlot, 1, CB.mBuffer.GetAddressOf());
 			break;
-		case eShaderStage::HS:
+		case eShaderBindType::HS:
 			mContext->HSSetConstantBuffers(startSlot, 1, CB.mBuffer.GetAddressOf());
 			break;
-		case eShaderStage::DS:
+		case eShaderBindType::DS:
 			mContext->DSSetConstantBuffers(startSlot, 1, CB.mBuffer.GetAddressOf());
 			break;
-		case eShaderStage::GS:
+		case eShaderBindType::GS:
 			mContext->GSSetConstantBuffers(startSlot, 1, CB.mBuffer.GetAddressOf());
 			break;
-		case eShaderStage::PS:
+		case eShaderBindType::PS:
 			mContext->PSSetConstantBuffers(startSlot, 1, CB.mBuffer.GetAddressOf());
 			break;
-		case eShaderStage::CS:
+		case eShaderBindType::CS:
 			mContext->CSSetConstantBuffers(startSlot, 1, CB.mBuffer.GetAddressOf());
 			break;
 		default:
@@ -290,25 +241,30 @@ namespace engine::graphics
 		}
 	}
 
-	void GraphicDeviceDX11::Draw()
+	void GraphicDeviceDX11::BindMesh(const eMeshType type)
 	{
-		//FIXME!
-		UINT vertexsize = sizeof(Vertex);
-		UINT offset = 0;
+		const Mesh* const mesh = mMeshs->GetConstantBuffer(type);
 
-		mContext->IASetVertexBuffers(0, 1, triangleBuffer.GetAddressOf(), &vertexsize, &offset);
-		mContext->Draw(6, 0);
+		const UINT vertexSize = mesh->GetVertexSize();
+		const UINT offset = 0;
+		mContext->IASetVertexBuffers(0, 1, mesh->mBuffer.GetAddressOf(), &vertexSize, &offset);
 	}
 
-	void GraphicDeviceDX11::clearRenderTarget()
+	void GraphicDeviceDX11::Draw(const eMeshType type, const UINT StartVertexLocation)
+	{	
+		const Mesh* const mesh = mMeshs->GetConstantBuffer(type);
+
+		const UINT vertexSize = mesh->GetVertexCount();
+		mContext->Draw(vertexSize, StartVertexLocation);
+	}
+
+	void GraphicDeviceDX11::clearRenderTarget(const UINT screenWidth, const UINT screenHeight)
 	{
 		constexpr FLOAT bgColor[4] = { 0.2f, 0.2f, 0.2f, 1.0f };
-		const FLOAT scerenWidth = static_cast<FLOAT>(gEngine->GetScreenWidth());
-		const FLOAT screnHeight = static_cast<FLOAT>(gEngine->GetScreenHeight());
 		const D3D11_VIEWPORT mViewPort =
 		{
 			0.0f, 0.0f,
-			scerenWidth, screnHeight,
+			static_cast<FLOAT>(screenWidth), static_cast<FLOAT>(screenHeight),
 			0.0f, 1.0f
 		};
 		mContext->OMSetRenderTargets(1, mRenderTargetView.GetAddressOf(), mDepthStencilView.Get());

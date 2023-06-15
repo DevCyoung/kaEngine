@@ -36,11 +36,11 @@ namespace engine
 		}
 	}
 
-	void Scene::render(/*mGraphicDevice*/)
+	void Scene::render()
 	{
 		for (Layer& layer : mLayers)
 		{
-			layer.render(/*mGraphicDevice*/);
+			layer.render();
 		}
 	}
 

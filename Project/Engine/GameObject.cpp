@@ -1,68 +1,78 @@
 #include "pch.h"
 #include "GameObject.h"
-
-#include "GraphicDeviceDx11.h"
-#include "ShaderCollection.h"
-#include "CBCollection.h"
-
-#include "Engine.h"
-#include "InputManager.h"
-#include "TimeManager.h"
+#include "MeshRenderer.h"
 
 namespace engine
 {
 	GameObject::GameObject()
-		: mState(GameObject::Active)		
-		, mX(0.f)
-		, mY(0.f)
+		: mState(eState::Active)
+		, mEngineComponents{0, }		
 	{		
+		//모든 오브젝트는 반드시 Transform 을 가지고있는다.
+		AddComponent(new Transform());		
+		AddComponent(new MeshRenderer());
 	}
 
 	GameObject::~GameObject()
 	{
+		safe::DeleteArray(mEngineComponents);
+	}
+
+	void GameObject::AddComponent(Component* const component)
+	{
+		assert(component);
+		assert(!(component->mOwner));
+
+		const eComponentType type =  component->GetType();
+
+		assert(!mEngineComponents[static_cast<UINT>(type)]);
+		
+		mEngineComponents[static_cast<int>(type)] = component;
+
+		component->mOwner = this;
 	}
 
 	void GameObject::initialize()
 	{
+		for (Component* const component : mEngineComponents)
+		{
+			if (component)
+			{
+				component->initialize();
+			}
+		}
 	}
 
 	void GameObject::update()
 	{
-		
-		const float speed = 0.5f;
-		if (gInput->GetKey(eKeyCode::W))
+		for (Component* const component : mEngineComponents)
 		{
-			mY += speed * gDeltaTime;
+			if (component)
+			{
+				component->update();
+			}
 		}
-		if (gInput->GetKey(eKeyCode::S))
-		{
-			mY -= speed * gDeltaTime;
-		}
-		if (gInput->GetKey(eKeyCode::A))
-		{
-			mX -= speed * gDeltaTime;
-		}
-		if (gInput->GetKey(eKeyCode::D))
-		{
-			mX += speed * gDeltaTime;
-		}
-
-		const Vector4 pos = { mX, mY, 0.f, 0.f };
-
-		gGraphicDevice->PassCB(eCBType::Transform, &pos);
-
 	}
 
 	void GameObject::lateUpdate()
 	{
+		for (Component* const component : mEngineComponents)
+		{
+			if (component)
+			{
+				component->lateUpdate();
+			}
+		}
 	}
 
 	void GameObject::render(/*mGraphicDevice*/)
 	{		
-		gGraphicDevice->BindIA(eShaderType::Default);
-		gGraphicDevice->BindPS(eShaderType::Default);
-		gGraphicDevice->BindVS(eShaderType::Default);
-		gGraphicDevice->BindCB(eCBType::Transform, eShaderStage::VS);
-		gGraphicDevice->Draw();
+		for (Component* const component : mEngineComponents)
+		{
+			if (component)
+			{
+				component->render();
+			}
+		}
 	}
 }

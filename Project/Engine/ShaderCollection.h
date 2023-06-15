@@ -1,5 +1,4 @@
 #pragma once
-
 #include "Shader.h"
 
 namespace engine
@@ -7,6 +6,10 @@ namespace engine
 	enum class eShaderType
 	{
 		Default,
+		Animation,
+		Shadow,
+		Blink,
+		Blood,
 		End,
 	};
 
@@ -16,9 +19,9 @@ namespace engine
 
 	private:
 		ShaderCollection(ID3D11Device* const device, const HWND hWnd);
-		ShaderCollection(const ShaderCollection& other) = delete;
-		ShaderCollection& operator =(const ShaderCollection& other) = delete;
 		virtual ~ShaderCollection();
+		ShaderCollection(const ShaderCollection&) = delete;
+		ShaderCollection& operator=(const ShaderCollection&) = delete;
 
 		Shader& GetShader(const eShaderType type)
 		{

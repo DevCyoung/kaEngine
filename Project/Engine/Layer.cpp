@@ -11,15 +11,27 @@ namespace engine
 
 	Layer::~Layer()
 	{
-		for (GameObject* const gameObject : mGameObjects)
-		{
-			delete gameObject;
-		}
+		safe::DeleteVec(mGameObjects);
 	}
 
 	void Layer::initialize()
 	{
-		mGameObjects.push_back(new GameObject);
+		//Test Rendering Code
+		GameObject* testOBJ = new GameObject;
+		testOBJ->GetComponent<Transform>()->SetPosition(0.5f, 0.0f, 0.0f);
+		mGameObjects.push_back(testOBJ);
+
+		testOBJ = new GameObject;
+		testOBJ->GetComponent<Transform>()->SetPosition(-0.5f, 0.0f, 0.0f);
+		mGameObjects.push_back(testOBJ);
+
+		testOBJ = new GameObject;
+		testOBJ->GetComponent<Transform>()->SetPosition(0.0f, 0.5f, 0.0f);
+		mGameObjects.push_back(testOBJ);
+
+		testOBJ = new GameObject;
+		testOBJ->GetComponent<Transform>()->SetPosition(0.0f, -0.5f, 0.0f);
+		mGameObjects.push_back(testOBJ);
 
 		for (GameObject* const gameObject : mGameObjects)
 		{
@@ -44,7 +56,7 @@ namespace engine
 	{
 		for (GameObject* const gameObject : mGameObjects)
 		{
-			gameObject->render(/*mGraphicDevice*/);
+			gameObject->render();
 		}
 	}
 }

@@ -16,5 +16,9 @@
     <ClInclude Include="framework.h">
       <Filter>Windows\리소스 파일</Filter>
     </ClInclude>
+    <ClInclude Include="test.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="test.cpp" />
   </ItemGroup>
 </Project>

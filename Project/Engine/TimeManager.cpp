@@ -4,8 +4,8 @@
 namespace engine
 {	
 	TimeManager::TimeManager()
-		: mDeltaTime(0.0l)
-		, mSecond(0.0l)
+		: mDeltaTime(0.0f)
+		, mSecond(0.0f)
 		, mCpuFrequency{}
 		, mPrevFrequency{}
 		, mCurFrequency{}

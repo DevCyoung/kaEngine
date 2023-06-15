@@ -3,10 +3,12 @@
 
 namespace engine
 {
-	enum class eVBType
+	enum class eMeshType
 	{
 		Rect,
 		Circle,
+		FillRect,
+		FillCircle,
 		End,
 	};
 
@@ -23,17 +25,19 @@ namespace engine
 	private:		
 		MeshCollection(ID3D11Device* const device);
 		virtual ~MeshCollection();
-		MeshCollection(const MeshCollection& other) = delete;
-		MeshCollection& operator =(const MeshCollection& other) = delete;
+		MeshCollection(const MeshCollection&) = delete;
+		MeshCollection& operator=(const MeshCollection&) = delete;
 
 		void CreateEngineMesh(ID3D11Device* const device);
 
-		Mesh* GetConstantBuffer(const eVBType type) 
+		Mesh* GetConstantBuffer(const eMeshType type)
 		{
+			assert(mMeshs[type]);
+
 			return mMeshs[type];
 		}
 
 	private:
-		std::unordered_map<eVBType, Mesh*> mMeshs;
+		std::unordered_map<eMeshType, Mesh*> mMeshs;
 	};
 }

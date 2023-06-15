@@ -12,6 +12,7 @@ namespace engine
 	enum class eCBType
 	{
 		Transform,
+		ParticleInfo,
 		Dummy,
 		End,
 	};
@@ -24,6 +25,8 @@ namespace engine
 	private:
 		ConstantBuffer(const eCBType type, const UINT size, ID3D11Device* const device);
 		virtual ~ConstantBuffer();
+		ConstantBuffer(const ConstantBuffer&) = delete;
+		ConstantBuffer& operator=(const ConstantBuffer&) = delete;
 
 	private:
 		eCBType mType;

@@ -11,8 +11,7 @@ namespace engine
 		: mGraphicDevice(nullptr)		
 		, mHwnd(nullptr)
 		, mScreenWidth(static_cast<UINT>(-1))
-		, mScreenHeight(static_cast<UINT>(-1))
-		, mbInitialize(false)
+		, mScreenHeight(static_cast<UINT>(-1))		
 	{
 	}
 
@@ -23,18 +22,14 @@ namespace engine
 		TimeManager::deleteInstance();
 	}
 
-	graphics::GraphicDeviceDX11* Engine::GetGraphicDevice() const
-	{
-		return mGraphicDevice.get();
-	}
-
 	void Engine::initialize(const HWND hWnd, const UINT screenWidth, const UINT screenHeight)
 	{
 		assert(!sInstance);
 		sInstance = new Engine();
 
 		sInstance->setWindow(hWnd, screenWidth, screenHeight);
-		sInstance->mGraphicDevice = std::make_unique<graphics::GraphicDeviceDX11>(hWnd, screenWidth, screenHeight);
+		sInstance->mGraphicDevice = std::make_unique<graphics::GraphicDeviceDX11>(hWnd, 
+			screenWidth, screenHeight);
 				
 		TimeManager::initialize();
 		InputManager::initialize();
@@ -64,7 +59,7 @@ namespace engine
 	{
 		TimeManager::GetInstance()->render(mHwnd);
 
-		mGraphicDevice->clearRenderTarget();
+		mGraphicDevice->clearRenderTarget(mScreenWidth, mScreenHeight);
 		SceneManager::GetInstance()->render();
 		mGraphicDevice->present();
 	}

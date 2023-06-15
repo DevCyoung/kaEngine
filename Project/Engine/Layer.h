@@ -30,6 +30,3 @@ namespace engine
 		std::vector<GameObject*> mGameObjects;
 	};
 }
-
-
-

@@ -12,11 +12,7 @@ namespace engine
 
 	enum class eShaderBindType
 	{
-		VS,
-		HS,
-		DS,
-		GS,
-		PS
+		VS, HS, DS, GS, PS, CS
 	};
 
 	class	Shader : public Resource
@@ -35,6 +31,7 @@ namespace engine
 		virtual ~Shader();
 		Shader(const Shader&) = delete;
 		Shader& operator=(const Shader&) = delete;
+
 		void CreateHSShader(const std::wstring& hsFileName, const std::wstring& hsFunName, 
 									ID3D11Device* const device, const HWND hwnd);
 		void CreateDSShader(const std::wstring& dsFileName, const std::wstring& dsFunName, 

@@ -19,16 +19,22 @@ namespace engine
 
 	private:		
 		Mesh(const D3D11_BUFFER_DESC& pDesc, const D3D11_SUBRESOURCE_DATA* const pInitialData,
-			ID3D11Device* const device);		
-		Mesh(const Mesh& other) = delete;
-		Mesh& operator =(const Mesh& other) = delete;
+			const UINT vertexSize, const UINT vertexCount, ID3D11Device* const device);		
+		Mesh(const Mesh&) = delete;
+		Mesh& operator=(const Mesh&) = delete;
+
 	public:
 		virtual ~Mesh();
-
+		UINT GetMeshSize() const;
+		UINT GetVertexSize() const;
+		UINT GetVertexCount() const;
 		virtual HRESULT Load(const std::wstring& path) override;
 
 	private:
 		D3D11_BUFFER_DESC mDesc;
+		UINT mVertexSize;
+		UINT mVertexCount;
+
 		Microsoft::WRL::ComPtr<ID3D11Buffer> mBuffer;
 	};
 }

@@ -7,8 +7,12 @@ namespace engine
 		: mShaders
 		{
 			Shader(L"VertexShader.hlsl", L"main", L"PixelShader.hlsl", L"main", device, hWnd),
+			Shader(L"VertexShader.hlsl", L"main", L"PixelShader.hlsl", L"main", device, hWnd),
+			Shader(L"VertexShader.hlsl", L"main", L"PixelShader.hlsl", L"main", device, hWnd),
+			Shader(L"VertexShader.hlsl", L"main", L"PixelShader.hlsl", L"main", device, hWnd),
+			Shader(L"VertexShader.hlsl", L"main", L"PixelShader.hlsl", L"main", device, hWnd),
 		}
-	{		
+	{
 	}
 
 	ShaderCollection::~ShaderCollection()

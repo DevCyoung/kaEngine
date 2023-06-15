@@ -4,9 +4,6 @@
 
 #include "Singleton.h"
 
-struct ID3D11Device;
-struct ID3D11DeviceContext;
-
 namespace engine
 {
     namespace graphics
@@ -16,15 +13,15 @@ namespace engine
 
     class Engine
     {    
-        friend int APIENTRY ::wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
-            _In_ LPWSTR    lpCmdLine, _In_ int       nCmdShow);
+        friend int APIENTRY ::wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
+            LPWSTR lpCmdLine, int nCmdShow);
         SINGLETON_DECLARE(Engine);
 
     public:
         UINT GetScreenWidth() const { return mScreenWidth; }
         UINT GetScreenHeight() const { return mScreenHeight; }
         HWND GetHwnd() const { return mHwnd; }
-        graphics::GraphicDeviceDX11* GetGraphicDevice() const;        
+        graphics::GraphicDeviceDX11* GetGraphicDevice() const { return mGraphicDevice.get(); }
 
     private:    
         static void initialize(const HWND hwnd, const UINT width, const UINT height);
@@ -39,10 +36,9 @@ namespace engine
         HWND mHwnd;
         UINT mScreenWidth;
         UINT mScreenHeight;        
-        bool mbInitialize = false;                
+        
     };    
 }
 
 #define gEngine engine::Engine::GetInstance()
 #define gGraphicDevice gEngine->GetGraphicDevice()
-

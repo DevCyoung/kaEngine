@@ -154,10 +154,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CBCollection.h" />
+    <ClInclude Include="Component.h" />
     <ClInclude Include="ConstantBuffer.h" />
+    <ClInclude Include="EenableIfComponent.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="EngineIncludes.h" />
     <ClInclude Include="Entity.h" />
+    <ClInclude Include="EnumConponent.h" />
     <ClInclude Include="EnumFlag.h" />
     <ClInclude Include="DXMath.h" />
     <ClInclude Include="Enums.h" />
@@ -167,6 +170,7 @@
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="Layer.h" />
     <ClInclude Include="MacroDefine.h" />
+    <ClInclude Include="MeshRenderer.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Resources.h" />
@@ -181,9 +185,11 @@
     <ClInclude Include="TimeManager.h" />
     <ClInclude Include="MeshCollection.h" />
     <ClInclude Include="Mesh.h" />
+    <ClInclude Include="Transform.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CBCollection.cpp" />
+    <ClCompile Include="Component.cpp" />
     <ClCompile Include="ConstantBuffer.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="DXMath.cpp" />
@@ -192,6 +198,7 @@
     <ClCompile Include="GraphicDeviceDX11.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Layer.cpp" />
+    <ClCompile Include="MeshRenderer.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
@@ -207,6 +214,7 @@
     <ClCompile Include="TimeManager.cpp" />
     <ClCompile Include="MeshCollection.cpp" />
     <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="DXMath.inl" />

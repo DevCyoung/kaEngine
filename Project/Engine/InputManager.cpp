@@ -3,8 +3,6 @@
 
 namespace engine
 {
-	using namespace engine::math;
-
 	static int ASCII[(UINT)eKeyCode::END] =
 	{
 		'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P',
