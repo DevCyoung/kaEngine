@@ -20,38 +20,29 @@ namespace engine
             _In_ LPWSTR    lpCmdLine, _In_ int       nCmdShow);
         SINGLETON_DECLARE(Engine);
 
-        //SINGLETON(Engine);
     public:
-        UINT GetScreenWidth() const { return mWidth; }
-        UINT GetScreenHeight() const { return mHeight; }
+        UINT GetScreenWidth() const { return mScreenWidth; }
+        UINT GetScreenHeight() const { return mScreenHeight; }
         HWND GetHwnd() const { return mHwnd; }
-
-        //ID3D11Device* GetDevice() const;
-        //ID3D11DeviceContext* GetContext() const;
-
         graphics::GraphicDeviceDX11* GetGraphicDevice() const;        
 
     private:    
         static void initialize(const HWND hwnd, const UINT width, const UINT height);
-
         void setWindow(const HWND hwnd, const UINT width, const UINT height);
         void run();
         void update();
         void lateUpdate();        
-        void render();    
+        void render();
 
     private: 
-        std::unique_ptr<engine::graphics::GraphicDeviceDX11> mGraphicDevice;  
-
+        std::unique_ptr<engine::graphics::GraphicDeviceDX11> mGraphicDevice;
         HWND mHwnd;
-        UINT mWidth;
-        UINT mHeight;        
+        UINT mScreenWidth;
+        UINT mScreenHeight;        
         bool mbInitialize = false;                
     };    
 }
 
 #define gEngine engine::Engine::GetInstance()
 #define gGraphicDevice gEngine->GetGraphicDevice()
-//#define gDevie gEngine->GetDevice()
-//#define gContext gEngine->GetContext()
-#define gConstantBuffers gEngine->GetCBCollection()
+

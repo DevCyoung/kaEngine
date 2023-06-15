@@ -1,9 +1,7 @@
 #pragma once
-
-#include "Scene.h"
 #include "Singleton.h"
 
-
+class Scene;
 
 namespace engine
 {		

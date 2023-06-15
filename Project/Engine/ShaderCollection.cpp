@@ -3,10 +3,10 @@
 
 namespace engine
 {
-	ShaderCollection::ShaderCollection(ID3D11Device* device)
+	ShaderCollection::ShaderCollection(ID3D11Device* const device, const HWND hWnd)
 		: mShaders
 		{
-			Shader(L"VertexShader.hlsl", L"main", L"PixelShader.hlsl", L"main", device),
+			Shader(L"VertexShader.hlsl", L"main", L"PixelShader.hlsl", L"main", device, hWnd),
 		}
 	{		
 	}

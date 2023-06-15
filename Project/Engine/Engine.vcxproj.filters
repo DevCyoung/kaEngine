@@ -4,17 +4,11 @@
     <Filter Include="Source">
       <UniqueIdentifier>{078f7a60-0f22-4edc-9272-bb057849412a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Core">
-      <UniqueIdentifier>{7f04372e-c8ef-4ba2-ac02-d344a61c6f54}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\Helper">
       <UniqueIdentifier>{c549a15d-9112-48dc-b1ab-cc8178f448bc}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source\Helper\File">
       <UniqueIdentifier>{2d9164a7-f9d1-44ba-b093-7a129be4a17c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Core\Resource">
-      <UniqueIdentifier>{6fd5e19a-f00d-4990-ba98-d245caa6d931}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source\Entity">
       <UniqueIdentifier>{0febf985-2089-4d69-9d73-46a0d133a463}</UniqueIdentifier>
@@ -24,12 +18,6 @@
     </Filter>
     <Filter Include="Source\Singleton">
       <UniqueIdentifier>{ee78ce07-d9a5-4e30-bcf8-2e77dbd9fa7d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Core\Include">
-      <UniqueIdentifier>{75a58b25-b5b9-4fcb-ab41-d8b4a2cbedb8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Shader">
-      <UniqueIdentifier>{334c80dd-f244-4165-8f5a-307e5849ab32}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source\Helper\String">
       <UniqueIdentifier>{8a8f7d10-2e43-4c78-93bc-2cd3bc497544}</UniqueIdentifier>
@@ -61,17 +49,32 @@
     <Filter Include="Source\Helper\Math">
       <UniqueIdentifier>{c6fe055c-5313-4b7b-b8b0-9caf2912f921}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Graphics">
+    <Filter Include="ShaderCode">
+      <UniqueIdentifier>{334c80dd-f244-4165-8f5a-307e5849ab32}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Resource">
+      <UniqueIdentifier>{6fd5e19a-f00d-4990-ba98-d245caa6d931}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Include">
+      <UniqueIdentifier>{75a58b25-b5b9-4fcb-ab41-d8b4a2cbedb8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Layer">
+      <UniqueIdentifier>{aa7c299d-4c28-4be3-b4c8-cc76acd75ae3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Manager\Graphics">
       <UniqueIdentifier>{8231d530-7a53-4699-a9cc-a474fbba78b9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Engine">
-      <UniqueIdentifier>{e6430191-00da-4151-afd7-1c9c3cd0ce20}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Graphics\Shader">
+    <Filter Include="Source\Manager\Graphics\Shader">
       <UniqueIdentifier>{6e853aac-cd23-41af-9a41-92878832d38b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Graphics\Constant">
+    <Filter Include="Source\Manager\Engine">
+      <UniqueIdentifier>{e6430191-00da-4151-afd7-1c9c3cd0ce20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Manager\Graphics\ConstantBuffer">
       <UniqueIdentifier>{86007f0a-87c4-4846-8ce4-366ac4909a67}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Manager\Graphics\Mesh">
+      <UniqueIdentifier>{10483826-e309-44fc-962d-6c91b0d3b85f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -91,16 +94,16 @@
       <Filter>Windows</Filter>
     </ClInclude>
     <ClInclude Include="Engine.h">
-      <Filter>Source\Engine</Filter>
+      <Filter>Source\Manager\Engine</Filter>
     </ClInclude>
     <ClInclude Include="GraphicDeviceDX11.h">
-      <Filter>Source\Graphics</Filter>
+      <Filter>Source\Manager\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="InputManager.h">
       <Filter>Source\Manager\Input</Filter>
     </ClInclude>
     <ClInclude Include="Resource.h">
-      <Filter>Source\Core\Resource</Filter>
+      <Filter>Source\Resource</Filter>
     </ClInclude>
     <ClInclude Include="Resources.h">
       <Filter>Source\Resources</Filter>
@@ -109,22 +112,22 @@
       <Filter>Source\Singleton</Filter>
     </ClInclude>
     <ClInclude Include="EngineIncludes.h">
-      <Filter>Source\Core\Include</Filter>
+      <Filter>Source\Include</Filter>
     </ClInclude>
     <ClInclude Include="EnumFlag.h">
-      <Filter>Source\Core\Include</Filter>
+      <Filter>Source\Include</Filter>
     </ClInclude>
     <ClInclude Include="Enums.h">
-      <Filter>Source\Core\Include</Filter>
+      <Filter>Source\Include</Filter>
     </ClInclude>
     <ClInclude Include="MacroDefine.h">
-      <Filter>Source\Core\Include</Filter>
+      <Filter>Source\Include</Filter>
     </ClInclude>
     <ClInclude Include="Textrue.h">
       <Filter>Source\Texture</Filter>
     </ClInclude>
     <ClInclude Include="Shader.h">
-      <Filter>Source\Graphics\Shader</Filter>
+      <Filter>Source\Manager\Graphics\Shader</Filter>
     </ClInclude>
     <ClInclude Include="String.h">
       <Filter>Source\Helper\String</Filter>
@@ -136,20 +139,28 @@
       <Filter>Source\Scene</Filter>
     </ClInclude>
     <ClInclude Include="ConstantBuffer.h">
-      <Filter>Source\Graphics\Constant</Filter>
+      <Filter>Source\Manager\Graphics\ConstantBuffer</Filter>
     </ClInclude>
     <ClInclude Include="SceneManager.h">
       <Filter>Source\Manager\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="Renderer.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="Layer.h" />
     <ClInclude Include="ShaderCollection.h">
-      <Filter>Source\Graphics\Shader</Filter>
+      <Filter>Source\Manager\Graphics\Shader</Filter>
     </ClInclude>
     <ClInclude Include="CBCollection.h">
-      <Filter>Source\Graphics\Constant</Filter>
+      <Filter>Source\Manager\Graphics\ConstantBuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="Layer.h">
+      <Filter>Source\Layer</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>Source\Manager\Graphics\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshCollection.h">
+      <Filter>Source\Manager\Graphics\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="SafeDelete.h">
+      <Filter>Source</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -163,16 +174,16 @@
       <Filter>Source\Manager\Time</Filter>
     </ClCompile>
     <ClCompile Include="Engine.cpp">
-      <Filter>Source\Engine</Filter>
+      <Filter>Source\Manager\Engine</Filter>
     </ClCompile>
     <ClCompile Include="GraphicDeviceDX11.cpp">
-      <Filter>Source\Graphics</Filter>
+      <Filter>Source\Manager\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="InputManager.cpp">
       <Filter>Source\Manager\Input</Filter>
     </ClCompile>
     <ClCompile Include="Resource.cpp">
-      <Filter>Source\Core\Resource</Filter>
+      <Filter>Source\Resource</Filter>
     </ClCompile>
     <ClCompile Include="Resources.cpp">
       <Filter>Source\Resources</Filter>
@@ -181,7 +192,7 @@
       <Filter>Source\Texture</Filter>
     </ClCompile>
     <ClCompile Include="Shader.cpp">
-      <Filter>Source\Graphics\Shader</Filter>
+      <Filter>Source\Manager\Graphics\Shader</Filter>
     </ClCompile>
     <ClCompile Include="String.cpp">
       <Filter>Source\Helper\String</Filter>
@@ -193,7 +204,7 @@
       <Filter>Source\Scene</Filter>
     </ClCompile>
     <ClCompile Include="ConstantBuffer.cpp">
-      <Filter>Source\Graphics\Constant</Filter>
+      <Filter>Source\Manager\Graphics\ConstantBuffer</Filter>
     </ClCompile>
     <ClCompile Include="SceneManager.cpp">
       <Filter>Source\Manager\Scene</Filter>
@@ -201,15 +212,23 @@
     <ClCompile Include="pch.cpp">
       <Filter>Windows</Filter>
     </ClCompile>
-    <ClCompile Include="Renderer.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Layer.cpp" />
     <ClCompile Include="ShaderCollection.cpp">
-      <Filter>Source\Graphics\Shader</Filter>
+      <Filter>Source\Manager\Graphics\Shader</Filter>
     </ClCompile>
     <ClCompile Include="CBCollection.cpp">
-      <Filter>Source\Graphics\Constant</Filter>
+      <Filter>Source\Manager\Graphics\ConstantBuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="Layer.cpp">
+      <Filter>Source\Layer</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>Source\Manager\Graphics\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshCollection.cpp">
+      <Filter>Source\Manager\Graphics\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="SafeDelete.cpp">
+      <Filter>Source</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -219,10 +238,10 @@
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="..\Shader\PixelShader.hlsl">
-      <Filter>Shader</Filter>
+      <Filter>ShaderCode</Filter>
     </FxCompile>
     <FxCompile Include="..\Shader\VertexShader.hlsl">
-      <Filter>Shader</Filter>
+      <Filter>ShaderCode</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>

@@ -7,6 +7,7 @@
 #include <vector> // 배열
 #include <list> //링크드리스트 
 #include <map> // 2진트리
+#include <unordered_map> // hash map
 #include <bitset> // 비트 배열 편하게 사용해주는 라이브러리
 #include <set> // 해시 테이블
 #include <functional> // 함수 포인터
@@ -17,10 +18,12 @@
 #include <memory> //메모리 관련된 라이브러리
 #include <filesystem> // 파일입출력 편하게 도와주는 라이브러리
 #include <wrl.h>
+
 #include "DXMath.h"
 
 #include "EnumFlag.h"
 #include "Enums.h"
 #include "MacroDefine.h"
+#include "SafeDelete.h"
 
 using namespace engine::math;

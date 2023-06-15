@@ -1,20 +1,19 @@
 #include "pch.h"
 #include "Shader.h"
 #include "String.h"
-#include "Engine.h"
 
 namespace engine
 {
 	Shader::Shader(const std::wstring& vsFileName, const std::wstring& vsFunName, 
-		const std::wstring& psFileName, const std::wstring psFunName, ID3D11Device* const device)
+		const std::wstring& psFileName, const std::wstring psFunName, ID3D11Device* const device, const HWND hWnd)
 		: Shader(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST, 
-			vsFileName, vsFunName, psFileName, psFunName, device)
+			vsFileName, vsFunName, psFileName, psFunName, device, hWnd)
 	{
 	}
 
 	Shader::Shader(const D3D11_PRIMITIVE_TOPOLOGY topology,
 		const std::wstring& vsFileName, const std::wstring& vsFunName,
-		const std::wstring& psFileName, const std::wstring psFunName, ID3D11Device* const device)
+		const std::wstring& psFileName, const std::wstring psFunName, ID3D11Device* const device, const HWND hWnd)
 		: Resource()
 		, mTopology(topology)
 		, mInputLayout(nullptr)		
@@ -24,8 +23,8 @@ namespace engine
 		, mGS(nullptr)
 		, mPS(nullptr)
 	{		
-		createVSShader(vsFileName, vsFunName, device);
-		createPSShader(psFileName, psFunName, device);		
+		createVSShader(vsFileName, vsFunName, device, hWnd);
+		createPSShader(psFileName, psFunName, device, hWnd);
 	}
 
 	Shader::~Shader()
@@ -33,13 +32,12 @@ namespace engine
 	}
 
 	void Shader::createShader(const eShaderBindType sType, const std::wstring& version,
-		const std::wstring& fileName, const std::wstring& funName, ID3D11Device* const device)
+		const std::wstring& fileName, const std::wstring& funName, ID3D11Device* const device, const HWND hWnd)
 	{
 		Microsoft::WRL::ComPtr<ID3DBlob> vsBlob;
 		Microsoft::WRL::ComPtr<ID3DBlob> psBlob;
 		Microsoft::WRL::ComPtr<ID3DBlob> errBlob;
-		
-		const HWND hWnd = gEngine->GetHwnd();
+				
 		const std::string strFunName(String::WStrToStr(funName));
 		const std::string strVersion(String::WStrToStr(version));
 
@@ -123,41 +121,48 @@ namespace engine
 		}
 	}
 
-	inline void Shader::createVSShader(const std::wstring& vsFileName, const std::wstring& vsFunName, ID3D11Device* const device)
+	void Shader::createVSShader(const std::wstring& vsFileName, const std::wstring& vsFunName, 
+		ID3D11Device* const device, const HWND hWnd)
 	{
 		assert(!mVS.Get());
-		createShader(eShaderBindType::VS, L"vs_5_0", vsFileName, vsFunName, device);
+		createShader(eShaderBindType::VS, L"vs_5_0", vsFileName, vsFunName, device, hWnd);
 	}
 
-	inline void Shader::CreateHSShader(const std::wstring& hsFileName, const std::wstring& hsFunName, ID3D11Device* const device)
+	void Shader::CreateHSShader(const std::wstring& hsFileName, const std::wstring& hsFunName, 
+		ID3D11Device* const device, const HWND hWnd)
 	{
 		assert(nullptr);
 		(void)hsFileName;
 		(void)hsFunName;
 		(void)device;
-
+		(void)hWnd;
 	}
 
-	inline void Shader::CreateDSShader(const std::wstring& dsFileName, const std::wstring& dsFunName, ID3D11Device* const device)
+	void Shader::CreateDSShader(const std::wstring& dsFileName, const std::wstring& dsFunName, 
+		ID3D11Device* const device, const HWND hWnd)
 	{
 		assert(nullptr);
 		(void)dsFileName;
 		(void)dsFunName;
 		(void)device;
+		(void)hWnd;
 	}
 
-	inline void Shader::CreateGSShader(const std::wstring& gsFileName, const std::wstring& gsFunName, ID3D11Device* const device)
+	void Shader::CreateGSShader(const std::wstring& gsFileName, const std::wstring& gsFunName, 
+		ID3D11Device* const device, const HWND hWnd)
 	{
 		assert(nullptr);
 		(void)gsFileName;
 		(void)gsFunName;
 		(void)device;
+		(void)hWnd;
 	}
 
-	inline void Shader::createPSShader(const std::wstring& psFileName, const std::wstring& psFunName, ID3D11Device* const device)
+	void Shader::createPSShader(const std::wstring& psFileName, const std::wstring& psFunName, 
+		ID3D11Device* const device, const HWND hWnd)
 	{
 		assert(!mPS.Get());
-		createShader(eShaderBindType::PS, L"ps_5_0", psFileName, psFunName, device);
+		createShader(eShaderBindType::PS, L"ps_5_0", psFileName, psFunName, device, hWnd);
 	}
 
 	HRESULT Shader::Load(const std::wstring& path)

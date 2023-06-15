@@ -1,6 +1,4 @@
 #pragma once
-
-#include "Engine.h"
 #include "Singleton.h"
 
 namespace engine
@@ -12,7 +10,7 @@ namespace engine
 
 	private:
 		void update();
-		void render();
+		void render(const HWND hWnd);
 
 	public:
 		float GetDeltaTime() const { return mDeltaTime; }

@@ -22,6 +22,6 @@ namespace engine
 		virtual void render();
 
 	private:
-		std::vector<Layer*> mLayers;
+		Layer mLayers[static_cast<UINT>(eLayerType::End)];
 	};
 }

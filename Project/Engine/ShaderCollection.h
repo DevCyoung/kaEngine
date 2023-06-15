@@ -15,7 +15,7 @@ namespace engine
 		friend class graphics::GraphicDeviceDX11;
 
 	private:
-		ShaderCollection(ID3D11Device* device);
+		ShaderCollection(ID3D11Device* const device, const HWND hWnd);
 		ShaderCollection(const ShaderCollection& other) = delete;
 		ShaderCollection& operator =(const ShaderCollection& other) = delete;
 		virtual ~ShaderCollection();

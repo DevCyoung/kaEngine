@@ -168,9 +168,9 @@
     <ClInclude Include="Layer.h" />
     <ClInclude Include="MacroDefine.h" />
     <ClInclude Include="pch.h" />
-    <ClInclude Include="Renderer.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Resources.h" />
+    <ClInclude Include="SafeDelete.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Shader.h" />
@@ -179,6 +179,8 @@
     <ClInclude Include="String.h" />
     <ClInclude Include="Textrue.h" />
     <ClInclude Include="TimeManager.h" />
+    <ClInclude Include="MeshCollection.h" />
+    <ClInclude Include="Mesh.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CBCollection.cpp" />
@@ -193,9 +195,9 @@
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Resource.cpp" />
     <ClCompile Include="Resources.cpp" />
+    <ClCompile Include="SafeDelete.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Shader.cpp" />
@@ -203,6 +205,8 @@
     <ClCompile Include="String.cpp" />
     <ClCompile Include="Textrue.cpp" />
     <ClCompile Include="TimeManager.cpp" />
+    <ClCompile Include="MeshCollection.cpp" />
+    <ClCompile Include="Mesh.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="DXMath.inl" />

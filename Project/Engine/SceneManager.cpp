@@ -1,4 +1,5 @@
 #include "pch.h"
+#include "Scene.h"
 #include "SceneManager.h"
 
 namespace engine

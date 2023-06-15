@@ -5,6 +5,7 @@
 #include "ShaderCollection.h"
 #include "CBCollection.h"
 
+#include "Engine.h"
 #include "InputManager.h"
 #include "TimeManager.h"
 

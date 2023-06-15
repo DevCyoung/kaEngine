@@ -1,9 +1,7 @@
 #include "pch.h"
 #include "GraphicDeviceDX11.h"
 #include "Engine.h"
-
-//#include "Shader.h"
-
+#include "MeshCollection.h"
 #include "CBCollection.h"
 #include "ShaderCollection.h"
 
@@ -36,14 +34,11 @@ namespace engine::graphics
 
 #pragma region Constructor
 #define SHAPE_COUNT 45
-	GraphicDeviceDX11::GraphicDeviceDX11()
-		: mConstantBuffers(nullptr)
+	GraphicDeviceDX11::GraphicDeviceDX11(const HWND hWnd, const UINT screenWidth, const UINT screenHeight)
+		: mMeshs(nullptr)
+		, mConstantBuffers(nullptr)
 		, mShaders(nullptr)
 	{
-		const HWND hWnd = gEngine->GetHwnd();
-		const UINT screenWidth = gEngine->GetScreenWidth();
-		const UINT screenHeight = gEngine->GetScreenHeight();
-
 #ifdef _DEBUG
 		const UINT deviceFlag = D3D11_CREATE_DEVICE_DEBUG;
 #else
@@ -201,24 +196,29 @@ namespace engine::graphics
 		}
 #pragma endregion
 
-#pragma region Create CBCollection		
-		mConstantBuffers = new CBCollection(mDevice.Get());
+#pragma region Creatge Meshs
+		mMeshs = new MeshCollection(mDevice.Get());
 #pragma endregion
 
 #pragma region Create Shaders
-		mShaders = new ShaderCollection(mDevice.Get());
+		mShaders = new ShaderCollection(mDevice.Get(), hWnd);
 #pragma endregion
+
+#pragma region Create ConstantBuffers		
+		mConstantBuffers = new CBCollection(mDevice.Get());
+#pragma endregion
+
+
+
 
 	}
 #pragma endregion
 
 	GraphicDeviceDX11::~GraphicDeviceDX11()
-	{
-		delete mConstantBuffers;
-		mConstantBuffers = nullptr;
-		
-		delete mShaders;
-		mShaders = nullptr;
+	{		
+		DELETE_POINTER(mConstantBuffers);
+		DELETE_POINTER(mShaders);
+		DELETE_POINTER(mMeshs);
 	}
 
 	void GraphicDeviceDX11::BindIA(const eShaderType type)

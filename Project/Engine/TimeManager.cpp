@@ -1,6 +1,5 @@
 #include "pch.h"
 #include "TimeManager.h"
-#include "Engine.h"
 
 namespace engine
 {	
@@ -42,14 +41,12 @@ namespace engine
 		mPrevFrequency.QuadPart = mCurFrequency.QuadPart;
 	}
 
-	void TimeManager::render()
+	void TimeManager::render(const HWND hWnd)
 	{
 		mSecond += mDeltaTime;
 
 		if (mSecond > 1.0f)
-		{
-			const HWND hWnd = gEngine->GetHwnd();
-
+		{			
 			wchar_t buffer[256] = {};
 			const float fps = 1.0f / mDeltaTime;
 

@@ -7,15 +7,12 @@ namespace engine
     public:
         Entity();        
         virtual ~Entity();
-    private:
-        static UINT64 sID;
-
-    public:
         void SetName(const std::wstring& name) { mName = name; }
         const std::wstring& GetName() const { return mName; }
 
     private:
+        inline static UINT sID = 0;
         std::wstring mName;
-        UINT64 mID;
+        UINT mID;
     };
 }

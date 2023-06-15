@@ -59,7 +59,7 @@ namespace engine
 			eKeyState state;
 			bool bPressed;
 		};
-		void update();
+		void update(const HWND hWnd);
 
 	private:
 		std::vector<tKeyInfo> mKeyInfos;

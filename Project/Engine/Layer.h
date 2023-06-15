@@ -1,13 +1,20 @@
 #pragma once
 
-#include "GameObject.h"
-
 namespace engine
 {
+	class GameObject;
+
+	enum class eLayerType
+	{
+		Player,		
+		End
+	};
+
 	class Layer
 	{
-		friend class Scene;
-	public:
+		friend class Scene;		
+
+	private:
 		Layer();
 		virtual ~Layer();
 		Layer(const Layer&) = delete;
@@ -23,3 +30,6 @@ namespace engine
 		std::vector<GameObject*> mGameObjects;
 	};
 }
+
+
+

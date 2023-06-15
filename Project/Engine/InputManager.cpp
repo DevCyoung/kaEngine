@@ -1,6 +1,5 @@
 #include "pch.h"
-#include "InputManager.h"	
-#include "Engine.h"
+#include "InputManager.h"
 
 namespace engine
 {
@@ -43,7 +42,7 @@ namespace engine
 		}
 	}
 
-	void InputManager::update()
+	void InputManager::update(const HWND hWnd)
 	{
 		if (GetFocus())
 		{
@@ -79,7 +78,7 @@ namespace engine
 			POINT mousePos = {};
 			GetCursorPos(&mousePos);
 
-			ScreenToClient(gEngine->GetHwnd(), &mousePos);
+			ScreenToClient(hWnd, &mousePos);
 
 			mMousePos.x = static_cast<float>(mousePos.x);
 			mMousePos.y = static_cast<float>(mousePos.y);

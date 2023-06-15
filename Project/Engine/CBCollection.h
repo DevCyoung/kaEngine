@@ -13,7 +13,6 @@ namespace engine
 	class CBCollection
 	{
 		friend class graphics::GraphicDeviceDX11;
-
 	private:
 		CBCollection(ID3D11Device* device);
 		CBCollection(const CBCollection& other) = delete;
