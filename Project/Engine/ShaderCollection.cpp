@@ -1,16 +1,13 @@
 #include "pch.h"
 #include "ShaderCollection.h"
+#include "EnumResourceTypeShader.h"
 
 namespace engine
 {
 	ShaderCollection::ShaderCollection(ID3D11Device* const device, const HWND hWnd)
 		: mShaders
 		{
-			Shader(L"VertexShader.hlsl", L"main", L"PixelShader.hlsl", L"main", device, hWnd),
-			Shader(L"VertexShader.hlsl", L"main", L"PixelShader.hlsl", L"main", device, hWnd),
-			Shader(L"VertexShader.hlsl", L"main", L"PixelShader.hlsl", L"main", device, hWnd),
-			Shader(L"VertexShader.hlsl", L"main", L"PixelShader.hlsl", L"main", device, hWnd),
-			Shader(L"VertexShader.hlsl", L"main", L"PixelShader.hlsl", L"main", device, hWnd),
+			Shader(eResShader::Default_VertexShader, L"main", eResShader::Default_PixelShader, L"main", device, hWnd),
 		}
 	{
 	}

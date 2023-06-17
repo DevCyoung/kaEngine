@@ -58,15 +58,6 @@
     <Filter Include="Source\5.Scene">
       <UniqueIdentifier>{685c70d2-48e1-49d1-9f6e-24916c88ecf2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Resource">
-      <UniqueIdentifier>{6fd5e19a-f00d-4990-ba98-d245caa6d931}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Resources">
-      <UniqueIdentifier>{2ff371fd-1518-4749-bfd5-6cdb96856c85}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Resource\Texture">
-      <UniqueIdentifier>{7ee995f9-2bd7-4ac3-88ba-6a2ce18b291e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\7.Helper">
       <UniqueIdentifier>{c549a15d-9112-48dc-b1ab-cc8178f448bc}</UniqueIdentifier>
     </Filter>
@@ -87,6 +78,24 @@
     </Filter>
     <Filter Include="Source\7.Helper\Include">
       <UniqueIdentifier>{75a58b25-b5b9-4fcb-ab41-d8b4a2cbedb8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Texture">
+      <UniqueIdentifier>{7ee995f9-2bd7-4ac3-88ba-6a2ce18b291e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\7.Helper\Microsoft">
+      <UniqueIdentifier>{9e4a9ccb-9191-42b7-b96f-fcf1c16a86a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\2.Manager\Resource">
+      <UniqueIdentifier>{f57217ad-10a4-448d-9c49-8ba591549eda}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\2.Manager\Resource\Resources">
+      <UniqueIdentifier>{7c199766-b0b4-4b81-a231-ae87daa8944b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\2.Manager\Resource\Resource">
+      <UniqueIdentifier>{6fd5e19a-f00d-4990-ba98-d245caa6d931}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\2.Manager\Path">
+      <UniqueIdentifier>{20bb7a84-673b-4c1c-aaaf-73dccb84b97b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -112,10 +121,7 @@
       <Filter>Source\2.Manager\Input</Filter>
     </ClInclude>
     <ClInclude Include="Resource.h">
-      <Filter>Source\Resource</Filter>
-    </ClInclude>
-    <ClInclude Include="Resources.h">
-      <Filter>Source\Resources</Filter>
+      <Filter>Source\2.Manager\Resource\Resource</Filter>
     </ClInclude>
     <ClInclude Include="Singleton.h">
       <Filter>Source\7.Helper\Singleton</Filter>
@@ -133,7 +139,7 @@
       <Filter>Source\7.Helper\Include</Filter>
     </ClInclude>
     <ClInclude Include="Textrue.h">
-      <Filter>Source\Resource\Texture</Filter>
+      <Filter>Source\Texture</Filter>
     </ClInclude>
     <ClInclude Include="Shader.h">
       <Filter>Source\1.Engine\Graphics\Shader</Filter>
@@ -189,6 +195,45 @@
     <ClInclude Include="Engine.h">
       <Filter>Source\1.Engine</Filter>
     </ClInclude>
+    <ClInclude Include="DirectXTex.h">
+      <Filter>Source\7.Helper\Microsoft</Filter>
+    </ClInclude>
+    <ClInclude Include="EnumResourceTypeAnimation.h">
+      <Filter>Source\2.Manager\Resource\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="EnumResourceTypeFont.h">
+      <Filter>Source\2.Manager\Resource\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="EnumResourceTypeMaterial.h">
+      <Filter>Source\2.Manager\Resource\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="EnumResourceTypeMesh.h">
+      <Filter>Source\2.Manager\Resource\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="EnumResourceTypeShader.h">
+      <Filter>Source\2.Manager\Resource\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="EnumResourceTypeSound.h">
+      <Filter>Source\2.Manager\Resource\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="EnumResourceTypeTexture.h">
+      <Filter>Source\2.Manager\Resource\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="EnumResourceType.h">
+      <Filter>Source\2.Manager\Resource\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="EnumResourceTypeLevel.h">
+      <Filter>Source\2.Manager\Resource\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceManager.h">
+      <Filter>Source\2.Manager\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Resources.h">
+      <Filter>Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="PathManager.h">
+      <Filter>Source\2.Manager\Path</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DXMath.cpp">
@@ -207,13 +252,10 @@
       <Filter>Source\2.Manager\Input</Filter>
     </ClCompile>
     <ClCompile Include="Resource.cpp">
-      <Filter>Source\Resource</Filter>
-    </ClCompile>
-    <ClCompile Include="Resources.cpp">
-      <Filter>Source\Resources</Filter>
+      <Filter>Source\2.Manager\Resource\Resource</Filter>
     </ClCompile>
     <ClCompile Include="Textrue.cpp">
-      <Filter>Source\Resource\Texture</Filter>
+      <Filter>Source\Texture</Filter>
     </ClCompile>
     <ClCompile Include="Shader.cpp">
       <Filter>Source\1.Engine\Graphics\Shader</Filter>
@@ -263,20 +305,56 @@
     <ClCompile Include="SafeDelete.cpp">
       <Filter>Source\7.Helper\SafeDelete</Filter>
     </ClCompile>
+    <ClCompile Include="EnumResourceTypeAnimation.cpp">
+      <Filter>Source\2.Manager\Resource\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="EnumResourceTypeFont.cpp">
+      <Filter>Source\2.Manager\Resource\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="EnumResourceTypeMaterial.cpp">
+      <Filter>Source\2.Manager\Resource\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="EnumResourceTypeMesh.cpp">
+      <Filter>Source\2.Manager\Resource\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="EnumResourceTypeShader.cpp">
+      <Filter>Source\2.Manager\Resource\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="EnumResourceTypeSound.cpp">
+      <Filter>Source\2.Manager\Resource\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="EnumResourceTypeTexture.cpp">
+      <Filter>Source\2.Manager\Resource\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="EnumResourceTypeLevel.cpp">
+      <Filter>Source\2.Manager\Resource\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceManager.cpp">
+      <Filter>Source\2.Manager\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="Resources.cpp">
+      <Filter>Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="PathManager.cpp">
+      <Filter>Source\2.Manager\Path</Filter>
+    </ClCompile>
     <ClCompile Include="Engine.cpp">
-      <Filter>Source\1.Engine</Filter>
+      <Filter>Source\1.Engine\Graphics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="DXMath.inl">
       <Filter>Source\7.Helper\Math</Filter>
     </None>
+    <None Include="DirectXTex.inl">
+      <Filter>Source\7.Helper\Microsoft</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="..\Shader\PixelShader.hlsl">
+    <FxCompile Include="..\..\Output\bin\resource\Shader\Default\PixelShader.hlsl">
       <Filter>ShaderCode</Filter>
     </FxCompile>
-    <FxCompile Include="..\Shader\VertexShader.hlsl">
+    <FxCompile Include="..\..\Output\bin\resource\Shader\Default\VertexShader.hlsl">
       <Filter>ShaderCode</Filter>
     </FxCompile>
   </ItemGroup>

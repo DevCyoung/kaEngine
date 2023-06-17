@@ -5,11 +5,7 @@ namespace engine
 {
 	enum class eShaderType
 	{
-		Default,
-		Animation,
-		Shadow,
-		Blink,
-		Blood,
+		Default,		
 		End,
 	};
 

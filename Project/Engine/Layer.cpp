@@ -21,7 +21,7 @@ namespace engine
 		testOBJ->GetComponent<Transform>()->SetPosition(0.5f, 0.0f, 0.0f);
 		mGameObjects.push_back(testOBJ);
 
-		testOBJ = new GameObject;
+		/*testOBJ = new GameObject;
 		testOBJ->GetComponent<Transform>()->SetPosition(-0.5f, 0.0f, 0.0f);
 		mGameObjects.push_back(testOBJ);
 
@@ -31,7 +31,7 @@ namespace engine
 
 		testOBJ = new GameObject;
 		testOBJ->GetComponent<Transform>()->SetPosition(0.0f, -0.5f, 0.0f);
-		mGameObjects.push_back(testOBJ);
+		mGameObjects.push_back(testOBJ);*/
 
 		for (GameObject* const gameObject : mGameObjects)
 		{

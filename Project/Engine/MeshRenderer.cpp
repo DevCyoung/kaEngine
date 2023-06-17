@@ -8,13 +8,15 @@
 #include "CBCollection.h"
 #include "Transform.h"
 
+#include "EnumResourceTypeTexture.h"
+
 namespace engine
 {
 	MeshRenderer::MeshRenderer()
 		: Component(eComponentType::MeshRenderer)
 		, mMeshType(eMeshType::Rect)
 		, mShaderType(eShaderType::Default)
-	{
+	{		
 	}
 
 	MeshRenderer::~MeshRenderer()
@@ -23,10 +25,12 @@ namespace engine
 
 	void MeshRenderer::initialize()
 	{
+
 	}
 
 	void MeshRenderer::update()
 	{
+
 	}
 
 	void MeshRenderer::lateUpdate()
@@ -46,6 +50,8 @@ namespace engine
 		gGraphicDevice->BindIA(mShaderType);
 		gGraphicDevice->BindPS(mShaderType);
 		gGraphicDevice->BindVS(mShaderType);
+
+		gGraphicDevice->BindTexture(eResTexture::Fighter, eShaderBindType::PS);
 
 		gGraphicDevice->BindMesh(mMeshType);
 		gGraphicDevice->Draw(mMeshType, 0);

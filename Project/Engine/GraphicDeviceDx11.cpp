@@ -3,6 +3,9 @@
 #include "MeshCollection.h"
 #include "CBCollection.h"
 #include "ShaderCollection.h"
+#include "ResourceManager.h"
+
+#include "Textrue.h"
 
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "d3dcompiler.lib")
@@ -162,11 +165,42 @@ namespace engine::graphics
 #pragma region Create ConstantBuffers		
 		mConstantBuffers = new CBCollection(mDevice.Get());
 #pragma endregion
+
+#pragma region Create Sampler
+		D3D11_SAMPLER_DESC tSamDesc = {};
+
+		tSamDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
+		tSamDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
+		tSamDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
+		tSamDesc.Filter = D3D11_FILTER_ANISOTROPIC;
+		mDevice->CreateSamplerState(&tSamDesc, m_Sampler[0].GetAddressOf());
+
+
+		tSamDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
+		tSamDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
+		tSamDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
+		tSamDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_POINT;
+		mDevice->CreateSamplerState(&tSamDesc, m_Sampler[1].GetAddressOf());
+
+		mContext->VSSetSamplers(0, 1, m_Sampler[0].GetAddressOf());
+		mContext->HSSetSamplers(0, 1, m_Sampler[0].GetAddressOf());
+		mContext->DSSetSamplers(0, 1, m_Sampler[0].GetAddressOf());
+		mContext->GSSetSamplers(0, 1, m_Sampler[0].GetAddressOf());
+		mContext->PSSetSamplers(0, 1, m_Sampler[0].GetAddressOf());
+
+
+		mContext->VSSetSamplers(1, 1, m_Sampler[1].GetAddressOf());
+		mContext->HSSetSamplers(1, 1, m_Sampler[1].GetAddressOf());
+		mContext->DSSetSamplers(1, 1, m_Sampler[1].GetAddressOf());
+		mContext->GSSetSamplers(1, 1, m_Sampler[1].GetAddressOf());
+		mContext->PSSetSamplers(1, 1, m_Sampler[1].GetAddressOf());
+#pragma endregion
+
 	}
 #pragma endregion
 
 	GraphicDeviceDX11::~GraphicDeviceDX11()
-	{		
+	{
 		DELETE_POINTER(mConstantBuffers);
 		DELETE_POINTER(mShaders);
 		DELETE_POINTER(mMeshs);
@@ -251,12 +285,44 @@ namespace engine::graphics
 	}
 
 	void GraphicDeviceDX11::Draw(const eMeshType type, const UINT StartVertexLocation)
-	{	
+	{
 		const Mesh* const mesh = mMeshs->GetConstantBuffer(type);
 
 		const UINT vertexSize = mesh->GetVertexCount();
 		mContext->Draw(vertexSize, StartVertexLocation);
 	}
+
+	void GraphicDeviceDX11::BindTexture(const eResTexture textureName, const eShaderBindType stage)
+	{
+		Texture* texture = ResourceManager::GetInstance()->Find<Texture>(textureName);				
+		const UINT startSlot = 0;
+
+		switch (stage)
+		{
+		case eShaderBindType::VS:
+			mContext->VSSetShaderResources(startSlot, 1, texture->mSRV.GetAddressOf());
+			break;
+		case eShaderBindType::HS:
+			mContext->HSSetShaderResources(startSlot, 1, texture->mSRV.GetAddressOf());
+			break;
+		case eShaderBindType::DS:
+			mContext->DSSetShaderResources(startSlot, 1, texture->mSRV.GetAddressOf());
+			break;
+		case eShaderBindType::GS:
+			mContext->GSSetShaderResources(startSlot, 1, texture->mSRV.GetAddressOf());
+			break;
+		case eShaderBindType::PS:
+			mContext->PSSetShaderResources(startSlot, 1, texture->mSRV.GetAddressOf());
+			break;
+		case eShaderBindType::CS:
+			mContext->CSSetShaderResources(startSlot, 1, texture->mSRV.GetAddressOf());
+			break;
+		default:
+			assert(false);
+			break;
+		}
+	}
+
 
 	void GraphicDeviceDX11::clearRenderTarget(const UINT screenWidth, const UINT screenHeight)
 	{
@@ -275,6 +341,6 @@ namespace engine::graphics
 
 	void GraphicDeviceDX11::present()
 	{
-		mSwapChain->Present(0, 0);	
+		mSwapChain->Present(0, 0);
 	}
 }

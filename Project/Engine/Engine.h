@@ -4,12 +4,16 @@
 
 #include "Singleton.h"
 
+
+
 namespace engine
 {
     namespace graphics
     {
         class GraphicDeviceDX11;
     }
+
+    
 
     class Engine
     {    
@@ -20,7 +24,7 @@ namespace engine
     public:
         UINT GetScreenWidth() const { return mScreenWidth; }
         UINT GetScreenHeight() const { return mScreenHeight; }
-        HWND GetHwnd() const { return mHwnd; }
+        HWND GetHwnd() const { return mHwnd; }        
         graphics::GraphicDeviceDX11* GetGraphicDevice() const { return mGraphicDevice.get(); }
 
     private:    

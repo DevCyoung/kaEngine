@@ -1,4 +1,5 @@
 #pragma once
+
 #include "Mesh.h"
 
 namespace engine
@@ -16,6 +17,7 @@ namespace engine
 	{
 		Vector3 pos;
 		Vector4 color;
+		Vector2 uv;
 	};
 
 	class MeshCollection

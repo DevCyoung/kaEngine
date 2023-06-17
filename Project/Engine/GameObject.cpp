@@ -1,6 +1,15 @@
 #include "pch.h"
+
 #include "GameObject.h"
 #include "MeshRenderer.h"
+
+#include "Resources.h"
+#include "Textrue.h"
+
+#include "ResourceManager.h"
+#include "EnumResourceType.h"
+
+#include "Shader.h"
 
 namespace engine
 {
@@ -12,6 +21,9 @@ namespace engine
 		AddComponent(new Transform());		
 		AddComponent(new MeshRenderer());
 	}
+
+
+
 
 	GameObject::~GameObject()
 	{
@@ -76,3 +88,4 @@ namespace engine
 		}
 	}
 }
+

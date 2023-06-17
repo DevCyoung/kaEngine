@@ -2,8 +2,12 @@
 #include "Engine.h"
 #include "GraphicDeviceDx11.h"
 #include "TimeManager.h"
+#include "PathManager.h"
+#include "ResourceManager.h"
 #include "InputManager.h"
 #include "SceneManager.h"
+
+
 
 namespace engine
 {
@@ -18,22 +22,28 @@ namespace engine
 	Engine::~Engine()
 	{		
 		SceneManager::deleteInstance();
-		InputManager::deleteInstance();
+		InputManager::deleteInstance();		
 		TimeManager::deleteInstance();
+		ResourceManager::deleteInstance();
+		PathManager::deleteInstance();
 	}
 
 	void Engine::initialize(const HWND hWnd, const UINT screenWidth, const UINT screenHeight)
 	{
 		assert(!sInstance);
 		sInstance = new Engine();
-
+		
+		PathManager::initialize();
+		ResourceManager::initialize();
+		
 		sInstance->setWindow(hWnd, screenWidth, screenHeight);
 		sInstance->mGraphicDevice = std::make_unique<graphics::GraphicDeviceDX11>(hWnd, 
 			screenWidth, screenHeight);
-				
+		
 		TimeManager::initialize();
 		InputManager::initialize();
 		SceneManager::initialize();
+
 	}
 
 	void Engine::run()
@@ -45,7 +55,7 @@ namespace engine
 
 	void Engine::update()
 	{
-		TimeManager::GetInstance()->update();
+		TimeManager::GetInstance()->update();		
 		InputManager::GetInstance()->update(mHwnd);
 		SceneManager::GetInstance()->update();
 	}
