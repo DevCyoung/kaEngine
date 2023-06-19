@@ -112,6 +112,9 @@
     <Filter Include="Source\7. Resource\04. Texture">
       <UniqueIdentifier>{7ee995f9-2bd7-4ac3-88ba-6a2ce18b291e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\8. Helper\Casting">
+      <UniqueIdentifier>{c748471b-0d56-428b-a407-ad08373b61e5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DXMath.h">
@@ -251,6 +254,9 @@
     </ClInclude>
     <ClInclude Include="EnumResourceType.h">
       <Filter>Source\7. Resource\00. Resource\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Casting.h">
+      <Filter>Source\8. Helper\Casting</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
