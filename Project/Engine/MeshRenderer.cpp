@@ -9,6 +9,7 @@
 #include "Transform.h"
 
 #include "EnumResourceTypeTexture.h"
+#include "Textrue.h"
 
 namespace engine
 {
@@ -16,7 +17,7 @@ namespace engine
 		: Component(eComponentType::MeshRenderer)
 		, mMeshType(eMeshType::Rect)
 		, mShaderType(eShaderType::Default)
-	{		
+	{
 	}
 
 	MeshRenderer::~MeshRenderer()
@@ -39,11 +40,11 @@ namespace engine
 
 	void MeshRenderer::render()
 	{
-		const Transform* const obj = GetOwner()->GetComponent<Transform>();		
+		const Transform* const obj = GetOwner()->GetComponent<Transform>();
 
 		const Vector3 objPos = obj->GetPosition();
 		const Vector4 constPosition(objPos.x, objPos.y, objPos.z, 1.f);
-		
+
 		gGraphicDevice->PassCB(eCBType::Transform, &constPosition);
 		gGraphicDevice->BindCB(eCBType::Transform, eShaderBindType::VS);
 
@@ -51,8 +52,8 @@ namespace engine
 		gGraphicDevice->BindPS(mShaderType);
 		gGraphicDevice->BindVS(mShaderType);
 
-		gGraphicDevice->BindTexture(eResTexture::Fighter, eShaderBindType::PS);
-
+		gGraphicDevice->BindTexture(eResTexture::OakUI, eShaderBindType::PS);
+		
 		gGraphicDevice->BindMesh(mMeshType);
 		gGraphicDevice->Draw(mMeshType, 0);
 	}

@@ -99,4 +99,6 @@ namespace engine
 		static constexpr eResourceType resourceType = eResourceType::Level;
 		using ResEnumType = eResLevel;
 	};
+
+
 }

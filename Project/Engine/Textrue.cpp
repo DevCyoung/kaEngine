@@ -44,12 +44,19 @@ namespace engine
 				assert(false);
 			}
 		}
-		else // WIC (png, jpg, jpeg, bmp )
+		else if (extension == L".png"  || extension == L".PNG"  || 
+			     extension == L".jpg"  || extension == L".JPG"  ||
+				 extension == L".jpeg" || extension == L".JPEG" || 
+				 extension == L".bmp"  || extension == L".BMP") // WIC (png, jpg, jpeg, bmp )
 		{
 			if (FAILED(LoadFromWICFile(path.c_str(), WIC_FLAGS::WIC_FLAGS_NONE, nullptr, mImage)))
 			{
 				assert(false);
 			}				
+		}
+		else
+		{
+			assert(false);
 		}
 
 		CreateShaderResourceView (gGraphicDevice->GetDevice(), mImage.GetImages(), mImage.GetImageCount()

@@ -133,8 +133,7 @@
     </Link>
     <PreBuildEvent>
       <Command>cd $(SolutionDir)Project\Engine\Helper\ResourceGen\Release\net6.0
-call ResourceHelper.exe $(SolutionDir)Output\bin\resource $(SolutionDir)Project\Engine NO
-</Command>
+call ResourceHelper.exe $(SolutionDir)Output\bin\resource $(SolutionDir)Project\Engine NO</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -160,7 +159,7 @@ call ResourceHelper.exe $(SolutionDir)Output\bin\resource $(SolutionDir)Project\
     </Link>
     <PreBuildEvent>
       <Command>cd $(SolutionDir)Project\Engine\Helper\ResourceGen\Release\net6.0
-call ResourceHelper.exe $(SolutionDir)Output\bin\resource $(SolutionDir)Project\Engine NO</Command>
+call ResourceHelper.exe $(SolutionDir)Output\bin\resource $(SolutionDir)Project\Engine</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -258,10 +257,14 @@ call ResourceHelper.exe $(SolutionDir)Output\bin\resource $(SolutionDir)Project\
     <FxCompile Include="..\..\Output\bin\resource\Shader\Default\PixelShader.hlsl">
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
     </FxCompile>
     <FxCompile Include="..\..\Output\bin\resource\Shader\Default\VertexShader.hlsl">
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
     </FxCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

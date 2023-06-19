@@ -4,7 +4,8 @@ namespace engine
 {
 	enum class eResTexture
 	{
-		Fighter,
+		OakUI,
+		Ori,
 		End
 	};
 

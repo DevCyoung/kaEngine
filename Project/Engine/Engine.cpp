@@ -44,6 +44,9 @@ namespace engine
 		InputManager::initialize();
 		SceneManager::initialize();
 
+
+		
+		ResourceManager::GetInstance()->ResourceAllLoad();
 	}
 
 	void Engine::run()

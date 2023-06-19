@@ -17,9 +17,14 @@ namespace engine
 	void Layer::initialize()
 	{
 		//Test Rendering Code
-		GameObject* testOBJ = new GameObject;
-		testOBJ->GetComponent<Transform>()->SetPosition(0.5f, 0.0f, 0.0f);
-		mGameObjects.push_back(testOBJ);
+
+		for (size_t i = 0; i < 600; i++)
+		{
+			GameObject* testOBJ = new GameObject;
+			testOBJ->GetComponent<Transform>()->SetPosition(-1.0f + i * 0.02f, -0.5f + i * 0.02f, 0.0f);
+			mGameObjects.push_back(testOBJ);
+		}
+		
 
 		/*testOBJ = new GameObject;
 		testOBJ->GetComponent<Transform>()->SetPosition(-0.5f, 0.0f, 0.0f);

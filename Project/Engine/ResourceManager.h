@@ -46,8 +46,7 @@ namespace engine
 			std::wstring wstr = PathManager::GetInstance()->GetResourcePath();
 			wstr += EnumResourcePath(resType);
 
-			HRESULT hResult = res->Load(wstr.c_str());
-			assert(!hResult);
+			res->Load(wstr.c_str());			
 
 			resources.insert(std::make_pair(static_cast<UINT>(resType), res));
 		}
@@ -66,6 +65,8 @@ namespace engine
 			assert(res);
 			return res;
 		}
+
+		void ResourceAllLoad();
 
 
 
