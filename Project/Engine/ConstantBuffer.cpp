@@ -6,10 +6,11 @@ namespace engine
 	ConstantBuffer::ConstantBuffer(const eCBType type, const UINT size, ID3D11Device* const device)
 		: mType(type)
 		, mDesc{}
+		, mSize(size)
 		, mBuffer(nullptr)
 	{
-		assert(device);
-		assert((size % 16) == 0);
+		assert(device);		
+		assert((mSize % 16) == 0);
 
 		mDesc.ByteWidth = size;
 		mDesc.BindFlags = D3D11_BIND_FLAG::D3D11_BIND_CONSTANT_BUFFER;

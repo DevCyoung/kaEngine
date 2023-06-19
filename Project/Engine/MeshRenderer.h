@@ -2,9 +2,9 @@
 #include "Component.h"
 
 namespace engine
-{
-	enum class eMeshType;
-	enum class eShaderType;
+{	
+	class Mesh;
+	class Material;
 
 	class MeshRenderer : public Component
 	{
@@ -14,9 +14,12 @@ namespace engine
 		MeshRenderer(const MeshRenderer&) = delete;
 		MeshRenderer& operator=(const MeshRenderer&) = delete;
 
-	public:
-		void SetMeshType(const eMeshType type) { mMeshType = type; }
-		void SetShaderType(const eShaderType type) { mShaderType = type; }
+		void SetMesh(Mesh* const mesh) { assert(mesh); mMesh = mesh; }
+		void SetMaterial(Material* const material) { assert(material); mMaterial = material; }
+
+		Mesh* GetMesh() const { assert(mMesh); return mMesh; }
+		Material* GetMaterial() const { assert(mMaterial); return mMaterial; }
+
 
 	private:
 		virtual void initialize() override final;
@@ -25,7 +28,7 @@ namespace engine
 		virtual void render() override final;
 	
 	private:
-		eMeshType mMeshType;
-		eShaderType mShaderType;
+		Mesh* mMesh;
+		Material* mMaterial;
 	};
 }

@@ -133,7 +133,7 @@
     </Link>
     <PreBuildEvent>
       <Command>cd $(SolutionDir)Project\Engine\Helper\ResourceGen\Release\net6.0
-call ResourceHelper.exe $(SolutionDir)Output\bin\resource $(SolutionDir)Project\Engine NO</Command>
+call ResourceHelper.exe $(SolutionDir)Output\bin\Resources $(SolutionDir)Project\Engine NO</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -159,7 +159,7 @@ call ResourceHelper.exe $(SolutionDir)Output\bin\resource $(SolutionDir)Project\
     </Link>
     <PreBuildEvent>
       <Command>cd $(SolutionDir)Project\Engine\Helper\ResourceGen\Release\net6.0
-call ResourceHelper.exe $(SolutionDir)Output\bin\resource $(SolutionDir)Project\Engine</Command>
+call ResourceHelper.exe $(SolutionDir)Output\bin\Resources $(SolutionDir)Project\Engine</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -190,6 +190,7 @@ call ResourceHelper.exe $(SolutionDir)Output\bin\resource $(SolutionDir)Project\
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="Layer.h" />
     <ClInclude Include="MacroDefine.h" />
+    <ClInclude Include="Material.h" />
     <ClInclude Include="MeshRenderer.h" />
     <ClInclude Include="PathManager.h" />
     <ClInclude Include="pch.h" />
@@ -200,14 +201,14 @@ call ResourceHelper.exe $(SolutionDir)Output\bin\resource $(SolutionDir)Project\
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Shader.h" />
-    <ClInclude Include="ShaderCollection.h" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="String.h" />
+    <ClInclude Include="StructConstantBuffer.h" />
     <ClInclude Include="Textrue.h" />
     <ClInclude Include="TimeManager.h" />
-    <ClInclude Include="MeshCollection.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Transform.h" />
+    <ClInclude Include="StructVertex.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CBCollection.cpp" />
@@ -228,6 +229,7 @@ call ResourceHelper.exe $(SolutionDir)Output\bin\resource $(SolutionDir)Project\
     <ClCompile Include="GraphicDeviceDX11.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Layer.cpp" />
+    <ClCompile Include="Material.cpp" />
     <ClCompile Include="MeshRenderer.cpp" />
     <ClCompile Include="PathManager.cpp" />
     <ClCompile Include="pch.cpp">
@@ -241,28 +243,28 @@ call ResourceHelper.exe $(SolutionDir)Output\bin\resource $(SolutionDir)Project\
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Shader.cpp" />
-    <ClCompile Include="ShaderCollection.cpp" />
     <ClCompile Include="String.cpp" />
+    <ClCompile Include="StructConstantBuffer.cpp" />
     <ClCompile Include="Textrue.cpp" />
     <ClCompile Include="TimeManager.cpp" />
-    <ClCompile Include="MeshCollection.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Transform.cpp" />
+    <ClCompile Include="StructVertex.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="DirectXTex.inl" />
     <None Include="DXMath.inl" />
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="..\..\Output\bin\resource\Shader\Default\PixelShader.hlsl">
-      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+    <FxCompile Include="..\..\Output\bin\Resources\Shader\Default\PixelShader.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
     </FxCompile>
-    <FxCompile Include="..\..\Output\bin\resource\Shader\Default\VertexShader.hlsl">
-      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+    <FxCompile Include="..\..\Output\bin\Resources\Shader\Default\VertexShader.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
     </FxCompile>

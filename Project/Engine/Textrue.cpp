@@ -27,7 +27,10 @@ namespace engine
 	{	
 		const UINT wByteSize = 256;
 		wchar_t szExtension[wByteSize] = {0,};
-		_wsplitpath_s(path.c_str(), nullptr, 0, nullptr, 0, nullptr, 0, szExtension, wByteSize);
+		errno_t err = 
+			_wsplitpath_s(path.c_str(), nullptr, 0, nullptr, 0, nullptr, 0, szExtension, wByteSize);
+		assert(!err);
+		(void)err;
 
 		std::wstring extension = szExtension;
 		if (extension == L".dds" || extension == L".DDS")
@@ -59,7 +62,7 @@ namespace engine
 			assert(false);
 		}
 
-		CreateShaderResourceView (gGraphicDevice->GetDevice(), mImage.GetImages(), mImage.GetImageCount()
+		CreateShaderResourceView (gGraphicDevice->UnSafe_GetDevice(), mImage.GetImages(), mImage.GetImageCount()
 			, mImage.GetMetadata(), mSRV.GetAddressOf() );
 		
 		mSRV->GetResource(reinterpret_cast<ID3D11Resource**>(mTexture.GetAddressOf()));

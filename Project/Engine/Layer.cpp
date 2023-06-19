@@ -11,14 +11,14 @@ namespace engine
 
 	Layer::~Layer()
 	{
-		safe::DeleteVec(mGameObjects);
+		memory::safe::DeleteVec(mGameObjects);
 	}
 
 	void Layer::initialize()
 	{
 		//Test Rendering Code
 
-		for (size_t i = 0; i < 600; i++)
+		for (size_t i = 0; i < 1000; i++)
 		{
 			GameObject* testOBJ = new GameObject;
 			testOBJ->GetComponent<Transform>()->SetPosition(-1.0f + i * 0.02f, -0.5f + i * 0.02f, 0.0f);

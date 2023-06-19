@@ -4,6 +4,7 @@
 #include "Resource.h"
 #include "DirectXTex.h"
 
+
 namespace engine
 {
 	namespace graphics
@@ -15,21 +16,15 @@ namespace engine
 	{				
 		friend class ResourceManager;
 		friend class graphics::GraphicDeviceDX11;
-	public:	
-		enum class type
-		{
-			PPAP,
-		};
-		
+	public:		
 
 	private:
 		Texture();	
 		virtual ~Texture();
 		Texture(const Texture&) = delete;
-		Texture& operator=(const Texture&) = delete;
-	
-		virtual HRESULT Load(const std::wstring& path) override;
-		//void BindShader(eShaderStage stage, UINT startSlot);
+		Texture& operator=(const Texture&) = delete;	
+		virtual HRESULT Load(const std::wstring& path) override;		
+
 
 	private:
 		D3D11_TEXTURE2D_DESC mDesc;

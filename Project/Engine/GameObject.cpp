@@ -1,5 +1,4 @@
 #include "pch.h"
-
 #include "GameObject.h"
 #include "MeshRenderer.h"
 
@@ -9,17 +8,27 @@
 #include "ResourceManager.h"
 #include "EnumResourceType.h"
 
+#include "GraphicDeviceDx11.h"
+#include "Engine.h"
+#include "Mesh.h"
+#include "Material.h"
 #include "Shader.h"
+
+
 
 namespace engine
 {
 	GameObject::GameObject()
 		: mState(eState::Active)
-		, mEngineComponents{0, }		
-	{		
+		, mEngineComponents{ 0, }
+	{
 		//모든 오브젝트는 반드시 Transform 을 가지고있는다.
-		AddComponent(new Transform());		
-		AddComponent(new MeshRenderer());
+		AddComponent(new Transform());
+		AddComponent(new MeshRenderer);
+
+		MeshRenderer* meshrenderer = GetComponent<MeshRenderer>();		
+		meshrenderer->SetMaterial(gResourceManager->FindOrNullByRelativePath<Material>(L"Default"));
+		meshrenderer->SetMesh(gResourceManager->FindOrNullByRelativePath<Mesh>(L"Rect"));		
 	}
 
 
@@ -27,7 +36,7 @@ namespace engine
 
 	GameObject::~GameObject()
 	{
-		safe::DeleteArray(mEngineComponents);
+		memory::unsafe::DeleteArray(mEngineComponents);
 	}
 
 	void GameObject::AddComponent(Component* const component)
@@ -35,10 +44,10 @@ namespace engine
 		assert(component);
 		assert(!(component->mOwner));
 
-		const eComponentType type =  component->GetType();
+		const eComponentType type = component->GetType();
 
 		assert(!mEngineComponents[static_cast<UINT>(type)]);
-		
+
 		mEngineComponents[static_cast<int>(type)] = component;
 
 		component->mOwner = this;
@@ -78,7 +87,7 @@ namespace engine
 	}
 
 	void GameObject::render(/*mGraphicDevice*/)
-	{		
+	{
 		for (Component* const component : mEngineComponents)
 		{
 			if (component)

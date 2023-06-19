@@ -1,11 +1,12 @@
 #include "pch.h"
 #include "GraphicDeviceDX11.h"
-#include "MeshCollection.h"
+#include "StructVertex.h"
 #include "CBCollection.h"
-#include "ShaderCollection.h"
 #include "ResourceManager.h"
-
+#include "Mesh.h"
 #include "Textrue.h"
+#include "Shader.h"
+#include "Material.h"
 
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "d3dcompiler.lib")
@@ -28,18 +29,9 @@
 
 namespace engine::graphics
 {
-	struct Vertex
-	{
-		Vector3 pos;
-		Vector4 color;
-	};
-
 #pragma region Constructor
-#define SHAPE_COUNT 45
 	GraphicDeviceDX11::GraphicDeviceDX11(const HWND hWnd, const UINT screenWidth, const UINT screenHeight)
-		: mMeshs(nullptr)
-		, mConstantBuffers(nullptr)
-		, mShaders(nullptr)
+		: mConstantBuffers(nullptr)
 	{
 #ifdef _DEBUG
 		const UINT deviceFlag = D3D11_CREATE_DEVICE_DEBUG;
@@ -62,7 +54,6 @@ namespace engine::graphics
 		}
 #pragma endregion
 
-
 #pragma region Create SwaphChain
 		DXGI_SWAP_CHAIN_DESC swapChainDesc = {};
 
@@ -83,53 +74,56 @@ namespace engine::graphics
 		swapChainDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
 		swapChainDesc.BufferDesc.Format = DXGI_FORMAT::DXGI_FORMAT_R8G8B8A8_UNORM; //ÇÈ¼¿ Æ÷¸Ë                                    
 
-		IDXGIDevice* pDXGIDevice = nullptr;
-		IDXGIAdapter* pDXGIAdapter = nullptr;
-		IDXGIFactory* pDXGIFactory = nullptr;
+		Microsoft::WRL::ComPtr<IDXGIDevice> pDXGIDevice = nullptr;
+		Microsoft::WRL::ComPtr<IDXGIAdapter> pDXGIAdapter = nullptr;
+		Microsoft::WRL::ComPtr<IDXGIFactory> pDXGIFactory = nullptr;
 
-		if (FAILED(mDevice->QueryInterface(__uuidof(IDXGIDevice), reinterpret_cast<void**>(&pDXGIDevice))))
+		if (FAILED(mDevice->QueryInterface(__uuidof(IDXGIDevice), reinterpret_cast<void**>(pDXGIDevice.GetAddressOf()))))
 		{
 			MessageBox(hWnd, L"Failed to create IDXGIDevice", L"Error", MB_OK);
+			assert(false);
 			return;
 		}
 
-		if (FAILED(pDXGIDevice->GetParent(__uuidof(IDXGIAdapter), reinterpret_cast<void**>(&pDXGIAdapter))))
+		if (FAILED(pDXGIDevice->GetParent(__uuidof(IDXGIAdapter), reinterpret_cast<void**>(pDXGIAdapter.GetAddressOf()))))
 		{
 			MessageBox(hWnd, L"Failed to create IDXGIAdapter", L"Error", MB_OK);
+			assert(false);
 			return;
 		}
 
-		if (FAILED(pDXGIAdapter->GetParent(__uuidof(IDXGIFactory), reinterpret_cast<void**>(&pDXGIFactory))))
+		if (FAILED(pDXGIAdapter->GetParent(__uuidof(IDXGIFactory), reinterpret_cast<void**>(pDXGIFactory.GetAddressOf()))))
 		{
 			MessageBox(hWnd, L"Failed to create IDXGIFactory", L"Error", MB_OK);
+			assert(false);
 			return;
 		}
 
 		if (FAILED(pDXGIFactory->CreateSwapChain(mDevice.Get(), &swapChainDesc, mSwapChain.GetAddressOf())))
 		{
 			MessageBox(hWnd, L"Failed to create IDXGISwapChain", L"Error", MB_OK);
+			assert(false);
 			return;
 		}
 
-		pDXGIDevice->Release();
-		pDXGIAdapter->Release();
-		pDXGIFactory->Release();
+
 
 		//RenderTarget
 		if (FAILED(mSwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), reinterpret_cast<void**>(mRenderTargetTexture.GetAddressOf()))))
 		{
 			MessageBox(hWnd, L"Failed to get buffer", L"Error", MB_OK);
+			assert(false);
 			return;
 		}
 
 		if (FAILED(mDevice->CreateRenderTargetView(mRenderTargetTexture.Get(), nullptr, mRenderTargetView.GetAddressOf())))
 		{
 			MessageBox(hWnd, L"Failed to create render target view", L"Error", MB_OK);
+			assert(false);
 			return;
 		}
 #pragma endregion
 
-		
 #pragma region Create DepthStencil
 		D3D11_TEXTURE2D_DESC depthStencilDesc = {};
 
@@ -153,14 +147,6 @@ namespace engine::graphics
 			MessageBox(hWnd, L"Failed to create depth stencil view", L"Error", MB_OK);
 			return;
 		}
-#pragma endregion
-
-#pragma region Creatge Meshs
-		mMeshs = new MeshCollection(mDevice.Get());
-#pragma endregion
-
-#pragma region Create Shaders
-		mShaders = new ShaderCollection(mDevice.Get(), hWnd);
 #pragma endregion
 
 #pragma region Create ConstantBuffers		
@@ -202,41 +188,43 @@ namespace engine::graphics
 
 	GraphicDeviceDX11::~GraphicDeviceDX11()
 	{
-		DELETE_POINTER(mConstantBuffers);
-		DELETE_POINTER(mShaders);
-		DELETE_POINTER(mMeshs);
+		SAFE_DELETE_POINTER(mConstantBuffers);
 	}
 
-	void GraphicDeviceDX11::BindIA(const eShaderType type)
+	void GraphicDeviceDX11::BindIA(const Shader* const shader)
 	{
-		Shader& shader = mShaders->GetShader(type);
+		assert(shader);
+		assert(shader->mInputLayout.Get());
 
-		assert(shader.mInputLayout.Get());
-		mContext->IASetInputLayout(shader.mInputLayout.Get());
-		mContext->IASetPrimitiveTopology(shader.mTopology);
+		mContext->IASetInputLayout(shader->mInputLayout.Get());
+		mContext->IASetPrimitiveTopology(shader->mTopology);
 	}
 
-	void GraphicDeviceDX11::BindVS(const eShaderType type)
+	void GraphicDeviceDX11::BindVS(const Shader* const shader)
 	{
-		Shader& shader = mShaders->GetShader(type);
+		assert(shader);
+		assert(shader->mVS.Get());
 
-		assert(shader.mVS.Get());
-		mContext->VSSetShader(shader.mVS.Get(), nullptr, 0);
+		mContext->VSSetShader(shader->mVS.Get(), nullptr, 0);
 	}
 
-	void GraphicDeviceDX11::BindPS(const eShaderType type)
+	void GraphicDeviceDX11::BindPS(const Shader* const shader)
 	{
-		Shader& shader = mShaders->GetShader(type);
+		assert(shader);
+		assert(shader->mPS.Get());
 
-		assert(shader.mPS.Get());
-		mContext->PSSetShader(shader.mPS.Get(), nullptr, 0);
+		mContext->PSSetShader(shader->mPS.Get(), nullptr, 0);
 	}
 
-	void GraphicDeviceDX11::PassCB(const eCBType type, const void* const data)
+	void GraphicDeviceDX11::PassCB(const eCBType type, const void* const data, const UINT byteSize)
 	{
 		assert(data);
+
 		D3D11_MAPPED_SUBRESOURCE subResource = {};
 		ConstantBuffer& CB = mConstantBuffers->GetConstantBuffer(type);
+
+		assert(CB.mSize == byteSize);
+		(void)byteSize;
 
 		mContext->Map(CB.mBuffer.Get(), 0, D3D11_MAP::D3D11_MAP_WRITE_DISCARD, 0, &subResource);
 		{
@@ -247,7 +235,7 @@ namespace engine::graphics
 
 	void GraphicDeviceDX11::BindCB(const eCBType type, const eShaderBindType stage)
 	{
-		ConstantBuffer& CB = mConstantBuffers->GetConstantBuffer(type);
+		const ConstantBuffer& CB = mConstantBuffers->GetConstantBuffer(type);
 		const UINT startSlot = static_cast<UINT>(CB.mType);
 
 		switch (stage)
@@ -276,28 +264,25 @@ namespace engine::graphics
 		}
 	}
 
-	void GraphicDeviceDX11::BindMesh(const eMeshType type)
+	void GraphicDeviceDX11::BindMesh(const Mesh* const mesh)
 	{
-		const Mesh* const mesh = mMeshs->GetConstantBuffer(type);
+		assert(mesh);
 
 		const UINT vertexSize = mesh->GetVertexSize();
 		const UINT offset = 0;
 		mContext->IASetVertexBuffers(0, 1, mesh->mBuffer.GetAddressOf(), &vertexSize, &offset);
 	}
 
-	void GraphicDeviceDX11::Draw(const eMeshType type, const UINT StartVertexLocation)
+	void GraphicDeviceDX11::Draw(const Mesh* const mesh, const UINT StartVertexLocation)
 	{
-		const Mesh* const mesh = mMeshs->GetConstantBuffer(type);
+		assert(mesh);
 
 		const UINT vertexSize = mesh->GetVertexCount();
 		mContext->Draw(vertexSize, StartVertexLocation);
 	}
 
-	void GraphicDeviceDX11::BindTexture(const eResTexture textureName, const eShaderBindType stage)
+	void GraphicDeviceDX11::BindTexture(const Texture* texture, const UINT startSlot, const eShaderBindType stage)
 	{
-		Texture* texture = ResourceManager::GetInstance()->Find<Texture>(textureName);				
-		const UINT startSlot = 0;
-
 		switch (stage)
 		{
 		case eShaderBindType::VS:
@@ -324,10 +309,9 @@ namespace engine::graphics
 		}
 	}
 
-
 	void GraphicDeviceDX11::clearRenderTarget(const UINT screenWidth, const UINT screenHeight)
 	{
-		constexpr FLOAT bgColor[4] = { 0.2f, 0.2f, 0.2f, 1.0f };
+		const FLOAT bgColor[4] = { 0.2f, 0.2f, 0.2f, 1.0f };
 		const D3D11_VIEWPORT mViewPort =
 		{
 			0.0f, 0.0f,
@@ -343,5 +327,32 @@ namespace engine::graphics
 	void GraphicDeviceDX11::present()
 	{
 		mSwapChain->Present(0, 0);
+	}
+
+	void GraphicDeviceDX11::engineResourceLoad(const HWND hWnd)
+	{
+#pragma region Creatge Meshs
+		//RectMesh
+
+#pragma endregion
+
+#pragma region Create Shaders				
+		Shader* const defaultShader =
+			new Shader(eResShader::Default_VertexShader, L"main",
+				eResShader::Default_PixelShader, L"main",
+				mDevice.Get(), hWnd);
+
+		gResourceManager->Insert<Shader>(defaultShader, L"Default");
+
+#pragma endregion
+
+#pragma region Material
+		{
+			Material* const defaultMaterial = new Material();
+			defaultMaterial->SetShader(gResourceManager->FindOrNullByRelativePath<Shader>(L"Default"));
+			defaultMaterial->SetTexture(gResourceManager->FindByEnum<Texture>(eResTexture::Ori));
+			gResourceManager->Insert<Material>(defaultMaterial, L"Default");
+		}
+#pragma endregion
 	}
 }

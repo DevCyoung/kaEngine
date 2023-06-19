@@ -13,9 +13,9 @@ namespace engine
 
 	ResourceManager::~ResourceManager()
 	{
-		for (std::unordered_map<UINT, Resource*>& item : mResources)
+		for (HashMap& item : mResources)
 		{
-			safe::DeleteUnorderedMap(item);
+			memory::safe::DeleteUnorderedMap(item);
 		}
 	}
 
@@ -24,6 +24,7 @@ namespace engine
 		assert(!sInstance);
 		sInstance = new ResourceManager();
 
+		//Engine intsert		
 		//sInstance->Load<Texture>(eResTexture::Fighter);
 
 		//for (UINT i = 0; i < static_cast<UINT>(eResTexture::End); ++i)
@@ -60,15 +61,18 @@ namespace engine
 
 	}
 
-	void ResourceManager::ResourceAllLoad()
+	void ResourceManager::resourceAllLoad()
 	{
+		assert(sInstance);
+
 		//리소스로드
 		for (UINT i = 0; i < static_cast<UINT>(eResTexture::End); ++i)
 		{			
-			ResourceManager::GetInstance()->Load<Texture>(static_cast<eResTexture>(i));
+			sInstance->LoadByEnum<Texture>(static_cast<eResTexture>(i));
 		}
 
 	}
 
 }
+
 

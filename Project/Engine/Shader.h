@@ -4,7 +4,6 @@
 
 #include "Resource.h"
 
-
 namespace engine
 {	
 	namespace graphics
@@ -21,8 +20,7 @@ namespace engine
 
 	class	Shader : public Resource
 	{
-		friend class graphics::GraphicDeviceDX11;
-		friend class ShaderCollection;
+		friend class graphics::GraphicDeviceDX11;		
 
 	public:
 		Shader(const eResShader vsFileName,

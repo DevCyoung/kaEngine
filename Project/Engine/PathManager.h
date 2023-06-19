@@ -17,3 +17,4 @@ namespace engine
 		wchar_t	mResourcePath[256];
 	};
 }
+#define gPathManager engine::PathManager::GetInstance()

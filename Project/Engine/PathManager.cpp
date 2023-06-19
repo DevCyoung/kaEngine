@@ -33,7 +33,7 @@ namespace engine
 			}
 		}
 		
-		wcscat_s(sInstance->mResourcePath, L"\\bin\\resource");
+		wcscat_s(sInstance->mResourcePath, L"\\bin\\Resources");
 	}
 
 }

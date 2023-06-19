@@ -3,18 +3,17 @@
 #include <d3dcompiler.h>
 #include <wrl/client.h>
 
+struct ID3D11Device;
+
 namespace engine
 {
-	class MeshCollection;
-	class ShaderCollection;
+	enum class eCBType;		
+	enum class eShaderBindType;	
+
 	class CBCollection;
-
-	enum class eCBType;
-	enum class eMeshType;
-	enum class eShaderType;
-	enum class eShaderBindType;
-
-	enum class eResTexture;
+	class Shader;
+	class Mesh;
+	class Texture;	
 
 	namespace graphics
 	{
@@ -26,25 +25,24 @@ namespace engine
 			virtual ~GraphicDeviceDX11();
 			GraphicDeviceDX11(const GraphicDeviceDX11&) = delete;
 			GraphicDeviceDX11& operator=(const GraphicDeviceDX11&) = delete;
-			ID3D11Device* const GetDevice() { return mDevice.Get(); }
-
-					
-
-			void BindIA(const eShaderType type);
-			void BindVS(const eShaderType type);
-			void BindPS(const eShaderType type);
+			
+			ID3D11Device* UnSafe_GetDevice() const { return mDevice.Get(); }
+				
+			void BindIA(const Shader* const shader);
+			void BindVS(const Shader* const shader);
+			void BindPS(const Shader* const shader);
 			void BindCB(const eCBType type, const eShaderBindType stage);
-			void BindMesh(const eMeshType type);
-			void BindTexture(const eResTexture texture, const eShaderBindType stage);
+			void BindMesh(const Mesh* const mesh);
+			void BindTexture(const Texture* texture, const UINT startSlot, const eShaderBindType stage);
 
-			void PassCB(const eCBType type, const void* const data);
+			void PassCB(const eCBType type, const void* const data, const UINT byteSize);
 
-			void Draw(const eMeshType type, const UINT StartVertexLocation);
+			void Draw(const Mesh* const mesh, const UINT StartVertexLocation);
 			//void DrawIndexd();
 
 		private:
 			void clearRenderTarget(const UINT screenWidth, const UINT screenHeight);
-			
+			void engineResourceLoad(const HWND hWnd);
 			void present();
 
 		private:
@@ -56,9 +54,7 @@ namespace engine
 			Microsoft::WRL::ComPtr<ID3D11DepthStencilView> mDepthStencilView;
 			Microsoft::WRL::ComPtr<IDXGISwapChain> mSwapChain;			
 			Microsoft::WRL::ComPtr<ID3D11SamplerState> m_Sampler[2];
-
-			MeshCollection* mMeshs;
-			ShaderCollection* mShaders;
+			
 			CBCollection* mConstantBuffers;
 		};
 	}

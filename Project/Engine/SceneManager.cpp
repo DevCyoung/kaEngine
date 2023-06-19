@@ -20,8 +20,14 @@ namespace engine
 		assert(!sInstance);
 		sInstance = new SceneManager();
 
-		sInstance->mCurrentScene = new Scene();	//DummyScene
+		//FIXME: DummyScene
+		sInstance->mCurrentScene = new Scene();
 		sInstance->mCurrentScene->initialize();		
+	}
+
+	void SceneManager::LoadScene(Scene* const scene)
+	{		
+		sInstance->mCurrentScene = scene;		
 	}
 
 	void SceneManager::update()

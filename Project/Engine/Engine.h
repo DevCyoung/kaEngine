@@ -1,10 +1,7 @@
 #pragma once
 #include <memory>
 #include <assert.h>
-
 #include "Singleton.h"
-
-
 
 namespace engine
 {
@@ -12,8 +9,6 @@ namespace engine
     {
         class GraphicDeviceDX11;
     }
-
-    
 
     class Engine
     {    
@@ -40,7 +35,6 @@ namespace engine
         HWND mHwnd;
         UINT mScreenWidth;
         UINT mScreenHeight;        
-        
     };    
 }
 

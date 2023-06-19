@@ -1,31 +1,25 @@
 ﻿// Client.cpp : 애플리케이션에 대한 진입점을 정의합니다.
 //
-
-
-#ifdef _DEBUG
-#pragma comment(lib, "Content/Content_d.lib")
-#pragma comment(lib, "Engine/Engine_d.lib")
-#else
-#pragma comment(lib, "Content/Content.lib")
-#pragma comment(lib, "Engine/Engine.lib")
-#endif
-
 #define MAX_LOADSTRING 100
 
+#ifdef _DEBUG
+#pragma comment(lib, "Engine/Engine_d.lib")
+#pragma comment(lib, "Content/Content_d.lib")
+#else
+#pragma comment(lib, "Engine/Engine.lib")
+#pragma comment(lib, "Content/Content.lib")
+#endif
 #include "framework.h"
 #include "Client.h"
 
 #include <Engine/Engine.h>
 
 
-
-
-
 // 전역 변수:
 HINSTANCE hInst;                                // 현재 인스턴스입니다.
 WCHAR szTitle[MAX_LOADSTRING];                  // 제목 표시줄 텍스트입니다.
 WCHAR szWindowClass[MAX_LOADSTRING];            // 기본 창 클래스 이름입니다.
-HWND gHwnd;
+HWND gHwnd = nullptr;
 
 // 이 코드 모듈에 포함된 함수의 선언을 전달합니다:
 ATOM                MyRegisterClass(HINSTANCE hInstance);
@@ -54,25 +48,32 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     MyRegisterClass(hInstance);
    
     //engine::Engine* const engine = gEngine;
-
+       
     // 애플리케이션 초기화를 수행합니다:
     if (!InitInstance (hInstance, nCmdShow))
     {
         return static_cast<int>(FALSE);
     }
 
-    //gEngine
-    engine::Engine::initialize(gHwnd, 1600, 900);
+    constexpr UINT screenWidth = 1600;
+    constexpr UINT screenHeight = 900;
+    
+    engine::Engine::initialize(gHwnd, screenWidth, screenHeight);
 
     HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_CLIENT));
     MSG msg;    
+
+
+
 
     while (true)
     {
         if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
         {
             if (WM_QUIT == msg.message)
+            {
                 break;
+            }
 
             if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
             {
@@ -82,11 +83,11 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         }
         else
         {        
-            engine::Engine::GetInstance()->run();
+            engine::Engine::GetInstance()->run();            
         }
     }
 
-    engine::Engine::deleteInstance();
+    engine::Engine::deleteInstance();    
     return static_cast<int>(msg.wParam);
 }
 

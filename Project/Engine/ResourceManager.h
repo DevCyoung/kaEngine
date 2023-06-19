@@ -9,68 +9,106 @@ namespace engine
 	class ResourceManager
 	{
 		friend class Engine;
+		using HashMap = std::unordered_map<std::wstring, Resource*>;
+		using Iterator = HashMap::iterator;
+		using ConstIterator = HashMap::const_iterator;
 		SINGLETON_DECLARE(ResourceManager);
 
 	public:
-
-
-
 		template<typename T>
-		static T* FindOrNull(enable_if_resource<T>::ResEnumType resName)
+		static T* FindOrNullByRelativePath(const std::wstring& orName) //or Relative Path
 		{
 			constexpr eResourceType resType = enable_if_resource<T>::resourceType;
-			std::unordered_map<UINT, Resource*>& resources = sInstance->mResources[static_cast<UINT>(resType)];
-			std::unordered_map<UINT, Resource*>::iterator iter = resources.find(static_cast<UINT>(resName));
+			const HashMap& resources = sInstance->mResources[static_cast<UINT>(resType)];
+			ConstIterator iter = resources.find(orName);
 
 			T* res = nullptr;
 
 			if (iter != resources.end())
 			{
+#ifdef _DEBUG
 				res = dynamic_cast<T*>(iter->second);
+				assert(res);
+#else
+				res = static_cast<T*>(iter->second);
+#endif
 			}
 
 			return res;
 		}
 
-		template <typename T>
-		static void Load(enable_if_resource<T>::ResEnumType resType)
+		template<typename T>
+		static T* FindOrNullByEnum(enable_if_resource<T>::ResEnumType resName)
 		{
-			T* res = FindOrNull<T>(resType);
+			return FindOrNullByRelativePath<T>(EnumResourcePath(resName));
+		}
+
+
+		template <typename T>
+		static void LoadByRelativePath(const std::wstring& orName)
+		{
+			T* res = FindOrNullByRelativePath<T>(orName);
 			assert(!res);
 
 			constexpr eResourceType type = enable_if_resource<T>::resourceType;
-			std::unordered_map<UINT, Resource*>& resources = sInstance->mResources[static_cast<UINT>(type)];
+			HashMap& resources = sInstance->mResources[static_cast<UINT>(type)];
 
 			res = new T();
 
-			std::wstring wstr = PathManager::GetInstance()->GetResourcePath();
-			wstr += EnumResourcePath(resType);
-
-			res->Load(wstr.c_str());			
-
-			resources.insert(std::make_pair(static_cast<UINT>(resType), res));
+			const std::wstring fullPath = PathManager::GetInstance()->GetResourcePath() + orName;
+			res->Load(fullPath);
+			resources.insert(std::make_pair(orName, res)); //key : relative Path
 		}
 
-		template<typename T>
-		static T* Find(enable_if_resource<T>::ResEnumType resName)
+		template <typename T>
+		static void LoadByEnum(enable_if_resource<T>::ResEnumType resType)
 		{
-			T* res = FindOrNull<T>(resName);
+			LoadByRelativePath<T>(EnumResourcePath(resType));
+		}
+
+
+		template<typename T>
+		static T* FindByRelativePath(const std::wstring& orName)
+		{
+			T* res = FindOrNullByRelativePath<T>(orName);
 
 			if (nullptr == res)
 			{
-				Load<T>(resName);
-				res = FindOrNull<T>(resName);
+				LoadByRelativePath<T>(orName);
+				res = FindOrNullByRelativePath<T>(orName);
 			}
 
 			assert(res);
 			return res;
 		}
 
-		void ResourceAllLoad();
+
+		template<typename T>
+		static T* FindByEnum(enable_if_resource<T>::ResEnumType resName)
+		{
+			return FindByRelativePath<T>(EnumResourcePath(resName));
+		}
+
+		template<typename T>
+		static void Insert(T* const res, const std::wstring& resourceName)
+		{
+			assert(res);
+			constexpr eResourceType type = enable_if_resource<T>::resourceType;
+			HashMap& resources = sInstance->mResources[static_cast<UINT>(type)];
+			Iterator iter = resources.find(resourceName);
+
+			assert(resources.end() == iter);
+			resources.insert(std::make_pair(resourceName, res));
+		}
+
+	private:
+		void resourceAllLoad();
 
 
 
-	private:		
-		std::unordered_map<UINT, Resource*> mResources[static_cast<UINT>(eResourceType::End)];
+	private:
+		HashMap mResources[static_cast<UINT>(eResourceType::End)];
 	};
 }
+
+#define gResourceManager engine::ResourceManager::GetInstance()

@@ -1,9 +1,8 @@
 #include "pch.h"
 #include "Shader.h"
 #include "String.h"
-
-#include "EnumResourceTypeShader.h"
 #include "PathManager.h"
+#include "EnumResourceTypeShader.h"
 
 namespace engine
 {

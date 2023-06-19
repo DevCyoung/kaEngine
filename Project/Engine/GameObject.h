@@ -1,5 +1,4 @@
 #pragma once
-
 #include "Entity.h"
 #include "Component.h"
 #include "Transform.h"
@@ -7,7 +6,7 @@
 
 namespace engine
 {
-	class GameObject : public Entity 
+	class GameObject : public Entity
 	{
 		friend class Layer;
 	public:
@@ -29,11 +28,14 @@ namespace engine
 
 		template<typename T>
 		T* GetComponent()
-		{			
+		{
 			const UINT index = static_cast<UINT>(enable_if_component<T>::type);
+#ifdef _DEBUG
 			T* component = dynamic_cast<T*>(mEngineComponents[index]);
-
 			assert(component);
+#else
+			T* component = static_cast<T*>(mEngineComponents[index]);
+#endif			
 			return component;
 		}
 
@@ -45,6 +47,6 @@ namespace engine
 
 	private:
 		eState mState;
-		Component* mEngineComponents[static_cast<int>(eComponentType::End)];		
+		Component* mEngineComponents[static_cast<int>(eComponentType::End)];
 	};
 }

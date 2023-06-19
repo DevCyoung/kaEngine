@@ -1,7 +1,6 @@
 #pragma once
 #include <wrl.h>
 #include <d3d11.h>
-
 #include "Resource.h"
 
 namespace graphics
@@ -14,8 +13,7 @@ namespace engine
 {
 	class Mesh : public Resource
 	{
-		friend class graphics::GraphicDeviceDX11;
-		friend class MeshCollection;
+		friend class graphics::GraphicDeviceDX11;		
 
 	private:		
 		Mesh(const D3D11_BUFFER_DESC& pDesc, const D3D11_SUBRESOURCE_DATA* const pInitialData,

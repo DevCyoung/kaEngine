@@ -15,6 +15,7 @@ struct VSOut
 
 Texture2D smileTexture : register(t0);
 
+SamplerState pointSampler : register(s0);
 SamplerState samplerState : register(s1);
 
 float4 main(VSOut In) : SV_TARGET

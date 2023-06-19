@@ -11,9 +11,7 @@ namespace engine
 {
 	enum class eCBType
 	{
-		Transform,
-		ParticleInfo,
-		Dummy,
+		Transform,				
 		End,
 	};
 
@@ -31,6 +29,7 @@ namespace engine
 	private:
 		eCBType mType;
 		D3D11_BUFFER_DESC mDesc;
+		UINT mSize;
 		Microsoft::WRL::ComPtr<ID3D11Buffer> mBuffer;
 	};
 }
