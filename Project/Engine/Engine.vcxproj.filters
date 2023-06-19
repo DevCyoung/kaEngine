@@ -115,6 +115,9 @@
     <Filter Include="Source\8. Helper\Casting">
       <UniqueIdentifier>{c748471b-0d56-428b-a407-ad08373b61e5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ShaderCode\Sample">
+      <UniqueIdentifier>{335ea649-8d1f-4aa9-9056-7ff4a2b49512}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DXMath.h">
@@ -383,6 +386,12 @@
     </FxCompile>
     <FxCompile Include="..\..\Output\bin\Resources\Shader\Default\PixelShader.hlsl">
       <Filter>ShaderCode\Default</Filter>
+    </FxCompile>
+    <FxCompile Include="..\..\Output\bin\Resources\Shader\Sample\PixelSample.fx">
+      <Filter>ShaderCode\Sample</Filter>
+    </FxCompile>
+    <FxCompile Include="..\..\Output\bin\Resources\Shader\Sample\VertexSample.fx">
+      <Filter>ShaderCode\Sample</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>

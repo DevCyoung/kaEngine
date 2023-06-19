@@ -388,6 +388,15 @@ namespace engine::graphics
 
 		gResourceManager->Insert<Shader>(defaultShader, L"Default");
 
+
+		Shader* const sampleShader =
+			new Shader(eResShader::Sample_VertexSample, L"main",
+				eResShader::Sample_PixelSample, L"main",
+				mDevice.Get(), hWnd);
+
+		gResourceManager->Insert<Shader>(sampleShader, L"Sample");
+
+
 #pragma endregion
 
 #pragma region Material
@@ -396,6 +405,13 @@ namespace engine::graphics
 			defaultMaterial->SetShader(gResourceManager->FindOrNullByRelativePath<Shader>(L"Default"));
 			defaultMaterial->SetTexture(gResourceManager->FindByEnum<Texture>(eResTexture::Ori));
 			gResourceManager->Insert<Material>(defaultMaterial, L"Default");
+
+			Material* const sampleMaterial = new Material();
+			sampleMaterial->SetShader(gResourceManager->FindOrNullByRelativePath<Shader>(L"Sample"));
+			sampleMaterial->SetTexture(gResourceManager->FindByEnum<Texture>(eResTexture::Ori));
+			gResourceManager->Insert<Material>(sampleMaterial, L"Sample");
+
+
 		}
 #pragma endregion
 	}

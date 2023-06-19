@@ -6,6 +6,8 @@ namespace engine
 	{
 		Default_PixelShader,
 		Default_VertexShader,
+		Sample_PixelSample,
+		Sample_VertexSample,
 		End
 	};
 

@@ -27,7 +27,7 @@ namespace engine
 		AddComponent(new MeshRenderer);
 
 		MeshRenderer* meshrenderer = GetComponent<MeshRenderer>();		
-		meshrenderer->SetMaterial(gResourceManager->FindOrNullByRelativePath<Material>(L"Default"));
+		meshrenderer->SetMaterial(gResourceManager->FindOrNullByRelativePath<Material>(L"Sample"));
 		meshrenderer->SetMesh(gResourceManager->FindOrNullByRelativePath<Mesh>(L"Rect"));		
 	}
 
