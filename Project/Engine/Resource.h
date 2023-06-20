@@ -1,10 +1,10 @@
 #pragma once
-#include "EngineIncludes.h"
 
 namespace engine
 {
 	class Resource
 	{
+		friend class ResourceManager;
 	public:
 		Resource();
 		virtual ~Resource();

@@ -2,11 +2,11 @@
 #include "GraphicDeviceDX11.h"
 #include "StructVertex.h"
 #include "CBCollection.h"
-#include "ResourceManager.h"
-#include "Mesh.h"
 #include "Textrue.h"
 #include "Shader.h"
 #include "Material.h"
+#include "Mesh.h"
+#include "ResourceManager.h"
 
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "d3dcompiler.lib")
@@ -331,88 +331,52 @@ namespace engine::graphics
 
 	void GraphicDeviceDX11::engineResourceLoad(const HWND hWnd)
 	{
-#pragma region Creatge Meshs
-		//RectMesh
-		//RectMesh
+		(void)hWnd;
+
+#pragma region Creatge Meshs				
 		{
+			//RectMesh
 			const UINT VERTEX_COUNT = 6;
 
 			D3D11_BUFFER_DESC triangleDesc = {};
 			triangleDesc.Usage = D3D11_USAGE::D3D11_USAGE_DYNAMIC;
-			triangleDesc.ByteWidth = sizeof(tVertex) * 6;
+			triangleDesc.ByteWidth = sizeof(tVertex) * VERTEX_COUNT;
 			triangleDesc.BindFlags = D3D11_BIND_FLAG::D3D11_BIND_VERTEX_BUFFER;
 			triangleDesc.CPUAccessFlags = D3D11_CPU_ACCESS_FLAG::D3D11_CPU_ACCESS_WRITE;
 
 			D3D11_SUBRESOURCE_DATA triangleData = {};
-			tVertex triVertexes[VERTEX_COUNT] = {};
+			tVertex vertex[VERTEX_COUNT] = {};
 
-			triVertexes[0].pos = Vector3(-0.5f, 0.5f, 0.0f);
-			triVertexes[0].color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
-			triVertexes[0].uv = Vector2(0.0f, 0.0f);
+			vertex[0].pos = Vector3(-0.5f, 0.5f, 0.0f);
+			vertex[0].color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
+			vertex[0].uv = Vector2(0.0f, 0.0f);
 
-			triVertexes[1].pos = Vector3(0.5f, -0.5f, 0.0f);
-			triVertexes[1].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
-			triVertexes[1].uv = Vector2(1.0f, 1.0f);
+			vertex[1].pos = Vector3(0.5f, -0.5f, 0.0f);
+			vertex[1].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
+			vertex[1].uv = Vector2(1.0f, 1.0f);
 
-			triVertexes[2].pos = Vector3(-0.5f, -0.5f, 0.0f);
-			triVertexes[2].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
-			triVertexes[2].uv = Vector2(0.0f, 1.0f);
+			vertex[2].pos = Vector3(-0.5f, -0.5f, 0.0f);
+			vertex[2].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
+			vertex[2].uv = Vector2(0.0f, 1.0f);
 
-			triVertexes[3].pos = Vector3(-0.5f, 0.5f, 0.0f);
-			triVertexes[3].color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
-			triVertexes[3].uv = Vector2(0.0f, 0.0f);
+			vertex[3].pos = Vector3(-0.5f, 0.5f, 0.0f);
+			vertex[3].color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
+			vertex[3].uv = Vector2(0.0f, 0.0f);
 
-			triVertexes[4].pos = Vector3(0.5f, 0.5f, 0.0f);
-			triVertexes[4].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
-			triVertexes[4].uv = Vector2(1.0f, 0.0f);
+			vertex[4].pos = Vector3(0.5f, 0.5f, 0.0f);
+			vertex[4].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
+			vertex[4].uv = Vector2(1.0f, 0.0f);
 
-			triVertexes[5].pos = Vector3(0.5f, -0.5f, 0.0f);
-			triVertexes[5].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
-			triVertexes[5].uv = Vector2(1.0f, 1.0f);
+			vertex[5].pos = Vector3(0.5f, -0.5f, 0.0f);
+			vertex[5].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
+			vertex[5].uv = Vector2(1.0f, 1.0f);
 
-			triangleData.pSysMem = triVertexes;
+			triangleData.pSysMem = vertex;
 
-			gResourceManager->Insert<Mesh>(new Mesh(triangleDesc, &triangleData,
-				sizeof(tVertex), VERTEX_COUNT, mDevice.Get()), L"Rect");
-		}
-
-
-
-#pragma endregion
-
-#pragma region Create Shaders				
-		Shader* const defaultShader =
-			new Shader(eResShader::Default_VertexShader, L"main",
-				eResShader::Default_PixelShader, L"main",
-				mDevice.Get(), hWnd);
-
-		gResourceManager->Insert<Shader>(defaultShader, L"Default");
-
-
-		Shader* const sampleShader =
-			new Shader(eResShader::Sample_VertexSample, L"main",
-				eResShader::Sample_PixelSample, L"main",
-				mDevice.Get(), hWnd);
-
-		gResourceManager->Insert<Shader>(sampleShader, L"Sample");
-
-
-#pragma endregion
-
-#pragma region Material
-		{
-			Material* const defaultMaterial = new Material();
-			defaultMaterial->SetShader(gResourceManager->FindOrNullByRelativePath<Shader>(L"Default"));
-			defaultMaterial->SetTexture(gResourceManager->FindByEnum<Texture>(eResTexture::Ori));
-			gResourceManager->Insert<Material>(defaultMaterial, L"Default");
-
-			Material* const sampleMaterial = new Material();
-			sampleMaterial->SetShader(gResourceManager->FindOrNullByRelativePath<Shader>(L"Sample"));
-			sampleMaterial->SetTexture(gResourceManager->FindByEnum<Texture>(eResTexture::Ori));
-			gResourceManager->Insert<Material>(sampleMaterial, L"Sample");
-
-
+			gResourceManager->Insert<Mesh>(L"Rect", new Mesh(triangleDesc, &triangleData,
+				sizeof(tVertex), VERTEX_COUNT, mDevice.Get()));
 		}
 #pragma endregion
+
 	}
 }

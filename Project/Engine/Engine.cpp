@@ -4,10 +4,9 @@
 #include "TimeManager.h"
 #include "InputManager.h"
 #include "PathManager.h"
+#include "EventManager.h"
 #include "ResourceManager.h"
 #include "SceneManager.h"
-
-
 
 namespace engine
 {
@@ -22,7 +21,8 @@ namespace engine
 	Engine::~Engine()
 	{
 		SceneManager::deleteInstance();
-		ResourceManager::deleteInstance();
+		ResourceManager::deleteInstance();		
+		EventManager::deleteInstance();
 		InputManager::deleteInstance();
 		PathManager::deleteInstance();
 		TimeManager::deleteInstance();
@@ -36,15 +36,14 @@ namespace engine
 		sInstance = new Engine();
 
 		TimeManager::initialize();
-		InputManager::initialize();
 		PathManager::initialize();
+		InputManager::initialize();
+		EventManager::initialize();
 		ResourceManager::initialize();
 
 		sInstance->setWindow(hWnd, screenWidth, screenHeight);
 		sInstance->mGraphicDevice = std::make_unique<graphics::GraphicDeviceDX11>(hWnd,
 			screenWidth, screenHeight);		
-
-		ResourceManager::GetInstance()->resourceAllLoad();
 		sInstance->mGraphicDevice->engineResourceLoad(hWnd);
 				
 		SceneManager::initialize();		
@@ -64,11 +63,13 @@ namespace engine
 		TimeManager::GetInstance()->update();
 		InputManager::GetInstance()->update(mHwnd);
 		SceneManager::GetInstance()->update();
+		EventManager::GetInstance()->update();
 	}
 
 	void Engine::lateUpdate()
 	{
 		SceneManager::GetInstance()->lateUpdate();
+		EventManager::GetInstance()->lateUpdate();
 	}
 
 	void Engine::render()

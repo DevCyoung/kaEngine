@@ -9,6 +9,7 @@ namespace engine
 	class Component : public Entity
 	{		
 		friend class GameObject;
+
 	public:
 		Component(const eComponentType type);
 		virtual ~Component();

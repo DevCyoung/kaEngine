@@ -20,6 +20,8 @@ namespace engine
 		Layer(const Layer&) = delete;
 		Layer& operator=(const Layer&) = delete;
 
+		void AddGameObject(GameObject* const obj);
+
 	private:
 		virtual void initialize();
 		virtual void update();

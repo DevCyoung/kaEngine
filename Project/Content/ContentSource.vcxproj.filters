@@ -4,21 +4,122 @@
     <Filter Include="Windows">
       <UniqueIdentifier>{35ed6a03-5dfe-4232-83f2-fdc3b0a60e3b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Windows\리소스 파일">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    <Filter Include="Source">
+      <UniqueIdentifier>{979c0109-8357-4852-b535-29e01dc23a1e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\00. Content">
+      <UniqueIdentifier>{696114eb-0954-476b-85b0-ef47c3412d7f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\01. Scripts">
+      <UniqueIdentifier>{de857324-cd4d-4a4d-80a7-707699222472}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\01. Scripts\TestScript">
+      <UniqueIdentifier>{c60c3f15-71fe-41ad-aeca-fb6aab472c26}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\01. Scripts\00. EnumScript">
+      <UniqueIdentifier>{6f9a600f-b57d-4bbc-91a5-21092500c1ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{df7c758c-f2a8-43fd-9b81-4685458a5dcf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ShaderCode">
+      <UniqueIdentifier>{2c32228f-6400-4c12-ba3a-80bcc9e68287}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ShaderCode\Default">
+      <UniqueIdentifier>{4030d45f-9fbc-4dab-8b20-6442ac249083}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ShaderCode\Sample">
+      <UniqueIdentifier>{bc3dcd50-4fe3-407a-a9af-2b67d25b8b9e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
-      <Filter>Windows\리소스 파일</Filter>
+      <Filter>Windows</Filter>
     </ClInclude>
     <ClInclude Include="framework.h">
-      <Filter>Windows\리소스 파일</Filter>
+      <Filter>Windows</Filter>
     </ClInclude>
-    <ClInclude Include="test.h" />
+    <ClInclude Include="Content.h">
+      <Filter>Source\00. Content</Filter>
+    </ClInclude>
+    <ClInclude Include="SampleScript.h">
+      <Filter>Source\01. Scripts\TestScript</Filter>
+    </ClInclude>
+    <ClInclude Include="EnumScriptComponentType.h">
+      <Filter>Source\01. Scripts\00. EnumScript</Filter>
+    </ClInclude>
+    <ClInclude Include="EnumResourceTypeAnimation.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="EnumResourceTypeFont.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="EnumResourceTypeLevel.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="EnumResourceTypeMaterial.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="EnumResourceTypeMesh.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="EnumResourceTypeShader.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="EnumResourceTypeSound.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="EnumResourceTypeTexture.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="test.cpp" />
+    <ClCompile Include="pch.cpp">
+      <Filter>Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="Content.cpp">
+      <Filter>Source\00. Content</Filter>
+    </ClCompile>
+    <ClCompile Include="SampleScript.cpp">
+      <Filter>Source\01. Scripts\TestScript</Filter>
+    </ClCompile>
+    <ClCompile Include="EnumResourceTypeAnimation.cpp">
+      <Filter>Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="EnumResourceTypeFont.cpp">
+      <Filter>Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="EnumResourceTypeLevel.cpp">
+      <Filter>Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="EnumResourceTypeMaterial.cpp">
+      <Filter>Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="EnumResourceTypeMesh.cpp">
+      <Filter>Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="EnumResourceTypeShader.cpp">
+      <Filter>Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="EnumResourceTypeSound.cpp">
+      <Filter>Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="EnumResourceTypeTexture.cpp">
+      <Filter>Resources</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="..\..\Output\bin\Resources\Shader\Default\PixelShader.hlsl">
+      <Filter>ShaderCode\Default</Filter>
+    </FxCompile>
+    <FxCompile Include="..\..\Output\bin\Resources\Shader\Default\VertexShader.hlsl">
+      <Filter>ShaderCode\Default</Filter>
+    </FxCompile>
+    <FxCompile Include="..\..\Output\bin\Resources\Shader\Sample\VertexSample.fx">
+      <Filter>ShaderCode\Sample</Filter>
+    </FxCompile>
+    <FxCompile Include="..\..\Output\bin\Resources\Shader\Sample\PixelSample.fx">
+      <Filter>ShaderCode\Sample</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

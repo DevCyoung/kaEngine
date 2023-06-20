@@ -34,5 +34,4 @@ namespace engine
 		Vector3 mRotation;
 		Vector3 mScale;
 	};
-
 }

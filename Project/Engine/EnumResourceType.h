@@ -1,14 +1,4 @@
-#pragma once	
-
-#include "EnumResourceTypeTexture.h"
-#include "EnumResourceTypeMesh.h"
-#include "EnumResourceTypeMaterial.h"
-#include "EnumResourceTypeShader.h"
-#include "EnumResourceTypeAnimation.h"
-#include "EnumResourceTypeFont.h"
-#include "EnumResourceTypeSound.h"
-#include "EnumResourceTypeLevel.h"
-
+#pragma once
 
 namespace engine
 {
@@ -20,6 +10,15 @@ namespace engine
 	class Font;
 	class Sound;
 	class Level;
+
+	enum class eResTexture;
+	enum class eResMesh;
+	enum class eResMaterial;
+	enum class eResShader;
+	enum class eResAnimation;
+	enum class eResFont;
+	enum class eResSound;
+	enum class eResLevel;
 
 
 	enum class eResourceType
@@ -41,7 +40,7 @@ namespace engine
 	template <typename T, typename Enable = void>
 	struct enable_if_resource
 	{
-		static constexpr bool faile = true;
+		static constexpr bool boolType = false;
 	};
 
 	template <>
@@ -99,6 +98,4 @@ namespace engine
 		static constexpr eResourceType resourceType = eResourceType::Level;
 		using ResEnumType = eResLevel;
 	};
-
-
 }

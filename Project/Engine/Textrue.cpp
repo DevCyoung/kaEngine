@@ -54,6 +54,8 @@ namespace engine
 		{
 			if (FAILED(LoadFromWICFile(path.c_str(), WIC_FLAGS::WIC_FLAGS_NONE, nullptr, mImage)))
 			{
+				DWORD dword  = GetLastError();
+				(void)dword;
 				assert(false);
 			}				
 		}
@@ -62,8 +64,11 @@ namespace engine
 			assert(false);
 		}
 
-		CreateShaderResourceView (gGraphicDevice->UnSafe_GetDevice(), mImage.GetImages(), mImage.GetImageCount()
-			, mImage.GetMetadata(), mSRV.GetAddressOf() );
+		if (FAILED(CreateShaderResourceView(gGraphicDevice->UnSafe_GetDevice(), mImage.GetImages(), mImage.GetImageCount()
+			, mImage.GetMetadata(), mSRV.GetAddressOf())))
+		{
+			assert(false);
+		}
 		
 		mSRV->GetResource(reinterpret_cast<ID3D11Resource**>(mTexture.GetAddressOf()));
 

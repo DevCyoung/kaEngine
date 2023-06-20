@@ -1,10 +1,12 @@
 #pragma once
 #include "Singleton.h"
 
-class Scene;
+
 
 namespace engine
 {		
+	class Scene;
+
 	class SceneManager
 	{		
 		friend class Engine;

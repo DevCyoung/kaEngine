@@ -6,8 +6,9 @@ namespace engine
 		Transform,
 		Sprite,
 		Animator,
-		MeshRenderer,
-		End
+		MeshRenderer,		
+		End,
+		Script,
 	};
 
 	class Transform;

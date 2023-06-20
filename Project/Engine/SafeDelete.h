@@ -54,8 +54,8 @@ namespace engine
 			}
 		}
 
-		template<typename Pointer>
-		void DeleteVec(std::vector<Pointer>& vec)
+		template<typename T>
+		void DeleteVec(std::vector<T>& vec)
 		{
 			for (size_t i = 0; i < vec.size(); ++i)
 			{
@@ -65,8 +65,8 @@ namespace engine
 			vec.clear();
 		}
 
-		template<typename Key, typename Pointer>
-		void DeleteUnorderedMap(std::unordered_map<Key, Pointer>& map)
+		template<typename Key, typename T>
+		void DeleteUnorderedMap(std::unordered_map<Key, T>& map)
 		{
 			for (auto& value : map)
 			{

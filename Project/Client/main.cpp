@@ -1,5 +1,6 @@
 ﻿// Client.cpp : 애플리케이션에 대한 진입점을 정의합니다.
-//
+#include "pch.h"
+
 #define MAX_LOADSTRING 100
 
 #ifdef _DEBUG
@@ -9,11 +10,12 @@
 #pragma comment(lib, "Engine/Engine.lib")
 #pragma comment(lib, "Content/Content.lib")
 #endif
+
 #include "framework.h"
 #include "Client.h"
 
 #include <Engine/Engine.h>
-
+#include <Content/Content.h>
 
 // 전역 변수:
 HINSTANCE hInst;                                // 현재 인스턴스입니다.
@@ -59,12 +61,10 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     constexpr UINT screenHeight = 900;
     
     engine::Engine::initialize(gHwnd, screenWidth, screenHeight);
+    content::Content::initialize();
 
     HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_CLIENT));
     MSG msg;    
-
-
-
 
     while (true)
     {
@@ -87,7 +87,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         }
     }
 
-    engine::Engine::deleteInstance();    
+    engine::Engine::deleteInstance();
+    content::Content::deleteInstance();
     return static_cast<int>(msg.wParam);
 }
 

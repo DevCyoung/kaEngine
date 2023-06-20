@@ -8,19 +8,28 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{9da4e963-7490-41da-a3b3-209919e6884d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
-      <Filter>Windows</Filter>
+      <Filter>Windows\리소스 파일</Filter>
     </ClInclude>
     <ClInclude Include="framework.h">
-      <Filter>Windows</Filter>
+      <Filter>Windows\리소스 파일</Filter>
     </ClInclude>
     <ClInclude Include="Resource.h">
-      <Filter>Windows</Filter>
+      <Filter>Windows\리소스 파일</Filter>
     </ClInclude>
     <ClInclude Include="targetver.h">
+      <Filter>Windows\리소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
       <Filter>Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="PchTest.h">
+      <Filter>Source</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -38,5 +47,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="pch.cpp">
+      <Filter>Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="PchTest.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

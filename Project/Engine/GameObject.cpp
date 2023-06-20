@@ -1,20 +1,5 @@
 #include "pch.h"
 #include "GameObject.h"
-#include "MeshRenderer.h"
-
-#include "Resources.h"
-#include "Textrue.h"
-
-#include "ResourceManager.h"
-#include "EnumResourceType.h"
-
-#include "GraphicDeviceDx11.h"
-#include "Engine.h"
-#include "Mesh.h"
-#include "Material.h"
-#include "Shader.h"
-
-
 
 namespace engine
 {
@@ -23,19 +8,12 @@ namespace engine
 		, mEngineComponents{ 0, }
 	{
 		//모든 오브젝트는 반드시 Transform 을 가지고있는다.
-		AddComponent(new Transform());
-		AddComponent(new MeshRenderer);
-
-		MeshRenderer* meshrenderer = GetComponent<MeshRenderer>();		
-		meshrenderer->SetMaterial(gResourceManager->FindOrNullByRelativePath<Material>(L"Sample"));
-		meshrenderer->SetMesh(gResourceManager->FindOrNullByRelativePath<Mesh>(L"Rect"));		
+		AddComponent(new Transform);
 	}
-
-
-
 
 	GameObject::~GameObject()
 	{
+		memory::safe::DeleteVec(mUserComponents);
 		memory::unsafe::DeleteArray(mEngineComponents);
 	}
 
@@ -45,14 +23,34 @@ namespace engine
 		assert(!(component->mOwner));
 
 		const eComponentType type = component->GetType();
+		assert(eComponentType::End != type);
 
-		assert(!mEngineComponents[static_cast<UINT>(type)]);
+		if (eComponentType::Script == type)
+		{
+			Script* const addScript = dynamic_cast<Script*>(component);
+			assert(addScript);
 
-		mEngineComponents[static_cast<int>(type)] = component;
+			for (const Script* const curScript : mUserComponents)
+			{
+				//이미존재한다면
+				if (curScript->GetScriptType() == addScript->GetScriptType())
+				{
+					assert(false);
+					break;
+				}
+			}
+
+			mUserComponents.push_back(addScript);
+		}
+		else
+		{
+			assert(!mEngineComponents[static_cast<UINT>(type)]);
+			mEngineComponents[static_cast<UINT>(type)] = component;
+		}
 
 		component->mOwner = this;
 	}
-
+	
 	void GameObject::initialize()
 	{
 		for (Component* const component : mEngineComponents)
@@ -61,6 +59,11 @@ namespace engine
 			{
 				component->initialize();
 			}
+		}
+
+		for (Script* const script : mUserComponents)
+		{
+			script->initialize();
 		}
 	}
 
@@ -73,6 +76,12 @@ namespace engine
 				component->update();
 			}
 		}
+
+		for (Script* const script : mUserComponents)
+		{
+			script->update();
+		}
+
 	}
 
 	void GameObject::lateUpdate()
@@ -83,6 +92,11 @@ namespace engine
 			{
 				component->lateUpdate();
 			}
+		}
+
+		for (Script* const script : mUserComponents)
+		{
+			script->lateUpdate();
 		}
 	}
 
@@ -95,6 +109,11 @@ namespace engine
 				component->render();
 			}
 		}
+
+
+		for (Script* const script : mUserComponents)
+		{
+			script->render();
+		}
 	}
 }
-

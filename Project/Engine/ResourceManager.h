@@ -26,12 +26,8 @@ namespace engine
 
 			if (iter != resources.end())
 			{
-#ifdef _DEBUG
 				res = dynamic_cast<T*>(iter->second);
-				assert(res);
-#else
-				res = static_cast<T*>(iter->second);
-#endif
+				assert(res);		
 			}
 
 			return res;
@@ -57,6 +53,10 @@ namespace engine
 
 			const std::wstring fullPath = PathManager::GetInstance()->GetResourcePath() + orName;
 			res->Load(fullPath);
+
+			res->mKey = orName;
+			res->mPath = orName;
+			
 			resources.insert(std::make_pair(orName, res)); //key : relative Path
 		}
 
@@ -90,19 +90,16 @@ namespace engine
 		}
 
 		template<typename T>
-		static void Insert(T* const res, const std::wstring& resourceName)
+		static void Insert(const std::wstring& key, T* const value)
 		{
-			assert(res);
+			assert(value);
 			constexpr eResourceType type = enable_if_resource<T>::resourceType;
 			HashMap& resources = sInstance->mResources[static_cast<UINT>(type)];
-			Iterator iter = resources.find(resourceName);
+			Iterator iter = resources.find(key);
 
 			assert(resources.end() == iter);
-			resources.insert(std::make_pair(resourceName, res));
+			resources.insert(std::make_pair(key, value));
 		}
-
-	private:
-		void resourceAllLoad();
 
 
 

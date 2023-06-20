@@ -12,6 +12,11 @@ namespace engine
 	{		
 	}
 
+	void Scene::AddGameObject(GameObject* const obj, eLayerType type)
+	{
+		mLayers[static_cast<int>(type)].AddGameObject(obj);
+	}
+
 	void Scene::initialize()
 	{
 		for (Layer& layer : mLayers)
@@ -43,5 +48,4 @@ namespace engine
 			layer.render();
 		}
 	}
-
 }

@@ -4,13 +4,14 @@
 namespace engine
 {
 	Mesh::Mesh(const D3D11_BUFFER_DESC& pDesc,
-		const D3D11_SUBRESOURCE_DATA* const pInitialData, 
-		const UINT vertexSize, const UINT vertexCount, 
+		const D3D11_SUBRESOURCE_DATA* const pInitialData,
+		const UINT vertexSize,
+		const UINT vertexCount,
 		ID3D11Device* const device)
 		: mDesc(pDesc)
 		, mVertexSize(vertexSize)
 		, mVertexCount(vertexCount)
-	{		
+	{
 		assert(mDesc.BindFlags == D3D11_BIND_FLAG::D3D11_BIND_VERTEX_BUFFER);
 
 		if (FAILED(device->CreateBuffer(&mDesc, pInitialData, mBuffer.GetAddressOf())))

@@ -8,7 +8,6 @@ namespace graphics
 	class GraphicDeviceDX11;
 }
 
-
 namespace engine
 {
 	class Mesh : public Resource

@@ -1,38 +1,40 @@
 #include "pch.h"
-#include "Shader.h"
 #include "String.h"
+#include "Shader.h"
 #include "PathManager.h"
-#include "EnumResourceTypeShader.h"
 
 namespace engine
 {
-	Shader::Shader(const eResShader vsFileName, 
+	enum class eResShader;
+	const wchar_t* EnumResourcePath(eResShader type);
+
+	Shader::Shader(const eResShader vsFileName,
 		const std::wstring& vsFunName,
-		const eResShader psFileName, 
-		const std::wstring psFunName, 
-		ID3D11Device* const device, 
+		const eResShader psFileName,
+		const std::wstring psFunName,
+		ID3D11Device* const device,
 		const HWND hWnd)
-		: Shader(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST, 
+		: Shader(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST,
 			vsFileName, vsFunName, psFileName, psFunName, device, hWnd)
 	{
 	}
 
 	Shader::Shader(const D3D11_PRIMITIVE_TOPOLOGY topology,
-		const eResShader vsFileName, 
+		const eResShader vsFileName,
 		const std::wstring& vsFunName,
-		const eResShader psFileName, 
-		const std::wstring psFunName, 
-		ID3D11Device* const device, 
+		const eResShader psFileName,
+		const std::wstring psFunName,
+		ID3D11Device* const device,
 		const HWND hWnd)
 		: Resource()
 		, mTopology(topology)
-		, mInputLayout(nullptr)		
+		, mInputLayout(nullptr)
 		, mVS(nullptr)
 		, mHS(nullptr)
 		, mDS(nullptr)
 		, mGS(nullptr)
 		, mPS(nullptr)
-	{		
+	{
 		createVSShader(vsFileName, vsFunName, device, hWnd);
 		createPSShader(psFileName, psFunName, device, hWnd);
 	}
@@ -41,24 +43,24 @@ namespace engine
 	{
 	}
 
-	void Shader::createShader(const eShaderBindType sType, 
+	void Shader::createShader(const eShaderBindType sType,
 		const std::wstring& version,
-		const eResShader fileName, 
-		const std::wstring& funName, 
-		ID3D11Device* const device, 
+		const eResShader fileName,
+		const std::wstring& funName,
+		ID3D11Device* const device,
 		const HWND hWnd)
 	{
 		Microsoft::WRL::ComPtr<ID3DBlob> vsBlob;
 		Microsoft::WRL::ComPtr<ID3DBlob> psBlob;
 		Microsoft::WRL::ComPtr<ID3DBlob> errBlob;
-				
+
 		const std::string strFunName(String::WStrToStr(funName));
 		const std::string strVersion(String::WStrToStr(version));
 
-		
+
 		std::wstring shaderPath = PathManager::GetInstance()->GetResourcePath();
 		shaderPath += EnumResourcePath(fileName);
-
+		(void)fileName;
 
 		switch (sType)
 		{
@@ -79,7 +81,7 @@ namespace engine
 				assert(false);
 				return;
 			}
-			
+
 			{
 				//Input layout
 				constexpr int MAX_INPUT_ELEMENT = 3;
@@ -117,7 +119,7 @@ namespace engine
 					return;
 				}
 			}
-		
+
 			break;
 		case eShaderBindType::HS:
 			break;
@@ -141,7 +143,7 @@ namespace engine
 				assert(false);
 				return;
 			}
-		
+
 			break;
 		default:
 			break;
@@ -149,17 +151,17 @@ namespace engine
 	}
 
 	void Shader::createVSShader(const eResShader vsFileName,
-		const std::wstring& vsFunName, 
-		ID3D11Device* const device, 
+		const std::wstring& vsFunName,
+		ID3D11Device* const device,
 		const HWND hWnd)
 	{
 		assert(!mVS.Get());
 		createShader(eShaderBindType::VS, L"vs_5_0", vsFileName, vsFunName, device, hWnd);
 	}
 
-	void Shader::CreateHSShader(const eResShader hsFileName, 
+	void Shader::CreateHSShader(const eResShader hsFileName,
 		const std::wstring& hsFunName,
-		ID3D11Device* const device, 
+		ID3D11Device* const device,
 		const HWND hWnd)
 	{
 		assert(nullptr);
@@ -170,7 +172,7 @@ namespace engine
 	}
 
 	void Shader::CreateDSShader(const eResShader dsFileName,
-		const std::wstring& dsFunName, 
+		const std::wstring& dsFunName,
 		ID3D11Device* const device,
 		const HWND hWnd)
 	{
@@ -182,8 +184,8 @@ namespace engine
 	}
 
 	void Shader::CreateGSShader(const eResShader gsFileName,
-		const std::wstring& gsFunName, 
-		ID3D11Device* const device, 
+		const std::wstring& gsFunName,
+		ID3D11Device* const device,
 		const HWND hWnd)
 	{
 		assert(nullptr);
@@ -204,6 +206,7 @@ namespace engine
 
 	HRESULT Shader::Load(const std::wstring& path)
 	{
+		assert(false);
 		(void)path;
 		return E_NOTIMPL;
 	}

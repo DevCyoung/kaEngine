@@ -26,6 +26,13 @@ namespace engine
 			Up,
 			None,
 		};
+	private:
+		struct tKeyInfo
+		{
+			eKeyCode key;
+			eKeyState state;
+			bool bPressed;
+		};
 
 	public:
 		eKeyState GetKeyState(const eKeyCode key)
@@ -53,13 +60,7 @@ namespace engine
 			return mMousePos;
 		}
 
-	private:
-		struct tKeyInfo
-		{
-			eKeyCode key;
-			eKeyState state;
-			bool bPressed;
-		};
+
 		void update(const HWND hWnd);
 
 	private:

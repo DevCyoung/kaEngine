@@ -6,7 +6,7 @@ namespace engine
 	template <typename T, typename Enable = void>
 	struct enable_if_component
 	{
-		static constexpr bool faile = true;
+		static constexpr eComponentType type = eComponentType::Script;
 	};
 
 	template <>

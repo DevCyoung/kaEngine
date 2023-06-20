@@ -1,8 +1,9 @@
 #pragma once
 #include "Entity.h"
 #include "Component.h"
-#include "Transform.h"
 #include "EenableIfComponent.h"
+#include "Script.h"
+#include "Transform.h"
 
 namespace engine
 {
@@ -23,19 +24,58 @@ namespace engine
 		GameObject& operator=(const GameObject&) = delete;
 
 	public:
+		//bool HasComponent(const eComponentType type) const;
+
 		//FIXME! 이벤트방식으로 변경해야함
 		void AddComponent(Component* const component);
 
 		template<typename T>
-		T* GetComponent()
+		requires std::is_base_of_v<Component, T>			
+		void AddComponent()
 		{
-			const UINT index = static_cast<UINT>(enable_if_component<T>::type);
-#ifdef _DEBUG
-			T* component = dynamic_cast<T*>(mEngineComponents[index]);
+			T* component = new T();
 			assert(component);
-#else
-			T* component = static_cast<T*>(mEngineComponents[index]);
-#endif			
+
+			AddComponent(component);
+		}
+
+		template<typename T>
+		requires std::is_base_of_v<Component, T>
+		T* GetComponentOrNull() const
+		{
+			const eComponentType type = enable_if_component<T>::type;
+
+			assert(eComponentType::End != type);
+
+			T* component = nullptr;
+
+			if (eComponentType::Script == type) // user script
+			{				
+				for (Script* const script : mUserComponents)
+				{
+					component = dynamic_cast<T*>(script);
+					if (nullptr != component)
+					{						
+						break;
+					}
+				}
+			}
+			else // engine component
+			{
+				const UINT index = static_cast<UINT>(type);
+				component = dynamic_cast<T*>(mEngineComponents[index]);
+			}
+
+			return component;
+		}
+
+		template<typename T>
+		requires std::is_base_of_v<Component, T>
+		T* GetComponent() const
+		{
+			T* component = GetComponentOrNull<T>();
+
+			assert(component);
 			return component;
 		}
 
@@ -47,6 +87,7 @@ namespace engine
 
 	private:
 		eState mState;
-		Component* mEngineComponents[static_cast<int>(eComponentType::End)];
+		Component* mEngineComponents[static_cast<UINT>(eComponentType::End)];		
+		std::vector<Script*> mUserComponents;
 	};
 }

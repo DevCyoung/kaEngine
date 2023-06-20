@@ -132,8 +132,8 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PreBuildEvent>
-      <Command>cd $(SolutionDir)Project\Engine\Helper\ResourceGen\Release\net6.0
-call ResourceHelper.exe $(SolutionDir)Output\bin\Resources $(SolutionDir)Project\Engine NO</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -158,8 +158,8 @@ call ResourceHelper.exe $(SolutionDir)Output\bin\Resources $(SolutionDir)Project
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PreBuildEvent>
-      <Command>cd $(SolutionDir)Project\Engine\Helper\ResourceGen\Release\net6.0
-call ResourceHelper.exe $(SolutionDir)Output\bin\Resources $(SolutionDir)Project\Engine</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -169,22 +169,16 @@ call ResourceHelper.exe $(SolutionDir)Output\bin\Resources $(SolutionDir)Project
     <ClInclude Include="ConstantBuffer.h" />
     <ClInclude Include="DirectXTex.h" />
     <ClInclude Include="EenableIfComponent.h" />
+    <ClInclude Include="eEventType.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="EngineIncludes.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EnumConponent.h" />
     <ClInclude Include="EnumFlag.h" />
     <ClInclude Include="DXMath.h" />
-    <ClInclude Include="EnumResourceTypeAnimation.h" />
-    <ClInclude Include="EnumResourceTypeFont.h" />
-    <ClInclude Include="EnumResourceTypeLevel.h" />
-    <ClInclude Include="EnumResourceTypeMaterial.h" />
-    <ClInclude Include="EnumResourceTypeMesh.h" />
-    <ClInclude Include="EnumResourceTypeShader.h" />
-    <ClInclude Include="EnumResourceTypeSound.h" />
-    <ClInclude Include="EnumResourceTypeTexture.h" />
     <ClInclude Include="Enums.h" />
     <ClInclude Include="EnumResourceType.h" />
+    <ClInclude Include="EventManager.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GraphicDeviceDX11.h" />
@@ -197,10 +191,10 @@ call ResourceHelper.exe $(SolutionDir)Output\bin\Resources $(SolutionDir)Project
     <ClInclude Include="pch.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="ResourceManager.h" />
-    <ClInclude Include="Resources.h" />
     <ClInclude Include="SafeDelete.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="Script.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="String.h" />
@@ -218,14 +212,7 @@ call ResourceHelper.exe $(SolutionDir)Output\bin\Resources $(SolutionDir)Project
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="DXMath.cpp" />
     <ClCompile Include="Entity.cpp" />
-    <ClCompile Include="EnumResourceTypeAnimation.cpp" />
-    <ClCompile Include="EnumResourceTypeFont.cpp" />
-    <ClCompile Include="EnumResourceTypeLevel.cpp" />
-    <ClCompile Include="EnumResourceTypeMaterial.cpp" />
-    <ClCompile Include="EnumResourceTypeMesh.cpp" />
-    <ClCompile Include="EnumResourceTypeShader.cpp" />
-    <ClCompile Include="EnumResourceTypeSound.cpp" />
-    <ClCompile Include="EnumResourceTypeTexture.cpp" />
+    <ClCompile Include="EventManager.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GraphicDeviceDX11.cpp" />
     <ClCompile Include="InputManager.cpp" />
@@ -239,10 +226,10 @@ call ResourceHelper.exe $(SolutionDir)Output\bin\Resources $(SolutionDir)Project
     </ClCompile>
     <ClCompile Include="Resource.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
-    <ClCompile Include="Resources.cpp" />
     <ClCompile Include="SafeDelete.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="Script.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="String.cpp" />
     <ClCompile Include="StructConstantBuffer.cpp" />
@@ -255,32 +242,6 @@ call ResourceHelper.exe $(SolutionDir)Output\bin\Resources $(SolutionDir)Project
   <ItemGroup>
     <None Include="DirectXTex.inl" />
     <None Include="DXMath.inl" />
-  </ItemGroup>
-  <ItemGroup>
-    <FxCompile Include="..\..\Output\bin\Resources\Shader\Default\PixelShader.hlsl">
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
-      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
-      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
-    </FxCompile>
-    <FxCompile Include="..\..\Output\bin\Resources\Shader\Default\VertexShader.hlsl">
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
-      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
-      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
-    </FxCompile>
-    <FxCompile Include="..\..\Output\bin\Resources\Shader\Sample\PixelSample.fx">
-      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
-      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Effect</ShaderType>
-    </FxCompile>
-    <FxCompile Include="..\..\Output\bin\Resources\Shader\Sample\VertexSample.fx">
-      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
-      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Effect</ShaderType>
-    </FxCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

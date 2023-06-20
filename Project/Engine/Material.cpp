@@ -1,7 +1,5 @@
 #include "pch.h"
 #include "Material.h"
-#include "Shader.h"
-#include "Textrue.h"
 
 namespace engine
 {
@@ -17,6 +15,7 @@ namespace engine
 
 	HRESULT Material::Load(const std::wstring& path)
 	{
+		assert(false);
 		(void)path;
 		return E_NOTIMPL;
 	}

@@ -15,7 +15,7 @@ namespace engine
 		: Component(eComponentType::MeshRenderer)
 		, mMesh(nullptr)
 		, mMaterial(nullptr)
-	{
+	{		
 	}
 
 	MeshRenderer::~MeshRenderer()

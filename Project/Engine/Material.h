@@ -17,11 +17,12 @@ namespace engine
 		friend class ResourceManager;
 		friend class graphics::GraphicDeviceDX11;
 
-	private:
+	public:
 		Material();
 		virtual ~Material();
 		Material(const Material&) = delete;
 		Material& operator=(const Material&) = delete;
+
 	public:
 		void SetShader(Shader* const shader) { assert(shader);     mShader = shader; }
 		void SetTexture(Texture* const texture) { assert(texture); mTexture = texture; }

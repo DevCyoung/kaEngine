@@ -6,12 +6,10 @@ namespace engine
 	PathManager::PathManager()
 		: mResourcePath{0,}
 	{
-
 	}
 
 	PathManager::~PathManager()
 	{
-
 	}
 
 	void PathManager::initialize()
@@ -35,5 +33,4 @@ namespace engine
 		
 		wcscat_s(sInstance->mResourcePath, L"\\bin\\Resources");
 	}
-
 }

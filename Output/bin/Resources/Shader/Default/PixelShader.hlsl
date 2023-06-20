@@ -23,6 +23,9 @@ float4 main(VSOut In) : SV_TARGET
     //return In.Color;
 	float4 color = (float) 0.0f;
 	color = smileTexture.Sample(samplerState, In.UV);
-    
+	color.r = 0.f;
+
 	return color;
 }
+
+

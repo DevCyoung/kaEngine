@@ -11,8 +11,6 @@ namespace engine
 	public:
 		const wchar_t* GetResourcePath() const { return mResourcePath; }
 		
-
-
 	private:
 		wchar_t	mResourcePath[256];
 	};

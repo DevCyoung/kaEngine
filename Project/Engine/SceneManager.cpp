@@ -26,7 +26,10 @@ namespace engine
 	}
 
 	void SceneManager::LoadScene(Scene* const scene)
-	{		
+	{
+		assert(scene);
+
+		DELETE_ARRAY(sInstance->mCurrentScene);
 		sInstance->mCurrentScene = scene;		
 	}
 
