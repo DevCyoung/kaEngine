@@ -41,6 +41,8 @@ namespace engine
 
 	HRESULT Mesh::Load(const std::wstring& path)
 	{
+		assert(false);
+
 		(void)path;
 		return E_NOTIMPL;
 	}

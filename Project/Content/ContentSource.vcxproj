@@ -166,9 +166,9 @@ call ResourceHelper.exe $(SolutionDir)Output\bin\Resources $(SolutionDir)Project
     <ClInclude Include="Content.h" />
     <ClInclude Include="EnumResourceTypeAnimation.h" />
     <ClInclude Include="EnumResourceTypeFont.h" />
-    <ClInclude Include="EnumResourceTypeLevel.h" />
     <ClInclude Include="EnumResourceTypeMaterial.h" />
     <ClInclude Include="EnumResourceTypeMesh.h" />
+    <ClInclude Include="EnumResourceTypeScene.h" />
     <ClInclude Include="EnumResourceTypeShader.h" />
     <ClInclude Include="EnumResourceTypeSound.h" />
     <ClInclude Include="EnumResourceTypeTexture.h" />
@@ -181,9 +181,9 @@ call ResourceHelper.exe $(SolutionDir)Output\bin\Resources $(SolutionDir)Project
     <ClCompile Include="Content.cpp" />
     <ClCompile Include="EnumResourceTypeAnimation.cpp" />
     <ClCompile Include="EnumResourceTypeFont.cpp" />
-    <ClCompile Include="EnumResourceTypeLevel.cpp" />
     <ClCompile Include="EnumResourceTypeMaterial.cpp" />
     <ClCompile Include="EnumResourceTypeMesh.cpp" />
+    <ClCompile Include="EnumResourceTypeScene.cpp" />
     <ClCompile Include="EnumResourceTypeShader.cpp" />
     <ClCompile Include="EnumResourceTypeSound.cpp" />
     <ClCompile Include="EnumResourceTypeTexture.cpp" />
@@ -198,25 +198,53 @@ call ResourceHelper.exe $(SolutionDir)Output\bin\Resources $(SolutionDir)Project
     <ClCompile Include="SampleScript.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="..\..\Output\bin\Resources\Shader\Default\PixelShader.hlsl">
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+    <FxCompile Include="..\..\Output\bin\Resources\Shader\Header\ConstantBuffer.fx">
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Effect</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
     </FxCompile>
-    <FxCompile Include="..\..\Output\bin\Resources\Shader\Default\VertexShader.hlsl">
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+    <FxCompile Include="..\..\Output\bin\Resources\Shader\Header\Sampler.fx">
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Effect</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
     </FxCompile>
-    <FxCompile Include="..\..\Output\bin\Resources\Shader\Sample\PixelSample.fx">
+    <FxCompile Include="..\..\Output\bin\Resources\Shader\Header\Struct.fx">
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </EntryPointName>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </EntryPointName>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Effect</ShaderType>
+    </FxCompile>
+    <FxCompile Include="..\..\Output\bin\Resources\Shader\Header\Texture.fx">
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="..\..\Output\bin\Resources\Shader\PixelShader.fx">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Effect</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
     </FxCompile>
-    <FxCompile Include="..\..\Output\bin\Resources\Shader\Sample\VertexSample.fx">
+    <FxCompile Include="..\..\Output\bin\Resources\Shader\VertexShader.fx">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Effect</ShaderType>

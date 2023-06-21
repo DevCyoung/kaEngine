@@ -8,11 +8,12 @@
 #include "Material.h"
 #include "Textrue.h"
 #include "Shader.h"
+#include "StructConstantBuffer.h"
 
 namespace engine
 {
 	MeshRenderer::MeshRenderer()
-		: Component(eComponentType::MeshRenderer)
+		: Component(eComponentType::MeshRenderer)		
 		, mMesh(nullptr)
 		, mMaterial(nullptr)
 	{		
@@ -23,8 +24,7 @@ namespace engine
 	}
 
 	void MeshRenderer::initialize()
-	{
-
+	{		
 	}
 
 	void MeshRenderer::update()
@@ -39,23 +39,22 @@ namespace engine
 	void MeshRenderer::render()
 	{
 		assert(mMesh);
-		assert(mMaterial);
+		assert(mMaterial);		
 
-		const Transform* const obj = GetOwner()->GetComponent<Transform>();
+		tTransform tTransformMatrix = {};
+		tTransformMatrix.mWorld = GetOwner()->GetComponent<Transform>()->GetWorldMatrix();
+		//tTransformMatrix.mView
+		//tTransformMatrix.mProj
 
-		const Vector3 objPos = obj->GetPosition();
-		const Vector4 constPosition(objPos.x, objPos.y, objPos.z, 1.f);
-
-		gGraphicDevice->PassCB(eCBType::Transform, &constPosition, sizeof(Vector4));
+		gGraphicDevice->PassCB(eCBType::Transform, sizeof(tTransformMatrix), &tTransformMatrix);
 		gGraphicDevice->BindCB(eCBType::Transform, eShaderBindType::VS);
-
 
 		gGraphicDevice->BindIA(mMaterial->mShader);
 		gGraphicDevice->BindPS(mMaterial->mShader);
 		gGraphicDevice->BindVS(mMaterial->mShader);
-		gGraphicDevice->BindTexture(mMaterial->mTexture, 0, eShaderBindType::PS);
+		gGraphicDevice->BindTexture(eShaderBindType::PS, 0, mMaterial->mTexture);
 
 		gGraphicDevice->BindMesh(mMesh);
-		gGraphicDevice->Draw(mMesh, 0);
+		gGraphicDevice->Draw(0, mMesh);
 	}
 }

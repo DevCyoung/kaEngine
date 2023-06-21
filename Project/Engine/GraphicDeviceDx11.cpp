@@ -199,38 +199,42 @@ namespace engine::graphics
 		mContext->IASetInputLayout(shader->mInputLayout.Get());
 		mContext->IASetPrimitiveTopology(shader->mTopology);
 	}
-
-	void GraphicDeviceDX11::BindVS(const Shader* const shader)
+	
+	void GraphicDeviceDX11::BindMesh(const Mesh* const mesh)
 	{
-		assert(shader);
-		assert(shader->mVS.Get());
+		assert(mesh);
 
-		mContext->VSSetShader(shader->mVS.Get(), nullptr, 0);
+		const UINT vertexSize = mesh->GetVertexSize();
+		const UINT offset = 0;
+		mContext->IASetVertexBuffers(0, 1, mesh->mBuffer.GetAddressOf(), &vertexSize, &offset);
 	}
-
-	void GraphicDeviceDX11::BindPS(const Shader* const shader)
+	
+	void GraphicDeviceDX11::BindTexture(const eShaderBindType stage, const UINT startSlot, const Texture* const texture)
 	{
-		assert(shader);
-		assert(shader->mPS.Get());
-
-		mContext->PSSetShader(shader->mPS.Get(), nullptr, 0);
-	}
-
-	void GraphicDeviceDX11::PassCB(const eCBType type, const void* const data, const UINT byteSize)
-	{
-		assert(data);
-
-		D3D11_MAPPED_SUBRESOURCE subResource = {};
-		ConstantBuffer& CB = mConstantBuffers->GetConstantBuffer(type);
-
-		assert(CB.mSize == byteSize);
-		(void)byteSize;
-
-		mContext->Map(CB.mBuffer.Get(), 0, D3D11_MAP::D3D11_MAP_WRITE_DISCARD, 0, &subResource);
+		switch (stage)
 		{
-			memcpy_s(subResource.pData, CB.mDesc.ByteWidth, data, CB.mDesc.ByteWidth);
+		case eShaderBindType::VS:
+			mContext->VSSetShaderResources(startSlot, 1, texture->mSRV.GetAddressOf());
+			break;
+		case eShaderBindType::HS:
+			mContext->HSSetShaderResources(startSlot, 1, texture->mSRV.GetAddressOf());
+			break;
+		case eShaderBindType::DS:
+			mContext->DSSetShaderResources(startSlot, 1, texture->mSRV.GetAddressOf());
+			break;
+		case eShaderBindType::GS:
+			mContext->GSSetShaderResources(startSlot, 1, texture->mSRV.GetAddressOf());
+			break;
+		case eShaderBindType::PS:
+			mContext->PSSetShaderResources(startSlot, 1, texture->mSRV.GetAddressOf());
+			break;
+		case eShaderBindType::CS:
+			mContext->CSSetShaderResources(startSlot, 1, texture->mSRV.GetAddressOf());
+			break;
+		default:
+			assert(false);
+			break;
 		}
-		mContext->Unmap(CB.mBuffer.Get(), 0);
 	}
 
 	void GraphicDeviceDX11::BindCB(const eCBType type, const eShaderBindType stage)
@@ -264,49 +268,45 @@ namespace engine::graphics
 		}
 	}
 
-	void GraphicDeviceDX11::BindMesh(const Mesh* const mesh)
+	void GraphicDeviceDX11::PassCB(const eCBType type, const UINT byteSize, const void* const data)
 	{
-		assert(mesh);
+		assert(data);
 
-		const UINT vertexSize = mesh->GetVertexSize();
-		const UINT offset = 0;
-		mContext->IASetVertexBuffers(0, 1, mesh->mBuffer.GetAddressOf(), &vertexSize, &offset);
+		D3D11_MAPPED_SUBRESOURCE subResource = {};
+		ConstantBuffer& CB = mConstantBuffers->GetConstantBuffer(type);
+
+		assert(CB.mSize == byteSize);
+		(void)byteSize;
+
+		mContext->Map(CB.mBuffer.Get(), 0, D3D11_MAP::D3D11_MAP_WRITE_DISCARD, 0, &subResource);
+		{
+			memcpy_s(subResource.pData, CB.mDesc.ByteWidth, data, CB.mDesc.ByteWidth);
+		}
+		mContext->Unmap(CB.mBuffer.Get(), 0);
 	}
 
-	void GraphicDeviceDX11::Draw(const Mesh* const mesh, const UINT StartVertexLocation)
+	void GraphicDeviceDX11::BindVS(const Shader* const shader)
+	{
+		assert(shader);
+		assert(shader->mVS.Get());
+
+		mContext->VSSetShader(shader->mVS.Get(), nullptr, 0);
+	}
+
+	void GraphicDeviceDX11::BindPS(const Shader* const shader)
+	{
+		assert(shader);
+		assert(shader->mPS.Get());
+
+		mContext->PSSetShader(shader->mPS.Get(), nullptr, 0);
+	}
+
+	void GraphicDeviceDX11::Draw(const UINT StartVertexLocation, const Mesh* const mesh)
 	{
 		assert(mesh);
 
 		const UINT vertexSize = mesh->GetVertexCount();
 		mContext->Draw(vertexSize, StartVertexLocation);
-	}
-
-	void GraphicDeviceDX11::BindTexture(const Texture* texture, const UINT startSlot, const eShaderBindType stage)
-	{
-		switch (stage)
-		{
-		case eShaderBindType::VS:
-			mContext->VSSetShaderResources(startSlot, 1, texture->mSRV.GetAddressOf());
-			break;
-		case eShaderBindType::HS:
-			mContext->HSSetShaderResources(startSlot, 1, texture->mSRV.GetAddressOf());
-			break;
-		case eShaderBindType::DS:
-			mContext->DSSetShaderResources(startSlot, 1, texture->mSRV.GetAddressOf());
-			break;
-		case eShaderBindType::GS:
-			mContext->GSSetShaderResources(startSlot, 1, texture->mSRV.GetAddressOf());
-			break;
-		case eShaderBindType::PS:
-			mContext->PSSetShaderResources(startSlot, 1, texture->mSRV.GetAddressOf());
-			break;
-		case eShaderBindType::CS:
-			mContext->CSSetShaderResources(startSlot, 1, texture->mSRV.GetAddressOf());
-			break;
-		default:
-			assert(false);
-			break;
-		}
 	}
 
 	void GraphicDeviceDX11::clearRenderTarget(const UINT screenWidth, const UINT screenHeight)
@@ -327,56 +327,5 @@ namespace engine::graphics
 	void GraphicDeviceDX11::present()
 	{
 		mSwapChain->Present(0, 0);
-	}
-
-	void GraphicDeviceDX11::engineResourceLoad(const HWND hWnd)
-	{
-		(void)hWnd;
-
-#pragma region Creatge Meshs				
-		{
-			//RectMesh
-			const UINT VERTEX_COUNT = 6;
-
-			D3D11_BUFFER_DESC triangleDesc = {};
-			triangleDesc.Usage = D3D11_USAGE::D3D11_USAGE_DYNAMIC;
-			triangleDesc.ByteWidth = sizeof(tVertex) * VERTEX_COUNT;
-			triangleDesc.BindFlags = D3D11_BIND_FLAG::D3D11_BIND_VERTEX_BUFFER;
-			triangleDesc.CPUAccessFlags = D3D11_CPU_ACCESS_FLAG::D3D11_CPU_ACCESS_WRITE;
-
-			D3D11_SUBRESOURCE_DATA triangleData = {};
-			tVertex vertex[VERTEX_COUNT] = {};
-
-			vertex[0].pos = Vector3(-0.5f, 0.5f, 0.0f);
-			vertex[0].color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
-			vertex[0].uv = Vector2(0.0f, 0.0f);
-
-			vertex[1].pos = Vector3(0.5f, -0.5f, 0.0f);
-			vertex[1].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
-			vertex[1].uv = Vector2(1.0f, 1.0f);
-
-			vertex[2].pos = Vector3(-0.5f, -0.5f, 0.0f);
-			vertex[2].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
-			vertex[2].uv = Vector2(0.0f, 1.0f);
-
-			vertex[3].pos = Vector3(-0.5f, 0.5f, 0.0f);
-			vertex[3].color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
-			vertex[3].uv = Vector2(0.0f, 0.0f);
-
-			vertex[4].pos = Vector3(0.5f, 0.5f, 0.0f);
-			vertex[4].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
-			vertex[4].uv = Vector2(1.0f, 0.0f);
-
-			vertex[5].pos = Vector3(0.5f, -0.5f, 0.0f);
-			vertex[5].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
-			vertex[5].uv = Vector2(1.0f, 1.0f);
-
-			triangleData.pSysMem = vertex;
-
-			gResourceManager->Insert<Mesh>(L"Rect", new Mesh(triangleDesc, &triangleData,
-				sizeof(tVertex), VERTEX_COUNT, mDevice.Get()));
-		}
-#pragma endregion
-
 	}
 }

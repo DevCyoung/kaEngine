@@ -48,4 +48,12 @@ namespace engine
 			layer.render();
 		}
 	}
+	HRESULT Scene::Load(const std::wstring& path)
+	{
+		(void)path;
+
+		assert(false);
+
+		return E_NOTIMPL;
+	}
 }

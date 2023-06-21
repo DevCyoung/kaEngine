@@ -44,11 +44,9 @@ namespace engine
 		T* GetComponentOrNull() const
 		{
 			const eComponentType type = enable_if_component<T>::type;
-
 			assert(eComponentType::End != type);
 
 			T* component = nullptr;
-
 			if (eComponentType::Script == type) // user script
 			{				
 				for (Script* const script : mUserComponents)
@@ -61,9 +59,8 @@ namespace engine
 				}
 			}
 			else // engine component
-			{
-				const UINT index = static_cast<UINT>(type);
-				component = dynamic_cast<T*>(mEngineComponents[index]);
+			{			
+				component = dynamic_cast<T*>(mEngineComponents[static_cast<UINT>(type)]);
 			}
 
 			return component;

@@ -34,19 +34,18 @@ namespace engine
 		assert(hWnd);
 
 		sInstance = new Engine();
+		sInstance->setWindow(hWnd, screenWidth, screenHeight);
 
 		TimeManager::initialize();
 		PathManager::initialize();
 		InputManager::initialize();
 		EventManager::initialize();
-		ResourceManager::initialize();
 
-		sInstance->setWindow(hWnd, screenWidth, screenHeight);
 		sInstance->mGraphicDevice = std::make_unique<graphics::GraphicDeviceDX11>(hWnd,
-			screenWidth, screenHeight);		
-		sInstance->mGraphicDevice->engineResourceLoad(hWnd);
-				
-		SceneManager::initialize();		
+			sInstance->mScreenWidth, sInstance->mScreenHeight);
+
+		ResourceManager::initialize();
+		SceneManager::initialize();
 	}
 
 	void Engine::run()

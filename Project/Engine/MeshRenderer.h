@@ -27,7 +27,7 @@ namespace engine
 		virtual void lateUpdate() override final;
 		virtual void render() override final;
 	
-	private:
+	private:		
 		Mesh* mMesh;
 		Material* mMaterial;
 	};

@@ -11,7 +11,7 @@ namespace engine
 {
 	enum class eCBType
 	{
-		Transform,				
+		Transform,		
 		End,
 	};
 
