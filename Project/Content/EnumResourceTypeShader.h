@@ -6,6 +6,7 @@ namespace engine
 	{
 		Header_ConstantBuffer,
 		Header_Sampler,
+		Header_Struct,
 		Header_Texture,
 		PixelShader,
 		VertexShader,

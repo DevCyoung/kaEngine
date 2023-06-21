@@ -24,6 +24,8 @@ namespace engine
 	{
 		assert(!sInstance);
 		sInstance = new ResourceManager();
+		//Engine Resource
+
 		{
 			//RectMesh
 			const UINT VERTEX_COUNT = 6;

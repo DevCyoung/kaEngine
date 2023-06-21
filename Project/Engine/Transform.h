@@ -31,7 +31,7 @@ namespace engine
 		const Vector3& GetRight() const { return mRight; }
 		const Vector3& GetUp() const { return mUp; }
 
-		const Matrix& GetWorld() const { return mWorld; }
+		const Matrix& GetWorldMatrix() const { return mWorld; }
 
 	private:
 		virtual void initialize() override final;

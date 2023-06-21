@@ -41,10 +41,7 @@ namespace content
 	}
 
 	void Content::initialize()
-	{
-		assert(!sInstance);
-		sInstance = new Content();
-
+	{			
 		//Reosurece Load
 		{
 			//Texture Load
@@ -72,13 +69,12 @@ namespace content
 				defaultMaterial->SetShader(gResourceManager
 					->FindOrNullByRelativePath<Shader>(L"Default"));
 				defaultMaterial->SetTexture(gResourceManager
-					->FindOrNullByEnum<Texture>(eResTexture::TILE));
+					->FindOrNullByEnum<Texture>(eResTexture::walk));
 				gResourceManager->Insert<Material>(L"Default", defaultMaterial);				
 			}
 		}
 
 		Scene* testScene = new Scene();
-
 		//test
 		GameObject* const obj = new GameObject();
 		obj->AddComponent<MeshRenderer>();
@@ -94,6 +90,10 @@ namespace content
 
 		testScene->AddGameObject(obj, eLayerType::Player);
 		SceneManager::GetInstance()->LoadScene(testScene);
+
+
+		assert(!sInstance);
+		sInstance = new Content();
 	}
 }
 

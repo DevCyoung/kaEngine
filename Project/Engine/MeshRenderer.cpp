@@ -42,19 +42,19 @@ namespace engine
 		assert(mMaterial);		
 
 		tTransform tTransformMatrix = {};
-		tTransformMatrix.mWorld = GetOwner()->GetComponent<Transform>()->GetWorld();
+		tTransformMatrix.mWorld = GetOwner()->GetComponent<Transform>()->GetWorldMatrix();
 		//tTransformMatrix.mView
 		//tTransformMatrix.mProj
 
-		gGraphicDevice->PassCB(eCBType::Transform, &tTransformMatrix, sizeof(tTransformMatrix));
+		gGraphicDevice->PassCB(eCBType::Transform, sizeof(tTransformMatrix), &tTransformMatrix);
 		gGraphicDevice->BindCB(eCBType::Transform, eShaderBindType::VS);
 
 		gGraphicDevice->BindIA(mMaterial->mShader);
 		gGraphicDevice->BindPS(mMaterial->mShader);
 		gGraphicDevice->BindVS(mMaterial->mShader);
-		gGraphicDevice->BindTexture(mMaterial->mTexture, 0, eShaderBindType::PS);
+		gGraphicDevice->BindTexture(eShaderBindType::PS, 0, mMaterial->mTexture);
 
 		gGraphicDevice->BindMesh(mMesh);
-		gGraphicDevice->Draw(mMesh, 0);
+		gGraphicDevice->Draw(0, mMesh);
 	}
 }

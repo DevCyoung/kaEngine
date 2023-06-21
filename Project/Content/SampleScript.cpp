@@ -48,6 +48,29 @@ void SampleScript::update()
 		pos.y -= 1.0f * gDeltaTime;
 	}
 
+	if (gInput->GetKey(eKeyCode::SPACE))
+	{
+		Vector3 rot = transform->GetRotation();
+		rot.z += 1.0f * gDeltaTime;
+		transform->SetRotation(rot);
+	}
+
+	if (gInput->GetKey(eKeyCode::Q))
+	{
+		Vector3 rot = transform->GetScale();
+		rot.x += 1.0f * gDeltaTime;
+		rot.y += 1.0f * gDeltaTime;
+		transform->SetScale(rot);
+	}
+
+	if (gInput->GetKey(eKeyCode::E))
+	{
+		Vector3 rot = transform->GetScale();
+		rot.x -= 1.0f * gDeltaTime;
+		rot.y -= 1.0f * gDeltaTime;
+		transform->SetScale(rot);
+	}
+
 	transform->SetPosition(pos);
 
 

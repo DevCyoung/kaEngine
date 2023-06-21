@@ -30,7 +30,7 @@ namespace engine
 	{
 		mWorld = Matrix::Identity;
 
-		Matrix scale = Matrix::CreateScale(mScale);
+		Matrix scale = Matrix::CreateScale(mScale);		
 
 		Matrix rotation = {};
 		rotation = Matrix::CreateRotationX(mRotation.x);
@@ -44,9 +44,11 @@ namespace engine
 		mWorld *= rotation;
 		mWorld *= position;
 
-		mUp = Vector3::TransformNormal(Vector3::Up, rotation);
-		mForward = Vector3::TransformNormal(Vector3::Forward, rotation);
-		mRight = Vector3::TransformNormal(Vector3::Right, rotation);
+		//FIXME
+
+		//mUp = XMVector3TransformNormal(Vector3::Up, mWorld);
+		//mForward = XMVector3TransformNormal(Vector3::Forward, mWorld);
+		//mRight = XMVector3TransformNormal(Vector3::Right, mWorld);
 	}
 		
 	void Transform::render()

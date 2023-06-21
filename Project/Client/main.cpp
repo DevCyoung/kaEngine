@@ -87,8 +87,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         }
     }
 
-    engine::Engine::deleteInstance();
     content::Content::deleteInstance();
+    engine::Engine::deleteInstance();
     return static_cast<int>(msg.wParam);
 }
 

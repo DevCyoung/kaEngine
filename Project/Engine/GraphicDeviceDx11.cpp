@@ -209,7 +209,7 @@ namespace engine::graphics
 		mContext->IASetVertexBuffers(0, 1, mesh->mBuffer.GetAddressOf(), &vertexSize, &offset);
 	}
 	
-	void GraphicDeviceDX11::BindTexture(const Texture* texture, const UINT startSlot, const eShaderBindType stage)
+	void GraphicDeviceDX11::BindTexture(const eShaderBindType stage, const UINT startSlot, const Texture* const texture)
 	{
 		switch (stage)
 		{
@@ -268,7 +268,7 @@ namespace engine::graphics
 		}
 	}
 
-	void GraphicDeviceDX11::PassCB(const eCBType type, const void* const data, const UINT byteSize)
+	void GraphicDeviceDX11::PassCB(const eCBType type, const UINT byteSize, const void* const data)
 	{
 		assert(data);
 
@@ -301,7 +301,7 @@ namespace engine::graphics
 		mContext->PSSetShader(shader->mPS.Get(), nullptr, 0);
 	}
 
-	void GraphicDeviceDX11::Draw(const Mesh* const mesh, const UINT StartVertexLocation)
+	void GraphicDeviceDX11::Draw(const UINT StartVertexLocation, const Mesh* const mesh)
 	{
 		assert(mesh);
 
