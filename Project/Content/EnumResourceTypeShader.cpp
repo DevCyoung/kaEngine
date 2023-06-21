@@ -5,10 +5,11 @@ namespace engine
 {
 	const wchar_t* eResShaderPath[static_cast<UINT>(eResShader::End)]
 	{
-		L"\\Shader\\Default\\PixelShader.hlsl",
-		L"\\Shader\\Default\\VertexShader.hlsl",
-		L"\\Shader\\Sample\\PixelSample.fx",
-		L"\\Shader\\Sample\\VertexSample.fx",
+		L"\\Shader\\Header\\ConstantBuffer.fx",
+		L"\\Shader\\Header\\Sampler.fx",
+		L"\\Shader\\Header\\Texture.fx",
+		L"\\Shader\\PixelShader.fx",
+		L"\\Shader\\VertexShader.fx",
 	};
 
 	const wchar_t* EnumResourcePath(eResShader type)

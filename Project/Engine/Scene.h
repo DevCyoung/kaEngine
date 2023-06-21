@@ -1,13 +1,14 @@
 #pragma once
-#include "Entity.h"
+#include "Resource.h"
 #include "Layer.h"
+
 
 namespace engine
 {
 	class GameObject;
 	enum class eLayerType;
 
-	class Scene : public Entity
+	class Scene : public Resource
 	{
 		friend class Engine;
 		friend class SceneManager;
@@ -24,6 +25,8 @@ namespace engine
 		virtual void lateUpdate();
 		virtual void render();
 
+	public:
+		virtual HRESULT Load(const std::wstring& path) override;
 
 	private:
 		Layer mLayers[static_cast<UINT>(eLayerType::End)];

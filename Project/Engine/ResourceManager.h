@@ -5,24 +5,29 @@
 #include "EnumResourceType.h"
 
 namespace engine
-{
+{	
 	class ResourceManager
 	{
 		friend class Engine;
-		using HashMap = std::unordered_map<std::wstring, Resource*>;
+
+		using Key = std::wstring;
+		using Base = Resource;
+		using HashMap = std::unordered_map<Key, Base*>;
 		using Iterator = HashMap::iterator;
 		using ConstIterator = HashMap::const_iterator;
+
 		SINGLETON_DECLARE(ResourceManager);
 
 	public:
 		template<typename T>
-		static T* FindOrNullByRelativePath(const std::wstring& orName) //or Relative Path
+		requires std::is_base_of_v<Base, T>
+		static T* FindOrNullByRelativePath(const Key& orName) //or Relative Path
 		{
-			constexpr eResourceType resType = enable_if_resource<T>::resourceType;
-			const HashMap& resources = sInstance->mResources[static_cast<UINT>(resType)];
-			ConstIterator iter = resources.find(orName);
-
 			T* res = nullptr;
+
+			constexpr eResourceType resType = enable_if_resource<T>::resourceType;
+			const HashMap& resources = sInstance->mResources[static_cast<UINT>(resType)];			
+			ConstIterator iter = resources.find(orName);			
 
 			if (iter != resources.end())
 			{
@@ -34,14 +39,16 @@ namespace engine
 		}
 
 		template<typename T>
-		static T* FindOrNullByEnum(enable_if_resource<T>::ResEnumType resName)
+		requires std::is_base_of_v<Base, T>
+		static T* FindOrNullByEnum(enable_if_resource<T>::eResEnumType resName)
 		{
 			return FindOrNullByRelativePath<T>(EnumResourcePath(resName));
 		}
 
 
 		template <typename T>
-		static void LoadByRelativePath(const std::wstring& orName)
+		requires std::is_base_of_v<Base, T>
+		static void LoadByRelativePath(const Key& orName)
 		{
 			T* res = FindOrNullByRelativePath<T>(orName);
 			assert(!res);
@@ -61,14 +68,16 @@ namespace engine
 		}
 
 		template <typename T>
-		static void LoadByEnum(enable_if_resource<T>::ResEnumType resType)
+		requires std::is_base_of_v<Base, T>
+		static void LoadByEnum(enable_if_resource<T>::eResEnumType resType)
 		{
 			LoadByRelativePath<T>(EnumResourcePath(resType));
 		}
 
 
 		template<typename T>
-		static T* FindByRelativePath(const std::wstring& orName)
+		requires std::is_base_of_v<Base, T>
+		static T* FindByRelativePath(const Key& orName)
 		{
 			T* res = FindOrNullByRelativePath<T>(orName);
 
@@ -84,18 +93,23 @@ namespace engine
 
 
 		template<typename T>
-		static T* FindByEnum(enable_if_resource<T>::ResEnumType resName)
+		requires std::is_base_of_v<Base, T>
+		static T* FindByEnum(enable_if_resource<T>::eResEnumType resName)
 		{
 			return FindByRelativePath<T>(EnumResourcePath(resName));
 		}
 
 		template<typename T>
-		static void Insert(const std::wstring& key, T* const value)
+		requires std::is_base_of_v<Base, T>
+		static void Insert(const Key& key, T* const value)
 		{
 			assert(value);
 			constexpr eResourceType type = enable_if_resource<T>::resourceType;
 			HashMap& resources = sInstance->mResources[static_cast<UINT>(type)];
 			Iterator iter = resources.find(key);
+
+			value->mKey = key;
+			value->mPath = key;
 
 			assert(resources.end() == iter);
 			resources.insert(std::make_pair(key, value));
@@ -104,6 +118,7 @@ namespace engine
 
 
 	private:
+
 		HashMap mResources[static_cast<UINT>(eResourceType::End)];
 	};
 }

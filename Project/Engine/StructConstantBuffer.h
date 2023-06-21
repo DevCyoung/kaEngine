@@ -1,8 +1,12 @@
 #pragma once
 namespace engine
 {
-	struct tTransform // c0
+	struct alignas(16) tTransform // c0
 	{
-		Vector4 Pos;
-	};
+		Matrix mWorld;
+		Matrix mView;
+		Matrix mProj;
+	}; // 48 bytes
+
+
 }

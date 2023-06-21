@@ -9,7 +9,7 @@ namespace engine
 	class Animation;
 	class Font;
 	class Sound;
-	class Level;
+	class Scene;
 
 	enum class eResTexture;
 	enum class eResMesh;
@@ -18,7 +18,7 @@ namespace engine
 	enum class eResAnimation;
 	enum class eResFont;
 	enum class eResSound;
-	enum class eResLevel;
+	enum class eResScene;
 
 
 	enum class eResourceType
@@ -30,7 +30,7 @@ namespace engine
 		Animation,
 		Font,
 		Sound,
-		Level,
+		Scene,
 		End
 	};	
 }
@@ -39,63 +39,63 @@ namespace engine
 {
 	template <typename T, typename Enable = void>
 	struct enable_if_resource
-	{
+	{		
 		static constexpr bool boolType = false;
 	};
 
 	template <>
 	struct enable_if_resource<Texture>
 	{
+		using eResEnumType = eResTexture;
 		static constexpr eResourceType resourceType = eResourceType::Texture;
-		using ResEnumType = eResTexture;
 	};
 
 	template <>
 	struct enable_if_resource<Mesh>
 	{
+		using eResEnumType = eResMesh;
 		static constexpr eResourceType resourceType = eResourceType::Mesh;
-		using ResEnumType = eResMesh;
 	};
 
 	template <>
 	struct enable_if_resource<Material>
 	{
+		using eResEnumType = eResMaterial;
 		static constexpr eResourceType resourceType = eResourceType::Material;
-		using ResEnumType = eResMaterial;
 	};
 
 	template <>
 	struct enable_if_resource<Shader>
 	{
+		using ResEnueResEnumTypemType = eResShader;
 		static constexpr eResourceType resourceType = eResourceType::Shader;
-		using ResEnumType = eResShader;
 	};
 
 	template <>
 	struct enable_if_resource<Animation>
 	{
+		using eResEnumType = eResAnimation;
 		static constexpr eResourceType resourceType = eResourceType::Animation;
-		using ResEnumType = eResAnimation;
 	};
 
 	template <>
 	struct enable_if_resource<Font>
 	{
+		using eResEnumType = eResFont;
 		static constexpr eResourceType resourceType = eResourceType::Font;
-		using ResEnumType = eResFont;
 	};
 
 	template <>
 	struct enable_if_resource<Sound>
 	{
+		using eResEnumType = eResSound;
 		static constexpr eResourceType resourceType = eResourceType::Sound;
-		using Restype = eResSound;
 	};
 
 	template <>
-	struct enable_if_resource<Level>
+	struct enable_if_resource<Scene>
 	{
-		static constexpr eResourceType resourceType = eResourceType::Level;
-		using ResEnumType = eResLevel;
+		using eResEnumType = eResScene;
+		static constexpr eResourceType resourceType = eResourceType::Scene;
 	};
 }

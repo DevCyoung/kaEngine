@@ -25,11 +25,8 @@
     <Filter Include="ShaderCode">
       <UniqueIdentifier>{2c32228f-6400-4c12-ba3a-80bcc9e68287}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ShaderCode\Default">
-      <UniqueIdentifier>{4030d45f-9fbc-4dab-8b20-6442ac249083}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ShaderCode\Sample">
-      <UniqueIdentifier>{bc3dcd50-4fe3-407a-a9af-2b67d25b8b9e}</UniqueIdentifier>
+    <Filter Include="ShaderCode\Header">
+      <UniqueIdentifier>{abd7499d-ca04-4dfd-b4d0-94b1bb510403}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -54,9 +51,6 @@
     <ClInclude Include="EnumResourceTypeFont.h">
       <Filter>Resources</Filter>
     </ClInclude>
-    <ClInclude Include="EnumResourceTypeLevel.h">
-      <Filter>Resources</Filter>
-    </ClInclude>
     <ClInclude Include="EnumResourceTypeMaterial.h">
       <Filter>Resources</Filter>
     </ClInclude>
@@ -70,6 +64,9 @@
       <Filter>Resources</Filter>
     </ClInclude>
     <ClInclude Include="EnumResourceTypeTexture.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="EnumResourceTypeScene.h">
       <Filter>Resources</Filter>
     </ClInclude>
   </ItemGroup>
@@ -89,9 +86,6 @@
     <ClCompile Include="EnumResourceTypeFont.cpp">
       <Filter>Resources</Filter>
     </ClCompile>
-    <ClCompile Include="EnumResourceTypeLevel.cpp">
-      <Filter>Resources</Filter>
-    </ClCompile>
     <ClCompile Include="EnumResourceTypeMaterial.cpp">
       <Filter>Resources</Filter>
     </ClCompile>
@@ -107,19 +101,28 @@
     <ClCompile Include="EnumResourceTypeTexture.cpp">
       <Filter>Resources</Filter>
     </ClCompile>
+    <ClCompile Include="EnumResourceTypeScene.cpp">
+      <Filter>Resources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="..\..\Output\bin\Resources\Shader\Default\PixelShader.hlsl">
-      <Filter>ShaderCode\Default</Filter>
+    <FxCompile Include="..\..\Output\bin\Resources\Shader\Header\ConstantBuffer.fx">
+      <Filter>ShaderCode\Header</Filter>
     </FxCompile>
-    <FxCompile Include="..\..\Output\bin\Resources\Shader\Default\VertexShader.hlsl">
-      <Filter>ShaderCode\Default</Filter>
+    <FxCompile Include="..\..\Output\bin\Resources\Shader\Header\Sampler.fx">
+      <Filter>ShaderCode\Header</Filter>
     </FxCompile>
-    <FxCompile Include="..\..\Output\bin\Resources\Shader\Sample\VertexSample.fx">
-      <Filter>ShaderCode\Sample</Filter>
+    <FxCompile Include="..\..\Output\bin\Resources\Shader\Header\Texture.fx">
+      <Filter>ShaderCode\Header</Filter>
     </FxCompile>
-    <FxCompile Include="..\..\Output\bin\Resources\Shader\Sample\PixelSample.fx">
-      <Filter>ShaderCode\Sample</Filter>
+    <FxCompile Include="..\..\Output\bin\Resources\Shader\PixelShader.fx">
+      <Filter>ShaderCode</Filter>
+    </FxCompile>
+    <FxCompile Include="..\..\Output\bin\Resources\Shader\VertexShader.fx">
+      <Filter>ShaderCode</Filter>
+    </FxCompile>
+    <FxCompile Include="..\..\Output\bin\Resources\Shader\Header\Struct.fx">
+      <Filter>ShaderCode\Header</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>

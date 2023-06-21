@@ -29,20 +29,17 @@ namespace engine
 			ID3D11Device* UnSafe_GetDevice() const { return mDevice.Get(); }
 				
 			void BindIA(const Shader* const shader);
-			void BindVS(const Shader* const shader);
-			void BindPS(const Shader* const shader);
-			void BindCB(const eCBType type, const eShaderBindType stage);
 			void BindMesh(const Mesh* const mesh);
 			void BindTexture(const Texture* texture, const UINT startSlot, const eShaderBindType stage);
-
+			void BindCB(const eCBType type, const eShaderBindType stage);
 			void PassCB(const eCBType type, const void* const data, const UINT byteSize);
-
+			void BindVS(const Shader* const shader);
+			void BindPS(const Shader* const shader);
 			void Draw(const Mesh* const mesh, const UINT StartVertexLocation);
 			//void DrawIndexd();
 
 		private:
-			void clearRenderTarget(const UINT screenWidth, const UINT screenHeight);
-			void engineResourceLoad(const HWND hWnd);
+			void clearRenderTarget(const UINT screenWidth, const UINT screenHeight);			
 			void present();
 
 		private:

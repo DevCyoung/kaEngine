@@ -8,11 +8,12 @@
 #include "Material.h"
 #include "Textrue.h"
 #include "Shader.h"
+#include "StructConstantBuffer.h"
 
 namespace engine
 {
 	MeshRenderer::MeshRenderer()
-		: Component(eComponentType::MeshRenderer)
+		: Component(eComponentType::MeshRenderer)		
 		, mMesh(nullptr)
 		, mMaterial(nullptr)
 	{		
@@ -23,8 +24,7 @@ namespace engine
 	}
 
 	void MeshRenderer::initialize()
-	{
-
+	{		
 	}
 
 	void MeshRenderer::update()
@@ -39,16 +39,15 @@ namespace engine
 	void MeshRenderer::render()
 	{
 		assert(mMesh);
-		assert(mMaterial);
+		assert(mMaterial);		
 
-		const Transform* const obj = GetOwner()->GetComponent<Transform>();
+		tTransform tTransformMatrix = {};
+		tTransformMatrix.mWorld = GetOwner()->GetComponent<Transform>()->GetWorld();
+		//tTransformMatrix.mView
+		//tTransformMatrix.mProj
 
-		const Vector3 objPos = obj->GetPosition();
-		const Vector4 constPosition(objPos.x, objPos.y, objPos.z, 1.f);
-
-		gGraphicDevice->PassCB(eCBType::Transform, &constPosition, sizeof(Vector4));
+		gGraphicDevice->PassCB(eCBType::Transform, &tTransformMatrix, sizeof(tTransformMatrix));
 		gGraphicDevice->BindCB(eCBType::Transform, eShaderBindType::VS);
-
 
 		gGraphicDevice->BindIA(mMaterial->mShader);
 		gGraphicDevice->BindPS(mMaterial->mShader);

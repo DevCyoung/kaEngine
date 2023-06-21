@@ -4,10 +4,11 @@ namespace engine
 {
 	enum class eResShader
 	{
-		Default_PixelShader,
-		Default_VertexShader,
-		Sample_PixelSample,
-		Sample_VertexSample,
+		Header_ConstantBuffer,
+		Header_Sampler,
+		Header_Texture,
+		PixelShader,
+		VertexShader,
 		End
 	};
 

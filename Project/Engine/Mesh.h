@@ -12,7 +12,8 @@ namespace engine
 {
 	class Mesh : public Resource
 	{
-		friend class graphics::GraphicDeviceDX11;		
+		friend class graphics::GraphicDeviceDX11;
+		friend class ResourceManager;
 
 	private:		
 		Mesh(const D3D11_BUFFER_DESC& pDesc, const D3D11_SUBRESOURCE_DATA* const pInitialData,
