@@ -3,7 +3,7 @@
 
 namespace engine
 {
-	template <typename T, typename Enable = void>
+	template <typename T, bool Enable = true>
 	struct enable_if_component
 	{
 		static constexpr eComponentType type = eComponentType::Script;
@@ -13,13 +13,7 @@ namespace engine
 	struct enable_if_component<Transform>
 	{
 		static constexpr eComponentType type = eComponentType::Transform;
-	};
-
-	template <>
-	struct enable_if_component<Animator>
-	{
-		static constexpr eComponentType type = eComponentType::Animator;
-	};
+	};	
 
 	template <>
 	struct enable_if_component<MeshRenderer>

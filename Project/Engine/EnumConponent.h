@@ -3,15 +3,12 @@ namespace engine
 {
 	enum class eComponentType
 	{
-		Transform,
-		Sprite,
-		Animator,
+		Transform,		
 		MeshRenderer,		
 		End,
 		Script,
 	};
 
-	class Transform;
-	class Animator;
+	class Transform;	
 	class MeshRenderer;
 }

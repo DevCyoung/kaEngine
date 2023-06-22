@@ -1,9 +1,9 @@
 #pragma once
 #include "Entity.h"
-#include "Component.h"
-#include "EenableIfComponent.h"
-#include "Script.h"
 #include "Transform.h"
+#include "Script.h"
+#include "EenableIfComponent.h"
+
 
 namespace engine
 {
