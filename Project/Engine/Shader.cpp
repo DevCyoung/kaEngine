@@ -65,7 +65,6 @@ namespace engine
 		switch (sType)
 		{
 		case eShaderBindType::VS:
-
 			if (FAILED(D3DCompileFromFile(shaderPath.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE,
 				strFunName.c_str(), strVersion.c_str(), 0, 0, vsBlob.GetAddressOf(), errBlob.GetAddressOf())))
 			{

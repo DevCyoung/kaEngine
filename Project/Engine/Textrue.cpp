@@ -4,7 +4,7 @@
 #include "GraphicDeviceDx11.h"
 
 #ifdef _DEBUG
-#pragma comment(lib, "DirectXTex/Debug/DirectXTex.lib")
+#pragma comment(lib, "DirectXTex/Debug/DirectXTex_d.lib")
 #else
 #pragma comment(lib, "DirectXTex/Release/DirectXTex.lib")
 #endif

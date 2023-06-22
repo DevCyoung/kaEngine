@@ -71,12 +71,12 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutDir>$(SolutionDir)Output\Library\Engine\</OutDir>
+    <OutDir>$(SolutionDir)Output\Library\Engine\Debug\</OutDir>
     <TargetName>$(ProjectName)_d</TargetName>
     <LibraryPath>$(SolutionDir)Output\Library\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <OutDir>$(SolutionDir)Output\Library\Engine\</OutDir>
+    <OutDir>$(SolutionDir)Output\Library\Engine\Release\</OutDir>
     <TargetName>$(ProjectName)</TargetName>
     <LibraryPath>$(SolutionDir)Output\Library\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
