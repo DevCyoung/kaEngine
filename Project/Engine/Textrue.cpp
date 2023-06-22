@@ -4,9 +4,9 @@
 #include "GraphicDeviceDx11.h"
 
 #ifdef _DEBUG
-#pragma comment(lib, "DirectXTex/DirectXTex_d.lib")
+#pragma comment(lib, "DirectXTex/Debug/DirectXTex.lib")
 #else
-#pragma comment(lib, "DirectXTex/DirectXTex.lib")
+#pragma comment(lib, "DirectXTex/Release/DirectXTex.lib")
 #endif
 
 namespace engine

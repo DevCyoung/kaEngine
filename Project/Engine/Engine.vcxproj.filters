@@ -91,9 +91,6 @@
     <Filter Include="Source\07. Helper\Include">
       <UniqueIdentifier>{75a58b25-b5b9-4fcb-ab41-d8b4a2cbedb8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\07. Helper\MicrosoftTex">
-      <UniqueIdentifier>{9e4a9ccb-9191-42b7-b96f-fcf1c16a86a7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\07. Helper\Casting">
       <UniqueIdentifier>{c748471b-0d56-428b-a407-ad08373b61e5}</UniqueIdentifier>
     </Filter>
@@ -112,11 +109,17 @@
     <Filter Include="Source\06. Resource\06. Resource">
       <UniqueIdentifier>{c086c77c-086f-49ce-a1be-edfeb13b7185}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Windows\Extern">
+      <UniqueIdentifier>{76c9455a-0147-49a4-8582-413a530bd265}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Windows\Extern\MicrosoftTex">
+      <UniqueIdentifier>{9e4a9ccb-9191-42b7-b96f-fcf1c16a86a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Windows\Extern\MicrosoftMath">
+      <UniqueIdentifier>{b6269c47-ecb2-4beb-902d-116f19f3c122}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="DXMath.h">
-      <Filter>Source\07. Helper\Math</Filter>
-    </ClInclude>
     <ClInclude Include="Entity.h">
       <Filter>Source\00. Engine\00. Entity</Filter>
     </ClInclude>
@@ -192,9 +195,6 @@
     <ClInclude Include="Engine.h">
       <Filter>Source\00. Engine</Filter>
     </ClInclude>
-    <ClInclude Include="DirectXTex.h">
-      <Filter>Source\07. Helper\MicrosoftTex</Filter>
-    </ClInclude>
     <ClInclude Include="ResourceManager.h">
       <Filter>Source\01. Manager\Resource</Filter>
     </ClInclude>
@@ -237,11 +237,14 @@
     <ClInclude Include="EnumResourceType.h">
       <Filter>Source\06. Resource</Filter>
     </ClInclude>
+    <ClInclude Include="DirectXTex.h">
+      <Filter>Windows\Extern\MicrosoftTex</Filter>
+    </ClInclude>
+    <ClInclude Include="DXMath.h">
+      <Filter>Windows\Extern\MicrosoftMath</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="DXMath.cpp">
-      <Filter>Source\07. Helper\Math</Filter>
-    </ClCompile>
     <ClCompile Include="Entity.cpp">
       <Filter>Source\00. Engine\00. Entity</Filter>
     </ClCompile>
@@ -326,13 +329,16 @@
     <ClCompile Include="EventManager.cpp">
       <Filter>Source\01. Manager\Event</Filter>
     </ClCompile>
+    <ClCompile Include="DXMath.cpp">
+      <Filter>Windows\Extern\MicrosoftMath</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="DXMath.inl">
-      <Filter>Source\07. Helper\Math</Filter>
-    </None>
     <None Include="DirectXTex.inl">
-      <Filter>Source\07. Helper\MicrosoftTex</Filter>
+      <Filter>Windows\Extern\MicrosoftTex</Filter>
+    </None>
+    <None Include="DXMath.inl">
+      <Filter>Windows\Extern\MicrosoftMath</Filter>
     </None>
   </ItemGroup>
 </Project>

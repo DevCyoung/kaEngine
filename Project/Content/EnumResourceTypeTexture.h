@@ -11,7 +11,6 @@ namespace engine
 		charactor_atlas_zero_virus,
 		door,
 		orange,
-		ppap,
 		TILE,
 		walk,
 		End

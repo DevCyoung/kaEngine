@@ -7,6 +7,10 @@
 // Licensed under the MIT License.
 //
 // http://go.microsoft.com/fwlink/?LinkId=248926
+// 
+// Other Comments:
+// version: DirectXTex_Desktop_2022_Win10
+// date: 2023-06-23
 //-------------------------------------------------------------------------------------
 
 #pragma once
