@@ -43,11 +43,12 @@ namespace engine
 		requires std::is_base_of_v<Component, T>
 		T* GetComponentOrNull() const
 		{
-			const eComponentType type = enable_if_component<T>::type;
+			constexpr eComponentType type = enable_if_component<T>::type;
 			assert(eComponentType::End != type);
 
 			T* component = nullptr;
-			if (eComponentType::Script == type) // user script
+
+			if constexpr (eComponentType::Script == type) // user script
 			{				
 				for (Script* const script : mUserComponents)
 				{
