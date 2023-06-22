@@ -4,9 +4,9 @@ namespace engine
 {
 	enum class eResScene
 	{
-		PixelSample,
+		dummy,
 		End
 	};
 
 	const wchar_t* EnumResourcePath(eResScene type);
-}
+}//namespace engine End

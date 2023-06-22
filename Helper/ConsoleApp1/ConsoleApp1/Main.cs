@@ -1,22 +1,11 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Data;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Runtime.Versioning;
-using System.Security.Cryptography;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-
-
+﻿using System.Text;
 
 public class MyProgram
 {
+    static string PRAGMA_ONCE = "#pragma once\n\n";
     static string SHARP_INCLUDE = "#include";    
     static string BEGIN_ENGINE_NAMESPACE = "namespace engine\n{\n";
-    static string END_ENGINE_NAMESPACE = "}\n";
+    static string END_ENGINE_NAMESPACE = "}//namespace engine End";
     static string RESOURCE_PATH = "";
 
     static void WriteLine(string str)
@@ -35,13 +24,13 @@ public class MyProgram
     }
 
     public static void Main(string[] args)
-    {                    
+    {
         WriteLine("Program Ready.....");
         WriteLine("Input Check....");
         WriteLine("###########Input Path############");
         WriteLine($"argc = {args.Length}");
         foreach (string arg in args)
-        {            
+        {
             WriteLine($"arg = {arg}");
         }
         WriteLine("###########Input Path############");
@@ -72,7 +61,7 @@ public class MyProgram
                 WriteErrorLine($"resourceDirectorys is null has directory? path({resourcePath})");
                 return;
             }
-            
+
             WriteLine("###########Create Files############");
             foreach (string resDirectory in resourceDirectorys)
             {
@@ -93,19 +82,20 @@ public class MyProgram
                 new FileStream(enumHeaderPath
                 , FileMode.Create)
                 , Encoding.UTF8);
+
+
                 if (null == enumHearderWriter)
                 {
                     WriteErrorLine($"enumHearderWriter, check your enumHeaderPath... enumHeaderPath(Create fullPath) = " +
                         $"{enumHeaderPath} targetPath = {targetPath}");
                     return;
                 }
-
-                enumHearderWriter.Write(enumHeader);
-                WriteLine($"CreateHeaderFile = { enumHeaderPath}");
-                enumHearderWriter.Close();
-
-
-
+                else
+                {
+                    enumHearderWriter.WriteLine(enumHeader);                    
+                    enumHearderWriter.Close();
+                    WriteLine($"CreateHeaderFile = {enumHeaderPath}");
+                }              
 
                 string enumCpp = MakeEnumCpp(enumType, enumFilePath);
 
@@ -120,23 +110,25 @@ public class MyProgram
                 if (null == enumCppWirter)
                 {
                     WriteErrorLine($"enumCppWirter, check your enumCppPath... enumCppPath(Create fullPath) = " +
-                        $"{enumCppPath} targetPath = {targetPath}");
-                    return;
+                        $"{enumCppPath} targetPath = {targetPath}");                    
                 }
-
-
-                enumCppWirter.Write(enumCpp);
-                enumCppWirter.Close();                
-                WriteLine($"CreateCppFile = {enumCppPath}");
+                else
+                {
+                    enumCppWirter.WriteLine(enumCpp);                    
+                    enumCppWirter.Close();
+                    WriteLine($"CreateCppFile = {enumCppPath}");
+                }                
             }
+
+
             WriteLine("###########Create Files############");
-            WriteLine("Success End...");            
+            WriteLine("Success End...");
         }
         else
-        {            
-            WriteWarningLine("need 2 arguments, No Execute Enum Program End");            
+        {
+            WriteWarningLine("need 2 arguments, No Execute Enum Program End");
         }
-                        
+
     }
 
     public static string[] GetDirectories(string resourcePath)
@@ -201,27 +193,27 @@ public class MyProgram
     {
         string header = "";
 
-        header += "#pragma once\n\n";
-        //header += "#include <string>\n";
+        header += PRAGMA_ONCE;
 
-        header += "";
-        header += "namespace engine\n{\n";
-        header += "\tenum class " + "eRes" + enumType + "\n";
-        header += "\t{\n";
-
-        foreach (string enumName in enumNames)
+        header += BEGIN_ENGINE_NAMESPACE;
         {
-            header += "\t\t" + enumName + ",\n";
-        }
-        header += "\t" + "\tEnd\n";
-        header += "\t};\n\n";
+            header += "\tenum class " + "eRes" + enumType + "\n";
+            header += "\t{\n";
 
-        if (enumNames.Count > 0)
-        {
-            header += $"\tconst wchar_t* EnumResourcePath(eRes{enumType} type);\n";
-        }
+            foreach (string enumName in enumNames)
+            {
+                header += "\t\t" + enumName + ",\n";
+            }
+            header += "\t" + "\tEnd\n";
+            header += "\t};\n\n";
 
-        header += "}\n";
+            if (enumNames.Count > 0)
+            {
+                header += $"\tconst wchar_t* EnumResourcePath(eRes{enumType} type);\n";
+            }
+
+        }
+        header += END_ENGINE_NAMESPACE;
 
         return header;
     }
@@ -235,31 +227,31 @@ public class MyProgram
 
 
         cpp += $"{SHARP_INCLUDE} \"pch.h\"\n";
-        cpp += $"{SHARP_INCLUDE} \"EnumResourceType{enumType}.h\"\n";
-        cpp += "\n";
+        cpp += $"{SHARP_INCLUDE} \"EnumResourceType{enumType}.h\"\n\n";
+
         cpp += BEGIN_ENGINE_NAMESPACE;
-        cpp += "";
-
-        //const wchar
-        if (relativePaths.Count > 0)
-        {            
-            cpp += $"\tconst wchar_t* {enumResourcePathArray}[static_cast<UINT>({eResEnumType}::End)]\n";
-            cpp += "\t{\n";
-
-            foreach (string relativePath in relativePaths)
+        {
+            //const wchar
+            if (relativePaths.Count > 0)
             {
-                //리소스 하위로가져온다.
-                cpp += $"\t\tL\"{relativePath}\",\n";
-            }
-            cpp += "\t};\n";
-            cpp += "\n";
-            cpp += $"\tconst wchar_t* EnumResourcePath(eRes{enumType} type)\n";
-            cpp += "\t{\n";
-            cpp += $"\t\treturn {enumResourcePathArray}[static_cast<UINT>(type)];\n";
-            cpp += "\t}\n";
-        }
+                cpp += $"\tconst wchar_t* {enumResourcePathArray}[static_cast<UINT>({eResEnumType}::End)]\n";
+                cpp += "\t{\n";
 
-        cpp += END_ENGINE_NAMESPACE; 
+                foreach (string relativePath in relativePaths)
+                {
+                    //리소스 하위로가져온다.
+                    cpp += $"\t\tL\"{relativePath}\",\n";
+                }
+                cpp += "\t};\n";
+                cpp += "\n";
+                cpp += $"\tconst wchar_t* EnumResourcePath(eRes{enumType} type)\n";
+                cpp += "\t{\n";
+                cpp += $"\t\treturn {enumResourcePathArray}[static_cast<UINT>(type)];\n";
+                cpp += "\t}\n";
+            }
+        }
+        cpp += END_ENGINE_NAMESPACE;
+
         return cpp;
     }
 

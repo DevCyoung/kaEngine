@@ -17,4 +17,4 @@ namespace engine
 	{
 		return eResShaderPath[static_cast<UINT>(type)];
 	}
-}
+}//namespace engine End
