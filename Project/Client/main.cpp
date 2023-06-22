@@ -4,11 +4,11 @@
 #define MAX_LOADSTRING 100
 
 #ifdef _DEBUG
-#pragma comment(lib, "Engine/Engine_d.lib")
-#pragma comment(lib, "Content/Content_d.lib")
+#pragma comment(lib, "Engine/Debug/Engine_d")
+#pragma comment(lib, "Content/Debug/Content_d")
 #else
-#pragma comment(lib, "Engine/Engine.lib")
-#pragma comment(lib, "Content/Content.lib")
+#pragma comment(lib, "Engine/Release/Engine")
+#pragma comment(lib, "Content/Release/Content")
 #endif
 
 #include "framework.h"

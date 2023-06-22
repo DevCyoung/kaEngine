@@ -69,6 +69,18 @@
     <ClInclude Include="EnumResourceTypeScene.h">
       <Filter>Resources</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Output\bin\Resources\Shader\Header\Texture.fxh">
+      <Filter>ShaderCode\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Output\bin\Resources\Shader\Header\ConstantBuffer.fxh">
+      <Filter>ShaderCode\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Output\bin\Resources\Shader\Header\Sampler.fxh">
+      <Filter>ShaderCode\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Output\bin\Resources\Shader\Header\Struct.fxh">
+      <Filter>ShaderCode\Header</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -106,23 +118,11 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="..\..\Output\bin\Resources\Shader\Header\ConstantBuffer.fx">
-      <Filter>ShaderCode\Header</Filter>
-    </FxCompile>
-    <FxCompile Include="..\..\Output\bin\Resources\Shader\Header\Sampler.fx">
-      <Filter>ShaderCode\Header</Filter>
-    </FxCompile>
-    <FxCompile Include="..\..\Output\bin\Resources\Shader\Header\Texture.fx">
-      <Filter>ShaderCode\Header</Filter>
-    </FxCompile>
-    <FxCompile Include="..\..\Output\bin\Resources\Shader\PixelShader.fx">
+    <FxCompile Include="..\..\Output\bin\Resources\Shader\PixelShader.hlsl">
       <Filter>ShaderCode</Filter>
     </FxCompile>
-    <FxCompile Include="..\..\Output\bin\Resources\Shader\VertexShader.fx">
+    <FxCompile Include="..\..\Output\bin\Resources\Shader\VertexShader.hlsl">
       <Filter>ShaderCode</Filter>
-    </FxCompile>
-    <FxCompile Include="..\..\Output\bin\Resources\Shader\Header\Struct.fx">
-      <Filter>ShaderCode\Header</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>
