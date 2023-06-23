@@ -4,7 +4,6 @@
 #include "Script.h"
 #include "EenableIfComponent.h"
 
-
 namespace engine
 {
 	class GameObject : public Entity

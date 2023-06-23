@@ -132,8 +132,8 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PreBuildEvent>
-      <Command>cd $(SolutionDir)Project\Content\Helper\ResourceGen\Release\net6.0
-call ResourceHelper.exe $(SolutionDir)Output\bin\Resources $(SolutionDir)Project\Content NONO</Command>
+      <Command>cd $(SolutionDir)Project\Content\Helper\Resource\Release\net6.0
+call ResourceHelper.exe $(SolutionDir)Output\bin\Resources $(SolutionDir)Project\Content NO</Command>
     </PreBuildEvent>
     <FxCompile>
       <ObjectFileOutput>$(OutDir)Cso\%(Filename).cso</ObjectFileOutput>
@@ -161,7 +161,7 @@ call ResourceHelper.exe $(SolutionDir)Output\bin\Resources $(SolutionDir)Project
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PreBuildEvent>
-      <Command>cd $(SolutionDir)Project\Content\Helper\ResourceGen\Release\net6.0
+      <Command>cd $(SolutionDir)Project\Content\Helper\Resource\Release\net6.0
 call ResourceHelper.exe $(SolutionDir)Output\bin\Resources $(SolutionDir)Project\Content</Command>
     </PreBuildEvent>
     <FxCompile>
