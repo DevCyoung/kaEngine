@@ -1,18 +1,20 @@
 .vs
+
+#obj
 **/x64/
 *.obj
 
+#exe
 **/bin_d/*.exe
 **/bin_d/*.pdb
 **/bin/*.exe
 **/bin/*.pdb
 
-**/Content/*.lib
-**/Content/*.idb
-**/Content/*.pdb
+#lib
+**/Content/Debug/*
+**/Content/Release/*
+**/Engine/Debug/*
+**/Engine/Release/*
 
-**/Engine/*.lib
-**/Engine/*.idb
-**/Engine/*.pdb
-
+#hlsl
 *.cso
