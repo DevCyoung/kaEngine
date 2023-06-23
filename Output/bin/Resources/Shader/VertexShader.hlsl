@@ -1,5 +1,7 @@
 #include "Header//Struct.fxh"
 #include "Header//ConstantBuffer.fxh"
+#include "Header//TestShaderHeader.fxh"
+
 
 tVSOut main(tVSIn In)
 {

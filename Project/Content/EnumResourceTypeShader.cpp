@@ -8,6 +8,7 @@ namespace engine
 		L"\\Shader\\Header\\ConstantBuffer.fxh",
 		L"\\Shader\\Header\\Sampler.fxh",
 		L"\\Shader\\Header\\Struct.fxh",
+		L"\\Shader\\Header\\TestShaderHeader.fxh",
 		L"\\Shader\\Header\\Texture.fxh",
 		L"\\Shader\\PixelShader.hlsl",
 		L"\\Shader\\VertexShader.hlsl",

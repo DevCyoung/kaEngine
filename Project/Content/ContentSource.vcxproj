@@ -135,6 +135,9 @@
       <Command>cd $(SolutionDir)Project\Content\Helper\ResourceGen\Release\net6.0
 call ResourceHelper.exe $(SolutionDir)Output\bin\Resources $(SolutionDir)Project\Content NONO</Command>
     </PreBuildEvent>
+    <FxCompile>
+      <ObjectFileOutput>$(OutDir)Cso\%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -161,6 +164,9 @@ call ResourceHelper.exe $(SolutionDir)Output\bin\Resources $(SolutionDir)Project
       <Command>cd $(SolutionDir)Project\Content\Helper\ResourceGen\Release\net6.0
 call ResourceHelper.exe $(SolutionDir)Output\bin\Resources $(SolutionDir)Project\Content</Command>
     </PreBuildEvent>
+    <FxCompile>
+      <ObjectFileOutput>$(OutDir)Cso\%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Content.h" />
@@ -198,7 +204,7 @@ call ResourceHelper.exe $(SolutionDir)Output\bin\Resources $(SolutionDir)Project
     <ClCompile Include="SampleScript.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Output\bin\Resources\Shader\Header\ConstantBuffer.fxh">
+    <None Include="..\..\Output\bin\Resources\Shader\Header\ConstantBuffer.fxh">
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
       </EntryPointName>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
@@ -212,8 +218,8 @@ call ResourceHelper.exe $(SolutionDir)Output\bin\Resources $(SolutionDir)Project
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </ObjectFileOutput>
       <FileType>Document</FileType>
-    </ClInclude>
-    <ClInclude Include="..\..\Output\bin\Resources\Shader\Header\Sampler.fxh">
+    </None>
+    <None Include="..\..\Output\bin\Resources\Shader\Header\Sampler.fxh">
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
       </EntryPointName>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
@@ -227,8 +233,8 @@ call ResourceHelper.exe $(SolutionDir)Output\bin\Resources $(SolutionDir)Project
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </ObjectFileOutput>
       <FileType>Document</FileType>
-    </ClInclude>
-    <ClInclude Include="..\..\Output\bin\Resources\Shader\Header\Struct.fxh">
+    </None>
+    <None Include="..\..\Output\bin\Resources\Shader\Header\Struct.fxh">
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
       </EntryPointName>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
@@ -242,8 +248,8 @@ call ResourceHelper.exe $(SolutionDir)Output\bin\Resources $(SolutionDir)Project
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </ObjectFileOutput>
       <FileType>Document</FileType>
-    </ClInclude>
-    <ClInclude Include="..\..\Output\bin\Resources\Shader\Header\Texture.fxh">
+    </None>
+    <None Include="..\..\Output\bin\Resources\Shader\Header\Texture.fxh">
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
       </EntryPointName>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
@@ -257,19 +263,24 @@ call ResourceHelper.exe $(SolutionDir)Output\bin\Resources $(SolutionDir)Project
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </ObjectFileOutput>
       <FileType>Document</FileType>
-    </ClInclude>
-    <FxCompile Include="..\..\Output\bin\Resources\Shader\PixelShader.hlsl">
+    </None>
+    <None Include="..\..\Output\bin\Resources\Shader\PixelShader.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
-    </FxCompile>
-    <FxCompile Include="..\..\Output\bin\Resources\Shader\VertexShader.hlsl">
+      <FileType>Document</FileType>
+    </None>
+    <None Include="..\..\Output\bin\Resources\Shader\VertexShader.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
-    </FxCompile>
+      <FileType>Document</FileType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\Output\bin\Resources\Shader\Header\TestShaderHeader.fxh" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
