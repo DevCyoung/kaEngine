@@ -8,9 +8,5 @@ namespace engine
 		MeshRenderer,
 		End,
 		Script,
-	};
-
-	class Transform;	
-	class Camera;
-	class MeshRenderer;	
+	};	
 }

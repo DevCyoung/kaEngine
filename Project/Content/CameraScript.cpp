@@ -8,8 +8,8 @@
 
 using namespace engine;
 
-CameraScript::CameraScript()
-	: Script(eScriptType::CameraScript)	
+CameraScript::CameraScript(const eScriptType type)
+	: Script(type)
 {
 }
 

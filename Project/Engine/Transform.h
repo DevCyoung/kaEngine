@@ -48,4 +48,6 @@ namespace engine
 		Vector3 mUp;
 		Matrix mWorld;
 	};
+
+	REGISTER_COMPONENT_TYPE(Transform);	
 }

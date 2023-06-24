@@ -162,17 +162,22 @@ call ResourceHelper.exe $(SolutionDir)Output\bin\Resources $(SolutionDir)Project
     </Link>
     <PreBuildEvent>
       <Command>cd $(SolutionDir)Project\Content\Helper\Resource\Release\net6.0
-call ResourceHelper.exe $(SolutionDir)Output\bin\Resources $(SolutionDir)Project\Content</Command>
+call ResourceHelper.exe $(SolutionDir)Output\bin\Resources $(SolutionDir)Project\Content NO
+cd $(SolutionDir)Project\Content\Helper\ScriptGen\Release\net6.0
+call ScriptGen.exe eScriptType $(SolutionDir)Project\Content $(SolutionDir)Project\Content\EnumScript.h $(SolutionDir)Project\Content\EnumScript.cpp</Command>
     </PreBuildEvent>
     <FxCompile>
       <ObjectFileOutput>$(OutDir)Cso\%(Filename).cso</ObjectFileOutput>
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="BulletMovement.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="CameraScript.h" />
     <ClInclude Include="Components.h" />
     <ClInclude Include="Content.h" />
-    <ClInclude Include="EnableIfScript.h" />
     <ClInclude Include="EnumResourceTypeAnimation.h" />
     <ClInclude Include="EnumResourceTypeFont.h" />
     <ClInclude Include="EnumResourceTypeMaterial.h" />
@@ -187,8 +192,17 @@ call ResourceHelper.exe $(SolutionDir)Output\bin\Resources $(SolutionDir)Project
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="SampleScript.h" />
     <ClInclude Include="StructVertex.h" />
+    <ClInclude Include="TestScript.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include=" EnumScript.cpp" />
+    <ClCompile Include="BulletMovement.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="CameraScript.cpp" />
     <ClCompile Include="Content.cpp" />
     <ClCompile Include="EnumResourceTypeAnimation.cpp" />
@@ -209,6 +223,10 @@ call ResourceHelper.exe $(SolutionDir)Output\bin\Resources $(SolutionDir)Project
     </ClCompile>
     <ClCompile Include="SampleScript.cpp" />
     <ClCompile Include="StructVertex.cpp" />
+    <ClCompile Include="TestScript.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Output\bin\Resources\Shader\Header\ConstantBuffer.fxh">

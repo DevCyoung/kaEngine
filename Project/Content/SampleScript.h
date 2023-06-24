@@ -1,5 +1,6 @@
 #pragma once
 #include <Engine/Script.h>
+#include "EnumScript.h"
 
 class SampleScript : public engine::Script
 {
@@ -15,3 +16,5 @@ private:
 	virtual void lateUpdate() override;
 	virtual void render() override;
 };
+
+REGISTER_SCRIPT_TYPE(SampleScript);

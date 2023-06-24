@@ -1,12 +1,13 @@
-#pragma once
+﻿#pragma once
 
 enum class eScriptType
 {
-	SampleScript,
 	CameraScript,
-	End,
+	SampleScript,
+	TestScript,
+	BulletMovement,
+	End
 };
 
-class SampleScript;
-class CameraScript;
+const wchar_t* GetComponentWstrByEnum(const eScriptType type);
 

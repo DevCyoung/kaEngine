@@ -204,9 +204,6 @@
     <ClInclude Include="Component.h">
       <Filter>Source\03. Component\00. Component</Filter>
     </ClInclude>
-    <ClInclude Include="EenableIfComponent.h">
-      <Filter>Source\03. Component\00. Component</Filter>
-    </ClInclude>
     <ClInclude Include="StructConstantBuffer.h">
       <Filter>Source\00. Engine\01. Graphics\Struct</Filter>
     </ClInclude>

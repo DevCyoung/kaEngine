@@ -75,14 +75,17 @@
     <ClInclude Include="StructVertex.h">
       <Filter>Source\Struct</Filter>
     </ClInclude>
-    <ClInclude Include="EnableIfScript.h">
-      <Filter>Source\01. Scripts</Filter>
-    </ClInclude>
     <ClInclude Include="EnumScript.h">
       <Filter>Source\01. Scripts</Filter>
     </ClInclude>
     <ClInclude Include="CameraScript.h">
-      <Filter>Source</Filter>
+      <Filter>Source\TestScript</Filter>
+    </ClInclude>
+    <ClInclude Include="TestScript.h">
+      <Filter>Source\TestScript</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletMovement.h">
+      <Filter>Source\TestScript</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -123,7 +126,16 @@
       <Filter>Source\Struct</Filter>
     </ClCompile>
     <ClCompile Include="CameraScript.cpp">
-      <Filter>Source</Filter>
+      <Filter>Source\TestScript</Filter>
+    </ClCompile>
+    <ClCompile Include="TestScript.cpp">
+      <Filter>Source\TestScript</Filter>
+    </ClCompile>
+    <ClCompile Include=" EnumScript.cpp">
+      <Filter>Source\01. Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="BulletMovement.cpp">
+      <Filter>Source\TestScript</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

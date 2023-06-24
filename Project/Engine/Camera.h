@@ -50,4 +50,6 @@ namespace engine
 		Matrix mProjection;
 		eProjectionType mProjectionType;
 	};
+
+	REGISTER_COMPONENT_TYPE(Camera);	
 }
