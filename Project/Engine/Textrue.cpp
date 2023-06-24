@@ -25,26 +25,26 @@ namespace engine
 
 	HRESULT Texture::Load(const std::wstring& path)
 	{	
-		const UINT wByteSize = 256;
-		wchar_t szExtension[wByteSize] = {0,};
+		constexpr UINT PATH_LEN = 256;
+		wchar_t szExtension[PATH_LEN] = {0,};
 		errno_t err = 
-			_wsplitpath_s(path.c_str(), nullptr, 0, nullptr, 0, nullptr, 0, szExtension, wByteSize);
-		assert(!err);
-		(void)err;
-
+			_wsplitpath_s(path.c_str(), nullptr, 0, nullptr, 0, nullptr, 0, szExtension, PATH_LEN);
+		(void)(err);
+		Assert(!err, L"error");
+	
 		std::wstring extension = szExtension;
 		if (extension == L".dds" || extension == L".DDS")
 		{
 			if (FAILED(LoadFromDDSFile(path.c_str(), DDS_FLAGS::DDS_FLAGS_NONE, nullptr, mImage)))
-			{
-				assert(false);
+			{				
+				Assert(false, L"fail load file .dds");
 			}				
 		}		
 		else if (extension == L".tga" || extension == L".TGA")
 		{
 			if (FAILED(LoadFromTGAFile(path.c_str(), nullptr, mImage)))
 			{
-				assert(false);
+				Assert(false, L"fail load file .tga");
 			}
 		}
 		else if (extension == L".png"  || extension == L".PNG"  || 
@@ -54,24 +54,26 @@ namespace engine
 		{
 			if (FAILED(LoadFromWICFile(path.c_str(), WIC_FLAGS::WIC_FLAGS_NONE, nullptr, mImage)))
 			{
-				DWORD dword  = GetLastError();
-				(void)dword;
-				assert(false);
+				Assert(false, L"fail load file other");
 			}				
 		}
 		else
 		{
-			assert(false);
+			extension += L" is not supported";
+			Assert(false, extension.c_str());
 		}
 
-		if (FAILED(CreateShaderResourceView(gGraphicDevice->UnSafe_GetDevice(), mImage.GetImages(), mImage.GetImageCount()
+		//gEngine->GetGraphicDevice()
+		if (FAILED(CreateShaderResourceView(gGraphicDevice->UnSafe_GetDevice()
+			, mImage.GetImages()
+			, mImage.GetImageCount()
 			, mImage.GetMetadata(), mSRV.GetAddressOf())))
-		{
-			assert(false);
+		{			
+			Assert(false, L"fail create resource view");
 		}
 		
+		Assert(mSRV, WCHAR_IS_NULLPTR);
 		mSRV->GetResource(reinterpret_cast<ID3D11Resource**>(mTexture.GetAddressOf()));
-
 		return S_OK;
 	}
 }

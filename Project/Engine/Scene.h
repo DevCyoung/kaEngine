@@ -17,7 +17,7 @@ namespace engine
 		Scene();
 		virtual ~Scene();
 
-		void AddGameObject(GameObject* const obj, eLayerType type);
+		void AddGameObject(GameObject* const obj, const eLayerType type);
 
 	private:
 		virtual void initialize();

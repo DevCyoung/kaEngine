@@ -1,12 +1,11 @@
 #include "pch.h"
 #include "GraphicDeviceDX11.h"
 #include "StructVertex.h"
-#include "CBCollection.h"
 #include "Textrue.h"
 #include "Shader.h"
 #include "Material.h"
 #include "Mesh.h"
-#include "ResourceManager.h"
+#include "CBCollection.h"
 
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "d3dcompiler.lib")
@@ -33,26 +32,52 @@ namespace engine::graphics
 	GraphicDeviceDX11::GraphicDeviceDX11(const HWND hWnd, const UINT screenWidth, const UINT screenHeight)
 		: mConstantBuffers(nullptr)
 	{
+		Assert(hWnd, WCHAR_IS_NULLPTR);
+
 #ifdef _DEBUG
-		const UINT deviceFlag = D3D11_CREATE_DEVICE_DEBUG;
+		constexpr UINT DEVICE_FLAG = D3D11_CREATE_DEVICE_DEBUG;
 #else
 		//둘중 어떤걸로 해야하는지 고민중...
 		//const UINT deviceFlag = D3D11_CREATE_DEVICE_SINGLETHREADED;
-		const UINT deviceFlag = D3D11_CREATE_DEVICE_DEBUG;
+		constexpr UINT DEVICE_FLAG = D3D11_CREATE_DEVICE_DEBUG;
 #endif
 
 #pragma region Create Device And Context
 		D3D_FEATURE_LEVEL featureLevel = static_cast<D3D_FEATURE_LEVEL>(0);
 
 		if (FAILED(D3D11CreateDevice(nullptr, D3D_DRIVER_TYPE_HARDWARE,
-			nullptr, deviceFlag, nullptr, 0, D3D11_SDK_VERSION,
+			nullptr, DEVICE_FLAG, nullptr, 0, D3D11_SDK_VERSION,
 			mDevice.GetAddressOf(), &featureLevel,
 			mContext.GetAddressOf())))
 		{
-			MessageBox(hWnd, L"Failed to create device", L"Error", MB_OK);
+			Assert(false, L"failed to create device");
 			return;
 		}
+
+		Assert(mDevice, WCHAR_IS_NULLPTR);
+		Assert(mContext, WCHAR_IS_NULLPTR);
+
 #pragma endregion
+
+#pragma region Change Window ScreenSize		
+		RECT windowSize =
+		{
+			0, 0,
+			static_cast<LONG>(screenWidth), static_cast<LONG>(screenHeight)
+		};
+
+		const BOOL B_MENU = GetMenu(hWnd) != nullptr;
+
+		AdjustWindowRect(&windowSize, WS_OVERLAPPEDWINDOW, B_MENU);
+		SetWindowPos(hWnd,
+			nullptr, 0, 0,
+			windowSize.right - windowSize.left,
+			windowSize.bottom - windowSize.top, 0);
+
+		ShowWindow(hWnd, true);
+		UpdateWindow(hWnd);
+#pragma endregion
+
 
 #pragma region Create SwaphChain
 		DXGI_SWAP_CHAIN_DESC swapChainDesc = {};
@@ -80,46 +105,38 @@ namespace engine::graphics
 
 		if (FAILED(mDevice->QueryInterface(__uuidof(IDXGIDevice), reinterpret_cast<void**>(pDXGIDevice.GetAddressOf()))))
 		{
-			MessageBox(hWnd, L"Failed to create IDXGIDevice", L"Error", MB_OK);
-			assert(false);
+			Assert(false, L"failed to create IDXGIDevice");
 			return;
 		}
 
 		if (FAILED(pDXGIDevice->GetParent(__uuidof(IDXGIAdapter), reinterpret_cast<void**>(pDXGIAdapter.GetAddressOf()))))
 		{
-			MessageBox(hWnd, L"Failed to create IDXGIAdapter", L"Error", MB_OK);
-			assert(false);
+			Assert(false, L"failed to create IDXGIAdapter");
 			return;
 		}
 
 		if (FAILED(pDXGIAdapter->GetParent(__uuidof(IDXGIFactory), reinterpret_cast<void**>(pDXGIFactory.GetAddressOf()))))
 		{
-			MessageBox(hWnd, L"Failed to create IDXGIFactory", L"Error", MB_OK);
-			assert(false);
+			Assert(false, L"failed to create IDXGIFactory");
 			return;
 		}
 
 		if (FAILED(pDXGIFactory->CreateSwapChain(mDevice.Get(), &swapChainDesc, mSwapChain.GetAddressOf())))
 		{
-			MessageBox(hWnd, L"Failed to create IDXGISwapChain", L"Error", MB_OK);
-			assert(false);
+			Assert(false, L"failed to create IDXGISwapChain");
 			return;
 		}
-
-
 
 		//RenderTarget
 		if (FAILED(mSwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), reinterpret_cast<void**>(mRenderTargetTexture.GetAddressOf()))))
 		{
-			MessageBox(hWnd, L"Failed to get buffer", L"Error", MB_OK);
-			assert(false);
+			Assert(false, L"failed to get buffer");
 			return;
 		}
 
 		if (FAILED(mDevice->CreateRenderTargetView(mRenderTargetTexture.Get(), nullptr, mRenderTargetView.GetAddressOf())))
 		{
-			MessageBox(hWnd, L"Failed to create render target view", L"Error", MB_OK);
-			assert(false);
+			Assert(false, L"failed to create render target view");
 			return;
 		}
 #pragma endregion
@@ -138,13 +155,13 @@ namespace engine::graphics
 
 		if (FAILED(mDevice->CreateTexture2D(&depthStencilDesc, nullptr, mDepthStencilTexture.GetAddressOf())))
 		{
-			MessageBox(hWnd, L"Failed to create depth stencil texture", L"Error", MB_OK);
+			Assert(false, L"failed to create depth stencil texture");
 			return;
 		}
 
 		if (FAILED(mDevice->CreateDepthStencilView(mDepthStencilTexture.Get(), nullptr, mDepthStencilView.GetAddressOf())))
 		{
-			MessageBox(hWnd, L"Failed to create depth stencil view", L"Error", MB_OK);
+			Assert(false, L"failed to create depth stencil view");
 			return;
 		}
 #pragma endregion
@@ -193,22 +210,23 @@ namespace engine::graphics
 
 	void GraphicDeviceDX11::BindIA(const Shader* const shader)
 	{
-		assert(shader);
-		assert(shader->mInputLayout.Get());
+		Assert(shader, WCHAR_IS_NULLPTR);
+		Assert(shader->mInputLayout.Get(), WCHAR_IS_NULLPTR);
 
 		mContext->IASetInputLayout(shader->mInputLayout.Get());
 		mContext->IASetPrimitiveTopology(shader->mTopology);
 	}
-	
+
 	void GraphicDeviceDX11::BindMesh(const Mesh* const mesh)
 	{
-		assert(mesh);
+		Assert(mesh, WCHAR_IS_NULLPTR);
+
 
 		const UINT vertexSize = mesh->GetVertexSize();
 		const UINT offset = 0;
 		mContext->IASetVertexBuffers(0, 1, mesh->mBuffer.GetAddressOf(), &vertexSize, &offset);
 	}
-	
+
 	void GraphicDeviceDX11::BindTexture(const eShaderBindType stage, const UINT startSlot, const Texture* const texture)
 	{
 		switch (stage)
@@ -232,7 +250,7 @@ namespace engine::graphics
 			mContext->CSSetShaderResources(startSlot, 1, texture->mSRV.GetAddressOf());
 			break;
 		default:
-			assert(false);
+			Assert(false, WCHAR_SWITCH_DEFAULT);
 			break;
 		}
 	}
@@ -263,20 +281,20 @@ namespace engine::graphics
 			mContext->CSSetConstantBuffers(startSlot, 1, CB.mBuffer.GetAddressOf());
 			break;
 		default:
-			assert(false);
+			Assert(false, WCHAR_SWITCH_DEFAULT);
 			break;
 		}
 	}
 
 	void GraphicDeviceDX11::PassCB(const eCBType type, const UINT byteSize, const void* const data)
 	{
-		assert(data);
+		Assert(data, WCHAR_IS_NULLPTR);
+		UNREFERENCED_PARAMETER(byteSize);
 
-		D3D11_MAPPED_SUBRESOURCE subResource = {};
 		ConstantBuffer& CB = mConstantBuffers->GetConstantBuffer(type);
+		Assert(CB.mSize == byteSize, L"data size not ali 16");
 
-		assert(CB.mSize == byteSize);
-		(void)byteSize;
+		D3D11_MAPPED_SUBRESOURCE subResource = {};		
 
 		mContext->Map(CB.mBuffer.Get(), 0, D3D11_MAP::D3D11_MAP_WRITE_DISCARD, 0, &subResource);
 		{
@@ -287,23 +305,23 @@ namespace engine::graphics
 
 	void GraphicDeviceDX11::BindVS(const Shader* const shader)
 	{
-		assert(shader);
-		assert(shader->mVS.Get());
+		Assert(shader, WCHAR_IS_NULLPTR);
+		Assert(shader->mVS.Get(), WCHAR_IS_NULLPTR);
 
 		mContext->VSSetShader(shader->mVS.Get(), nullptr, 0);
 	}
 
 	void GraphicDeviceDX11::BindPS(const Shader* const shader)
 	{
-		assert(shader);
-		assert(shader->mPS.Get());
+		Assert(shader, WCHAR_IS_NULLPTR);
+		Assert(shader->mPS.Get(), WCHAR_IS_NULLPTR);
 
 		mContext->PSSetShader(shader->mPS.Get(), nullptr, 0);
 	}
 
 	void GraphicDeviceDX11::Draw(const UINT StartVertexLocation, const Mesh* const mesh)
 	{
-		assert(mesh);
+		Assert(mesh, WCHAR_IS_NULLPTR);
 
 		const UINT vertexSize = mesh->GetVertexCount();
 		mContext->Draw(vertexSize, StartVertexLocation);
@@ -312,12 +330,14 @@ namespace engine::graphics
 	void GraphicDeviceDX11::clearRenderTarget(const UINT screenWidth, const UINT screenHeight)
 	{
 		const FLOAT bgColor[4] = { 0.2f, 0.2f, 0.2f, 1.0f };
+
 		const D3D11_VIEWPORT mViewPort =
 		{
 			0.0f, 0.0f,
 			static_cast<FLOAT>(screenWidth), static_cast<FLOAT>(screenHeight),
 			0.0f, 1.0f
 		};
+
 		mContext->OMSetRenderTargets(1, mRenderTargetView.GetAddressOf(), mDepthStencilView.Get());
 		mContext->RSSetViewports(1, &mViewPort);
 		mContext->ClearRenderTargetView(mRenderTargetView.Get(), bgColor);

@@ -9,8 +9,8 @@ namespace engine
 		, mSize(size)
 		, mBuffer(nullptr)
 	{
-		assert(device);		
-		assert((mSize % 16) == 0);
+		Assert(device, WCHAR_IS_NULLPTR);
+		Assert((mSize % 16) == 0, "data not al 16 byte!");		
 
 		mDesc.ByteWidth = size;
 		mDesc.BindFlags = D3D11_BIND_FLAG::D3D11_BIND_CONSTANT_BUFFER;
@@ -18,7 +18,7 @@ namespace engine
 		mDesc.Usage = D3D11_USAGE::D3D11_USAGE_DYNAMIC;
 
 		device->CreateBuffer(&mDesc, nullptr, mBuffer.GetAddressOf());
-		assert(mBuffer.Get());
+		Assert(mBuffer.Get(), WCHAR_IS_NULLPTR);		
 	}
 
 	ConstantBuffer::~ConstantBuffer()

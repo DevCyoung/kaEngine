@@ -12,7 +12,7 @@ namespace engine
 
 	//현재핵으로 하였음 추후에 정확히 사용법을 익힐것
 	std::wstring String::StrToWStr(const std::string& str)
-	{
+	{		
 		const int size = MultiByteToWideChar(CP_UTF8, 0, str.c_str(), -1, nullptr, 0);
 		std::wstring wstr(size, 0);
 		MultiByteToWideChar(CP_UTF8, 0, str.c_str(), -1, wstr.data(), size);

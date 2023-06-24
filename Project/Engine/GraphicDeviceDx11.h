@@ -13,7 +13,7 @@ namespace engine
 	class CBCollection;
 	class Shader;
 	class Mesh;
-	class Texture;	
+	class Texture;
 
 	namespace graphics
 	{
@@ -26,7 +26,7 @@ namespace engine
 			GraphicDeviceDX11(const GraphicDeviceDX11&) = delete;
 			GraphicDeviceDX11& operator=(const GraphicDeviceDX11&) = delete;
 			
-			ID3D11Device* UnSafe_GetDevice() const { return mDevice.Get(); }
+			ID3D11Device* UnSafe_GetDevice() const { Assert(mDevice, WCHAR_IS_NULLPTR); return mDevice.Get(); }
 				
 			void BindIA(const Shader* const shader);
 			void BindMesh(const Mesh* const mesh);

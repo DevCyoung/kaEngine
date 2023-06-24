@@ -17,7 +17,7 @@ namespace engine
 		Component& operator=(const Component&) = delete;
 
 	public:
-		GameObject* GetOwner() const { assert(mOwner); return mOwner; }
+		GameObject* GetOwner() const { Assert(mOwner, WCHAR_IS_NULLPTR); return mOwner; }
 		eComponentType GetType() const { return mType; }
 
 	private:

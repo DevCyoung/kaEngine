@@ -31,8 +31,8 @@ namespace engine
 
 			if (iter != resources.end())
 			{
-				res = dynamic_cast<T*>(iter->second);
-				assert(res);		
+				res = dynamic_cast<T*>(iter->second);				
+				Assert(res, WCHAR_IS_NULLPTR);
 			}
 
 			return res;
@@ -51,7 +51,7 @@ namespace engine
 		static void LoadByRelativePath(const Key& orName)
 		{
 			T* res = FindOrNullByRelativePath<T>(orName);
-			assert(!res);
+			Assert(!res, WCHAR_IS_NOT_NULLPTR);			
 
 			constexpr eResourceType type = enable_if_resource<T>::resourceType;
 			HashMap& resources = sInstance->mResources[static_cast<UINT>(type)];
@@ -86,8 +86,8 @@ namespace engine
 				LoadByRelativePath<T>(orName);
 				res = FindOrNullByRelativePath<T>(orName);
 			}
-
-			assert(res);
+			
+			Assert(res, WCHAR_IS_NULLPTR);
 			return res;
 		}
 
@@ -102,16 +102,16 @@ namespace engine
 		template<typename T>
 		requires std::is_base_of_v<Base, T>
 		static void Insert(const Key& key, T* const value)
-		{
-			assert(value);
+		{			
+			Assert(value, WCHAR_IS_NULLPTR);
 			constexpr eResourceType type = enable_if_resource<T>::resourceType;
 			HashMap& resources = sInstance->mResources[static_cast<UINT>(type)];
 			Iterator iter = resources.find(key);
 
 			value->mKey = key;
 			value->mPath = key;
-
-			assert(resources.end() == iter);
+			
+			Assert(resources.end() == iter, L"");
 			resources.insert(std::make_pair(key, value));
 		}
 

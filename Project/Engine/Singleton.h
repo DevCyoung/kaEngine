@@ -1,18 +1,23 @@
 #pragma once
+#include "DefineMacro.h"
 
 #define SINGLETON_DECLARE(CLASSNAME)							\
 	private:													\
-		static void initialize();								\
+		static void initialize()								\
+	{															\
+		Assert(!sInstance, WCHAR_IS_NOT_NULLPTR);				\
+		sInstance = new CLASSNAME();							\
+	}															\
 		static void deleteInstance()							\
 	{															\
-		assert(sInstance);										\
+		Assert(sInstance, WCHAR_IS_NULLPTR);					\
 		delete sInstance;										\
 		sInstance = nullptr;									\
 	}															\
 	public:														\
 		static CLASSNAME* GetInstance()							\
 	{															\
-		assert(sInstance);										\
+		Assert(sInstance, WCHAR_IS_NULLPTR);					\
 		return sInstance;										\
 	}															\
 	private:													\

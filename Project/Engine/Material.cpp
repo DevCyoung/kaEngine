@@ -15,7 +15,7 @@ namespace engine
 
 	HRESULT Material::Load(const std::wstring& path)
 	{
-		assert(false);
+		Assert(false, "");
 		(void)path;
 		return E_NOTIMPL;
 	}

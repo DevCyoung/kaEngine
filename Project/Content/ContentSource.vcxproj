@@ -169,6 +169,7 @@ call ResourceHelper.exe $(SolutionDir)Output\bin\Resources $(SolutionDir)Project
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CameraScript.h" />
     <ClInclude Include="Content.h" />
     <ClInclude Include="EnumResourceTypeAnimation.h" />
     <ClInclude Include="EnumResourceTypeFont.h" />
@@ -184,6 +185,7 @@ call ResourceHelper.exe $(SolutionDir)Output\bin\Resources $(SolutionDir)Project
     <ClInclude Include="SampleScript.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CameraScript.cpp" />
     <ClCompile Include="Content.cpp" />
     <ClCompile Include="EnumResourceTypeAnimation.cpp" />
     <ClCompile Include="EnumResourceTypeFont.cpp" />

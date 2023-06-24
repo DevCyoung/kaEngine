@@ -19,23 +19,23 @@ namespace engine
 
 	void GameObject::AddComponent(Component* const component)
 	{
-		assert(component);
-		assert(!(component->mOwner));
+		Assert(component, WCHAR_IS_NULLPTR);
+		Assert(!(component->mOwner), WCHAR_IS_NOT_NULLPTR);
 
 		const eComponentType type = component->GetType();
-		assert(eComponentType::End != type);
+		Assert(eComponentType::End != type, WCHAR_IS_INVALID_TYPE);
 
 		if (eComponentType::Script == type)
 		{
 			Script* const addScript = dynamic_cast<Script*>(component);
-			assert(addScript);
+			Assert(addScript, WCHAR_IS_NULLPTR);			
 
 			for (const Script* const curScript : mUserComponents)
 			{
 				//이미존재한다면
 				if (curScript->GetScriptType() == addScript->GetScriptType())
-				{
-					assert(false);
+				{					
+					Assert(false, "already Exist Script");
 					break;
 				}
 			}
@@ -44,7 +44,7 @@ namespace engine
 		}
 		else
 		{
-			assert(!mEngineComponents[static_cast<UINT>(type)]);
+			Assert(!mEngineComponents[static_cast<UINT>(type)], WCHAR_IS_NOT_NULLPTR);
 			mEngineComponents[static_cast<UINT>(type)] = component;
 		}
 

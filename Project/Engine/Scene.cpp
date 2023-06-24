@@ -12,7 +12,7 @@ namespace engine
 	{		
 	}
 
-	void Scene::AddGameObject(GameObject* const obj, eLayerType type)
+	void Scene::AddGameObject(GameObject* const obj, const eLayerType type)
 	{
 		mLayers[static_cast<int>(type)].AddGameObject(obj);
 	}
@@ -52,7 +52,7 @@ namespace engine
 	{
 		(void)path;
 
-		assert(false);
+		Assert(false, L"");
 
 		return E_NOTIMPL;
 	}

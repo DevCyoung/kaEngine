@@ -17,18 +17,8 @@ namespace engine
 		: mKeyInfos()
 		, mMousePos(Vector2::Zero)
 	{
-	}
+		mKeyInfos.reserve(static_cast<size_t>(eKeyCode::END));
 
-	InputManager::~InputManager()
-	{
-	}
-
-	void InputManager::initialize()
-	{
-		assert(!sInstance);
-		sInstance = new InputManager();
-
-		sInstance->mKeyInfos.reserve(static_cast<size_t>(eKeyCode::END));
 		for (UINT i = 0; i < static_cast<UINT>(eKeyCode::END); ++i)
 		{
 			tKeyInfo keyInfo = {};
@@ -36,12 +26,18 @@ namespace engine
 			keyInfo.key = static_cast<eKeyCode>(i);
 			keyInfo.state = eKeyState::None;
 			keyInfo.bPressed = false;
-			sInstance->mKeyInfos.push_back(keyInfo);
+			mKeyInfos.push_back(keyInfo);
 		}
 	}
 
-	void InputManager::update(const HWND hWnd)
+	InputManager::~InputManager()
 	{
+	}
+
+	void InputManager::update(const HWND hWnd)
+	{		
+		Assert(hWnd, WCHAR_IS_NULLPTR);
+
 		if (GetFocus())
 		{
 			for (tKeyInfo& keyInfo : mKeyInfos)
@@ -91,9 +87,9 @@ namespace engine
 				case eKeyState::Pressed:
 					keyInfo.state = eKeyState::Up;
 					keyInfo.bPressed = false;
-				break;
+					break;
 				case eKeyState::Up:
-					keyInfo.state = eKeyState::None;					
+					keyInfo.state = eKeyState::None;
 				default:
 					break;
 				}

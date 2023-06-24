@@ -15,9 +15,9 @@ namespace engine
 		friend class graphics::GraphicDeviceDX11;
 		friend class ResourceManager;
 
-	private:		
+	public:
 		Mesh(const D3D11_BUFFER_DESC& pDesc, const D3D11_SUBRESOURCE_DATA* const pInitialData,
-			const UINT vertexSize, const UINT vertexCount, ID3D11Device* const device);		
+			const UINT vertexSize, const UINT vertexCount);
 		Mesh(const Mesh&) = delete;
 		Mesh& operator=(const Mesh&) = delete;
 

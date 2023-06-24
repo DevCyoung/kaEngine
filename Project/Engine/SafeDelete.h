@@ -1,10 +1,10 @@
 #pragma once
 
-#define SAFE_DELETE_POINTER(p) { assert(p); delete p; p = nullptr; }
-#define SAFE_DELETE_ARRAY(p)	{ assert(p) delete[] p; p = nullptr; }
+#define SAFE_DELETE_POINTER(p)  { Assert(p, WCHAR_IS_NULLPTR); delete   p; p = nullptr; }
+#define SAFE_DELETE_ARRAY(p)	{ Assert(p, WCHAR_IS_NULLPTR); delete[] p; p = nullptr; }
 
-#define DELETE_POINTER(p) { delete p; p = nullptr; }
-#define DELETE_ARRAY(p)	{ delete[] p; p = nullptr; }
+#define DELETE_POINTER(p)		{ delete   p; p = nullptr; }
+#define DELETE_ARRAY(p)			{ delete[] p; p = nullptr; }
 
 
 namespace engine

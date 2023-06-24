@@ -25,54 +25,38 @@ namespace engine
 		Shader(const eResShader vsFileName,
 			const std::wstring& vsFunName,
 			const eResShader psFileName,
-			const std::wstring psFunName, 
-			ID3D11Device* const device, 
-			const HWND hwnd);
+			const std::wstring psFunName);
 
 		Shader(const D3D11_PRIMITIVE_TOPOLOGY topology,
 			const eResShader vsFileName,
 			const std::wstring& vsFunName,
 			const eResShader psFileName,
-			const std::wstring psFunName, 
-			ID3D11Device* const device, 
-			const HWND hwnd);
+			const std::wstring psFunName);
 
 		virtual ~Shader();
 		Shader(const Shader&) = delete;
 		Shader& operator=(const Shader&) = delete;
 
 		void CreateHSShader(const eResShader hsFileName,
-			const std::wstring& hsFunName, 
-			ID3D11Device* const device, 
-			const HWND hwnd);
+			const std::wstring& hsFunName);
 
 		void CreateDSShader(const eResShader dsFileName,
-			const std::wstring& dsFunName, 
-			ID3D11Device* const device,
-			const HWND hwnd);
+			const std::wstring& dsFunName);
 
 		void CreateGSShader(const eResShader gsFileName,
-			const std::wstring& gsFunName, 
-			ID3D11Device* const device,
-			const HWND hwnd);		
+			const std::wstring& gsFunName);		
 
 	private:		
 		void createShader(const eShaderBindType sType,
 			const std::wstring& version,
 			const eResShader fileName,
-			const std::wstring& funName,
-			ID3D11Device* const device,
-			const HWND hwnd);
+			const std::wstring& funName);
 
 		void createVSShader(const eResShader vsFileName,
-			const std::wstring& vsFunName,
-			ID3D11Device* const device,
-			const HWND hwnd);
+			const std::wstring& vsFunName);
 
 		void createPSShader(const eResShader psFileName,
-			const std::wstring& psFunName, 
-			ID3D11Device* const device, 
-			const HWND hwnd);
+			const std::wstring& psFunName);
 
 		
 		virtual HRESULT Load(const std::wstring& path) override;
