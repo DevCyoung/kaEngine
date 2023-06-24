@@ -11,4 +11,5 @@
 #include "framework.h"
 #include <Engine/EngineIncludes.h>
 
+using namespace engine;
 #endif //PCH_H

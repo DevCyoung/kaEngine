@@ -170,7 +170,9 @@ call ResourceHelper.exe $(SolutionDir)Output\bin\Resources $(SolutionDir)Project
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CameraScript.h" />
+    <ClInclude Include="Components.h" />
     <ClInclude Include="Content.h" />
+    <ClInclude Include="EnableIfScript.h" />
     <ClInclude Include="EnumResourceTypeAnimation.h" />
     <ClInclude Include="EnumResourceTypeFont.h" />
     <ClInclude Include="EnumResourceTypeMaterial.h" />
@@ -179,10 +181,12 @@ call ResourceHelper.exe $(SolutionDir)Output\bin\Resources $(SolutionDir)Project
     <ClInclude Include="EnumResourceTypeShader.h" />
     <ClInclude Include="EnumResourceTypeSound.h" />
     <ClInclude Include="EnumResourceTypeTexture.h" />
-    <ClInclude Include="EnumScriptComponentType.h" />
+    <ClInclude Include="EnumScript.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="SampleScript.h" />
+    <ClInclude Include="StructVertex.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CameraScript.cpp" />
@@ -204,6 +208,7 @@ call ResourceHelper.exe $(SolutionDir)Output\bin\Resources $(SolutionDir)Project
       <PrecompiledHeaderOutputFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)$(TargetName).pch</PrecompiledHeaderOutputFile>
     </ClCompile>
     <ClCompile Include="SampleScript.cpp" />
+    <ClCompile Include="StructVertex.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Output\bin\Resources\Shader\Header\ConstantBuffer.fxh">

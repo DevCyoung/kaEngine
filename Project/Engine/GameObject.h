@@ -29,7 +29,7 @@ namespace engine
 		void AddComponent(Component* const component);
 
 		template<typename T>
-		requires std::is_base_of_v<Component, T>			
+			requires std::is_base_of_v<Component, T>
 		void AddComponent()
 		{
 			T* component = new T();
@@ -39,27 +39,26 @@ namespace engine
 		}
 
 		template<typename T>
-		requires std::is_base_of_v<Component, T>
+			requires std::is_base_of_v<Component, T>
 		T* GetComponentOrNull() const
 		{
-			constexpr eComponentType type = enable_if_component<T>::type;			
+			constexpr eComponentType type = enable_if_component<T>::type;
 			Assert(eComponentType::End != type, WCHAR_IS_INVALID_TYPE);
-			
-			T* component = nullptr;
 
+			T* component = nullptr;
 			if constexpr (eComponentType::Script == type) // user script
-			{				
+			{
 				for (Script* const script : mUserComponents)
 				{
-					component = dynamic_cast<T*>(script);
-					if (nullptr != component)
-					{						
+					if (script->GetScriptType() == enable_if_script<T>::type)
+					{
+						component = dynamic_cast<T*>(script);
 						break;
-					}
+					}					
 				}
 			}
 			else // engine component
-			{			
+			{
 				component = dynamic_cast<T*>(mEngineComponents[static_cast<UINT>(type)]);
 			}
 
@@ -67,7 +66,7 @@ namespace engine
 		}
 
 		template<typename T>
-		requires std::is_base_of_v<Component, T>
+			requires std::is_base_of_v<Component, T>
 		T* GetComponent() const
 		{
 			T* component = GetComponentOrNull<T>();
@@ -84,7 +83,7 @@ namespace engine
 
 	private:
 		eState mState;
-		Component* mEngineComponents[static_cast<UINT>(eComponentType::End)];		
+		Component* mEngineComponents[static_cast<UINT>(eComponentType::End)];
 		std::vector<Script*> mUserComponents;
 	};
 }

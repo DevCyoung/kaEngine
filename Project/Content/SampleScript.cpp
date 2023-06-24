@@ -4,14 +4,14 @@
 #include <Engine/TimeManager.h>
 #include <Engine/InputManager.h>
 #include "SampleScript.h"
-#include "EnumScriptComponentType.h"
+#include "EnumScript.h"
 
 
 
 using namespace engine;
 
 SampleScript::SampleScript()
-	: Script(eScriptType::Sample)
+	: Script(eScriptType::SampleScript)
 {
 }
 

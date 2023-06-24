@@ -27,3 +27,9 @@ namespace engine
 		static constexpr eComponentType type = eComponentType::MeshRenderer;
 	};
 }
+
+template <typename T, bool Enable = true>
+struct enable_if_script
+{
+	static constexpr bool fail = false;
+};

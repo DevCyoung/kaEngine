@@ -3,9 +3,8 @@
 #include <Engine/Transform.h>
 #include <Engine/TimeManager.h>
 #include <Engine/InputManager.h>
-
 #include "CameraScript.h"
-#include "EnumScriptComponentType.h"
+#include "EnumScript.h"
 
 using namespace engine;
 
@@ -26,7 +25,7 @@ void CameraScript::update()
 {
 	Transform* transform = GetOwner()->GetComponent<Transform>();
 	Vector3 pos = transform->GetPosition();
-
+	
 	if (gInput->GetKey(eKeyCode::A))
 	{
 		pos.x -= 10.0f * gDeltaTime;

@@ -2,8 +2,11 @@
 
 enum class eScriptType
 {
-	TestComponent,
-	Sample,
+	SampleScript,
 	CameraScript,
 	End,
 };
+
+class SampleScript;
+class CameraScript;
+

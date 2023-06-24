@@ -1,38 +1,16 @@
 #include "pch.h"
-#include <Engine/Engine.h>
-#include <Engine/GraphicDeviceDx11.h>
 #include <Engine/Scene.h>
 #include <Engine/SceneManager.h>
-#include <Engine/GameObject.h>
-#include <Engine/Transform.h>
-#include <Engine/Camera.h>
-#include <Engine/MeshRenderer.h>
-#include <Engine/Mesh.h>
-#include <Engine/Material.h>
-#include <Engine/Textrue.h>
-#include <Engine/Material.h>
-#include <Engine/Shader.h>
-#include <Engine/ResourceManager.h>
-#include <Engine/StructVertex.h>
-#include <Engine/Mesh.h>
 
+#include "StructVertex.h"
 #include "Content.h"
 #include "SampleScript.h"
 #include "CameraScript.h"
-
-#include "EnumResourceTypeAnimation.h"	
-#include "EnumResourceTypeFont.h"
-#include "EnumResourceTypeScene.h"
-#include "EnumResourceTypeMaterial.h"
-#include "EnumResourceTypeMesh.h"
-#include "EnumResourceTypeShader.h"
-#include "EnumResourceTypeSound.h"
-#include "EnumResourceTypeTexture.h"
+#include "ResourceManager.h"
+#include "Components.h"
 
 namespace content
-{
-	using namespace engine;
-
+{	
 	Content::Content()
 	{
 		resourceInitialize();
@@ -139,6 +117,15 @@ namespace content
 			GameObject* const obj = new GameObject();
 			obj->AddComponent<MeshRenderer>();
 			obj->AddComponent<SampleScript>();
+			obj->AddComponent<CameraScript>();
+			
+
+			obj->GetComponent<SampleScript>();
+			obj->GetComponent<CameraScript>();
+			
+
+
+			
 
 			obj->GetComponent<MeshRenderer>()
 				->SetMesh(gResourceManager
@@ -154,11 +141,12 @@ namespace content
 
 		{
 			//test2
-			for (int i = 0; i < 5000; ++i)
+			for (int i = 0; i < 1000; ++i)
 			{
 				GameObject* const obj = new GameObject();
 				obj->AddComponent<MeshRenderer>();
 				obj->AddComponent<SampleScript>();
+				
 
 				obj->GetComponent<MeshRenderer>()
 					->SetMesh(gResourceManager
@@ -170,6 +158,9 @@ namespace content
 
 				obj->GetComponent<Transform>()
 					->SetPosition(-4.f + i * 0.02f, -4.f + i * 0.02f, 0.f);
+
+				SampleScript* script = obj->GetComponent<SampleScript>();
+				(void)script;
 
 				testScene->AddGameObject(obj, eLayerType::Player);
 			}

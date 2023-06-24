@@ -1,9 +1,7 @@
 #include "pch.h"
 #include "GraphicDeviceDX11.h"
-#include "StructVertex.h"
 #include "Textrue.h"
 #include "Shader.h"
-#include "Material.h"
 #include "Mesh.h"
 #include "CBCollection.h"
 
