@@ -4,7 +4,7 @@
 namespace engine
 {
     Entity::Entity()
-        : mName(L"")
+        : mName(L"None")
         , mID(sID++)
     {                        
     }

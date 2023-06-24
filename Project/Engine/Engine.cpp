@@ -4,48 +4,46 @@
 #include "TimeManager.h"
 #include "InputManager.h"
 #include "PathManager.h"
-#include "EventManager.h"
 #include "ResourceManager.h"
 #include "SceneManager.h"
+#include "EventManager.h"
 
 namespace engine
 {
-	Engine::Engine()
-		: mGraphicDevice(nullptr)
-		, mHwnd(nullptr)
-		, mScreenWidth(static_cast<UINT>(-1))
-		, mScreenHeight(static_cast<UINT>(-1))
+	using namespace graphics;
+
+	Engine::Engine(const HWND hWnd, const UINT screenWidth, const UINT screenHeight)
+		: mHwnd(hWnd)
+		, mScreenWidth(screenWidth)
+		, mScreenHeight(screenHeight)
+		, mGraphicDevice(new GraphicDeviceDX11(hWnd, mScreenWidth, mScreenHeight))
 	{
+		TimeManager::initialize();
+		PathManager::initialize();
+		InputManager::initialize();
+		ResourceManager::initialize();
+		SceneManager::initialize();
+		EventManager::initialize();
 	}
 
 	Engine::~Engine()
 	{
-		SceneManager::deleteInstance();
-		ResourceManager::deleteInstance();		
 		EventManager::deleteInstance();
+		SceneManager::deleteInstance();
+		ResourceManager::deleteInstance();
 		InputManager::deleteInstance();
 		PathManager::deleteInstance();
 		TimeManager::deleteInstance();
+
+		SAFE_DELETE_POINTER(mGraphicDevice);
 	}
 
 	void Engine::initialize(const HWND hWnd, const UINT screenWidth, const UINT screenHeight)
 	{
-		assert(!sInstance);
-		assert(hWnd);
+		Assert(hWnd, WCHAR_IS_NULLPTR);
+		Assert(!sInstance, WCHAR_IS_NOT_NULLPTR);
 
-		sInstance = new Engine();
-		sInstance->setWindow(hWnd, screenWidth, screenHeight);
-
-		TimeManager::initialize();
-		PathManager::initialize();
-		InputManager::initialize();
-		EventManager::initialize();
-
-		sInstance->mGraphicDevice = std::make_unique<graphics::GraphicDeviceDX11>(hWnd,
-			sInstance->mScreenWidth, sInstance->mScreenHeight);
-
-		ResourceManager::initialize();
-		SceneManager::initialize();
+		sInstance = new Engine(hWnd, screenWidth, screenHeight);
 	}
 
 	void Engine::run()
@@ -80,22 +78,5 @@ namespace engine
 		SceneManager::GetInstance()->render();
 
 		mGraphicDevice->present();
-	}
-
-	void Engine::setWindow(const HWND hwnd, const UINT width, const UINT height)
-	{
-		mHwnd = hwnd;
-		mScreenWidth = width;
-		mScreenHeight = height;
-
-		RECT wdScreen = { 0, 0, static_cast<LONG>(width), static_cast<LONG>(height) };
-		AdjustWindowRect(&wdScreen, WS_OVERLAPPEDWINDOW, FALSE);
-		SetWindowPos(mHwnd,
-			nullptr, 0, 0,
-			wdScreen.right - wdScreen.left,
-			wdScreen.bottom - wdScreen.top, 0);
-
-		ShowWindow(mHwnd, true);
-		UpdateWindow(mHwnd);
 	}
 }

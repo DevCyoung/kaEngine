@@ -11,12 +11,6 @@ namespace engine
 	{
 	}
 
-	void EventManager::initialize()
-	{
-		assert(!sInstance);
-		sInstance = new EventManager();
-	}
-
 	void EventManager::update()
 	{
 	}

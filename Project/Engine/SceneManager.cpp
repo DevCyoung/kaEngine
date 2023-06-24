@@ -3,11 +3,16 @@
 #include "SceneManager.h"
 
 namespace engine
-{	
+{
 	SceneManager::SceneManager()
 		: mCurrentScene(nullptr)
-	{		
+
+	{
+		//FIXME: DummyScene		
+		mCurrentScene = new Scene();
+		mCurrentScene->initialize();
 	}
+
 
 	SceneManager::~SceneManager()
 	{
@@ -15,22 +20,12 @@ namespace engine
 		mCurrentScene = nullptr;
 	}
 
-	void SceneManager::initialize()
-	{
-		assert(!sInstance);
-		sInstance = new SceneManager();
-
-		//FIXME: DummyScene
-		sInstance->mCurrentScene = new Scene();
-		sInstance->mCurrentScene->initialize();		
-	}
-
 	void SceneManager::LoadScene(Scene* const scene)
 	{
-		assert(scene);
+		Assert(scene, WCHAR_IS_NULLPTR);
 
 		DELETE_ARRAY(sInstance->mCurrentScene);
-		sInstance->mCurrentScene = scene;		
+		sInstance->mCurrentScene = scene;
 	}
 
 	void SceneManager::update()

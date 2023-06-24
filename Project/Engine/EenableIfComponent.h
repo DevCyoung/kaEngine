@@ -16,6 +16,12 @@ namespace engine
 	};	
 
 	template <>
+	struct enable_if_component<Camera>
+	{
+		static constexpr eComponentType type = eComponentType::Camera;
+	};
+
+	template <>
 	struct enable_if_component<MeshRenderer>
 	{
 		static constexpr eComponentType type = eComponentType::MeshRenderer;

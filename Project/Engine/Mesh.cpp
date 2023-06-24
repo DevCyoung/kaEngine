@@ -1,22 +1,23 @@
 #include "pch.h"
 #include "Mesh.h"
+#include "Engine.h"
+#include "GraphicDeviceDx11.h"
 
 namespace engine
 {
 	Mesh::Mesh(const D3D11_BUFFER_DESC& pDesc,
 		const D3D11_SUBRESOURCE_DATA* const pInitialData,
 		const UINT vertexSize,
-		const UINT vertexCount,
-		ID3D11Device* const device)
+		const UINT vertexCount)
 		: mDesc(pDesc)
 		, mVertexSize(vertexSize)
 		, mVertexCount(vertexCount)
-	{
-		assert(mDesc.BindFlags == D3D11_BIND_FLAG::D3D11_BIND_VERTEX_BUFFER);
+	{		
+		Assert(mDesc.BindFlags == D3D11_BIND_FLAG::D3D11_BIND_VERTEX_BUFFER, WCHAR_IS_INVALID_TYPE);
 
-		if (FAILED(device->CreateBuffer(&mDesc, pInitialData, mBuffer.GetAddressOf())))
+		if (FAILED(gGraphicDevice->UnSafe_GetDevice()->CreateBuffer(&mDesc, pInitialData, mBuffer.GetAddressOf())))
 		{
-			assert(false);
+			Assert(false, L"failed to create buffer");
 		}
 	}
 
@@ -41,7 +42,7 @@ namespace engine
 
 	HRESULT Mesh::Load(const std::wstring& path)
 	{
-		assert(false);
+		Assert(false, L"");
 
 		(void)path;
 		return E_NOTIMPL;

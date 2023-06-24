@@ -14,7 +14,7 @@ namespace engine
 	{
 		friend class graphics::GraphicDeviceDX11;
 	private:
-		CBCollection(ID3D11Device* device);
+		CBCollection(ID3D11Device* const device);
 		virtual ~CBCollection();
 		CBCollection(const CBCollection&) = delete;
 		CBCollection& operator=(const CBCollection&) = delete;

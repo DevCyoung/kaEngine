@@ -4,5 +4,6 @@ enum class eScriptType
 {
 	TestComponent,
 	Sample,
+	CameraScript,
 	End,
 };

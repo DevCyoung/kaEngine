@@ -14,11 +14,11 @@ namespace engine
 		MeshRenderer(const MeshRenderer&) = delete;
 		MeshRenderer& operator=(const MeshRenderer&) = delete;
 
-		void SetMesh(Mesh* const mesh) { assert(mesh); mMesh = mesh; }
-		void SetMaterial(Material* const material) { assert(material); mMaterial = material; }
+		void SetMesh(Mesh* const mesh) { Assert(mesh, WCHAR_IS_NULLPTR); mMesh = mesh; }
+		void SetMaterial(Material* const material) { Assert(material, WCHAR_IS_NULLPTR); mMaterial = material; }
 
-		Mesh* GetMesh() const { assert(mMesh); return mMesh; }
-		Material* GetMaterial() const { assert(mMaterial); return mMaterial; }
+		Mesh* GetMesh() const { Assert(mMesh, WCHAR_IS_NULLPTR); return mMesh; }
+		Material* GetMaterial() const { Assert(mMaterial, WCHAR_IS_NULLPTR); return mMaterial; }
 
 
 	private:
@@ -29,6 +29,6 @@ namespace engine
 	
 	private:		
 		Mesh* mMesh;
-		Material* mMaterial;
+		Material* mMaterial;		
 	};
 }

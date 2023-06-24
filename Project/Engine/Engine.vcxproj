@@ -163,7 +163,7 @@
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Casting.h" />
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="CBCollection.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="ConstantBuffer.h" />
@@ -176,7 +176,6 @@
     <ClInclude Include="EnumConponent.h" />
     <ClInclude Include="EnumFlag.h" />
     <ClInclude Include="DXMath.h" />
-    <ClInclude Include="Enums.h" />
     <ClInclude Include="EnumResourceType.h" />
     <ClInclude Include="EventManager.h" />
     <ClInclude Include="framework.h" />
@@ -184,7 +183,7 @@
     <ClInclude Include="GraphicDeviceDX11.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="Layer.h" />
-    <ClInclude Include="MacroDefine.h" />
+    <ClInclude Include="DefineMacro.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="MeshRenderer.h" />
     <ClInclude Include="PathManager.h" />
@@ -206,6 +205,7 @@
     <ClInclude Include="StructVertex.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CBCollection.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="ConstantBuffer.cpp" />

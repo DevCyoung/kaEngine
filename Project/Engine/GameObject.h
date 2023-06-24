@@ -33,7 +33,7 @@ namespace engine
 		void AddComponent()
 		{
 			T* component = new T();
-			assert(component);
+			Assert(component, WCHAR_IS_NULLPTR);
 
 			AddComponent(component);
 		}
@@ -42,9 +42,9 @@ namespace engine
 		requires std::is_base_of_v<Component, T>
 		T* GetComponentOrNull() const
 		{
-			constexpr eComponentType type = enable_if_component<T>::type;
-			assert(eComponentType::End != type);
-
+			constexpr eComponentType type = enable_if_component<T>::type;			
+			Assert(eComponentType::End != type, WCHAR_IS_INVALID_TYPE);
+			
 			T* component = nullptr;
 
 			if constexpr (eComponentType::Script == type) // user script
@@ -72,7 +72,7 @@ namespace engine
 		{
 			T* component = GetComponentOrNull<T>();
 
-			assert(component);
+			Assert(component, WCHAR_IS_NULLPTR);
 			return component;
 		}
 
