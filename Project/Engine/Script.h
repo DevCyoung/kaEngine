@@ -45,4 +45,4 @@ struct script_component_type<SCRIPT_TYPE>											\
 	static constexpr bool value = true;												\
 	static constexpr eScriptType type = eScriptType::SCRIPT_TYPE;					\
 	static constexpr const wchar_t* const name = L#SCRIPT_TYPE;						\
-}
+}\

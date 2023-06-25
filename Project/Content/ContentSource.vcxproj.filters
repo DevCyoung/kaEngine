@@ -39,9 +39,6 @@
     <ClInclude Include="Content.h">
       <Filter>Source\00. Content</Filter>
     </ClInclude>
-    <ClInclude Include="SampleScript.h">
-      <Filter>Source\TestScript</Filter>
-    </ClInclude>
     <ClInclude Include="EnumResourceTypeAnimation.h">
       <Filter>Resources</Filter>
     </ClInclude>
@@ -75,17 +72,14 @@
     <ClInclude Include="StructVertex.h">
       <Filter>Source\Struct</Filter>
     </ClInclude>
-    <ClInclude Include="EnumScript.h">
+    <ClInclude Include="CameraScript.h">
       <Filter>Source\01. Scripts</Filter>
     </ClInclude>
-    <ClInclude Include="CameraScript.h">
-      <Filter>Source\TestScript</Filter>
+    <ClInclude Include="Findingin.h">
+      <Filter>Source\01. Scripts</Filter>
     </ClInclude>
-    <ClInclude Include="TestScript.h">
-      <Filter>Source\TestScript</Filter>
-    </ClInclude>
-    <ClInclude Include="BulletMovement.h">
-      <Filter>Source\TestScript</Filter>
+    <ClInclude Include="EnumScript.h">
+      <Filter>Source\00. Content</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -94,9 +88,6 @@
     </ClCompile>
     <ClCompile Include="Content.cpp">
       <Filter>Source\00. Content</Filter>
-    </ClCompile>
-    <ClCompile Include="SampleScript.cpp">
-      <Filter>Source\TestScript</Filter>
     </ClCompile>
     <ClCompile Include="EnumResourceTypeAnimation.cpp">
       <Filter>Resources</Filter>
@@ -126,16 +117,13 @@
       <Filter>Source\Struct</Filter>
     </ClCompile>
     <ClCompile Include="CameraScript.cpp">
-      <Filter>Source\TestScript</Filter>
-    </ClCompile>
-    <ClCompile Include="TestScript.cpp">
-      <Filter>Source\TestScript</Filter>
-    </ClCompile>
-    <ClCompile Include=" EnumScript.cpp">
       <Filter>Source\01. Scripts</Filter>
     </ClCompile>
-    <ClCompile Include="BulletMovement.cpp">
-      <Filter>Source\TestScript</Filter>
+    <ClCompile Include="Findingin.cpp">
+      <Filter>Source\01. Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include=" EnumScript.cpp">
+      <Filter>Source\00. Content</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

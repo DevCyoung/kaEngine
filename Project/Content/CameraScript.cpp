@@ -8,9 +8,10 @@
 
 using namespace engine;
 
-CameraScript::CameraScript(const eScriptType type)
-	: Script(type)
+CameraScript::CameraScript()
+	: Script(eScriptType::CameraScript)
 {
+
 }
 
 CameraScript::~CameraScript()
@@ -25,6 +26,8 @@ void CameraScript::update()
 {
 	Transform* transform = GetOwner()->GetComponent<Transform>();
 	Vector3 pos = transform->GetPosition();
+
+	
 	
 	if (gInput->GetKey(eKeyCode::A))
 	{
@@ -57,7 +60,6 @@ void CameraScript::update()
 		rot.z += 1.0f * gDeltaTime;
 		transform->SetRotation(rot);
 	}
-
 	transform->SetPosition(pos);
 }
 
@@ -68,3 +70,4 @@ void CameraScript::lateUpdate()
 void CameraScript::render()
 {
 }
+

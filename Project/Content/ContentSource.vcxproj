@@ -133,7 +133,9 @@
     </Link>
     <PreBuildEvent>
       <Command>cd $(SolutionDir)Project\Content\Helper\Resource\Release\net6.0
-call ResourceHelper.exe $(SolutionDir)Output\bin\Resources $(SolutionDir)Project\Content NO</Command>
+call ResourceHelper.exe $(SolutionDir)Output\bin\Resources $(SolutionDir)Project\Content NO
+cd $(SolutionDir)Project\Content\Helper\ScriptGen\Release\net6.0
+call ScriptGen.exe eScriptType $(SolutionDir)Project\Content $(SolutionDir)Project\Content\EnumScript.h $(SolutionDir)Project\Content\EnumScript.cpp TRUE</Command>
     </PreBuildEvent>
     <FxCompile>
       <ObjectFileOutput>$(OutDir)Cso\%(Filename).cso</ObjectFileOutput>
@@ -164,17 +166,13 @@ call ResourceHelper.exe $(SolutionDir)Output\bin\Resources $(SolutionDir)Project
       <Command>cd $(SolutionDir)Project\Content\Helper\Resource\Release\net6.0
 call ResourceHelper.exe $(SolutionDir)Output\bin\Resources $(SolutionDir)Project\Content NO
 cd $(SolutionDir)Project\Content\Helper\ScriptGen\Release\net6.0
-call ScriptGen.exe eScriptType $(SolutionDir)Project\Content $(SolutionDir)Project\Content\EnumScript.h $(SolutionDir)Project\Content\EnumScript.cpp</Command>
+call ScriptGen.exe eScriptType $(SolutionDir)Project\Content $(SolutionDir)Project\Content\EnumScript.h $(SolutionDir)Project\Content\EnumScript.cpp FALSE</Command>
     </PreBuildEvent>
     <FxCompile>
       <ObjectFileOutput>$(OutDir)Cso\%(Filename).cso</ObjectFileOutput>
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="BulletMovement.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
     <ClInclude Include="CameraScript.h" />
     <ClInclude Include="Components.h" />
     <ClInclude Include="Content.h" />
@@ -187,22 +185,17 @@ call ScriptGen.exe eScriptType $(SolutionDir)Project\Content $(SolutionDir)Proje
     <ClInclude Include="EnumResourceTypeSound.h" />
     <ClInclude Include="EnumResourceTypeTexture.h" />
     <ClInclude Include="EnumScript.h" />
-    <ClInclude Include="framework.h" />
-    <ClInclude Include="pch.h" />
-    <ClInclude Include="ResourceManager.h" />
-    <ClInclude Include="SampleScript.h" />
-    <ClInclude Include="StructVertex.h" />
-    <ClInclude Include="TestScript.h">
+    <ClInclude Include="Findingin.h">
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="framework.h" />
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="ResourceManager.h" />
+    <ClInclude Include="StructVertex.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include=" EnumScript.cpp" />
-    <ClCompile Include="BulletMovement.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
     <ClCompile Include="CameraScript.cpp" />
     <ClCompile Include="Content.cpp" />
     <ClCompile Include="EnumResourceTypeAnimation.cpp" />
@@ -213,6 +206,10 @@ call ScriptGen.exe eScriptType $(SolutionDir)Project\Content $(SolutionDir)Proje
     <ClCompile Include="EnumResourceTypeShader.cpp" />
     <ClCompile Include="EnumResourceTypeSound.cpp" />
     <ClCompile Include="EnumResourceTypeTexture.cpp" />
+    <ClCompile Include="Findingin.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">pch.h</PrecompiledHeaderFile>
@@ -221,12 +218,7 @@ call ScriptGen.exe eScriptType $(SolutionDir)Project\Content $(SolutionDir)Proje
       <PrecompiledHeaderOutputFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)$(TargetName).pch</PrecompiledHeaderOutputFile>
       <PrecompiledHeaderOutputFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)$(TargetName).pch</PrecompiledHeaderOutputFile>
     </ClCompile>
-    <ClCompile Include="SampleScript.cpp" />
     <ClCompile Include="StructVertex.cpp" />
-    <ClCompile Include="TestScript.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Output\bin\Resources\Shader\Header\ConstantBuffer.fxh">

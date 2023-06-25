@@ -3,11 +3,11 @@
 enum class eScriptType
 {
 	CameraScript,
-	SampleScript,
-	TestScript,
-	BulletMovement,
+	Findingin,
 	End
 };
 
-const wchar_t* GetComponentWstrByEnum(const eScriptType type);
+const wchar_t* GetComponentName(const eScriptType type);
+Script* CreateScriptByName(const std::wstring& scriptName);
+Script* CreateScriptByEnum(const eScriptType type);
 

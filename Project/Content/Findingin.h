@@ -2,13 +2,13 @@
 #include <Engine/Script.h>
 #include "EnumScript.h"
 
-class TestScript : public engine::Script
+class Findingin : public engine::Script
 {
 public:
-	TestScript();
-	virtual ~TestScript();
-	TestScript(const TestScript&) = delete;
-	TestScript& operator=(const TestScript&) = delete;
+	Findingin();
+	virtual ~Findingin();
+	Findingin(const Findingin&) = delete;
+	Findingin& operator=(const Findingin&) = delete;
 
 private:
 	virtual void initialize() override final;
@@ -17,4 +17,4 @@ private:
 	virtual void render() override final;
 };
 
-REGISTER_SCRIPT_TYPE(TestScript);
+REGISTER_SCRIPT_TYPE(Findingin);

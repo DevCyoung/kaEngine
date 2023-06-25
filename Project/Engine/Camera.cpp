@@ -33,7 +33,7 @@ namespace engine
 
 	void Camera::lateUpdate()
 	{
-	Transform* tr = GetOwner()->GetComponent<Transform>();
+		Transform* tr = GetOwner()->GetComponent<Transform>();
 		Vector3 pos = tr->GetPosition();
 
 		// View Translate Matrix

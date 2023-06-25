@@ -25,10 +25,11 @@ public class MyProgram
 
     public static void Main(string[] args)
     {
-        WriteLine("Program Ready.....");
-        WriteLine("Input Check....");
+        
         if (args.Length == 2)
-        {            
+        {
+            WriteLine("Program Ready.....");
+            WriteLine("Input Check....");
             WriteLine($"argc = {args.Length}");
             WriteLine("args length is 2, ok! Program start");
 

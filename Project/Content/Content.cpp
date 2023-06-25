@@ -3,10 +3,11 @@
 #include <Engine/SceneManager.h>
 #include "StructVertex.h"
 #include "Content.h"
-#include "SampleScript.h"
 #include "ResourceManager.h"
-
 #include "Components.h"
+
+#include "CameraScript.h"
+
 
 namespace content
 {
@@ -22,6 +23,20 @@ namespace content
 
 	void Content::resourceInitialize()
 	{
+		
+
+		
+		
+
+		for (int i = 0; i < static_cast<int>(eScriptType::End); ++i)
+		{
+			const wchar_t* aa = GetComponentName(static_cast<eScriptType>(i));
+
+			int dda = 0;
+			(void)aa;
+			(void)dda;
+		}				
+
 		//Texture
 		{
 			for (UINT i = 0; i < static_cast<UINT>(eResTexture::End); ++i)
@@ -69,6 +84,14 @@ namespace content
 
 			triangleData.pSysMem = vertex;
 
+			for (UINT i = 0; i < static_cast<UINT>(eScriptType::End); ++i)
+			{
+				const wchar_t* wstr = GetComponentName(static_cast<eScriptType>(i));
+				int a = 0;
+				(void)a;
+				(void)wstr;
+			}
+
 			gResourceManager->Insert<Mesh>(L"Rect",
 				new Mesh(triangleDesc, &triangleData,
 					sizeof(tVertex), VERTEX_COUNT));
@@ -115,47 +138,10 @@ namespace content
 			//test
 			GameObject* const obj = new GameObject();
 			obj->AddComponent<MeshRenderer>();
-			//obj->AddComponent<SampleScript>();
-
-			for (UINT i = 0; i < static_cast<UINT>(eScriptType::End); ++i)
-			{
-				const wchar_t* wstr = GetComponentWstrByEnum(static_cast<eScriptType>(i));
-				(void)wstr;
-				int a = 0;
-				(void)a;
-			}
-			
-
-
-			//obj->GetComponent<SampleScript>();
-			//obj->GetComponent<OhterCameraScript>();
-			SampleScript* ss = obj->GetComponentOrNull<SampleScript>();
-			obj->GetComponentOrNull<MeshRenderer>();
-			(void)ss;
-			//script_type<Scene>::
-			
-				for (UINT i = 0; i < static_cast<UINT>(eScriptType::End); i++)
-				{
-					//eScriptType type = static_cast<eScriptType>(i);
-					//script_component_name<eScriptType::CameraScript>::value;
-					//script_component_type;
-					//script_component_type<OhterCameraScript>::
-					//script_component_name<0>::value;
-					//sciript_component_name<i> a;
-
-
-					//sciript_component_name<1>::value
-
-
-				}
-
-
-
-
-
 			obj->GetComponent<MeshRenderer>()
 				->SetMesh(gResourceManager
 					->FindOrNullByRelativePath<Mesh>(L"Rect"));
+
 
 			obj->GetComponent<MeshRenderer>()
 				->SetMaterial(gResourceManager
@@ -167,15 +153,11 @@ namespace content
 
 		{
 			//test2
-			for (int i = 0; i < 1000; ++i)
+			for (int i = 0; i < 5000; ++i)
 			{
 				GameObject* const obj = new GameObject();
 				obj->AddComponent<MeshRenderer>();
-				obj->AddComponent<SampleScript>();
 				
-
-				
-
 
 				obj->GetComponent<MeshRenderer>()
 					->SetMesh(gResourceManager
@@ -191,8 +173,8 @@ namespace content
 
 				//obj->GetComponent<>();
 
-				SampleScript* script = obj->GetComponent<SampleScript>();
-				(void)script;
+				
+				
 
 				testScene->AddGameObject(obj, eLayerType::Player);
 			}
@@ -203,7 +185,7 @@ namespace content
 		{
 			GameObject* const mainCameraObj = new GameObject();
 			mainCameraObj->AddComponent<Camera>();
-			
+			mainCameraObj->AddComponent<CameraScript>();
 
 			Camera* const cameraComp = mainCameraObj->GetComponent<Camera>();
 			mainCameraObj->GetComponent<Transform>()
@@ -211,11 +193,9 @@ namespace content
 
 			//FIXME 카메라가 씬에없는데도 가져올수있게됨 고쳐야함!
 			Camera::SetMainCamera(cameraComp);
-
 			testScene->AddGameObject(mainCameraObj, eLayerType::Player);
 		}
 
 		SceneManager::GetInstance()->LoadScene(testScene);
 	}
 }
-

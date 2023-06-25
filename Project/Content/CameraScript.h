@@ -5,7 +5,7 @@
 class CameraScript : public engine::Script
 {
 public:
-	CameraScript(const eScriptType type);
+	CameraScript();
 	virtual ~CameraScript();
 	CameraScript(const CameraScript&) = delete;
 	CameraScript& operator=(const CameraScript&) = delete;
