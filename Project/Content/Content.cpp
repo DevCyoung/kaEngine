@@ -23,6 +23,11 @@ namespace content
 
 	void Content::resourceInitialize()
 	{
+		Script* script = CreateScriptByName(L"CameraScript");
+
+		CameraScript* cscript =  dynamic_cast<CameraScript*>(script);
+		(void)cscript;
+		
 		
 
 		
@@ -30,7 +35,7 @@ namespace content
 
 		for (int i = 0; i < static_cast<int>(eScriptType::End); ++i)
 		{
-			const wchar_t* aa = GetComponentName(static_cast<eScriptType>(i));
+			const wchar_t* aa = GetScriptName(static_cast<eScriptType>(i));
 
 			int dda = 0;
 			(void)aa;
@@ -84,14 +89,7 @@ namespace content
 
 			triangleData.pSysMem = vertex;
 
-			for (UINT i = 0; i < static_cast<UINT>(eScriptType::End); ++i)
-			{
-				const wchar_t* wstr = GetComponentName(static_cast<eScriptType>(i));
-				int a = 0;
-				(void)a;
-				(void)wstr;
-			}
-
+	
 			gResourceManager->Insert<Mesh>(L"Rect",
 				new Mesh(triangleDesc, &triangleData,
 					sizeof(tVertex), VERTEX_COUNT));

@@ -75,9 +75,6 @@
     <ClInclude Include="CameraScript.h">
       <Filter>Source\01. Scripts</Filter>
     </ClInclude>
-    <ClInclude Include="Findingin.h">
-      <Filter>Source\01. Scripts</Filter>
-    </ClInclude>
     <ClInclude Include="EnumScript.h">
       <Filter>Source\00. Content</Filter>
     </ClInclude>
@@ -117,9 +114,6 @@
       <Filter>Source\Struct</Filter>
     </ClCompile>
     <ClCompile Include="CameraScript.cpp">
-      <Filter>Source\01. Scripts</Filter>
-    </ClCompile>
-    <ClCompile Include="Findingin.cpp">
       <Filter>Source\01. Scripts</Filter>
     </ClCompile>
     <ClCompile Include=" EnumScript.cpp">

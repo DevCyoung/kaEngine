@@ -132,8 +132,9 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PreBuildEvent>
-      <Command>
-      </Command>
+      <Command>cd $(SolutionDir)Project\Content\Helper\ScriptGen\Release\net6.0
+call ScriptGen.exe Component $(SolutionDir)Project\Engine $(SolutionDir)Project\Engine\EnumComponent.h $(SolutionDir)Project\Engine\EnumComponent.cpp TRUE engine Script
+</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -172,7 +173,7 @@
     <ClInclude Include="Engine.h" />
     <ClInclude Include="EngineIncludes.h" />
     <ClInclude Include="Entity.h" />
-    <ClInclude Include="EnumConponent.h" />
+    <ClInclude Include="EnumComponent.h" />
     <ClInclude Include="EnumFlag.h" />
     <ClInclude Include="DXMath.h" />
     <ClInclude Include="EnumResourceType.h" />
@@ -210,6 +211,7 @@
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="DXMath.cpp" />
     <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="EnumComponent.cpp" />
     <ClCompile Include="EventManager.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GraphicDeviceDX11.cpp" />
@@ -238,6 +240,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="DirectXTex.inl" />
+    <None Include="dpend.diff" />
     <None Include="DXMath.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -21,4 +21,10 @@
 #include "DefineMacro.h"
 #include "SafeDelete.h"
 
+namespace engine
+{
+	class Component;
+}
+
+
 using namespace engine::math;

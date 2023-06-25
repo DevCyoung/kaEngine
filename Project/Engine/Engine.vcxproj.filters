@@ -118,6 +118,9 @@
     <Filter Include="Source\07. Helper\Include">
       <UniqueIdentifier>{75a58b25-b5b9-4fcb-ab41-d8b4a2cbedb8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\03. Component\03. TestComponent">
+      <UniqueIdentifier>{92f0ec16-1846-444d-9871-dcc59ac1f5f4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Entity.h">
@@ -198,7 +201,7 @@
     <ClInclude Include="Material.h">
       <Filter>Source\06. Resource\05. Material</Filter>
     </ClInclude>
-    <ClInclude Include="EnumConponent.h">
+    <ClInclude Include="EnumComponent.h">
       <Filter>Source\03. Component\00. Component</Filter>
     </ClInclude>
     <ClInclude Include="Component.h">
@@ -323,6 +326,9 @@
     <ClCompile Include="Camera.cpp">
       <Filter>Source\03. Component\02. Camera</Filter>
     </ClCompile>
+    <ClCompile Include="EnumComponent.cpp">
+      <Filter>Source\03. Component\00. Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="DirectXTex.inl">
@@ -330,6 +336,9 @@
     </None>
     <None Include="DXMath.inl">
       <Filter>Windows\Extern\MicrosoftMath</Filter>
+    </None>
+    <None Include="dpend.diff">
+      <Filter>Windows</Filter>
     </None>
   </ItemGroup>
 </Project>

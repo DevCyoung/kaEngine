@@ -20,10 +20,15 @@ CameraScript::~CameraScript()
 
 void CameraScript::initialize()
 {
+	
 }
 
 void CameraScript::update()
 {
+	GetComponentName(eComponentType::Camera);
+	CreateComponentByEnum(eComponentType::Camera);
+	CreateComponentByName(L"Camera");
+
 	Transform* transform = GetOwner()->GetComponent<Transform>();
 	Vector3 pos = transform->GetPosition();
 

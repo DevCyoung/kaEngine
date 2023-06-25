@@ -1,6 +1,6 @@
 #pragma once
 #include "Entity.h"
-#include "EnumConponent.h"
+#include "EnumComponent.h"
 
 namespace engine
 {
