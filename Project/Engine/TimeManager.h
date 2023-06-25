@@ -1,27 +1,25 @@
 #pragma once
 #include "Singleton.h"
 
-namespace engine
+
+class TimeManager
 {
-    class TimeManager
-    {	
-		friend class Engine;
-		SINGLETON_DECLARE(TimeManager);
+	friend class Engine;
+	SINGLETON_DECLARE(TimeManager);
 
-	private:
-		void update();
-		void render(const HWND hWnd);
+private:
+	void update();
+	void render(const HWND hWnd);
 
-	public:
-		float GetDeltaTime() const { return mDeltaTime; }
+public:
+	float GetDeltaTime() const { return mDeltaTime; }
 
-	private:
-		float mDeltaTime;
-		float mSecond;
-		LARGE_INTEGER mCpuFrequency;
-		LARGE_INTEGER mPrevFrequency;
-		LARGE_INTEGER mCurFrequency;
-    };	
-}
+private:
+	float mDeltaTime;
+	float mSecond;
+	LARGE_INTEGER mCpuFrequency;
+	LARGE_INTEGER mPrevFrequency;
+	LARGE_INTEGER mCurFrequency;
+};
 
-#define gDeltaTime engine::TimeManager::GetInstance()->GetDeltaTime()
+#define gDeltaTime TimeManager::GetInstance()->GetDeltaTime()

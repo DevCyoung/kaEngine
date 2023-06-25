@@ -5,8 +5,6 @@
 #include "MeshRenderer.h"
 #include "Transform.h"
 
-namespace engine
-{
 static constexpr const wchar_t* const ComponentNames[static_cast<UINT>(eComponentType::End)]
 {
 	L"Camera",
@@ -55,6 +53,5 @@ Component* CreateComponentByEnum(const eComponentType type)
 		break;
 	}
 	return component;
-}
 }
 

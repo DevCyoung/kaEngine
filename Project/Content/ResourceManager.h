@@ -1,6 +1,5 @@
 #pragma once
 #include <Engine/ResourceManager.h>
-#include <Engine/MeshRenderer.h>
 #include <Engine/Mesh.h>
 #include <Engine/Material.h>
 #include <Engine/Textrue.h>
@@ -15,4 +14,3 @@
 #include "EnumResourceTypeShader.h"
 #include "EnumResourceTypeSound.h"
 #include "EnumResourceTypeTexture.h"
-

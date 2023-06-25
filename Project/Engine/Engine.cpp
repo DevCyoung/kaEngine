@@ -8,75 +8,70 @@
 #include "SceneManager.h"
 #include "EventManager.h"
 
-namespace engine
+Engine::Engine(const HWND hWnd, const UINT screenWidth, const UINT screenHeight)
+	: mHwnd(hWnd)
+	, mScreenWidth(screenWidth)
+	, mScreenHeight(screenHeight)
+	, mGraphicDevice(new GraphicDeviceDX11(hWnd, mScreenWidth, mScreenHeight))
 {
-	using namespace graphics;
+	TimeManager::initialize();
+	PathManager::initialize();
+	InputManager::initialize();
+	ResourceManager::initialize();
+	SceneManager::initialize();
+	EventManager::initialize();
+}
 
-	Engine::Engine(const HWND hWnd, const UINT screenWidth, const UINT screenHeight)
-		: mHwnd(hWnd)
-		, mScreenWidth(screenWidth)
-		, mScreenHeight(screenHeight)
-		, mGraphicDevice(new GraphicDeviceDX11(hWnd, mScreenWidth, mScreenHeight))
-	{
-		TimeManager::initialize();
-		PathManager::initialize();
-		InputManager::initialize();
-		ResourceManager::initialize();
-		SceneManager::initialize();
-		EventManager::initialize();
-	}
+Engine::~Engine()
+{
+	EventManager::deleteInstance();
+	SceneManager::deleteInstance();
+	ResourceManager::deleteInstance();
+	InputManager::deleteInstance();
+	PathManager::deleteInstance();
+	TimeManager::deleteInstance();
 
-	Engine::~Engine()
-	{
-		EventManager::deleteInstance();
-		SceneManager::deleteInstance();
-		ResourceManager::deleteInstance();
-		InputManager::deleteInstance();
-		PathManager::deleteInstance();
-		TimeManager::deleteInstance();
+	SAFE_DELETE_POINTER(mGraphicDevice);
+}
 
-		SAFE_DELETE_POINTER(mGraphicDevice);
-	}
+void Engine::initialize(const HWND hWnd, const UINT screenWidth, const UINT screenHeight)
+{
+	Assert(hWnd, WCHAR_IS_NULLPTR);
+	Assert(!sInstance, WCHAR_IS_NOT_NULLPTR);
 
-	void Engine::initialize(const HWND hWnd, const UINT screenWidth, const UINT screenHeight)
-	{
-		Assert(hWnd, WCHAR_IS_NULLPTR);
-		Assert(!sInstance, WCHAR_IS_NOT_NULLPTR);
+	sInstance = new Engine(hWnd, screenWidth, screenHeight);
+}
 
-		sInstance = new Engine(hWnd, screenWidth, screenHeight);
-	}
+void Engine::run()
+{
+	update();
 
-	void Engine::run()
-	{
-		update();
+	lateUpdate();
 
-		lateUpdate();
+	render();
+}
 
-		render();
-	}
+void Engine::update()
+{
+	TimeManager::GetInstance()->update();
+	InputManager::GetInstance()->update(mHwnd);
+	SceneManager::GetInstance()->update();
+	EventManager::GetInstance()->update();
+}
 
-	void Engine::update()
-	{
-		TimeManager::GetInstance()->update();
-		InputManager::GetInstance()->update(mHwnd);
-		SceneManager::GetInstance()->update();
-		EventManager::GetInstance()->update();
-	}
+void Engine::lateUpdate()
+{
+	SceneManager::GetInstance()->lateUpdate();
+	EventManager::GetInstance()->lateUpdate();
+}
 
-	void Engine::lateUpdate()
-	{
-		SceneManager::GetInstance()->lateUpdate();
-		EventManager::GetInstance()->lateUpdate();
-	}
+void Engine::render()
+{
+	TimeManager::GetInstance()->render(mHwnd);
 
-	void Engine::render()
-	{
-		TimeManager::GetInstance()->render(mHwnd);
+	mGraphicDevice->clearRenderTarget(mScreenWidth, mScreenHeight);
 
-		mGraphicDevice->clearRenderTarget(mScreenWidth, mScreenHeight);
+	SceneManager::GetInstance()->render();
 
-		SceneManager::GetInstance()->render();
-
-		mGraphicDevice->present();
-	}
+	mGraphicDevice->present();
 }

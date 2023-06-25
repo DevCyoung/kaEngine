@@ -26,6 +26,8 @@ BOOL                InitInstance(HINSTANCE, int);
 LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK    About(HWND, UINT, WPARAM, LPARAM);
 
+#include <Content/Components.h>
+
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	_In_opt_ HINSTANCE hPrevInstance,
 	_In_ LPWSTR    lpCmdLine,
@@ -39,8 +41,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 	//_CrtSetBreakAlloc(263);
 #endif
-
-
 	// 전역 문자열을 초기화합니다.
 	LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
 	LoadStringW(hInstance, IDC_CLIENT, szWindowClass, MAX_LOADSTRING);
@@ -58,8 +58,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	constexpr UINT SCREEN_WIDTH = 1600;
 	constexpr UINT SCREEN_HEIGHT = 900;
 	
-	engine::Engine::initialize(gHwnd, SCREEN_WIDTH, SCREEN_HEIGHT);
-	content::Content::initialize();
+	Engine::initialize(gHwnd, SCREEN_WIDTH, SCREEN_HEIGHT);
+	Content::initialize();
 
 	while (true)
 	{
@@ -78,12 +78,12 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		}
 		else
 		{
-			engine::Engine::GetInstance()->run();
+			Engine::GetInstance()->run();
 		}		
 	}
 
-	content::Content::deleteInstance();
-	engine::Engine::deleteInstance();
+	Content::deleteInstance();
+	Engine::deleteInstance();
 	return static_cast<int>(msg.wParam);
 }
 

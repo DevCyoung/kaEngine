@@ -135,7 +135,7 @@
       <Command>cd $(SolutionDir)Project\Content\Helper\Resource\Release\net6.0
 call ResourceHelper.exe $(SolutionDir)Output\bin\Resources $(SolutionDir)Project\Content NO
 cd $(SolutionDir)Project\Content\Helper\ScriptGen\Release\net6.0
-call ScriptGen.exe Script $(SolutionDir)Project\Content $(SolutionDir)Project\Content\EnumScript.h $(SolutionDir)Project\Content\EnumScript.cpp TRUE</Command>
+call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)Project\Content\EnumScriptComponent.h $(SolutionDir)Project\Content\EnumScriptComponent.cpp TRUE</Command>
     </PreBuildEvent>
     <FxCompile>
       <ObjectFileOutput>$(OutDir)Cso\%(Filename).cso</ObjectFileOutput>
@@ -166,16 +166,34 @@ call ScriptGen.exe Script $(SolutionDir)Project\Content $(SolutionDir)Project\Co
       <Command>cd $(SolutionDir)Project\Content\Helper\Resource\Release\net6.0
 call ResourceHelper.exe $(SolutionDir)Output\bin\Resources $(SolutionDir)Project\Content NO
 cd $(SolutionDir)Project\Content\Helper\ScriptGen\Release\net6.0
-call ScriptGen.exe Script $(SolutionDir)Project\Content $(SolutionDir)Project\Content\EnumScript.h $(SolutionDir)Project\Content\EnumScript.cpp FALSE</Command>
+call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)Project\Content\EnumScriptComponent.h $(SolutionDir)Project\Content\EnumScriptComponent.cpp FALSE</Command>
     </PreBuildEvent>
     <FxCompile>
       <ObjectFileOutput>$(OutDir)Cso\%(Filename).cso</ObjectFileOutput>
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="CameraScript.h" />
-    <ClInclude Include="Components.h" />
+    <ClInclude Include="A.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="B.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="C.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Content.h" />
+    <ClInclude Include="D.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="E.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="EnumResourceTypeAnimation.h" />
     <ClInclude Include="EnumResourceTypeFont.h" />
     <ClInclude Include="EnumResourceTypeMaterial.h" />
@@ -184,16 +202,34 @@ call ScriptGen.exe Script $(SolutionDir)Project\Content $(SolutionDir)Project\Co
     <ClInclude Include="EnumResourceTypeShader.h" />
     <ClInclude Include="EnumResourceTypeSound.h" />
     <ClInclude Include="EnumResourceTypeTexture.h" />
-    <ClInclude Include="EnumScript.h" />
+    <ClInclude Include="EnumScriptComponent.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="StructVertex.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include=" EnumScript.cpp" />
-    <ClCompile Include="CameraScript.cpp" />
+    <ClCompile Include="A.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="B.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="C.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Content.cpp" />
+    <ClCompile Include="D.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="E.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="EnumResourceTypeAnimation.cpp" />
     <ClCompile Include="EnumResourceTypeFont.cpp" />
     <ClCompile Include="EnumResourceTypeMaterial.cpp" />
@@ -202,6 +238,7 @@ call ScriptGen.exe Script $(SolutionDir)Project\Content $(SolutionDir)Project\Co
     <ClCompile Include="EnumResourceTypeShader.cpp" />
     <ClCompile Include="EnumResourceTypeSound.cpp" />
     <ClCompile Include="EnumResourceTypeTexture.cpp" />
+    <ClCompile Include="EnumScriptComponent.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">pch.h</PrecompiledHeaderFile>
@@ -287,6 +324,7 @@ call ScriptGen.exe Script $(SolutionDir)Project\Content $(SolutionDir)Project\Co
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
       <FileType>Document</FileType>
     </None>
+    <None Include="dpend.diff" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Output\bin\Resources\Shader\Header\TestShaderHeader.fxh" />

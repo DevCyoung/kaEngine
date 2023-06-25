@@ -133,8 +133,7 @@
     </Link>
     <PreBuildEvent>
       <Command>cd $(SolutionDir)Project\Content\Helper\ScriptGen\Release\net6.0
-call ScriptGen.exe Component $(SolutionDir)Project\Engine $(SolutionDir)Project\Engine\EnumComponent.h $(SolutionDir)Project\Engine\EnumComponent.cpp TRUE engine Script
-</Command>
+call ScriptGen.exe Component $(SolutionDir)Project\Engine $(SolutionDir)Project\Engine\EnumComponent.h $(SolutionDir)Project\Engine\EnumComponent.cpp TRUE N ScriptComponent</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -159,14 +158,15 @@ call ScriptGen.exe Component $(SolutionDir)Project\Engine $(SolutionDir)Project\
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PreBuildEvent>
-      <Command>
-      </Command>
+      <Command>cd $(SolutionDir)Project\Content\Helper\ScriptGen\Release\net6.0
+call ScriptGen.exe Component $(SolutionDir)Project\Engine $(SolutionDir)Project\Engine\EnumComponent.h $(SolutionDir)Project\Engine\EnumComponent.cpp TRUE N ScriptComponent</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CBCollection.h" />
     <ClInclude Include="Component.h" />
+    <ClInclude Include="ComponentTrait.h" />
     <ClInclude Include="ConstantBuffer.h" />
     <ClInclude Include="DirectXTex.h" />
     <ClInclude Include="eEventType.h" />
@@ -193,7 +193,8 @@ call ScriptGen.exe Component $(SolutionDir)Project\Engine $(SolutionDir)Project\
     <ClInclude Include="SafeDelete.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
-    <ClInclude Include="Script.h" />
+    <ClInclude Include="ScriptComponent.h" />
+    <ClInclude Include="ScriptComponentTrait.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="String.h" />
@@ -229,7 +230,7 @@ call ScriptGen.exe Component $(SolutionDir)Project\Engine $(SolutionDir)Project\
     <ClCompile Include="SafeDelete.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
-    <ClCompile Include="Script.cpp" />
+    <ClCompile Include="ScriptComponent.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="String.cpp" />
     <ClCompile Include="StructConstantBuffer.cpp" />

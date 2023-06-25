@@ -2,33 +2,29 @@
 #include "Resource.h"
 #include "Layer.h"
 
+class GameObject;
+enum class eLayerType;
 
-namespace engine
+class Scene : public Resource
 {
-	class GameObject;
-	enum class eLayerType;
+	friend class Engine;
+	friend class SceneManager;
 
-	class Scene : public Resource
-	{
-		friend class Engine;
-		friend class SceneManager;
+public:
+	Scene();
+	virtual ~Scene();
 
-	public:
-		Scene();
-		virtual ~Scene();
+	void AddGameObject(GameObject* const obj, const eLayerType type);
 
-		void AddGameObject(GameObject* const obj, const eLayerType type);
+private:
+	virtual void initialize();
+	virtual void update();
+	virtual void lateUpdate();
+	virtual void render();
 
-	private:
-		virtual void initialize();
-		virtual void update();
-		virtual void lateUpdate();
-		virtual void render();
+public:
+	virtual HRESULT Load(const std::wstring& path) override;
 
-	public:
-		virtual HRESULT Load(const std::wstring& path) override;
-
-	private:
-		Layer mLayers[static_cast<UINT>(eLayerType::End)];
-	};
-}
+private:
+	Layer mLayers[static_cast<UINT>(eLayerType::End)];
+};

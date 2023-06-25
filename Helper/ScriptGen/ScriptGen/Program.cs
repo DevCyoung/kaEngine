@@ -55,7 +55,7 @@ public class MyProgram
             IS_MESSAGE_BOOL = true;
         }
 
-        if (args.Length > 5)
+        if (args.Length > 5 && args[5].Length > 2)
         {            
             NAMESPACE_NAME = args[5];
             IS_NAME_SPACE = true;
@@ -107,8 +107,10 @@ public class MyProgram
                     sb.Append(c);
                 }
             }
+            scriptCpp = sb.ToString();
 
-            if (scriptCpp.Contains(scirptForamt))
+            //Test();virtual~Test();
+            if (scriptCpp.Contains(scirptForamt) && scriptCpp.Contains($"{className}();virtual~{className}();"))
             {
                 enumClassNames.Add(className);
             }
@@ -160,8 +162,9 @@ public class MyProgram
             }
 
             string enumH = "";
-            enumH += "#pragma once\n\n";
-
+            enumH += "#pragma once\n";
+            enumH += "#include <string>\n\n";
+            enumH += $"class {ENUM_NAME};\n\n";
             //start
             if (IS_NAME_SPACE)
             {
