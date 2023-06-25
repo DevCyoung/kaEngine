@@ -18,3 +18,6 @@
 
 #hlsl
 *.cso
+
+#dpend
+*/dpend.diff
