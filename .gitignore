@@ -10,6 +10,9 @@
 **/bin/*.exe
 **/bin/*.pdb
 
+#dpend
+**/Content/*.diff
+
 #lib
 **/Content/Debug/*
 **/Content/Release/*
@@ -19,5 +22,4 @@
 #hlsl
 *.cso
 
-#dpend
-*/dpend.diff
+
