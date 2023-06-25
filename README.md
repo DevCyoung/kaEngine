@@ -15,6 +15,7 @@
 * [DirectXTexture](https://github.com/microsoft/DirectXTex.git)
 * MyProject Code Generaotr (include this project)
 * [ResourceEnum](https://github.com/DevCyoung/DirectX2D_Engine/tree/main/Helper/Resource/ConsoleApp1)
+* [Script Code Generator](https://github.com/DevCyoung/DirectX2D_Engine/tree/main/Helper/ScriptGen)
 
 ### Installing
 * visual studio 2022
