@@ -176,6 +176,10 @@ call ScriptGen.exe eScriptType $(SolutionDir)Project\Content $(SolutionDir)Proje
     <ClInclude Include="CameraScript.h" />
     <ClInclude Include="Components.h" />
     <ClInclude Include="Content.h" />
+    <ClInclude Include="diffTest.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="EnumResourceTypeAnimation.h" />
     <ClInclude Include="EnumResourceTypeFont.h" />
     <ClInclude Include="EnumResourceTypeMaterial.h" />
@@ -198,6 +202,10 @@ call ScriptGen.exe eScriptType $(SolutionDir)Project\Content $(SolutionDir)Proje
     <ClCompile Include=" EnumScript.cpp" />
     <ClCompile Include="CameraScript.cpp" />
     <ClCompile Include="Content.cpp" />
+    <ClCompile Include="diffTest.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="EnumResourceTypeAnimation.cpp" />
     <ClCompile Include="EnumResourceTypeFont.cpp" />
     <ClCompile Include="EnumResourceTypeMaterial.cpp" />

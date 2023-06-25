@@ -2,11 +2,13 @@
 #include "EnumScript.h"
 
 #include "CameraScript.h"
+#include "diffTest.h"
 #include "Findingin.h"
 
 static constexpr const wchar_t* const ScriptComponentNames[static_cast<UINT>(eScriptType::End)]
 {
 	L"CameraScript",
+	L"diffTest",
 	L"Findingin",
 };
 
@@ -22,6 +24,8 @@ Script* CreateScriptByName(const std::wstring& scriptName)
 
 	if (L"CameraScript" == scriptName)
 		script = new CameraScript;
+	else if (L"diffTest" == scriptName)
+		script = new diffTest;
 	else if (L"Findingin" == scriptName)
 		script = new Findingin;
 	assert(false);
@@ -36,6 +40,9 @@ Script* CreateScriptByEnum(const eScriptType type)
 	{
 	case eScriptType::CameraScript:
 		script = new CameraScript;
+		break;
+	case eScriptType::diffTest:
+		script = new diffTest;
 		break;
 	case eScriptType::Findingin:
 		script = new Findingin;
