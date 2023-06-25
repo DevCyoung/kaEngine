@@ -31,4 +31,6 @@ namespace engine
 		Mesh* mMesh;
 		Material* mMaterial;		
 	};
+
+	REGISTER_COMPONENT_TYPE(MeshRenderer);
 }

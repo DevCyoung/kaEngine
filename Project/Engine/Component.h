@@ -31,3 +31,23 @@ namespace engine
 		GameObject* mOwner;
 	};
 }
+
+namespace engine
+{
+	enum class eComponentType;
+
+	template <typename T>
+	struct engine_component_type
+	{
+		static constexpr bool value = false;
+	};
+
+#define REGISTER_COMPONENT_TYPE(COMPONENT_TYPE)	class COMPONENT_TYPE;			\
+	template <>																	\
+	struct engine_component_type<COMPONENT_TYPE>								\
+	{																			\
+		static constexpr bool value = true;										\
+		static constexpr eComponentType type = eComponentType::COMPONENT_TYPE;	\
+		static constexpr const wchar_t* const name = L#COMPONENT_TYPE;			\
+	}
+}

@@ -13,12 +13,6 @@
     <Filter Include="Source\01. Scripts">
       <UniqueIdentifier>{de857324-cd4d-4a4d-80a7-707699222472}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\01. Scripts\TestScript">
-      <UniqueIdentifier>{c60c3f15-71fe-41ad-aeca-fb6aab472c26}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\01. Scripts\00. EnumScript">
-      <UniqueIdentifier>{6f9a600f-b57d-4bbc-91a5-21092500c1ca}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Resources">
       <UniqueIdentifier>{df7c758c-f2a8-43fd-9b81-4685458a5dcf}</UniqueIdentifier>
     </Filter>
@@ -27,6 +21,12 @@
     </Filter>
     <Filter Include="ShaderCode\Header">
       <UniqueIdentifier>{abd7499d-ca04-4dfd-b4d0-94b1bb510403}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Struct">
+      <UniqueIdentifier>{07df51b7-2383-4921-8caa-5def729de20d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\TestScript">
+      <UniqueIdentifier>{c60c3f15-71fe-41ad-aeca-fb6aab472c26}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -38,12 +38,6 @@
     </ClInclude>
     <ClInclude Include="Content.h">
       <Filter>Source\00. Content</Filter>
-    </ClInclude>
-    <ClInclude Include="SampleScript.h">
-      <Filter>Source\01. Scripts\TestScript</Filter>
-    </ClInclude>
-    <ClInclude Include="EnumScriptComponentType.h">
-      <Filter>Source\01. Scripts\00. EnumScript</Filter>
     </ClInclude>
     <ClInclude Include="EnumResourceTypeAnimation.h">
       <Filter>Resources</Filter>
@@ -69,8 +63,23 @@
     <ClInclude Include="EnumResourceTypeScene.h">
       <Filter>Resources</Filter>
     </ClInclude>
+    <ClInclude Include="ResourceManager.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Components.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="StructVertex.h">
+      <Filter>Source\Struct</Filter>
+    </ClInclude>
     <ClInclude Include="CameraScript.h">
       <Filter>Source\01. Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="Findingin.h">
+      <Filter>Source\01. Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="EnumScript.h">
+      <Filter>Source\00. Content</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -79,9 +88,6 @@
     </ClCompile>
     <ClCompile Include="Content.cpp">
       <Filter>Source\00. Content</Filter>
-    </ClCompile>
-    <ClCompile Include="SampleScript.cpp">
-      <Filter>Source\01. Scripts\TestScript</Filter>
     </ClCompile>
     <ClCompile Include="EnumResourceTypeAnimation.cpp">
       <Filter>Resources</Filter>
@@ -107,8 +113,17 @@
     <ClCompile Include="EnumResourceTypeScene.cpp">
       <Filter>Resources</Filter>
     </ClCompile>
+    <ClCompile Include="StructVertex.cpp">
+      <Filter>Source\Struct</Filter>
+    </ClCompile>
     <ClCompile Include="CameraScript.cpp">
       <Filter>Source\01. Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="Findingin.cpp">
+      <Filter>Source\01. Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include=" EnumScript.cpp">
+      <Filter>Source\00. Content</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -130,6 +145,8 @@
     <None Include="..\..\Output\bin\Resources\Shader\VertexShader.hlsl">
       <Filter>ShaderCode</Filter>
     </None>
-    <None Include="..\..\Output\bin\Resources\Shader\PixelShader.hlsl" />
+    <None Include="..\..\Output\bin\Resources\Shader\PixelShader.hlsl">
+      <Filter>ShaderCode</Filter>
+    </None>
   </ItemGroup>
 </Project>

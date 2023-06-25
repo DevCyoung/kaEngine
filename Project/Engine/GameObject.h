@@ -1,8 +1,8 @@
 #pragma once
 #include "Entity.h"
+#include "Component.h"
 #include "Transform.h"
 #include "Script.h"
-#include "EenableIfComponent.h"
 
 namespace engine
 {
@@ -23,53 +23,82 @@ namespace engine
 		GameObject& operator=(const GameObject&) = delete;
 
 	public:
-		//bool HasComponent(const eComponentType type) const;
 
 		//FIXME! 이벤트방식으로 변경해야함
-		void AddComponent(Component* const component);
+		template<typename T>
+			requires std::is_base_of_v<Component, T>
+		void AddComponent(T* const component)
+		{
+			static_assert(engine_component_type<T>::value || script_component_type<T>::value);
+			Assert(component, WCHAR_IS_NULLPTR);
+			Assert(!(component->mOwner), WCHAR_IS_NOT_NULLPTR);
+
+			if constexpr (engine_component_type<T>::value)
+			{
+				Assert(!mEngineComponents[static_cast<UINT>(engine_component_type<T>::type)], WCHAR_IS_NOT_NULLPTR);
+				mEngineComponents[static_cast<UINT>(engine_component_type<T>::type)] = component;
+			}
+			else if constexpr (script_component_type<T>::value)
+			{
+				for (const Script* const curScript : mUserComponents)
+				{
+					//이미존재한다면
+					if (curScript->GetScriptType() == script_component_type<T>::type)
+					{
+						Assert(false, "already Exist Script");
+						break;
+					}
+				}
+				mUserComponents.push_back(component);
+			}
+
+			component->mOwner = this;
+		}
 
 		template<typename T>
-		requires std::is_base_of_v<Component, T>			
+			requires std::is_base_of_v<Component, T>
 		void AddComponent()
 		{
-			T* component = new T();
+			static_assert(engine_component_type<T>::value || script_component_type<T>::value);
+
+			T* const component = new T();
 			Assert(component, WCHAR_IS_NULLPTR);
 
 			AddComponent(component);
 		}
 
 		template<typename T>
-		requires std::is_base_of_v<Component, T>
+			requires std::is_base_of_v<Component, T>
 		T* GetComponentOrNull() const
 		{
-			constexpr eComponentType type = enable_if_component<T>::type;			
-			Assert(eComponentType::End != type, WCHAR_IS_INVALID_TYPE);
-			
-			T* component = nullptr;
+			static_assert(engine_component_type<T>::value || script_component_type<T>::value);
 
-			if constexpr (eComponentType::Script == type) // user script
-			{				
+			T* component = nullptr;
+			if constexpr (engine_component_type<T>::value) // engine component
+			{
+				component = static_cast<T*>(mEngineComponents[static_cast<UINT>(engine_component_type<T>::type)]);
+			}
+			else if constexpr (script_component_type<T>::value) // user component
+			{
 				for (Script* const script : mUserComponents)
 				{
-					component = dynamic_cast<T*>(script);
-					if (nullptr != component)
-					{						
+					if (script->GetScriptType() == script_component_type<T>::type)
+					{
+						component = static_cast<T*>(script);
 						break;
 					}
 				}
-			}
-			else // engine component
-			{			
-				component = dynamic_cast<T*>(mEngineComponents[static_cast<UINT>(type)]);
 			}
 
 			return component;
 		}
 
 		template<typename T>
-		requires std::is_base_of_v<Component, T>
+			requires std::is_base_of_v<Component, T>
 		T* GetComponent() const
 		{
+			static_assert(engine_component_type<T>::value || script_component_type<T>::value);
+
 			T* component = GetComponentOrNull<T>();
 
 			Assert(component, WCHAR_IS_NULLPTR);
@@ -84,7 +113,7 @@ namespace engine
 
 	private:
 		eState mState;
-		Component* mEngineComponents[static_cast<UINT>(eComponentType::End)];		
+		Component* mEngineComponents[static_cast<UINT>(eComponentType::End)];
 		std::vector<Script*> mUserComponents;
 	};
 }

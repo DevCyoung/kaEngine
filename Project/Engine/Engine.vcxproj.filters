@@ -204,13 +204,7 @@
     <ClInclude Include="Component.h">
       <Filter>Source\03. Component\00. Component</Filter>
     </ClInclude>
-    <ClInclude Include="EenableIfComponent.h">
-      <Filter>Source\03. Component\00. Component</Filter>
-    </ClInclude>
     <ClInclude Include="StructConstantBuffer.h">
-      <Filter>Source\00. Engine\01. Graphics\Struct</Filter>
-    </ClInclude>
-    <ClInclude Include="StructVertex.h">
       <Filter>Source\00. Engine\01. Graphics\Struct</Filter>
     </ClInclude>
     <ClInclude Include="Resource.h">
@@ -312,9 +306,6 @@
       <Filter>Source\03. Component\00. Component</Filter>
     </ClCompile>
     <ClCompile Include="StructConstantBuffer.cpp">
-      <Filter>Source\00. Engine\01. Graphics\Struct</Filter>
-    </ClCompile>
-    <ClCompile Include="StructVertex.cpp">
       <Filter>Source\00. Engine\01. Graphics\Struct</Filter>
     </ClCompile>
     <ClCompile Include="Resource.cpp">

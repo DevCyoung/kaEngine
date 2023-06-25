@@ -60,9 +60,8 @@ namespace engine
 			return mMousePos;
 		}
 
-
+	private:
 		void update(const HWND hWnd);
-
 	private:
 		std::vector<tKeyInfo> mKeyInfos;
 		Vector2 mMousePos;

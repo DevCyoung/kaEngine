@@ -3,15 +3,15 @@
 #include <Engine/Transform.h>
 #include <Engine/TimeManager.h>
 #include <Engine/InputManager.h>
-
 #include "CameraScript.h"
-#include "EnumScriptComponentType.h"
+#include "EnumScript.h"
 
 using namespace engine;
 
 CameraScript::CameraScript()
-	: Script(eScriptType::CameraScript)	
+	: Script(eScriptType::CameraScript)
 {
+
 }
 
 CameraScript::~CameraScript()
@@ -27,6 +27,8 @@ void CameraScript::update()
 	Transform* transform = GetOwner()->GetComponent<Transform>();
 	Vector3 pos = transform->GetPosition();
 
+	
+	
 	if (gInput->GetKey(eKeyCode::A))
 	{
 		pos.x -= 10.0f * gDeltaTime;
@@ -58,7 +60,6 @@ void CameraScript::update()
 		rot.z += 1.0f * gDeltaTime;
 		transform->SetRotation(rot);
 	}
-
 	transform->SetPosition(pos);
 }
 
@@ -69,3 +70,4 @@ void CameraScript::lateUpdate()
 void CameraScript::render()
 {
 }
+

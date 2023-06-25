@@ -1,38 +1,16 @@
 #include "pch.h"
-#include <Engine/Engine.h>
-#include <Engine/GraphicDeviceDx11.h>
 #include <Engine/Scene.h>
 #include <Engine/SceneManager.h>
-#include <Engine/GameObject.h>
-#include <Engine/Transform.h>
-#include <Engine/Camera.h>
-#include <Engine/MeshRenderer.h>
-#include <Engine/Mesh.h>
-#include <Engine/Material.h>
-#include <Engine/Textrue.h>
-#include <Engine/Material.h>
-#include <Engine/Shader.h>
-#include <Engine/ResourceManager.h>
-#include <Engine/StructVertex.h>
-#include <Engine/Mesh.h>
-
+#include "StructVertex.h"
 #include "Content.h"
-#include "SampleScript.h"
+#include "ResourceManager.h"
+#include "Components.h"
+
 #include "CameraScript.h"
 
-#include "EnumResourceTypeAnimation.h"	
-#include "EnumResourceTypeFont.h"
-#include "EnumResourceTypeScene.h"
-#include "EnumResourceTypeMaterial.h"
-#include "EnumResourceTypeMesh.h"
-#include "EnumResourceTypeShader.h"
-#include "EnumResourceTypeSound.h"
-#include "EnumResourceTypeTexture.h"
 
 namespace content
 {
-	using namespace engine;
-
 	Content::Content()
 	{
 		resourceInitialize();
@@ -45,6 +23,20 @@ namespace content
 
 	void Content::resourceInitialize()
 	{
+		
+
+		
+		
+
+		for (int i = 0; i < static_cast<int>(eScriptType::End); ++i)
+		{
+			const wchar_t* aa = GetComponentName(static_cast<eScriptType>(i));
+
+			int dda = 0;
+			(void)aa;
+			(void)dda;
+		}				
+
 		//Texture
 		{
 			for (UINT i = 0; i < static_cast<UINT>(eResTexture::End); ++i)
@@ -92,6 +84,14 @@ namespace content
 
 			triangleData.pSysMem = vertex;
 
+			for (UINT i = 0; i < static_cast<UINT>(eScriptType::End); ++i)
+			{
+				const wchar_t* wstr = GetComponentName(static_cast<eScriptType>(i));
+				int a = 0;
+				(void)a;
+				(void)wstr;
+			}
+
 			gResourceManager->Insert<Mesh>(L"Rect",
 				new Mesh(triangleDesc, &triangleData,
 					sizeof(tVertex), VERTEX_COUNT));
@@ -138,11 +138,10 @@ namespace content
 			//test
 			GameObject* const obj = new GameObject();
 			obj->AddComponent<MeshRenderer>();
-			obj->AddComponent<SampleScript>();
-
 			obj->GetComponent<MeshRenderer>()
 				->SetMesh(gResourceManager
 					->FindOrNullByRelativePath<Mesh>(L"Rect"));
+
 
 			obj->GetComponent<MeshRenderer>()
 				->SetMaterial(gResourceManager
@@ -158,7 +157,7 @@ namespace content
 			{
 				GameObject* const obj = new GameObject();
 				obj->AddComponent<MeshRenderer>();
-				obj->AddComponent<SampleScript>();
+				
 
 				obj->GetComponent<MeshRenderer>()
 					->SetMesh(gResourceManager
@@ -170,6 +169,12 @@ namespace content
 
 				obj->GetComponent<Transform>()
 					->SetPosition(-4.f + i * 0.02f, -4.f + i * 0.02f, 0.f);
+
+
+				//obj->GetComponent<>();
+
+				
+				
 
 				testScene->AddGameObject(obj, eLayerType::Player);
 			}
@@ -188,11 +193,9 @@ namespace content
 
 			//FIXME 카메라가 씬에없는데도 가져올수있게됨 고쳐야함!
 			Camera::SetMainCamera(cameraComp);
-
 			testScene->AddGameObject(mainCameraObj, eLayerType::Player);
 		}
 
 		SceneManager::GetInstance()->LoadScene(testScene);
 	}
 }
-

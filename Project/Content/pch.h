@@ -11,4 +11,11 @@
 #include "framework.h"
 #include <Engine/EngineIncludes.h>
 
+namespace engine
+{
+	class Script;
+}
+
+using namespace engine;	
+
 #endif //PCH_H
