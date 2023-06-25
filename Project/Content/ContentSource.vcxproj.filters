@@ -81,9 +81,6 @@
     <ClInclude Include="EnumScript.h">
       <Filter>Source\00. Content</Filter>
     </ClInclude>
-    <ClInclude Include="diffTest.h">
-      <Filter>Source</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -127,9 +124,6 @@
     </ClCompile>
     <ClCompile Include=" EnumScript.cpp">
       <Filter>Source\00. Content</Filter>
-    </ClCompile>
-    <ClCompile Include="diffTest.cpp">
-      <Filter>Source</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

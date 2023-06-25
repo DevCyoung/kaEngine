@@ -3,7 +3,6 @@
 enum class eScriptType
 {
 	CameraScript,
-	diffTest,
 	Findingin,
 	End
 };
