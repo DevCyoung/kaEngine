@@ -19,7 +19,6 @@ public:
 	Mesh* GetMesh() const { Assert(mMesh, WCHAR_IS_NULLPTR); return mMesh; }
 	Material* GetMaterial() const { Assert(mMaterial, WCHAR_IS_NULLPTR); return mMaterial; }
 
-
 private:
 	virtual void initialize() override final;
 	virtual void update() override final;

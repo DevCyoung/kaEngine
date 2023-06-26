@@ -1,4 +1,3 @@
-
 #pragma once
 #include <math.h>
 //https://github.com/microsoft/DirectXMath

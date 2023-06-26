@@ -5,12 +5,7 @@ class ScriptComponent;
 
 enum class eScriptComponentType 
 {
-	A,
-	B,
-	C,
 	CameraInputMove,
-	D,
-	E,
 	End
 };
 

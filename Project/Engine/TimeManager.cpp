@@ -21,11 +21,14 @@ void TimeManager::update()
 {
 	QueryPerformanceCounter(&mCurFrequency);
 	const float differnceFrequency = static_cast<float>(mCurFrequency.QuadPart - mPrevFrequency.QuadPart);
-	mDeltaTime = differnceFrequency / static_cast<float>(mCpuFrequency.QuadPart);
+	mDeltaTime = differnceFrequency / static_cast<float>(mCpuFrequency.QuadPart);	
 	mPrevFrequency.QuadPart = mCurFrequency.QuadPart;
 
-	wchar_t buffer[256] = { 0, };
 	const float fps = 1.0f / mDeltaTime;
-	swprintf_s(buffer, 256, L"<FPS : %.2f>", fps);
+
+	constexpr UINT bufferSize = 256;
+	wchar_t buffer[bufferSize] = { 0, };
+	swprintf_s(buffer, bufferSize, L"<FPS : %.2f>", fps);
+
 	MessageManager::GetInstance()->AddMessage(buffer);
 }

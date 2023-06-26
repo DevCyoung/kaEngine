@@ -29,3 +29,4 @@ private:
 	eComponentType mType;
 	GameObject* mOwner;
 };
+

@@ -11,7 +11,6 @@
 #include "StructConstantBuffer.h"
 #include "Camera.h"
 
-
 MeshRenderer::MeshRenderer()
 	: Component(eComponentType::MeshRenderer)
 	, mMesh(nullptr)
@@ -44,11 +43,11 @@ void MeshRenderer::render()
 
 	const Camera* const mainCamera = Camera::GetMainCamera();
 	tTransform tTransformMatrix = {};
-
-	tTransformMatrix.mWorld = GetOwner()->GetComponent<Transform>()->GetWorldMatrix();
-	tTransformMatrix.mView = mainCamera->GetView();
-	tTransformMatrix.mProj = mainCamera->GetProjection();
 	
+	tTransformMatrix.mWorld = GetOwner()->GetComponent<Transform>()->GetWorldMatrix();
+	tTransformMatrix.mView  = mainCamera->GetView();
+	tTransformMatrix.mProj  = mainCamera->GetProjection();
+
 	gGraphicDevice->PassCB(eCBType::Transform, sizeof(tTransformMatrix), &tTransformMatrix);
 	gGraphicDevice->BindCB(eCBType::Transform, eShaderBindType::VS);
 	gGraphicDevice->BindIA(mMaterial->mShader);

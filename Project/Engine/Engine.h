@@ -2,7 +2,6 @@
 #include <memory>
 #include <assert.h>
 #include "Singleton.h"
-#include "DefineMacro.h"
 
 class GraphicDeviceDX11;
 

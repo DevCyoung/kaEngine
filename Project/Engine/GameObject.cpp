@@ -1,7 +1,6 @@
 #include "pch.h"
 #include "GameObject.h"
 
-
 GameObject::GameObject()
 	: mState(eState::Active)
 	, mEngineComponents{ 0, }
@@ -15,8 +14,6 @@ GameObject::~GameObject()
 	memory::safe::DeleteVec(mUserComponents);
 	memory::unsafe::DeleteArray(mEngineComponents);
 }
-
-
 
 void GameObject::initialize()
 {

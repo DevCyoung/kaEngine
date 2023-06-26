@@ -295,16 +295,15 @@ void Content::testSceneInitialize()
 		testScene->AddGameObject(obj, eLayerType::Player);
 	}
 
-	{
+	{				
 		GameObject* const mainCameraObj = new GameObject();
 		mainCameraObj->AddComponent<Camera>();
-		mainCameraObj->AddComponent<CameraInputMove>();			
+		mainCameraObj->AddComponent<CameraInputMove>();
+
 		Camera::SetMainCamera(mainCameraObj->GetComponent<Camera>());
-
 		mainCameraObj->GetComponent<Transform>()->SetPosition(0.f, 0.f, -10.f);		
-
-		//FIXME 카메라가 씬에없는데도 가져올수있게됨 고쳐야함!
 		
+		//FIXME 카메라가 씬에없는데도 가져올수있게됨 고쳐야함!
 		testScene->AddGameObject(mainCameraObj, eLayerType::Player);
 	}
 

@@ -28,6 +28,7 @@ public:
 	const Matrix& GetView() const { return mView; }
 	const Matrix& GetProjection() const { return mProjection; }
 
+	static Camera* GetMainCameraOrNull() { return sMainCamera; }
 	static Camera* GetMainCamera() { Assert(sMainCamera, WCHAR_IS_NULLPTR); return sMainCamera; }
 	static void SetMainCamera(Camera* const camera) { Assert(camera, WCHAR_IS_NULLPTR); sMainCamera = camera; }
 

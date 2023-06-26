@@ -50,8 +50,8 @@ GraphicDeviceDX11::GraphicDeviceDX11(const HWND hWnd, const UINT screenWidth, co
 		return;
 	}
 
-	Assert(mDevice, WCHAR_IS_NULLPTR);
-	Assert(mContext, WCHAR_IS_NULLPTR);
+	Assert(mDevice.Get(), WCHAR_IS_NULLPTR);
+	Assert(mContext.Get(), WCHAR_IS_NULLPTR);
 
 #pragma endregion
 
@@ -66,19 +66,18 @@ GraphicDeviceDX11::GraphicDeviceDX11(const HWND hWnd, const UINT screenWidth, co
 
 	AdjustWindowRect(&windowSize, WS_OVERLAPPEDWINDOW, B_MENU);
 
-	const int adjustWidth  = static_cast<int>(windowSize.right - windowSize.left);
+	const int adjustWidth = static_cast<int>(windowSize.right - windowSize.left);
 	const int adjustHeight = static_cast<int>(windowSize.bottom - windowSize.top);
 
-	//위치정렬
+	//가운데 정렬
 	const int monitorPosX = GetSystemMetrics(SM_CXSCREEN) / 2 - static_cast<int>(adjustWidth) / 2;
 	const int monitorPosY = GetSystemMetrics(SM_CYSCREEN) / 2 - static_cast<int>(adjustHeight) / 2;
 
 	SetWindowPos(hWnd,
-		nullptr, 
+		nullptr,
 		monitorPosX, monitorPosY,
 		adjustWidth,
 		adjustHeight, 0);
-
 	ShowWindow(hWnd, true);
 	UpdateWindow(hWnd);
 #pragma endregion
@@ -103,7 +102,6 @@ GraphicDeviceDX11::GraphicDeviceDX11(const HWND hWnd, const UINT screenWidth, co
 	swapChainDesc.SwapEffect = DXGI_SWAP_EFFECT::DXGI_SWAP_EFFECT_DISCARD;
 	swapChainDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
 	swapChainDesc.BufferDesc.Format = DXGI_FORMAT::DXGI_FORMAT_R8G8B8A8_UNORM; //픽셀 포맷                                    
-
 	Microsoft::WRL::ComPtr<IDXGIDevice> pDXGIDevice = nullptr;
 	Microsoft::WRL::ComPtr<IDXGIAdapter> pDXGIAdapter = nullptr;
 	Microsoft::WRL::ComPtr<IDXGIFactory> pDXGIFactory = nullptr;
@@ -183,7 +181,6 @@ GraphicDeviceDX11::GraphicDeviceDX11(const HWND hWnd, const UINT screenWidth, co
 	tSamDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
 	tSamDesc.Filter = D3D11_FILTER_ANISOTROPIC;
 	mDevice->CreateSamplerState(&tSamDesc, m_Sampler[0].GetAddressOf());
-
 
 	tSamDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
 	tSamDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
@@ -334,7 +331,7 @@ void GraphicDeviceDX11::Draw(const UINT StartVertexLocation, const Mesh* const m
 
 void GraphicDeviceDX11::clearRenderTarget(const UINT screenWidth, const UINT screenHeight)
 {
-	const FLOAT bgColor[4] = { 0.2f, 0.2f, 0.2f, 1.0f };
+	const FLOAT bgColor[4] = { 0.4f, 0.4f, 0.4f, 1.0f };
 
 	const D3D11_VIEWPORT mViewPort =
 	{
@@ -343,8 +340,9 @@ void GraphicDeviceDX11::clearRenderTarget(const UINT screenWidth, const UINT scr
 		0.0f, 1.0f
 	};
 
-	mContext->OMSetRenderTargets(1, mRenderTargetView.GetAddressOf(), mDepthStencilView.Get());
 	mContext->RSSetViewports(1, &mViewPort);
+	mContext->OMSetRenderTargets(1, mRenderTargetView.GetAddressOf(), mDepthStencilView.Get());
+
 	mContext->ClearRenderTargetView(mRenderTargetView.Get(), bgColor);
 	mContext->ClearDepthStencilView(mDepthStencilView.Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
 }

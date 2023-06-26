@@ -22,4 +22,3 @@ private:
 private:
 	eScriptComponentType mScriptType;
 };
-

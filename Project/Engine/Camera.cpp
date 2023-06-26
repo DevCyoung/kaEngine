@@ -4,7 +4,6 @@
 #include "Transform.h"
 #include "Engine.h"
 
-
 Camera::Camera()
 	: Component(eComponentType::Camera)
 	, mNear(1.0f)
@@ -32,25 +31,23 @@ void Camera::update()
 
 void Camera::lateUpdate()
 {
-	Transform* tr = GetOwner()->GetComponent<Transform>();
-	Vector3 pos = tr->GetPosition();
+	const Transform* const tr = GetOwner()->GetComponent<Transform>();
+	const Vector3 pos = tr->GetPosition();
 
 	// View Translate Matrix
 	mView = Matrix::Identity;
 	mView *= Matrix::CreateTranslation(-pos);
 
 	// View Rotation Matrix
-	Vector3 up = tr->GetUp();
-	Vector3 right = tr->GetRight();
-	Vector3 foward = tr->GetForward();
+	const Vector3 up = tr->GetUp();
+	const Vector3 right = tr->GetRight();
+	const Vector3 foward = tr->GetForward();
 
 	Matrix viewRotate;
 	viewRotate._11 = right.x;	viewRotate._12 = up.x;	viewRotate._13 = foward.x;
 	viewRotate._21 = right.y;	viewRotate._22 = up.y;	viewRotate._23 = foward.y;
 	viewRotate._31 = right.z;	viewRotate._32 = up.z;	viewRotate._33 = foward.z;
 	mView *= viewRotate;
-
-
 
 	float width = static_cast<float>(gEngine->GetScreenWidth());
 	float height = static_cast<float>(gEngine->GetScreenHeight());
@@ -69,7 +66,6 @@ void Camera::lateUpdate()
 	{
 		mProjection = engine::math::Matrix::CreatePerspectiveFieldOfViewLH(XM_2PI / 6.0f, mAspectRatio, mNear, mFar);
 	}
-
 }
 
 void Camera::render()

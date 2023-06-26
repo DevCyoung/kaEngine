@@ -17,3 +17,4 @@ private:
 	std::vector<std::wstring> mMessages;
 	float mSecond;
 };
+#define gMessageManager MessageManager::GetInstance()

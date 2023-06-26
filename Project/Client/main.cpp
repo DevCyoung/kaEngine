@@ -13,6 +13,8 @@
 #endif
 
 #define MAX_LOADSTRING 100
+//#define USE_MENU 0
+
 
 // 전역 변수:
 HINSTANCE hInst;                                // 현재 인스턴스입니다.
@@ -27,10 +29,6 @@ LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK    About(HWND, UINT, WPARAM, LPARAM);
 
 #include <Content/Components.h>
-
-//#define USE_MENU 0
-
-
 
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	_In_opt_ HINSTANCE hPrevInstance,
@@ -59,9 +57,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_CLIENT));
 	MSG msg;
 
-	constexpr UINT SCREEN_WIDTH  = 1600;
+	constexpr UINT SCREEN_WIDTH = 1600;
 	constexpr UINT SCREEN_HEIGHT = 900;
-	
+
 	Engine::initialize(gHwnd, SCREEN_WIDTH, SCREEN_HEIGHT);
 	Content::initialize();
 
@@ -73,7 +71,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 			{
 				break;
 			}
-
 			if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
 			{
 				TranslateMessage(&msg);
@@ -83,7 +80,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		else
 		{
 			Engine::GetInstance()->run();
-		}		
+		}
 	}
 
 	Content::deleteInstance();

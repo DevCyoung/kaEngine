@@ -112,14 +112,14 @@
     <Filter Include="Source\07. Helper\Include">
       <UniqueIdentifier>{75a58b25-b5b9-4fcb-ab41-d8b4a2cbedb8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\03. Component\02. MeshRenderer\02. Camera">
-      <UniqueIdentifier>{e14f60d0-e934-4672-9f50-d542fcfce5dc}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\06. Resource\07. Sound">
       <UniqueIdentifier>{df9269fc-6aed-4f3e-9089-f4a2e4b7231b}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source\01. Manager\Message">
       <UniqueIdentifier>{99caa1da-81c0-4847-a8c9-e6150438b1ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\03. Component\02. Camera">
+      <UniqueIdentifier>{e14f60d0-e934-4672-9f50-d542fcfce5dc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -229,10 +229,7 @@
       <Filter>Windows\Extern\MicrosoftMath</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
-      <Filter>Source\03. Component\02. MeshRenderer\02. Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="DefineMacro.h">
-      <Filter>Source\07. Helper</Filter>
+      <Filter>Source\03. Component\02. Camera</Filter>
     </ClInclude>
     <ClInclude Include="ComponentTrait.h">
       <Filter>Source\03. Component\00. Component</Filter>
@@ -245,6 +242,9 @@
     </ClInclude>
     <ClInclude Include="MessageManager.h">
       <Filter>Source\01. Manager\Message</Filter>
+    </ClInclude>
+    <ClInclude Include="DefineMacro.h">
+      <Filter>Windows</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -330,7 +330,7 @@
       <Filter>Windows\Extern\MicrosoftMath</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
-      <Filter>Source\03. Component\02. MeshRenderer\02. Camera</Filter>
+      <Filter>Source\03. Component\02. Camera</Filter>
     </ClCompile>
     <ClCompile Include="EnumComponent.cpp">
       <Filter>Source\03. Component\00. Component</Filter>
