@@ -1,20 +1,14 @@
 #pragma once
 #include <Engine/Singleton.h>
 
-namespace content
+
+class Content
 {
-	class Content
-	{
-		friend int APIENTRY::wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
-			LPWSTR lpCmdLine, int nCmdShow);
-		SINGLETON_DECLARE(Content);
+	friend int APIENTRY::wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
+		LPWSTR lpCmdLine, int nCmdShow);
+	SINGLETON_DECLARE(Content);
 
-	private:
-		void resourceInitialize();
-		void testSceneInitialize();
-	};
-}
-
-
-
-
+private:
+	void resourceInitialize();
+	void testSceneInitialize();
+};

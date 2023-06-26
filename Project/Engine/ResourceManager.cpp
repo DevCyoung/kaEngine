@@ -2,18 +2,14 @@
 #include "ResourceManager.h"
 #include "Engine.h"
 
-
-namespace engine
+ResourceManager::ResourceManager()
 {
-	ResourceManager::ResourceManager()
-	{
-	}
+}
 
-	ResourceManager::~ResourceManager()
+ResourceManager::~ResourceManager()
+{
+	for (HashMap& item : mResources)
 	{
-		for (HashMap& item : mResources)
-		{
-			memory::safe::DeleteUnorderedMap(item);
-		}
+		memory::safe::DeleteUnorderedMap(item);
 	}
 }

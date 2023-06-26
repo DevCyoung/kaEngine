@@ -10,9 +10,6 @@
     <Filter Include="Source\00. Content">
       <UniqueIdentifier>{696114eb-0954-476b-85b0-ef47c3412d7f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\01. Scripts">
-      <UniqueIdentifier>{de857324-cd4d-4a4d-80a7-707699222472}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Resources">
       <UniqueIdentifier>{df7c758c-f2a8-43fd-9b81-4685458a5dcf}</UniqueIdentifier>
     </Filter>
@@ -25,8 +22,8 @@
     <Filter Include="Source\Struct">
       <UniqueIdentifier>{07df51b7-2383-4921-8caa-5def729de20d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\TestScript">
-      <UniqueIdentifier>{c60c3f15-71fe-41ad-aeca-fb6aab472c26}</UniqueIdentifier>
+    <Filter Include="Source\03. Script">
+      <UniqueIdentifier>{de857324-cd4d-4a4d-80a7-707699222472}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -63,23 +60,29 @@
     <ClInclude Include="EnumResourceTypeScene.h">
       <Filter>Resources</Filter>
     </ClInclude>
-    <ClInclude Include="ResourceManager.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="Components.h">
-      <Filter>Source</Filter>
-    </ClInclude>
     <ClInclude Include="StructVertex.h">
       <Filter>Source\Struct</Filter>
     </ClInclude>
-    <ClInclude Include="CameraScript.h">
-      <Filter>Source\01. Scripts</Filter>
-    </ClInclude>
-    <ClInclude Include="Findingin.h">
-      <Filter>Source\01. Scripts</Filter>
-    </ClInclude>
-    <ClInclude Include="EnumScript.h">
+    <ClInclude Include="ResourceManager.h">
       <Filter>Source\00. Content</Filter>
+    </ClInclude>
+    <ClInclude Include="A.h">
+      <Filter>Source\03. Script</Filter>
+    </ClInclude>
+    <ClInclude Include="B.h">
+      <Filter>Source\03. Script</Filter>
+    </ClInclude>
+    <ClInclude Include="C.h">
+      <Filter>Source\03. Script</Filter>
+    </ClInclude>
+    <ClInclude Include="D.h">
+      <Filter>Source\03. Script</Filter>
+    </ClInclude>
+    <ClInclude Include="E.h">
+      <Filter>Source\03. Script</Filter>
+    </ClInclude>
+    <ClInclude Include="EnumScriptComponent.h">
+      <Filter>Source\03. Script</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -116,14 +119,23 @@
     <ClCompile Include="StructVertex.cpp">
       <Filter>Source\Struct</Filter>
     </ClCompile>
-    <ClCompile Include="CameraScript.cpp">
-      <Filter>Source\01. Scripts</Filter>
+    <ClCompile Include="A.cpp">
+      <Filter>Source\03. Script</Filter>
     </ClCompile>
-    <ClCompile Include="Findingin.cpp">
-      <Filter>Source\01. Scripts</Filter>
+    <ClCompile Include="B.cpp">
+      <Filter>Source\03. Script</Filter>
     </ClCompile>
-    <ClCompile Include=" EnumScript.cpp">
-      <Filter>Source\00. Content</Filter>
+    <ClCompile Include="C.cpp">
+      <Filter>Source\03. Script</Filter>
+    </ClCompile>
+    <ClCompile Include="D.cpp">
+      <Filter>Source\03. Script</Filter>
+    </ClCompile>
+    <ClCompile Include="E.cpp">
+      <Filter>Source\03. Script</Filter>
+    </ClCompile>
+    <ClCompile Include="EnumScriptComponent.cpp">
+      <Filter>Source\03. Script</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -147,6 +159,9 @@
     </None>
     <None Include="..\..\Output\bin\Resources\Shader\PixelShader.hlsl">
       <Filter>ShaderCode</Filter>
+    </None>
+    <None Include="dpend.diff">
+      <Filter>Windows</Filter>
     </None>
   </ItemGroup>
 </Project>

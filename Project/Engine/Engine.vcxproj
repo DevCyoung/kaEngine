@@ -132,8 +132,8 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PreBuildEvent>
-      <Command>
-      </Command>
+      <Command>cd $(SolutionDir)Project\Content\Helper\ScriptGen\Release\net6.0
+call ScriptGen.exe Component $(SolutionDir)Project\Engine $(SolutionDir)Project\Engine\EnumComponent.h $(SolutionDir)Project\Engine\EnumComponent.cpp TRUE N ScriptComponent</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -158,21 +158,22 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PreBuildEvent>
-      <Command>
-      </Command>
+      <Command>cd $(SolutionDir)Project\Content\Helper\ScriptGen\Release\net6.0
+call ScriptGen.exe Component $(SolutionDir)Project\Engine $(SolutionDir)Project\Engine\EnumComponent.h $(SolutionDir)Project\Engine\EnumComponent.cpp TRUE N ScriptComponent</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CBCollection.h" />
     <ClInclude Include="Component.h" />
+    <ClInclude Include="ComponentTrait.h" />
     <ClInclude Include="ConstantBuffer.h" />
     <ClInclude Include="DirectXTex.h" />
     <ClInclude Include="eEventType.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="EngineIncludes.h" />
     <ClInclude Include="Entity.h" />
-    <ClInclude Include="EnumConponent.h" />
+    <ClInclude Include="EnumComponent.h" />
     <ClInclude Include="EnumFlag.h" />
     <ClInclude Include="DXMath.h" />
     <ClInclude Include="EnumResourceType.h" />
@@ -192,7 +193,8 @@
     <ClInclude Include="SafeDelete.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
-    <ClInclude Include="Script.h" />
+    <ClInclude Include="ScriptComponent.h" />
+    <ClInclude Include="ScriptComponentTrait.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="String.h" />
@@ -210,6 +212,7 @@
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="DXMath.cpp" />
     <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="EnumComponent.cpp" />
     <ClCompile Include="EventManager.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GraphicDeviceDX11.cpp" />
@@ -227,7 +230,7 @@
     <ClCompile Include="SafeDelete.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
-    <ClCompile Include="Script.cpp" />
+    <ClCompile Include="ScriptComponent.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="String.cpp" />
     <ClCompile Include="StructConstantBuffer.cpp" />
@@ -238,6 +241,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="DirectXTex.inl" />
+    <None Include="dpend.diff" />
     <None Include="DXMath.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

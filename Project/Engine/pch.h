@@ -13,6 +13,8 @@
 #include "framework.h"
 #include "EngineIncludes.h"
 
+//using namespace engine::math;
+
 #endif //PCH_H
 
 //<html><body>

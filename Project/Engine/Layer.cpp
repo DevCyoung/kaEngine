@@ -2,52 +2,50 @@
 #include "Layer.h"
 #include "GameObject.h"
 
-namespace engine
+
+Layer::Layer()
+	:mGameObjects()
 {
-	Layer::Layer()
-		:mGameObjects()
-	{
-	}
+}
 
-	Layer::~Layer()
-	{
-		memory::safe::DeleteVec(mGameObjects);
-	}
+Layer::~Layer()
+{
+	memory::safe::DeleteVec(mGameObjects);
+}
 
-	void Layer::AddGameObject(GameObject* const obj)
-	{
-		mGameObjects.push_back(obj);
-	}
+void Layer::AddGameObject(GameObject* const obj)
+{
+	mGameObjects.push_back(obj);
+}
 
-	void Layer::initialize()
-	{		
-		for (GameObject* const gameObject : mGameObjects)
-		{
-			gameObject->initialize();
-		}
-	}
-
-	void Layer::update()
+void Layer::initialize()
+{
+	for (GameObject* const gameObject : mGameObjects)
 	{
-		for (GameObject* const gameObject : mGameObjects)
-		{
-			gameObject->update();
-		}
+		gameObject->initialize();
 	}
+}
 
-	void Layer::lateUpdate()
+void Layer::update()
+{
+	for (GameObject* const gameObject : mGameObjects)
 	{
-		for (GameObject* const gameObject : mGameObjects)
-		{
-			gameObject->lateUpdate();
-		}
+		gameObject->update();
 	}
+}
 
-	void Layer::render()
+void Layer::lateUpdate()
+{
+	for (GameObject* const gameObject : mGameObjects)
 	{
-		for (GameObject* const gameObject : mGameObjects)
-		{
-			gameObject->render();
-		}
+		gameObject->lateUpdate();
+	}
+}
+
+void Layer::render()
+{
+	for (GameObject* const gameObject : mGameObjects)
+	{
+		gameObject->render();
 	}
 }

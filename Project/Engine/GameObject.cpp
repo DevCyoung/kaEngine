@@ -1,87 +1,85 @@
 #include "pch.h"
 #include "GameObject.h"
 
-namespace engine
+
+GameObject::GameObject()
+	: mState(eState::Active)
+	, mEngineComponents{ 0, }
 {
-	GameObject::GameObject()
-		: mState(eState::Active)
-		, mEngineComponents{0, }
-	{
-		//모든 오브젝트는 반드시 Transform 을 가지고있는다.
-		AddComponent(new Transform);
-	}
+	//모든 오브젝트는 반드시 Transform 을 가지고있는다.
+	AddComponent(new Transform);
+}
 
-	GameObject::~GameObject()
-	{
-		memory::safe::DeleteVec(mUserComponents);
-		memory::unsafe::DeleteArray(mEngineComponents);
-	}
+GameObject::~GameObject()
+{
+	memory::safe::DeleteVec(mUserComponents);
+	memory::unsafe::DeleteArray(mEngineComponents);
+}
 
-	
-	
-	void GameObject::initialize()
+
+
+void GameObject::initialize()
+{
+	for (Component* const component : mEngineComponents)
 	{
-		for (Component* const component : mEngineComponents)
+		if (component)
 		{
-			if (component)
-			{
-				component->initialize();
-			}
-		}
-
-		for (Script* const script : mUserComponents)
-		{
-			script->initialize();
+			component->initialize();
 		}
 	}
 
-	void GameObject::update()
+	for (ScriptComponent* const script : mUserComponents)
 	{
-		for (Component* const component : mEngineComponents)
-		{
-			if (component)
-			{
-				component->update();
-			}
-		}
-
-		for (Script* const script : mUserComponents)
-		{
-			script->update();
-		}
-
+		script->initialize();
 	}
+}
 
-	void GameObject::lateUpdate()
+void GameObject::update()
+{
+	for (Component* const component : mEngineComponents)
 	{
-		for (Component* const component : mEngineComponents)
+		if (component)
 		{
-			if (component)
-			{
-				component->lateUpdate();
-			}
-		}
-
-		for (Script* const script : mUserComponents)
-		{
-			script->lateUpdate();
+			component->update();
 		}
 	}
 
-	void GameObject::render(/*mGraphicDevice*/)
+	for (ScriptComponent* const script : mUserComponents)
 	{
-		for (Component* const component : mEngineComponents)
+		script->update();
+	}
+
+}
+
+void GameObject::lateUpdate()
+{
+	for (Component* const component : mEngineComponents)
+	{
+		if (component)
 		{
-			if (component)
-			{
-				component->render();
-			}
+			component->lateUpdate();
 		}
+	}
+
+	for (ScriptComponent* const script : mUserComponents)
+	{
+		script->lateUpdate();
+	}
+}
+
+void GameObject::render(/*mGraphicDevice*/)
+{
+	for (Component* const component : mEngineComponents)
+	{
+		if (component)
+		{
+			component->render();
+		}
+	}
 
 
-		for (Script* const script : mUserComponents)
-		{
-			script->render();
-		}
+	for (ScriptComponent* const script : mUserComponents)
+	{
+		script->render();
 	}
 }

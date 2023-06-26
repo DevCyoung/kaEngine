@@ -1,59 +1,57 @@
 #include "pch.h"
 #include "Scene.h"
 
-namespace engine
+
+Scene::Scene()
+	: mLayers()
 {
-	Scene::Scene()
-		: mLayers()
+}
+
+Scene::~Scene()
+{
+}
+
+void Scene::AddGameObject(GameObject* const obj, const eLayerType type)
+{
+	mLayers[static_cast<int>(type)].AddGameObject(obj);
+}
+
+void Scene::initialize()
+{
+	for (Layer& layer : mLayers)
 	{
+		layer.initialize();
 	}
+}
 
-	Scene::~Scene()
-	{		
-	}
-
-	void Scene::AddGameObject(GameObject* const obj, const eLayerType type)
+void Scene::update()
+{
+	for (Layer& layer : mLayers)
 	{
-		mLayers[static_cast<int>(type)].AddGameObject(obj);
+		layer.update();
 	}
+}
 
-	void Scene::initialize()
+void Scene::lateUpdate()
+{
+	for (Layer& layer : mLayers)
 	{
-		for (Layer& layer : mLayers)
-		{
-			layer.initialize();
-		}		
+		layer.lateUpdate();
 	}
+}
 
-	void Scene::update()
+void Scene::render()
+{
+	for (Layer& layer : mLayers)
 	{
-		for (Layer& layer : mLayers)
-		{
-			layer.update();
-		}
+		layer.render();
 	}
+}
+HRESULT Scene::Load(const std::wstring& path)
+{
+	(void)path;
 
-	void Scene::lateUpdate()
-	{
-		for (Layer& layer : mLayers)
-		{
-			layer.lateUpdate();
-		}
-	}
+	Assert(false, L"");
 
-	void Scene::render()
-	{
-		for (Layer& layer : mLayers)
-		{
-			layer.render();
-		}
-	}
-	HRESULT Scene::Load(const std::wstring& path)
-	{
-		(void)path;
-
-		Assert(false, L"");
-
-		return E_NOTIMPL;
-	}
+	return E_NOTIMPL;
 }

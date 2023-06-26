@@ -1,15 +1,16 @@
+
 #include "pch.h"
 #include "DXMath.h"
 
-	//-------------------------------------------------------------------------------------
-	// SimpleMath.cpp -- Simplified C++ Math wrapper for DirectXMath
-	//
-	// Copyright (c) Microsoft Corporation.
-	// Licensed under the MIT License.
-	//
-	// http://go.microsoft.com/fwlink/?LinkId=248929
-	// http://go.microsoft.com/fwlink/?LinkID=615561
-	//-------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------
+// SimpleMath.cpp -- Simplified C++ Math wrapper for DirectXMath
+//
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT License.
+//
+// http://go.microsoft.com/fwlink/?LinkId=248929
+// http://go.microsoft.com/fwlink/?LinkID=615561
+//-------------------------------------------------------------------------------------
 
 /****************************************************************************
  *
@@ -244,5 +245,5 @@ namespace engine
 
 			return rct;
 		}
-	}		
+	}
 }

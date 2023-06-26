@@ -3,8 +3,7 @@
 #include "Engine.h"
 #include "GraphicDeviceDx11.h"
 
-namespace engine
-{
+
 	Mesh::Mesh(const D3D11_BUFFER_DESC& pDesc,
 		const D3D11_SUBRESOURCE_DATA* const pInitialData,
 		const UINT vertexSize,
@@ -47,4 +46,3 @@ namespace engine
 		(void)path;
 		return E_NOTIMPL;
 	}
-}

@@ -46,9 +46,6 @@
     <Filter Include="Source\03. Component\02. MeshRenderer">
       <UniqueIdentifier>{519c1661-d91c-4e37-8020-1698bcb4688f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\03. Component\09. Script">
-      <UniqueIdentifier>{64eed5ca-e7ae-42a2-b15e-cf6e96a21aef}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\04. Scene">
       <UniqueIdentifier>{685c70d2-48e1-49d1-9f6e-24916c88ecf2}</UniqueIdentifier>
     </Filter>
@@ -112,11 +109,11 @@
     <Filter Include="Windows\Extern\MicrosoftMath">
       <UniqueIdentifier>{b6269c47-ecb2-4beb-902d-116f19f3c122}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\03. Component\02. Camera">
-      <UniqueIdentifier>{e14f60d0-e934-4672-9f50-d542fcfce5dc}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\07. Helper\Include">
       <UniqueIdentifier>{75a58b25-b5b9-4fcb-ab41-d8b4a2cbedb8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\03. Component\02. MeshRenderer\02. Camera">
+      <UniqueIdentifier>{e14f60d0-e934-4672-9f50-d542fcfce5dc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -198,7 +195,7 @@
     <ClInclude Include="Material.h">
       <Filter>Source\06. Resource\05. Material</Filter>
     </ClInclude>
-    <ClInclude Include="EnumConponent.h">
+    <ClInclude Include="EnumComponent.h">
       <Filter>Source\03. Component\00. Component</Filter>
     </ClInclude>
     <ClInclude Include="Component.h">
@@ -209,9 +206,6 @@
     </ClInclude>
     <ClInclude Include="Resource.h">
       <Filter>Source\06. Resource\06. Resource</Filter>
-    </ClInclude>
-    <ClInclude Include="Script.h">
-      <Filter>Source\03. Component\09. Script</Filter>
     </ClInclude>
     <ClInclude Include="EventManager.h">
       <Filter>Source\01. Manager\Event</Filter>
@@ -229,10 +223,19 @@
       <Filter>Windows\Extern\MicrosoftMath</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
-      <Filter>Source\03. Component\02. Camera</Filter>
+      <Filter>Source\03. Component\02. MeshRenderer\02. Camera</Filter>
     </ClInclude>
     <ClInclude Include="DefineMacro.h">
       <Filter>Source\07. Helper</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentTrait.h">
+      <Filter>Source\03. Component\00. Component</Filter>
+    </ClInclude>
+    <ClInclude Include="ScriptComponentTrait.h">
+      <Filter>Source\03. Component\00. Component</Filter>
+    </ClInclude>
+    <ClInclude Include="ScriptComponent.h">
+      <Filter>Source\03. Component\00. Component</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -311,9 +314,6 @@
     <ClCompile Include="Resource.cpp">
       <Filter>Source\06. Resource\06. Resource</Filter>
     </ClCompile>
-    <ClCompile Include="Script.cpp">
-      <Filter>Source\03. Component\09. Script</Filter>
-    </ClCompile>
     <ClCompile Include="EventManager.cpp">
       <Filter>Source\01. Manager\Event</Filter>
     </ClCompile>
@@ -321,7 +321,13 @@
       <Filter>Windows\Extern\MicrosoftMath</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
-      <Filter>Source\03. Component\02. Camera</Filter>
+      <Filter>Source\03. Component\02. MeshRenderer\02. Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="EnumComponent.cpp">
+      <Filter>Source\03. Component\00. Component</Filter>
+    </ClCompile>
+    <ClCompile Include="ScriptComponent.cpp">
+      <Filter>Source\03. Component\00. Component</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -330,6 +336,9 @@
     </None>
     <None Include="DXMath.inl">
       <Filter>Windows\Extern\MicrosoftMath</Filter>
+    </None>
+    <None Include="dpend.diff">
+      <Filter>Windows</Filter>
     </None>
   </ItemGroup>
 </Project>

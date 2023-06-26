@@ -1,8 +1,7 @@
 #include "pch.h"
 #include "ConstantBuffer.h"
 
-namespace engine
-{
+
 	ConstantBuffer::ConstantBuffer(const eCBType type, const UINT size, ID3D11Device* const device)
 		: mType(type)
 		, mDesc{}
@@ -24,4 +23,3 @@ namespace engine
 	ConstantBuffer::~ConstantBuffer()
 	{
 	}
-}
