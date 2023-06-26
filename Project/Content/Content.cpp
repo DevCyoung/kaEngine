@@ -10,7 +10,9 @@
 #include "Components.h"
 
 #include "CameraInputMove.h"
+#include <Engine/Tanning.h>
 
+#include "Bugiman.h"
 Content::Content()
 {
 	resourceInitialize();
@@ -21,147 +23,163 @@ Content::~Content()
 {
 }
 
-void Content::resourceInitialize()
+
+
+void Content::loadMesh()
 {
-
-	//Texture
 	{
-		for (UINT i = 0; i < static_cast<UINT>(eResTexture::End); ++i)
-		{
-			gResourceManager->LoadByEnum<Texture>(static_cast<eResTexture>(i));
-		}
-	}
+		//RectMesh
+		const UINT VERTEX_COUNT = 4;
+		tVertex vertexs[VERTEX_COUNT] = {};
+		//0---1
+		//|   |
+		//3---2
+		vertexs[0].pos = Vector3(-0.5f, 0.5f, 0.0f);
+		vertexs[0].color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
+		vertexs[0].uv = Vector2(0.0f, 0.0f);
 
-	////Mesh
-	{
-		const UINT VERTEX_COUNT = 6;
+		vertexs[1].pos = Vector3(0.5f, 0.5f, 0.0f);
+		vertexs[1].color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
+		vertexs[1].uv = Vector2(1.0f, 0.0f);
 
-		D3D11_BUFFER_DESC triangleDesc = {};
-		triangleDesc.Usage = D3D11_USAGE::D3D11_USAGE_DYNAMIC;
-		triangleDesc.ByteWidth = sizeof(tVertex) * VERTEX_COUNT;
-		triangleDesc.BindFlags = D3D11_BIND_FLAG::D3D11_BIND_VERTEX_BUFFER;
-		triangleDesc.CPUAccessFlags = D3D11_CPU_ACCESS_FLAG::D3D11_CPU_ACCESS_WRITE;
+		vertexs[2].pos = Vector3(+0.5f, -0.5f, 0.0f);
+		vertexs[2].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
+		vertexs[2].uv = Vector2(1.0f, 1.0f);
 
-		D3D11_SUBRESOURCE_DATA triangleData = {};
-		tVertex vertex[VERTEX_COUNT] = {};
+		vertexs[3].pos = Vector3(-0.5f, -0.5f, 0.0f);
+		vertexs[3].color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
+		vertexs[3].uv = Vector2(0.0f, 1.0f);
 
-		vertex[0].pos = Vector3(-0.5f, 0.5f, 0.0f);
-		vertex[0].color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
-		vertex[0].uv = Vector2(0.0f, 0.0f);
+		std::vector<UINT> indexes;
+		indexes.reserve(10);
 
-		vertex[1].pos = Vector3(0.5f, -0.5f, 0.0f);
-		vertex[1].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
-		vertex[1].uv = Vector2(1.0f, 1.0f);
+		indexes.push_back(0);
+		indexes.push_back(1);
+		indexes.push_back(2);
 
-		vertex[2].pos = Vector3(-0.5f, -0.5f, 0.0f);
-		vertex[2].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
-		vertex[2].uv = Vector2(0.0f, 1.0f);
-
-		vertex[3].pos = Vector3(-0.5f, 0.5f, 0.0f);
-		vertex[3].color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
-		vertex[3].uv = Vector2(0.0f, 0.0f);
-
-		vertex[4].pos = Vector3(0.5f, 0.5f, 0.0f);
-		vertex[4].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
-		vertex[4].uv = Vector2(1.0f, 0.0f);
-
-		vertex[5].pos = Vector3(0.5f, -0.5f, 0.0f);
-		vertex[5].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
-		vertex[5].uv = Vector2(1.0f, 1.0f);
-
-		triangleData.pSysMem = vertex;
-
+		indexes.push_back(0);
+		indexes.push_back(2);
+		indexes.push_back(3);
 
 		gResourceManager->Insert<Mesh>(L"Rect",
-			new Mesh(triangleDesc, &triangleData,
-				sizeof(tVertex), VERTEX_COUNT));
+			new Mesh(vertexs, VERTEX_COUNT, sizeof(tVertex),
+				indexes.data(), indexes.size(), sizeof(UINT)));
 	}
+}
 
+void Content::loadShader()
+{
 	//Shader
 	{
-		
 		Shader* const defaultShader =
-			new Shader(eResShader::VertexShader, L"main", eResShader::PixelShader, L"main");
-
+			new Shader(eResShader::VertexShader, L"main",
+				eResShader::PixelShader, L"main",
+				eRSType::SolidBack,
+				eDSType::Less,
+				eBSType::AlphaBlend);
 		gResourceManager->Insert<Shader>(L"Default", defaultShader);
 	}
 
-	//Material
 	{
-		{
-			Material* const defaultMaterial = new Material();	
-			defaultMaterial->SetShader(gResourceManager
-				->FindOrNullByRelativePath<Shader>(L"Default"));
-			defaultMaterial->SetTexture(gResourceManager
-				->FindOrNullByEnum<Texture>(eResTexture::door));
+		Shader* const defaultShader =
+			new Shader(eResShader::VertexShader, L"main",
+				eResShader::PixelShader, L"main",
+				eRSType::SolidBack,
+				eDSType::Less,
+				eBSType::AlphaBlend);
+		gResourceManager->Insert<Shader>(L"Default_Copy", defaultShader);
+	}
+}
 
-			gResourceManager->Insert<Material>(L"Default", defaultMaterial);
-		}
+void Content::loadTexture()
+{
+	for (UINT i = 0; i < static_cast<UINT>(eResTexture::End); ++i)
+	{
+		gResourceManager->LoadByEnum<Texture>(static_cast<eResTexture>(i));
+	}
+}
 
-		{
-			Material* const defaultMaterial = new Material();
-			defaultMaterial->SetShader(gResourceManager
-				->FindOrNullByRelativePath<Shader>(L"Default"));
-			defaultMaterial->SetTexture(gResourceManager
-				->FindOrNullByEnum<Texture>(eResTexture::orange));
+void Content::loadMaterial()
+{
+	{
+		Material* const material = new Material();
+		material->SetShader(gResourceManager
+			->FindOrNullByRelativePath<Shader>(L"Default"));
+		material->SetTexture(gResourceManager
+			->FindOrNullByEnum<Texture>(eResTexture::door));
 
-			gResourceManager->Insert<Material>(L"Sample", defaultMaterial);
-		}
+		gResourceManager->Insert<Material>(L"Default", material);
+	}
 
+	{
+		Material* const material = new Material();
+		material->SetShader(gResourceManager
+			->FindOrNullByRelativePath<Shader>(L"Default"));
+		material->SetTexture(gResourceManager
+			->FindOrNullByEnum<Texture>(eResTexture::orange));
 
-		{
-			Material* const defaultMaterial = new Material();
-			defaultMaterial->SetShader(gResourceManager
-				->FindOrNullByRelativePath<Shader>(L"Default"));
-			defaultMaterial->SetTexture(gResourceManager
-				->FindOrNullByEnum<Texture>(eResTexture::bg_bar_0));
-
-			gResourceManager->Insert<Material>(L"BackGround01", defaultMaterial);
-		}
-
-		{
-			Material* const defaultMaterial = new Material();
-			defaultMaterial->SetShader(gResourceManager
-				->FindOrNullByRelativePath<Shader>(L"Default"));
-			defaultMaterial->SetTexture(gResourceManager
-				->FindOrNullByEnum<Texture>(eResTexture::bg_club_full_0));
-
-			gResourceManager->Insert<Material>(L"BackGround02", defaultMaterial);
-		}
-
-		{
-			Material* const defaultMaterial = new Material();
-			defaultMaterial->SetShader(gResourceManager
-				->FindOrNullByRelativePath<Shader>(L"Default"));
-			defaultMaterial->SetTexture(gResourceManager
-				->FindOrNullByEnum<Texture>(eResTexture::bg_dreamshed_0));
-
-			gResourceManager->Insert<Material>(L"BackGround03", defaultMaterial);
-		}
-
-		{
-			Material* const defaultMaterial = new Material();
-			defaultMaterial->SetShader(gResourceManager
-				->FindOrNullByRelativePath<Shader>(L"Default"));
-			defaultMaterial->SetTexture(gResourceManager
-				->FindOrNullByEnum<Texture>(eResTexture::bg_studio_outside_0));
-
-			gResourceManager->Insert<Material>(L"BackGround04", defaultMaterial);
-		}
-
-		{
-			Material* const defaultMaterial = new Material();
-			defaultMaterial->SetShader(gResourceManager
-				->FindOrNullByRelativePath<Shader>(L"Default"));
-			defaultMaterial->SetTexture(gResourceManager
-				->FindOrNullByEnum<Texture>(eResTexture::spr_bg_neighbor_apartment_0));
-
-			gResourceManager->Insert<Material>(L"BackGround05", defaultMaterial);
-		}
-
+		gResourceManager->Insert<Material>(L"Sample", material);
 	}
 
 
+	{
+		Material* const material = new Material();
+		material->SetShader(gResourceManager
+			->FindOrNullByRelativePath<Shader>(L"Default"));
+		material->SetTexture(gResourceManager
+			->FindOrNullByEnum<Texture>(eResTexture::bg_bar_0));
+
+		gResourceManager->Insert<Material>(L"BackGround01", material);
+	}
+
+	{
+		Material* const material = new Material();
+		material->SetShader(gResourceManager
+			->FindOrNullByRelativePath<Shader>(L"Default"));
+		material->SetTexture(gResourceManager
+			->FindOrNullByEnum<Texture>(eResTexture::bg_club_full_0));
+
+		gResourceManager->Insert<Material>(L"BackGround02", material);
+	}
+
+	{
+		Material* const material = new Material();
+		material->SetShader(gResourceManager
+			->FindOrNullByRelativePath<Shader>(L"Default"));
+		material->SetTexture(gResourceManager
+			->FindOrNullByEnum<Texture>(eResTexture::bg_dreamshed_0));
+
+		gResourceManager->Insert<Material>(L"BackGround03", material);
+	}
+
+	{
+		Material* const material = new Material();
+		material->SetShader(gResourceManager
+			->FindOrNullByRelativePath<Shader>(L"Default"));
+		material->SetTexture(gResourceManager
+			->FindOrNullByEnum<Texture>(eResTexture::bg_studio_outside_0));
+
+		gResourceManager->Insert<Material>(L"BackGround04", material);
+	}
+
+	{
+		Material* const material = new Material();
+		material->SetShader(gResourceManager
+			->FindOrNullByRelativePath<Shader>(L"Default"));
+		material->SetTexture(gResourceManager
+			->FindOrNullByEnum<Texture>(eResTexture::spr_bg_neighbor_apartment_0));
+
+		gResourceManager->Insert<Material>(L"BackGround05", material);
+	}
+
+}
+
+void Content::resourceInitialize()
+{
+	loadMesh();
+	loadTexture();
+	loadShader();
+	loadMaterial();
 }
 
 void Content::testSceneInitialize()
@@ -169,15 +187,12 @@ void Content::testSceneInitialize()
 	Scene* testScene = new Scene();
 
 	{
-		//change
-
-		
-	}
-
-	{
 		//test
 		GameObject* const obj = new GameObject();
 		obj->AddComponent<MeshRenderer>();
+		obj->AddComponent<Bugiman>();
+
+		//obj->AddComponent(new ScriptComponent(eScriptComponentType::Bugiman));
 
 		obj->GetComponent<MeshRenderer>()
 			->SetMesh(gResourceManager
@@ -187,13 +202,43 @@ void Content::testSceneInitialize()
 			->SetMaterial(gResourceManager
 				->FindOrNullByRelativePath<Material>(L"BackGround01"));
 
-		obj->GetComponent<Transform>()->SetPosition(0.f, 0.f, 0.f);
-		
+		obj->GetComponent<Transform>()
+			->SetPosition(0.f, 0.f, 0.f);
+
 		Texture* const texture = obj->GetComponent<MeshRenderer>()->GetMaterial()->GetTexture();
 		const float textureWidth = texture->GetWidth();
 		const float textureHeigth = texture->GetHeight();
-		obj->GetComponent<Transform>()->SetScale(textureWidth * 0.018f, textureHeigth * 0.018f, 1.f);
-		
+
+		obj->GetComponent<Transform>()
+			->SetScale(textureWidth * 0.018f, textureHeigth * 0.018f, 1.f);
+
+		testScene->AddGameObject(obj, eLayerType::Player);
+	}
+
+	{
+		//test
+		GameObject* const obj = new GameObject();
+		obj->AddComponent<MeshRenderer>();
+		obj->AddComponent<Bugiman>();
+
+		obj->GetComponent<MeshRenderer>()
+			->SetMesh(gResourceManager
+				->FindOrNullByRelativePath<Mesh>(L"Rect"));
+
+		obj->GetComponent<MeshRenderer>()
+			->SetMaterial(gResourceManager
+				->FindOrNullByRelativePath<Material>(L"BackGround01"));
+
+		obj->GetComponent<Transform>()
+			->SetPosition(0.f, 0.f, 0.f);
+
+		Texture* const texture = obj->GetComponent<MeshRenderer>()->GetMaterial()->GetTexture();
+		const float textureWidth = texture->GetWidth();
+		const float textureHeigth = texture->GetHeight();
+
+		obj->GetComponent<Transform>()
+			->SetScale(textureWidth * 0.018f, textureHeigth * 0.018f, 1.f);
+
 		testScene->AddGameObject(obj, eLayerType::Player);
 	}
 
@@ -210,7 +255,8 @@ void Content::testSceneInitialize()
 			->SetMaterial(gResourceManager
 				->FindOrNullByRelativePath<Material>(L"BackGround02"));
 
-		obj->GetComponent<Transform>()->SetPosition(20.f, 0.f, 0.f);
+		obj->GetComponent<Transform>()
+			->SetPosition(20.f, 0.f, 0.f);
 
 		Texture* const texture = obj->GetComponent<MeshRenderer>()->GetMaterial()->GetTexture();
 		const float textureWidth = texture->GetWidth();
@@ -290,46 +336,69 @@ void Content::testSceneInitialize()
 		testScene->AddGameObject(obj, eLayerType::Player);
 	}
 
-
-	{
-		//test2
-		//for (int i = 0; i < 5000; ++i)
-		//{
-		//	GameObject* const obj = new GameObject();
-		//	obj->AddComponent<MeshRenderer>();
-		//
-		//	obj->GetComponent<MeshRenderer>()
-		//		->SetMesh(gResourceManager
-		//			->FindOrNullByRelativePath<Mesh>(L"Rect"));
-		//
-		//	obj->GetComponent<MeshRenderer>()
-		//		->SetMaterial(gResourceManager
-		//			->FindOrNullByRelativePath<Material>(L"Sample"));
-		//
-		//	obj->GetComponent<Transform>()
-		//		->SetPosition(-4.f + i * 0.02f, -4.f + i * 0.02f, 0.f);
-		//
-		//	testScene->AddGameObject(obj, eLayerType::Player);
-		//}
-
-	} //Scene
-
-
 	{
 		GameObject* const mainCameraObj = new GameObject();
 		mainCameraObj->AddComponent<Camera>();
 		mainCameraObj->AddComponent<CameraInputMove>();
 
-
-		Camera* const cameraComp = mainCameraObj->GetComponent<Camera>();
+		Camera::SetMainCamera(mainCameraObj->GetComponent<Camera>());
 		mainCameraObj->GetComponent<Transform>()->SetPosition(0.f, 0.f, -10.f);
-		(void)cameraComp;
-
 
 		//FIXME 카메라가 씬에없는데도 가져올수있게됨 고쳐야함!
-		Camera::SetMainCamera(cameraComp);
 		testScene->AddGameObject(mainCameraObj, eLayerType::Player);
 	}
 
 	SceneManager::GetInstance()->LoadScene(testScene);
+
+
+
+	//{
+	//	//component
+	//	GameObject* const obj = new GameObject();
+	//	for (UINT i = 0; i < static_cast<UINT>(eComponentType::End); ++i)
+	//	{
+	//		const eComponentType type = static_cast<eComponentType>(i);
+	//		std::wstring  componentName = GetComponentName(type);
+
+	//		//Add click 했을때
+	//		//이미있다면 추가X
+	//		if (nullptr == obj->GetComponentOrNull(type))
+	//		{
+	//			Component* const component = CreateComponentByEnum(type);
+	//			obj->AddComponent(component);
+	//		}
+
+	//		//Remove Click 했을떄
+	//		//있	어야 삭제
+	//		//if (nullptr != obj->GetComponentOrNull(type))
+	//		//{
+	//		//	//obj->
+	//		//	obj->RemoveComponent(type);
+	//		//}			
+	//	}
+
+	//	//script
+	//	for (UINT i = 0; i < static_cast<UINT>(eScriptComponentType::End); ++i)
+	//	{
+	//		const eScriptComponentType type = static_cast<eScriptComponentType>(i);
+	//		std::wstring componentName =  GetScriptComponentName(type);
+
+	//		//Add click 했을때
+	//		if (nullptr == obj->GetComponentOrNull(type))
+	//		{
+	//			ScriptComponent* const ScriptComponent = CreateScriptComponentByEnum(type);
+	//			obj->AddComponent(ScriptComponent);
+	//		}
+
+	//		//Remove Click 했을떄
+	//		//if (nullptr != obj->GetComponentOrNull(type))
+	//		//{
+	//		//	//obj->
+	//		//	obj->RemoveComponent(type);
+	//		//}
+
+	//	}
+
+	//	testScene->AddGameObject(obj, eLayerType::Player);
+	//}
 }

@@ -9,6 +9,12 @@ class Content
 	SINGLETON_DECLARE(Content);
 
 private:
+	void loadShader();
+	void loadMesh();
+	void loadTexture();
+	void loadMaterial();
+
+private:
 	void resourceInitialize();
 	void testSceneInitialize();
 };

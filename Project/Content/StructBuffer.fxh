@@ -1,0 +1,4 @@
+#ifndef STRUCT_BUFFER_FXH
+#define STRUCT_BUFFER_FXH
+
+#endif

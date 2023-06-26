@@ -5,13 +5,14 @@
 class ScriptComponent : public Component
 {
 	friend class GameObject;
-public:
+protected:
 	ScriptComponent(eScriptComponentType type);
+public:
 	virtual ~ScriptComponent();
 	ScriptComponent(const ScriptComponent&) = delete;
 	ScriptComponent& operator=(const ScriptComponent&) = delete;
 
-	eScriptComponentType GetScriptType() const { return mScriptType; }
+	eScriptComponentType GetScriptType() const { return mScriptType; }	
 
 private:
 	virtual void initialize() override;
@@ -22,4 +23,3 @@ private:
 private:
 	eScriptComponentType mScriptType;
 };
-

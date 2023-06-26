@@ -6,8 +6,6 @@
 #define DELETE_POINTER(p)		{ delete   p; p = nullptr; }
 #define DELETE_ARRAY(p)			{ delete[] p; p = nullptr; }
 
-
-
 namespace memory::safe
 {
 	template<typename T, UINT Size>

@@ -66,26 +66,14 @@
     <ClInclude Include="ResourceManager.h">
       <Filter>Source\00. Content</Filter>
     </ClInclude>
-    <ClInclude Include="A.h">
-      <Filter>Source\03. Script</Filter>
-    </ClInclude>
-    <ClInclude Include="B.h">
-      <Filter>Source\03. Script</Filter>
-    </ClInclude>
-    <ClInclude Include="C.h">
-      <Filter>Source\03. Script</Filter>
-    </ClInclude>
-    <ClInclude Include="D.h">
-      <Filter>Source\03. Script</Filter>
-    </ClInclude>
-    <ClInclude Include="E.h">
-      <Filter>Source\03. Script</Filter>
-    </ClInclude>
     <ClInclude Include="EnumScriptComponent.h">
       <Filter>Source\03. Script</Filter>
     </ClInclude>
     <ClInclude Include="CameraInputMove.h">
       <Filter>Source\03. Script</Filter>
+    </ClInclude>
+    <ClInclude Include="Bugiman.h">
+      <Filter>Source</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -122,26 +110,14 @@
     <ClCompile Include="StructVertex.cpp">
       <Filter>Source\Struct</Filter>
     </ClCompile>
-    <ClCompile Include="A.cpp">
-      <Filter>Source\03. Script</Filter>
-    </ClCompile>
-    <ClCompile Include="B.cpp">
-      <Filter>Source\03. Script</Filter>
-    </ClCompile>
-    <ClCompile Include="C.cpp">
-      <Filter>Source\03. Script</Filter>
-    </ClCompile>
-    <ClCompile Include="D.cpp">
-      <Filter>Source\03. Script</Filter>
-    </ClCompile>
-    <ClCompile Include="E.cpp">
-      <Filter>Source\03. Script</Filter>
-    </ClCompile>
     <ClCompile Include="EnumScriptComponent.cpp">
       <Filter>Source\03. Script</Filter>
     </ClCompile>
     <ClCompile Include="CameraInputMove.cpp">
       <Filter>Source\03. Script</Filter>
+    </ClCompile>
+    <ClCompile Include="Bugiman.cpp">
+      <Filter>Source</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -168,6 +144,9 @@
     </None>
     <None Include="dpend.diff">
       <Filter>Windows</Filter>
+    </None>
+    <None Include="StructBuffer.fxh">
+      <Filter>ShaderCode\Header</Filter>
     </None>
   </ItemGroup>
 </Project>

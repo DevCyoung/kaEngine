@@ -8,8 +8,7 @@ class TimeManager
 	SINGLETON_DECLARE(TimeManager);
 
 private:
-	void update();
-	void render(const HWND hWnd);
+	void update();	
 
 public:
 	float GetDeltaTime() const { return mDeltaTime; }

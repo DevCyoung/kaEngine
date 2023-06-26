@@ -4,7 +4,6 @@
 #include "PathManager.h"
 #include "EnumResourceType.h"
 
-
 class ResourceManager
 {
 	friend class Engine;
@@ -24,7 +23,7 @@ public:
 	{
 		T* res = nullptr;
 
-		constexpr eResourceType resType = enable_if_resource<T>::resourceType;
+		constexpr eResourceType resType = engine_resource_type<T>::resourceType;
 		const HashMap& resources = mResources[static_cast<UINT>(resType)];
 		ConstIterator iter = resources.find(orName);
 
@@ -39,11 +38,10 @@ public:
 
 	template<typename T>
 		requires std::is_base_of_v<Base, T>
-	T* FindOrNullByEnum(enable_if_resource<T>::eResEnumType resName)
+	T* FindOrNullByEnum(engine_resource_type<T>::eResEnumType resName)
 	{
 		return FindOrNullByRelativePath<T>(EnumResourcePath(resName));
 	}
-
 
 	template <typename T>
 		requires std::is_base_of_v<Base, T>
@@ -52,7 +50,7 @@ public:
 		T* res = FindOrNullByRelativePath<T>(orName);
 		Assert(!res, WCHAR_IS_NOT_NULLPTR);
 
-		constexpr eResourceType type = enable_if_resource<T>::resourceType;
+		constexpr eResourceType type = engine_resource_type<T>::resourceType;
 		HashMap& resources = mResources[static_cast<UINT>(type)];
 
 		res = new T();
@@ -68,11 +66,10 @@ public:
 
 	template <typename T>
 		requires std::is_base_of_v<Base, T>
-	void LoadByEnum(enable_if_resource<T>::eResEnumType resType)
+	void LoadByEnum(engine_resource_type<T>::eResEnumType resType)
 	{
 		LoadByRelativePath<T>(EnumResourcePath(resType));
 	}
-
 
 	template<typename T>
 		requires std::is_base_of_v<Base, T>
@@ -90,10 +87,9 @@ public:
 		return res;
 	}
 
-
 	template<typename T>
 		requires std::is_base_of_v<Base, T>
-	T* FindByEnum(enable_if_resource<T>::eResEnumType resName)
+	T* FindByEnum(engine_resource_type<T>::eResEnumType resName)
 	{
 		return FindByRelativePath<T>(EnumResourcePath(resName));
 	}
@@ -103,7 +99,7 @@ public:
 	void Insert(const Key& key, T* const value)
 	{
 		Assert(value, WCHAR_IS_NULLPTR);
-		constexpr eResourceType type = enable_if_resource<T>::resourceType;
+		constexpr eResourceType type = engine_resource_type<T>::resourceType;
 		HashMap& resources = mResources[static_cast<UINT>(type)];
 		ConstIterator iter = resources.find(key);
 
@@ -113,8 +109,6 @@ public:
 		value->mPath = key;
 		resources.insert(std::make_pair(key, value));
 	}
-
-
 
 private:
 	HashMap mResources[static_cast<UINT>(eResourceType::End)];

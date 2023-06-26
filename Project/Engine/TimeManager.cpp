@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "TimeManager.h"
-
+#include "MessageManager.h"
 
 TimeManager::TimeManager()
 	: mDeltaTime(0.0f)
@@ -21,21 +21,14 @@ void TimeManager::update()
 {
 	QueryPerformanceCounter(&mCurFrequency);
 	const float differnceFrequency = static_cast<float>(mCurFrequency.QuadPart - mPrevFrequency.QuadPart);
-	mDeltaTime = differnceFrequency / static_cast<float>(mCpuFrequency.QuadPart);
+	mDeltaTime = differnceFrequency / static_cast<float>(mCpuFrequency.QuadPart);	
 	mPrevFrequency.QuadPart = mCurFrequency.QuadPart;
-}
 
-void TimeManager::render(const HWND hWnd)
-{
-	mSecond += mDeltaTime;
+	const float fps = 1.0f / mDeltaTime;
 
-	if (1.0f < mSecond)
-	{
-		wchar_t buffer[256] = {};
-		const float fps = 1.0f / mDeltaTime;
-		swprintf_s(buffer, 256, L"<SEO Egine> FPS : %f", fps);
-		SetWindowText(hWnd, buffer);
+	constexpr UINT bufferSize = 256;
+	wchar_t buffer[bufferSize] = { 0, };
+	swprintf_s(buffer, bufferSize, L"<FPS : %.2f>", fps);
 
-		mSecond = 0.0f;
-	}
+	MessageManager::GetInstance()->AddMessage(buffer);
 }

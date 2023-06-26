@@ -2,13 +2,15 @@
 #include <Engine/ScriptComponent.h>
 #include "EnumScriptComponent.h"
 
-class D : public ScriptComponent
+REGISTER_SCRIPTCOMPONENT_TYPE(Bugiman);
+
+class Bugiman : public ScriptComponent
 {
 public:
-	D();
-	virtual ~D();
-	D(const D&) = delete;
-	D& operator=(const D&) = delete;
+	Bugiman();
+	virtual ~Bugiman();
+	Bugiman(const Bugiman&) = delete;
+	Bugiman& operator=(const Bugiman&) = delete;
 
 private:
 	virtual void initialize() override final;
@@ -16,5 +18,3 @@ private:
 	virtual void lateUpdate() override final;
 	virtual void render() override final;
 };
-
-REGISTER_SCRIPTCOMPONENT_TYPE(D);

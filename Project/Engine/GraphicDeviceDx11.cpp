@@ -4,6 +4,9 @@
 #include "Shader.h"
 #include "Mesh.h"
 #include "CBCollection.h"
+#include "RSCollection.h"
+#include "BSCollection.h"
+#include "DSCollection.h"
 
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "d3dcompiler.lib")
@@ -27,6 +30,9 @@
 #pragma region Constructor
 GraphicDeviceDX11::GraphicDeviceDX11(const HWND hWnd, const UINT screenWidth, const UINT screenHeight)
 	: mConstantBuffers(nullptr)
+	, mRasterizerStates(nullptr)
+	, mBlendStates(nullptr)
+	, mDepthStencilStates(nullptr)
 {
 	Assert(hWnd, WCHAR_IS_NULLPTR);
 
@@ -50,8 +56,8 @@ GraphicDeviceDX11::GraphicDeviceDX11(const HWND hWnd, const UINT screenWidth, co
 		return;
 	}
 
-	Assert(mDevice, WCHAR_IS_NULLPTR);
-	Assert(mContext, WCHAR_IS_NULLPTR);
+	Assert(mDevice.Get(), WCHAR_IS_NULLPTR);
+	Assert(mContext.Get(), WCHAR_IS_NULLPTR);
 
 #pragma endregion
 
@@ -66,19 +72,18 @@ GraphicDeviceDX11::GraphicDeviceDX11(const HWND hWnd, const UINT screenWidth, co
 
 	AdjustWindowRect(&windowSize, WS_OVERLAPPEDWINDOW, B_MENU);
 
-	const int adjustWidth  = static_cast<int>(windowSize.right - windowSize.left);
+	const int adjustWidth = static_cast<int>(windowSize.right - windowSize.left);
 	const int adjustHeight = static_cast<int>(windowSize.bottom - windowSize.top);
 
-	//위치정렬
+	//가운데 정렬
 	const int monitorPosX = GetSystemMetrics(SM_CXSCREEN) / 2 - static_cast<int>(adjustWidth) / 2;
 	const int monitorPosY = GetSystemMetrics(SM_CYSCREEN) / 2 - static_cast<int>(adjustHeight) / 2;
 
 	SetWindowPos(hWnd,
-		nullptr, 
+		nullptr,
 		monitorPosX, monitorPosY,
 		adjustWidth,
 		adjustHeight, 0);
-
 	ShowWindow(hWnd, true);
 	UpdateWindow(hWnd);
 #pragma endregion
@@ -103,7 +108,6 @@ GraphicDeviceDX11::GraphicDeviceDX11(const HWND hWnd, const UINT screenWidth, co
 	swapChainDesc.SwapEffect = DXGI_SWAP_EFFECT::DXGI_SWAP_EFFECT_DISCARD;
 	swapChainDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
 	swapChainDesc.BufferDesc.Format = DXGI_FORMAT::DXGI_FORMAT_R8G8B8A8_UNORM; //픽셀 포맷                                    
-
 	Microsoft::WRL::ComPtr<IDXGIDevice> pDXGIDevice = nullptr;
 	Microsoft::WRL::ComPtr<IDXGIAdapter> pDXGIAdapter = nullptr;
 	Microsoft::WRL::ComPtr<IDXGIFactory> pDXGIFactory = nullptr;
@@ -171,8 +175,11 @@ GraphicDeviceDX11::GraphicDeviceDX11(const HWND hWnd, const UINT screenWidth, co
 	}
 #pragma endregion
 
-#pragma region Create ConstantBuffers		
+#pragma region Create Collection
 	mConstantBuffers = new CBCollection(mDevice.Get());
+	mRasterizerStates = new RSCollection(mDevice.Get());
+	mBlendStates = new BSCollection(mDevice.Get());
+	mDepthStencilStates = new DSCollection(mDevice.Get());
 #pragma endregion
 
 #pragma region Create Sampler
@@ -183,7 +190,6 @@ GraphicDeviceDX11::GraphicDeviceDX11(const HWND hWnd, const UINT screenWidth, co
 	tSamDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
 	tSamDesc.Filter = D3D11_FILTER_ANISOTROPIC;
 	mDevice->CreateSamplerState(&tSamDesc, m_Sampler[0].GetAddressOf());
-
 
 	tSamDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
 	tSamDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
@@ -211,9 +217,12 @@ GraphicDeviceDX11::GraphicDeviceDX11(const HWND hWnd, const UINT screenWidth, co
 GraphicDeviceDX11::~GraphicDeviceDX11()
 {
 	SAFE_DELETE_POINTER(mConstantBuffers);
+	SAFE_DELETE_POINTER(mRasterizerStates);
+	SAFE_DELETE_POINTER(mBlendStates);
+	SAFE_DELETE_POINTER(mDepthStencilStates);
 }
 
-void GraphicDeviceDX11::BindIA(const Shader* const shader)
+void GraphicDeviceDX11::BindIA(const Shader* const shader) const
 {
 	Assert(shader, WCHAR_IS_NULLPTR);
 	Assert(shader->mInputLayout.Get(), WCHAR_IS_NULLPTR);
@@ -222,18 +231,22 @@ void GraphicDeviceDX11::BindIA(const Shader* const shader)
 	mContext->IASetPrimitiveTopology(shader->mTopology);
 }
 
-void GraphicDeviceDX11::BindMesh(const Mesh* const mesh)
+void GraphicDeviceDX11::BindMesh(const Mesh* const mesh) const
 {
 	Assert(mesh, WCHAR_IS_NULLPTR);
-
-
-	const UINT vertexSize = mesh->GetVertexSize();
+	
 	const UINT offset = 0;
-	mContext->IASetVertexBuffers(0, 1, mesh->mBuffer.GetAddressOf(), &vertexSize, &offset);
+	const UINT stride = static_cast<UINT>(mesh->mVertexSize);
+
+	mContext->IASetVertexBuffers(0, 1, mesh->mVertexBuffer.GetAddressOf(), &stride, &offset);
+	mContext->IASetIndexBuffer(mesh->mIndexBuffer.Get(), DXGI_FORMAT_R32_UINT, 0);
 }
 
-void GraphicDeviceDX11::BindTexture(const eShaderBindType stage, const UINT startSlot, const Texture* const texture)
+void GraphicDeviceDX11::BindTexture(const eShaderBindType stage, const UINT startSlot, const Texture* const texture) const
 {
+	Assert(eShaderBindType::End != stage, WCHAR_IS_INVALID_TYPE);
+	Assert(texture, WCHAR_IS_NULLPTR);
+
 	switch (stage)
 	{
 	case eShaderBindType::VS:
@@ -260,8 +273,12 @@ void GraphicDeviceDX11::BindTexture(const eShaderBindType stage, const UINT star
 	}
 }
 
-void GraphicDeviceDX11::BindCB(const eCBType type, const eShaderBindType stage)
+void GraphicDeviceDX11::BindCB(const eCBType type, const eShaderBindType stage) const
 {
+	Assert(eCBType::End != type, WCHAR_IS_INVALID_TYPE);
+	Assert(eShaderBindType::End != stage, WCHAR_IS_INVALID_TYPE);
+
+
 	const ConstantBuffer& CB = mConstantBuffers->GetConstantBuffer(type);
 	const UINT startSlot = static_cast<UINT>(CB.mType);
 
@@ -291,8 +308,9 @@ void GraphicDeviceDX11::BindCB(const eCBType type, const eShaderBindType stage)
 	}
 }
 
-void GraphicDeviceDX11::PassCB(const eCBType type, const UINT byteSize, const void* const data)
+void GraphicDeviceDX11::PassCB(const eCBType type, const UINT byteSize, const void* const data) const
 {
+	Assert(eCBType::End != type, WCHAR_IS_INVALID_TYPE);
 	Assert(data, WCHAR_IS_NULLPTR);
 	UNREFERENCED_PARAMETER(byteSize);
 
@@ -308,7 +326,7 @@ void GraphicDeviceDX11::PassCB(const eCBType type, const UINT byteSize, const vo
 	mContext->Unmap(CB.mBuffer.Get(), 0);
 }
 
-void GraphicDeviceDX11::BindVS(const Shader* const shader)
+void GraphicDeviceDX11::BindVS(const Shader* const shader) const
 {
 	Assert(shader, WCHAR_IS_NULLPTR);
 	Assert(shader->mVS.Get(), WCHAR_IS_NULLPTR);
@@ -316,7 +334,7 @@ void GraphicDeviceDX11::BindVS(const Shader* const shader)
 	mContext->VSSetShader(shader->mVS.Get(), nullptr, 0);
 }
 
-void GraphicDeviceDX11::BindPS(const Shader* const shader)
+void GraphicDeviceDX11::BindPS(const Shader* const shader) const
 {
 	Assert(shader, WCHAR_IS_NULLPTR);
 	Assert(shader->mPS.Get(), WCHAR_IS_NULLPTR);
@@ -324,17 +342,35 @@ void GraphicDeviceDX11::BindPS(const Shader* const shader)
 	mContext->PSSetShader(shader->mPS.Get(), nullptr, 0);
 }
 
-void GraphicDeviceDX11::Draw(const UINT StartVertexLocation, const Mesh* const mesh)
+void GraphicDeviceDX11::BindBS(const eBSType type) const
 {
-	Assert(mesh, WCHAR_IS_NULLPTR);
-
-	const UINT vertexSize = mesh->GetVertexCount();
-	mContext->Draw(vertexSize, StartVertexLocation);
+	Assert(eBSType::End != type, WCHAR_IS_INVALID_TYPE);
+	mContext->OMSetBlendState(mBlendStates->mBStates[static_cast<UINT>(type)].Get(), nullptr, 0xffffffff);
 }
 
-void GraphicDeviceDX11::clearRenderTarget(const UINT screenWidth, const UINT screenHeight)
+void GraphicDeviceDX11::BindDS(const eDSType type) const
 {
-	const FLOAT bgColor[4] = { 0.2f, 0.2f, 0.2f, 1.0f };
+	Assert(eDSType::End != type, WCHAR_IS_INVALID_TYPE);
+	mContext->OMSetDepthStencilState(mDepthStencilStates->mDStates[static_cast<UINT>(type)].Get(), 0);
+}
+
+void GraphicDeviceDX11::BindRS(const eRSType type) const
+{
+	Assert(eRSType::End != type, WCHAR_IS_INVALID_TYPE);
+	mContext->RSSetState(mRasterizerStates->mRStates[static_cast<UINT>(type)].Get());
+}
+
+void GraphicDeviceDX11::Draw(const UINT StartVertexLocation, const Mesh* const mesh) const
+{
+	Assert(mesh, WCHAR_IS_NULLPTR);
+	const UINT indexCount = mesh->GetIndexCount();
+
+	mContext->DrawIndexed(indexCount, StartVertexLocation, 0);
+}
+
+void GraphicDeviceDX11::clearRenderTarget(const UINT screenWidth, const UINT screenHeight) const
+{
+	const FLOAT bgColor[4] = { 0.4f, 0.4f, 0.4f, 1.0f };
 
 	const D3D11_VIEWPORT mViewPort =
 	{
@@ -343,8 +379,9 @@ void GraphicDeviceDX11::clearRenderTarget(const UINT screenWidth, const UINT scr
 		0.0f, 1.0f
 	};
 
-	mContext->OMSetRenderTargets(1, mRenderTargetView.GetAddressOf(), mDepthStencilView.Get());
 	mContext->RSSetViewports(1, &mViewPort);
+	mContext->OMSetRenderTargets(1, mRenderTargetView.GetAddressOf(), mDepthStencilView.Get());
+
 	mContext->ClearRenderTargetView(mRenderTargetView.Get(), bgColor);
 	mContext->ClearDepthStencilView(mDepthStencilView.Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
 }

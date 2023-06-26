@@ -2,6 +2,8 @@
 #include <Engine/ScriptComponent.h>
 #include "EnumScriptComponent.h"
 
+REGISTER_SCRIPTCOMPONENT_TYPE(CameraInputMove);
+
 class CameraInputMove : public ScriptComponent
 {
 public:
@@ -16,5 +18,3 @@ private:
 	virtual void lateUpdate() override final;
 	virtual void render() override final;
 };
-
-REGISTER_SCRIPTCOMPONENT_TYPE(CameraInputMove);

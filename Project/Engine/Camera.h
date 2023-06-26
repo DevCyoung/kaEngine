@@ -1,6 +1,7 @@
 #pragma once
 #include "Component.h"
 
+REGISTER_COMPONENT_TYPE(Camera);
 
 class Camera : public Component
 {
@@ -28,6 +29,7 @@ public:
 	const Matrix& GetView() const { return mView; }
 	const Matrix& GetProjection() const { return mProjection; }
 
+	static Camera* GetMainCameraOrNull() { return sMainCamera; }
 	static Camera* GetMainCamera() { Assert(sMainCamera, WCHAR_IS_NULLPTR); return sMainCamera; }
 	static void SetMainCamera(Camera* const camera) { Assert(camera, WCHAR_IS_NULLPTR); sMainCamera = camera; }
 
@@ -50,4 +52,3 @@ private:
 	eProjectionType mProjectionType;
 };
 
-REGISTER_COMPONENT_TYPE(Camera);

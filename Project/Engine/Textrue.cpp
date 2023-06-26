@@ -2,13 +2,13 @@
 #include "Textrue.h"
 #include "Engine.h"
 #include "GraphicDeviceDx11.h"
+#include "String.h"
 
 #ifdef _DEBUG
 #pragma comment(lib, "DirectXTex/Debug/DirectXTex_d.lib")
 #else
 #pragma comment(lib, "DirectXTex/Release/DirectXTex.lib")
 #endif
-
 
 Texture::Texture()	
 	: mImage()
@@ -23,14 +23,8 @@ Texture::~Texture()
 
 HRESULT Texture::Load(const std::wstring& path)
 {
-	constexpr UINT PATH_LEN = 256;
-	wchar_t szExtension[PATH_LEN] = { 0, };
-	errno_t err =
-		_wsplitpath_s(path.c_str(), nullptr, 0, nullptr, 0, nullptr, 0, szExtension, PATH_LEN);
-	(void)(err);
-	Assert(!err, L"error");
+	const std::wstring extension = helper::String::SplitFilePathExtension(path);
 
-	std::wstring extension = szExtension;
 	if (extension == L".dds" || extension == L".DDS")
 	{
 		if (FAILED(LoadFromDDSFile(path.c_str(), DDS_FLAGS::DDS_FLAGS_NONE, nullptr, mImage)))
@@ -57,11 +51,11 @@ HRESULT Texture::Load(const std::wstring& path)
 	}
 	else
 	{
-		extension += L" is not supported";
-		Assert(false, extension.c_str());
+		std::wstring errorMessage = path;
+		errorMessage += L" is not supported";		
+		Assert(false, errorMessage.c_str());
 	}
 
-	//gEngine->GetGraphicDevice()
 	if (FAILED(CreateShaderResourceView(gGraphicDevice->UnSafe_GetDevice()
 		, mImage.GetImages()
 		, mImage.GetImageCount()

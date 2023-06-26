@@ -67,9 +67,9 @@ void InputManager::update(const HWND hWnd)
 				}
 			}
 		}
+
 		POINT mousePos = {};
 		GetCursorPos(&mousePos);
-
 		ScreenToClient(hWnd, &mousePos);
 
 		mMousePos.x = static_cast<float>(mousePos.x);

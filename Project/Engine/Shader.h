@@ -2,13 +2,16 @@
 #include <d3d11.h>
 #include <d3dcompiler.h>
 #include "Resource.h"
+#include "DSCollection.h"
+#include "RSCollection.h"
+#include "BSCollection.h"
+
+enum class eResShader;
 
 enum class eShaderBindType
 {
-	VS, HS, DS, GS, PS, CS
+	VS, HS, DS, GS, PS, CS, End
 };
-
-enum class eResShader;
 
 class	Shader : public Resource
 {
@@ -18,13 +21,15 @@ public:
 	Shader(const eResShader vsFileName,
 		const std::wstring& vsFunName,
 		const eResShader psFileName,
-		const std::wstring psFunName);
+		const std::wstring psFunName,
+		const eRSType RSType, const eDSType DSType, const eBSType BSType);
 
 	Shader(const D3D11_PRIMITIVE_TOPOLOGY topology,
 		const eResShader vsFileName,
 		const std::wstring& vsFunName,
 		const eResShader psFileName,
-		const std::wstring psFunName);
+		const std::wstring psFunName,
+		const eRSType RSType, const eDSType DSType, const eBSType BSType);
 
 	virtual ~Shader();
 	Shader(const Shader&) = delete;
@@ -39,6 +44,10 @@ public:
 	void CreateGSShader(const eResShader gsFileName,
 		const std::wstring& gsFunName);
 
+	eRSType GetRSType() const  { return mRSType;  };
+	eDSType GetDSType() const  { return mDSType;  };
+	eBSType GetBSType() const  { return mBSType;  };
+
 private:
 	void createShader(const eShaderBindType sType,
 		const std::wstring& version,
@@ -50,8 +59,6 @@ private:
 
 	void createPSShader(const eResShader psFileName,
 		const std::wstring& psFunName);
-
-
 	virtual HRESULT Load(const std::wstring& path) override;
 
 private:
@@ -62,4 +69,8 @@ private:
 	Microsoft::WRL::ComPtr<ID3D11DomainShader> mDS;
 	Microsoft::WRL::ComPtr<ID3D11GeometryShader> mGS;
 	Microsoft::WRL::ComPtr<ID3D11PixelShader> mPS;
+
+	eRSType mRSType;
+	eDSType mDSType;
+	eBSType mBSType;
 };

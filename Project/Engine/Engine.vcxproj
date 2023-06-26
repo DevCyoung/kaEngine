@@ -163,12 +163,14 @@ call ScriptGen.exe Component $(SolutionDir)Project\Engine $(SolutionDir)Project\
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="BSCollection.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CBCollection.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="ComponentTrait.h" />
     <ClInclude Include="ConstantBuffer.h" />
     <ClInclude Include="DirectXTex.h" />
+    <ClInclude Include="DSCollection.h" />
     <ClInclude Include="eEventType.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="EngineIncludes.h" />
@@ -186,10 +188,15 @@ call ScriptGen.exe Component $(SolutionDir)Project\Engine $(SolutionDir)Project\
     <ClInclude Include="DefineMacro.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="MeshRenderer.h" />
+    <ClInclude Include="MessageManager.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="PathManager.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="ResourceManager.h" />
+    <ClInclude Include="RSCollection.h" />
     <ClInclude Include="SafeDelete.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
@@ -199,16 +206,22 @@ call ScriptGen.exe Component $(SolutionDir)Project\Engine $(SolutionDir)Project\
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="String.h" />
     <ClInclude Include="StructConstantBuffer.h" />
+    <ClInclude Include="Tanning.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Textrue.h" />
     <ClInclude Include="TimeManager.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Transform.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BSCollection.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CBCollection.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="ConstantBuffer.cpp" />
+    <ClCompile Include="DSCollection.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="DXMath.cpp" />
     <ClCompile Include="Entity.cpp" />
@@ -220,6 +233,10 @@ call ScriptGen.exe Component $(SolutionDir)Project\Engine $(SolutionDir)Project\
     <ClCompile Include="Layer.cpp" />
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="MeshRenderer.cpp" />
+    <ClCompile Include="MessageManager.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="PathManager.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -227,6 +244,7 @@ call ScriptGen.exe Component $(SolutionDir)Project\Engine $(SolutionDir)Project\
     </ClCompile>
     <ClCompile Include="Resource.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
+    <ClCompile Include="RSCollection.cpp" />
     <ClCompile Include="SafeDelete.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
@@ -234,6 +252,10 @@ call ScriptGen.exe Component $(SolutionDir)Project\Engine $(SolutionDir)Project\
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="String.cpp" />
     <ClCompile Include="StructConstantBuffer.cpp" />
+    <ClCompile Include="Tanning.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Textrue.cpp" />
     <ClCompile Include="TimeManager.cpp" />
     <ClCompile Include="Mesh.cpp" />
