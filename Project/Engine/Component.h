@@ -3,7 +3,7 @@
 #include "EnumComponent.h"
 #include "ComponentTrait.h"
 
-class GameObject;
+class Gameobject;
 
 class Component : public Entity
 {
@@ -29,4 +29,3 @@ private:
 	eComponentType mType;
 	GameObject* mOwner;
 };
-

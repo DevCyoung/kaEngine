@@ -5,6 +5,7 @@
 enum class eCBType
 {
 	Transform,
+	ColorInfo,
 	End,
 };
 

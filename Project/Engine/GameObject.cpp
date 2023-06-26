@@ -15,6 +15,64 @@ GameObject::~GameObject()
 	memory::unsafe::DeleteArray(mEngineComponents);
 }
 
+Component* GameObject::GetComponentOrNull(eComponentType type) const
+{
+	return mEngineComponents[static_cast<UINT>(type)];
+}
+
+Component* GameObject::GetComponent(eComponentType type) const
+{
+	Component* const component = GetComponentOrNull(type);
+	Assert(component, WCHAR_IS_NULLPTR);
+
+	return component;
+}
+
+ScriptComponent* GameObject::GetComponentOrNull(eScriptComponentType type) const
+{
+	ScriptComponent* component = nullptr;
+
+	for (ScriptComponent* const curScript : mUserComponents)
+	{
+		if (curScript->GetScriptType() == type)
+		{
+			component = curScript;
+			break;
+		}
+	}
+	return component;
+}
+
+ScriptComponent* GameObject::GetComponent(eScriptComponentType type) const
+{
+	ScriptComponent* component = GetComponentOrNull(type);
+	Assert(component, WCHAR_IS_NULLPTR);
+
+	return component;
+}
+
+void GameObject::RemoveComponent(eComponentType type)
+{
+	SAFE_DELETE_POINTER(mEngineComponents[static_cast<UINT>(type)]);
+}
+
+void GameObject::RemoveComponent(eScriptComponentType type)
+{
+	std::vector<ScriptComponent*>::iterator iter = mUserComponents.begin();
+
+	for (; iter != mUserComponents.end(); ++iter)
+	{
+		if ((*iter)->GetScriptType() == type)
+		{
+			SAFE_DELETE_POINTER(*iter);
+			mUserComponents.erase(iter);
+			return;
+		}
+	}
+
+	Assert(false, WCHAR_IS_INVALID_TYPE);
+}
+
 void GameObject::initialize()
 {
 	for (Component* const component : mEngineComponents)

@@ -12,9 +12,13 @@ const wchar_t* EnumResourcePath(eResShader type);
 Shader::Shader(const eResShader vsFileName,
 	const std::wstring& vsFunName,
 	const eResShader psFileName,
-	const std::wstring psFunName)
+	const std::wstring psFunName,
+	const eRSType RSType,
+	const eDSType DSType,
+	const eBSType BSType)
 	: Shader(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST,
-		vsFileName, vsFunName, psFileName, psFunName)
+		vsFileName, vsFunName, psFileName, psFunName,
+		RSType, DSType, BSType)
 {
 }
 
@@ -22,7 +26,10 @@ Shader::Shader(const D3D11_PRIMITIVE_TOPOLOGY topology,
 	const eResShader vsFileName,
 	const std::wstring& vsFunName,
 	const eResShader psFileName,
-	const std::wstring psFunName)
+	const std::wstring psFunName,
+	const eRSType RSType,
+	const eDSType DSType,
+	const eBSType BSType)
 	: Resource()
 	, mTopology(topology)
 	, mInputLayout(nullptr)
@@ -31,7 +38,15 @@ Shader::Shader(const D3D11_PRIMITIVE_TOPOLOGY topology,
 	, mDS(nullptr)
 	, mGS(nullptr)
 	, mPS(nullptr)
+	, mRSType(RSType)
+	, mDSType(DSType)
+	, mBSType(BSType)
 {
+	Assert(eRSType::End != RSType, WCHAR_IS_INVALID_TYPE);
+	Assert(eDSType::End != DSType, WCHAR_IS_INVALID_TYPE);
+	Assert(eBSType::End != BSType, WCHAR_IS_INVALID_TYPE);
+
+
 	createVSShader(vsFileName, vsFunName);
 	createPSShader(psFileName, psFunName);
 }
@@ -52,7 +67,7 @@ void Shader::createShader(const eShaderBindType sType,
 	const std::string strFunName(String::WStrToStr(funName));
 	const std::string strVersion(String::WStrToStr(version));
 
-	
+
 	std::wstring shaderPath = PathManager::GetInstance()->GetResourcePath();
 	shaderPath += EnumResourcePath(fileName);
 	(void)fileName;

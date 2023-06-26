@@ -6,10 +6,17 @@
 struct ID3D11Device;
 
 
-enum class eCBType;
 enum class eShaderBindType;
+enum class eCBType;
+enum class eBSType;
+enum class eDSType;
+enum class eRSType;
 
 class CBCollection;
+class RSCollection;
+class BSCollection;
+class DSCollection;
+
 class Shader;
 class Mesh;
 class Texture;
@@ -26,18 +33,22 @@ public:
 
 	ID3D11Device* UnSafe_GetDevice() const { Assert(mDevice, WCHAR_IS_NULLPTR); return mDevice.Get(); }
 
-	void BindIA(const Shader* const shader);
-	void BindMesh(const Mesh* const mesh);
-	void BindTexture(const eShaderBindType stage, const UINT startSlot, const Texture* const texture);
-	void BindCB(const eCBType type, const eShaderBindType stage);
-	void PassCB(const eCBType type, const UINT byteSize, const void* const data);
-	void BindVS(const Shader* const shader);
-	void BindPS(const Shader* const shader);
-	void Draw(const UINT StartVertexLocation, const Mesh* const mesh);
+	void BindIA(const Shader* const shader) const;
+	void BindMesh(const Mesh* const mesh) const;
+	void BindTexture(const eShaderBindType stage, const UINT startSlot, const Texture* const texture) const;
+	void BindCB(const eCBType type, const eShaderBindType stage) const;
+	void PassCB(const eCBType type, const UINT byteSize, const void* const data) const;
+	void BindVS(const Shader* const shader) const;
+	void BindPS(const Shader* const shader) const;
+	void BindBS(const eBSType type) const;
+	void BindDS(const eDSType type) const;
+	void BindRS(const eRSType type) const;
+
+	void Draw(const UINT StartVertexLocation, const Mesh* const mesh) const;
 	//void DrawIndexd();
 
 private:
-	void clearRenderTarget(const UINT screenWidth, const UINT screenHeight);
+	void clearRenderTarget(const UINT screenWidth, const UINT screenHeight) const;
 	void present();
 
 private:
@@ -51,5 +62,8 @@ private:
 	Microsoft::WRL::ComPtr<ID3D11SamplerState> m_Sampler[2];
 
 	CBCollection* mConstantBuffers;
+	RSCollection* mRasterizerStates;
+	BSCollection* mBlendStates;
+	DSCollection* mDepthStencilStates;
 };
 

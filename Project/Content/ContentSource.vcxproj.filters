@@ -72,6 +72,9 @@
     <ClInclude Include="CameraInputMove.h">
       <Filter>Source\03. Script</Filter>
     </ClInclude>
+    <ClInclude Include="Bugiman.h">
+      <Filter>Source</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -112,6 +115,9 @@
     </ClCompile>
     <ClCompile Include="CameraInputMove.cpp">
       <Filter>Source\03. Script</Filter>
+    </ClCompile>
+    <ClCompile Include="Bugiman.cpp">
+      <Filter>Source</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

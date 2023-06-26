@@ -8,4 +8,9 @@ cbuffer Transform : register(b0)
 	row_major matrix cbProjection;
 }
 
+cbuffer ColorInfo : register(b1)
+{
+	float4 cbColor;
+}
+
 #endif

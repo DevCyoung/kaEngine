@@ -5,6 +5,7 @@ class ScriptComponent;
 
 enum class eScriptComponentType 
 {
+	Bugiman,
 	CameraInputMove,
 	End
 };

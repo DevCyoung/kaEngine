@@ -173,6 +173,10 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Bugiman.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="CameraInputMove.h">
       <SubType>
       </SubType>
@@ -193,6 +197,10 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
     <ClInclude Include="StructVertex.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Bugiman.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="CameraInputMove.cpp">
       <SubType>
       </SubType>

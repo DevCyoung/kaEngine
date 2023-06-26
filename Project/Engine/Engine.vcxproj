@@ -163,12 +163,14 @@ call ScriptGen.exe Component $(SolutionDir)Project\Engine $(SolutionDir)Project\
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="BSCollection.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CBCollection.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="ComponentTrait.h" />
     <ClInclude Include="ConstantBuffer.h" />
     <ClInclude Include="DirectXTex.h" />
+    <ClInclude Include="DSCollection.h" />
     <ClInclude Include="eEventType.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="EngineIncludes.h" />
@@ -194,6 +196,7 @@ call ScriptGen.exe Component $(SolutionDir)Project\Engine $(SolutionDir)Project\
     <ClInclude Include="pch.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="ResourceManager.h" />
+    <ClInclude Include="RSCollection.h" />
     <ClInclude Include="SafeDelete.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
@@ -213,10 +216,12 @@ call ScriptGen.exe Component $(SolutionDir)Project\Engine $(SolutionDir)Project\
     <ClInclude Include="Transform.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BSCollection.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CBCollection.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="ConstantBuffer.cpp" />
+    <ClCompile Include="DSCollection.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="DXMath.cpp" />
     <ClCompile Include="Entity.cpp" />
@@ -239,6 +244,7 @@ call ScriptGen.exe Component $(SolutionDir)Project\Engine $(SolutionDir)Project\
     </ClCompile>
     <ClCompile Include="Resource.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
+    <ClCompile Include="RSCollection.cpp" />
     <ClCompile Include="SafeDelete.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />

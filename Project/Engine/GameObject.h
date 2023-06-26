@@ -21,6 +21,7 @@ public:
 	GameObject& operator=(const GameObject&) = delete;
 
 public:
+
 	//FIXME! 이벤트방식으로 변경해야함
 	template<typename T>
 		requires std::is_base_of_v<Component, T>
@@ -144,6 +145,15 @@ public:
 		Assert(component, WCHAR_IS_NULLPTR);
 		return component;
 	}
+
+	Component* GetComponentOrNull(eComponentType type) const;
+	Component* GetComponent(eComponentType type) const;
+	ScriptComponent* GetComponentOrNull(eScriptComponentType type) const;
+	ScriptComponent* GetComponent(eScriptComponentType type) const;
+
+	//event
+	void RemoveComponent(eComponentType type);
+	void RemoveComponent(eScriptComponentType type);
 
 private:
 	void initialize();

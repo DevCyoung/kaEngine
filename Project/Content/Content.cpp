@@ -11,6 +11,8 @@
 
 #include "CameraInputMove.h"
 #include <Engine/Tanning.h>
+
+#include "Bugiman.h"
 Content::Content()
 {
 	resourceInitialize();
@@ -21,63 +23,71 @@ Content::~Content()
 {
 }
 
-void Content::loadShader()
-{
-	//Shader
-	{
 
-		Shader* const defaultShader =
-			new Shader(eResShader::VertexShader, L"main", eResShader::PixelShader, L"main");
-
-		gResourceManager->Insert<Shader>(L"Default", defaultShader);
-	}
-}
 
 void Content::loadMesh()
 {	
 	{
 		//RectMesh
-		const UINT VERTEX_COUNT = 6;
+		const UINT VERTEX_COUNT = 4;
+		tVertex vertexs[VERTEX_COUNT] = {};
+		//0---1
+		//|   |
+		//3---2
+		vertexs[0].pos		= Vector3(-0.5f, 0.5f, 0.0f);
+		vertexs[0].color	= Vector4(1.0f, 0.0f, 0.0f, 1.0f);
+		vertexs[0].uv		= Vector2(0.0f, 0.0f);
 
-		D3D11_BUFFER_DESC triangleDesc = {};
-		triangleDesc.Usage = D3D11_USAGE::D3D11_USAGE_DYNAMIC;
-		triangleDesc.ByteWidth = sizeof(tVertex) * VERTEX_COUNT;
-		triangleDesc.BindFlags = D3D11_BIND_FLAG::D3D11_BIND_VERTEX_BUFFER;
-		triangleDesc.CPUAccessFlags = D3D11_CPU_ACCESS_FLAG::D3D11_CPU_ACCESS_WRITE;
+		vertexs[1].pos		= Vector3(0.5f, 0.5f, 0.0f);
+		vertexs[1].color	= Vector4(1.0f, 0.0f, 0.0f, 1.0f);
+		vertexs[1].uv		= Vector2(1.0f, 0.0f);
 
-		D3D11_SUBRESOURCE_DATA triangleData = {};
-		tVertex vertex[VERTEX_COUNT] = {};
+		vertexs[2].pos		= Vector3(+0.5f, -0.5f, 0.0f);
+		vertexs[2].color	= Vector4(0.0f, 0.0f, 1.0f, 1.0f);
+		vertexs[2].uv		= Vector2(1.0f, 1.0f);
 
-		vertex[0].pos = Vector3(-0.5f, 0.5f, 0.0f);
-		vertex[0].color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
-		vertex[0].uv = Vector2(0.0f, 0.0f);
+		vertexs[3].pos		= Vector3(-0.5f, -0.5f, 0.0f);
+		vertexs[3].color	= Vector4(1.0f, 0.0f, 0.0f, 1.0f);
+		vertexs[3].uv		= Vector2(0.0f, 1.0f);
+		
+		std::vector<UINT> indexes;
+		indexes.reserve(10);
 
-		vertex[1].pos = Vector3(0.5f, -0.5f, 0.0f);
-		vertex[1].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
-		vertex[1].uv = Vector2(1.0f, 1.0f);
+		indexes.push_back(0);
+		indexes.push_back(1);
+		indexes.push_back(2);
 
-		vertex[2].pos = Vector3(-0.5f, -0.5f, 0.0f);
-		vertex[2].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
-		vertex[2].uv = Vector2(0.0f, 1.0f);
-
-		vertex[3].pos = Vector3(-0.5f, 0.5f, 0.0f);
-		vertex[3].color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
-		vertex[3].uv = Vector2(0.0f, 0.0f);
-
-		vertex[4].pos = Vector3(0.5f, 0.5f, 0.0f);
-		vertex[4].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
-		vertex[4].uv = Vector2(1.0f, 0.0f);
-
-		vertex[5].pos = Vector3(0.5f, -0.5f, 0.0f);
-		vertex[5].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
-		vertex[5].uv = Vector2(1.0f, 1.0f);
-
-		triangleData.pSysMem = vertex;
-
-
+		indexes.push_back(0);
+		indexes.push_back(2);
+		indexes.push_back(3);
+		
 		gResourceManager->Insert<Mesh>(L"Rect",
-			new Mesh(triangleDesc, &triangleData,
-				sizeof(tVertex), VERTEX_COUNT));
+			new Mesh(vertexs, VERTEX_COUNT, sizeof(tVertex),
+				indexes.data(), indexes.size(), sizeof(UINT)));
+	}
+}
+
+void Content::loadShader()
+{
+	//Shader
+	{
+		Shader* const defaultShader =
+			new Shader(eResShader::VertexShader, L"main",
+				eResShader::PixelShader, L"main",
+				eRSType::SolidBack,
+				eDSType::Less,
+				eBSType::Default);
+		gResourceManager->Insert<Shader>(L"Default", defaultShader);
+	}
+
+	{
+		Shader* const defaultShader =
+			new Shader(eResShader::VertexShader, L"main",
+				eResShader::PixelShader, L"main",
+				eRSType::SolidBack,
+				eDSType::Less,
+				eBSType::AlphaBlend);
+		gResourceManager->Insert<Shader>(L"Default_Copy", defaultShader);
 	}
 }
 
@@ -117,7 +127,7 @@ void Content::loadMaterial()
 		material->SetShader(gResourceManager
 			->FindOrNullByRelativePath<Shader>(L"Default"));
 		material->SetTexture(gResourceManager
-			->FindOrNullByEnum<Texture>(eResTexture::bg_bar_0));
+			->FindOrNullByEnum<Texture>(eResTexture::bg_bar_0));		
 
 		gResourceManager->Insert<Material>(L"BackGround01", material);
 	}
@@ -179,6 +189,7 @@ void Content::testSceneInitialize()
 		//test
 		GameObject* const obj = new GameObject();
 		obj->AddComponent<MeshRenderer>();
+		obj->AddComponent<Bugiman>();
 
 		obj->GetComponent<MeshRenderer>()
 			->SetMesh(gResourceManager
@@ -186,7 +197,7 @@ void Content::testSceneInitialize()
 
 		obj->GetComponent<MeshRenderer>()
 			->SetMaterial(gResourceManager
-				->FindOrNullByRelativePath<Material>(L"BackGround01"));
+				->FindOrNullByRelativePath<Material>(L"BackGround01"));				
 
 		obj->GetComponent<Transform>()
 			->SetPosition(0.f, 0.f, 0.f);
@@ -308,4 +319,56 @@ void Content::testSceneInitialize()
 	}
 
 	SceneManager::GetInstance()->LoadScene(testScene);
+
+
+
+	//{
+	//	//component
+	//	GameObject* const obj = new GameObject();
+	//	for (UINT i = 0; i < static_cast<UINT>(eComponentType::End); ++i)
+	//	{
+	//		const eComponentType type = static_cast<eComponentType>(i);
+	//		std::wstring  componentName = GetComponentName(type);
+
+	//		//Add click 했을때
+	//		//이미있다면 추가X
+	//		if (nullptr == obj->GetComponentOrNull(type))
+	//		{
+	//			Component* const component = CreateComponentByEnum(type);
+	//			obj->AddComponent(component);
+	//		}
+
+	//		//Remove Click 했을떄
+	//		//있	어야 삭제
+	//		//if (nullptr != obj->GetComponentOrNull(type))
+	//		//{
+	//		//	//obj->
+	//		//	obj->RemoveComponent(type);
+	//		//}			
+	//	}
+
+	//	//script
+	//	for (UINT i = 0; i < static_cast<UINT>(eScriptComponentType::End); ++i)
+	//	{
+	//		const eScriptComponentType type = static_cast<eScriptComponentType>(i);
+	//		std::wstring componentName =  GetScriptComponentName(type);
+
+	//		//Add click 했을때
+	//		if (nullptr == obj->GetComponentOrNull(type))
+	//		{
+	//			ScriptComponent* const ScriptComponent = CreateScriptComponentByEnum(type);
+	//			obj->AddComponent(ScriptComponent);
+	//		}
+
+	//		//Remove Click 했을떄
+	//		//if (nullptr != obj->GetComponentOrNull(type))
+	//		//{
+	//		//	//obj->
+	//		//	obj->RemoveComponent(type);
+	//		//}
+
+	//	}
+
+	//	testScene->AddGameObject(obj, eLayerType::Player);
+	//}
 }
