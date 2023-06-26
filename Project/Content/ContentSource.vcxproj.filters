@@ -84,6 +84,9 @@
     <ClInclude Include="EnumScriptComponent.h">
       <Filter>Source\03. Script</Filter>
     </ClInclude>
+    <ClInclude Include="CameraInputMove.h">
+      <Filter>Source\03. Script</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -135,6 +138,9 @@
       <Filter>Source\03. Script</Filter>
     </ClCompile>
     <ClCompile Include="EnumScriptComponent.cpp">
+      <Filter>Source\03. Script</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraInputMove.cpp">
       <Filter>Source\03. Script</Filter>
     </ClCompile>
   </ItemGroup>

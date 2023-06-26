@@ -107,7 +107,7 @@ public:
 		HashMap& resources = mResources[static_cast<UINT>(type)];
 		ConstIterator iter = resources.find(key);
 
-		Assert(resources.end() == iter, L"");
+		Assert(resources.end() == iter, L"already");
 
 		value->mKey = key;
 		value->mPath = key;

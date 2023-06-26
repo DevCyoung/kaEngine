@@ -1,6 +1,5 @@
 ﻿#pragma once
 
-
 enum class eResShader
 {
 	Header_ConstantBuffer,
@@ -14,3 +13,4 @@ enum class eResShader
 };
 
 const wchar_t* EnumResourcePath(eResShader type);
+

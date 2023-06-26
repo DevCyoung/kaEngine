@@ -1,12 +1,17 @@
 ﻿using System.Text;
 
+// 2023 - 06 - 26 remove namespace
+// TODO 유효성검사
+
 public class MyProgram
 {
     static string PRAGMA_ONCE = "#pragma once\n\n";
-    static string SHARP_INCLUDE = "#include";    
-    static string BEGIN_ENGINE_NAMESPACE = "namespace engine\n{\n";
-    static string END_ENGINE_NAMESPACE = "}//namespace engine End";
+    static string SHARP_INCLUDE = "#include";
+    static string BEGIN_ENGINE_NAMESPACE = ""; //"namespace engine\n{\n";
+    static string END_ENGINE_NAMESPACE   = ""; //"}//namespace engine End";
     static string RESOURCE_PATH = "";
+
+    //static List<string> allResourceFileNames = new List<string>();
 
     static void WriteLine(string str)
     {
@@ -29,22 +34,27 @@ public class MyProgram
         if (args.Length == 2)
         {
             WriteLine("Program Ready.....");
-            WriteLine("Input Check....");
-            WriteLine($"argc = {args.Length}");
-            WriteLine("args length is 2, ok! Program start");
+            //WriteLine("Input Check....");
+            //WriteLine($"argc = {args.Length}");
+            //WriteLine("args length is 2, ok! Program start");
 
-            WriteLine("###########Input Path############");
+            //WriteLine("###########Input Path############");
             foreach (string arg in args)
             {
-                WriteLine($"arg = {arg}");
+                //WriteLine($"arg = {arg}");
             }
-            WriteLine("###########Input Path############");            
+            //WriteLine("###########Input Path############");            
 
             string path = @"";
             string targetPath = @"";
 
+            
+
             path += args[0];
             targetPath += args[1];
+
+            
+
 
             RESOURCE_PATH = path;
 
@@ -63,7 +73,12 @@ public class MyProgram
                 return;
             }
 
-            WriteLine("###########Create Files############");
+            
+            
+
+
+
+            //WriteLine("###########Create Files############");
             foreach (string resDirectory in resourceDirectorys)
             {
                 string enumType = GetFileName(resDirectory);
@@ -73,6 +88,54 @@ public class MyProgram
                 List<string> enumFilePath = new List<string>();
 
                 MakeEnumNames(resDirectory, enumNames, enumFilePath, "");
+
+                
+                string depentdPath = Path.Combine(targetPath, enumType + "_" + "Res_dpend.diff");
+
+                //여기서 유효성 검사를합니다. 통과했을때
+                {
+                    StreamReader depenReader = new StreamReader(new FileStream(depentdPath
+                        , FileMode.OpenOrCreate), Encoding.UTF8);
+                    string nameA = depenReader.ReadToEnd().Replace("\r\n", "");
+                    string nameB = "";
+
+                    foreach (string s in enumFilePath)
+                    {
+                        nameB += s;
+                    }
+                    nameB = nameB.Replace("\r\n", "");
+                    depenReader.Close();
+
+                    //바뀐게없다.
+                    if (nameA == nameB)
+                    {
+                        continue;
+                    }                    
+                    WriteLine($"enumType = {enumType} is change");
+                }
+
+
+                //유하지않아서 다시적음
+                {                    
+                    StreamWriter depenWirter = new StreamWriter(new FileStream(depentdPath, 
+                        FileMode.Create), Encoding.UTF8);
+
+                    if (null == depenWirter)
+                    {
+                        WriteErrorLine("depenWirter is null");
+                        return;
+                    }
+
+                    foreach (string s in enumFilePath)
+                    {
+                        depenWirter.WriteLine(s);
+                    }
+
+                    depenWirter.Close();
+                }
+
+
+
 
                 string enumHeader = MakeEnumNumHeader(enumType, enumNames);
 
@@ -122,8 +185,8 @@ public class MyProgram
             }
 
 
-            WriteLine("###########Create Files############");
-            WriteLine("Success End...");
+            //WriteLine("###########Create Files############");
+            //WriteLine("Success End...");
         }
         else
         {
@@ -192,6 +255,8 @@ public class MyProgram
 
         foreach (string fileName in fileNames)
         {
+            
+
             string perfactEnumName = recursiveEnumName + Path.GetFileNameWithoutExtension(
                 GetFileName(fileName));
             enumNames.Add(perfactEnumName);
@@ -212,19 +277,19 @@ public class MyProgram
 
         header += BEGIN_ENGINE_NAMESPACE;
         {
-            header += "\tenum class " + "eRes" + enumType + "\n";
-            header += "\t{\n";
+            header += "enum class " + "eRes" + enumType + "\n";
+            header += "{\n";
 
             foreach (string enumName in enumNames)
             {
-                header += "\t\t" + enumName + ",\n";
+                header += "\t" + enumName + ",\n";
             }
-            header += "\t" + "\tEnd\n";
-            header += "\t};\n\n";
+            header += "" + "\tEnd\n";
+            header += "};\n\n";
 
             if (enumNames.Count > 0)
             {
-                header += $"\tconst wchar_t* EnumResourcePath(eRes{enumType} type);\n";
+                header += $"const wchar_t* EnumResourcePath(eRes{enumType} type);\n";
             }
 
         }
@@ -249,20 +314,20 @@ public class MyProgram
             //const wchar
             if (relativePaths.Count > 0)
             {
-                cpp += $"\tconst wchar_t* {enumResourcePathArray}[static_cast<UINT>({eResEnumType}::End)]\n";
-                cpp += "\t{\n";
+                cpp += $"const wchar_t* {enumResourcePathArray}[static_cast<UINT>({eResEnumType}::End)]\n";
+                cpp += "{\n";
 
                 foreach (string relativePath in relativePaths)
                 {
                     //리소스 하위로가져온다.
-                    cpp += $"\t\tL\"{relativePath}\",\n";
+                    cpp += $"\tL\"{relativePath}\",\n";
                 }
-                cpp += "\t};\n";
+                cpp += "};\n";
                 cpp += "\n";
-                cpp += $"\tconst wchar_t* EnumResourcePath(eRes{enumType} type)\n";
-                cpp += "\t{\n";
-                cpp += $"\t\treturn {enumResourcePathArray}[static_cast<UINT>(type)];\n";
-                cpp += "\t}\n";
+                cpp += $"const wchar_t* EnumResourcePath(eRes{enumType} type)\n";
+                cpp += "{\n";
+                cpp += $"\treturn {enumResourcePathArray}[static_cast<UINT>(type)];\n";
+                cpp += "}\n";
             }
         }
         cpp += END_ENGINE_NAMESPACE;

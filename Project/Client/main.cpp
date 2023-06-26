@@ -28,6 +28,10 @@ INT_PTR CALLBACK    About(HWND, UINT, WPARAM, LPARAM);
 
 #include <Content/Components.h>
 
+//#define USE_MENU 0
+
+
+
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	_In_opt_ HINSTANCE hPrevInstance,
 	_In_ LPWSTR    lpCmdLine,
@@ -55,8 +59,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_CLIENT));
 	MSG msg;
 
-	constexpr UINT SCREEN_WIDTH = 1600;
-	constexpr UINT SCREEN_HEIGHT = 900;
+	constexpr UINT SCREEN_WIDTH  = 500;
+	constexpr UINT SCREEN_HEIGHT = 500;
 	
 	Engine::initialize(gHwnd, SCREEN_WIDTH, SCREEN_HEIGHT);
 	Content::initialize();
@@ -108,7 +112,13 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
 	wcex.hIcon = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_CLIENT));
 	wcex.hCursor = LoadCursor(nullptr, IDC_ARROW);
 	wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
+
+#ifdef USE_MENU
 	wcex.lpszMenuName = MAKEINTRESOURCEW(IDC_CLIENT);
+#else
+	wcex.lpszMenuName = nullptr;
+#endif
+
 	wcex.lpszClassName = szWindowClass;
 	wcex.hIconSm = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
 

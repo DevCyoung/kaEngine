@@ -15,11 +15,12 @@ private:
 	virtual ~Texture();
 	Texture(const Texture&) = delete;
 	Texture& operator=(const Texture&) = delete;
-	virtual HRESULT Load(const std::wstring& path) override;
+	virtual HRESULT Load(const std::wstring& path) override;	
+public:
+	float GetWidth() const {  return static_cast<float>(mImage.GetMetadata().width) ;}
+	float GetHeight() const { return static_cast<float>(mImage.GetMetadata().height); }
 
-
-private:
-	D3D11_TEXTURE2D_DESC mDesc;
+private:	
 	ScratchImage mImage;
 	Microsoft::WRL::ComPtr<ID3D11Texture2D> mTexture;
 	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> mSRV;

@@ -11,7 +11,7 @@
 #include <functional> 
 #include <cmath> 
 #include <algorithm> 
-#include <limits> //부동 소수점 표현 및 반올림과 관련된 클래스 템플릿 numeric_limits 및 두 개의 열거형을 정의합니다.
+#include <limits>
 #include <memory> 
 #include <filesystem> 
 #include <wrl.h>

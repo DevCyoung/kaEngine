@@ -4,6 +4,7 @@
 #include "A.h"
 #include "B.h"
 #include "C.h"
+#include "CameraInputMove.h"
 #include "D.h"
 #include "E.h"
 
@@ -12,6 +13,7 @@ static constexpr const wchar_t* const ScriptComponentNames[static_cast<UINT>(eSc
 	L"A",
 	L"B",
 	L"C",
+	L"CameraInputMove",
 	L"D",
 	L"E",
 };
@@ -32,6 +34,8 @@ ScriptComponent* CreateScriptComponentByName(const std::wstring& scriptcomponent
 		scriptcomponent = new B;
 	else if (L"C" == scriptcomponentName)
 		scriptcomponent = new C;
+	else if (L"CameraInputMove" == scriptcomponentName)
+		scriptcomponent = new CameraInputMove;
 	else if (L"D" == scriptcomponentName)
 		scriptcomponent = new D;
 	else if (L"E" == scriptcomponentName)
@@ -55,6 +59,9 @@ ScriptComponent* CreateScriptComponentByEnum(const eScriptComponentType type)
 		break;
 	case eScriptComponentType::C:
 		scriptcomponent = new C;
+		break;
+	case eScriptComponentType::CameraInputMove:
+		scriptcomponent = new CameraInputMove;
 		break;
 	case eScriptComponentType::D:
 		scriptcomponent = new D;

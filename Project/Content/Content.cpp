@@ -9,6 +9,7 @@
 
 #include "Components.h"
 
+#include "CameraInputMove.h"
 
 Content::Content()
 {
@@ -78,6 +79,7 @@ void Content::resourceInitialize()
 
 	//Shader
 	{
+		
 		Shader* const defaultShader =
 			new Shader(eResShader::VertexShader, L"main", eResShader::PixelShader, L"main");
 
@@ -87,7 +89,7 @@ void Content::resourceInitialize()
 	//Material
 	{
 		{
-			Material* const defaultMaterial = new Material();
+			Material* const defaultMaterial = new Material();	
 			defaultMaterial->SetShader(gResourceManager
 				->FindOrNullByRelativePath<Shader>(L"Default"));
 			defaultMaterial->SetTexture(gResourceManager
@@ -105,6 +107,58 @@ void Content::resourceInitialize()
 
 			gResourceManager->Insert<Material>(L"Sample", defaultMaterial);
 		}
+
+
+		{
+			Material* const defaultMaterial = new Material();
+			defaultMaterial->SetShader(gResourceManager
+				->FindOrNullByRelativePath<Shader>(L"Default"));
+			defaultMaterial->SetTexture(gResourceManager
+				->FindOrNullByEnum<Texture>(eResTexture::bg_bar_0));
+
+			gResourceManager->Insert<Material>(L"BackGround01", defaultMaterial);
+		}
+
+		{
+			Material* const defaultMaterial = new Material();
+			defaultMaterial->SetShader(gResourceManager
+				->FindOrNullByRelativePath<Shader>(L"Default"));
+			defaultMaterial->SetTexture(gResourceManager
+				->FindOrNullByEnum<Texture>(eResTexture::bg_club_full_0));
+
+			gResourceManager->Insert<Material>(L"BackGround02", defaultMaterial);
+		}
+
+		{
+			Material* const defaultMaterial = new Material();
+			defaultMaterial->SetShader(gResourceManager
+				->FindOrNullByRelativePath<Shader>(L"Default"));
+			defaultMaterial->SetTexture(gResourceManager
+				->FindOrNullByEnum<Texture>(eResTexture::bg_dreamshed_0));
+
+			gResourceManager->Insert<Material>(L"BackGround03", defaultMaterial);
+		}
+
+		{
+			Material* const defaultMaterial = new Material();
+			defaultMaterial->SetShader(gResourceManager
+				->FindOrNullByRelativePath<Shader>(L"Default"));
+			defaultMaterial->SetTexture(gResourceManager
+				->FindOrNullByEnum<Texture>(eResTexture::bg_studio_outside_0));
+
+			gResourceManager->Insert<Material>(L"BackGround04", defaultMaterial);
+		}
+
+		{
+			Material* const defaultMaterial = new Material();
+			defaultMaterial->SetShader(gResourceManager
+				->FindOrNullByRelativePath<Shader>(L"Default"));
+			defaultMaterial->SetTexture(gResourceManager
+				->FindOrNullByEnum<Texture>(eResTexture::spr_bg_neighbor_apartment_0));
+
+			gResourceManager->Insert<Material>(L"BackGround05", defaultMaterial);
+		}
+
 	}
 
 
@@ -114,14 +168,16 @@ void Content::testSceneInitialize()
 {
 	Scene* testScene = new Scene();
 
+	{
+		//change
 
+		
+	}
 
 	{
 		//test
 		GameObject* const obj = new GameObject();
 		obj->AddComponent<MeshRenderer>();
-
-
 
 		obj->GetComponent<MeshRenderer>()
 			->SetMesh(gResourceManager
@@ -129,32 +185,132 @@ void Content::testSceneInitialize()
 
 		obj->GetComponent<MeshRenderer>()
 			->SetMaterial(gResourceManager
-				->FindOrNullByRelativePath<Material>(L"Default"));
-		obj->GetComponent<Transform>()->SetPosition(2.f, 0.f, 0.f);
+				->FindOrNullByRelativePath<Material>(L"BackGround01"));
+
+		obj->GetComponent<Transform>()->SetPosition(0.f, 0.f, 0.f);
+		
+		Texture* const texture = obj->GetComponent<MeshRenderer>()->GetMaterial()->GetTexture();
+		const float textureWidth = texture->GetWidth();
+		const float textureHeigth = texture->GetHeight();
+		obj->GetComponent<Transform>()->SetScale(textureWidth * 0.018f, textureHeigth * 0.018f, 1.f);
+		
+		testScene->AddGameObject(obj, eLayerType::Player);
+	}
+
+	{
+		//test
+		GameObject* const obj = new GameObject();
+		obj->AddComponent<MeshRenderer>();
+
+		obj->GetComponent<MeshRenderer>()
+			->SetMesh(gResourceManager
+				->FindOrNullByRelativePath<Mesh>(L"Rect"));
+
+		obj->GetComponent<MeshRenderer>()
+			->SetMaterial(gResourceManager
+				->FindOrNullByRelativePath<Material>(L"BackGround02"));
+
+		obj->GetComponent<Transform>()->SetPosition(20.f, 0.f, 0.f);
+
+		Texture* const texture = obj->GetComponent<MeshRenderer>()->GetMaterial()->GetTexture();
+		const float textureWidth = texture->GetWidth();
+		const float textureHeigth = texture->GetHeight();
+		obj->GetComponent<Transform>()->SetScale(textureWidth * 0.01f, textureHeigth * 0.01f, 1.f);
+
+		testScene->AddGameObject(obj, eLayerType::Player);
+	}
+
+
+	{
+
+		//test
+		GameObject* const obj = new GameObject();
+		obj->AddComponent<MeshRenderer>();
+
+		obj->GetComponent<MeshRenderer>()
+			->SetMesh(gResourceManager
+				->FindOrNullByRelativePath<Mesh>(L"Rect"));
+
+		obj->GetComponent<MeshRenderer>()
+			->SetMaterial(gResourceManager
+				->FindOrNullByRelativePath<Material>(L"BackGround03"));
+
+		obj->GetComponent<Transform>()->SetPosition(32.f, 0.f, 0.f);
+
+		Texture* const texture = obj->GetComponent<MeshRenderer>()->GetMaterial()->GetTexture();
+		const float textureWidth = texture->GetWidth();
+		const float textureHeigth = texture->GetHeight();
+		obj->GetComponent<Transform>()->SetScale(textureWidth * 0.013f, textureHeigth * 0.013f, 1.f);
 
 		testScene->AddGameObject(obj, eLayerType::Player);
 	}
 
 	{
+		//test
+		GameObject* const obj = new GameObject();
+		obj->AddComponent<MeshRenderer>();
+
+		obj->GetComponent<MeshRenderer>()
+			->SetMesh(gResourceManager
+				->FindOrNullByRelativePath<Mesh>(L"Rect"));
+
+		obj->GetComponent<MeshRenderer>()
+			->SetMaterial(gResourceManager
+				->FindOrNullByRelativePath<Material>(L"BackGround04"));
+		obj->GetComponent<Transform>()->SetPosition(40, 0.f, 0.f);
+
+		Texture* const texture = obj->GetComponent<MeshRenderer>()->GetMaterial()->GetTexture();
+		const float textureWidth = texture->GetWidth();
+		const float textureHeigth = texture->GetHeight();
+		obj->GetComponent<Transform>()->SetScale(textureWidth * 0.01f, textureHeigth * 0.01f, 1.f);
+
+		testScene->AddGameObject(obj, eLayerType::Player);
+	}
+
+	{
+		//test
+		GameObject* const obj = new GameObject();
+		obj->AddComponent<MeshRenderer>();
+
+		obj->GetComponent<MeshRenderer>()
+			->SetMesh(gResourceManager
+				->FindOrNullByRelativePath<Mesh>(L"Rect"));
+
+		obj->GetComponent<MeshRenderer>()
+			->SetMaterial(gResourceManager
+				->FindOrNullByRelativePath<Material>(L"BackGround05"));
+
+		Texture* const texture = obj->GetComponent<MeshRenderer>()->GetMaterial()->GetTexture();
+		const float textureWidth = texture->GetWidth();
+		const float textureHeigth = texture->GetHeight();
+		obj->GetComponent<Transform>()->SetScale(textureWidth * 0.01f, textureHeigth * 0.01f, 1.f);
+
+		obj->GetComponent<Transform>()->SetPosition(50, 0.f, 0.f);
+
+		testScene->AddGameObject(obj, eLayerType::Player);
+	}
+
+
+	{
 		//test2
-		for (int i = 0; i < 5000; ++i)
-		{
-			GameObject* const obj = new GameObject();
-			obj->AddComponent<MeshRenderer>();
-
-			obj->GetComponent<MeshRenderer>()
-				->SetMesh(gResourceManager
-					->FindOrNullByRelativePath<Mesh>(L"Rect"));
-
-			obj->GetComponent<MeshRenderer>()
-				->SetMaterial(gResourceManager
-					->FindOrNullByRelativePath<Material>(L"Sample"));
-
-			obj->GetComponent<Transform>()
-				->SetPosition(-4.f + i * 0.02f, -4.f + i * 0.02f, 0.f);
-
-			testScene->AddGameObject(obj, eLayerType::Player);
-		}
+		//for (int i = 0; i < 5000; ++i)
+		//{
+		//	GameObject* const obj = new GameObject();
+		//	obj->AddComponent<MeshRenderer>();
+		//
+		//	obj->GetComponent<MeshRenderer>()
+		//		->SetMesh(gResourceManager
+		//			->FindOrNullByRelativePath<Mesh>(L"Rect"));
+		//
+		//	obj->GetComponent<MeshRenderer>()
+		//		->SetMaterial(gResourceManager
+		//			->FindOrNullByRelativePath<Material>(L"Sample"));
+		//
+		//	obj->GetComponent<Transform>()
+		//		->SetPosition(-4.f + i * 0.02f, -4.f + i * 0.02f, 0.f);
+		//
+		//	testScene->AddGameObject(obj, eLayerType::Player);
+		//}
 
 	} //Scene
 
@@ -162,6 +318,8 @@ void Content::testSceneInitialize()
 	{
 		GameObject* const mainCameraObj = new GameObject();
 		mainCameraObj->AddComponent<Camera>();
+		mainCameraObj->AddComponent<CameraInputMove>();
+
 
 		Camera* const cameraComp = mainCameraObj->GetComponent<Camera>();
 		mainCameraObj->GetComponent<Transform>()->SetPosition(0.f, 0.f, -10.f);

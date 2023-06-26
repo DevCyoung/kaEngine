@@ -28,9 +28,6 @@
     <ClInclude Include="pch.h">
       <Filter>Windows</Filter>
     </ClInclude>
-    <ClInclude Include="PchTest.h">
-      <Filter>Source</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -49,9 +46,6 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="pch.cpp">
       <Filter>Windows</Filter>
-    </ClCompile>
-    <ClCompile Include="PchTest.cpp">
-      <Filter>Source</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

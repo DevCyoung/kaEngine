@@ -1,6 +1,5 @@
 ﻿#pragma once
 
-
 enum class eResScene
 {
 	dummy,
@@ -8,3 +7,4 @@ enum class eResScene
 };
 
 const wchar_t* EnumResourcePath(eResScene type);
+

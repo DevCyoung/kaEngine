@@ -1,6 +1,5 @@
 ﻿#pragma once
 
-
 enum class eResMesh
 {
 	dummy,
@@ -8,3 +7,4 @@ enum class eResMesh
 };
 
 const wchar_t* EnumResourcePath(eResMesh type);
+
