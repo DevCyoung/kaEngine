@@ -16,7 +16,7 @@ public:
 	Component& operator=(const Component&) = delete;
 
 public:
-	GameObject* GetOwner() const { Assert(mOwner, WCHAR_IS_NULLPTR); return mOwner; }
+	GameObject* GetOwner() const { Assert(mOwner, WCHAR_IS_NULLPTR); return mOwner; }	
 	eComponentType GetType() const { return mType; }
 
 private:

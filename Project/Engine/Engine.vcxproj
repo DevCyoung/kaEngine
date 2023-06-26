@@ -186,6 +186,10 @@ call ScriptGen.exe Component $(SolutionDir)Project\Engine $(SolutionDir)Project\
     <ClInclude Include="DefineMacro.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="MeshRenderer.h" />
+    <ClInclude Include="MessageManager.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="PathManager.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Resource.h" />
@@ -220,6 +224,10 @@ call ScriptGen.exe Component $(SolutionDir)Project\Engine $(SolutionDir)Project\
     <ClCompile Include="Layer.cpp" />
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="MeshRenderer.cpp" />
+    <ClCompile Include="MessageManager.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="PathManager.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

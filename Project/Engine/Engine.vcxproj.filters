@@ -118,6 +118,9 @@
     <Filter Include="Source\06. Resource\07. Sound">
       <UniqueIdentifier>{df9269fc-6aed-4f3e-9089-f4a2e4b7231b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\01. Manager\Message">
+      <UniqueIdentifier>{99caa1da-81c0-4847-a8c9-e6150438b1ab}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Entity.h">
@@ -240,6 +243,9 @@
     <ClInclude Include="ScriptComponent.h">
       <Filter>Source\03. Component\00. Component</Filter>
     </ClInclude>
+    <ClInclude Include="MessageManager.h">
+      <Filter>Source\01. Manager\Message</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Entity.cpp">
@@ -331,6 +337,9 @@
     </ClCompile>
     <ClCompile Include="ScriptComponent.cpp">
       <Filter>Source\03. Component\00. Component</Filter>
+    </ClCompile>
+    <ClCompile Include="MessageManager.cpp">
+      <Filter>Source\01. Manager\Message</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

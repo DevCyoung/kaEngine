@@ -3,7 +3,9 @@
 #include "Components.h"
 #include <Engine/InputManager.h>
 #include <Engine/TimeManager.h>
-
+#include <Engine/ConstantBuffer.h>
+#include <Engine/CBCollection.h>
+#include <Engine/MessageManager.h>
 CameraInputMove::CameraInputMove()
     : ScriptComponent(eScriptComponentType::CameraInputMove)
 {
@@ -22,17 +24,17 @@ void CameraInputMove::update()
     Transform* const transform = GetOwner()->GetComponent<Transform>();
     Vector3 pos = transform->GetPosition();
     Vector3 dir = Vector3::Zero;
-
+        
     const float cameraSpeed = 10.f;
 
-    if(gInput->GetKey(eKeyCode::W))
-    {
-        dir.y += 1.f;
-    }
-    if (gInput->GetKey(eKeyCode::S))
-    {
-        dir.y += -1.f;
-    }
+    //if(gInput->GetKey(eKeyCode::W))
+    //{
+    //    dir.y += 1.f;
+    //}
+    //if (gInput->GetKey(eKeyCode::S))
+    //{
+    //    dir.y += -1.f;
+    //}
     if (gInput->GetKey(eKeyCode::A))
     {
         dir.x -= 1.f;
@@ -45,8 +47,11 @@ void CameraInputMove::update()
     dir.Normalize();    
     dir *= cameraSpeed * gDeltaTime;
     pos += dir;
-
     transform->SetPosition(pos);
+
+    wchar_t buffer[256] = { 0, };
+    swprintf_s(buffer, 256, L"<Camera Position : %.2f, %.2f, %.2f>", pos.x, pos.y, pos.z);
+    MessageManager::GetInstance()->AddMessage(buffer);
 }
 
 void CameraInputMove::lateUpdate()

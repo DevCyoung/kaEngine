@@ -16,6 +16,7 @@ MeshRenderer::MeshRenderer()
 	: Component(eComponentType::MeshRenderer)
 	, mMesh(nullptr)
 	, mMaterial(nullptr)
+	, mRenderTarget(nullptr)
 {
 }
 
@@ -47,8 +48,6 @@ void MeshRenderer::render()
 	tTransformMatrix.mWorld = GetOwner()->GetComponent<Transform>()->GetWorldMatrix();
 	tTransformMatrix.mView = mainCamera->GetView();
 	tTransformMatrix.mProj = mainCamera->GetProjection();
-
-	
 	
 	gGraphicDevice->PassCB(eCBType::Transform, sizeof(tTransformMatrix), &tTransformMatrix);
 	gGraphicDevice->BindCB(eCBType::Transform, eShaderBindType::VS);

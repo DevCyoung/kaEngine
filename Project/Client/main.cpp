@@ -59,8 +59,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_CLIENT));
 	MSG msg;
 
-	constexpr UINT SCREEN_WIDTH  = 500;
-	constexpr UINT SCREEN_HEIGHT = 500;
+	constexpr UINT SCREEN_WIDTH  = 1600;
+	constexpr UINT SCREEN_HEIGHT = 900;
 	
 	Engine::initialize(gHwnd, SCREEN_WIDTH, SCREEN_HEIGHT);
 	Content::initialize();

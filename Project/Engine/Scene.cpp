@@ -13,6 +13,7 @@ Scene::~Scene()
 
 void Scene::AddGameObject(GameObject* const obj, const eLayerType type)
 {
+	Assert(obj, WCHAR_IS_NULLPTR);
 	mLayers[static_cast<int>(type)].AddGameObject(obj);
 }
 

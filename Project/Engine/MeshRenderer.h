@@ -3,6 +3,7 @@
 
 class Mesh;
 class Material;
+class Texture;
 
 class MeshRenderer : public Component
 {
@@ -28,6 +29,7 @@ private:
 private:
 	Mesh* mMesh;
 	Material* mMaterial;
+	Texture* mRenderTarget;
 };
 
 REGISTER_COMPONENT_TYPE(MeshRenderer);

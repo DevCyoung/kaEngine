@@ -22,7 +22,7 @@ public:
 	GameObject& operator=(const GameObject&) = delete;
 
 public:
-
+		
 	//FIXME! 이벤트방식으로 변경해야함
 	template<typename T>
 		requires std::is_base_of_v<Component, T>
