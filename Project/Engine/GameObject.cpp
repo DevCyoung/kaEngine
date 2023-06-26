@@ -1,5 +1,7 @@
 #include "pch.h"
 #include "GameObject.h"
+#include "Transform.h"
+#include "ScriptComponent.h"
 
 GameObject::GameObject()
 	: mState(eState::Active)

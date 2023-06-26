@@ -1,8 +1,12 @@
 #pragma once
 #include "Entity.h"
-#include "Component.h"
-#include "Transform.h"
-#include "ScriptComponent.h"
+#include "ComponentTrait.h"
+#include "ScriptComponentTrait.h"
+#include "EnumComponent.h"
+
+class Component;
+class ScriptComponent;
+enum class eScriptComponentType;
 
 class GameObject : public Entity
 {
@@ -23,8 +27,7 @@ public:
 public:
 
 	//FIXME! 이벤트방식으로 변경해야함
-	template<typename T>
-		requires std::is_base_of_v<Component, T>
+	template<typename T>		
 	void AddComponent(T* const component)
 	{
 		static_assert(engine_component_type<T>::value || script_component_type<T>::value);
@@ -53,51 +56,21 @@ public:
 		component->mOwner = this;
 	}
 
-	//특수화
+	//특수화<>
 	template<>
 	void AddComponent(ScriptComponent* const component)
 	{
-		Assert(component, WCHAR_IS_NULLPTR);
-		Assert(!(component->mOwner), WCHAR_IS_NOT_NULLPTR);
 
-		for (const ScriptComponent* const curScript : mUserComponents)
-		{
-			if (curScript->GetScriptType() == component->GetScriptType())
-			{
-				//이미존재한다면
-				Assert(false, "already Exist Script");
-				break;
-			}
-		}
-
-		mUserComponents.push_back(component);
-
-		component->mOwner = this;
 	}
 
-	//특수화
+	//특수화	
 	template<>
 	void AddComponent(Component* const component)
 	{
-		Assert(component, WCHAR_IS_NULLPTR);
-		Assert(!(component->mOwner), WCHAR_IS_NOT_NULLPTR);
 
-		if (component->GetType() != eComponentType::ScriptComponent)
-		{
-			Assert(!mEngineComponents[static_cast<UINT>(component->GetType())], WCHAR_IS_NOT_NULLPTR);
-			mEngineComponents[static_cast<UINT>(component->GetType())] = component;
-		}
-		else
-		{
-			ScriptComponent* const scriptComponent = dynamic_cast<ScriptComponent*>(component);
-			AddComponent(scriptComponent);
-		}
-
-		component->mOwner = this;
 	}
 
-	template<typename T>
-		requires std::is_base_of_v<Component, T>
+	template<typename T>		
 	void AddComponent()
 	{
 		static_assert(engine_component_type<T>::value || script_component_type<T>::value);
@@ -108,8 +81,7 @@ public:
 		AddComponent(component);
 	}
 
-	template<typename T>
-		requires std::is_base_of_v<Component, T>
+	template<typename T>		
 	T* GetComponentOrNull() const
 	{
 		static_assert(engine_component_type<T>::value || script_component_type<T>::value);
@@ -134,8 +106,7 @@ public:
 		return component;
 	}
 
-	template<typename T>
-		requires std::is_base_of_v<Component, T>
+	template<typename T>		
 	T* GetComponent() const
 	{
 		static_assert(engine_component_type<T>::value || script_component_type<T>::value);
