@@ -11,7 +11,7 @@ public:
 	ScriptComponent(const ScriptComponent&) = delete;
 	ScriptComponent& operator=(const ScriptComponent&) = delete;
 
-	eScriptComponentType GetScriptType() const { return mScriptType; }
+	eScriptComponentType GetScriptType() const { return mScriptType; }	
 
 private:
 	virtual void initialize() override;

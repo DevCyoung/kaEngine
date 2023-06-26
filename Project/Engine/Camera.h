@@ -1,6 +1,7 @@
 #pragma once
 #include "Component.h"
 
+REGISTER_COMPONENT_TYPE(Camera);
 
 class Camera : public Component
 {
@@ -51,4 +52,3 @@ private:
 	eProjectionType mProjectionType;
 };
 
-REGISTER_COMPONENT_TYPE(Camera);

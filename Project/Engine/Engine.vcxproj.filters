@@ -246,6 +246,9 @@
     <ClInclude Include="DefineMacro.h">
       <Filter>Windows</Filter>
     </ClInclude>
+    <ClInclude Include="Tanning.h">
+      <Filter>Source\03. Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Entity.cpp">
@@ -340,6 +343,9 @@
     </ClCompile>
     <ClCompile Include="MessageManager.cpp">
       <Filter>Source\01. Manager\Message</Filter>
+    </ClCompile>
+    <ClCompile Include="Tanning.cpp">
+      <Filter>Source\03. Component</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

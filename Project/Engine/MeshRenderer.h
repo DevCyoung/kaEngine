@@ -1,6 +1,8 @@
 #pragma once
 #include "Component.h"
 
+REGISTER_COMPONENT_TYPE(MeshRenderer);
+
 class Mesh;
 class Material;
 class Texture;
@@ -30,5 +32,3 @@ private:
 	Material* mMaterial;
 	Texture* mRenderTarget;
 };
-
-REGISTER_COMPONENT_TYPE(MeshRenderer);

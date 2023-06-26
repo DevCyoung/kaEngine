@@ -10,7 +10,7 @@
 #include "Components.h"
 
 #include "CameraInputMove.h"
-
+#include <Engine/Tanning.h>
 Content::Content()
 {
 	resourceInitialize();
@@ -85,7 +85,7 @@ void Content::loadTexture()
 {	
 	for (UINT i = 0; i < static_cast<UINT>(eResTexture::End); ++i)
 	{
-		gResourceManager->LoadByEnum<Texture>(static_cast<eResTexture>(i));
+		gResourceManager->LoadByEnum<Texture>(static_cast<eResTexture>(i));		
 	}
 }
 
@@ -198,7 +198,7 @@ void Content::testSceneInitialize()
 		obj->GetComponent<Transform>()
 			->SetScale(textureWidth * 0.018f, textureHeigth * 0.018f, 1.f);
 
-		testScene->AddGameObject(obj, eLayerType::Player);
+		testScene->AddGameObject(obj, eLayerType::Player);		
 	}
 
 	{

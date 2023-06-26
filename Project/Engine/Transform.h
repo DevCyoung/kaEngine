@@ -1,6 +1,8 @@
 #pragma once
 #include "Component.h"
 
+REGISTER_COMPONENT_TYPE(Transform);
+
 class Transform : public Component
 {
 public:
@@ -46,5 +48,3 @@ private:
 	Vector3 mUp;
 	Matrix mWorld;
 };
-
-REGISTER_COMPONENT_TYPE(Transform);
