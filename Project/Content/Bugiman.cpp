@@ -19,9 +19,7 @@ void Bugiman::initialize()
 
 void Bugiman::update()
 {
-    Vector4 color = GetOwner()->GetComponent<MeshRenderer>()->GetTestColor();
-    
-    
+    Vector4 color = GetComponent<MeshRenderer>()->GetTestColor();    
     
     if (gInput->GetKey(eKeyCode::N))
     {
@@ -32,7 +30,7 @@ void Bugiman::update()
         color.w -= gDeltaTime * 0.9f;
     }
     
-    GetOwner()->GetComponent<MeshRenderer>()->SetTestColor(color);
+    GetComponent<MeshRenderer>()->SetTestColor(color);
 }
 
 void Bugiman::lateUpdate()

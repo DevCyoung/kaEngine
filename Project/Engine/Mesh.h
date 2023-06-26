@@ -3,9 +3,6 @@
 #include <d3d11.h>
 #include "Resource.h"
 
-
-
-
 class Mesh : public Resource
 {
 	friend class GraphicDeviceDX11;

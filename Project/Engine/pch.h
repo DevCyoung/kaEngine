@@ -16,5 +16,3 @@
 //using namespace engine::math;
 
 #endif //PCH_H
-
-//<html><body>

@@ -48,6 +48,7 @@ void Scene::render()
 		layer.render();
 	}
 }
+
 HRESULT Scene::Load(const std::wstring& path)
 {
 	(void)path;

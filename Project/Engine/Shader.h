@@ -2,18 +2,16 @@
 #include <d3d11.h>
 #include <d3dcompiler.h>
 #include "Resource.h"
-
 #include "DSCollection.h"
 #include "RSCollection.h"
 #include "BSCollection.h"
+
+enum class eResShader;
 
 enum class eShaderBindType
 {
 	VS, HS, DS, GS, PS, CS, End
 };
-
-enum class eResShader;
-
 
 class	Shader : public Resource
 {
@@ -33,7 +31,6 @@ public:
 		const std::wstring psFunName,
 		const eRSType RSType, const eDSType DSType, const eBSType BSType);
 
-
 	virtual ~Shader();
 	Shader(const Shader&) = delete;
 	Shader& operator=(const Shader&) = delete;
@@ -50,7 +47,6 @@ public:
 	eRSType GetRSType() const  { return mRSType;  };
 	eDSType GetDSType() const  { return mDSType;  };
 	eBSType GetBSType() const  { return mBSType;  };
-
 
 private:
 	void createShader(const eShaderBindType sType,

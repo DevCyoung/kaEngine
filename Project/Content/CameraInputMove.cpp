@@ -6,6 +6,7 @@
 #include <Engine/ConstantBuffer.h>
 #include <Engine/CBCollection.h>
 #include <Engine/MessageManager.h>
+#include "Bugiman.h"
 
 CameraInputMove::CameraInputMove()
     : ScriptComponent(eScriptComponentType::CameraInputMove)
@@ -22,10 +23,11 @@ void CameraInputMove::initialize()
 
 void CameraInputMove::update()
 {
-    Transform* const transform = GetOwner()->GetComponent<Transform>();
+    Transform* const transform = GetComponent<Transform>();
     Vector3 pos = transform->GetPosition();
     Vector3 dir = Vector3::Zero;
-        
+
+
     constexpr float cameraSpeed = 10.f;
 
     if(gInput->GetKey(eKeyCode::W))

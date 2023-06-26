@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "GameObject.h"
 #include "Transform.h"
 #include "ScriptComponent.h"
@@ -7,7 +7,7 @@ GameObject::GameObject()
 	: mState(eState::Active)
 	, mEngineComponents{ 0, }
 {
-	//¸ðµç ¿ÀºêÁ§Æ®´Â ¹Ýµå½Ã Transform À» °¡Áö°íÀÖ´Â´Ù.
+	//ëª¨ë“  ì˜¤ë¸Œì íŠ¸ëŠ” ë°˜ë“œì‹œ Transform ì„ ê°€ì§€ê³ ìžˆëŠ”ë‹¤.
 	AddComponent(new Transform);
 }
 
@@ -15,6 +15,43 @@ GameObject::~GameObject()
 {
 	memory::safe::DeleteVec(mUserComponents);
 	memory::unsafe::DeleteArray(mEngineComponents);
+}
+
+void GameObject::AddComponent(ScriptComponent* const component)
+{
+	Assert(component, WCHAR_IS_NULLPTR);
+	Assert(!(component->mOwner), WCHAR_IS_NOT_NULLPTR);
+
+	for (const ScriptComponent* const curScript : mUserComponents)
+	{
+		if (curScript->GetScriptType() == component->GetScriptType())
+		{
+			Assert(false, "already Exist Script");
+			break;
+		}
+	}
+
+	mUserComponents.push_back(component);
+	component->mOwner = this;
+}
+
+void GameObject::AddComponent(Component* const component)
+{
+	Assert(component, WCHAR_IS_NULLPTR);
+	Assert(!(component->mOwner), WCHAR_IS_NOT_NULLPTR);
+
+	if (component->GetType() != eComponentType::ScriptComponent)
+	{
+		Assert(!mEngineComponents[static_cast<UINT>(component->GetType())], WCHAR_IS_NOT_NULLPTR);
+		mEngineComponents[static_cast<UINT>(component->GetType())] = component;
+	}
+	else
+	{
+		ScriptComponent* const scriptComponent = dynamic_cast<ScriptComponent*>(component);
+		AddComponent(scriptComponent);
+	}
+
+	component->mOwner = this;
 }
 
 Component* GameObject::GetComponentOrNull(eComponentType type) const
@@ -55,11 +92,13 @@ ScriptComponent* GameObject::GetComponent(eScriptComponentType type) const
 
 void GameObject::RemoveComponent(eComponentType type)
 {
+	Assert(false, WCHAR_IS_INVALID_TYPE);
 	SAFE_DELETE_POINTER(mEngineComponents[static_cast<UINT>(type)]);
 }
 
 void GameObject::RemoveComponent(eScriptComponentType type)
 {
+	Assert(false, WCHAR_IS_INVALID_TYPE);
 	std::vector<ScriptComponent*>::iterator iter = mUserComponents.begin();
 
 	for (; iter != mUserComponents.end(); ++iter)

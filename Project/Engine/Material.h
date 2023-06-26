@@ -1,14 +1,12 @@
 #pragma once
 #include "Resource.h"
 
-
 class Shader;
 class Texture;
 
 class Material : public Resource
 {
 	friend class MeshRenderer;
-	friend class ResourceManager;
 	friend class GraphicDeviceDX11;
 
 public:

@@ -145,5 +145,8 @@
     <None Include="dpend.diff">
       <Filter>Windows</Filter>
     </None>
+    <None Include="StructBuffer.fxh">
+      <Filter>ShaderCode\Header</Filter>
+    </None>
   </ItemGroup>
 </Project>

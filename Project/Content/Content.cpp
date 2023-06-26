@@ -26,7 +26,7 @@ Content::~Content()
 
 
 void Content::loadMesh()
-{	
+{
 	{
 		//RectMesh
 		const UINT VERTEX_COUNT = 4;
@@ -34,22 +34,22 @@ void Content::loadMesh()
 		//0---1
 		//|   |
 		//3---2
-		vertexs[0].pos		= Vector3(-0.5f, 0.5f, 0.0f);
-		vertexs[0].color	= Vector4(1.0f, 0.0f, 0.0f, 1.0f);
-		vertexs[0].uv		= Vector2(0.0f, 0.0f);
+		vertexs[0].pos = Vector3(-0.5f, 0.5f, 0.0f);
+		vertexs[0].color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
+		vertexs[0].uv = Vector2(0.0f, 0.0f);
 
-		vertexs[1].pos		= Vector3(0.5f, 0.5f, 0.0f);
-		vertexs[1].color	= Vector4(1.0f, 0.0f, 0.0f, 1.0f);
-		vertexs[1].uv		= Vector2(1.0f, 0.0f);
+		vertexs[1].pos = Vector3(0.5f, 0.5f, 0.0f);
+		vertexs[1].color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
+		vertexs[1].uv = Vector2(1.0f, 0.0f);
 
-		vertexs[2].pos		= Vector3(+0.5f, -0.5f, 0.0f);
-		vertexs[2].color	= Vector4(0.0f, 0.0f, 1.0f, 1.0f);
-		vertexs[2].uv		= Vector2(1.0f, 1.0f);
+		vertexs[2].pos = Vector3(+0.5f, -0.5f, 0.0f);
+		vertexs[2].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
+		vertexs[2].uv = Vector2(1.0f, 1.0f);
 
-		vertexs[3].pos		= Vector3(-0.5f, -0.5f, 0.0f);
-		vertexs[3].color	= Vector4(1.0f, 0.0f, 0.0f, 1.0f);
-		vertexs[3].uv		= Vector2(0.0f, 1.0f);
-		
+		vertexs[3].pos = Vector3(-0.5f, -0.5f, 0.0f);
+		vertexs[3].color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
+		vertexs[3].uv = Vector2(0.0f, 1.0f);
+
 		std::vector<UINT> indexes;
 		indexes.reserve(10);
 
@@ -60,7 +60,7 @@ void Content::loadMesh()
 		indexes.push_back(0);
 		indexes.push_back(2);
 		indexes.push_back(3);
-		
+
 		gResourceManager->Insert<Mesh>(L"Rect",
 			new Mesh(vertexs, VERTEX_COUNT, sizeof(tVertex),
 				indexes.data(), indexes.size(), sizeof(UINT)));
@@ -76,7 +76,7 @@ void Content::loadShader()
 				eResShader::PixelShader, L"main",
 				eRSType::SolidBack,
 				eDSType::Less,
-				eBSType::Default);
+				eBSType::AlphaBlend);
 		gResourceManager->Insert<Shader>(L"Default", defaultShader);
 	}
 
@@ -92,10 +92,10 @@ void Content::loadShader()
 }
 
 void Content::loadTexture()
-{	
+{
 	for (UINT i = 0; i < static_cast<UINT>(eResTexture::End); ++i)
 	{
-		gResourceManager->LoadByEnum<Texture>(static_cast<eResTexture>(i));		
+		gResourceManager->LoadByEnum<Texture>(static_cast<eResTexture>(i));
 	}
 }
 
@@ -127,7 +127,7 @@ void Content::loadMaterial()
 		material->SetShader(gResourceManager
 			->FindOrNullByRelativePath<Shader>(L"Default"));
 		material->SetTexture(gResourceManager
-			->FindOrNullByEnum<Texture>(eResTexture::bg_bar_0));		
+			->FindOrNullByEnum<Texture>(eResTexture::bg_bar_0));
 
 		gResourceManager->Insert<Material>(L"BackGround01", material);
 	}
@@ -175,7 +175,7 @@ void Content::loadMaterial()
 }
 
 void Content::resourceInitialize()
-{	
+{
 	loadMesh();
 	loadTexture();
 	loadShader();
@@ -185,6 +185,36 @@ void Content::resourceInitialize()
 void Content::testSceneInitialize()
 {
 	Scene* testScene = new Scene();
+
+	{
+		//test
+		GameObject* const obj = new GameObject();
+		obj->AddComponent<MeshRenderer>();
+		obj->AddComponent<Bugiman>();
+
+		//obj->AddComponent(new ScriptComponent(eScriptComponentType::Bugiman));
+
+		obj->GetComponent<MeshRenderer>()
+			->SetMesh(gResourceManager
+				->FindOrNullByRelativePath<Mesh>(L"Rect"));
+
+		obj->GetComponent<MeshRenderer>()
+			->SetMaterial(gResourceManager
+				->FindOrNullByRelativePath<Material>(L"BackGround01"));
+
+		obj->GetComponent<Transform>()
+			->SetPosition(0.f, 0.f, 0.f);
+
+		Texture* const texture = obj->GetComponent<MeshRenderer>()->GetMaterial()->GetTexture();
+		const float textureWidth = texture->GetWidth();
+		const float textureHeigth = texture->GetHeight();
+
+		obj->GetComponent<Transform>()
+			->SetScale(textureWidth * 0.018f, textureHeigth * 0.018f, 1.f);
+
+		testScene->AddGameObject(obj, eLayerType::Player);
+	}
+
 	{
 		//test
 		GameObject* const obj = new GameObject();
@@ -197,11 +227,11 @@ void Content::testSceneInitialize()
 
 		obj->GetComponent<MeshRenderer>()
 			->SetMaterial(gResourceManager
-				->FindOrNullByRelativePath<Material>(L"BackGround01"));				
+				->FindOrNullByRelativePath<Material>(L"BackGround01"));
 
 		obj->GetComponent<Transform>()
 			->SetPosition(0.f, 0.f, 0.f);
-		
+
 		Texture* const texture = obj->GetComponent<MeshRenderer>()->GetMaterial()->GetTexture();
 		const float textureWidth = texture->GetWidth();
 		const float textureHeigth = texture->GetHeight();
@@ -209,7 +239,7 @@ void Content::testSceneInitialize()
 		obj->GetComponent<Transform>()
 			->SetScale(textureWidth * 0.018f, textureHeigth * 0.018f, 1.f);
 
-		testScene->AddGameObject(obj, eLayerType::Player);		
+		testScene->AddGameObject(obj, eLayerType::Player);
 	}
 
 	{
@@ -306,14 +336,14 @@ void Content::testSceneInitialize()
 		testScene->AddGameObject(obj, eLayerType::Player);
 	}
 
-	{				
+	{
 		GameObject* const mainCameraObj = new GameObject();
 		mainCameraObj->AddComponent<Camera>();
 		mainCameraObj->AddComponent<CameraInputMove>();
 
 		Camera::SetMainCamera(mainCameraObj->GetComponent<Camera>());
-		mainCameraObj->GetComponent<Transform>()->SetPosition(0.f, 0.f, -10.f);		
-		
+		mainCameraObj->GetComponent<Transform>()->SetPosition(0.f, 0.f, -10.f);
+
 		//FIXME 카메라가 씬에없는데도 가져올수있게됨 고쳐야함!
 		testScene->AddGameObject(mainCameraObj, eLayerType::Player);
 	}

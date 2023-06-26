@@ -3,7 +3,6 @@
 #include "Engine.h"
 #include "GraphicDeviceDx11.h"
 
-
 Mesh::Mesh(
 	const void* const vertexData,
 	const size_t vertexCount,
@@ -35,7 +34,6 @@ Mesh::Mesh(
 		}
 	}
 
-
 	{
 		//Create Index Buffer
 		mIdexDesc.BindFlags = D3D11_BIND_FLAG::D3D11_BIND_INDEX_BUFFER;
@@ -49,8 +47,6 @@ Mesh::Mesh(
 			Assert(false, L"failed to create index buffer");
 		}
 	}
-
-
 }
 
 Mesh::~Mesh()

@@ -17,7 +17,8 @@ Shader::Shader(const eResShader vsFileName,
 	const eDSType DSType,
 	const eBSType BSType)
 	: Shader(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST,
-		vsFileName, vsFunName, psFileName, psFunName,
+		vsFileName, vsFunName, 
+		psFileName, psFunName,
 		RSType, DSType, BSType)
 {
 }
@@ -46,7 +47,6 @@ Shader::Shader(const D3D11_PRIMITIVE_TOPOLOGY topology,
 	Assert(eDSType::End != DSType, WCHAR_IS_INVALID_TYPE);
 	Assert(eBSType::End != BSType, WCHAR_IS_INVALID_TYPE);
 
-
 	createVSShader(vsFileName, vsFunName);
 	createPSShader(psFileName, psFunName);
 }
@@ -64,9 +64,8 @@ void Shader::createShader(const eShaderBindType sType,
 	Microsoft::WRL::ComPtr<ID3DBlob> psBlob;
 	Microsoft::WRL::ComPtr<ID3DBlob> errBlob;
 
-	const std::string strFunName(String::WStrToStr(funName));
-	const std::string strVersion(String::WStrToStr(version));
-
+	const std::string strFunName(helper::String::WStrToStr(funName));
+	const std::string strVersion(helper::String::WStrToStr(version));
 
 	std::wstring shaderPath = PathManager::GetInstance()->GetResourcePath();
 	shaderPath += EnumResourcePath(fileName);
@@ -125,7 +124,6 @@ void Shader::createShader(const eShaderBindType sType,
 				return;
 			}
 		}
-
 		break;
 	case eShaderBindType::HS:
 		break;

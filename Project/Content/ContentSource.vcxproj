@@ -301,6 +301,7 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
       <FileType>Document</FileType>
     </None>
     <None Include="dpend.diff" />
+    <None Include="StructBuffer.fxh" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Output\bin\Resources\Shader\Header\TestShaderHeader.fxh" />
