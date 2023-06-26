@@ -48,6 +48,8 @@ void MeshRenderer::render()
 	tTransformMatrix.mView = mainCamera->GetView();
 	tTransformMatrix.mProj = mainCamera->GetProjection();
 
+	
+	
 	gGraphicDevice->PassCB(eCBType::Transform, sizeof(tTransformMatrix), &tTransformMatrix);
 	gGraphicDevice->BindCB(eCBType::Transform, eShaderBindType::VS);
 	gGraphicDevice->BindIA(mMaterial->mShader);

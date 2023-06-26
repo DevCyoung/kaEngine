@@ -65,10 +65,19 @@ GraphicDeviceDX11::GraphicDeviceDX11(const HWND hWnd, const UINT screenWidth, co
 	const BOOL B_MENU = GetMenu(hWnd) != nullptr;
 
 	AdjustWindowRect(&windowSize, WS_OVERLAPPEDWINDOW, B_MENU);
+
+	const int adjustWidth  = static_cast<int>(windowSize.right - windowSize.left);
+	const int adjustHeight = static_cast<int>(windowSize.bottom - windowSize.top);
+
+	//위치정렬
+	const int monitorPosX = GetSystemMetrics(SM_CXSCREEN) / 2 - static_cast<int>(adjustWidth) / 2;
+	const int monitorPosY = GetSystemMetrics(SM_CYSCREEN) / 2 - static_cast<int>(adjustHeight) / 2;
+
 	SetWindowPos(hWnd,
-		nullptr, 0, 0,
-		windowSize.right - windowSize.left,
-		windowSize.bottom - windowSize.top, 0);
+		nullptr, 
+		monitorPosX, monitorPosY,
+		adjustWidth,
+		adjustHeight, 0);
 
 	ShowWindow(hWnd, true);
 	UpdateWindow(hWnd);

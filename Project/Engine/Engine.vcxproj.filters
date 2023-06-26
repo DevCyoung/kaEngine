@@ -115,6 +115,9 @@
     <Filter Include="Source\03. Component\02. MeshRenderer\02. Camera">
       <UniqueIdentifier>{e14f60d0-e934-4672-9f50-d542fcfce5dc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\06. Resource\07. Sound">
+      <UniqueIdentifier>{df9269fc-6aed-4f3e-9089-f4a2e4b7231b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Entity.h">

@@ -1,7 +1,6 @@
 ﻿#include "pch.h"
 #include "EnumResourceTypeShader.h"
 
-
 const wchar_t* eResShaderPath[static_cast<UINT>(eResShader::End)]
 {
 	L"\\Shader\\Header\\ConstantBuffer.fxh",
@@ -17,3 +16,4 @@ const wchar_t* EnumResourcePath(eResShader type)
 {
 	return eResShaderPath[static_cast<UINT>(type)];
 }
+

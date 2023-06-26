@@ -133,7 +133,7 @@
     </Link>
     <PreBuildEvent>
       <Command>cd $(SolutionDir)Project\Content\Helper\Resource\Release\net6.0
-call ResourceHelper.exe $(SolutionDir)Output\bin\Resources $(SolutionDir)Project\Content NO
+call ResourceHelper.exe $(SolutionDir)Output\bin\Resources $(SolutionDir)Project\Content
 cd $(SolutionDir)Project\Content\Helper\ScriptGen\Release\net6.0
 call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)Project\Content\EnumScriptComponent.h $(SolutionDir)Project\Content\EnumScriptComponent.cpp TRUE</Command>
     </PreBuildEvent>
@@ -164,7 +164,7 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
     </Link>
     <PreBuildEvent>
       <Command>cd $(SolutionDir)Project\Content\Helper\Resource\Release\net6.0
-call ResourceHelper.exe $(SolutionDir)Output\bin\Resources $(SolutionDir)Project\Content NO
+call ResourceHelper.exe $(SolutionDir)Output\bin\Resources $(SolutionDir)Project\Content
 cd $(SolutionDir)Project\Content\Helper\ScriptGen\Release\net6.0
 call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)Project\Content\EnumScriptComponent.h $(SolutionDir)Project\Content\EnumScriptComponent.cpp FALSE</Command>
     </PreBuildEvent>
@@ -182,6 +182,10 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
       </SubType>
     </ClInclude>
     <ClInclude Include="C.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="CameraInputMove.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -218,6 +222,10 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
       </SubType>
     </ClCompile>
     <ClCompile Include="C.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="CameraInputMove.cpp">
       <SubType>
       </SubType>
     </ClCompile>

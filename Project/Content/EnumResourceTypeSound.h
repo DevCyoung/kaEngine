@@ -1,6 +1,5 @@
 ﻿#pragma once
 
-
 enum class eResSound
 {
 	Die,
@@ -8,3 +7,4 @@ enum class eResSound
 };
 
 const wchar_t* EnumResourcePath(eResSound type);
+

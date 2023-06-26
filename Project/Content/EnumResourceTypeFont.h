@@ -1,6 +1,5 @@
 ﻿#pragma once
 
-
 enum class eResFont
 {
 	dummy,
@@ -8,3 +7,4 @@ enum class eResFont
 };
 
 const wchar_t* EnumResourcePath(eResFont type);
+

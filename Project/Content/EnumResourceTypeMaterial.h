@@ -1,6 +1,5 @@
 ﻿#pragma once
 
-
 enum class eResMaterial
 {
 	dummy,
@@ -8,3 +7,4 @@ enum class eResMaterial
 };
 
 const wchar_t* EnumResourcePath(eResMaterial type);
+

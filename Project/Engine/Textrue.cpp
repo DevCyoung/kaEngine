@@ -10,9 +10,8 @@
 #endif
 
 
-Texture::Texture()
-	: mDesc{}
-	, mImage()
+Texture::Texture()	
+	: mImage()
 	, mTexture(nullptr)
 	, mSRV(nullptr)
 {
