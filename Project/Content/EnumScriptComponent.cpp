@@ -1,11 +1,13 @@
 ﻿#include "pch.h"
 #include "EnumScriptComponent.h"
 
+#include "BlaBLa.h"
 #include "Bugiman.h"
 #include "CameraInputMove.h"
 
 static constexpr const wchar_t* const ScriptComponentNames[static_cast<UINT>(eScriptComponentType::End)]
 {
+	L"BlaBLa",
 	L"Bugiman",
 	L"CameraInputMove",
 };
@@ -20,7 +22,9 @@ ScriptComponent* CreateScriptComponentByName(const std::wstring& scriptcomponent
 {
 	ScriptComponent* scriptcomponent = nullptr;
 
-	if (L"Bugiman" == scriptcomponentName)
+	if (L"BlaBLa" == scriptcomponentName)
+		scriptcomponent = new BlaBLa;
+	else if (L"Bugiman" == scriptcomponentName)
 		scriptcomponent = new Bugiman;
 	else if (L"CameraInputMove" == scriptcomponentName)
 		scriptcomponent = new CameraInputMove;
@@ -35,6 +39,9 @@ ScriptComponent* CreateScriptComponentByEnum(const eScriptComponentType type)
 
 	switch (type)
 	{
+	case eScriptComponentType::BlaBLa:
+		scriptcomponent = new BlaBLa;
+		break;
 	case eScriptComponentType::Bugiman:
 		scriptcomponent = new Bugiman;
 		break;

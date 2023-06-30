@@ -4,8 +4,10 @@
 #include "ScriptComponent.h"
 
 GameObject::GameObject()
-	: mState(eState::Active)
+	: mCurLayer(0)
+	, mState(eState::Active)
 	, mEngineComponents{ 0, }
+	, mUserComponents()
 {
 	//모든 오브젝트는 반드시 Transform 을 가지고있는다.
 	AddComponent(new Transform);
@@ -54,20 +56,12 @@ void GameObject::AddComponent(Component* const component)
 	component->mOwner = this;
 }
 
-Component* GameObject::GetComponentOrNull(eComponentType type) const
+Component* GameObject::GetComponentOrNull(const eComponentType type) const
 {
 	return mEngineComponents[static_cast<UINT>(type)];
 }
 
-Component* GameObject::GetComponent(eComponentType type) const
-{
-	Component* const component = GetComponentOrNull(type);
-	Assert(component, WCHAR_IS_NULLPTR);
-
-	return component;
-}
-
-ScriptComponent* GameObject::GetComponentOrNull(eScriptComponentType type) const
+ScriptComponent* GameObject::GetComponentOrNull(const eScriptComponentType type) const
 {
 	ScriptComponent* component = nullptr;
 
@@ -79,14 +73,6 @@ ScriptComponent* GameObject::GetComponentOrNull(eScriptComponentType type) const
 			break;
 		}
 	}
-	return component;
-}
-
-ScriptComponent* GameObject::GetComponent(eScriptComponentType type) const
-{
-	ScriptComponent* component = GetComponentOrNull(type);
-	Assert(component, WCHAR_IS_NULLPTR);
-
 	return component;
 }
 

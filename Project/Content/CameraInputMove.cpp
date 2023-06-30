@@ -10,7 +10,7 @@
 
 CameraInputMove::CameraInputMove()
     : ScriptComponent(eScriptComponentType::CameraInputMove)
-{
+{        
 }
 
 CameraInputMove::~CameraInputMove()
@@ -25,8 +25,7 @@ void CameraInputMove::update()
 {
     Transform* const transform = GetComponent<Transform>();
     Vector3 pos = transform->GetPosition();
-    Vector3 dir = Vector3::Zero;
-
+    Vector3 dir = Vector3::Zero;    
 
     constexpr float cameraSpeed = 10.f;
 

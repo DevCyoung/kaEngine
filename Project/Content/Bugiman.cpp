@@ -29,7 +29,7 @@ void Bugiman::update()
     {
         color.w -= gDeltaTime * 0.9f;
     }
-    
+
     GetComponent<MeshRenderer>()->SetTestColor(color);
 }
 

@@ -43,10 +43,10 @@ void MeshRenderer::render()
 	Assert(mMaterial, WCHAR_IS_NULLPTR);
 
 	const Camera* const mainCamera = Camera::GetMainCamera();
-	tTransform tTransformMatrix = {};	
+	tTransform tTransformMatrix = {};
 	tTransformMatrix.mWorld = GetOwner()->GetComponent<Transform>()->GetWorldMatrix();
-	tTransformMatrix.mView  = mainCamera->GetView();
-	tTransformMatrix.mProj  = mainCamera->GetProjection();
+	tTransformMatrix.mView = mainCamera->GetView();
+	tTransformMatrix.mProj = mainCamera->GetProjection();
 	gGraphicDevice->PassCB(eCBType::Transform, sizeof(tTransformMatrix), &tTransformMatrix);
 	gGraphicDevice->BindCB(eCBType::Transform, eShaderBindType::VS);
 
@@ -62,7 +62,6 @@ void MeshRenderer::render()
 	gGraphicDevice->BindDS(mMaterial->mShader->GetDSType());
 	gGraphicDevice->BindRS(mMaterial->mShader->GetRSType());
 	gGraphicDevice->BindTexture(eShaderBindType::PS, 0, mMaterial->mTexture);
-
 	gGraphicDevice->BindMesh(mMesh);
 	gGraphicDevice->Draw(0, mMesh);
 }
