@@ -16,7 +16,6 @@ const wchar_t* eResTexturePath[static_cast<UINT>(eResTexture::End)]
 	L"\\Texture\\UI\\spr_itemicons_0.png",
 	L"\\Texture\\UI\\spr_katanaicons_0.png",
 	L"\\Texture\\UI\\spr_keyboard_shift_0.png",
-	L"\\Texture\\UI\\spr_keyboard_shift_1.png",
 	L"\\Texture\\UI\\spr_left_click_1.png",
 	L"\\Texture\\UI\\spr_right_click_1.png",
 	L"\\Texture\\UI\\spr_timer.png",

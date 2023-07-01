@@ -15,7 +15,6 @@ enum class eResTexture
 	UI_spr_itemicons_0,
 	UI_spr_katanaicons_0,
 	UI_spr_keyboard_shift_0,
-	UI_spr_keyboard_shift_1,
 	UI_spr_left_click_1,
 	UI_spr_right_click_1,
 	UI_spr_timer,
