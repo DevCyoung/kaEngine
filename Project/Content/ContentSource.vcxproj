@@ -173,23 +173,11 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="BlaBLa.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
     <ClInclude Include="Bugiman.h">
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="CameraInputMove.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
     <ClInclude Include="Content.h" />
-    <ClInclude Include="CursorMovement.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
     <ClInclude Include="EnumResourceTypeAnimation.h" />
     <ClInclude Include="EnumResourceTypeFont.h" />
     <ClInclude Include="EnumResourceTypeMaterial.h" />
@@ -205,23 +193,11 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
     <ClInclude Include="StructVertex.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="BlaBLa.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
     <ClCompile Include="Bugiman.cpp">
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="CameraInputMove.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
     <ClCompile Include="Content.cpp" />
-    <ClCompile Include="CursorMovement.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
     <ClCompile Include="EnumResourceTypeAnimation.cpp" />
     <ClCompile Include="EnumResourceTypeFont.cpp" />
     <ClCompile Include="EnumResourceTypeMaterial.cpp" />

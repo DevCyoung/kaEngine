@@ -69,18 +69,11 @@
     <ClInclude Include="ResourceManager.h">
       <Filter>Source\00. Content</Filter>
     </ClInclude>
-    <ClInclude Include="CameraInputMove.h">
-      <Filter>Source\01. Script</Filter>
-    </ClInclude>
-    <ClInclude Include="BlaBLa.h" />
     <ClInclude Include="Bugiman.h">
       <Filter>Source\01. Script</Filter>
     </ClInclude>
     <ClInclude Include="EnumScriptComponent.h">
       <Filter>Source\01. Script\Script</Filter>
-    </ClInclude>
-    <ClInclude Include="CursorMovement.h">
-      <Filter>Source\01. Script</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -117,18 +110,11 @@
     <ClCompile Include="StructVertex.cpp">
       <Filter>Source\Struct</Filter>
     </ClCompile>
-    <ClCompile Include="CameraInputMove.cpp">
-      <Filter>Source\01. Script</Filter>
-    </ClCompile>
-    <ClCompile Include="BlaBLa.cpp" />
     <ClCompile Include="Bugiman.cpp">
       <Filter>Source\01. Script</Filter>
     </ClCompile>
     <ClCompile Include="EnumScriptComponent.cpp">
       <Filter>Source\01. Script\Script</Filter>
-    </ClCompile>
-    <ClCompile Include="CursorMovement.cpp">
-      <Filter>Source\01. Script</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

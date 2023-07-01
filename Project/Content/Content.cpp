@@ -9,7 +9,6 @@
 
 #include "Components.h"
 
-#include "CameraInputMove.h"
 #include <Engine/Tanning.h>
 
 #include "Bugiman.h"
@@ -17,7 +16,6 @@
 #include <Engine/RenderManager.h>
 #include <Engine/Engine.h>
 
-#include "CursorMovement.h"
 
 Content::Content()
 {
@@ -243,6 +241,7 @@ void Content::loadUIMaterial()
 		gResourceManager->Insert<Material>(L"UIShift", material);
 	}
 
+
 	{
 		//Shift
 		Material* const material = new Material(eRenderType::Opqaue);
@@ -253,6 +252,7 @@ void Content::loadUIMaterial()
 
 		gResourceManager->Insert<Material>(L"UIBattery", material);
 	}
+
 
 
 	{
@@ -384,7 +384,7 @@ void Content::testSceneInitialize()
 
 		GameObject* const obj = new GameObject();
 		obj->AddComponent<MeshRenderer>();
-		obj->AddComponent<CursorMovement>();
+		
 
 
 		obj->GetComponent<MeshRenderer>()
@@ -729,7 +729,7 @@ void Content::testSceneInitialize()
 	{
 		GameObject* const mainCameraObj = new GameObject();
 		mainCameraObj->AddComponent<Camera>();
-		mainCameraObj->AddComponent<CameraInputMove>();
+		
 
 		mainCameraObj->GetComponent<Transform>()->SetPosition(0.f, 0.f, -10.f);
 
