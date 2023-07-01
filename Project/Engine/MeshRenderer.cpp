@@ -1,15 +1,16 @@
 #include "pch.h"
 #include "MeshRenderer.h"
-#include "Engine.h"
-#include "GraphicDeviceDx11.h"
-#include "CBCollection.h"
-#include "GameObject.h"
-#include "Transform.h"
+#include "Camera.h"
 #include "Material.h"
 #include "Textrue.h"
 #include "Shader.h"
+#include "CBCollection.h"
 #include "StructConstantBuffer.h"
-#include "Camera.h"
+#include "GameObject.h"
+#include "Engine.h"
+#include "GraphicDeviceDx11.h"
+#include "RenderManager.h"
+#include "Transform.h"
 
 MeshRenderer::MeshRenderer()
 	: Component(eComponentType::MeshRenderer)
@@ -29,32 +30,42 @@ void MeshRenderer::initialize()
 }
 
 void MeshRenderer::update()
-{
+{	
+	const eRenderType type = mMaterial->GetRenderType();
 
+	RenderManager::GetInstance()->RegisterRenderGameObject(type, GetOwner());
 }
 
 void MeshRenderer::lateUpdate()
-{
+{		
 }
 
 void MeshRenderer::render()
 {
 	Assert(mMesh, WCHAR_IS_NULLPTR);
 	Assert(mMaterial, WCHAR_IS_NULLPTR);
+	const Camera* const camera = RenderManager::GetInstance()->GetCurrentCalculateCamera();
 
-	const Camera* const mainCamera = Camera::GetMainCamera();
-	tTransform tTransformMatrix = {};	
-	tTransformMatrix.mWorld = GetOwner()->GetComponent<Transform>()->GetWorldMatrix();
-	tTransformMatrix.mView  = mainCamera->GetView();
-	tTransformMatrix.mProj  = mainCamera->GetProjection();
-	gGraphicDevice->PassCB(eCBType::Transform, sizeof(tTransformMatrix), &tTransformMatrix);
+	tCBTransform tTrans = {};
+	{
+		Vector3 scale(mMaterial->GetTexture()->GetWidth(), mMaterial->GetTexture()->GetHeight(), 1.f);
+		Matrix scaleMtrix = Matrix::CreateScale(scale);
+
+		tTrans.mWorld = scaleMtrix * GetComponent<Transform>()->GetWorldMatrix();
+		tTrans.mView = camera->GetView();
+		tTrans.mProj = camera->GetProjection();
+	}
+	gGraphicDevice->PassCB(eCBType::Transform, sizeof(tTrans), &tTrans);
 	gGraphicDevice->BindCB(eCBType::Transform, eShaderBindType::VS);
 
-	tColorInfo tColorInfo = {};
-	tColorInfo.mColor = mTestColor;
+	tCBColorInfo tColorInfo = {};
+	{
+		tColorInfo.mColor = mTestColor;
+	}	
 	gGraphicDevice->PassCB(eCBType::ColorInfo, sizeof(tColorInfo), &tColorInfo);
 	gGraphicDevice->BindCB(eCBType::ColorInfo, eShaderBindType::PS);
 
+	gGraphicDevice->BindMesh(mMesh);
 	gGraphicDevice->BindIA(mMaterial->mShader);
 	gGraphicDevice->BindPS(mMaterial->mShader);
 	gGraphicDevice->BindVS(mMaterial->mShader);
@@ -62,7 +73,5 @@ void MeshRenderer::render()
 	gGraphicDevice->BindDS(mMaterial->mShader->GetDSType());
 	gGraphicDevice->BindRS(mMaterial->mShader->GetRSType());
 	gGraphicDevice->BindTexture(eShaderBindType::PS, 0, mMaterial->mTexture);
-
-	gGraphicDevice->BindMesh(mMesh);
-	gGraphicDevice->Draw(0, mMesh);
+	gGraphicDevice->Draw(mMesh);
 }

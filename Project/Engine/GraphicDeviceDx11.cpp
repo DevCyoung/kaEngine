@@ -360,10 +360,11 @@ void GraphicDeviceDX11::BindRS(const eRSType type) const
 	mContext->RSSetState(mRasterizerStates->mRStates[static_cast<UINT>(type)].Get());
 }
 
-void GraphicDeviceDX11::Draw(const UINT StartVertexLocation, const Mesh* const mesh) const
+void GraphicDeviceDX11::Draw(const Mesh* const mesh) const
 {
 	Assert(mesh, WCHAR_IS_NULLPTR);
 	const UINT indexCount = mesh->GetIndexCount();
+	const UINT StartVertexLocation = 0;
 
 	mContext->DrawIndexed(indexCount, StartVertexLocation, 0);
 }

@@ -2,9 +2,10 @@
 #include "Material.h"
 
 
-Material::Material()
+Material::Material(const eRenderType type)
 	: mShader(nullptr)
 	, mTexture(nullptr)
+	, mRenderType(type)
 {
 }
 

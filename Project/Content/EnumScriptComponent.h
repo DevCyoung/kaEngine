@@ -5,8 +5,10 @@ class ScriptComponent;
 
 enum class eScriptComponentType 
 {
+	BlaBLa,
 	Bugiman,
 	CameraInputMove,
+	CursorMovement,
 	End
 };
 

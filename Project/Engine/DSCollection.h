@@ -4,10 +4,11 @@
 
 enum class eDSType
 {
-	Less,
-	Greater,
-	NoWrite,
-	None,
+	Less,	//test winer less, Write O
+	LessEqual, //test winer lessequal, Write O
+	Greater , //test winer Greater, Write O
+	NoWrite, //test winer less, Write X
+	None, //test X, write X 무조건 덧그림
 	End,
 };
 

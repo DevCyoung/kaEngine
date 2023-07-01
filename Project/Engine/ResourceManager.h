@@ -2,7 +2,7 @@
 #include "Singleton.h"
 #include "Resource.h"
 #include "PathManager.h"
-#include "EnumResourceType.h"
+#include "ResourceTypeTrait.h"
 
 class ResourceManager
 {
@@ -18,9 +18,41 @@ class ResourceManager
 
 public:
 	template<typename T>
-		requires std::is_base_of_v<Base, T>
-	T* FindOrNullByRelativePath(const Key& orName) //or Relative Path
-	{
+		requires (is_engine_resource<T>::value)
+	T* FindOrNullByRelativePath(const Key& orName); //or Relative Path
+	template<typename T>
+		requires (is_engine_resource<T>::value)
+	T* FindOrNullByEnum(engine_resource_type<T>::eResEnumType resName);
+
+	template<typename T>
+		requires (is_engine_resource<T>::value)
+	T* FindByRelativePath(const Key& orName);
+	template<typename T>
+		requires (is_engine_resource<T>::value)
+	T* FindByEnum(engine_resource_type<T>::eResEnumType resName);
+
+	template <typename T>
+		requires (is_engine_resource<T>::value)
+	void LoadByRelativePath(const Key& orName);
+	template <typename T>
+		requires (is_engine_resource<T>::value)
+	void LoadByEnum(engine_resource_type<T>::eResEnumType resType);
+
+	template<typename T>
+		requires (is_engine_resource<T>::value)
+	void Insert(const Key& key, T* const value);
+
+private:
+	HashMap mResources[static_cast<UINT>(eResourceType::End)];
+};
+#define gResourceManager ResourceManager::GetInstance()
+
+
+template<typename T>
+	requires (is_engine_resource<T>::value)
+inline T* ResourceManager::FindOrNullByRelativePath(const Key& orName)
+{
+	
 		T* res = nullptr;
 
 		constexpr eResourceType resType = engine_resource_type<T>::resourceType;
@@ -34,84 +66,79 @@ public:
 		}
 
 		return res;
-	}
+	
+}
 
-	template<typename T>
-		requires std::is_base_of_v<Base, T>
-	T* FindOrNullByEnum(engine_resource_type<T>::eResEnumType resName)
+template<typename T>
+	requires (is_engine_resource<T>::value)
+inline T* ResourceManager::FindOrNullByEnum(engine_resource_type<T>::eResEnumType resName)
+{
+	return FindOrNullByRelativePath<T>(EnumResourcePath(resName));
+}
+
+template<typename T>
+	requires (is_engine_resource<T>::value)
+inline void ResourceManager::LoadByRelativePath(const Key& orName)
+{
+	T* res = FindOrNullByRelativePath<T>(orName);
+	Assert(!res, WCHAR_IS_NOT_NULLPTR);
+
+	constexpr eResourceType type = engine_resource_type<T>::resourceType;
+	HashMap& resources = mResources[static_cast<UINT>(type)];
+
+	res = new T();
+
+	const std::wstring fullPath = PathManager::GetInstance()->GetResourcePath() + orName;
+	res->Load(fullPath);
+
+	res->mKey = orName;
+	res->mPath = orName;
+
+	resources.insert(std::make_pair(orName, res)); //key : relative Path
+}
+
+template<typename T>
+	requires (is_engine_resource<T>::value)
+inline void ResourceManager::LoadByEnum(engine_resource_type<T>::eResEnumType resType)
+{
+	LoadByRelativePath<T>(EnumResourcePath(resType));
+}
+
+template<typename T>
+	requires (is_engine_resource<T>::value)
+inline T* ResourceManager::FindByRelativePath(const Key& orName)
+{
+	T* res = FindOrNullByRelativePath<T>(orName);
+
+	if (nullptr == res)
 	{
-		return FindOrNullByRelativePath<T>(EnumResourcePath(resName));
+		LoadByRelativePath<T>(orName);
+		res = FindOrNullByRelativePath<T>(orName);
 	}
 
-	template <typename T>
-		requires std::is_base_of_v<Base, T>
-	void LoadByRelativePath(const Key& orName)
-	{
-		T* res = FindOrNullByRelativePath<T>(orName);
-		Assert(!res, WCHAR_IS_NOT_NULLPTR);
+	Assert(res, WCHAR_IS_NULLPTR);
+	return res;
+}
 
-		constexpr eResourceType type = engine_resource_type<T>::resourceType;
-		HashMap& resources = mResources[static_cast<UINT>(type)];
+template<typename T>	
+	requires (is_engine_resource<T>::value)
+inline T* ResourceManager::FindByEnum(engine_resource_type<T>::eResEnumType resName)
+{
+	return FindByRelativePath<T>(EnumResourcePath(resName));
+}
 
-		res = new T();
+template<typename T>
+	requires (is_engine_resource<T>::value)
+inline void ResourceManager::Insert(const Key& key, T* const value)
+{
+	Assert(value, WCHAR_IS_NULLPTR);
+	constexpr eResourceType type = engine_resource_type<T>::resourceType;
+	HashMap& resources = mResources[static_cast<UINT>(type)];
+	ConstIterator iter = resources.find(key);
 
-		const std::wstring fullPath = PathManager::GetInstance()->GetResourcePath() + orName;
-		res->Load(fullPath);
+	Assert(resources.end() == iter, L"already");
 
-		res->mKey = orName;
-		res->mPath = orName;
-
-		resources.insert(std::make_pair(orName, res)); //key : relative Path
-	}
-
-	template <typename T>
-		requires std::is_base_of_v<Base, T>
-	void LoadByEnum(engine_resource_type<T>::eResEnumType resType)
-	{
-		LoadByRelativePath<T>(EnumResourcePath(resType));
-	}
-
-	template<typename T>
-		requires std::is_base_of_v<Base, T>
-	T* FindByRelativePath(const Key& orName)
-	{
-		T* res = FindOrNullByRelativePath<T>(orName);
-
-		if (nullptr == res)
-		{
-			LoadByRelativePath<T>(orName);
-			res = FindOrNullByRelativePath<T>(orName);
-		}
-
-		Assert(res, WCHAR_IS_NULLPTR);
-		return res;
-	}
-
-	template<typename T>
-		requires std::is_base_of_v<Base, T>
-	T* FindByEnum(engine_resource_type<T>::eResEnumType resName)
-	{
-		return FindByRelativePath<T>(EnumResourcePath(resName));
-	}
-
-	template<typename T>
-		requires std::is_base_of_v<Base, T>
-	void Insert(const Key& key, T* const value)
-	{
-		Assert(value, WCHAR_IS_NULLPTR);
-		constexpr eResourceType type = engine_resource_type<T>::resourceType;
-		HashMap& resources = mResources[static_cast<UINT>(type)];
-		ConstIterator iter = resources.find(key);
-
-		Assert(resources.end() == iter, L"already");
-
-		value->mKey = key;
-		value->mPath = key;
-		resources.insert(std::make_pair(key, value));
-	}
-
-private:
-	HashMap mResources[static_cast<UINT>(eResourceType::End)];
-};
-
-#define gResourceManager ResourceManager::GetInstance()
+	value->mKey = key;
+	value->mPath = key;
+	resources.insert(std::make_pair(key, value));
+}

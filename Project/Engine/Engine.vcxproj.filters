@@ -130,6 +130,15 @@
     <Filter Include="Source\00. Engine\01. Graphics\RSState">
       <UniqueIdentifier>{144f794e-0d7c-4273-9773-6a1fb84f99f3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\01. Manager\Render">
+      <UniqueIdentifier>{8394a018-d586-4464-9bf2-b0b9d1e9bba3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\03. Component\00. Component\Trait">
+      <UniqueIdentifier>{f0103407-cafd-45cb-b67c-8dfca0674168}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\03. Component\00. Component\Enum">
+      <UniqueIdentifier>{5c43f8c4-4ed6-4834-8f84-667bbbc0d4fc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Entity.h">
@@ -210,9 +219,6 @@
     <ClInclude Include="Material.h">
       <Filter>Source\06. Resource\05. Material</Filter>
     </ClInclude>
-    <ClInclude Include="EnumComponent.h">
-      <Filter>Source\03. Component\00. Component</Filter>
-    </ClInclude>
     <ClInclude Include="Component.h">
       <Filter>Source\03. Component\00. Component</Filter>
     </ClInclude>
@@ -228,7 +234,7 @@
     <ClInclude Include="eEventType.h">
       <Filter>Source\01. Manager\Event</Filter>
     </ClInclude>
-    <ClInclude Include="EnumResourceType.h">
+    <ClInclude Include="ResourceTypeTrait.h">
       <Filter>Source\06. Resource</Filter>
     </ClInclude>
     <ClInclude Include="DirectXTex.h">
@@ -239,15 +245,6 @@
     </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>Source\03. Component\02. Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="ComponentTrait.h">
-      <Filter>Source\03. Component\00. Component</Filter>
-    </ClInclude>
-    <ClInclude Include="ScriptComponentTrait.h">
-      <Filter>Source\03. Component\00. Component</Filter>
-    </ClInclude>
-    <ClInclude Include="ScriptComponent.h">
-      <Filter>Source\03. Component\00. Component</Filter>
     </ClInclude>
     <ClInclude Include="MessageManager.h">
       <Filter>Source\01. Manager\Message</Filter>
@@ -266,6 +263,30 @@
     </ClInclude>
     <ClInclude Include="RSCollection.h">
       <Filter>Source\00. Engine\01. Graphics\RSState</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderManager.h">
+      <Filter>Source\01. Manager\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineComponentTrait.h">
+      <Filter>Source\03. Component\00. Component\Trait</Filter>
+    </ClInclude>
+    <ClInclude Include="ScriptComponentTrait.h">
+      <Filter>Source\03. Component\00. Component\Trait</Filter>
+    </ClInclude>
+    <ClInclude Include="ScriptComponent.h">
+      <Filter>Source\03. Component\00. Component</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentTrait.h">
+      <Filter>Source\03. Component\00. Component\Trait</Filter>
+    </ClInclude>
+    <ClInclude Include="EnumComponent.h">
+      <Filter>Source\03. Component\00. Component\Enum</Filter>
+    </ClInclude>
+    <ClInclude Include="EnumRenderType.h">
+      <Filter>Source\01. Manager\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineMath.h">
+      <Filter>Source\07. Helper\Math</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -353,9 +374,6 @@
     <ClCompile Include="Camera.cpp">
       <Filter>Source\03. Component\02. Camera</Filter>
     </ClCompile>
-    <ClCompile Include="EnumComponent.cpp">
-      <Filter>Source\03. Component\00. Component</Filter>
-    </ClCompile>
     <ClCompile Include="ScriptComponent.cpp">
       <Filter>Source\03. Component\00. Component</Filter>
     </ClCompile>
@@ -373,6 +391,15 @@
     </ClCompile>
     <ClCompile Include="RSCollection.cpp">
       <Filter>Source\00. Engine\01. Graphics\RSState</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderManager.cpp">
+      <Filter>Source\01. Manager\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="EnumComponent.cpp">
+      <Filter>Source\03. Component\00. Component\Enum</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineMath.cpp">
+      <Filter>Source\07. Helper\Math</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

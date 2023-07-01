@@ -4,9 +4,9 @@
 
 enum class eRSType
 {
-	SolidBack,
-	SolidFront,
-	SolidNone,
+	CullBack,
+	CullFront,
+	CullNone,
 	WireframeNone,
 	End,
 };

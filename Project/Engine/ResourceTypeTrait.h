@@ -34,15 +34,16 @@ enum class eResourceType
 };
 
 
-template <typename T, typename Enable = void>
+template <typename T>
 struct engine_resource_type
 {
-	static constexpr bool boolType = false;
+	static constexpr bool value = false;
 };
 
 template <>
 struct engine_resource_type<Texture>
 {
+	static constexpr bool value = true;
 	using eResEnumType = eResTexture;
 	static constexpr eResourceType resourceType = eResourceType::Texture;
 };
@@ -50,6 +51,7 @@ struct engine_resource_type<Texture>
 template <>
 struct engine_resource_type<Mesh>
 {
+	static constexpr bool value = true;
 	using eResEnumType = eResMesh;
 	static constexpr eResourceType resourceType = eResourceType::Mesh;
 };
@@ -57,6 +59,7 @@ struct engine_resource_type<Mesh>
 template <>
 struct engine_resource_type<Material>
 {
+	static constexpr bool value = true;
 	using eResEnumType = eResMaterial;
 	static constexpr eResourceType resourceType = eResourceType::Material;
 };
@@ -64,6 +67,7 @@ struct engine_resource_type<Material>
 template <>
 struct engine_resource_type<Shader>
 {
+	static constexpr bool value = true;
 	using ResEnueResEnumTypemType = eResShader;
 	static constexpr eResourceType resourceType = eResourceType::Shader;
 };
@@ -71,6 +75,7 @@ struct engine_resource_type<Shader>
 template <>
 struct engine_resource_type<Animation>
 {
+	static constexpr bool value = true;
 	using eResEnumType = eResAnimation;
 	static constexpr eResourceType resourceType = eResourceType::Animation;
 };
@@ -78,6 +83,7 @@ struct engine_resource_type<Animation>
 template <>
 struct engine_resource_type<Font>
 {
+	static constexpr bool value = true;
 	using eResEnumType = eResFont;
 	static constexpr eResourceType resourceType = eResourceType::Font;
 };
@@ -85,6 +91,7 @@ struct engine_resource_type<Font>
 template <>
 struct engine_resource_type<Sound>
 {
+	static constexpr bool value = true;
 	using eResEnumType = eResSound;
 	static constexpr eResourceType resourceType = eResourceType::Sound;
 };
@@ -92,6 +99,13 @@ struct engine_resource_type<Sound>
 template <>
 struct engine_resource_type<Scene>
 {
+	static constexpr bool value = true;
 	using eResEnumType = eResScene;
 	static constexpr eResourceType resourceType = eResourceType::Scene;
+};
+
+template <typename T>
+struct is_engine_resource
+{
+	static constexpr bool value = engine_resource_type<T>::value;
 };

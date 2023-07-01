@@ -1,37 +1,56 @@
 #pragma once
 #include "Component.h"
+enum class eLayerType;
 
 REGISTER_COMPONENT_TYPE(Camera);
 
 class Camera : public Component
 {
+	friend class RenderManager;
+public:
 	enum class eProjectionType
 	{
 		Perspective,
 		Orthographic,
+		End
 	};
+
+public:
+	enum class eCameraType
+	{
+		Main,
+		UI,
+		End
+	};
+
 public:
 	Camera();
 	virtual ~Camera();
 	Camera(const Camera&) = delete;
 	Camera& operator=(const Camera&) = delete;
 
-	void SetFOV(const float fov) { mFOV = fov; }
-	void SetNear(const float _near) { mNear = _near; }
-	void SetFar(const float _far) { mFar = _far; }
-	void SetAspectRatio(const float aspectRatio) { mAspectRatio = aspectRatio; }
-
 	float GetFOV() const { return mFOV; }
 	float GetNear() const { return mNear; }
 	float GetFar() const { return mFar; }
 	float GetAspectRatio() const { return mAspectRatio; }
-
 	const Matrix& GetView() const { return mView; }
 	const Matrix& GetProjection() const { return mProjection; }
+	UINT GetLayerMask() const { return mLayerMask; }
+	eProjectionType GetProjectiontType() const { return mProjectionType; }
 
-	static Camera* GetMainCameraOrNull() { return sMainCamera; }
-	static Camera* GetMainCamera() { Assert(sMainCamera, WCHAR_IS_NULLPTR); return sMainCamera; }
-	static void SetMainCamera(Camera* const camera) { Assert(camera, WCHAR_IS_NULLPTR); sMainCamera = camera; }
+	void SetFOV(const float fov) { mFOV = fov; }
+	void SetNear(const float _near) { mNear = _near; }
+	void SetFar(const float _far) { mFar = _far; }
+	void SetAspectRatio(const float aspectRatio) { mAspectRatio = aspectRatio; }	
+	void SetCameraType(const eCameraType cameraType) { mCameraType = cameraType; }
+	void SetProjectiontType(const eProjectionType projectionType) { mProjectionType = projectionType; }
+
+
+	void TurnOnLayer(const  eLayerType layer)  { mLayerMask |=  (1 <<  static_cast<UINT>(layer)); }
+	void TurnOffLayer(const eLayerType layer)  { mLayerMask &= ~(1 << static_cast<UINT>(layer)); }
+
+	void TurnOnAllLayer() { mLayerMask = 0XFFFFFFFF; }
+	void TurnOffAllLayer() { mLayerMask = 0; }
 
 private:
 	virtual void initialize() override final;
@@ -42,13 +61,16 @@ private:
 private:
 	inline static Camera* sMainCamera = nullptr;
 
+	UINT mLayerMask;
+
 	float mNear;
 	float mFar;
 	float mFOV;
 	float mSize;
 	float mAspectRatio;
+
 	Matrix mView;
 	Matrix mProjection;
 	eProjectionType mProjectionType;
+	eCameraType mCameraType;
 };
-

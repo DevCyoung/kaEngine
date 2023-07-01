@@ -41,11 +41,3 @@ void Layer::lateUpdate()
 		gameObject->lateUpdate();
 	}
 }
-
-void Layer::render()
-{
-	for (GameObject* const gameObject : mGameObjects)
-	{
-		gameObject->render();
-	}
-}

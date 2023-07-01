@@ -3,17 +3,20 @@
 #include "GameObject.h"
 #include "Transform.h"
 #include "Engine.h"
+#include "RenderManager.h"
 
 Camera::Camera()
 	: Component(eComponentType::Camera)
+	, mLayerMask(0XFFFFFFFF)
 	, mNear(1.0f)
-	, mFar(1000.0f)
+	, mFar(10000.0f)
 	, mFOV(60.0f)
-	, mSize(5.0f)
+	, mSize(1.0f)
 	, mAspectRatio(1.0f)
 	, mView(Matrix::Identity)
 	, mProjection(Matrix::Identity)
 	, mProjectionType(eProjectionType::Orthographic)
+	, mCameraType(eCameraType::End)
 {
 }
 
@@ -26,22 +29,23 @@ void Camera::initialize()
 }
 
 void Camera::update()
-{
+{	
+	RenderManager::GetInstance()->RegisterRenderCamera(mCameraType, this);
 }
 
 void Camera::lateUpdate()
 {
-	const Transform* const tr = GetOwner()->GetComponent<Transform>();
-	const Vector3 pos = tr->GetPosition();
+	const Transform* const transform = GetComponent<Transform>();
+	const Vector3 pos = transform->GetPosition();
 
 	// View Translate Matrix
 	mView = Matrix::Identity;
 	mView *= Matrix::CreateTranslation(-pos);
 
 	// View Rotation Matrix
-	const Vector3 up = tr->GetUp();
-	const Vector3 right = tr->GetRight();
-	const Vector3 foward = tr->GetForward();
+	const Vector3 up = transform->GetUp();
+	const Vector3 right = transform->GetRight();
+	const Vector3 foward = transform->GetForward();
 
 	Matrix viewRotate;
 	viewRotate._11 = right.x;	viewRotate._12 = up.x;	viewRotate._13 = foward.x;
@@ -49,22 +53,29 @@ void Camera::lateUpdate()
 	viewRotate._31 = right.z;	viewRotate._32 = up.z;	viewRotate._33 = foward.z;
 	mView *= viewRotate;
 
-	float width = static_cast<float>(gEngine->GetScreenWidth());
+	float width  = static_cast<float>(gEngine->GetScreenWidth());
 	float height = static_cast<float>(gEngine->GetScreenHeight());
 
 	mAspectRatio = width / height;
 
-	if (mProjectionType == eProjectionType::Orthographic)
+	switch (mProjectionType)
 	{
-		float OrthorGraphicRatio = mSize / 1000.0f;
-		width *= OrthorGraphicRatio;
+	case Camera::eProjectionType::Perspective:
+		mProjection = engine::math::Matrix::CreatePerspectiveFieldOfViewLH(XM_2PI / 6.0f, mAspectRatio, mNear, mFar);
+		break;
+	case Camera::eProjectionType::Orthographic:
+	{
+		const float OrthorGraphicRatio = mSize / 1.0f;
+
+		width  *= OrthorGraphicRatio;
 		height *= OrthorGraphicRatio;
 
 		mProjection = engine::math::Matrix::CreateOrthographicLH(width, height, mNear, mFar);
 	}
-	else
-	{
-		mProjection = engine::math::Matrix::CreatePerspectiveFieldOfViewLH(XM_2PI / 6.0f, mAspectRatio, mNear, mFar);
+	break;
+	default:
+		Assert(false, WCHAR_IS_INVALID_TYPE);
+		break;
 	}
 }
 

@@ -8,9 +8,13 @@ enum class eKeyCode
 	A, S, D, F, G, H, J, K, L,
 	Z, X, C, V, B, N, M,
 
+	NUM0, NUM1, NUM2, NUM3, NUM4, NUM5, NUM6, NUM7, NUM8, NUM9,
+	F1, F2, F3, F4, F5, F6, F7, F8, F9, F10, F11, F12,
+
 	UP, DOWN, LEFT, RIGHT, SPACE,
+	NUMPAD0, NUMPAD1, NUMPAD2, NUMPAD3, NUMPAD4, NUMPAD5, NUMPAD6, NUMPAD7, NUMPAD8, NUMPAD9,
 	LBUTTON, RBUTTON,
-	END,
+	END
 };
 
 class InputManager
@@ -59,11 +63,18 @@ public:
 		return mMousePos;
 	}
 
+	const Vector2& GetMouseDir() const
+	{
+		return mMouseDir;
+	}
+
 private:
 	void update(const HWND hWnd);
 private:
 	std::vector<tKeyInfo> mKeyInfos;
 	Vector2 mMousePos;
+	Vector2 mPrevMousePos;
+	Vector2 mMouseDir;
 };
 
 #define gInput InputManager::GetInstance()

@@ -22,8 +22,11 @@
     <Filter Include="Source\Struct">
       <UniqueIdentifier>{07df51b7-2383-4921-8caa-5def729de20d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\03. Script">
+    <Filter Include="Source\01. Script">
       <UniqueIdentifier>{de857324-cd4d-4a4d-80a7-707699222472}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\01. Script\Script">
+      <UniqueIdentifier>{f9a80200-2724-4409-a098-96670c1a689b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -66,14 +69,18 @@
     <ClInclude Include="ResourceManager.h">
       <Filter>Source\00. Content</Filter>
     </ClInclude>
-    <ClInclude Include="EnumScriptComponent.h">
-      <Filter>Source\03. Script</Filter>
-    </ClInclude>
     <ClInclude Include="CameraInputMove.h">
-      <Filter>Source\03. Script</Filter>
+      <Filter>Source\01. Script</Filter>
     </ClInclude>
+    <ClInclude Include="BlaBLa.h" />
     <ClInclude Include="Bugiman.h">
-      <Filter>Source</Filter>
+      <Filter>Source\01. Script</Filter>
+    </ClInclude>
+    <ClInclude Include="EnumScriptComponent.h">
+      <Filter>Source\01. Script\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="CursorMovement.h">
+      <Filter>Source\01. Script</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -110,14 +117,18 @@
     <ClCompile Include="StructVertex.cpp">
       <Filter>Source\Struct</Filter>
     </ClCompile>
-    <ClCompile Include="EnumScriptComponent.cpp">
-      <Filter>Source\03. Script</Filter>
-    </ClCompile>
     <ClCompile Include="CameraInputMove.cpp">
-      <Filter>Source\03. Script</Filter>
+      <Filter>Source\01. Script</Filter>
     </ClCompile>
+    <ClCompile Include="BlaBLa.cpp" />
     <ClCompile Include="Bugiman.cpp">
-      <Filter>Source</Filter>
+      <Filter>Source\01. Script</Filter>
+    </ClCompile>
+    <ClCompile Include="EnumScriptComponent.cpp">
+      <Filter>Source\01. Script\Script</Filter>
+    </ClCompile>
+    <ClCompile Include="CursorMovement.cpp">
+      <Filter>Source\01. Script</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

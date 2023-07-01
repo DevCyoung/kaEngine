@@ -1,16 +1,15 @@
 ﻿#pragma once
 #include "Entity.h"
 #include "ComponentTrait.h"
-#include "ScriptComponentTrait.h"
 #include "EnumComponent.h"
 
-class Component;
 class ScriptComponent;
-enum class eScriptComponentType;
 
 class GameObject : public Entity
 {
 	friend class Layer;
+	friend class Scene;
+	friend class RenderManager;
 public:
 	enum class eState
 	{
@@ -25,25 +24,33 @@ public:
 	GameObject& operator=(const GameObject&) = delete;
 
 public:
-	//FIXME! 이벤트방식으로 변경해야함
 	template<typename T>
+		requires (is_component_type<T>::value)
+	T* GetComponentOrNull() const;
+	template<typename T>
+		requires (is_component_type<T>::value)
+	T* GetComponent() const;
+	Component* GetComponentOrNull(const eComponentType type) const;
+	ScriptComponent* GetComponentOrNull(const eScriptComponentType type) const;
+
+	//FIXME! 이벤트방식으로 변경해야함	
+	template<typename T>
+		requires (is_component_type<T>::value)
 	void AddComponent(T* const component);
 	template<typename T>
+		requires (is_component_type<T>::value)
 	void AddComponent();
 	void AddComponent(ScriptComponent* const component);
 	void AddComponent(Component* const component);
 
-	template<typename T>
-	T* GetComponentOrNull() const;
-	template<typename T>
-	T* GetComponent() const;
-	Component* GetComponentOrNull(eComponentType type) const;
-	Component* GetComponent(eComponentType type) const;
-	ScriptComponent* GetComponentOrNull(eScriptComponentType type) const;
-	ScriptComponent* GetComponent(eScriptComponentType type) const;
-
 	void RemoveComponent(eComponentType type);
 	void RemoveComponent(eScriptComponentType type);
+
+	UINT GetLayer() const { return mCurLayer;}; // 0 ~ 31
+
+	void SetParent(GameObject* const parent) { mParent = parent; }
+
+	GameObject* GetParentOrNull() const { return mParent; }
 
 private:
 	void initialize();
@@ -52,12 +59,15 @@ private:
 	void render();
 
 private:
+	UINT mCurLayer;
 	eState mState;
 	Component* mEngineComponents[static_cast<UINT>(eComponentType::End)];
 	std::vector<ScriptComponent*> mUserComponents;
+	GameObject* mParent;
 };
 
 template<typename T>
+	requires (is_component_type<T>::value)
 inline void GameObject::AddComponent(T* const component)
 {
 	static_assert(engine_component_type<T>::value || script_component_type<T>::value);
@@ -72,14 +82,14 @@ inline void GameObject::AddComponent(T* const component)
 	else if constexpr (script_component_type<T>::value)
 	{
 		for (const ScriptComponent* const curScript : mUserComponents)
-		{
-			//이미존재한다면
+		{			
 			if (curScript->GetScriptType() == script_component_type<T>::type)
 			{
-				Assert(false, "already Exist Script");
+				Assert(false, WCHAR_IS_INVALID_TYPE);
 				break;
 			}
 		}
+
 		mUserComponents.push_back(component);
 	}
 
@@ -87,10 +97,9 @@ inline void GameObject::AddComponent(T* const component)
 }
 
 template<typename T>
+	requires (is_component_type<T>::value)
 inline void GameObject::AddComponent()
 {
-	static_assert(engine_component_type<T>::value || script_component_type<T>::value);
-
 	T* const component = new T();
 	Assert(component, WCHAR_IS_NULLPTR);
 
@@ -98,11 +107,11 @@ inline void GameObject::AddComponent()
 }
 
 template<typename T>
+	requires (is_component_type<T>::value)
 inline T* GameObject::GetComponentOrNull() const
 {
-	static_assert(engine_component_type<T>::value || script_component_type<T>::value);
-
 	T* component = nullptr;
+
 	if constexpr (engine_component_type<T>::value) // engine component
 	{
 		component = dynamic_cast<T*>(mEngineComponents[static_cast<UINT>(engine_component_type<T>::type)]);
@@ -123,12 +132,11 @@ inline T* GameObject::GetComponentOrNull() const
 }
 
 template<typename T>
+	requires (is_component_type<T>::value)
 inline T* GameObject::GetComponent() const
-{
-	static_assert(engine_component_type<T>::value || script_component_type<T>::value);
-
+{	
 	T* component = GetComponentOrNull<T>();
-
 	Assert(component, WCHAR_IS_NULLPTR);
+
 	return component;
 }

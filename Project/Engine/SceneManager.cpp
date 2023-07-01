@@ -7,9 +7,6 @@ SceneManager::SceneManager()
 	: mCurrentScene(nullptr)
 
 {
-	//FIXME: DummyScene		
-	mCurrentScene = new Scene();
-	mCurrentScene->initialize();
 }
 
 
@@ -22,9 +19,10 @@ SceneManager::~SceneManager()
 void SceneManager::LoadScene(Scene* const scene)
 {
 	Assert(scene, WCHAR_IS_NULLPTR);
-
 	DELETE_ARRAY(sInstance->mCurrentScene);
+
 	sInstance->mCurrentScene = scene;
+	scene->initialize();
 }
 
 void SceneManager::update()
@@ -34,8 +32,4 @@ void SceneManager::update()
 void SceneManager::lateUpdate()
 {
 	mCurrentScene->lateUpdate();
-}
-void SceneManager::render()
-{
-	mCurrentScene->render();
 }

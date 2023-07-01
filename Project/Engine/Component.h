@@ -15,8 +15,10 @@ public:
 
 public:
 	template<typename T>
-	T* GetComponentOrNull();
+		requires (is_component_type<T>::value)
+	T* GetComponentOrNull();		
 	template<typename T>
+		requires (is_component_type<T>::value)
 	T* GetComponent();	
 
 	GameObject* GetOwner() const { Assert(mOwner, WCHAR_IS_NULLPTR); return mOwner; }
@@ -34,16 +36,18 @@ private:
 };
 
 template<typename T>
+	requires (is_component_type<T>::value)
 inline T* Component::GetComponentOrNull()
 {
 	return mOwner->GetComponentOrNull<T>();
 }
 
 template<typename T>
+	requires (is_component_type<T>::value)
 inline T* Component::GetComponent()
 {
 	T* const component = GetComponentOrNull<T>();
-
 	Assert(component, WCHAR_IS_NULLPTR);
+
 	return component;
 }
