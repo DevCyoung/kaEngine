@@ -9,10 +9,13 @@
 * [notion](https://www.notion.so/DirectX2D-57b6d5d810174410b7a1fe68371c2a1f)
 
 ### Dependencies
-* Windows
-* DirectX11
-* [DirectXMath](https://github.com/microsoft/DirectXMath.git)
-* [DirectXTexture](https://github.com/microsoft/DirectXTex.git)
+* Windows10
+* C++20 ISO standard(/std:c++20) in visual studio
+* C visual studio default MSVC
+* Nvidia Driver 31.0.15.1694 (Driver Date: 2022-07-21)
+* DirectX11 (d3d11.lib, d3dcompiler.lib)
+* [DirectXMath](https://github.com/microsoft/DirectXMath.git) (DXMath.h)
+* [DirectXTexture](https://github.com/microsoft/DirectXTex.git) (DirectXTex.lib)
 * MyProject Code Generaotr (include this project)
 * [ResourceEnum](https://github.com/DevCyoung/DirectX2D_Engine/tree/main/Helper/Resource/ConsoleApp1)
 * [Script Code Generator](https://github.com/DevCyoung/DirectX2D_Engine/tree/main/Helper/ScriptGen)
@@ -21,9 +24,10 @@
 * visual studio 2022
 
 ### Executing program
+* step 01. open <your directory>\SEOEngine.sln
+* step 02. debug and release version build ! So, Out
 * Debug .exe file direction \Output\bin_d
 * Release .exe file direction \Output\bin
-* please clone and build
 
 ```
 git clone https://github.com/DevCyoung/DirectX2D_Engine.git
