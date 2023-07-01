@@ -2,10 +2,14 @@
 #include "EnumScriptComponent.h"
 
 #include "Bugiman.h"
+#include "CameraInputMoveMent.h"
+#include "CursorMovement.h"
 
 static constexpr const wchar_t* const ScriptComponentNames[static_cast<UINT>(eScriptComponentType::End)]
 {
 	L"Bugiman",
+	L"CameraInputMoveMent",
+	L"CursorMovement",
 };
 
 const wchar_t* GetScriptComponentName(const eScriptComponentType type)
@@ -20,6 +24,10 @@ ScriptComponent* CreateScriptComponentByName(const std::wstring& scriptcomponent
 
 	if (L"Bugiman" == scriptcomponentName)
 		scriptcomponent = new Bugiman;
+	else if (L"CameraInputMoveMent" == scriptcomponentName)
+		scriptcomponent = new CameraInputMoveMent;
+	else if (L"CursorMovement" == scriptcomponentName)
+		scriptcomponent = new CursorMovement;
 	else
 		assert(false);
 	return scriptcomponent;
@@ -33,6 +41,12 @@ ScriptComponent* CreateScriptComponentByEnum(const eScriptComponentType type)
 	{
 	case eScriptComponentType::Bugiman:
 		scriptcomponent = new Bugiman;
+		break;
+	case eScriptComponentType::CameraInputMoveMent:
+		scriptcomponent = new CameraInputMoveMent;
+		break;
+	case eScriptComponentType::CursorMovement:
+		scriptcomponent = new CursorMovement;
 		break;
 	default:
 		assert(false);

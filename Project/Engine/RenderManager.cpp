@@ -49,9 +49,9 @@ void RenderManager::render()
 
 		const UINT cameraLayerMask = camera->GetLayerMask();		
 
-		for (auto& renderObjects : mRenderObjectArrays)
+		for (auto& renderObjectArray : mRenderObjectArrays)
 		{
-			for (GameObject* const renderObject : renderObjects)
+			for (GameObject* const renderObject : renderObjectArray)
 			{
 				const UINT renderObjectLayer = renderObject->GetLayer();
 

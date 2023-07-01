@@ -15,7 +15,8 @@
 
 #include <Engine/RenderManager.h>
 #include <Engine/Engine.h>
-
+#include "CameraInputMoveMent.h"
+#include "CursorMovement.h"
 
 Content::Content()
 {
@@ -347,32 +348,50 @@ void Content::testSceneInitialize()
 {
 	Scene* testScene = new Scene();
 
-
+	//parent
 	{
-		//test
 		GameObject* const obj = new GameObject();
 		obj->AddComponent<MeshRenderer>();
 		obj->AddComponent<Bugiman>();
-	
-	
-		//obj->AddComponent(new ScriptComponent(eScriptComponentType::Bugiman));
-	
+
 		obj->GetComponent<MeshRenderer>()
 			->SetMesh(gResourceManager
 				->FindOrNullByRelativePath<Mesh>(L"Rect"));
-	
+
 		obj->GetComponent<MeshRenderer>()
 			->SetMaterial(gResourceManager
 				->FindOrNullByRelativePath<Material>(L"BackGround01"));
-	
-		obj->GetComponent<Transform>()
-			->SetPosition(0.f, 0.f, 15.f);
 
 		obj->GetComponent<Transform>()
-			->SetScale(2.f, 2.f, 1.f);
-	
+			->SetScale(1.0f, 1.0f, 1.f);		
 		testScene->AddGameObject(obj, eLayerType::Default);
+
+		//chid
+		{
+			GameObject* const child = new GameObject();
+			child->AddComponent<MeshRenderer>();
+			//obj->AddComponent<Bugiman>();
+
+			child->GetComponent<MeshRenderer>()
+				->SetMesh(gResourceManager
+					->FindOrNullByRelativePath<Mesh>(L"Rect"));
+
+			child->GetComponent<MeshRenderer>()
+				->SetMaterial(gResourceManager
+					->FindOrNullByRelativePath<Material>(L"BackGround03"));
+
+			child->GetComponent<Transform>()
+				->SetPosition(1200.f, 0.f, -10.f);
+			//
+			//child->GetComponent<Transform>()
+			//	->SetScale(0.25f, 0.25f, 1.f);
+
+			child->SetParent(obj);
+			testScene->AddGameObject(child, eLayerType::Default);			
+		}
 	}
+
+
 
 
 
@@ -384,7 +403,8 @@ void Content::testSceneInitialize()
 
 		GameObject* const obj = new GameObject();
 		obj->AddComponent<MeshRenderer>();
-		
+		obj->AddComponent<CursorMovement>();
+
 
 
 		obj->GetComponent<MeshRenderer>()
@@ -474,7 +494,7 @@ void Content::testSceneInitialize()
 
 
 	//UIShift
-	{		
+	{
 		GameObject* const obj = new GameObject();
 		obj->AddComponent<MeshRenderer>();
 
@@ -518,7 +538,7 @@ void Content::testSceneInitialize()
 
 
 	//UI Hud Item
-	{		
+	{
 		GameObject* const obj = new GameObject();
 		obj->AddComponent<MeshRenderer>();
 
@@ -606,7 +626,7 @@ void Content::testSceneInitialize()
 	}
 
 	//UI Right Click
-	{		
+	{
 		GameObject* const obj = new GameObject();
 		obj->AddComponent<MeshRenderer>();
 
@@ -729,7 +749,8 @@ void Content::testSceneInitialize()
 	{
 		GameObject* const mainCameraObj = new GameObject();
 		mainCameraObj->AddComponent<Camera>();
-		
+		mainCameraObj->AddComponent<CameraInputMoveMent>();
+
 
 		mainCameraObj->GetComponent<Transform>()->SetPosition(0.f, 0.f, -10.f);
 
@@ -748,15 +769,15 @@ void Content::testSceneInitialize()
 	//UI Camera
 	{
 		GameObject* const mainCameraObj = new GameObject();
-		mainCameraObj->AddComponent<Camera>();		
-	
+		mainCameraObj->AddComponent<Camera>();
+
 		mainCameraObj->GetComponent<Transform>()->SetPosition(0.f, 0.f, -10.f);
-	
+
 		mainCameraObj->GetComponent<Camera>()->SetCameraType(Camera::eCameraType::UI);
 		mainCameraObj->GetComponent<Camera>()->TurnOffAllLayer();
 		mainCameraObj->GetComponent<Camera>()->TurnOnLayer(eLayerType::UI);
-	
-		testScene->AddGameObject(mainCameraObj, eLayerType::Default);				
+
+		testScene->AddGameObject(mainCameraObj, eLayerType::Default);
 	}
 
 	SceneManager::GetInstance()->LoadScene(testScene);
