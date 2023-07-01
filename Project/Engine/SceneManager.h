@@ -9,10 +9,11 @@ class SceneManager
 public:
 	void LoadScene(Scene* const scene);
 
+	//Scene* GetCurrentScene() { Assert(false, WCHAR_IS_NULLPTR); return mCurrentScene; }
+
 private:
 	void update();
 	void lateUpdate();
-	void render();
 
 private:
 	Scene* mCurrentScene;

@@ -8,6 +8,7 @@ GameObject::GameObject()
 	, mState(eState::Active)
 	, mEngineComponents{ 0, }
 	, mUserComponents()
+	, mParent(nullptr)
 {
 	//모든 오브젝트는 반드시 Transform 을 가지고있는다.
 	AddComponent(new Transform);

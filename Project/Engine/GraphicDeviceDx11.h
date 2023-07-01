@@ -44,7 +44,7 @@ public:
 	void BindDS(const eDSType type) const;
 	void BindRS(const eRSType type) const;
 
-	void Draw(const UINT StartVertexLocation, const Mesh* const mesh) const;
+	void Draw(const Mesh* const mesh) const;
 	//void DrawIndexd();
 
 private:

@@ -1,7 +1,6 @@
 #pragma once
 #include <Engine/Singleton.h>
 
-
 class Content
 {
 	friend int APIENTRY::wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
@@ -12,7 +11,10 @@ private:
 	void loadShader();
 	void loadMesh();
 	void loadTexture();
+
 	void loadMaterial();
+	void loadUIMaterial();
+
 
 private:
 	void resourceInitialize();

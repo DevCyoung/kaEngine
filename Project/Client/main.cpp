@@ -13,8 +13,6 @@
 #endif
 
 #define MAX_LOADSTRING 100
-//#define USE_MENU 0
-
 
 // 전역 변수:
 HINSTANCE hInst;                                // 현재 인스턴스입니다.
@@ -27,8 +25,6 @@ ATOM                MyRegisterClass(HINSTANCE hInstance);
 BOOL                InitInstance(HINSTANCE, int);
 LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK    About(HWND, UINT, WPARAM, LPARAM);
-
-#include <Content/Components.h>
 
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	_In_opt_ HINSTANCE hPrevInstance,
@@ -44,6 +40,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 	//_CrtSetBreakAlloc(263);
 #endif
+
 	// 전역 문자열을 초기화합니다.
 	LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
 	LoadStringW(hInstance, IDC_CLIENT, szWindowClass, MAX_LOADSTRING);
@@ -53,16 +50,19 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	if (!InitInstance(hInstance, nCmdShow))
 	{
 		return static_cast<int>(FALSE);
-	}
+	}	
 
 	HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_CLIENT));
 	MSG msg;
 
-	constexpr UINT SCREEN_WIDTH = 1600;
-	constexpr UINT SCREEN_HEIGHT = 900;
+	//constexpr UINT EDIT_SCREEN_WIDTH = 1600;
+	//constexpr UINT EDIT_SCREEN_HEIGHT = 900;
 
-	Engine::initialize(gHwnd, SCREEN_WIDTH, SCREEN_HEIGHT);
-	Content::initialize();
+	constexpr UINT KATANA_SCREEN_WIDTH = 1280;
+	constexpr UINT KATANA_SCREEN_HEIGHT = 720;
+	
+	Engine::initialize(gHwnd, KATANA_SCREEN_WIDTH, KATANA_SCREEN_HEIGHT);
+	Content::initialize();	
 
 	while (true)
 	{
@@ -77,11 +77,14 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 				TranslateMessage(&msg);
 				DispatchMessage(&msg);
 			}
+			
 		}
 		else
 		{
 			Engine::GetInstance()->run();
 		}
+		
+
 	}
 
 	Content::deleteInstance();
@@ -137,8 +140,17 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 {
 	hInst = hInstance; // 인스턴스 핸들을 전역 변수에 저장합니다.
 
-	HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
+	// origianl
+	//HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
+	//	CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
+
+	// Resize disable version WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX
+	//HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX,
+	//	CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
+
+	HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX,
 		CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
+
 
 	if (!hWnd)
 	{
@@ -163,10 +175,42 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 //  WM_DESTROY  - 종료 메시지를 게시하고 반환합니다.
 //
 //
+
+
+enum class eMouseHoverdType
+{
+	None,
+	Leave,
+	Enter,
+	Stay
+};
+
+static eMouseHoverdType mouseHoverdType = eMouseHoverdType::None;
+static bool bPreHorverd = false;
+
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message)
 	{
+	case WM_MOUSEHOVER:
+	{
+		if (bPreHorverd)
+		{
+			mouseHoverdType = eMouseHoverdType::Stay;
+
+		}	
+		else
+		{
+			mouseHoverdType = eMouseHoverdType::Enter;
+			bPreHorverd = true;
+		}
+
+	}
+	case WM_MOUSELEAVE:
+	{
+		bPreHorverd = false;
+		mouseHoverdType = eMouseHoverdType::Leave;
+	}
 	case WM_COMMAND:
 	{
 		int wmId = LOWORD(wParam);
@@ -204,6 +248,13 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	default:
 		return DefWindowProc(hWnd, message, wParam, lParam);
 	}
+
+
+	//if (mouseHoverdType == eMouseHoverdType::Enter)
+	//{
+	//	SetCursor(nullptr);
+	//}
+
 	return 0;
 }
 

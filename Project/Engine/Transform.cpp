@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "Transform.h"
-
+#include "EngineMath.h"
 
 Transform::Transform()
 	: Component(eComponentType::Transform)
@@ -32,9 +32,9 @@ void Transform::lateUpdate()
 	Matrix scale = Matrix::CreateScale(mScale);
 
 	Matrix rotation = {};
-	rotation = Matrix::CreateRotationX(mRotation.x);
-	rotation *= Matrix::CreateRotationY(mRotation.y);
-	rotation *= Matrix::CreateRotationZ(mRotation.z);
+	rotation = Matrix::CreateRotationX(Deg2Rad(mRotation.x));
+	rotation *= Matrix::CreateRotationY(Deg2Rad(mRotation.y));
+	rotation *= Matrix::CreateRotationZ(Deg2Rad(mRotation.z));
 
 	Matrix position = {};
 	position.Translation(mPosition);
@@ -42,6 +42,15 @@ void Transform::lateUpdate()
 	mWorld *= scale;
 	mWorld *= rotation;
 	mWorld *= position;
+
+	GameObject* parent = GetOwner()->GetParentOrNull();
+
+	if (GetOwner()->GetParentOrNull())
+	{
+		//부모공간으로 들어간다.
+		//부모가 이미 계산이 되어있어야한다.
+		mWorld *= parent->GetComponent<Transform>()->mWorld;
+	}
 
 	//FIXME
 

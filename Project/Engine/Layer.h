@@ -5,8 +5,10 @@ class GameObject;
 
 enum class eLayerType
 {
+	Default,
 	Player,
-	End
+	UI,
+	End = 32
 };
 
 class Layer
@@ -19,13 +21,14 @@ private:
 	Layer(const Layer&) = delete;
 	Layer& operator=(const Layer&) = delete;
 
+	const std::vector<GameObject*>& GetGameObjects() const { return mGameObjects; }
+
 	void AddGameObject(GameObject* const obj);
 
 private:
 	virtual void initialize();
 	virtual void update();
 	virtual void lateUpdate();
-	virtual void render();
 
 private:
 	std::vector<GameObject*> mGameObjects;

@@ -8,6 +8,7 @@ enum class eScriptComponentType
 	BlaBLa,
 	Bugiman,
 	CameraInputMove,
+	CursorMovement,
 	End
 };
 

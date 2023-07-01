@@ -8,6 +8,7 @@ class ScriptComponent;
 class GameObject : public Entity
 {
 	friend class Layer;
+	friend class Scene;
 	friend class RenderManager;
 public:
 	enum class eState
@@ -23,7 +24,16 @@ public:
 	GameObject& operator=(const GameObject&) = delete;
 
 public:
-	//FIXME! 이벤트방식으로 변경해야함
+	template<typename T>
+		requires (is_component_type<T>::value)
+	T* GetComponentOrNull() const;
+	template<typename T>
+		requires (is_component_type<T>::value)
+	T* GetComponent() const;
+	Component* GetComponentOrNull(const eComponentType type) const;
+	ScriptComponent* GetComponentOrNull(const eScriptComponentType type) const;
+
+	//FIXME! 이벤트방식으로 변경해야함	
 	template<typename T>
 		requires (is_component_type<T>::value)
 	void AddComponent(T* const component);
@@ -33,20 +43,14 @@ public:
 	void AddComponent(ScriptComponent* const component);
 	void AddComponent(Component* const component);
 
-	template<typename T>
-		requires (is_component_type<T>::value)
-	T* GetComponentOrNull() const;
-
-	template<typename T>
-		requires (is_component_type<T>::value)
-	T* GetComponent() const;
-	Component* GetComponentOrNull(const eComponentType type) const;
-	ScriptComponent* GetComponentOrNull(const eScriptComponentType type) const;
-
 	void RemoveComponent(eComponentType type);
 	void RemoveComponent(eScriptComponentType type);
 
 	UINT GetLayer() const { return mCurLayer;}; // 0 ~ 31
+
+	void SetParent(GameObject* const parent) { mParent = parent; }
+
+	GameObject* GetParentOrNull() const { return mParent; }
 
 private:
 	void initialize();
@@ -59,6 +63,7 @@ private:
 	eState mState;
 	Component* mEngineComponents[static_cast<UINT>(eComponentType::End)];
 	std::vector<ScriptComponent*> mUserComponents;
+	GameObject* mParent;
 };
 
 template<typename T>

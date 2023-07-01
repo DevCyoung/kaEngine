@@ -4,12 +4,14 @@
 #include "BlaBLa.h"
 #include "Bugiman.h"
 #include "CameraInputMove.h"
+#include "CursorMovement.h"
 
 static constexpr const wchar_t* const ScriptComponentNames[static_cast<UINT>(eScriptComponentType::End)]
 {
 	L"BlaBLa",
 	L"Bugiman",
 	L"CameraInputMove",
+	L"CursorMovement",
 };
 
 const wchar_t* GetScriptComponentName(const eScriptComponentType type)
@@ -28,6 +30,8 @@ ScriptComponent* CreateScriptComponentByName(const std::wstring& scriptcomponent
 		scriptcomponent = new Bugiman;
 	else if (L"CameraInputMove" == scriptcomponentName)
 		scriptcomponent = new CameraInputMove;
+	else if (L"CursorMovement" == scriptcomponentName)
+		scriptcomponent = new CursorMovement;
 	else
 		assert(false);
 	return scriptcomponent;
@@ -47,6 +51,9 @@ ScriptComponent* CreateScriptComponentByEnum(const eScriptComponentType type)
 		break;
 	case eScriptComponentType::CameraInputMove:
 		scriptcomponent = new CameraInputMove;
+		break;
+	case eScriptComponentType::CursorMovement:
+		scriptcomponent = new CursorMovement;
 		break;
 	default:
 		assert(false);
