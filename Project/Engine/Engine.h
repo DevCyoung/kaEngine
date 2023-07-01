@@ -17,6 +17,7 @@ private:
 public:
 	UINT GetScreenWidth() const { return mScreenWidth; }
 	UINT GetScreenHeight() const { return mScreenHeight; }
+	Vector2 GetScreenSize() const  {  return Vector2(static_cast<float>(mScreenWidth), static_cast<float>(mScreenHeight)); }
 	HWND GetHwnd() const { Assert(mHwnd, WCHAR_IS_NULLPTR); return mHwnd; }
 	GraphicDeviceDX11* GetGraphicDevice() const { return mGraphicDevice; }
 

@@ -52,7 +52,6 @@ template<typename T>
 	requires (is_engine_resource<T>::value)
 inline T* ResourceManager::FindOrNullByRelativePath(const Key& orName)
 {
-	
 		T* res = nullptr;
 
 		constexpr eResourceType resType = engine_resource_type<T>::resourceType;

@@ -83,16 +83,12 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		{
 			Engine::GetInstance()->run();
 		}
-		
-
 	}
 
 	Content::deleteInstance();
 	Engine::deleteInstance();
 	return static_cast<int>(msg.wParam);
 }
-
-
 
 //
 //  함수: MyRegisterClass()
@@ -140,17 +136,8 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 {
 	hInst = hInstance; // 인스턴스 핸들을 전역 변수에 저장합니다.
 
-	// origianl
-	//HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
-	//	CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
-
-	// Resize disable version WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX
-	//HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX,
-	//	CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
-
 	HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX,
 		CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
-
 
 	if (!hWnd)
 	{
@@ -176,41 +163,10 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 //
 //
 
-
-enum class eMouseHoverdType
-{
-	None,
-	Leave,
-	Enter,
-	Stay
-};
-
-static eMouseHoverdType mouseHoverdType = eMouseHoverdType::None;
-static bool bPreHorverd = false;
-
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message)
 	{
-	case WM_MOUSEHOVER:
-	{
-		if (bPreHorverd)
-		{
-			mouseHoverdType = eMouseHoverdType::Stay;
-
-		}	
-		else
-		{
-			mouseHoverdType = eMouseHoverdType::Enter;
-			bPreHorverd = true;
-		}
-
-	}
-	case WM_MOUSELEAVE:
-	{
-		bPreHorverd = false;
-		mouseHoverdType = eMouseHoverdType::Leave;
-	}
 	case WM_COMMAND:
 	{
 		int wmId = LOWORD(wParam);
@@ -240,20 +196,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		break;
-	case WM_SIZE:
-	{
-		//Comment App Resize
-	}
-	break;
 	default:
 		return DefWindowProc(hWnd, message, wParam, lParam);
 	}
-
-
-	//if (mouseHoverdType == eMouseHoverdType::Enter)
-	//{
-	//	SetCursor(nullptr);
-	//}
 
 	return 0;
 }

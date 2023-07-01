@@ -53,7 +53,6 @@ void Transform::lateUpdate()
 	}
 
 	//FIXME
-
 	mUp = XMVector3TransformNormal(Vector3::Up, mWorld);
 	mForward = XMVector3TransformNormal(Vector3::Forward, mWorld);
 	mRight = XMVector3TransformNormal(Vector3::Right, mWorld);

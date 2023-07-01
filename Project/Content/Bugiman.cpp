@@ -33,12 +33,12 @@ void Bugiman::update()
 
 	Transform* const transform = GetComponent<Transform>();	
 	Vector3 scale =  transform->GetScale();
-	if (gInput->GetKey(eKeyCode::NUM1))
+	if (gInput->GetKey(eKeyCode::NUMPAD1))
 	{
 		scale.x += gDeltaTime * 0.9f;
 		scale.y += gDeltaTime * 0.9f;
 	}
-	if (gInput->GetKey(eKeyCode::NUM2))
+	if (gInput->GetKey(eKeyCode::NUMPAD2))
 	{
 		scale.x -= gDeltaTime * 0.9f;
 		scale.y -= gDeltaTime * 0.9f;
@@ -47,13 +47,22 @@ void Bugiman::update()
 
 
 	Vector3 rotation = transform->GetRotation();
-	if (gInput->GetKeyDown(eKeyCode::NUM3))
+	if (gInput->GetKeyDown(eKeyCode::NUMPAD4))
 	{
 		rotation.y = 180.f;
 	}	
-	if (gInput->GetKeyDown(eKeyCode::NUM4))
+	if (gInput->GetKeyDown(eKeyCode::NUMPAD5))
 	{
 		rotation.y = 0;
+	}
+	
+	if (gInput->GetKey(eKeyCode::NUMPAD7))
+	{
+		rotation.z += gDeltaTime * 30.f;
+	}
+	if (gInput->GetKey(eKeyCode::NUMPAD8))
+	{
+		rotation.z -= gDeltaTime * 30.f;
 	}
 	transform->SetRotation(rotation);
 
