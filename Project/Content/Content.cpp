@@ -90,7 +90,7 @@ void Content::loadShader()
 			new Shader(eResShader::VertexShader, L"main",
 				eResShader::PixelShader, L"main",
 				eRSType::CullNone,
-				eDSType::NoWrite,
+				eDSType::None,
 				eBSType::AlphaBlend);
 		gResourceManager->Insert<Shader>(L"UIShader", UIShader);
 	}
@@ -363,7 +363,7 @@ void Content::testSceneInitialize()
 				->FindOrNullByRelativePath<Material>(L"BackGround01"));
 
 		obj->GetComponent<Transform>()
-			->SetScale(1.0f, 1.0f, 1.f);		
+			->SetScale(1.0f, 1.0f, 1.f);
 		testScene->AddGameObject(obj, eLayerType::Default);
 
 		//chid
@@ -381,20 +381,16 @@ void Content::testSceneInitialize()
 					->FindOrNullByRelativePath<Material>(L"BackGround03"));
 
 			child->GetComponent<Transform>()
-				->SetPosition(1200.f, 0.f, -10.f);
+				->SetPosition(1200.f, 0.f, -100.f);
 			//
 			//child->GetComponent<Transform>()
 			//	->SetScale(0.25f, 0.25f, 1.f);
 
 			child->SetParent(obj);
+
 			testScene->AddGameObject(child, eLayerType::Default);			
 		}
 	}
-
-
-
-
-
 
 	const float hudPosY = gEngine->GetScreenHeight() / 2.f - 23.f;
 
@@ -751,12 +747,9 @@ void Content::testSceneInitialize()
 		mainCameraObj->AddComponent<Camera>();
 		mainCameraObj->AddComponent<CameraInputMoveMent>();
 
-
 		mainCameraObj->GetComponent<Transform>()->SetPosition(0.f, 0.f, -10.f);
 
-
 		mainCameraObj->GetComponent<Camera>()->SetCameraType(Camera::eCameraType::Main);
-
 		mainCameraObj->GetComponent<Camera>()->TurnOnAllLayer();
 		mainCameraObj->GetComponent<Camera>()->TurnOffLayer(eLayerType::UI);
 
@@ -770,7 +763,6 @@ void Content::testSceneInitialize()
 	{
 		GameObject* const mainCameraObj = new GameObject();
 		mainCameraObj->AddComponent<Camera>();
-
 		mainCameraObj->GetComponent<Transform>()->SetPosition(0.f, 0.f, -10.f);
 
 		mainCameraObj->GetComponent<Camera>()->SetCameraType(Camera::eCameraType::UI);
