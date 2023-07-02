@@ -4,7 +4,7 @@
 
 class TimeManager
 {
-	friend class Engine;
+	friend class Engine;	
 	SINGLETON_DECLARE(TimeManager);
 
 private:
@@ -13,6 +13,9 @@ private:
 public:
 	float GetDeltaTime() const { return mDeltaTime; }
 	float GetGlobalTime() const { return mGlobalTime; }
+
+	void StartTime(LARGE_INTEGER* const starTime);
+	float EndTime(LARGE_INTEGER* const starTime);
 
 private:
 	float mDeltaTime;
