@@ -1,15 +1,15 @@
 ﻿#include "pch.h"
 #include "EnumComponent.h"
 
-#include "Transform.h"
 #include "Camera.h"
 #include "MeshRenderer.h"
+#include "Transform.h"
 
 static constexpr const wchar_t* const ComponentNames[static_cast<UINT>(eComponentType::End)]
 {
-	L"Transform",
 	L"Camera",
 	L"MeshRenderer",
+	L"Transform",
 };
 
 const wchar_t* GetComponentName(const eComponentType type)
