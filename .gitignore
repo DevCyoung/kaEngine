@@ -12,6 +12,7 @@
 
 #dpend
 **/Content/*.diff
+**/Engine/*.diff
 
 #lib
 **/Content/Debug/*
