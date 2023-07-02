@@ -2,11 +2,12 @@
 #include "GameObject.h"
 #include "Transform.h"
 #include "ScriptComponent.h"
+#include "EnumLayer.h"
 
 GameObject::GameObject()
-	: mCurLayer(0)
+	: mCurLayer(eLayerType::Default)
 	, mState(eState::Active)
-	, mEngineComponents{ 0, }
+	, mEngineComponents{0, }
 	, mUserComponents()
 	, mParent(nullptr)
 {
