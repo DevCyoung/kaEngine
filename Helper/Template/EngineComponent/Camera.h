@@ -1,10 +1,9 @@
 #pragma once
-#include <Engine/ScriptComponent.h>
-#include "EnumScriptComponent.h"
+#include "Component.h"
 
-REGISTER_SCRIPTCOMPONENT_TYPE($safeitemname$);
+REGISTER_COMPONENT_TYPE($safeitemname$);
 
-class $safeitemname$ : public ScriptComponent
+class $safeitemname$ : public Component
 {
 public:
 	$safeitemname$();
@@ -17,4 +16,5 @@ private:
 	virtual void update() override final;
 	virtual void lateUpdate() override final;
 	virtual void render() override final;
+
 };

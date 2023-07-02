@@ -1,9 +1,9 @@
 #include "pch.h"
 #include "$safeitemname$.h"
-#include "Components.h"
+
 
 $safeitemname$::$safeitemname$()
-    : ScriptComponent(eScriptComponentType::$safeitemname$)
+	: Component(eComponentType::$safeitemname$)
 {
 }
 
