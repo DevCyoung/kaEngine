@@ -43,9 +43,6 @@
     <Filter Include="Source\03. Component\01. Transform">
       <UniqueIdentifier>{72b259ff-208f-4147-99d1-350359d39cc9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\03. Component\02. MeshRenderer">
-      <UniqueIdentifier>{519c1661-d91c-4e37-8020-1698bcb4688f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\04. Scene">
       <UniqueIdentifier>{685c70d2-48e1-49d1-9f6e-24916c88ecf2}</UniqueIdentifier>
     </Filter>
@@ -139,6 +136,12 @@
     <Filter Include="Source\03. Component\00. Component\Enum">
       <UniqueIdentifier>{5c43f8c4-4ed6-4834-8f84-667bbbc0d4fc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\03. Component\03. MeshRenderer">
+      <UniqueIdentifier>{519c1661-d91c-4e37-8020-1698bcb4688f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\03. Component\04. Animator">
+      <UniqueIdentifier>{bc69a198-03d8-45de-9057-d4b3c0c45454}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Entity.h">
@@ -199,7 +202,7 @@
       <Filter>Source\06. Resource\01. Mesh</Filter>
     </ClInclude>
     <ClInclude Include="MeshRenderer.h">
-      <Filter>Source\03. Component\02. MeshRenderer</Filter>
+      <Filter>Source\03. Component\03. MeshRenderer</Filter>
     </ClInclude>
     <ClInclude Include="Transform.h">
       <Filter>Source\03. Component\01. Transform</Filter>
@@ -252,9 +255,6 @@
     <ClInclude Include="DefineMacro.h">
       <Filter>Windows</Filter>
     </ClInclude>
-    <ClInclude Include="Tanning.h">
-      <Filter>Source\03. Component</Filter>
-    </ClInclude>
     <ClInclude Include="DSCollection.h">
       <Filter>Source\00. Engine\01. Graphics\DSState</Filter>
     </ClInclude>
@@ -287,6 +287,12 @@
     </ClInclude>
     <ClInclude Include="EngineMath.h">
       <Filter>Source\07. Helper\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="EnumLayer.h">
+      <Filter>Source\05. Layer</Filter>
+    </ClInclude>
+    <ClInclude Include="EnumResource.h">
+      <Filter>Source\06. Resource</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -336,7 +342,7 @@
       <Filter>Source\06. Resource\01. Mesh</Filter>
     </ClCompile>
     <ClCompile Include="MeshRenderer.cpp">
-      <Filter>Source\03. Component\02. MeshRenderer</Filter>
+      <Filter>Source\03. Component\03. MeshRenderer</Filter>
     </ClCompile>
     <ClCompile Include="Transform.cpp">
       <Filter>Source\03. Component\01. Transform</Filter>
@@ -379,9 +385,6 @@
     </ClCompile>
     <ClCompile Include="MessageManager.cpp">
       <Filter>Source\01. Manager\Message</Filter>
-    </ClCompile>
-    <ClCompile Include="Tanning.cpp">
-      <Filter>Source\03. Component</Filter>
     </ClCompile>
     <ClCompile Include="DSCollection.cpp">
       <Filter>Source\00. Engine\01. Graphics\DSState</Filter>

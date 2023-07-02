@@ -1,15 +1,5 @@
 #pragma once
-
-
 class GameObject;
-
-enum class eLayerType
-{
-	Default,
-	Player,
-	UI,
-	End = 32
-};
 
 class Layer
 {

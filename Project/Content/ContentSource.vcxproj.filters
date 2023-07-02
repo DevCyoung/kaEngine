@@ -31,6 +31,9 @@
     <Filter Include="Source\00. Content\Struct">
       <UniqueIdentifier>{07df51b7-2383-4921-8caa-5def729de20d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\01. Script\Enum">
+      <UniqueIdentifier>{c34d8bbf-e30d-458e-8f53-43db7792fa6e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -87,14 +90,14 @@
     <ClInclude Include="CursorMovement.h">
       <Filter>Source\01. Script</Filter>
     </ClInclude>
-    <ClInclude Include="EnumScriptComponent.h">
-      <Filter>Source\01. Script</Filter>
-    </ClInclude>
     <ClInclude Include="UIEffect.h">
       <Filter>Source\01. Script</Filter>
     </ClInclude>
     <ClInclude Include="ShiftController.h">
       <Filter>Source\01. Script</Filter>
+    </ClInclude>
+    <ClInclude Include="EnumScriptComponent.h">
+      <Filter>Source\01. Script\Enum</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -146,14 +149,14 @@
     <ClCompile Include="CursorMovement.cpp">
       <Filter>Source\01. Script</Filter>
     </ClCompile>
-    <ClCompile Include="EnumScriptComponent.cpp">
-      <Filter>Source\01. Script</Filter>
-    </ClCompile>
     <ClCompile Include="UIEffect.cpp">
       <Filter>Source\01. Script</Filter>
     </ClCompile>
     <ClCompile Include="ShiftController.cpp">
       <Filter>Source\01. Script</Filter>
+    </ClCompile>
+    <ClCompile Include="EnumScriptComponent.cpp">
+      <Filter>Source\01. Script\Enum</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

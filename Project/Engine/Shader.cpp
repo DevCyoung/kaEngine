@@ -5,8 +5,6 @@
 #include "Engine.h"
 #include "GraphicDeviceDx11.h"
 
-
-enum class eResShader;
 const wchar_t* EnumResourcePath(eResShader type);
 
 Shader::Shader(const eResShader vsFileName,
@@ -68,8 +66,7 @@ void Shader::createShader(const eShaderBindType sType,
 	const std::string strVersion(helper::String::WStrToStr(version));
 
 	std::wstring shaderPath = PathManager::GetInstance()->GetResourcePath();
-	shaderPath += EnumResourcePath(fileName);
-	(void)fileName;
+	shaderPath += EnumResourcePath(fileName);	
 
 	switch (sType)
 	{

@@ -15,7 +15,7 @@ void Scene::AddGameObject(GameObject* const obj, const eLayerType type)
 {
 	Assert(obj, WCHAR_IS_NULLPTR);
 
-	obj->mCurLayer = static_cast<UINT>(type);
+	obj->mCurLayer = type;
 	mLayers[static_cast<int>(type)].AddGameObject(obj);
 }
 

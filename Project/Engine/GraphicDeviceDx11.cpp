@@ -15,7 +15,7 @@
 /*
 * Trouble : Fxing
 * Date : 2023-05-26
-* Author : yoseo
+*
 * 현재 SwapChain생성중 Warning 발생
 * DXGI WARNING: IDXGIFactory::CreateSwapChain: Blt-model swap effects (DXGI_SWAP_EFFECT_DISCARD and DXGI_SWAP_EFFECT_SEQUENTIAL) are legacy swap effects that are predominantly superceded by their flip-model counterparts (DXGI_SWAP_EFFECT_FLIP_SEQUENTIAL and DXGI_SWAP_EFFECT_FLIP_DISCARD). Please consider updating your application to leverage flip-model swap effects to benefit from modern presentation enhancements. More information is available at http://aka.ms/dxgiflipmodel. [ MISCELLANEOUS WARNING #294: ]*
 * DXGI_SWAP_CHAIN_DESC 구조체의 swapChainDesc.SwapEffect = DXGI_SWAP_EFFECT::DXGI_SWAP_EFFECT_DISCARD;
@@ -24,6 +24,13 @@
 * 해결하려고 시도중입니다.
 * Date : 2023-05-29
 * 아직진행중...
+*
+* Trouble : Fxing
+* Date : 2023-07-02
+*
+* 다시 알아보던중 실제 모니터의 해상도에 맞춰서 present에 블럭또는 병목현상이 걸리는것으로 유추하게되었음
+* 동기 블럭킹 함수인것으로 생각되며 넌블럭킹으로 바꿔야할것으로 보인다.
+* 이것저것 알아보고 테스트도 많이해서 갈아 엎어야 할것으로 생각되므로 추후에 다시 진행할 예정
 */
 #pragma endregion
 
@@ -37,15 +44,15 @@ GraphicDeviceDX11::GraphicDeviceDX11(const HWND hWnd, const UINT screenWidth, co
 	Assert(hWnd, WCHAR_IS_NULLPTR);
 
 #ifdef _DEBUG
-	constexpr UINT DEVICE_FLAG = D3D11_CREATE_DEVICE_DEBUG;
-#else
-	//둘중 어떤걸로 해야하는지 고민중...
-	//const UINT deviceFlag = D3D11_CREATE_DEVICE_SINGLETHREADED;
-	constexpr UINT DEVICE_FLAG = D3D11_CREATE_DEVICE_DEBUG;
+	constexpr UINT DEVICE_FLAG = D3D11_CREATE_DEVICE_FLAG::D3D11_CREATE_DEVICE_DEBUG;
+#else		
+	constexpr UINT DEVICE_FLAG = 0;
 #endif
 
 #pragma region Create Device And Context
-	D3D_FEATURE_LEVEL featureLevel = static_cast<D3D_FEATURE_LEVEL>(0);
+	//https://learn.microsoft.com/ko-kr/windows/win32/api/d3dcommon/ne-d3dcommon-d3d_feature_level
+	//셰이더 모델 5를 포함하여 Direct3D 11.0에서 지원하는 기능을 대상으로 합니다.
+	D3D_FEATURE_LEVEL featureLevel = D3D_FEATURE_LEVEL_11_0;
 
 	if (FAILED(D3D11CreateDevice(nullptr, D3D_DRIVER_TYPE_HARDWARE,
 		nullptr, DEVICE_FLAG, nullptr, 0, D3D11_SDK_VERSION,
@@ -58,7 +65,6 @@ GraphicDeviceDX11::GraphicDeviceDX11(const HWND hWnd, const UINT screenWidth, co
 
 	Assert(mDevice.Get(), WCHAR_IS_NULLPTR);
 	Assert(mContext.Get(), WCHAR_IS_NULLPTR);
-
 #pragma endregion
 
 #pragma region Change Window ScreenSize		
@@ -70,7 +76,7 @@ GraphicDeviceDX11::GraphicDeviceDX11(const HWND hWnd, const UINT screenWidth, co
 
 	const BOOL B_MENU = GetMenu(hWnd) != nullptr;
 
-	AdjustWindowRect(&windowSize, WS_OVERLAPPEDWINDOW, B_MENU);
+	AdjustWindowRect(&windowSize, WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX, B_MENU);
 
 	const int adjustWidth = static_cast<int>(windowSize.right - windowSize.left);
 	const int adjustHeight = static_cast<int>(windowSize.bottom - windowSize.top);
@@ -89,7 +95,7 @@ GraphicDeviceDX11::GraphicDeviceDX11(const HWND hWnd, const UINT screenWidth, co
 #pragma endregion
 
 
-#pragma region Create SwaphChain
+#pragma region Create SwaphChain	
 	DXGI_SWAP_CHAIN_DESC swapChainDesc = {};
 
 	swapChainDesc.BufferCount = 2;
@@ -102,12 +108,13 @@ GraphicDeviceDX11::GraphicDeviceDX11(const HWND hWnd, const UINT screenWidth, co
 	swapChainDesc.BufferDesc.Height = screenHeight;
 	swapChainDesc.BufferDesc.RefreshRate.Numerator = 240;   //최대프레임
 	swapChainDesc.BufferDesc.RefreshRate.Denominator = 1;   //최소프레임
-	swapChainDesc.BufferDesc.Scaling = DXGI_MODE_SCALING_UNSPECIFIED;
+	swapChainDesc.BufferDesc.Scaling = DXGI_MODE_SCALING::DXGI_MODE_SCALING_UNSPECIFIED;
 	swapChainDesc.BufferDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER::DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;
 
 	swapChainDesc.SwapEffect = DXGI_SWAP_EFFECT::DXGI_SWAP_EFFECT_DISCARD;
 	swapChainDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
-	swapChainDesc.BufferDesc.Format = DXGI_FORMAT::DXGI_FORMAT_R8G8B8A8_UNORM; //픽셀 포맷                                    
+	swapChainDesc.BufferDesc.Format = DXGI_FORMAT::DXGI_FORMAT_R8G8B8A8_UNORM; //픽셀 포맷          
+
 	Microsoft::WRL::ComPtr<IDXGIDevice> pDXGIDevice = nullptr;
 	Microsoft::WRL::ComPtr<IDXGIAdapter> pDXGIAdapter = nullptr;
 	Microsoft::WRL::ComPtr<IDXGIFactory> pDXGIFactory = nullptr;
@@ -136,7 +143,6 @@ GraphicDeviceDX11::GraphicDeviceDX11(const HWND hWnd, const UINT screenWidth, co
 		return;
 	}
 
-	//RenderTarget
 	if (FAILED(mSwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), reinterpret_cast<void**>(mRenderTargetTexture.GetAddressOf()))))
 	{
 		Assert(false, L"failed to get buffer");
@@ -189,13 +195,8 @@ GraphicDeviceDX11::GraphicDeviceDX11(const HWND hWnd, const UINT screenWidth, co
 	tSamDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
 	tSamDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
 	tSamDesc.Filter = D3D11_FILTER_ANISOTROPIC;
-	mDevice->CreateSamplerState(&tSamDesc, m_Sampler[0].GetAddressOf());
 
-	tSamDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
-	tSamDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
-	tSamDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
-	tSamDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_POINT;
-	mDevice->CreateSamplerState(&tSamDesc, m_Sampler[1].GetAddressOf());
+	mDevice->CreateSamplerState(&tSamDesc, m_Sampler[0].GetAddressOf());
 
 	mContext->VSSetSamplers(0, 1, m_Sampler[0].GetAddressOf());
 	mContext->HSSetSamplers(0, 1, m_Sampler[0].GetAddressOf());
@@ -203,6 +204,13 @@ GraphicDeviceDX11::GraphicDeviceDX11(const HWND hWnd, const UINT screenWidth, co
 	mContext->GSSetSamplers(0, 1, m_Sampler[0].GetAddressOf());
 	mContext->PSSetSamplers(0, 1, m_Sampler[0].GetAddressOf());
 
+	tSamDesc = {};
+	tSamDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
+	tSamDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
+	tSamDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
+	tSamDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_POINT;
+
+	mDevice->CreateSamplerState(&tSamDesc, m_Sampler[1].GetAddressOf());
 
 	mContext->VSSetSamplers(1, 1, m_Sampler[1].GetAddressOf());
 	mContext->HSSetSamplers(1, 1, m_Sampler[1].GetAddressOf());
@@ -234,7 +242,7 @@ void GraphicDeviceDX11::BindIA(const Shader* const shader) const
 void GraphicDeviceDX11::BindMesh(const Mesh* const mesh) const
 {
 	Assert(mesh, WCHAR_IS_NULLPTR);
-	
+
 	const UINT offset = 0;
 	const UINT stride = static_cast<UINT>(mesh->mVertexSize);
 

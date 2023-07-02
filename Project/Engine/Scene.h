@@ -1,9 +1,9 @@
 #pragma once
 #include "Resource.h"
 #include "Layer.h"
+#include "EnumLayer.h"
 
 class GameObject;
-enum class eLayerType;
 
 class Scene : public Resource
 {

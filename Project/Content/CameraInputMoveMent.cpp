@@ -99,7 +99,7 @@ void CameraInputMoveMent::update()
 			pos += gDeltaTime * right * fSpeed;
 		}
 
-		if (gInput->GetKey(eKeyCode::RBUTTON))
+		if (gInput->GetKey(eKeyCode::RBTN))
 		{			
 			Vector2 mouseDir = gInput->GetMouseDir();
 

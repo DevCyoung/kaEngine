@@ -32,14 +32,14 @@ void MeshRenderer::initialize()
 }
 
 void MeshRenderer::update()
-{	
+{
 	const eRenderType type = mMaterial->GetRenderType();
 
 	RenderManager::GetInstance()->RegisterRenderGameObject(type, GetOwner());
 }
 
 void MeshRenderer::lateUpdate()
-{		
+{
 }
 
 void MeshRenderer::render()
@@ -60,6 +60,7 @@ void MeshRenderer::render()
 	gGraphicDevice->PassCB(eCBType::Transform, sizeof(tTrans), &tTrans);
 	gGraphicDevice->BindCB(eCBType::Transform, eShaderBindType::VS);
 
+	//FIXME: Material Info 범용성있는 방법으로 수정
 	tCBColorInfo colorInfo = {};
 	{
 		colorInfo.bUseColor = bColorInfo;
@@ -68,7 +69,6 @@ void MeshRenderer::render()
 		gGraphicDevice->PassCB(eCBType::ColorInfo, sizeof(colorInfo), &colorInfo);
 		gGraphicDevice->BindCB(eCBType::ColorInfo, eShaderBindType::PS);
 	}
-	
 
 	gGraphicDevice->BindMesh(mMesh);
 	gGraphicDevice->BindIA(mMaterial->mShader);

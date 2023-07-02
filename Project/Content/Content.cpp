@@ -358,7 +358,7 @@ void Content::testSceneInitialize()
 		obj->GetComponent<Transform>()->SetScale(2.f, 2.f, 1.f);
 
 		testScene->AddGameObject(obj, eLayerType::UI);
-	}
+	}	
 
 	//UI Battery
 	{

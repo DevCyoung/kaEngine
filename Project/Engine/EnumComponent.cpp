@@ -1,17 +1,15 @@
 ﻿#include "pch.h"
 #include "EnumComponent.h"
 
+#include "Transform.h"
 #include "Camera.h"
 #include "MeshRenderer.h"
-#include "Tanning.h"
-#include "Transform.h"
 
 static constexpr const wchar_t* const ComponentNames[static_cast<UINT>(eComponentType::End)]
 {
+	L"Transform",
 	L"Camera",
 	L"MeshRenderer",
-	L"Tanning",
-	L"Transform",
 };
 
 const wchar_t* GetComponentName(const eComponentType type)
@@ -28,8 +26,6 @@ Component* CreateComponentByName(const std::wstring& componentName)
 		component = new Camera;
 	else if (L"MeshRenderer" == componentName)
 		component = new MeshRenderer;
-	else if (L"Tanning" == componentName)
-		component = new Tanning;
 	else if (L"Transform" == componentName)
 		component = new Transform;
 	else
@@ -48,9 +44,6 @@ Component* CreateComponentByEnum(const eComponentType type)
 		break;
 	case eComponentType::MeshRenderer:
 		component = new MeshRenderer;
-		break;
-	case eComponentType::Tanning:
-		component = new Tanning;
 		break;
 	case eComponentType::Transform:
 		component = new Transform;
