@@ -12,6 +12,6 @@ template <>																						\
 struct engine_component_type<COMPONENT_TYPE>													\
 {																								\
 	static constexpr bool value = true;															\
-	static constexpr eComponentType type = eComponentType::COMPONENT_TYPE;						\
+	static constexpr eComponentType type = eComponentType::##COMPONENT_TYPE;					\
 	static constexpr const wchar_t* const name = L#COMPONENT_TYPE;								\
 }																								\

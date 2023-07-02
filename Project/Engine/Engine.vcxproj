@@ -180,7 +180,9 @@ call ScriptGen.exe Component $(SolutionDir)Project\Engine $(SolutionDir)Project\
     <ClInclude Include="EnumComponent.h" />
     <ClInclude Include="EnumFlag.h" />
     <ClInclude Include="DXMath.h" />
+    <ClInclude Include="EnumLayer.h" />
     <ClInclude Include="EnumRenderType.h" />
+    <ClInclude Include="EnumResource.h" />
     <ClInclude Include="ResourceTypeTrait.h" />
     <ClInclude Include="EventManager.h" />
     <ClInclude Include="framework.h" />
@@ -213,10 +215,6 @@ call ScriptGen.exe Component $(SolutionDir)Project\Engine $(SolutionDir)Project\
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="String.h" />
     <ClInclude Include="StructConstantBuffer.h" />
-    <ClInclude Include="Tanning.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
     <ClInclude Include="Textrue.h" />
     <ClInclude Include="TimeManager.h" />
     <ClInclude Include="Mesh.h" />
@@ -264,10 +262,6 @@ call ScriptGen.exe Component $(SolutionDir)Project\Engine $(SolutionDir)Project\
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="String.cpp" />
     <ClCompile Include="StructConstantBuffer.cpp" />
-    <ClCompile Include="Tanning.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
     <ClCompile Include="Textrue.cpp" />
     <ClCompile Include="TimeManager.cpp" />
     <ClCompile Include="Mesh.cpp" />

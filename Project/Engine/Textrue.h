@@ -14,11 +14,12 @@ private:
 	Texture();
 	virtual ~Texture();
 	Texture(const Texture&) = delete;
-	Texture& operator=(const Texture&) = delete;
-	virtual HRESULT Load(const std::wstring& path) override;	
+	Texture& operator=(const Texture&) = delete;		
 public:
 	float GetWidth() const {  return static_cast<float>(mImage.GetMetadata().width) ;}
 	float GetHeight() const { return static_cast<float>(mImage.GetMetadata().height); }
+
+	virtual HRESULT Load(const std::wstring& path) override;
 
 private:	
 	ScratchImage mImage;

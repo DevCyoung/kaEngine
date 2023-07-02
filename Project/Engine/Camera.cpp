@@ -4,7 +4,7 @@
 #include "Transform.h"
 #include "Engine.h"
 #include "RenderManager.h"
-
+#include "EngineMath.h"
 Camera::Camera()
 	: Component(eComponentType::Camera)
 	, mLayerMask(0XFFFFFFFF)
@@ -61,7 +61,7 @@ void Camera::lateUpdate()
 	switch (mProjectionType)
 	{
 	case Camera::eProjectionType::Perspective:
-		mProjection = engine::math::Matrix::CreatePerspectiveFieldOfViewLH(XM_2PI / 6.0f, mAspectRatio, mNear, mFar);
+		mProjection = engine::math::Matrix::CreatePerspectiveFieldOfViewLH(Deg2Rad(mFOV), mAspectRatio, mNear, mFar);
 		break;
 	case Camera::eProjectionType::Orthographic:
 	{

@@ -10,6 +10,8 @@ cbuffer Transform : register(b0)
 
 cbuffer ColorInfo : register(b1)
 {
+	int	bUseColor;
+	float3 dummy;	
 	float4 cbColor;
 }
 

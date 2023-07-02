@@ -30,7 +30,7 @@ void CursorMovement::update()
 	}
 
     Transform* const transform = GetComponent<Transform>();	
-	Vector2 pos = helper::ScreenToUIPostion(gInput->GetMousePos(), screenSize);
+	Vector2 pos = helper::WindowScreenToUIPostion(gInput->GetMousePos(), screenSize);
 	transform->SetPosition(Vector3(pos.x, pos.y, transform->GetPosition().z));
 }
 

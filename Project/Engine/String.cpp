@@ -31,10 +31,11 @@ namespace helper
 	std::wstring String::SplitFilePathExtension(const std::wstring& filePath)
 	{
 		constexpr UINT PATH_LEN = 256;
-		wchar_t szExtension[PATH_LEN] = { 0, };
+		wchar_t szExtension[PATH_LEN] = {0, };
 
 		errno_t err = _wsplitpath_s(filePath.c_str(), nullptr, 0, nullptr, 0, nullptr, 0, szExtension, PATH_LEN);
 		(void)(err);
+
 		Assert(!err, L"error file path");
 		return szExtension;
 	}

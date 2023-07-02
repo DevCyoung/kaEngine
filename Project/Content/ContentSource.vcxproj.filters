@@ -19,14 +19,20 @@
     <Filter Include="ShaderCode\Header">
       <UniqueIdentifier>{abd7499d-ca04-4dfd-b4d0-94b1bb510403}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Struct">
-      <UniqueIdentifier>{07df51b7-2383-4921-8caa-5def729de20d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\01. Script">
       <UniqueIdentifier>{de857324-cd4d-4a4d-80a7-707699222472}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\01. Script\Script">
-      <UniqueIdentifier>{f9a80200-2724-4409-a098-96670c1a689b}</UniqueIdentifier>
+    <Filter Include="Source\00. Content\Builder">
+      <UniqueIdentifier>{459c7f76-89f1-41a4-a31e-c85b091c460f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\00. Content\ResourceManager">
+      <UniqueIdentifier>{b5760e71-803f-4f22-9af7-d44435ab071e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\00. Content\Struct">
+      <UniqueIdentifier>{07df51b7-2383-4921-8caa-5def729de20d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\01. Script\Enum">
+      <UniqueIdentifier>{c34d8bbf-e30d-458e-8f53-43db7792fa6e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -64,22 +70,34 @@
       <Filter>Resources</Filter>
     </ClInclude>
     <ClInclude Include="StructVertex.h">
-      <Filter>Source\Struct</Filter>
+      <Filter>Source\00. Content\Struct</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjectBuilder.h">
+      <Filter>Source\00. Content\Builder</Filter>
+    </ClInclude>
+    <ClInclude Include="MaterialBuilder.h">
+      <Filter>Source\00. Content\Builder</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceManager.h">
+      <Filter>Source\00. Content\ResourceManager</Filter>
     </ClInclude>
     <ClInclude Include="Bugiman.h">
       <Filter>Source\01. Script</Filter>
     </ClInclude>
-    <ClInclude Include="EnumScriptComponent.h">
-      <Filter>Source\01. Script\Script</Filter>
-    </ClInclude>
     <ClInclude Include="CameraInputMoveMent.h">
-      <Filter>Source\01. Script\Script</Filter>
+      <Filter>Source\01. Script</Filter>
     </ClInclude>
     <ClInclude Include="CursorMovement.h">
-      <Filter>Source\01. Script\Script</Filter>
+      <Filter>Source\01. Script</Filter>
     </ClInclude>
-    <ClInclude Include="ResourceManager.h">
-      <Filter>Source\00. Content</Filter>
+    <ClInclude Include="UIEffect.h">
+      <Filter>Source\01. Script</Filter>
+    </ClInclude>
+    <ClInclude Include="ShiftController.h">
+      <Filter>Source\01. Script</Filter>
+    </ClInclude>
+    <ClInclude Include="EnumScriptComponent.h">
+      <Filter>Source\01. Script\Enum</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -114,19 +132,31 @@
       <Filter>Resources</Filter>
     </ClCompile>
     <ClCompile Include="StructVertex.cpp">
-      <Filter>Source\Struct</Filter>
+      <Filter>Source\00. Content\Struct</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjectBuilder.cpp">
+      <Filter>Source\00. Content\Builder</Filter>
+    </ClCompile>
+    <ClCompile Include="MaterialBuilder.cpp">
+      <Filter>Source\00. Content\Builder</Filter>
     </ClCompile>
     <ClCompile Include="Bugiman.cpp">
       <Filter>Source\01. Script</Filter>
     </ClCompile>
-    <ClCompile Include="EnumScriptComponent.cpp">
-      <Filter>Source\01. Script\Script</Filter>
-    </ClCompile>
     <ClCompile Include="CameraInputMoveMent.cpp">
-      <Filter>Source\01. Script\Script</Filter>
+      <Filter>Source\01. Script</Filter>
     </ClCompile>
     <ClCompile Include="CursorMovement.cpp">
-      <Filter>Source\01. Script\Script</Filter>
+      <Filter>Source\01. Script</Filter>
+    </ClCompile>
+    <ClCompile Include="UIEffect.cpp">
+      <Filter>Source\01. Script</Filter>
+    </ClCompile>
+    <ClCompile Include="ShiftController.cpp">
+      <Filter>Source\01. Script</Filter>
+    </ClCompile>
+    <ClCompile Include="EnumScriptComponent.cpp">
+      <Filter>Source\01. Script\Enum</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

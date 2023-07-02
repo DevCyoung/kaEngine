@@ -74,6 +74,6 @@ void Engine::render()
 {	
 	mGraphicDevice->clearRenderTarget(mScreenWidth, mScreenHeight);	
 	RenderManager::GetInstance()->render();
-	MessageManager::GetInstance()->render(mHwnd);	
+	MessageManager::GetInstance()->render(mHwnd);
 	mGraphicDevice->present();
 }

@@ -7,14 +7,13 @@
 class ResourceManager
 {
 	friend class Engine;
-
-	using Key = std::wstring;
-	using Base = Resource;
-	using HashMap = std::unordered_map<Key, Base*>;
-	using Iterator = HashMap::iterator;
-	using ConstIterator = HashMap::const_iterator;
-
 	SINGLETON_DECLARE(ResourceManager);
+
+public:
+	using Key = std::wstring;
+	using Value = Resource;
+	using Dictionary = std::unordered_map<Key, Value*>;
+	using ConstIterator = Dictionary::const_iterator;
 
 public:
 	template<typename T>
@@ -43,7 +42,7 @@ public:
 	void Insert(const Key& key, T* const value);
 
 private:
-	HashMap mResources[static_cast<UINT>(eResourceType::End)];
+	Dictionary mResources[static_cast<UINT>(eResourceType::End)];
 };
 #define gResourceManager ResourceManager::GetInstance()
 
@@ -52,20 +51,19 @@ template<typename T>
 	requires (is_engine_resource<T>::value)
 inline T* ResourceManager::FindOrNullByRelativePath(const Key& orName)
 {
-		T* res = nullptr;
+	T* res = nullptr;
 
-		constexpr eResourceType resType = engine_resource_type<T>::resourceType;
-		const HashMap& resources = mResources[static_cast<UINT>(resType)];
-		ConstIterator iter = resources.find(orName);
+	constexpr eResourceType resType = engine_resource_type<T>::type;
+	const Dictionary& resources = mResources[static_cast<UINT>(resType)];
+	ConstIterator iter = resources.find(orName);
 
-		if (iter != resources.end())
-		{
-			res = dynamic_cast<T*>(iter->second);
-			Assert(res, WCHAR_IS_NULLPTR);
-		}
+	if (iter != resources.end())
+	{
+		res = dynamic_cast<T*>(iter->second);
+		Assert(res, WCHAR_IS_NULLPTR);
+	}
 
-		return res;
-	
+	return res;
 }
 
 template<typename T>
@@ -82,8 +80,8 @@ inline void ResourceManager::LoadByRelativePath(const Key& orName)
 	T* res = FindOrNullByRelativePath<T>(orName);
 	Assert(!res, WCHAR_IS_NOT_NULLPTR);
 
-	constexpr eResourceType type = engine_resource_type<T>::resourceType;
-	HashMap& resources = mResources[static_cast<UINT>(type)];
+	constexpr eResourceType type = engine_resource_type<T>::type;
+	Dictionary& resources = mResources[static_cast<UINT>(type)];
 
 	res = new T();
 
@@ -119,7 +117,7 @@ inline T* ResourceManager::FindByRelativePath(const Key& orName)
 	return res;
 }
 
-template<typename T>	
+template<typename T>
 	requires (is_engine_resource<T>::value)
 inline T* ResourceManager::FindByEnum(engine_resource_type<T>::eResEnumType resName)
 {
@@ -131,13 +129,14 @@ template<typename T>
 inline void ResourceManager::Insert(const Key& key, T* const value)
 {
 	Assert(value, WCHAR_IS_NULLPTR);
-	constexpr eResourceType type = engine_resource_type<T>::resourceType;
-	HashMap& resources = mResources[static_cast<UINT>(type)];
+	constexpr eResourceType type = engine_resource_type<T>::type;
+	Dictionary& resources = mResources[static_cast<UINT>(type)];
 	ConstIterator iter = resources.find(key);
 
 	Assert(resources.end() == iter, L"already");
 
 	value->mKey = key;
 	value->mPath = key;
+
 	resources.insert(std::make_pair(key, value));
 }

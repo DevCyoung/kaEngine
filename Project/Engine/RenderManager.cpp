@@ -10,9 +10,13 @@
 
 RenderManager::RenderManager()
 	: mCurrentCalculateCamera(nullptr)
-	, mCameras{ 0, }
+	, mCameras{0, }
 	, mRenderObjectArrays()
 {
+	for (auto& renderObjectArray : mRenderObjectArrays)
+	{
+		renderObjectArray.reserve(100);
+	}
 }
 
 RenderManager::~RenderManager()
@@ -53,7 +57,7 @@ void RenderManager::render()
 		{
 			for (GameObject* const renderObject : renderObjectArray)
 			{
-				const UINT renderObjectLayer = renderObject->GetLayer();
+				const UINT renderObjectLayer = static_cast<UINT>(renderObject->GetLayer());
 
 				if (cameraLayerMask & (1 << renderObjectLayer))
 				{				

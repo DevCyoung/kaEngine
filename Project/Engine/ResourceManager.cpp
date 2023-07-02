@@ -8,8 +8,8 @@ ResourceManager::ResourceManager()
 
 ResourceManager::~ResourceManager()
 {
-	for (HashMap& item : mResources)
+	for (Dictionary& item : mResources)
 	{
-		memory::safe::DeleteUnorderedMap(item);
+		memory::safe::DeleteUnorderedMap(item);		
 	}
 }

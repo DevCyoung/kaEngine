@@ -2,13 +2,11 @@
 #include "Scene.h"
 #include "SceneManager.h"
 
-
 SceneManager::SceneManager()
 	: mCurrentScene(nullptr)
 
 {
 }
-
 
 SceneManager::~SceneManager()
 {

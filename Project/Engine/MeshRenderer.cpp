@@ -18,6 +18,8 @@ MeshRenderer::MeshRenderer()
 	, mMaterial(nullptr)
 	, mRenderTarget(nullptr)
 	, mTestColor(Vector4::One)
+	, testX(Vector4::One)
+	, bColorInfo(0)
 {
 }
 
@@ -30,14 +32,14 @@ void MeshRenderer::initialize()
 }
 
 void MeshRenderer::update()
-{	
+{
 	const eRenderType type = mMaterial->GetRenderType();
 
 	RenderManager::GetInstance()->RegisterRenderGameObject(type, GetOwner());
 }
 
 void MeshRenderer::lateUpdate()
-{		
+{
 }
 
 void MeshRenderer::render()
@@ -58,12 +60,15 @@ void MeshRenderer::render()
 	gGraphicDevice->PassCB(eCBType::Transform, sizeof(tTrans), &tTrans);
 	gGraphicDevice->BindCB(eCBType::Transform, eShaderBindType::VS);
 
-	tCBColorInfo tColorInfo = {};
+	//FIXME: Material Info 범용성있는 방법으로 수정
+	tCBColorInfo colorInfo = {};
 	{
-		tColorInfo.mColor = mTestColor;
-	}	
-	gGraphicDevice->PassCB(eCBType::ColorInfo, sizeof(tColorInfo), &tColorInfo);
-	gGraphicDevice->BindCB(eCBType::ColorInfo, eShaderBindType::PS);
+		colorInfo.bUseColor = bColorInfo;
+		colorInfo.mColor = testX;
+
+		gGraphicDevice->PassCB(eCBType::ColorInfo, sizeof(colorInfo), &colorInfo);
+		gGraphicDevice->BindCB(eCBType::ColorInfo, eShaderBindType::PS);
+	}
 
 	gGraphicDevice->BindMesh(mMesh);
 	gGraphicDevice->BindIA(mMaterial->mShader);

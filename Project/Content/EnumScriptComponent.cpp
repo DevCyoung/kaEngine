@@ -4,12 +4,16 @@
 #include "Bugiman.h"
 #include "CameraInputMoveMent.h"
 #include "CursorMovement.h"
+#include "ShiftController.h"
+#include "UIEffect.h"
 
 static constexpr const wchar_t* const ScriptComponentNames[static_cast<UINT>(eScriptComponentType::End)]
 {
 	L"Bugiman",
 	L"CameraInputMoveMent",
 	L"CursorMovement",
+	L"ShiftController",
+	L"UIEffect",
 };
 
 const wchar_t* GetScriptComponentName(const eScriptComponentType type)
@@ -28,6 +32,10 @@ ScriptComponent* CreateScriptComponentByName(const std::wstring& scriptcomponent
 		scriptcomponent = new CameraInputMoveMent;
 	else if (L"CursorMovement" == scriptcomponentName)
 		scriptcomponent = new CursorMovement;
+	else if (L"ShiftController" == scriptcomponentName)
+		scriptcomponent = new ShiftController;
+	else if (L"UIEffect" == scriptcomponentName)
+		scriptcomponent = new UIEffect;
 	else
 		assert(false);
 	return scriptcomponent;
@@ -47,6 +55,12 @@ ScriptComponent* CreateScriptComponentByEnum(const eScriptComponentType type)
 		break;
 	case eScriptComponentType::CursorMovement:
 		scriptcomponent = new CursorMovement;
+		break;
+	case eScriptComponentType::ShiftController:
+		scriptcomponent = new ShiftController;
+		break;
+	case eScriptComponentType::UIEffect:
+		scriptcomponent = new UIEffect;
 		break;
 	default:
 		assert(false);

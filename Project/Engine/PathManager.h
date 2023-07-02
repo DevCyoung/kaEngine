@@ -1,7 +1,6 @@
 #pragma once
 #include "Singleton.h"
 
-
 class PathManager
 {
 	friend class Engine;

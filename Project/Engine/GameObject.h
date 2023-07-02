@@ -2,6 +2,7 @@
 #include "Entity.h"
 #include "ComponentTrait.h"
 #include "EnumComponent.h"
+#include "EnumLayer.h"
 
 class ScriptComponent;
 
@@ -33,7 +34,6 @@ public:
 	Component* GetComponentOrNull(const eComponentType type) const;
 	ScriptComponent* GetComponentOrNull(const eScriptComponentType type) const;
 
-	//FIXME! 이벤트방식으로 변경해야함	
 	template<typename T>
 		requires (is_component_type<T>::value)
 	void AddComponent(T* const component);
@@ -46,7 +46,7 @@ public:
 	void RemoveComponent(eComponentType type);
 	void RemoveComponent(eScriptComponentType type);
 
-	UINT GetLayer() const { return mCurLayer;}; // 0 ~ 31
+	eLayerType GetLayer() const { return mCurLayer;}; // 0 ~ 31
 
 	void SetParent(GameObject* const parent) { mParent = parent; }
 
@@ -59,7 +59,7 @@ private:
 	void render();
 
 private:
-	UINT mCurLayer;
+	eLayerType mCurLayer;
 	eState mState;
 	Component* mEngineComponents[static_cast<UINT>(eComponentType::End)];
 	std::vector<ScriptComponent*> mUserComponents;

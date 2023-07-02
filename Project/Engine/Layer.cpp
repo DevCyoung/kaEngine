@@ -2,7 +2,6 @@
 #include "Layer.h"
 #include "GameObject.h"
 
-
 Layer::Layer()
 	:mGameObjects()
 {
