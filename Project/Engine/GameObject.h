@@ -33,7 +33,6 @@ public:
 	Component* GetComponentOrNull(const eComponentType type) const;
 	ScriptComponent* GetComponentOrNull(const eScriptComponentType type) const;
 
-	//FIXME! 이벤트방식으로 변경해야함	
 	template<typename T>
 		requires (is_component_type<T>::value)
 	void AddComponent(T* const component);

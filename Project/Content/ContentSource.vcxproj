@@ -196,9 +196,19 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
     <ClInclude Include="EnumResourceTypeTexture.h" />
     <ClInclude Include="EnumScriptComponent.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="GameObjectBuilder.h" />
+    <ClInclude Include="MaterialBuilder.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="ResourceManager.h" />
+    <ClInclude Include="ShiftController.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="StructVertex.h" />
+    <ClInclude Include="UIEffect.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Bugiman.cpp">
@@ -223,6 +233,8 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
     <ClCompile Include="EnumResourceTypeSound.cpp" />
     <ClCompile Include="EnumResourceTypeTexture.cpp" />
     <ClCompile Include="EnumScriptComponent.cpp" />
+    <ClCompile Include="GameObjectBuilder.cpp" />
+    <ClCompile Include="MaterialBuilder.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">pch.h</PrecompiledHeaderFile>
@@ -231,7 +243,15 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
       <PrecompiledHeaderOutputFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)$(TargetName).pch</PrecompiledHeaderOutputFile>
       <PrecompiledHeaderOutputFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)$(TargetName).pch</PrecompiledHeaderOutputFile>
     </ClCompile>
+    <ClCompile Include="ShiftController.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="StructVertex.cpp" />
+    <ClCompile Include="UIEffect.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Output\bin\Resources\Shader\Header\ConstantBuffer.fxh">

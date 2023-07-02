@@ -5,5 +5,5 @@
 
 namespace helper
 {
-	Vector2 ScreenToUIPostion(const Vector2& screenPos, const Vector2& screenSize);
+	Vector2 WindowScreenToUIPostion(const Vector2& screenPos, const Vector2& screenSize);
 }

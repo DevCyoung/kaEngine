@@ -15,3 +15,4 @@ CBCollection::CBCollection(ID3D11Device* const device)
 CBCollection::~CBCollection()
 {
 }
+		

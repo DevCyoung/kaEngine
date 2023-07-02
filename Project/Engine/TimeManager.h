@@ -12,9 +12,11 @@ private:
 
 public:
 	float GetDeltaTime() const { return mDeltaTime; }
+	float GetGlobalTime() const { return mGlobalTime; }
 
 private:
 	float mDeltaTime;
+	float mGlobalTime;
 	float mSecond;
 	LARGE_INTEGER mCpuFrequency;
 	LARGE_INTEGER mPrevFrequency;
@@ -22,3 +24,4 @@ private:
 };
 
 #define gDeltaTime TimeManager::GetInstance()->GetDeltaTime()
+#define gGlobalTime TimeManager::GetInstance()->GetGlobalTime()

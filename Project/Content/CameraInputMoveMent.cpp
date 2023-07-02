@@ -21,6 +21,7 @@ void CameraInputMoveMent::initialize()
 void CameraInputMoveMent::update()
 {
 	Camera* const camera = GetComponent<Camera>();
+
 	if (gInput->GetKeyDown(eKeyCode::F1))
 	{
 		camera->SetProjectiontType(Camera::eProjectionType::Orthographic);
@@ -44,7 +45,6 @@ void CameraInputMoveMent::update()
 	{
 		Vector3 pos = transform->GetPosition();
 		Vector3 dir = Vector3::Zero;
-
 
 		if (gInput->GetKey(eKeyCode::W))
 		{
@@ -79,8 +79,6 @@ void CameraInputMoveMent::update()
 		Vector3 forward = transform->GetForward();
 		Vector3 right = transform->GetRight();
 
-
-
 		if (gInput->GetKey(eKeyCode::W))
 		{
 			pos += gDeltaTime * forward * fSpeed;
@@ -102,17 +100,16 @@ void CameraInputMoveMent::update()
 		}
 
 		if (gInput->GetKey(eKeyCode::RBUTTON))
-		{
-			
+		{			
 			Vector2 mouseDir = gInput->GetMouseDir();
-			rot.y += gDeltaTime		* mouseDir.x * 100.f;
-			rot.x -= gDeltaTime * mouseDir.y	 * 100.f;
+
+			rot.y += gDeltaTime	* mouseDir.x * 100.f;
+			rot.x -= gDeltaTime * mouseDir.y * 100.f;
 		}
 
 		transform->SetPosition(pos);
 		transform->SetRotation(rot);
 	}
-
 }
 
 void CameraInputMoveMent::lateUpdate()

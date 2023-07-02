@@ -34,4 +34,7 @@ private:
 	Material* mMaterial;
 	Texture* mRenderTarget;
 	Vector4 mTestColor;
+public:
+	Vector4 testX;
+	int bColorInfo;
 };

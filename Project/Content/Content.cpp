@@ -1,22 +1,18 @@
 #include "pch.h"
 #include "Content.h"
+#include <Engine/Engine.h>
 #include <Engine/SceneManager.h>
-#include <Engine/TimeManager.h>
-#include <Engine/InputManager.h>
-
+#include "Components.h"
 #include "ResourceManager.h"
 #include "StructVertex.h"
-
-#include "Components.h"
-
-#include <Engine/Tanning.h>
-
-#include "Bugiman.h"
-
-#include <Engine/RenderManager.h>
-#include <Engine/Engine.h>
+#include "GameObjectBuilder.h"
+#include "MaterialBuilder.h"
 #include "CameraInputMoveMent.h"
 #include "CursorMovement.h"
+#include "UIEffect.h"
+#include "Bugiman.h"
+#include "ShiftController.h"
+#include <Engine/EngineMath.h>
 
 Content::Content()
 {
@@ -26,6 +22,14 @@ Content::Content()
 
 Content::~Content()
 {
+}
+
+void Content::resourceInitialize()
+{
+	loadMesh();
+	loadTexture();
+	loadShader();
+	loadMaterial();
 }
 
 void Content::loadMesh()
@@ -70,6 +74,14 @@ void Content::loadMesh()
 	}
 }
 
+void Content::loadTexture()
+{
+	for (UINT i = 0; i < static_cast<UINT>(eResTexture::End); ++i)
+	{
+		gResourceManager->LoadByEnum<Texture>(static_cast<eResTexture>(i));
+	}
+}
+
 void Content::loadShader()
 {
 	//Default Shader
@@ -83,7 +95,6 @@ void Content::loadShader()
 		gResourceManager->Insert<Shader>(L"Default", defaultShader);
 	}
 
-
 	//UI Shader
 	{
 		Shader* const UIShader =
@@ -94,680 +105,346 @@ void Content::loadShader()
 				eBSType::AlphaBlend);
 		gResourceManager->Insert<Shader>(L"UIShader", UIShader);
 	}
-
 }
 
-void Content::loadTexture()
-{
-	for (UINT i = 0; i < static_cast<UINT>(eResTexture::End); ++i)
-	{
-		gResourceManager->LoadByEnum<Texture>(static_cast<eResTexture>(i));
-	}
-}
 
 void Content::loadMaterial()
 {
 	loadUIMaterial();
 
 	{
-		Material* const material = new Material(eRenderType::Opqaue);
-		material->SetShader(gResourceManager
-			->FindOrNullByRelativePath<Shader>(L"Default"));
-		material->SetTexture(gResourceManager
-			->FindOrNullByEnum<Texture>(eResTexture::door));
-
+		Material* const material =
+			MaterialBuilder::BuildDefault2DMaterial(
+				eRenderType::Opqaue, L"Default", eResTexture::door);
 		gResourceManager->Insert<Material>(L"Default", material);
 	}
 
 	{
-		Material* const material = new Material(eRenderType::Opqaue);
-		material->SetShader(gResourceManager
-			->FindOrNullByRelativePath<Shader>(L"Default"));
-		material->SetTexture(gResourceManager
-			->FindOrNullByEnum<Texture>(eResTexture::orange));
-
+		Material* const material =
+			MaterialBuilder::BuildDefault2DMaterial(
+				eRenderType::Opqaue, L"Default", eResTexture::orange);
 		gResourceManager->Insert<Material>(L"Sample", material);
 	}
 
-
 	{
-		Material* const material = new Material(eRenderType::Opqaue);
-		material->SetShader(gResourceManager
-			->FindOrNullByRelativePath<Shader>(L"Default"));
-		material->SetTexture(gResourceManager
-			->FindOrNullByEnum<Texture>(eResTexture::bg_club_full_0));
-
+		Material* const material =
+			MaterialBuilder::BuildDefault2DMaterial(
+				eRenderType::Opqaue, L"Default", eResTexture::bg_club_full_0);
 		gResourceManager->Insert<Material>(L"BackGround01", material);
 	}
 
 	{
-		Material* const material = new Material(eRenderType::Opqaue);
-		material->SetShader(gResourceManager
-			->FindOrNullByRelativePath<Shader>(L"Default"));
-		material->SetTexture(gResourceManager
-			->FindOrNullByEnum<Texture>(eResTexture::door));
-
+		Material* const material =
+			MaterialBuilder::BuildDefault2DMaterial(
+				eRenderType::Opqaue, L"Default", eResTexture::door);
 		gResourceManager->Insert<Material>(L"Door", material);
 	}
 
 	{
-		Material* const material = new Material(eRenderType::Opqaue);
-		material->SetShader(gResourceManager
-			->FindOrNullByRelativePath<Shader>(L"Default"));
-		material->SetTexture(gResourceManager
-			->FindOrNullByEnum<Texture>(eResTexture::bg_club_full_0));
-
+		Material* const material =
+			MaterialBuilder::BuildDefault2DMaterial(
+				eRenderType::Opqaue, L"Default", eResTexture::bg_club_full_0);
 		gResourceManager->Insert<Material>(L"BackGround02", material);
 	}
 
 	{
-		Material* const material = new Material(eRenderType::Opqaue);
-		material->SetShader(gResourceManager
-			->FindOrNullByRelativePath<Shader>(L"Default"));
-		material->SetTexture(gResourceManager
-			->FindOrNullByEnum<Texture>(eResTexture::bg_dreamshed_0));
-
+		Material* const material =
+			MaterialBuilder::BuildDefault2DMaterial(
+				eRenderType::Opqaue, L"Default", eResTexture::bg_dreamshed_0);
 		gResourceManager->Insert<Material>(L"BackGround03", material);
 	}
 
 	{
-		Material* const material = new Material(eRenderType::Opqaue);
-		material->SetShader(gResourceManager
-			->FindOrNullByRelativePath<Shader>(L"Default"));
-		material->SetTexture(gResourceManager
-			->FindOrNullByEnum<Texture>(eResTexture::bg_studio_outside_0));
-
+		Material* const material =
+			MaterialBuilder::BuildDefault2DMaterial(
+				eRenderType::Opqaue, L"Default", eResTexture::bg_studio_outside_0);
 		gResourceManager->Insert<Material>(L"BackGround04", material);
 	}
 
 	{
-		Material* const material = new Material(eRenderType::Opqaue);
-		material->SetShader(gResourceManager
-			->FindOrNullByRelativePath<Shader>(L"Default"));
-		material->SetTexture(gResourceManager
-			->FindOrNullByEnum<Texture>(eResTexture::spr_bg_neighbor_apartment_0));
-
+		Material* const material =
+			MaterialBuilder::BuildDefault2DMaterial(
+				eRenderType::Opqaue, L"Default", eResTexture::spr_bg_neighbor_apartment_0);
 		gResourceManager->Insert<Material>(L"BackGround05", material);
 	}
-
 }
-
-
-
 
 void Content::loadUIMaterial()
 {
+	//Cursor
 	{
-		//Hud
-		Material* const material = new Material(eRenderType::Opqaue);
-		material->SetShader(gResourceManager
-			->FindOrNullByRelativePath<Shader>(L"UIShader"));
-		material->SetTexture(gResourceManager
-			->FindOrNullByEnum<Texture>(eResTexture::UI_spr_hud));
-
-		gResourceManager->Insert<Material>(L"UIHud", material);
-	}
-
-	{
-		//Hud Timer
-		Material* const material = new Material(eRenderType::Opqaue);
-		material->SetShader(gResourceManager
-			->FindOrNullByRelativePath<Shader>(L"UIShader"));
-		material->SetTexture(gResourceManager
-			->FindOrNullByEnum<Texture>(eResTexture::UI_spr_hud_timer_0));
-
-		gResourceManager->Insert<Material>(L"UIHudTimer", material);
-	}
-
-	{
-		//Timer
-		Material* const material = new Material(eRenderType::Opqaue);
-		material->SetShader(gResourceManager
-			->FindOrNullByRelativePath<Shader>(L"UIShader"));
-		material->SetTexture(gResourceManager
-			->FindOrNullByEnum<Texture>(eResTexture::UI_spr_timer));
-
-		gResourceManager->Insert<Material>(L"UITimer", material);
-	}
-
-
-	{
-		//Shift
-		Material* const material = new Material(eRenderType::Opqaue);
-		material->SetShader(gResourceManager
-			->FindOrNullByRelativePath<Shader>(L"UIShader"));
-		material->SetTexture(gResourceManager
-			->FindOrNullByEnum<Texture>(eResTexture::UI_spr_keyboard_shift_0));
-
-		gResourceManager->Insert<Material>(L"UIShift", material);
-	}
-
-
-	{
-		//Shift
-		Material* const material = new Material(eRenderType::Opqaue);
-		material->SetShader(gResourceManager
-			->FindOrNullByRelativePath<Shader>(L"UIShader"));
-		material->SetTexture(gResourceManager
-			->FindOrNullByEnum<Texture>(eResTexture::UI_spr_hud_battery));
-
-		gResourceManager->Insert<Material>(L"UIBattery", material);
-	}
-
-
-
-	{
-		//Item Board
-		Material* const material = new Material(eRenderType::Opqaue);
-		material->SetShader(gResourceManager
-			->FindOrNullByRelativePath<Shader>(L"UIShader"));
-		material->SetTexture(gResourceManager
-			->FindOrNullByEnum<Texture>(eResTexture::UI_spr_hud_subweapon));
-
-		gResourceManager->Insert<Material>(L"UIHudItem", material);
-	}
-
-	{
-		//Left Item
-		Material* const material = new Material(eRenderType::Opqaue);
-		material->SetShader(gResourceManager
-			->FindOrNullByRelativePath<Shader>(L"UIShader"));
-		material->SetTexture(gResourceManager
-			->FindOrNullByEnum<Texture>(eResTexture::UI_spr_itemicons_0));
-
-		gResourceManager->Insert<Material>(L"UIRightItem", material);
-	}
-
-	{
-		//Right Item
-		Material* const material = new Material(eRenderType::Opqaue);
-		material->SetShader(gResourceManager
-			->FindOrNullByRelativePath<Shader>(L"UIShader"));
-		material->SetTexture(gResourceManager
-			->FindOrNullByEnum<Texture>(eResTexture::UI_spr_katanaicons_0));
-
-		gResourceManager->Insert<Material>(L"UILeftItem", material);
-	}
-
-
-
-	{
-		//Left Mouse
-		Material* const material = new Material(eRenderType::Opqaue);
-		material->SetShader(gResourceManager
-			->FindOrNullByRelativePath<Shader>(L"UIShader"));
-		material->SetTexture(gResourceManager
-			->FindOrNullByEnum<Texture>(eResTexture::UI_spr_left_click_1));
-
-		gResourceManager->Insert<Material>(L"UILeftClick", material);
-	}
-
-	{
-		//Right Mouse
-		Material* const material = new Material(eRenderType::Opqaue);
-		material->SetShader(gResourceManager
-			->FindOrNullByRelativePath<Shader>(L"UIShader"));
-		material->SetTexture(gResourceManager
-			->FindOrNullByEnum<Texture>(eResTexture::UI_spr_right_click_1));
-
-		gResourceManager->Insert<Material>(L"UIRightClick", material);
-	}
-
-
-
-
-	{
-		//Cursor
-		Material* const material = new Material(eRenderType::Opqaue);
-		material->SetShader(gResourceManager
-			->FindOrNullByRelativePath<Shader>(L"UIShader"));
-		material->SetTexture(gResourceManager
-			->FindOrNullByEnum<Texture>(eResTexture::UI_spr_cursor));
-
+		Material* const material =
+			MaterialBuilder::BuildDefault2DMaterial(
+				eRenderType::Opqaue, L"UIShader", eResTexture::UI_spr_cursor);
 		gResourceManager->Insert<Material>(L"UICursor", material);
 	}
 
+	//Hud Bar
+	{
+		Material* const material =
+			MaterialBuilder::BuildDefault2DMaterial(
+				eRenderType::Opqaue, L"UIShader", eResTexture::UI_spr_hud);
+		gResourceManager->Insert<Material>(L"UIHud", material);
+	}
 
+	//Hud Timer
+	{
 
+		Material* const material =
+			MaterialBuilder::BuildDefault2DMaterial(
+				eRenderType::Opqaue, L"UIShader", eResTexture::UI_spr_hud_timer_0);
+		gResourceManager->Insert<Material>(L"UIHudTimer", material);
+	}
 
-}
+	//Timer
+	{
 
+		Material* const material =
+			MaterialBuilder::BuildDefault2DMaterial(
+				eRenderType::Opqaue, L"UIShader", eResTexture::UI_spr_timer);
+		gResourceManager->Insert<Material>(L"UITimer", material);
+	}
 
+	//Shift 00
+	{
+		Material* const material =
+			MaterialBuilder::BuildDefault2DMaterial(
+				eRenderType::Opqaue, L"UIShader", eResTexture::UI_spr_keyboard_shift_0);
+		gResourceManager->Insert<Material>(L"UIShift00", material);
+	}
 
+	//Shift 01
+	{
+		Material* const material =
+			MaterialBuilder::BuildDefault2DMaterial(
+				eRenderType::Opqaue, L"UIShader", eResTexture::UI_spr_keyboard_shift_1);
+		gResourceManager->Insert<Material>(L"UIShift01", material);
+	}
 
+	//Battrey
+	{
+		Material* const material =
+			MaterialBuilder::BuildDefault2DMaterial(
+				eRenderType::Opqaue, L"UIShader", eResTexture::UI_spr_hud_battery);
+		gResourceManager->Insert<Material>(L"UIBattery", material);
+	}
 
-void Content::resourceInitialize()
-{
-	loadMesh();
-	loadTexture();
-	loadShader();
-	loadMaterial();
+	//Hud Item
+	{
+		Material* const material =
+			MaterialBuilder::BuildDefault2DMaterial(
+				eRenderType::Opqaue, L"UIShader", eResTexture::UI_spr_hud_subweapon);
+		gResourceManager->Insert<Material>(L"UIHudItem", material);
+	}
+
+	//Right Item
+	{
+		Material* const material =
+			MaterialBuilder::BuildDefault2DMaterial(
+				eRenderType::Opqaue, L"UIShader", eResTexture::UI_spr_itemicons_0);
+		gResourceManager->Insert<Material>(L"UIRightItem", material);
+	}
+
+	//Left Item
+	{
+		Material* const material =
+			MaterialBuilder::BuildDefault2DMaterial(
+				eRenderType::Opqaue, L"UIShader", eResTexture::UI_spr_katanaicons_0);
+		gResourceManager->Insert<Material>(L"UILeftItem", material);
+	}
+
+	//Right Click Mouse
+	{
+		Material* const material =
+			MaterialBuilder::BuildDefault2DMaterial(
+				eRenderType::Opqaue, L"UIShader", eResTexture::UI_spr_right_click_1);
+		gResourceManager->Insert<Material>(L"UIRightClick", material);
+	}
+
+	//Left Click Mouse
+	{
+		Material* const material =
+			MaterialBuilder::BuildDefault2DMaterial(
+				eRenderType::Opqaue, L"UIShader", eResTexture::UI_spr_left_click_1);
+		gResourceManager->Insert<Material>(L"UILeftClick", material);
+	}
 }
 
 void Content::testSceneInitialize()
 {
+	const Vector2 screenSize = gEngine->GetScreenSize();
 	Scene* testScene = new Scene();
 
-	//parent
+	//BackGround parent
 	{
-		GameObject* const obj = new GameObject();
-		obj->AddComponent<MeshRenderer>();
+		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"BackGround01");
+
 		obj->AddComponent<Bugiman>();
 
-		obj->GetComponent<MeshRenderer>()
-			->SetMesh(gResourceManager
-				->FindOrNullByRelativePath<Mesh>(L"Rect"));
+		obj->GetComponent<Transform>()->SetScale(2.0f, 2.0f, 1.f);
 
-		obj->GetComponent<MeshRenderer>()
-			->SetMaterial(gResourceManager
-				->FindOrNullByRelativePath<Material>(L"BackGround01"));
 
-		obj->GetComponent<Transform>()
-			->SetScale(1.0f, 1.0f, 1.f);
 		testScene->AddGameObject(obj, eLayerType::Default);
 
 		//chid
 		{
-			GameObject* const child = new GameObject();
-			child->AddComponent<MeshRenderer>();
-			//obj->AddComponent<Bugiman>();
+			GameObject* const child = GameObjectBuilder::BuildDefault2DGameObject(L"BackGround03");
 
-			child->GetComponent<MeshRenderer>()
-				->SetMesh(gResourceManager
-					->FindOrNullByRelativePath<Mesh>(L"Rect"));
-
-			child->GetComponent<MeshRenderer>()
-				->SetMaterial(gResourceManager
-					->FindOrNullByRelativePath<Material>(L"BackGround03"));
-
-			child->GetComponent<Transform>()
-				->SetPosition(1200.f, 0.f, -100.f);
-			//
-			//child->GetComponent<Transform>()
-			//	->SetScale(0.25f, 0.25f, 1.f);
+			child->GetComponent<Transform>()->SetPosition(1200.f, 0.f, -100.f);
 
 			child->SetParent(obj);
 
-			testScene->AddGameObject(child, eLayerType::Default);			
+			testScene->AddGameObject(child, eLayerType::Default);
 		}
 	}
 
 	const float hudPosY = gEngine->GetScreenHeight() / 2.f - 23.f;
 
-	//Cursor
+	//Mouse Cursor
 	{
+		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UICursor");
 
-		GameObject* const obj = new GameObject();
-		obj->AddComponent<MeshRenderer>();
 		obj->AddComponent<CursorMovement>();
 
-
-
-		obj->GetComponent<MeshRenderer>()
-			->SetMesh(gResourceManager
-				->FindOrNullByRelativePath<Mesh>(L"Rect"));
-		obj->GetComponent<MeshRenderer>()
-			->SetMaterial(gResourceManager
-				->FindOrNullByRelativePath<Material>(L"UICursor"));
-
-		obj->GetComponent<Transform>()
-			->SetPosition(610.f, hudPosY - 24.f, -10.f);
-
-		obj->GetComponent<Transform>()
-			->SetScale(2.f, 2.f, 1.f);
+		obj->GetComponent<Transform>()->SetScale(2.f, 2.f, 1.f);
 
 		testScene->AddGameObject(obj, eLayerType::UI);
 	}
 
-	//UI
+	//UI UP Hud
 	{
-		//Hud
-		GameObject* const obj = new GameObject();
-		obj->AddComponent<MeshRenderer>();
+		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UIHud");
 
-		obj->GetComponent<MeshRenderer>()
-			->SetMesh(gResourceManager
-				->FindOrNullByRelativePath<Mesh>(L"Rect"));
-		obj->GetComponent<MeshRenderer>()
-			->SetMaterial(gResourceManager
-				->FindOrNullByRelativePath<Material>(L"UIHud"));
+		const Vector2 pos = helper::WindowScreenToUIPostion(Vector2(screenSize.x / 2.f, 23.f), screenSize);
 
-		obj->GetComponent<Transform>()
-			->SetPosition(0, hudPosY, -10.f);
-
-		obj->GetComponent<Transform>()
-			->SetScale(2.f, 2.f, 1.f);
-
+		obj->GetComponent<Transform>()->SetPosition(Vector3(pos.x, pos.y, 10.f));
+		obj->GetComponent<Transform>()->SetScale(2.f, 2.f, 1.f);
 
 		testScene->AddGameObject(obj, eLayerType::UI);
 	}
 
-	const float timerPosX = -8.f;
+	constexpr float timerPosX = -8.f;
+
+	//UI HudTimer
 	{
-		//UIHudTimer
-		GameObject* const obj = new GameObject();
-		obj->AddComponent<MeshRenderer>();
+		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UIHudTimer");
 
-		obj->GetComponent<MeshRenderer>()
-			->SetMesh(gResourceManager
-				->FindOrNullByRelativePath<Mesh>(L"Rect"));
-		obj->GetComponent<MeshRenderer>()
-			->SetMaterial(gResourceManager
-				->FindOrNullByRelativePath<Material>(L"UIHudTimer"));
-
-		obj->GetComponent<Transform>()
-			->SetPosition(timerPosX, hudPosY + 2.f, -10.f);
-
-		obj->GetComponent<Transform>()
-			->SetScale(2.f, 2.f, 1.f);
-
+		obj->GetComponent<Transform>()->SetPosition(timerPosX, hudPosY + 2.f, -10.f);
+		obj->GetComponent<Transform>()->SetScale(2.f, 2.f, 1.f);
 
 		testScene->AddGameObject(obj, eLayerType::UI);
 	}
 
-
+	//UI Timer
 	{
-		//Timer
-		GameObject* const obj = new GameObject();
-		obj->AddComponent<MeshRenderer>();
 
-		obj->GetComponent<MeshRenderer>()
-			->SetMesh(gResourceManager
-				->FindOrNullByRelativePath<Mesh>(L"Rect"));
-		obj->GetComponent<MeshRenderer>()
-			->SetMaterial(gResourceManager
-				->FindOrNullByRelativePath<Material>(L"UITimer"));
+		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UITimer");
 
-		obj->GetComponent<Transform>()
-			->SetPosition(timerPosX + 16.f, hudPosY + 6.f, -10.f);
+		obj->AddComponent<UIEffect>();
 
-		obj->GetComponent<Transform>()
-			->SetScale(2.f, 2.f, 1.f);
-
+		obj->GetComponent<Transform>()->SetPosition(timerPosX + 16.f, hudPosY + 6.f, -10.f);
+		obj->GetComponent<Transform>()->SetScale(2.f, 2.f, 1.f);
 
 		testScene->AddGameObject(obj, eLayerType::UI);
 	}
-
 
 	//UIShift
 	{
-		GameObject* const obj = new GameObject();
-		obj->AddComponent<MeshRenderer>();
+		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UIShift00");
 
-		obj->GetComponent<MeshRenderer>()
-			->SetMesh(gResourceManager
-				->FindOrNullByRelativePath<Mesh>(L"Rect"));
-		obj->GetComponent<MeshRenderer>()
-			->SetMaterial(gResourceManager
-				->FindOrNullByRelativePath<Material>(L"UIShift"));
+		obj->AddComponent<ShiftController>();
 
-		obj->GetComponent<Transform>()
-			->SetPosition(-455.f, hudPosY + 1.f, -10.f);
-
-		obj->GetComponent<Transform>()
-			->SetScale(2.f, 2.f, 1.f);
+		obj->GetComponent<Transform>()->SetPosition(-455.f, hudPosY + 1.f, -10.f);
+		obj->GetComponent<Transform>()->SetScale(2.f, 2.f, 1.f);
 
 		testScene->AddGameObject(obj, eLayerType::UI);
 	}
 
 	//UI Battery
 	{
-		GameObject* const obj = new GameObject();
-		obj->AddComponent<MeshRenderer>();
+		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UIBattery");
 
-		obj->GetComponent<MeshRenderer>()
-			->SetMesh(gResourceManager
-				->FindOrNullByRelativePath<Mesh>(L"Rect"));
-		obj->GetComponent<MeshRenderer>()
-			->SetMaterial(gResourceManager
-				->FindOrNullByRelativePath<Material>(L"UIBattery"));
-
-		obj->GetComponent<Transform>()
-			->SetPosition(-561.f, hudPosY - 1.f, -10.f);
-
-		obj->GetComponent<Transform>()
-			->SetScale(2.f, 2.f, 1.f);
+		obj->GetComponent<Transform>()->SetPosition(-561.f, hudPosY - 1.f, -10.f);
+		obj->GetComponent<Transform>()->SetScale(2.f, 2.f, 1.f);
 
 		testScene->AddGameObject(obj, eLayerType::UI);
 	}
-
-
 
 	//UI Hud Item
 	{
-		GameObject* const obj = new GameObject();
-		obj->AddComponent<MeshRenderer>();
+		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UIHudItem");
 
-		obj->GetComponent<MeshRenderer>()
-			->SetMesh(gResourceManager
-				->FindOrNullByRelativePath<Mesh>(L"Rect"));
-		obj->GetComponent<MeshRenderer>()
-			->SetMaterial(gResourceManager
-				->FindOrNullByRelativePath<Material>(L"UIHudItem"));
-
-		obj->GetComponent<Transform>()
-			->SetPosition(+560.f, hudPosY + 1.f, -10.f);
-
-		obj->GetComponent<Transform>()
-			->SetScale(2.f, 2.f, 1.f);
+		obj->GetComponent<Transform>()->SetPosition(+560.f, hudPosY + 1.f, -10.f);
+		obj->GetComponent<Transform>()->SetScale(2.f, 2.f, 1.f);
 
 		testScene->AddGameObject(obj, eLayerType::UI);
 	}
 
-
 	//UI Left Item
 	{
-		//Timer
-		GameObject* const obj = new GameObject();
-		obj->AddComponent<MeshRenderer>();
+		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UILeftItem");
 
-		obj->GetComponent<MeshRenderer>()
-			->SetMesh(gResourceManager
-				->FindOrNullByRelativePath<Mesh>(L"Rect"));
-		obj->GetComponent<MeshRenderer>()
-			->SetMaterial(gResourceManager
-				->FindOrNullByRelativePath<Material>(L"UILeftItem"));
-
-		obj->GetComponent<Transform>()
-			->SetPosition(528.f, hudPosY + 1.f, -10.f);
-
-		obj->GetComponent<Transform>()
-			->SetScale(2.f, 2.f, 1.f);
+		obj->GetComponent<Transform>()->SetPosition(528.f, hudPosY + 1.f, -10.f);
+		obj->GetComponent<Transform>()->SetScale(2.f, 2.f, 1.f);
 
 		testScene->AddGameObject(obj, eLayerType::UI);
 	}
 
 	//UI Right Item
 	{
-		//Timer
-		GameObject* const obj = new GameObject();
-		obj->AddComponent<MeshRenderer>();
+		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UIRightItem");
 
-		obj->GetComponent<MeshRenderer>()
-			->SetMesh(gResourceManager
-				->FindOrNullByRelativePath<Mesh>(L"Rect"));
-		obj->GetComponent<MeshRenderer>()
-			->SetMaterial(gResourceManager
-				->FindOrNullByRelativePath<Material>(L"UIRightItem"));
-
-		obj->GetComponent<Transform>()
-			->SetPosition(592.f, hudPosY + 1.f, -10.f);
-
-		obj->GetComponent<Transform>()
-			->SetScale(2.f, 2.f, 1.f);
+		obj->GetComponent<Transform>()->SetPosition(592.f, hudPosY + 1.f, -10.f);
+		obj->GetComponent<Transform>()->SetScale(2.f, 2.f, 1.f);
 
 		testScene->AddGameObject(obj, eLayerType::UI);
 	}
 
 	//UI Left Click
 	{
-		//Timer
-		GameObject* const obj = new GameObject();
-		obj->AddComponent<MeshRenderer>();
+		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UILeftClick");
 
-		obj->GetComponent<MeshRenderer>()
-			->SetMesh(gResourceManager
-				->FindOrNullByRelativePath<Mesh>(L"Rect"));
-		obj->GetComponent<MeshRenderer>()
-			->SetMaterial(gResourceManager
-				->FindOrNullByRelativePath<Material>(L"UILeftClick"));
-
-		obj->GetComponent<Transform>()
-			->SetPosition(550.f, hudPosY - 24.f, -10.f);
-
-		obj->GetComponent<Transform>()
-			->SetScale(2.f, 2.f, 1.f);
+		obj->GetComponent<Transform>()->SetPosition(550.f, hudPosY - 24.f, -10.f);
+		obj->GetComponent<Transform>()->SetScale(2.f, 2.f, 1.f);
 
 		testScene->AddGameObject(obj, eLayerType::UI);
 	}
 
 	//UI Right Click
 	{
-		GameObject* const obj = new GameObject();
-		obj->AddComponent<MeshRenderer>();
+		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UIRightClick");
 
-		obj->GetComponent<MeshRenderer>()
-			->SetMesh(gResourceManager
-				->FindOrNullByRelativePath<Mesh>(L"Rect"));
-		obj->GetComponent<MeshRenderer>()
-			->SetMaterial(gResourceManager
-				->FindOrNullByRelativePath<Material>(L"UIRightClick"));
-
-		obj->GetComponent<Transform>()
-			->SetPosition(610.f, hudPosY - 24.f, -10.f);
-
-		obj->GetComponent<Transform>()
-			->SetScale(2.f, 2.f, 1.f);
+		obj->GetComponent<Transform>()->SetPosition(610.f, hudPosY - 24.f, -10.f);
+		obj->GetComponent<Transform>()->SetScale(2.f, 2.f, 1.f);
 
 		testScene->AddGameObject(obj, eLayerType::UI);
 	}
 
-
-
-
-	//
-	//{
-	//	//test
-	//	GameObject* const obj = new GameObject();
-	//	obj->AddComponent<MeshRenderer>();
-	//
-	//	obj->GetComponent<MeshRenderer>()
-	//		->SetMesh(gResourceManager
-	//			->FindOrNullByRelativePath<Mesh>(L"Rect"));
-	//
-	//	obj->GetComponent<MeshRenderer>()
-	//		->SetMaterial(gResourceManager
-	//			->FindOrNullByRelativePath<Material>(L"BackGround02"));
-	//
-	//	obj->GetComponent<Transform>()
-	//		->SetPosition(20.f, 0.f, 0.f);
-	//
-	//	Texture* const texture = obj->GetComponent<MeshRenderer>()->GetMaterial()->GetTexture();
-	//	const float textureWidth = texture->GetWidth();
-	//	const float textureHeigth = texture->GetHeight();
-	//	obj->GetComponent<Transform>()->SetScale(textureWidth * 0.01f, textureHeigth * 0.01f, 1.f);
-	//
-	//	testScene->AddGameObject(obj, eLayerType::Player);
-	//}
-	//
-	//
-	//{
-	//
-	//	//test
-	//	GameObject* const obj = new GameObject();
-	//	obj->AddComponent<MeshRenderer>();
-	//
-	//	obj->GetComponent<MeshRenderer>()
-	//		->SetMesh(gResourceManager
-	//			->FindOrNullByRelativePath<Mesh>(L"Rect"));
-	//
-	//	obj->GetComponent<MeshRenderer>()
-	//		->SetMaterial(gResourceManager
-	//			->FindOrNullByRelativePath<Material>(L"BackGround03"));
-	//
-	//	obj->GetComponent<Transform>()->SetPosition(32.f, 0.f, 0.f);
-	//
-	//	Texture* const texture = obj->GetComponent<MeshRenderer>()->GetMaterial()->GetTexture();
-	//	const float textureWidth = texture->GetWidth();
-	//	const float textureHeigth = texture->GetHeight();
-	//	obj->GetComponent<Transform>()->SetScale(textureWidth * 0.013f, textureHeigth * 0.013f, 1.f);
-	//
-	//	testScene->AddGameObject(obj, eLayerType::Player);
-	//}
-	//
-	//{
-	//	//test
-	//	GameObject* const obj = new GameObject();
-	//	obj->AddComponent<MeshRenderer>();
-	//
-	//	obj->GetComponent<MeshRenderer>()
-	//		->SetMesh(gResourceManager
-	//			->FindOrNullByRelativePath<Mesh>(L"Rect"));
-	//
-	//	obj->GetComponent<MeshRenderer>()
-	//		->SetMaterial(gResourceManager
-	//			->FindOrNullByRelativePath<Material>(L"BackGround04"));
-	//
-	//	obj->GetComponent<Transform>()->SetPosition(40, 0.f, 0.f);
-	//
-	//	Texture* const texture = obj->GetComponent<MeshRenderer>()->GetMaterial()->GetTexture();
-	//	const float textureWidth = texture->GetWidth();
-	//	const float textureHeigth = texture->GetHeight();
-	//	obj->GetComponent<Transform>()->SetScale(textureWidth * 0.01f, textureHeigth * 0.01f, 1.f);
-	//
-	//	testScene->AddGameObject(obj, eLayerType::Player);
-	//}
-	//
-	//{
-	//	//test
-	//	GameObject* const obj = new GameObject();
-	//	obj->AddComponent<MeshRenderer>();
-	//
-	//	obj->GetComponent<MeshRenderer>()
-	//		->SetMesh(gResourceManager
-	//			->FindOrNullByRelativePath<Mesh>(L"Rect"));
-	//
-	//	obj->GetComponent<MeshRenderer>()
-	//		->SetMaterial(gResourceManager
-	//			->FindOrNullByRelativePath<Material>(L"BackGround05"));
-	//
-	//	Texture* const texture = obj->GetComponent<MeshRenderer>()->GetMaterial()->GetTexture();
-	//	const float textureWidth = texture->GetWidth();
-	//	const float textureHeigth = texture->GetHeight();
-	//	obj->GetComponent<Transform>()->SetScale(textureWidth * 0.01f, textureHeigth * 0.01f, 1.f);
-	//
-	//	obj->GetComponent<Transform>()->SetPosition(50, 0.f, 0.f);
-	//
-	//	testScene->AddGameObject(obj, eLayerType::Player);
-	//}
-
 	//Main Camera
 	{
 		GameObject* const mainCameraObj = new GameObject();
+
 		mainCameraObj->AddComponent<Camera>();
 		mainCameraObj->AddComponent<CameraInputMoveMent>();
-
-		mainCameraObj->GetComponent<Transform>()->SetPosition(0.f, 0.f, -10.f);
 
 		mainCameraObj->GetComponent<Camera>()->SetCameraType(Camera::eCameraType::Main);
 		mainCameraObj->GetComponent<Camera>()->TurnOnAllLayer();
 		mainCameraObj->GetComponent<Camera>()->TurnOffLayer(eLayerType::UI);
+		mainCameraObj->GetComponent<Transform>()->SetPosition(0.f, 0.f, -10.f);
 
 		testScene->AddGameObject(mainCameraObj, eLayerType::Default);
-		//이후에 사용할수도있음
-
 	}
-
 
 	//UI Camera
 	{
 		GameObject* const mainCameraObj = new GameObject();
+
 		mainCameraObj->AddComponent<Camera>();
-		mainCameraObj->GetComponent<Transform>()->SetPosition(0.f, 0.f, -10.f);
 
 		mainCameraObj->GetComponent<Camera>()->SetCameraType(Camera::eCameraType::UI);
 		mainCameraObj->GetComponent<Camera>()->TurnOffAllLayer();
 		mainCameraObj->GetComponent<Camera>()->TurnOnLayer(eLayerType::UI);
+		mainCameraObj->GetComponent<Transform>()->SetPosition(0.f, 0.f, -10.f);
 
 		testScene->AddGameObject(mainCameraObj, eLayerType::Default);
 	}

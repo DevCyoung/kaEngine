@@ -18,6 +18,8 @@ MeshRenderer::MeshRenderer()
 	, mMaterial(nullptr)
 	, mRenderTarget(nullptr)
 	, mTestColor(Vector4::One)
+	, testX(Vector4::One)
+	, bColorInfo(0)
 {
 }
 
@@ -58,12 +60,15 @@ void MeshRenderer::render()
 	gGraphicDevice->PassCB(eCBType::Transform, sizeof(tTrans), &tTrans);
 	gGraphicDevice->BindCB(eCBType::Transform, eShaderBindType::VS);
 
-	tCBColorInfo tColorInfo = {};
+	tCBColorInfo colorInfo = {};
 	{
-		tColorInfo.mColor = mTestColor;
-	}	
-	gGraphicDevice->PassCB(eCBType::ColorInfo, sizeof(tColorInfo), &tColorInfo);
-	gGraphicDevice->BindCB(eCBType::ColorInfo, eShaderBindType::PS);
+		colorInfo.bUseColor = bColorInfo;
+		colorInfo.mColor = testX;
+
+		gGraphicDevice->PassCB(eCBType::ColorInfo, sizeof(colorInfo), &colorInfo);
+		gGraphicDevice->BindCB(eCBType::ColorInfo, eShaderBindType::PS);
+	}
+	
 
 	gGraphicDevice->BindMesh(mMesh);
 	gGraphicDevice->BindIA(mMaterial->mShader);

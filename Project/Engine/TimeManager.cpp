@@ -4,6 +4,7 @@
 
 TimeManager::TimeManager()
 	: mDeltaTime(0.0f)
+	, mGlobalTime(0.0f)
 	, mSecond(0.0f)
 	, mCpuFrequency{}
 	, mPrevFrequency{}
@@ -21,7 +22,8 @@ void TimeManager::update()
 {
 	QueryPerformanceCounter(&mCurFrequency);
 	const float differnceFrequency = static_cast<float>(mCurFrequency.QuadPart - mPrevFrequency.QuadPart);
-	mDeltaTime = differnceFrequency / static_cast<float>(mCpuFrequency.QuadPart);	
+	mDeltaTime = differnceFrequency / static_cast<float>(mCpuFrequency.QuadPart);
+	mGlobalTime += mDeltaTime;
 	mPrevFrequency.QuadPart = mCurFrequency.QuadPart;
 
 	const float fps = 1.0f / mDeltaTime;

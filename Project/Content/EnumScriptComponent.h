@@ -8,6 +8,8 @@ enum class eScriptComponentType
 	Bugiman,
 	CameraInputMoveMent,
 	CursorMovement,
+	ShiftController,
+	UIEffect,
 	End
 };
 
