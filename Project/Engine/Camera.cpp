@@ -70,7 +70,7 @@ void Camera::lateUpdate()
 		width  *= OrthorGraphicRatio;
 		height *= OrthorGraphicRatio;
 
-		mProjection = engine::math::Matrix::CreateOrthographicLH(width, height, mNear, mFar);
+		mProjection = engine::math::Matrix::CreateOrthographicLH(width, height, mNear, mFar);		
 	}
 	break;
 	default:

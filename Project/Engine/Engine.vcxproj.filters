@@ -142,6 +142,9 @@
     <Filter Include="Source\03. Component\04. Animator">
       <UniqueIdentifier>{bc69a198-03d8-45de-9057-d4b3c0c45454}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\06. Resource\08. Prefab">
+      <UniqueIdentifier>{9797c301-f5a0-45de-bf25-2e476c6e6628}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Entity.h">
@@ -294,6 +297,9 @@
     <ClInclude Include="EnumResource.h">
       <Filter>Source\06. Resource</Filter>
     </ClInclude>
+    <ClInclude Include="Prefab.h">
+      <Filter>Source\06. Resource\08. Prefab</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Entity.cpp">
@@ -403,6 +409,9 @@
     </ClCompile>
     <ClCompile Include="EngineMath.cpp">
       <Filter>Source\07. Helper\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Prefab.cpp">
+      <Filter>Source\06. Resource\08. Prefab</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

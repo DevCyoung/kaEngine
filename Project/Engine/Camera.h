@@ -32,6 +32,7 @@ public:
 	float GetFOV() const { return mFOV; }
 	float GetNear() const { return mNear; }
 	float GetFar() const { return mFar; }
+	float GetSize() const { return mSize; }
 	float GetAspectRatio() const { return mAspectRatio; }
 	const Matrix& GetView() const { return mView; }
 	const Matrix& GetProjection() const { return mProjection; }
@@ -41,6 +42,7 @@ public:
 	void SetFOV(const float fov) { mFOV = fov; }
 	void SetNear(const float _near) { mNear = _near; }
 	void SetFar(const float _far) { mFar = _far; }
+	void SetSize(const float size) { mSize = size; }
 	void SetAspectRatio(const float aspectRatio) { mAspectRatio = aspectRatio; }	
 	void SetCameraType(const eCameraType cameraType) { mCameraType = cameraType; }
 	void SetProjectiontType(const eProjectionType projectionType) { mProjectionType = projectionType; }

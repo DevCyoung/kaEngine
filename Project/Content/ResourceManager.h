@@ -5,6 +5,7 @@
 #include <Engine/Textrue.h>
 #include <Engine/Material.h>
 #include <Engine/Shader.h>
+#include <Engine/Prefab.h>
 
 #include "EnumResourceTypeAnimation.h"	
 #include "EnumResourceTypeFont.h"

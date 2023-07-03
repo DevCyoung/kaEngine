@@ -25,6 +25,7 @@ ENGINE_RESOURCE_TYPE(Animation);
 ENGINE_RESOURCE_TYPE(Font);
 ENGINE_RESOURCE_TYPE(Sound);
 ENGINE_RESOURCE_TYPE(Scene);
+ENGINE_RESOURCE_TYPE(Prefab);
 
 template <typename T>
 struct is_engine_resource

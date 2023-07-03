@@ -35,6 +35,14 @@ public:
 		return mCurrentCalculateCamera;
 	}
 
+	Camera* GetCamera(const Camera::eCameraType type) const
+	{
+		Assert(type != Camera::eCameraType::End, WCHAR_IS_INVALID_TYPE);
+		Assert(mCameras[static_cast<UINT>(type)], WCHAR_IS_NULLPTR);
+
+		return mCameras[static_cast<UINT>(type)];
+	}
+
 private:
 	void zSortRenderObjectArray(const eRenderType type);
 	void render();

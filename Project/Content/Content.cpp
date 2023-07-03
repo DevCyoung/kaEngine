@@ -30,6 +30,7 @@ void Content::resourceInitialize()
 	loadTexture();
 	loadShader();
 	loadMaterial();
+	loadPrefab();
 }
 
 void Content::loadMesh()
@@ -270,6 +271,14 @@ void Content::loadUIMaterial()
 	}
 }
 
+void Content::loadPrefab()
+{
+	//GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"Door");
+	//Prefab* const prefab = new Prefab(obj);
+	//
+	//gResourceManager->Insert<Prefab>(L"Door", prefab);
+}
+
 void Content::testSceneInitialize()
 {
 	const Vector2 screenSize = gEngine->GetScreenSize();
@@ -298,8 +307,6 @@ void Content::testSceneInitialize()
 		}
 	}
 
-	const float hudPosY = gEngine->GetScreenHeight() / 2.f - 23.f;
-
 	//Mouse Cursor
 	{
 		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UICursor");
@@ -308,14 +315,16 @@ void Content::testSceneInitialize()
 
 		obj->GetComponent<Transform>()->SetScale(2.f, 2.f, 1.f);
 
-		testScene->AddGameObject(obj, eLayerType::UI);
+		testScene->AddGameObject(obj, eLayerType::Player);
 	}
+
+	const float hudPosY = gEngine->GetScreenHeight() / 2.f - 23.f;
 
 	//UI UP Hud
 	{
 		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UIHud");
 
-		const Vector2 pos = helper::WindowScreenToUIPostion(Vector2(screenSize.x / 2.f, 23.f), screenSize);
+		const Vector2 pos = helper::ScreenToWorldScreen(Vector2(screenSize.x / 2.f, 23.f), screenSize);
 
 		obj->GetComponent<Transform>()->SetPosition(Vector3(pos.x, pos.y, 10.f));
 		obj->GetComponent<Transform>()->SetScale(2.f, 2.f, 1.f);

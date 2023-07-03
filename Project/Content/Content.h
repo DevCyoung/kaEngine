@@ -14,7 +14,7 @@ private:
 
 	void loadMaterial();
 	void loadUIMaterial();
-
+	void loadPrefab();
 
 private:
 	void resourceInitialize();

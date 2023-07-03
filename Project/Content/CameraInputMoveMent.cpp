@@ -29,7 +29,7 @@ void CameraInputMoveMent::update()
 	else if (gInput->GetKeyDown(eKeyCode::F2))
 	{
 		camera->SetProjectiontType(Camera::eProjectionType::Perspective);
-	}
+	}	
 
 	constexpr float cameraSpeed = 600.f;
 
@@ -66,10 +66,33 @@ void CameraInputMoveMent::update()
 		dir.Normalize();
 		dir *= fSpeed * gDeltaTime;
 		pos += dir;
-		transform->SetPosition(pos);
+		transform->SetPosition(pos);		
+
+		float cameraSize = camera->GetSize();
+
+		if (gInput->GetKey(eKeyCode::NUM1))
+		{
+			cameraSize += gDeltaTime;
+		}
+		if (gInput->GetKey(eKeyCode::NUM2))
+		{
+			cameraSize -= gDeltaTime;
+		}
+
+		if (cameraSize < 0.1f)
+		{
+			cameraSize = 0.1f;
+		}
+		else if (cameraSize >= 5.f)
+		{
+			cameraSize = 5.f;
+		}
+
+		camera->SetSize(cameraSize);
+
 
 		wchar_t buffer[256] = { 0, };
-		swprintf_s(buffer, 50, L"<Camera Position : %.2f, %.2f, %.2f>", pos.x, pos.y, pos.z);
+		swprintf_s(buffer, 256, L"<Main Camera Position : %.2f, %.2f, %.2f Size : %.2f>", pos.x, pos.y, pos.z, cameraSize);
 		gMessageManager->AddMessage(buffer);
 	}
 	else
