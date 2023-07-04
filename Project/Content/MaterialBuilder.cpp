@@ -2,7 +2,7 @@
 #include "MaterialBuilder.h"
 #include "ResourceManager.h"
 
-Material* MaterialBuilder::BuildDefault2DMaterial(const eRenderType renderType, 
+Material* MaterialBuilder::BuildDefault2DMaterial(const eRenderPriorityType renderType, 
 	const std::wstring& shaderName, const eResTexture textureType)
 {
 	Material* const material = new Material(renderType);

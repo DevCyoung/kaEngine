@@ -21,6 +21,7 @@ private:
 	float mDeltaTime;
 	float mGlobalTime;
 	float mSecond;
+
 	LARGE_INTEGER mCpuFrequency;
 	LARGE_INTEGER mPrevFrequency;
 	LARGE_INTEGER mCurFrequency;

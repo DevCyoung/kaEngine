@@ -99,6 +99,9 @@
     <ClInclude Include="EnumScriptComponent.h">
       <Filter>Source\01. Script\Enum</Filter>
     </ClInclude>
+    <ClInclude Include="TestScript.h">
+      <Filter>Source</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -158,6 +161,9 @@
     <ClCompile Include="EnumScriptComponent.cpp">
       <Filter>Source\01. Script\Enum</Filter>
     </ClCompile>
+    <ClCompile Include="TestScript.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Output\bin\Resources\Shader\Header\TestShaderHeader.fxh">
@@ -183,9 +189,6 @@
     </None>
     <None Include="dpend.diff">
       <Filter>Windows</Filter>
-    </None>
-    <None Include="StructBuffer.fxh">
-      <Filter>ShaderCode\Header</Filter>
     </None>
   </ItemGroup>
 </Project>

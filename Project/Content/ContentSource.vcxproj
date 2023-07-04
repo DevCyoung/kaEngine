@@ -205,6 +205,10 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
       </SubType>
     </ClInclude>
     <ClInclude Include="StructVertex.h" />
+    <ClInclude Include="TestScript.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="UIEffect.h">
       <SubType>
       </SubType>
@@ -248,6 +252,10 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
       </SubType>
     </ClCompile>
     <ClCompile Include="StructVertex.cpp" />
+    <ClCompile Include="TestScript.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="UIEffect.cpp">
       <SubType>
       </SubType>
@@ -329,7 +337,6 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
       <FileType>Document</FileType>
     </None>
     <None Include="dpend.diff" />
-    <None Include="StructBuffer.fxh" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Output\bin\Resources\Shader\Header\TestShaderHeader.fxh" />

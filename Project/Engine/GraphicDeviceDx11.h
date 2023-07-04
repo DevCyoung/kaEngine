@@ -46,10 +46,28 @@ public:
 
 	void Draw(const Mesh* const mesh) const;
 	//void DrawIndexd();
+	void ClearRenderTarget(const UINT screenWidth,
+		const UINT screenHeight,
+		const FLOAT bgColor[4],
+		Microsoft::WRL::ComPtr<ID3D11RenderTargetView> renderTargetView,
+		Microsoft::WRL::ComPtr<ID3D11DepthStencilView> depthStencilView) const;
 
 private:
-	void clearRenderTarget(const UINT screenWidth, const UINT screenHeight) const;
 	void present();
+
+	Microsoft::WRL::ComPtr<ID3D11RenderTargetView> GetRenderTargetView() const
+	{
+		Assert(mRenderTargetView, WCHAR_IS_NULLPTR);
+
+		return mRenderTargetView;
+	}
+	Microsoft::WRL::ComPtr<ID3D11DepthStencilView> GetDepthStencilView() const
+	{
+		Assert(mDepthStencilView, WCHAR_IS_NULLPTR);
+
+		return mDepthStencilView;
+	}
+
 
 private:
 	Microsoft::WRL::ComPtr<ID3D11Device> mDevice;
@@ -61,9 +79,9 @@ private:
 	Microsoft::WRL::ComPtr<IDXGISwapChain> mSwapChain;
 	Microsoft::WRL::ComPtr<ID3D11SamplerState> m_Sampler[2];
 
-	CBCollection* mConstantBuffers;
-	RSCollection* mRasterizerStates;
-	BSCollection* mBlendStates;
-	DSCollection* mDepthStencilStates;
+	CBCollection* mCBCollection;
+	RSCollection* mRSCollection;
+	BSCollection* mBSCollection;
+	DSCollection* mDSCollection;
 };
 

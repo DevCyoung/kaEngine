@@ -1,52 +1,46 @@
 #include "pch.h"
-#include "MeshRenderer.h"
+#include "SpriteRenderer.h"
 #include "Camera.h"
 #include "Material.h"
 #include "Textrue.h"
 #include "Shader.h"
 #include "CBCollection.h"
 #include "StructConstantBuffer.h"
-#include "GameObject.h"
 #include "Engine.h"
 #include "GraphicDeviceDx11.h"
-#include "RenderManager.h"
 #include "Transform.h"
 
-MeshRenderer::MeshRenderer()
-	: Component(eComponentType::MeshRenderer)
-	, mMesh(nullptr)
-	, mMaterial(nullptr)
-	, mRenderTarget(nullptr)
+
+SpriteRenderer::SpriteRenderer()
+	: RenderComponent(eComponentType::SpriteRenderer)	
 	, mTestColor(Vector4::One)
 	, testX(Vector4::One)
 	, bColorInfo(0)
 {
 }
 
-MeshRenderer::~MeshRenderer()
+SpriteRenderer::~SpriteRenderer()
 {
 }
 
-void MeshRenderer::initialize()
+void SpriteRenderer::initialize()
 {
 }
 
-void MeshRenderer::update()
-{
-	const eRenderType type = mMaterial->GetRenderType();
-
-	RenderManager::GetInstance()->RegisterRenderGameObject(type, GetOwner());
+void SpriteRenderer::update()
+{	
+	RenderComponent::update();
 }
 
-void MeshRenderer::lateUpdate()
+void SpriteRenderer::lateUpdate()
 {
 }
 
-void MeshRenderer::render()
+void SpriteRenderer::render(const Camera* const camera)
 {
 	Assert(mMesh, WCHAR_IS_NULLPTR);
 	Assert(mMaterial, WCHAR_IS_NULLPTR);
-	const Camera* const camera = RenderManager::GetInstance()->GetCurrentCalculateCamera();
+	Assert(camera, WCHAR_IS_NULLPTR);
 
 	tCBTransform tTrans = {};
 	{
@@ -71,12 +65,12 @@ void MeshRenderer::render()
 	}
 
 	gGraphicDevice->BindMesh(mMesh);
-	gGraphicDevice->BindIA(mMaterial->mShader);
-	gGraphicDevice->BindPS(mMaterial->mShader);
-	gGraphicDevice->BindVS(mMaterial->mShader);
-	gGraphicDevice->BindBS(mMaterial->mShader->GetBSType());
-	gGraphicDevice->BindDS(mMaterial->mShader->GetDSType());
-	gGraphicDevice->BindRS(mMaterial->mShader->GetRSType());
-	gGraphicDevice->BindTexture(eShaderBindType::PS, 0, mMaterial->mTexture);
+	gGraphicDevice->BindIA(mMaterial->GetShader());
+	gGraphicDevice->BindPS(mMaterial->GetShader());
+	gGraphicDevice->BindVS(mMaterial->GetShader());
+	gGraphicDevice->BindBS(mMaterial->GetShader()->GetBSType());
+	gGraphicDevice->BindDS(mMaterial->GetShader()->GetDSType());
+	gGraphicDevice->BindRS(mMaterial->GetShader()->GetRSType());
+	gGraphicDevice->BindTexture(eShaderBindType::PS, 0, mMaterial->GetTexture());
 	gGraphicDevice->Draw(mMesh);
 }

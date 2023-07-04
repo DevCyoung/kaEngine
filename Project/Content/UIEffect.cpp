@@ -19,7 +19,7 @@ void UIEffect::initialize()
 
 void UIEffect::update()
 {
-    MeshRenderer* meshRenderer = GetComponent<MeshRenderer>();
+    SpriteRenderer* meshRenderer = GetComponent<SpriteRenderer>();
 
     meshRenderer->bColorInfo = 1;
     meshRenderer->testX.x -= gDeltaTime * 0.05f;
@@ -27,9 +27,5 @@ void UIEffect::update()
 }
 
 void UIEffect::lateUpdate()
-{
-}
-
-void UIEffect::render()
 {
 }

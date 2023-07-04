@@ -13,4 +13,7 @@ namespace helper
 		const Vector2& screenSize, 
 		const Vector3& cameraPos,
 		const float cameraSize);
+
+	float LerpCosBtwZeroAndOne(float value);
+	float LerpSinBtwZeroAndOne(float value);
 }

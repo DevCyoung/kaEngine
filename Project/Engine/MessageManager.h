@@ -7,10 +7,16 @@ class MessageManager
 	SINGLETON_DECLARE(MessageManager);
 
 public:
-	void AddMessage(const std::wstring& message) { mMessages.push_back(message); }
+	void AddMessage(const std::wstring& message)
+	{
+		Assert(IsSendMessage(), WCHAR_IS_INVALID_TYPE);
+
+		mMessages.push_back(message);
+	}
+
+	bool IsSendMessage() { return mSecond > 1.0f; }
 
 private:
-	void lateUpdate();
 	void render(HWND hWnd);
 
 private:

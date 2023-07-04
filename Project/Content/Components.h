@@ -3,7 +3,7 @@
 #include <Engine/Component.h>
 #include <Engine/Transform.h>
 #include <Engine/Camera.h>
-#include <Engine/MeshRenderer.h>
+#include <Engine/SpriteRenderer.h>
 
 //Script Component
 #include <Engine/ScriptComponent.h>

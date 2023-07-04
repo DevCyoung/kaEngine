@@ -88,12 +88,14 @@ void CameraInputMoveMent::update()
 			cameraSize = 5.f;
 		}
 
-		camera->SetSize(cameraSize);
+		camera->SetCameraSize(cameraSize);
 
-
-		wchar_t buffer[256] = { 0, };
-		swprintf_s(buffer, 256, L"<Main Camera Position : %.2f, %.2f, %.2f Size : %.2f>", pos.x, pos.y, pos.z, cameraSize);
-		gMessageManager->AddMessage(buffer);
+		if (MessageManager::GetInstance()->IsSendMessage())
+		{
+			wchar_t buffer[256] = { 0, };
+			swprintf_s(buffer, 256, L"<Main Camera Position : %.2f, %.2f, %.2f Size : %.2f>", pos.x, pos.y, pos.z, cameraSize);
+			MessageManager::GetInstance()->AddMessage(buffer);
+		}		
 	}
 	else
 	{
@@ -136,9 +138,5 @@ void CameraInputMoveMent::update()
 }
 
 void CameraInputMoveMent::lateUpdate()
-{
-}
-
-void CameraInputMoveMent::render()
 {
 }

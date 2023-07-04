@@ -23,4 +23,15 @@ namespace helper
 
 		return ScreenToWorldScreen(screenPos * cameraSize, screenSize * cameraSize) + cameraPos2D;
 	}
+
+	float LerpCosBtwZeroAndOne(float value)
+	{		
+		return (cos(value) + 1.f) / 2.f;
+	}
+
+	float LerpSinBtwZeroAndOne(float value)
+	{
+		return (sin(value) + 1.f) / 2.f;
+	}
+	
 }

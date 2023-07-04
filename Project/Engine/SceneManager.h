@@ -1,6 +1,8 @@
 #include "Singleton.h"
 #include "Scene.h"
 
+class GameObject;
+
 class SceneManager
 {
 	friend class Engine;
@@ -8,8 +10,6 @@ class SceneManager
 
 public:
 	void LoadScene(Scene* const scene);
-
-	//Scene* GetCurrentScene() { Assert(false, WCHAR_IS_NULLPTR); return mCurrentScene; }
 
 private:
 	void update();

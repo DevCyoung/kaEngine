@@ -17,8 +17,7 @@ public:
 private:
 	virtual void initialize() override;
 	virtual void update() override;
-	virtual void lateUpdate() override;
-	virtual void render() override;
+	virtual void lateUpdate() override;	
 
 private:
 	eScriptComponentType mScriptType;

@@ -9,6 +9,7 @@ enum class eScriptComponentType
 	CameraInputMoveMent,
 	CursorMovement,
 	ShiftController,
+	TestScript,
 	UIEffect,
 	End
 };

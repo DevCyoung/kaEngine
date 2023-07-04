@@ -6,7 +6,7 @@ class Component;
 enum class eComponentType 
 {
 	Camera,
-	MeshRenderer,
+	SpriteRenderer,
 	Transform,
 	End,
 	ScriptComponent

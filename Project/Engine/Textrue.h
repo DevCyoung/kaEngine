@@ -8,8 +8,6 @@ class Texture : public Resource
 {
 	friend class ResourceManager;
 	friend class GraphicDeviceDX11;
-public:
-
 private:
 	Texture();
 	virtual ~Texture();

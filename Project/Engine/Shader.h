@@ -16,7 +16,6 @@ enum class eShaderBindType
 class	Shader : public Resource
 {
 	friend class GraphicDeviceDX11;
-
 public:
 	Shader(const eResShader vsFileName,
 		const std::wstring& vsFunName,

@@ -81,12 +81,14 @@ ScriptComponent* GameObject::GetComponentOrNull(const eScriptComponentType type)
 void GameObject::RemoveComponent(eComponentType type)
 {
 	Assert(false, WCHAR_IS_INVALID_TYPE);
+
 	SAFE_DELETE_POINTER(mEngineComponents[static_cast<UINT>(type)]);
 }
 
 void GameObject::RemoveComponent(eScriptComponentType type)
 {
 	Assert(false, WCHAR_IS_INVALID_TYPE);
+
 	std::vector<ScriptComponent*>::iterator iter = mUserComponents.begin();
 
 	for (; iter != mUserComponents.end(); ++iter)
@@ -148,22 +150,5 @@ void GameObject::lateUpdate()
 	for (ScriptComponent* const script : mUserComponents)
 	{
 		script->lateUpdate();
-	}
-}
-
-void GameObject::render(/*mGraphicDevice*/)
-{
-	for (Component* const component : mEngineComponents)
-	{
-		if (component)
-		{
-			component->render();
-		}
-	}
-
-
-	for (ScriptComponent* const script : mUserComponents)
-	{
-		script->render();
 	}
 }

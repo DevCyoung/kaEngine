@@ -6,20 +6,15 @@
 class GameObject;
 
 class Scene : public Resource
-{
-	friend class Engine;
+{	
 	friend class SceneManager;
-
 public:
 	Scene();
 	virtual ~Scene();
 
-	const std::vector<GameObject*>& GetGameObjects(const eLayerType type) const  {  return mLayers[static_cast<UINT>(type)].GetGameObjects(); 
-	}
-
 	void AddGameObject(GameObject* const obj, const eLayerType type);
 
-private:
+public:
 	virtual void initialize();
 	virtual void update();
 	virtual void lateUpdate();
