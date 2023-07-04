@@ -19,6 +19,3 @@ void ScriptComponent::update()
 void ScriptComponent::lateUpdate()
 {
 }
-void ScriptComponent::render()
-{
-}

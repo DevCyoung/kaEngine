@@ -1,7 +1,5 @@
 #include "pch.h"
 #include "Content.h"
-#include <Engine/Engine.h>
-#include <Engine/SceneManager.h>
 #include "Components.h"
 #include "ResourceManager.h"
 #include "StructVertex.h"
@@ -12,6 +10,8 @@
 #include "UIEffect.h"
 #include "Bugiman.h"
 #include "ShiftController.h"
+#include <Engine/Engine.h>
+#include <Engine/SceneManager.h>
 #include <Engine/EngineMath.h>
 
 Content::Content()
@@ -30,6 +30,7 @@ void Content::resourceInitialize()
 	loadTexture();
 	loadShader();
 	loadMaterial();
+	loadPrefab();
 }
 
 void Content::loadMesh()
@@ -115,56 +116,56 @@ void Content::loadMaterial()
 	{
 		Material* const material =
 			MaterialBuilder::BuildDefault2DMaterial(
-				eRenderType::Opqaue, L"Default", eResTexture::door);
+				eRenderPriorityType::Opqaue, L"Default", eResTexture::door);
 		gResourceManager->Insert<Material>(L"Default", material);
 	}
 
 	{
 		Material* const material =
 			MaterialBuilder::BuildDefault2DMaterial(
-				eRenderType::Opqaue, L"Default", eResTexture::orange);
+				eRenderPriorityType::Opqaue, L"Default", eResTexture::orange);
 		gResourceManager->Insert<Material>(L"Sample", material);
 	}
 
 	{
 		Material* const material =
 			MaterialBuilder::BuildDefault2DMaterial(
-				eRenderType::Opqaue, L"Default", eResTexture::bg_club_full_0);
+				eRenderPriorityType::Opqaue, L"Default", eResTexture::bg_club_full_0);
 		gResourceManager->Insert<Material>(L"BackGround01", material);
 	}
 
 	{
 		Material* const material =
 			MaterialBuilder::BuildDefault2DMaterial(
-				eRenderType::Opqaue, L"Default", eResTexture::door);
+				eRenderPriorityType::Opqaue, L"Default", eResTexture::door);
 		gResourceManager->Insert<Material>(L"Door", material);
 	}
 
 	{
 		Material* const material =
 			MaterialBuilder::BuildDefault2DMaterial(
-				eRenderType::Opqaue, L"Default", eResTexture::bg_club_full_0);
+				eRenderPriorityType::Opqaue, L"Default", eResTexture::bg_club_full_0);
 		gResourceManager->Insert<Material>(L"BackGround02", material);
 	}
 
 	{
 		Material* const material =
 			MaterialBuilder::BuildDefault2DMaterial(
-				eRenderType::Opqaue, L"Default", eResTexture::bg_dreamshed_0);
+				eRenderPriorityType::Opqaue, L"Default", eResTexture::bg_dreamshed_0);
 		gResourceManager->Insert<Material>(L"BackGround03", material);
 	}
 
 	{
 		Material* const material =
 			MaterialBuilder::BuildDefault2DMaterial(
-				eRenderType::Opqaue, L"Default", eResTexture::bg_studio_outside_0);
+				eRenderPriorityType::Opqaue, L"Default", eResTexture::bg_studio_outside_0);
 		gResourceManager->Insert<Material>(L"BackGround04", material);
 	}
 
 	{
 		Material* const material =
 			MaterialBuilder::BuildDefault2DMaterial(
-				eRenderType::Opqaue, L"Default", eResTexture::spr_bg_neighbor_apartment_0);
+				eRenderPriorityType::Opqaue, L"Default", eResTexture::spr_bg_neighbor_apartment_0);
 		gResourceManager->Insert<Material>(L"BackGround05", material);
 	}
 }
@@ -175,7 +176,7 @@ void Content::loadUIMaterial()
 	{
 		Material* const material =
 			MaterialBuilder::BuildDefault2DMaterial(
-				eRenderType::Opqaue, L"UIShader", eResTexture::UI_spr_cursor);
+				eRenderPriorityType::Opqaue, L"UIShader", eResTexture::UI_spr_cursor);
 		gResourceManager->Insert<Material>(L"UICursor", material);
 	}
 
@@ -183,7 +184,7 @@ void Content::loadUIMaterial()
 	{
 		Material* const material =
 			MaterialBuilder::BuildDefault2DMaterial(
-				eRenderType::Opqaue, L"UIShader", eResTexture::UI_spr_hud);
+				eRenderPriorityType::Opqaue, L"UIShader", eResTexture::UI_spr_hud);
 		gResourceManager->Insert<Material>(L"UIHud", material);
 	}
 
@@ -192,7 +193,7 @@ void Content::loadUIMaterial()
 
 		Material* const material =
 			MaterialBuilder::BuildDefault2DMaterial(
-				eRenderType::Opqaue, L"UIShader", eResTexture::UI_spr_hud_timer_0);
+				eRenderPriorityType::Opqaue, L"UIShader", eResTexture::UI_spr_hud_timer_0);
 		gResourceManager->Insert<Material>(L"UIHudTimer", material);
 	}
 
@@ -201,7 +202,7 @@ void Content::loadUIMaterial()
 
 		Material* const material =
 			MaterialBuilder::BuildDefault2DMaterial(
-				eRenderType::Opqaue, L"UIShader", eResTexture::UI_spr_timer);
+				eRenderPriorityType::Opqaue, L"UIShader", eResTexture::UI_spr_timer);
 		gResourceManager->Insert<Material>(L"UITimer", material);
 	}
 
@@ -209,7 +210,7 @@ void Content::loadUIMaterial()
 	{
 		Material* const material =
 			MaterialBuilder::BuildDefault2DMaterial(
-				eRenderType::Opqaue, L"UIShader", eResTexture::UI_spr_keyboard_shift_0);
+				eRenderPriorityType::Opqaue, L"UIShader", eResTexture::UI_spr_keyboard_shift_0);
 		gResourceManager->Insert<Material>(L"UIShift00", material);
 	}
 
@@ -217,7 +218,7 @@ void Content::loadUIMaterial()
 	{
 		Material* const material =
 			MaterialBuilder::BuildDefault2DMaterial(
-				eRenderType::Opqaue, L"UIShader", eResTexture::UI_spr_keyboard_shift_1);
+				eRenderPriorityType::Opqaue, L"UIShader", eResTexture::UI_spr_keyboard_shift_1);
 		gResourceManager->Insert<Material>(L"UIShift01", material);
 	}
 
@@ -225,7 +226,7 @@ void Content::loadUIMaterial()
 	{
 		Material* const material =
 			MaterialBuilder::BuildDefault2DMaterial(
-				eRenderType::Opqaue, L"UIShader", eResTexture::UI_spr_hud_battery);
+				eRenderPriorityType::Opqaue, L"UIShader", eResTexture::UI_spr_hud_battery);
 		gResourceManager->Insert<Material>(L"UIBattery", material);
 	}
 
@@ -233,7 +234,7 @@ void Content::loadUIMaterial()
 	{
 		Material* const material =
 			MaterialBuilder::BuildDefault2DMaterial(
-				eRenderType::Opqaue, L"UIShader", eResTexture::UI_spr_hud_subweapon);
+				eRenderPriorityType::Opqaue, L"UIShader", eResTexture::UI_spr_hud_subweapon);
 		gResourceManager->Insert<Material>(L"UIHudItem", material);
 	}
 
@@ -241,7 +242,7 @@ void Content::loadUIMaterial()
 	{
 		Material* const material =
 			MaterialBuilder::BuildDefault2DMaterial(
-				eRenderType::Opqaue, L"UIShader", eResTexture::UI_spr_itemicons_0);
+				eRenderPriorityType::Opqaue, L"UIShader", eResTexture::UI_spr_itemicons_0);
 		gResourceManager->Insert<Material>(L"UIRightItem", material);
 	}
 
@@ -249,7 +250,7 @@ void Content::loadUIMaterial()
 	{
 		Material* const material =
 			MaterialBuilder::BuildDefault2DMaterial(
-				eRenderType::Opqaue, L"UIShader", eResTexture::UI_spr_katanaicons_0);
+				eRenderPriorityType::Opqaue, L"UIShader", eResTexture::UI_spr_katanaicons_0);
 		gResourceManager->Insert<Material>(L"UILeftItem", material);
 	}
 
@@ -257,7 +258,7 @@ void Content::loadUIMaterial()
 	{
 		Material* const material =
 			MaterialBuilder::BuildDefault2DMaterial(
-				eRenderType::Opqaue, L"UIShader", eResTexture::UI_spr_right_click_1);
+				eRenderPriorityType::Opqaue, L"UIShader", eResTexture::UI_spr_right_click_1);
 		gResourceManager->Insert<Material>(L"UIRightClick", material);
 	}
 
@@ -265,9 +266,17 @@ void Content::loadUIMaterial()
 	{
 		Material* const material =
 			MaterialBuilder::BuildDefault2DMaterial(
-				eRenderType::Opqaue, L"UIShader", eResTexture::UI_spr_left_click_1);
+				eRenderPriorityType::Opqaue, L"UIShader", eResTexture::UI_spr_left_click_1);
 		gResourceManager->Insert<Material>(L"UILeftClick", material);
 	}
+}
+
+void Content::loadPrefab()
+{
+	//GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"Door");
+	//Prefab* const prefab = new Prefab(obj);
+	//
+	//gResourceManager->Insert<Prefab>(L"Door", prefab);
 }
 
 void Content::testSceneInitialize()
@@ -298,8 +307,6 @@ void Content::testSceneInitialize()
 		}
 	}
 
-	const float hudPosY = gEngine->GetScreenHeight() / 2.f - 23.f;
-
 	//Mouse Cursor
 	{
 		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UICursor");
@@ -308,14 +315,16 @@ void Content::testSceneInitialize()
 
 		obj->GetComponent<Transform>()->SetScale(2.f, 2.f, 1.f);
 
-		testScene->AddGameObject(obj, eLayerType::UI);
+		testScene->AddGameObject(obj, eLayerType::Player);
 	}
+
+	const float hudPosY = gEngine->GetScreenHeight() / 2.f - 23.f;
 
 	//UI UP Hud
 	{
 		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UIHud");
 
-		const Vector2 pos = helper::WindowScreenToUIPostion(Vector2(screenSize.x / 2.f, 23.f), screenSize);
+		const Vector2 pos = helper::ScreenToWorldScreen(Vector2(screenSize.x / 2.f, 23.f), screenSize);
 
 		obj->GetComponent<Transform>()->SetPosition(Vector3(pos.x, pos.y, 10.f));
 		obj->GetComponent<Transform>()->SetScale(2.f, 2.f, 1.f);
@@ -358,7 +367,7 @@ void Content::testSceneInitialize()
 		obj->GetComponent<Transform>()->SetScale(2.f, 2.f, 1.f);
 
 		testScene->AddGameObject(obj, eLayerType::UI);
-	}	
+	}
 
 	//UI Battery
 	{
@@ -428,6 +437,8 @@ void Content::testSceneInitialize()
 		mainCameraObj->AddComponent<CameraInputMoveMent>();
 
 		mainCameraObj->GetComponent<Camera>()->SetCameraType(Camera::eCameraType::Main);
+		mainCameraObj->GetComponent<Camera>()->SetRenderTargetRenderer(gEngine->GetRenderTargetRenderer());
+		mainCameraObj->GetComponent<Camera>()->SetScreenSize(screenSize);
 		mainCameraObj->GetComponent<Camera>()->TurnOnAllLayer();
 		mainCameraObj->GetComponent<Camera>()->TurnOffLayer(eLayerType::UI);
 		mainCameraObj->GetComponent<Transform>()->SetPosition(0.f, 0.f, -10.f);
@@ -442,6 +453,8 @@ void Content::testSceneInitialize()
 		mainCameraObj->AddComponent<Camera>();
 
 		mainCameraObj->GetComponent<Camera>()->SetCameraType(Camera::eCameraType::UI);
+		mainCameraObj->GetComponent<Camera>()->SetRenderTargetRenderer(gEngine->GetRenderTargetRenderer());
+		mainCameraObj->GetComponent<Camera>()->SetScreenSize(screenSize);
 		mainCameraObj->GetComponent<Camera>()->TurnOffAllLayer();
 		mainCameraObj->GetComponent<Camera>()->TurnOnLayer(eLayerType::UI);
 		mainCameraObj->GetComponent<Transform>()->SetPosition(0.f, 0.f, -10.f);

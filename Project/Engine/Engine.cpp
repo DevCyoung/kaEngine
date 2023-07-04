@@ -2,22 +2,23 @@
 #include "Engine.h"
 #include "GraphicDeviceDx11.h"
 #include "TimeManager.h"
-#include "RenderManager.h"
+#include "RenderTargetRenderer.h"
 #include "MessageManager.h"
 #include "InputManager.h"
 #include "PathManager.h"
 #include "ResourceManager.h"
 #include "SceneManager.h"
 #include "EventManager.h"
+#include "RenderTargetRenderer.h"
 
 Engine::Engine(const HWND hWnd, const UINT screenWidth, const UINT screenHeight)
 	: mHwnd(hWnd)
 	, mScreenWidth(screenWidth)
 	, mScreenHeight(screenHeight)
 	, mGraphicDevice(new GraphicDeviceDX11(hWnd, mScreenWidth, mScreenHeight))
+	, mRenderTargetRenderer(new RenderTargetRenderer())
 {
 	TimeManager::initialize();
-	RenderManager::initialize();
 	MessageManager::initialize();
 	PathManager::initialize();
 	InputManager::initialize();
@@ -34,9 +35,9 @@ Engine::~Engine()
 	InputManager::deleteInstance();
 	PathManager::deleteInstance();
 	MessageManager::deleteInstance();
-	RenderManager::deleteInstance();
 	TimeManager::deleteInstance();
 
+	SAFE_DELETE_POINTER(mRenderTargetRenderer);
 	SAFE_DELETE_POINTER(mGraphicDevice);
 }
 
@@ -51,9 +52,9 @@ void Engine::initialize(const HWND hWnd, const UINT screenWidth, const UINT scre
 void Engine::run()
 {
 	update();
-	
+
 	lateUpdate();
-	
+
 	render();
 }
 
@@ -61,19 +62,31 @@ void Engine::update()
 {
 	TimeManager::GetInstance()->update();
 	InputManager::GetInstance()->update(mHwnd);
-	SceneManager::GetInstance()->update();	
+	SceneManager::GetInstance()->update();
 }
 
 void Engine::lateUpdate()
 {
-	SceneManager::GetInstance()->lateUpdate();	
-	MessageManager::GetInstance()->lateUpdate();
+	SceneManager::GetInstance()->lateUpdate();
 }
 
+#include "EngineMath.h"
+
 void Engine::render()
-{	
-	mGraphicDevice->clearRenderTarget(mScreenWidth, mScreenHeight);	
-	RenderManager::GetInstance()->render();
-	MessageManager::GetInstance()->render(mHwnd);
+{
+	const float r = helper::LerpSinBtwZeroAndOne(TimeManager::GetInstance()->GetGlobalTime() * 4.f);
+	const float g = helper::LerpCosBtwZeroAndOne(TimeManager::GetInstance()->GetGlobalTime() * 4.f);
+	const float b = helper::LerpSinBtwZeroAndOne(TimeManager::GetInstance()->GetGlobalTime() * 4.f);
+
+	const FLOAT bgColor[4] = { r, g, b, 1.f };
+
+	mRenderTargetRenderer->Render(mScreenWidth,
+		mScreenHeight,
+		bgColor,
+		mGraphicDevice->GetRenderTargetView(),
+		mGraphicDevice->GetDepthStencilView());
+
 	mGraphicDevice->present();
+
+	MessageManager::GetInstance()->render(mHwnd);
 }

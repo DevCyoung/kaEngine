@@ -26,15 +26,17 @@ void TimeManager::update()
 	mGlobalTime += mDeltaTime;
 	mPrevFrequency.QuadPart = mCurFrequency.QuadPart;
 
+	if (MessageManager::GetInstance()->IsSendMessage())
 	{
 		const float fps = 1.0f / mDeltaTime;
 
 		constexpr UINT bufferSize = 256;
 		wchar_t buffer[bufferSize] = { 0, };
-		swprintf_s(buffer, bufferSize, L"<FPS : %.2f>", fps);
+		swprintf_s(buffer, bufferSize, L"<FPS : %.f>", fps);
 
 		MessageManager::GetInstance()->AddMessage(buffer);
 	}
+
 }
 
 void TimeManager::StartTime(LARGE_INTEGER* const starTime)

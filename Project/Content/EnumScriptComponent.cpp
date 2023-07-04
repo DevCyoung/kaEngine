@@ -5,6 +5,7 @@
 #include "CameraInputMoveMent.h"
 #include "CursorMovement.h"
 #include "ShiftController.h"
+#include "TestScript.h"
 #include "UIEffect.h"
 
 static constexpr const wchar_t* const ScriptComponentNames[static_cast<UINT>(eScriptComponentType::End)]
@@ -13,6 +14,7 @@ static constexpr const wchar_t* const ScriptComponentNames[static_cast<UINT>(eSc
 	L"CameraInputMoveMent",
 	L"CursorMovement",
 	L"ShiftController",
+	L"TestScript",
 	L"UIEffect",
 };
 
@@ -34,6 +36,8 @@ ScriptComponent* CreateScriptComponentByName(const std::wstring& scriptcomponent
 		scriptcomponent = new CursorMovement;
 	else if (L"ShiftController" == scriptcomponentName)
 		scriptcomponent = new ShiftController;
+	else if (L"TestScript" == scriptcomponentName)
+		scriptcomponent = new TestScript;
 	else if (L"UIEffect" == scriptcomponentName)
 		scriptcomponent = new UIEffect;
 	else
@@ -58,6 +62,9 @@ ScriptComponent* CreateScriptComponentByEnum(const eScriptComponentType type)
 		break;
 	case eScriptComponentType::ShiftController:
 		scriptcomponent = new ShiftController;
+		break;
+	case eScriptComponentType::TestScript:
+		scriptcomponent = new TestScript;
 		break;
 	case eScriptComponentType::UIEffect:
 		scriptcomponent = new UIEffect;

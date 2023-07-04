@@ -183,6 +183,11 @@ call ScriptGen.exe Component $(SolutionDir)Project\Engine $(SolutionDir)Project\
     <ClInclude Include="EnumLayer.h" />
     <ClInclude Include="EnumRenderType.h" />
     <ClInclude Include="EnumResource.h" />
+    <ClInclude Include="Prefab.h" />
+    <ClInclude Include="RenderComponent.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="ResourceTypeTrait.h" />
     <ClInclude Include="EventManager.h" />
     <ClInclude Include="framework.h" />
@@ -192,14 +197,14 @@ call ScriptGen.exe Component $(SolutionDir)Project\Engine $(SolutionDir)Project\
     <ClInclude Include="Layer.h" />
     <ClInclude Include="DefineMacro.h" />
     <ClInclude Include="Material.h" />
-    <ClInclude Include="MeshRenderer.h" />
+    <ClInclude Include="SpriteRenderer.h" />
     <ClInclude Include="MessageManager.h">
       <SubType>
       </SubType>
     </ClInclude>
     <ClInclude Include="PathManager.h" />
     <ClInclude Include="pch.h" />
-    <ClInclude Include="RenderManager.h">
+    <ClInclude Include="RenderTargetRenderer.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -238,7 +243,7 @@ call ScriptGen.exe Component $(SolutionDir)Project\Engine $(SolutionDir)Project\
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Layer.cpp" />
     <ClCompile Include="Material.cpp" />
-    <ClCompile Include="MeshRenderer.cpp" />
+    <ClCompile Include="SpriteRenderer.cpp" />
     <ClCompile Include="MessageManager.cpp">
       <SubType>
       </SubType>
@@ -248,7 +253,12 @@ call ScriptGen.exe Component $(SolutionDir)Project\Engine $(SolutionDir)Project\
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="RenderManager.cpp">
+    <ClCompile Include="Prefab.cpp" />
+    <ClCompile Include="RenderComponent.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="RenderTargetRenderer.cpp">
       <SubType>
       </SubType>
     </ClCompile>

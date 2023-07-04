@@ -2,7 +2,7 @@
 #include "Material.h"
 
 
-Material::Material(const eRenderType type)
+Material::Material(const eRenderPriorityType type)
 	: mShader(nullptr)
 	, mTexture(nullptr)
 	, mRenderType(type)

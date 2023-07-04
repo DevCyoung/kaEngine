@@ -44,8 +44,8 @@ InputManager::~InputManager()
 
 bool InputManager::IsMouseHoverd(const Vector2 screenSize)
 {
-	return (mMousePos.x >= 0.f && mMousePos.x <= screenSize.x) &&
-		(mMousePos.y >= 0.f && mMousePos.y <= screenSize.y);
+	return (0.f <= mMousePos.x  && mMousePos.x <= screenSize.x) &&
+		(0.f <= mMousePos.y&& mMousePos.y <= screenSize.y);
 }
 
 void InputManager::update(const HWND hWnd)
@@ -84,15 +84,7 @@ void InputManager::update(const HWND hWnd)
 			}
 		}
 
-		//POINT mousePos = {};
-		//GetCursorPos(&mousePos);
-		//ScreenToClient(hWnd, &mousePos);
-
-		//mMousePos.x = static_cast<float>(mousePos.x);
-		//mMousePos.y = static_cast<float>(mousePos.y);
-
-
-		mPrevMousePos = mMousePos;
+		
 		POINT ptMousePos = {};
 		GetCursorPos(&ptMousePos);
 		ScreenToClient(hWnd, &ptMousePos);
@@ -100,9 +92,10 @@ void InputManager::update(const HWND hWnd)
 		mMousePos.x = static_cast<float>(ptMousePos.x);
 		mMousePos.y = static_cast<float>(ptMousePos.y);
 
+		mPrevMousePos = mMousePos;
+
 		mMouseDir = mMousePos - mPrevMousePos;
 		mMouseDir.y *= -1;
-
 	}
 	else
 	{

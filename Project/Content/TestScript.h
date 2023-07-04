@@ -2,21 +2,19 @@
 #include <Engine/ScriptComponent.h>
 #include "EnumScriptComponent.h"
 
-REGISTER_SCRIPTCOMPONENT_TYPE(UIEffect);
+REGISTER_SCRIPTCOMPONENT_TYPE(TestScript);
 
-class UIEffect : public ScriptComponent
+class TestScript : public ScriptComponent
 {
 public:
-	UIEffect();
-	virtual ~UIEffect();
-	UIEffect(const UIEffect&) = delete;
-	UIEffect& operator=(const UIEffect&) = delete;
+	TestScript();
+	virtual ~TestScript();
+	TestScript(const TestScript&) = delete;
+	TestScript& operator=(const TestScript&) = delete;
 
 private:
 	virtual void initialize() override final;
 	virtual void update() override final;
 	virtual void lateUpdate() override final;
 
-private:
-	float x;
 };

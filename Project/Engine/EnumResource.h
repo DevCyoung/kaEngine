@@ -10,5 +10,6 @@ enum class eResourceType
 	Font,
 	Sound,
 	Scene,
+	Prefab,
 	End
 };

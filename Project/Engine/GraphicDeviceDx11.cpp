@@ -36,10 +36,10 @@
 
 #pragma region Constructor
 GraphicDeviceDX11::GraphicDeviceDX11(const HWND hWnd, const UINT screenWidth, const UINT screenHeight)
-	: mConstantBuffers(nullptr)
-	, mRasterizerStates(nullptr)
-	, mBlendStates(nullptr)
-	, mDepthStencilStates(nullptr)
+	: mCBCollection(nullptr)
+	, mRSCollection(nullptr)
+	, mBSCollection(nullptr)
+	, mDSCollection(nullptr)
 {
 	Assert(hWnd, WCHAR_IS_NULLPTR);
 
@@ -66,34 +66,6 @@ GraphicDeviceDX11::GraphicDeviceDX11(const HWND hWnd, const UINT screenWidth, co
 	Assert(mDevice.Get(), WCHAR_IS_NULLPTR);
 	Assert(mContext.Get(), WCHAR_IS_NULLPTR);
 #pragma endregion
-
-#pragma region Change Window ScreenSize		
-	RECT windowSize =
-	{
-		0, 0,
-		static_cast<LONG>(screenWidth), static_cast<LONG>(screenHeight)
-	};
-
-	const BOOL B_MENU = GetMenu(hWnd) != nullptr;
-
-	AdjustWindowRect(&windowSize, WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX, B_MENU);
-
-	const int adjustWidth = static_cast<int>(windowSize.right - windowSize.left);
-	const int adjustHeight = static_cast<int>(windowSize.bottom - windowSize.top);
-
-	//가운데 정렬
-	const int monitorPosX = GetSystemMetrics(SM_CXSCREEN) / 2 - static_cast<int>(adjustWidth) / 2;
-	const int monitorPosY = GetSystemMetrics(SM_CYSCREEN) / 2 - static_cast<int>(adjustHeight) / 2;
-
-	SetWindowPos(hWnd,
-		nullptr,
-		monitorPosX, monitorPosY,
-		adjustWidth,
-		adjustHeight, 0);
-	ShowWindow(hWnd, true);
-	UpdateWindow(hWnd);
-#pragma endregion
-
 
 #pragma region Create SwaphChain	
 	DXGI_SWAP_CHAIN_DESC swapChainDesc = {};
@@ -181,23 +153,15 @@ GraphicDeviceDX11::GraphicDeviceDX11(const HWND hWnd, const UINT screenWidth, co
 	}
 #pragma endregion
 
-#pragma region Create Collection
-	mConstantBuffers = new CBCollection(mDevice.Get());
-	mRasterizerStates = new RSCollection(mDevice.Get());
-	mBlendStates = new BSCollection(mDevice.Get());
-	mDepthStencilStates = new DSCollection(mDevice.Get());
-#pragma endregion
-
 #pragma region Create Sampler
 	D3D11_SAMPLER_DESC tSamDesc = {};
 
+	tSamDesc = {};
 	tSamDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
 	tSamDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
 	tSamDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
 	tSamDesc.Filter = D3D11_FILTER_ANISOTROPIC;
-
 	mDevice->CreateSamplerState(&tSamDesc, m_Sampler[0].GetAddressOf());
-
 	mContext->VSSetSamplers(0, 1, m_Sampler[0].GetAddressOf());
 	mContext->HSSetSamplers(0, 1, m_Sampler[0].GetAddressOf());
 	mContext->DSSetSamplers(0, 1, m_Sampler[0].GetAddressOf());
@@ -209,9 +173,7 @@ GraphicDeviceDX11::GraphicDeviceDX11(const HWND hWnd, const UINT screenWidth, co
 	tSamDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
 	tSamDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
 	tSamDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_POINT;
-
 	mDevice->CreateSamplerState(&tSamDesc, m_Sampler[1].GetAddressOf());
-
 	mContext->VSSetSamplers(1, 1, m_Sampler[1].GetAddressOf());
 	mContext->HSSetSamplers(1, 1, m_Sampler[1].GetAddressOf());
 	mContext->DSSetSamplers(1, 1, m_Sampler[1].GetAddressOf());
@@ -219,15 +181,48 @@ GraphicDeviceDX11::GraphicDeviceDX11(const HWND hWnd, const UINT screenWidth, co
 	mContext->PSSetSamplers(1, 1, m_Sampler[1].GetAddressOf());
 #pragma endregion
 
+#pragma region Create Collection
+	mCBCollection = new CBCollection(mDevice.Get());
+	mRSCollection = new RSCollection(mDevice.Get());
+	mBSCollection = new BSCollection(mDevice.Get());
+	mDSCollection = new DSCollection(mDevice.Get());
+#pragma endregion
+
+#pragma region Change Window ScreenSize		
+	RECT windowSize =
+	{
+		0, 0,
+		static_cast<LONG>(screenWidth), static_cast<LONG>(screenHeight)
+	};
+
+	const BOOL B_MENU = GetMenu(hWnd) != nullptr;
+
+	AdjustWindowRect(&windowSize, WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX, B_MENU);
+
+	const int adjustWidth = static_cast<int>(windowSize.right - windowSize.left);
+	const int adjustHeight = static_cast<int>(windowSize.bottom - windowSize.top);
+
+	//가운데 정렬
+	const int monitorPosX = GetSystemMetrics(SM_CXSCREEN) / 2 - static_cast<int>(adjustWidth) / 2;
+	const int monitorPosY = GetSystemMetrics(SM_CYSCREEN) / 2 - static_cast<int>(adjustHeight) / 2;
+
+	SetWindowPos(hWnd,
+		nullptr,
+		monitorPosX, monitorPosY,
+		adjustWidth,
+		adjustHeight, 0);
+	ShowWindow(hWnd, true);
+	UpdateWindow(hWnd);
+#pragma endregion
 }
 #pragma endregion
 
 GraphicDeviceDX11::~GraphicDeviceDX11()
 {
-	SAFE_DELETE_POINTER(mConstantBuffers);
-	SAFE_DELETE_POINTER(mRasterizerStates);
-	SAFE_DELETE_POINTER(mBlendStates);
-	SAFE_DELETE_POINTER(mDepthStencilStates);
+	SAFE_DELETE_POINTER(mCBCollection);
+	SAFE_DELETE_POINTER(mRSCollection);
+	SAFE_DELETE_POINTER(mBSCollection);
+	SAFE_DELETE_POINTER(mDSCollection);
 }
 
 void GraphicDeviceDX11::BindIA(const Shader* const shader) const
@@ -287,7 +282,7 @@ void GraphicDeviceDX11::BindCB(const eCBType type, const eShaderBindType stage) 
 	Assert(eShaderBindType::End != stage, WCHAR_IS_INVALID_TYPE);
 
 
-	const ConstantBuffer& CB = mConstantBuffers->GetConstantBuffer(type);
+	const ConstantBuffer& CB = mCBCollection->GetConstantBuffer(type);
 	const UINT startSlot = static_cast<UINT>(CB.mType);
 
 	switch (stage)
@@ -322,7 +317,7 @@ void GraphicDeviceDX11::PassCB(const eCBType type, const UINT byteSize, const vo
 	Assert(data, WCHAR_IS_NULLPTR);
 	UNREFERENCED_PARAMETER(byteSize);
 
-	ConstantBuffer& CB = mConstantBuffers->GetConstantBuffer(type);
+	ConstantBuffer& CB = mCBCollection->GetConstantBuffer(type);
 	Assert(CB.mSize == byteSize, L"data size not ali 16");
 
 	D3D11_MAPPED_SUBRESOURCE subResource = {};
@@ -353,33 +348,42 @@ void GraphicDeviceDX11::BindPS(const Shader* const shader) const
 void GraphicDeviceDX11::BindBS(const eBSType type) const
 {
 	Assert(eBSType::End != type, WCHAR_IS_INVALID_TYPE);
-	mContext->OMSetBlendState(mBlendStates->mBStates[static_cast<UINT>(type)].Get(), nullptr, 0xffffffff);
+
+	mContext->OMSetBlendState(mBSCollection->mBStates[static_cast<UINT>(type)].Get(), nullptr, 0xffffffff);
 }
 
 void GraphicDeviceDX11::BindDS(const eDSType type) const
 {
 	Assert(eDSType::End != type, WCHAR_IS_INVALID_TYPE);
-	mContext->OMSetDepthStencilState(mDepthStencilStates->mDStates[static_cast<UINT>(type)].Get(), 0);
+
+	mContext->OMSetDepthStencilState(mDSCollection->mDStates[static_cast<UINT>(type)].Get(), 0);
 }
 
 void GraphicDeviceDX11::BindRS(const eRSType type) const
 {
 	Assert(eRSType::End != type, WCHAR_IS_INVALID_TYPE);
-	mContext->RSSetState(mRasterizerStates->mRStates[static_cast<UINT>(type)].Get());
+
+	mContext->RSSetState(mRSCollection->mRStates[static_cast<UINT>(type)].Get());
 }
 
 void GraphicDeviceDX11::Draw(const Mesh* const mesh) const
 {
 	Assert(mesh, WCHAR_IS_NULLPTR);
+
 	const UINT indexCount = mesh->GetIndexCount();
 	const UINT StartVertexLocation = 0;
 
 	mContext->DrawIndexed(indexCount, StartVertexLocation, 0);
 }
 
-void GraphicDeviceDX11::clearRenderTarget(const UINT screenWidth, const UINT screenHeight) const
+void GraphicDeviceDX11::ClearRenderTarget(const UINT screenWidth,
+	const UINT screenHeight,
+	const FLOAT bgColor[4],
+	Microsoft::WRL::ComPtr<ID3D11RenderTargetView> renderTargetView,
+	Microsoft::WRL::ComPtr<ID3D11DepthStencilView> depthStencilView) const
 {
-	const FLOAT bgColor[4] = { 0.4f, 0.4f, 0.4f, 1.0f };
+	mContext->ClearRenderTargetView(renderTargetView.Get(), bgColor);
+	mContext->ClearDepthStencilView(depthStencilView.Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
 
 	const D3D11_VIEWPORT mViewPort =
 	{
@@ -389,10 +393,7 @@ void GraphicDeviceDX11::clearRenderTarget(const UINT screenWidth, const UINT scr
 	};
 
 	mContext->RSSetViewports(1, &mViewPort);
-	mContext->OMSetRenderTargets(1, mRenderTargetView.GetAddressOf(), mDepthStencilView.Get());
-
-	mContext->ClearRenderTargetView(mRenderTargetView.Get(), bgColor);
-	mContext->ClearDepthStencilView(mDepthStencilView.Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
+	mContext->OMSetRenderTargets(1, renderTargetView.GetAddressOf(), depthStencilView.Get());
 }
 
 void GraphicDeviceDX11::present()

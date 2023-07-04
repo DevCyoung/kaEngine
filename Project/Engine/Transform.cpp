@@ -29,10 +29,10 @@ void Transform::lateUpdate()
 {
 	mWorld = Matrix::Identity;
 
-	Matrix scale = Matrix::CreateScale(mScale);
+	const Matrix scale = Matrix::CreateScale(mScale);
 
 	Matrix rotation = {};
-	rotation = Matrix::CreateRotationX(Deg2Rad(mRotation.x));
+	rotation  = Matrix::CreateRotationX(Deg2Rad(mRotation.x));
 	rotation *= Matrix::CreateRotationY(Deg2Rad(mRotation.y));
 	rotation *= Matrix::CreateRotationZ(Deg2Rad(mRotation.z));
 
@@ -43,7 +43,7 @@ void Transform::lateUpdate()
 	mWorld *= rotation;
 	mWorld *= position;
 
-	GameObject* parent = GetOwner()->GetParentOrNull();
+	GameObject* const parent = GetOwner()->GetParentOrNull();
 
 	if (GetOwner()->GetParentOrNull())
 	{
@@ -58,6 +58,3 @@ void Transform::lateUpdate()
 	mRight = XMVector3TransformNormal(Vector3::Right, mWorld);
 }
 
-void Transform::render()
-{
-}

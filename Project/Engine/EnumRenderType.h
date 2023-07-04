@@ -1,6 +1,6 @@
 #pragma once
 
-enum class eRenderType
+enum class eRenderPriorityType
 {
 	Opqaue,
 	CutOut,

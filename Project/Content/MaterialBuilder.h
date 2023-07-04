@@ -3,7 +3,7 @@
 class Material;
 
 enum class eResTexture;
-enum class eRenderType;
+enum class eRenderPriorityType;
 
 class MaterialBuilder
 {
@@ -14,7 +14,7 @@ private:
 	MaterialBuilder& operator=(const MaterialBuilder&) = delete;
 
 public:
-	static Material* BuildDefault2DMaterial(const eRenderType renderType, 
+	static Material* BuildDefault2DMaterial(const eRenderPriorityType renderType, 
 		const std::wstring& shaderName, const eResTexture textureType);
 };
 

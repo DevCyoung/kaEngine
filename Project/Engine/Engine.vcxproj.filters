@@ -136,11 +136,17 @@
     <Filter Include="Source\03. Component\00. Component\Enum">
       <UniqueIdentifier>{5c43f8c4-4ed6-4834-8f84-667bbbc0d4fc}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\03. Component\03. MeshRenderer">
-      <UniqueIdentifier>{519c1661-d91c-4e37-8020-1698bcb4688f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\03. Component\04. Animator">
       <UniqueIdentifier>{bc69a198-03d8-45de-9057-d4b3c0c45454}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\06. Resource\08. Prefab">
+      <UniqueIdentifier>{9797c301-f5a0-45de-bf25-2e476c6e6628}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\03. Component\03. Render">
+      <UniqueIdentifier>{e9bab1db-c3de-4cbb-ab50-05273207949d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\03. Component\03. Render\SpriteRenderer">
+      <UniqueIdentifier>{519c1661-d91c-4e37-8020-1698bcb4688f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -201,8 +207,8 @@
     <ClInclude Include="Mesh.h">
       <Filter>Source\06. Resource\01. Mesh</Filter>
     </ClInclude>
-    <ClInclude Include="MeshRenderer.h">
-      <Filter>Source\03. Component\03. MeshRenderer</Filter>
+    <ClInclude Include="SpriteRenderer.h">
+      <Filter>Source\03. Component\03. Render\SpriteRenderer</Filter>
     </ClInclude>
     <ClInclude Include="Transform.h">
       <Filter>Source\03. Component\01. Transform</Filter>
@@ -264,7 +270,7 @@
     <ClInclude Include="RSCollection.h">
       <Filter>Source\00. Engine\01. Graphics\RSState</Filter>
     </ClInclude>
-    <ClInclude Include="RenderManager.h">
+    <ClInclude Include="RenderTargetRenderer.h">
       <Filter>Source\01. Manager\Render</Filter>
     </ClInclude>
     <ClInclude Include="EngineComponentTrait.h">
@@ -293,6 +299,12 @@
     </ClInclude>
     <ClInclude Include="EnumResource.h">
       <Filter>Source\06. Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Prefab.h">
+      <Filter>Source\06. Resource\08. Prefab</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderComponent.h">
+      <Filter>Source\03. Component\03. Render</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -341,8 +353,8 @@
     <ClCompile Include="Mesh.cpp">
       <Filter>Source\06. Resource\01. Mesh</Filter>
     </ClCompile>
-    <ClCompile Include="MeshRenderer.cpp">
-      <Filter>Source\03. Component\03. MeshRenderer</Filter>
+    <ClCompile Include="SpriteRenderer.cpp">
+      <Filter>Source\03. Component\03. Render\SpriteRenderer</Filter>
     </ClCompile>
     <ClCompile Include="Transform.cpp">
       <Filter>Source\03. Component\01. Transform</Filter>
@@ -395,7 +407,7 @@
     <ClCompile Include="RSCollection.cpp">
       <Filter>Source\00. Engine\01. Graphics\RSState</Filter>
     </ClCompile>
-    <ClCompile Include="RenderManager.cpp">
+    <ClCompile Include="RenderTargetRenderer.cpp">
       <Filter>Source\01. Manager\Render</Filter>
     </ClCompile>
     <ClCompile Include="EnumComponent.cpp">
@@ -403,6 +415,12 @@
     </ClCompile>
     <ClCompile Include="EngineMath.cpp">
       <Filter>Source\07. Helper\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Prefab.cpp">
+      <Filter>Source\06. Resource\08. Prefab</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderComponent.cpp">
+      <Filter>Source\03. Component\03. Render</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

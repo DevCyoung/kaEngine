@@ -22,7 +22,3 @@ void Component::update()
 void Component::lateUpdate()
 {
 }
-
-void Component::render()
-{
-}

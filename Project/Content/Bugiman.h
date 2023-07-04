@@ -15,6 +15,5 @@ public:
 private:
 	virtual void initialize() override final;
 	virtual void update() override final;
-	virtual void lateUpdate() override final;
-	virtual void render() override final;
+	virtual void lateUpdate() override final;	
 };

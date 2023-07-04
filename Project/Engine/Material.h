@@ -6,19 +6,18 @@ class Shader;
 class Texture;
 
 class Material : public Resource
-{
-	friend class MeshRenderer;
+{	
 	friend class GraphicDeviceDX11;
-
 public:
-	Material(const eRenderType type);
+	Material(const eRenderPriorityType type);
 	virtual ~Material();
 	Material(const Material&) = delete;
 	Material& operator=(const Material&) = delete;
 
 public:
-	Texture*  GetTexture() const { Assert(mTexture, WCHAR_IS_NULLPTR); return mTexture; }
-	eRenderType GetRenderType() const { return mRenderType; }
+	const Texture*  GetTexture() const { Assert(mTexture, WCHAR_IS_NULLPTR); return mTexture; }
+	const Shader* GetShader() const { Assert(mShader, WCHAR_IS_NULLPTR); return mShader; }
+	eRenderPriorityType GetRenderType() const { return mRenderType; }
 
 	void SetShader(Shader* const shader) { Assert(shader, WCHAR_IS_NULLPTR); mShader = shader; }
 	void SetTexture(Texture* const texture) { Assert(texture, WCHAR_IS_NULLPTR); mTexture = texture; }
@@ -28,5 +27,5 @@ public:
 private:
 	Shader* mShader;
 	Texture* mTexture;
-	eRenderType mRenderType;
+	eRenderPriorityType mRenderType;
 };

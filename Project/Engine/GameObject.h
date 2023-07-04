@@ -10,7 +10,6 @@ class GameObject : public Entity
 {
 	friend class Layer;
 	friend class Scene;
-	friend class RenderManager;
 public:
 	enum class eState
 	{
@@ -46,8 +45,10 @@ public:
 	void RemoveComponent(eComponentType type);
 	void RemoveComponent(eScriptComponentType type);
 
-	eLayerType GetLayer() const { return mCurLayer;}; // 0 ~ 31
+	// 0 ~ 31
+	eLayerType GetLayer() const { return mCurLayer;}; 
 
+	//FIXME:
 	void SetParent(GameObject* const parent) { mParent = parent; }
 
 	GameObject* GetParentOrNull() const { return mParent; }
@@ -55,8 +56,7 @@ public:
 private:
 	void initialize();
 	void update();
-	void lateUpdate();
-	void render();
+	void lateUpdate();	
 
 private:
 	eLayerType mCurLayer;

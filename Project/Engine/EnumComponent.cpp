@@ -2,13 +2,13 @@
 #include "EnumComponent.h"
 
 #include "Camera.h"
-#include "MeshRenderer.h"
+#include "SpriteRenderer.h"
 #include "Transform.h"
 
 static constexpr const wchar_t* const ComponentNames[static_cast<UINT>(eComponentType::End)]
 {
 	L"Camera",
-	L"MeshRenderer",
+	L"SpriteRenderer",
 	L"Transform",
 };
 
@@ -24,8 +24,8 @@ Component* CreateComponentByName(const std::wstring& componentName)
 
 	if (L"Camera" == componentName)
 		component = new Camera;
-	else if (L"MeshRenderer" == componentName)
-		component = new MeshRenderer;
+	else if (L"SpriteRenderer" == componentName)
+		component = new SpriteRenderer;
 	else if (L"Transform" == componentName)
 		component = new Transform;
 	else
@@ -42,8 +42,8 @@ Component* CreateComponentByEnum(const eComponentType type)
 	case eComponentType::Camera:
 		component = new Camera;
 		break;
-	case eComponentType::MeshRenderer:
-		component = new MeshRenderer;
+	case eComponentType::SpriteRenderer:
+		component = new SpriteRenderer;
 		break;
 	case eComponentType::Transform:
 		component = new Transform;

@@ -21,11 +21,11 @@ void ShiftController::update()
 {    
     if (gInput->GetKey(eKeyCode::LSHIFT))
     {
-        GetComponent<MeshRenderer>()->SetMaterial(gResourceManager->FindOrNullByRelativePath<Material>(L"UIShift01"));
+        GetComponent<SpriteRenderer>()->SetMaterial(gResourceManager->FindOrNullByRelativePath<Material>(L"UIShift01"));
     }
     else
     {
-        GetComponent<MeshRenderer>()->SetMaterial(gResourceManager->FindOrNullByRelativePath<Material>(L"UIShift00"));
+        GetComponent<SpriteRenderer>()->SetMaterial(gResourceManager->FindOrNullByRelativePath<Material>(L"UIShift00"));
     }
     
 }
@@ -34,6 +34,3 @@ void ShiftController::lateUpdate()
 {
 }
 
-void ShiftController::render()
-{
-}

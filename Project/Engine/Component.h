@@ -16,10 +16,10 @@ public:
 public:
 	template<typename T>
 		requires (is_component_type<T>::value)
-	T* GetComponentOrNull();		
+	T* GetComponentOrNull() const;		
 	template<typename T>
 		requires (is_component_type<T>::value)
-	T* GetComponent();	
+	T* GetComponent() const;	
 
 	GameObject* GetOwner() const { Assert(mOwner, WCHAR_IS_NULLPTR); return mOwner; }
 	eComponentType GetType() const { return mType; }
@@ -27,8 +27,7 @@ public:
 private:
 	virtual void initialize();
 	virtual void update();
-	virtual void lateUpdate();
-	virtual void render();
+	virtual void lateUpdate();	
 
 private:
 	eComponentType mType;
@@ -37,17 +36,19 @@ private:
 
 template<typename T>
 	requires (is_component_type<T>::value)
-inline T* Component::GetComponentOrNull()
+inline T* Component::GetComponentOrNull() const
 {
 	return mOwner->GetComponentOrNull<T>();
 }
 
 template<typename T>
 	requires (is_component_type<T>::value)
-inline T* Component::GetComponent()
+inline T* Component::GetComponent() const
 {
 	T* const component = GetComponentOrNull<T>();
 	Assert(component, WCHAR_IS_NULLPTR);
 
 	return component;
 }
+
+

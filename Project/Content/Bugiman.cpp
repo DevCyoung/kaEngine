@@ -20,7 +20,7 @@ void Bugiman::initialize()
 
 void Bugiman::update()
 {
-	Vector4 color = GetComponent<MeshRenderer>()->GetTestColor();
+	Vector4 color = GetComponent<SpriteRenderer>()->GetTestColor();
 	if (gInput->GetKey(eKeyCode::N))
 	{
 		color.w += gDeltaTime * 0.9f;
@@ -29,7 +29,7 @@ void Bugiman::update()
 	{
 		color.w -= gDeltaTime * 0.9f;
 	}
-	GetComponent<MeshRenderer>()->SetTestColor(color);
+	GetComponent<SpriteRenderer>()->SetTestColor(color);
 
 	Transform* const transform = GetComponent<Transform>();	
 	Vector3 scale =  transform->GetScale();
@@ -72,6 +72,3 @@ void Bugiman::lateUpdate()
 {
 }
 
-void Bugiman::render()
-{
-}
