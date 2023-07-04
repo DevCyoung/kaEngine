@@ -9,7 +9,7 @@
 Camera::Camera()
 	: Component(eComponentType::Camera)
 	, mRenderTargetRenderer(nullptr)
-	, mScreenSize(Vector2::Zero)
+	, mRenderTargetSize(Vector2::Zero)
 	, mLayerMask(0XFFFFFFFF)
 	, mNear(1.0f)
 	, mFar(10000.0f)
@@ -19,7 +19,7 @@ Camera::Camera()
 	, mView(Matrix::Identity)
 	, mProjection(Matrix::Identity)
 	, mProjectionType(eProjectionType::Orthographic)
-	, mCameraType(eCameraType::End)
+	, mCameraType(eCameraPriorityType::End)
 {
 }
 
@@ -34,36 +34,36 @@ void Camera::initialize()
 void Camera::update()
 {
 	Assert(mRenderTargetRenderer, WCHAR_IS_NULLPTR);
-	Assert(mScreenSize != Vector2::Zero, WCHAR_IS_NULLPTR);
+	Assert(mRenderTargetSize != Vector2::Zero, WCHAR_IS_NULLPTR);
 
 	mRenderTargetRenderer->RegisterRenderCamera(this);
 }
 
 void Camera::lateUpdate()
 {
-	const Transform* const transform = GetComponent<Transform>();
-	const Vector3& pos = transform->GetPosition();
+	const Transform* const P_TRANSFORM = GetComponent<Transform>();
+	const Vector3& POSITION = P_TRANSFORM->GetPosition();
 
 	// View Translate Matrix
 	mView = Matrix::Identity;
-	mView *= Matrix::CreateTranslation(-pos);
+	mView *= Matrix::CreateTranslation(-POSITION);
 
 	// View Rotation Matrix
-	const Vector3& up = transform->GetUp();
-	const Vector3& right = transform->GetRight();
-	const Vector3& foward = transform->GetForward();
+	const Vector3& UP = P_TRANSFORM->GetUp();
+	const Vector3& RIGHT = P_TRANSFORM->GetRight();
+	const Vector3& FORWARD = P_TRANSFORM->GetForward();
 
 	Matrix viewRotate = {};
 
-	viewRotate._11 = right.x;	viewRotate._12 = up.x;	viewRotate._13 = foward.x;
-	viewRotate._21 = right.y;	viewRotate._22 = up.y;	viewRotate._23 = foward.y;
-	viewRotate._31 = right.z;	viewRotate._32 = up.z;	viewRotate._33 = foward.z;
+	viewRotate._11 = RIGHT.x;	viewRotate._12 = UP.x;	viewRotate._13 = FORWARD.x;
+	viewRotate._21 = RIGHT.y;	viewRotate._22 = UP.y;	viewRotate._23 = FORWARD.y;
+	viewRotate._31 = RIGHT.z;	viewRotate._32 = UP.z;	viewRotate._33 = FORWARD.z;
 
 	mView *= viewRotate;
 
 	//const Vector2 screenSize = gEngine->GetScreenSize();
 
-	mAspectRatio = mScreenSize.x / mScreenSize.y;
+	mAspectRatio = mRenderTargetSize.x / mRenderTargetSize.y;
 
 	switch (mProjectionType)
 	{
@@ -72,11 +72,11 @@ void Camera::lateUpdate()
 		break;
 	case Camera::eProjectionType::Orthographic:
 	{
-		const float OrthorGraphicRatio = mSize / 1.0f;
-		const float width = mScreenSize.x * OrthorGraphicRatio;
-		const float height = mScreenSize.y * OrthorGraphicRatio;
+		const float ORTHOGRAPHIC_RATIO = mSize / 1.0f;
+		const float WIDTH = mRenderTargetSize.x * ORTHOGRAPHIC_RATIO;
+		const float HEIGHT = mRenderTargetSize.y * ORTHOGRAPHIC_RATIO;
 
-		mProjection = Matrix::CreateOrthographicLH(width, height, mNear, mFar);
+		mProjection = Matrix::CreateOrthographicLH(WIDTH, HEIGHT, mNear, mFar);
 	}
 	break;
 	default:

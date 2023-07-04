@@ -68,7 +68,7 @@ void CameraInputMoveMent::update()
 		pos += dir;
 		transform->SetPosition(pos);		
 
-		float cameraSize = camera->GetSize();
+		float cameraSize = camera->GetCameraSize();
 
 		if (gInput->GetKey(eKeyCode::NUM1))
 		{
@@ -88,7 +88,7 @@ void CameraInputMoveMent::update()
 			cameraSize = 5.f;
 		}
 
-		camera->SetCameraSize(cameraSize);
+		camera->SetCamera2DSize(cameraSize);
 
 		if (MessageManager::GetInstance()->IsSendMessage())
 		{

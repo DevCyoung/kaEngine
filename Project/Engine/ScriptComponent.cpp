@@ -1,9 +1,9 @@
 #include "pch.h"
 #include "ScriptComponent.h"
 
-ScriptComponent::ScriptComponent(eScriptComponentType type)
+ScriptComponent::ScriptComponent(eScriptComponentType SCRIPT_COMPONENT_TYPE)
 	: Component(eComponentType::ScriptComponent)
-	, mScriptType(type)
+	, mScriptType(SCRIPT_COMPONENT_TYPE)
 {
 }
 ScriptComponent::~ScriptComponent()

@@ -1,8 +1,8 @@
 #include "pch.h"
 #include "Component.h"
 
-Component::Component(const eComponentType type)
-	: mType(type)
+Component::Component(const eComponentType COMPONENT_TYPE)
+	: mType(COMPONENT_TYPE)
 	, mOwner(nullptr)
 {
 }

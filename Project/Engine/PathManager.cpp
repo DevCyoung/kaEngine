@@ -7,9 +7,9 @@ PathManager::PathManager()
 	GetCurrentDirectory(256, mResourcePath);
 
 	// 상위폴더로 감
-	const int pathLen = static_cast<int>(wcslen(mResourcePath));
+	const int PATH_LEN = static_cast<int>(wcslen(mResourcePath));
 
-	for (int i = pathLen - 1; i >= 0; --i)
+	for (int i = PATH_LEN - 1; i >= 0; --i)
 	{
 		if (L'\\' == mResourcePath[i])
 		{

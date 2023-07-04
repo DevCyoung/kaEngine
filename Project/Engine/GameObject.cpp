@@ -12,7 +12,7 @@ GameObject::GameObject()
 	, mParent(nullptr)
 {
 	//모든 오브젝트는 반드시 Transform 을 가지고있는다.
-	AddComponent(new Transform);
+	AddComponent<Transform>();
 }
 
 GameObject::~GameObject()
@@ -58,18 +58,18 @@ void GameObject::AddComponent(Component* const component)
 	component->mOwner = this;
 }
 
-Component* GameObject::GetComponentOrNull(const eComponentType type) const
+Component* GameObject::GetComponentOrNull(const eComponentType COMPONENT_TYPE) const
 {
-	return mEngineComponents[static_cast<UINT>(type)];
+	return mEngineComponents[static_cast<UINT>(COMPONENT_TYPE)];
 }
 
-ScriptComponent* GameObject::GetComponentOrNull(const eScriptComponentType type) const
+ScriptComponent* GameObject::GetComponentOrNull(const eScriptComponentType SCRIPT_COMPONENT_TYPE) const
 {
 	ScriptComponent* component = nullptr;
 
 	for (ScriptComponent* const curScript : mUserComponents)
 	{
-		if (curScript->GetScriptType() == type)
+		if (curScript->GetScriptType() == SCRIPT_COMPONENT_TYPE)
 		{
 			component = curScript;
 			break;
@@ -78,14 +78,14 @@ ScriptComponent* GameObject::GetComponentOrNull(const eScriptComponentType type)
 	return component;
 }
 
-void GameObject::RemoveComponent(eComponentType type)
+void GameObject::RemoveComponent(eComponentType COMPONENT_TYPE)
 {
 	Assert(false, WCHAR_IS_INVALID_TYPE);
 
-	SAFE_DELETE_POINTER(mEngineComponents[static_cast<UINT>(type)]);
+	SAFE_DELETE_POINTER(mEngineComponents[static_cast<UINT>(COMPONENT_TYPE)]);
 }
 
-void GameObject::RemoveComponent(eScriptComponentType type)
+void GameObject::RemoveComponent(eScriptComponentType SCRIPT_COMPONENT_TYPE)
 {
 	Assert(false, WCHAR_IS_INVALID_TYPE);
 
@@ -93,7 +93,7 @@ void GameObject::RemoveComponent(eScriptComponentType type)
 
 	for (; iter != mUserComponents.end(); ++iter)
 	{
-		if ((*iter)->GetScriptType() == type)
+		if ((*iter)->GetScriptType() == SCRIPT_COMPONENT_TYPE)
 		{
 			SAFE_DELETE_POINTER(*iter);
 			mUserComponents.erase(iter);

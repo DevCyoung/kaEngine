@@ -9,7 +9,7 @@ class PathManager
 public:
 	const wchar_t* GetResourcePath() const { return mResourcePath; }
 
-private:
+private: 
 	wchar_t	mResourcePath[256];
 };
 

@@ -6,7 +6,7 @@
 
 class RenderComponent;
 class Camera;
-
+class DebugRenderer;
 class RenderTargetRenderer
 {
 	friend class Camera;
@@ -22,13 +22,16 @@ public:
 		Microsoft::WRL::ComPtr<ID3D11RenderTargetView> renderTargetView,
 		Microsoft::WRL::ComPtr<ID3D11DepthStencilView> depthStencilView);
 
-	Camera* GetRegisteredRenderCamera(const Camera::eCameraType type) const
+	Camera* GetRegisteredRenderCamera(const Camera::eCameraPriorityType type) const
 	{
-		Assert(type != Camera::eCameraType::End, WCHAR_IS_INVALID_TYPE);
+		Assert(type != Camera::eCameraPriorityType::End, WCHAR_IS_INVALID_TYPE);
 		Assert(mCameras[static_cast<UINT>(type)], WCHAR_IS_NULLPTR);
 
 		return mCameras[static_cast<UINT>(type)];
 	}
+
+	void DrawRect(const Vector2& WORLD_POS, const Vector2& RECT_SCALE, const float DRAW_TIME);
+	void DrawRect2(const Vector2& WORLD_LEFT_UP_POS, const Vector2& WORLD_RIGHT_BOTTOM_POS, const float DRAW_TIME);
 
 private:
 	void RegisterRenderCamera(Camera* const camera);
@@ -39,6 +42,8 @@ private:
 
 
 private:
-	Camera* mCameras[static_cast<UINT>(Camera::eCameraType::End)];
+	DebugRenderer* mDebugRenderer;
+
+	Camera* mCameras[static_cast<UINT>(Camera::eCameraPriorityType::End)];
 	std::vector<RenderComponent*> mRenderComponentArrays[static_cast<UINT>(eRenderPriorityType::End)];
 };

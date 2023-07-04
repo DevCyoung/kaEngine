@@ -6,7 +6,7 @@ class ScriptComponent : public Component
 {
 	friend class GameObject;
 protected:
-	ScriptComponent(eScriptComponentType type);
+	ScriptComponent(eScriptComponentType SCRIPT_COMPONENT_TYPE);
 public:
 	virtual ~ScriptComponent();
 	ScriptComponent(const ScriptComponent&) = delete;

@@ -11,13 +11,13 @@ public:
 	Transform(const Transform&) = delete;
 	Transform& operator=(const Transform&) = delete;
 
-	void SetPosition(const Vector3& position) { mPosition = position; }
-	void SetRotation(const Vector3& rotation) { mRotation = rotation; }
-	void SetScale(const Vector3& scale) { mScale = scale; }
+	void SetPosition(const Vector3& POSITION) { mPosition = POSITION; }
+	void SetRotation(const Vector3& ROTATION) { mRotation = ROTATION; }
+	void SetScale(const Vector3& SCALE) { mScale = SCALE; }
 
-	void SetPosition(const float x, const float y, const float z) { mPosition = Vector3(x, y, z); }
-	void SetRotation(const float x, const float y, const float z) { mRotation = Vector3(x, y, z); }
-	void SetScale(const float x, const float y, const float z) { mScale = Vector3(x, y, z); }
+	void SetPosition(const float X, const float Y, const float Z) { mPosition = Vector3(X, Y, Z); }
+	void SetRotation(const float X, const float Y, const float Z) { mRotation = Vector3(X, Y, Z); }
+	void SetScale(const float X, const float Y, const float Z) { mScale = Vector3(X, Y, Z); }
 
 	const Vector3& GetPosition() const { return mPosition; }
 	const Vector3& GetRotation() const { return mRotation; }
@@ -28,6 +28,8 @@ public:
 	const Vector3& GetUp() const { return mUp; }
 
 	const Matrix& GetWorldMatrix() const { return mWorld; }
+
+	static Matrix CalculateWorldMatrix(const Vector3& POSITION, const Vector3& ROTATION, const Vector3& SCALE);
 
 private:
 	virtual void initialize() override final;

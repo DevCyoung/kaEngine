@@ -16,4 +16,7 @@ private:
 	virtual void initialize() override final;
 	virtual void update() override final;
 	virtual void lateUpdate() override final;	
+
+	Vector2 mPrevClickPos;
+	Vector2 mHoverPos;
 };

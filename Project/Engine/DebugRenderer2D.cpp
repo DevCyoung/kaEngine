@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "SpriteRenderer.h"
+#include "DebugRenderer2D.h"
 #include "Camera.h"
 #include "Material.h"
 #include "Textrue.h"
@@ -10,33 +10,28 @@
 #include "GraphicDeviceDx11.h"
 #include "Transform.h"
 
-
-SpriteRenderer::SpriteRenderer()
-	: RenderComponent(eComponentType::SpriteRenderer)	
-	, mTestColor(Vector4::One)
-	, testX(Vector4::One)
-	, bColorInfo(0)
+DebugRenderer2D::DebugRenderer2D()
+	: RenderComponent(eComponentType::DebugRenderer2D)
 {
 }
 
-SpriteRenderer::~SpriteRenderer()
+DebugRenderer2D::~DebugRenderer2D()
 {
 }
 
-void SpriteRenderer::initialize()
+void DebugRenderer2D::initialize()
 {
 }
 
-void SpriteRenderer::update()
-{	
-	RenderComponent::update();
-}
-
-void SpriteRenderer::lateUpdate()
+void DebugRenderer2D::update()
 {
 }
 
-void SpriteRenderer::render(const Camera* const camera)
+void DebugRenderer2D::lateUpdate()
+{
+}
+
+void DebugRenderer2D::render(const Camera* const camera)
 {
 	Assert(mMesh, WCHAR_IS_NULLPTR);
 	Assert(mMaterial, WCHAR_IS_NULLPTR);
@@ -44,25 +39,12 @@ void SpriteRenderer::render(const Camera* const camera)
 
 	tCBTransform tTrans = {};
 	{
-		Vector3 scale(mMaterial->GetTexture()->GetWidth(), mMaterial->GetTexture()->GetHeight(), 1.f);
-		Matrix scaleMtrix = Matrix::CreateScale(scale);
-
-		tTrans.World = scaleMtrix * GetComponent<Transform>()->GetWorldMatrix();
+		tTrans.World = GetComponent<Transform>()->GetWorldMatrix();
 		tTrans.View = camera->GetView();
 		tTrans.Proj = camera->GetProjection();
 	}
 	gGraphicDevice->PassCB(eCBType::Transform, sizeof(tTrans), &tTrans);
 	gGraphicDevice->BindCB(eCBType::Transform, eShaderBindType::VS);
-
-	//FIXME: Material Info 범용성있는 방법으로 수정
-	tCBColorInfo colorInfo = {};
-	{
-		colorInfo.bUseColor = bColorInfo;
-		colorInfo.Color = testX;
-
-		gGraphicDevice->PassCB(eCBType::ColorInfo, sizeof(colorInfo), &colorInfo);
-		gGraphicDevice->BindCB(eCBType::ColorInfo, eShaderBindType::PS);
-	}
 
 	gGraphicDevice->BindMesh(mMesh);
 	gGraphicDevice->BindIA(mMaterial->GetShader());
@@ -71,6 +53,5 @@ void SpriteRenderer::render(const Camera* const camera)
 	gGraphicDevice->BindBS(mMaterial->GetShader()->GetBSType());
 	gGraphicDevice->BindDS(mMaterial->GetShader()->GetDSType());
 	gGraphicDevice->BindRS(mMaterial->GetShader()->GetRSType());
-	gGraphicDevice->BindTexture(eShaderBindType::PS, 0, mMaterial->GetTexture());
 	gGraphicDevice->Draw(mMesh);
 }

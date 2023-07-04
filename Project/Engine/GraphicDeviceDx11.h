@@ -5,7 +5,6 @@
 
 struct ID3D11Device;
 
-
 enum class eShaderBindType;
 enum class eCBType;
 enum class eBSType;
@@ -26,29 +25,30 @@ class GraphicDeviceDX11
 {
 	friend class Engine;
 public:
-	GraphicDeviceDX11(const HWND hWnd, const UINT screenWidth, const UINT screenHeight);
+	GraphicDeviceDX11(const HWND H_WINDOW, const UINT RENDER_TARGET_WIDTH, const UINT RENDER_TARGET_HEIGHT);
 	virtual ~GraphicDeviceDX11();
 	GraphicDeviceDX11(const GraphicDeviceDX11&) = delete;
 	GraphicDeviceDX11& operator=(const GraphicDeviceDX11&) = delete;
 
 	ID3D11Device* UnSafe_GetDevice() const { Assert(mDevice, WCHAR_IS_NULLPTR); return mDevice.Get(); }
 
-	void BindIA(const Shader* const shader) const;
-	void BindMesh(const Mesh* const mesh) const;
-	void BindTexture(const eShaderBindType stage, const UINT startSlot, const Texture* const texture) const;
-	void BindCB(const eCBType type, const eShaderBindType stage) const;
-	void PassCB(const eCBType type, const UINT byteSize, const void* const data) const;
-	void BindVS(const Shader* const shader) const;
-	void BindPS(const Shader* const shader) const;
-	void BindBS(const eBSType type) const;
-	void BindDS(const eDSType type) const;
-	void BindRS(const eRSType type) const;
+	void BindIA(const Shader* const P_SHADER) const;
+	void BindMesh(const Mesh* const P_MESH) const;
+	void BindTexture(const eShaderBindType SHADER_BIND_STAGE_TYPE,
+		const UINT START_SLOT,
+		const Texture* const P_TEXTURE) const;
+	void BindCB(const eCBType CB_TYPE, const eShaderBindType SHADER_BIND_STAGE_TYPE) const;
+	void PassCB(const eCBType CB_TYPE, const UINT BYTE_SIZE, const void* const P_DATA) const;
+	void BindVS(const Shader* const P_SHADER) const;
+	void BindPS(const Shader* const P_SHADER) const;
+	void BindBS(const eBSType BS_TYPE) const;
+	void BindDS(const eDSType DS_TYPE) const;
+	void BindRS(const eRSType RS_TYPE) const;
 
-	void Draw(const Mesh* const mesh) const;
-	//void DrawIndexd();
-	void ClearRenderTarget(const UINT screenWidth,
-		const UINT screenHeight,
-		const FLOAT bgColor[4],
+	void Draw(const Mesh* const P_MESH) const;
+	void ClearRenderTarget(const UINT RENDER_TARGET_WIDTH,
+		const UINT RENDER_TARGET_HEIGHT,
+		const FLOAT BG_COLOR[4],
 		Microsoft::WRL::ComPtr<ID3D11RenderTargetView> renderTargetView,
 		Microsoft::WRL::ComPtr<ID3D11DepthStencilView> depthStencilView) const;
 
@@ -67,7 +67,6 @@ private:
 
 		return mDepthStencilView;
 	}
-
 
 private:
 	Microsoft::WRL::ComPtr<ID3D11Device> mDevice;

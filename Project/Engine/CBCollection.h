@@ -13,7 +13,7 @@ private:
 	CBCollection(const CBCollection&) = delete;
 	CBCollection& operator=(const CBCollection&) = delete;
 
-	ConstantBuffer& GetConstantBuffer(const eCBType type) { return mConstantBuffers[static_cast<UINT>(type)]; }
+	ConstantBuffer& GetConstantBuffer(const eCBType CB_TYPE) { return mConstantBuffers[static_cast<UINT>(CB_TYPE)]; }
 
 private:
 	ConstantBuffer mConstantBuffers[static_cast<UINT>(eCBType::End)];

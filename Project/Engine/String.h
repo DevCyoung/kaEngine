@@ -12,8 +12,8 @@ namespace helper
 		String& operator=(const String&) = delete;
 
 	public:
-		static std::wstring StrToWStr(const std::string& str);
-		static std::string WStrToStr(const std::wstring& wstr);
-		static std::wstring SplitFilePathExtension(const std::wstring& filePath);
+		static std::wstring StrToWStr(const std::string& STR);
+		static std::string WStrToStr(const std::wstring& WSTR);
+		static std::wstring SplitFilePathExtension(const std::wstring& FILE_PATH);
 	};
 }
