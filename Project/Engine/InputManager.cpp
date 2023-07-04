@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "InputManager.h"
+#include "Engine.h"
 
 constexpr static int ASCII[(UINT)eKeyCode::END] =
 {
@@ -42,23 +43,25 @@ InputManager::~InputManager()
 }
 
 
-bool InputManager::IsMouseHoverd(const Vector2 screenSize)
+bool InputManager::IsWindowMouseHoverd()
 {
-	return (0.f <= mMousePos.x  && mMousePos.x <= screenSize.x) &&
-		(0.f <= mMousePos.y&& mMousePos.y <= screenSize.y);
+	const Vector2& WINDOW_SCREEN_SIZE = gEngine->GetWindowScreenSize();
+
+	return (0.f <= mMousePos.x && mMousePos.x <= WINDOW_SCREEN_SIZE.x) &&
+		(0.f <= mMousePos.y && mMousePos.y <= WINDOW_SCREEN_SIZE.y);
 }
 
-void InputManager::update(const HWND hWnd)
+void InputManager::update(const HWND H_WND)
 {
-	Assert(hWnd, WCHAR_IS_NULLPTR);
+	Assert(H_WND, WCHAR_IS_NULLPTR);
 
 	if (GetFocus())
 	{
 		for (tKeyInfo& keyInfo : mKeyInfos)
 		{
-			const UINT index = static_cast<UINT>(keyInfo.key);
+			const UINT INDEX = static_cast<UINT>(keyInfo.key);
 
-			if (GetAsyncKeyState(ASCII[index]) & 0x8000)
+			if (GetAsyncKeyState(ASCII[INDEX]) & 0x8000)
 			{
 				if (keyInfo.bPressed == false)
 				{
@@ -84,10 +87,10 @@ void InputManager::update(const HWND hWnd)
 			}
 		}
 
-		
+
 		POINT ptMousePos = {};
 		GetCursorPos(&ptMousePos);
-		ScreenToClient(hWnd, &ptMousePos);
+		ScreenToClient(H_WND, &ptMousePos);
 
 		mMousePos.x = static_cast<float>(ptMousePos.x);
 		mMousePos.y = static_cast<float>(ptMousePos.y);

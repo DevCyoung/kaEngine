@@ -1,6 +1,7 @@
 #pragma once
 #include "Singleton.h"
 
+class Camera;
 
 enum class eKeyCode
 {
@@ -43,27 +44,27 @@ private:
 	};
 
 public:
-	eKeyState GetKeyState(const eKeyCode key)
+	eKeyState GetKeyState(const eKeyCode KEY)
 	{
-		return mKeyInfos[static_cast<UINT>(key)].state;
+		return mKeyInfos[static_cast<UINT>(KEY)].state;
 	};
 
-	bool GetKey(const eKeyCode key)
+	bool GetKey(const eKeyCode KEY)
 	{
-		return mKeyInfos[static_cast<UINT>(key)].state == eKeyState::Pressed;
+		return mKeyInfos[static_cast<UINT>(KEY)].state == eKeyState::Pressed;
 	}
 
-	bool GetKeyDown(const eKeyCode key)
+	bool GetKeyDown(const eKeyCode KEY)
 	{
-		return mKeyInfos[static_cast<UINT>(key)].state == eKeyState::Down;
+		return mKeyInfos[static_cast<UINT>(KEY)].state == eKeyState::Down;
 	};
 
-	bool GetKeyUp(const eKeyCode key)
+	bool GetKeyUp(const eKeyCode KEY)
 	{
-		return mKeyInfos[static_cast<UINT>(key)].state == eKeyState::Up;
+		return mKeyInfos[static_cast<UINT>(KEY)].state == eKeyState::Up;
 	};
 
-	const Vector2& GetMousePos() const
+	const Vector2& GetWindowMousePos() const
 	{
 		return mMousePos;
 	}
@@ -73,10 +74,10 @@ public:
 		return mMouseDir;
 	}
 
-	bool IsMouseHoverd(const Vector2 screenSize);
+	bool IsWindowMouseHoverd();
 
 private:
-	void update(const HWND hWnd);
+	void update(const HWND H_WND);
 private:
 	std::vector<tKeyInfo> mKeyInfos;
 	Vector2 mMousePos;

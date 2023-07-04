@@ -8,12 +8,15 @@
 #include "Engine.h"
 #include "GraphicDeviceDx11.h"
 #include "RenderComponent.h"
-
+#include "DebugRenderer.h"
 
 RenderTargetRenderer::RenderTargetRenderer()
-	: mCameras{ 0, }
+	: mDebugRenderer(nullptr)
+	, mCameras{ 0, }
 	, mRenderComponentArrays()
 {
+	mDebugRenderer = new DebugRenderer();
+
 	for (auto& renderObjectArray : mRenderComponentArrays)
 	{
 		renderObjectArray.reserve(100);
@@ -22,14 +25,31 @@ RenderTargetRenderer::RenderTargetRenderer()
 
 RenderTargetRenderer::~RenderTargetRenderer()
 {
+	SAFE_DELETE_POINTER(mDebugRenderer);
+}
+
+void RenderTargetRenderer::DrawRect(const Vector2& WORLD_POS, const Vector2& RECT_SCALE, const float DRAW_TIME)
+{	
+	mDebugRenderer->DrawWorld2DRect(WORLD_POS, RECT_SCALE, DRAW_TIME);
+}
+
+void RenderTargetRenderer::DrawRect2(const Vector2& WORLD_LEFT_UP_POS, 
+	const Vector2& WORLD_RIGHT_BOTTOM_POS, 
+	const float DRAW_TIME)
+{
+	const Vector2 WORLD_POS = (WORLD_LEFT_UP_POS + WORLD_RIGHT_BOTTOM_POS) * 0.5f;
+	const Vector2 RECT_SCALE = WORLD_RIGHT_BOTTOM_POS - WORLD_LEFT_UP_POS;
+
+	mDebugRenderer->DrawWorld2DRect(WORLD_POS, RECT_SCALE, DRAW_TIME);
+
 }
 
 void RenderTargetRenderer::RegisterRenderCamera(Camera* const camera)
 {
-	const Camera::eCameraType type = camera->GetCameraType();
+	const Camera::eCameraPriorityType type = camera->GetCameraType();
 
 	Assert(camera, WCHAR_IS_NULLPTR);
-	Assert(type != Camera::eCameraType::End, WCHAR_IS_INVALID_TYPE);
+	Assert(type != Camera::eCameraPriorityType::End, WCHAR_IS_INVALID_TYPE);
 	Assert(!mCameras[static_cast<UINT>(type)], WCHAR_IS_NOT_NULLPTR);
 
 	mCameras[static_cast<UINT>(type)] = camera;
@@ -89,6 +109,10 @@ void RenderTargetRenderer::Render(const UINT screenWidth,
 			}
 		}
 	}
+
+	const Camera* const P_MAIN_CAMERA = mCameras[static_cast<UINT>(Camera::eCameraPriorityType::Main)];
+
+	mDebugRenderer->Render(P_MAIN_CAMERA);
 
 	for (auto& camera : mCameras)
 	{

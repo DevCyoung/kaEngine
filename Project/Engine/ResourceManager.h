@@ -4,6 +4,14 @@
 #include "PathManager.h"
 #include "ResourceTypeTrait.h"
 
+struct tVertex
+{
+	Vector3 pos;
+	Vector4 color;
+	Vector2 uv;
+};
+
+
 class ResourceManager
 {
 	friend class Engine;
@@ -49,15 +57,15 @@ private:
 
 template<typename T>
 	requires (is_engine_resource<T>::value)
-inline T* ResourceManager::FindOrNullByRelativePath(const Key& orName) const
+inline T* ResourceManager::FindOrNullByRelativePath(const Key& OR_NAME) const
 {
 	T* res = nullptr;
 
-	constexpr eResourceType resType = engine_resource_type<T>::type;
-	const Dictionary& resources = mResources[static_cast<UINT>(resType)];
-	ConstIterator iter = resources.find(orName);
+	constexpr eResourceType RES_TYPE = engine_resource_type<T>::type;
+	const Dictionary& RESOURCES = mResources[static_cast<UINT>(RES_TYPE)];
+	ConstIterator iter = RESOURCES.find(OR_NAME);
 
-	if (iter != resources.end())
+	if (iter != RESOURCES.end())
 	{
 		res = dynamic_cast<T*>(iter->second);
 		Assert(res, WCHAR_IS_NULLPTR);
@@ -75,14 +83,14 @@ inline T* ResourceManager::FindOrNullByEnum(engine_resource_type<T>::eResEnumTyp
 
 template<typename T>
 	requires (is_engine_resource<T>::value)
-inline T* ResourceManager::FindByRelativePath(const Key& orName) const
+inline T* ResourceManager::FindByRelativePath(const Key& OR_NAME) const
 {
-	T* res = FindOrNullByRelativePath<T>(orName);
+	T* res = FindOrNullByRelativePath<T>(OR_NAME);
 
 	if (nullptr == res)
 	{
-		LoadByRelativePath<T>(orName);
-		res = FindOrNullByRelativePath<T>(orName);
+		LoadByRelativePath<T>(OR_NAME);
+		res = FindOrNullByRelativePath<T>(OR_NAME);
 	}
 
 	Assert(res, WCHAR_IS_NULLPTR);
@@ -99,23 +107,23 @@ inline T* ResourceManager::FindByEnum(engine_resource_type<T>::eResEnumType resN
 
 template<typename T>
 	requires (is_engine_resource<T>::value)
-inline void ResourceManager::LoadByRelativePath(const Key& orName) 
+inline void ResourceManager::LoadByRelativePath(const Key& OR_NAME)
 {
-	T* res = FindOrNullByRelativePath<T>(orName);
+	T* res = FindOrNullByRelativePath<T>(OR_NAME);
 	Assert(!res, WCHAR_IS_NOT_NULLPTR);
 
-	constexpr eResourceType type = engine_resource_type<T>::type;
-	Dictionary& resources = mResources[static_cast<UINT>(type)];
+	constexpr eResourceType RES_TYPE = engine_resource_type<T>::type;
+	Dictionary& resources = mResources[static_cast<UINT>(RES_TYPE)];
 
 	res = new T();
 
-	const std::wstring fullPath = PathManager::GetInstance()->GetResourcePath() + orName;
-	res->Load(fullPath);
+	const std::wstring FULL_PATH = PathManager::GetInstance()->GetResourcePath() + OR_NAME;
+	res->Load(FULL_PATH);
 
-	res->mKey = orName;
-	res->mPath = orName;
+	res->mKey = OR_NAME;
+	res->mPath = OR_NAME;
 
-	resources.insert(std::make_pair(orName, res)); //key : relative Path
+	resources.insert(std::make_pair(OR_NAME, res)); //key : relative Path
 }
 
 template<typename T>
@@ -128,18 +136,18 @@ inline void ResourceManager::LoadByEnum(engine_resource_type<T>::eResEnumType re
 
 template<typename T>
 	requires (is_engine_resource<T>::value)
-inline void ResourceManager::Insert(const Key& key, T* const value)
+inline void ResourceManager::Insert(const Key& Path_OR_NAME, T* const value)
 {
 	Assert(value, WCHAR_IS_NULLPTR);
-	constexpr eResourceType type = engine_resource_type<T>::type;
+	constexpr eResourceType RES_TYPE = engine_resource_type<T>::type;
 
-	Dictionary& resources = mResources[static_cast<UINT>(type)];
-	ConstIterator iter = resources.find(key);
+	Dictionary& resources = mResources[static_cast<UINT>(RES_TYPE)];
+	ConstIterator citer = resources.find(Path_OR_NAME);
 
-	Assert(resources.end() == iter, L"already");
+	Assert(resources.end() == citer, L"already");
 
-	value->mKey = key;
-	value->mPath = key;
+	value->mKey = Path_OR_NAME;
+	value->mPath = Path_OR_NAME;
 
-	resources.insert(std::make_pair(key, value));
+	resources.insert(std::make_pair(Path_OR_NAME, value));
 }

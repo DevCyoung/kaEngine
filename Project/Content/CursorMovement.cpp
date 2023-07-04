@@ -22,32 +22,36 @@ void CursorMovement::initialize()
 }
 
 void CursorMovement::update()
-{
-	const Vector2 screenSize = gEngine->GetScreenSize();
-
-	if (false == gInput->IsMouseHoverd(screenSize))
+{	
+	if (false == gInput->IsWindowMouseHoverd())
 	{
 		return;
 	}
 
-	const Camera* const mainCamera = gEngine->GetRenderTargetRenderer()->GetRegisteredRenderCamera(Camera::eCameraType::Main);
+	RenderTargetRenderer* const renderTargetRenderer = gEngine->GetRenderTargetRenderer();
+	const Camera* const P_MAIN_CAMERA = renderTargetRenderer->GetRegisteredRenderCamera(Camera::eCameraPriorityType::Main);
 
-	const Transform* const cameraTransform = mainCamera->GetComponent<Transform>();
-
-	const Vector2 screenMousePos = gInput->GetMousePos();	
-	const Vector3 mainCameraPos = cameraTransform->GetPosition();
-	const float mainCameraSize = mainCamera->GetSize();	
-
-	const Vector2 pos = helper::ScreenToWorld2D(screenMousePos,
-		screenSize,
-		mainCameraPos,
-		mainCameraSize);
-
-	//const Vector2 pos = helper::ScreenToWorldScreen(screenMousePos, screenSize);
+	const Vector2 MOUSE_WORLD_2D_POS = helper::WindowScreenMouseToWorld2D(P_MAIN_CAMERA);
 
 	Transform* const transform = GetComponent<Transform>();
 
-	transform->SetPosition(Vector3(pos.x, pos.y, transform->GetPosition().z));
+	transform->SetPosition(Vector3(MOUSE_WORLD_2D_POS.x, MOUSE_WORLD_2D_POS.y, transform->GetPosition().z));	
+
+	if (gInput->GetKeyDown(eKeyCode::LBTN))
+	{
+		mPrevClickPos = MOUSE_WORLD_2D_POS;
+	}
+
+	if (gInput->GetKey(eKeyCode::LBTN))
+	{
+		renderTargetRenderer->DrawRect2(mPrevClickPos, MOUSE_WORLD_2D_POS, 0.f);
+	}
+
+	if (gInput->GetKeyUp(eKeyCode::LBTN))
+	{
+		renderTargetRenderer->DrawRect2(mPrevClickPos, MOUSE_WORLD_2D_POS, 3.f);
+	}
+	
 }
 
 void CursorMovement::lateUpdate()

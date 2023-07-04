@@ -92,6 +92,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 //
 //  용도: 창 클래스를 등록합니다.
 //
+
+//#define USE_MENU
+
 ATOM MyRegisterClass(HINSTANCE hInstance)
 {
 	WNDCLASSEXW wcex;

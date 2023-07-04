@@ -341,6 +341,11 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
   <ItemGroup>
     <None Include="..\..\Output\bin\Resources\Shader\Header\TestShaderHeader.fxh" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\Output\bin\Resources\Shader\PixelDebug.hlsl">
+      <FileType>Document</FileType>
+    </None>
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

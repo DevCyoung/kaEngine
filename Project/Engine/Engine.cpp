@@ -11,19 +11,16 @@
 #include "EventManager.h"
 #include "RenderTargetRenderer.h"
 
-Engine::Engine(const HWND hWnd, const UINT screenWidth, const UINT screenHeight)
-	: mHwnd(hWnd)
-	, mScreenWidth(screenWidth)
-	, mScreenHeight(screenHeight)
-	, mGraphicDevice(new GraphicDeviceDX11(hWnd, mScreenWidth, mScreenHeight))
+Engine::Engine(const HWND H_WND, const UINT RENDER_TARGET_WIDTH, const UINT RENDER_TARGET_HEIGHT)
+	: mHwnd(H_WND)
+	, mRenderTargetWidth(RENDER_TARGET_WIDTH)
+	, mRenderTargetHeight(RENDER_TARGET_HEIGHT)
+	, mGraphicDevice(new GraphicDeviceDX11(mHwnd, mRenderTargetWidth, mRenderTargetHeight))
 	, mRenderTargetRenderer(new RenderTargetRenderer())
 {
-	TimeManager::initialize();
-	MessageManager::initialize();
-	PathManager::initialize();
-	InputManager::initialize();
-	ResourceManager::initialize();
-	SceneManager::initialize();
+	setWindowSize(mRenderTargetWidth, mRenderTargetHeight);
+	updateWindowScreenSize();
+	
 	//EventManager::initialize();
 }
 
@@ -41,16 +38,26 @@ Engine::~Engine()
 	SAFE_DELETE_POINTER(mGraphicDevice);
 }
 
-void Engine::initialize(const HWND hWnd, const UINT screenWidth, const UINT screenHeight)
+void Engine::initialize(const HWND H_WND, const UINT RENDER_TARGET_WIDTH, const UINT RENDER_TARGET_HEIGHT)
 {
-	Assert(hWnd, WCHAR_IS_NULLPTR);
+	Assert(H_WND, WCHAR_IS_NULLPTR);
 	Assert(!sInstance, WCHAR_IS_NOT_NULLPTR);
 
-	sInstance = new Engine(hWnd, screenWidth, screenHeight);
+	sInstance = new Engine(H_WND, RENDER_TARGET_WIDTH, RENDER_TARGET_HEIGHT);
+
+	TimeManager::initialize();
+	MessageManager::initialize();
+	PathManager::initialize();
+	InputManager::initialize();
+	ResourceManager::initialize();
+	SceneManager::initialize();
+
 }
 
 void Engine::run()
 {
+	updateWindowScreenSize();
+
 	update();
 
 	lateUpdate();
@@ -59,7 +66,7 @@ void Engine::run()
 }
 
 void Engine::update()
-{
+{	
 	TimeManager::GetInstance()->update();
 	InputManager::GetInstance()->update(mHwnd);
 	SceneManager::GetInstance()->update();
@@ -70,23 +77,58 @@ void Engine::lateUpdate()
 	SceneManager::GetInstance()->lateUpdate();
 }
 
-#include "EngineMath.h"
-
 void Engine::render()
 {
-	const float r = helper::LerpSinBtwZeroAndOne(TimeManager::GetInstance()->GetGlobalTime() * 4.f);
-	const float g = helper::LerpCosBtwZeroAndOne(TimeManager::GetInstance()->GetGlobalTime() * 4.f);
-	const float b = helper::LerpSinBtwZeroAndOne(TimeManager::GetInstance()->GetGlobalTime() * 4.f);
+	constexpr FLOAT BG_COLOR[4] = { 0.4f, 0.4f, 0.4f, 1.f };
 
-	const FLOAT bgColor[4] = { r, g, b, 1.f };
-
-	mRenderTargetRenderer->Render(mScreenWidth,
-		mScreenHeight,
-		bgColor,
+	mRenderTargetRenderer->Render(mRenderTargetWidth,
+		mRenderTargetHeight,
+		BG_COLOR,
 		mGraphicDevice->GetRenderTargetView(),
 		mGraphicDevice->GetDepthStencilView());
 
 	mGraphicDevice->present();
 
 	MessageManager::GetInstance()->render(mHwnd);
+}
+
+void Engine::updateWindowScreenSize()
+{
+	Assert(mHwnd, WCHAR_IS_NULLPTR);
+
+	RECT windowRect;
+	GetClientRect(mHwnd, &windowRect);
+
+	mWindowScreenWidth = windowRect.right - windowRect.left;
+	mWindowScreenHeight = windowRect.bottom - windowRect.top;
+}
+
+
+void Engine::setWindowSize(const UINT WINDOW_SCREEN_WIDTH, const UINT WINDOW_SCREEN_HEIGHT)
+{
+	Assert(mHwnd, WCHAR_IS_NULLPTR);
+
+	RECT windowSize =
+	{
+		0, 0,
+		static_cast<LONG>(WINDOW_SCREEN_WIDTH), static_cast<LONG>(WINDOW_SCREEN_HEIGHT)
+	};
+
+	const BOOL B_MENU = GetMenu(mHwnd) != nullptr;
+
+	AdjustWindowRect(&windowSize, WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX, B_MENU);
+
+	const int ADJUST_WIDTH  = static_cast<int>(windowSize.right - windowSize.left);
+	const int ADJUST_HEIGHT = static_cast<int>(windowSize.bottom - windowSize.top);
+
+	//가운데 정렬
+	const int LEFT_X_POS = GetSystemMetrics(SM_CXSCREEN) / 2 - static_cast<int>(ADJUST_WIDTH) / 2;
+	const int LEFT_Y_POS = GetSystemMetrics(SM_CYSCREEN) / 2 - static_cast<int>(ADJUST_HEIGHT) / 2;
+
+	SetWindowPos(mHwnd, nullptr,
+		LEFT_X_POS, LEFT_Y_POS,
+		ADJUST_WIDTH, ADJUST_HEIGHT, 0);
+
+	ShowWindow(mHwnd, true);
+	UpdateWindow(mHwnd);
 }

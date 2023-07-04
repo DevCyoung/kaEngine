@@ -7,6 +7,7 @@ enum class eResShader
 	Header_Struct,
 	Header_TestShaderHeader,
 	Header_Texture,
+	PixelDebug,
 	PixelShader,
 	VertexShader,
 	End

@@ -190,5 +190,8 @@
     <None Include="dpend.diff">
       <Filter>Windows</Filter>
     </None>
+    <None Include="..\..\Output\bin\Resources\Shader\PixelDebug.hlsl">
+      <Filter>ShaderCode</Filter>
+    </None>
   </ItemGroup>
 </Project>

@@ -7,7 +7,7 @@ class Component : public Entity
 	friend class GameObject;
 
 protected:
-	Component(const eComponentType type);
+	Component(const eComponentType COMPONENT_TYPE);
 public:
 	virtual ~Component();
 	Component(const Component&) = delete;

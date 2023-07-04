@@ -17,6 +17,27 @@ Transform::~Transform()
 {
 }
 
+Matrix Transform::CalculateWorldMatrix(const Vector3& POSITION, const Vector3& ROTATION, const Vector3& SCALE)
+{
+	Matrix world = Matrix::Identity;
+
+	Matrix scaleMatrix = Matrix::CreateScale(SCALE);
+
+	Matrix rotationMatrix = {};
+	rotationMatrix = Matrix::CreateRotationX(Deg2Rad(ROTATION.x));
+	rotationMatrix *= Matrix::CreateRotationY(Deg2Rad(ROTATION.y));
+	rotationMatrix *= Matrix::CreateRotationZ(Deg2Rad(ROTATION.z));
+
+	Matrix positionMatrix = {};
+	positionMatrix.Translation(POSITION);
+
+	world *= scaleMatrix;
+	world *= rotationMatrix;
+	world *= positionMatrix;
+
+	return world;
+}
+
 void Transform::initialize()
 {
 }
@@ -27,21 +48,7 @@ void Transform::update()
 
 void Transform::lateUpdate()
 {
-	mWorld = Matrix::Identity;
-
-	const Matrix scale = Matrix::CreateScale(mScale);
-
-	Matrix rotation = {};
-	rotation  = Matrix::CreateRotationX(Deg2Rad(mRotation.x));
-	rotation *= Matrix::CreateRotationY(Deg2Rad(mRotation.y));
-	rotation *= Matrix::CreateRotationZ(Deg2Rad(mRotation.z));
-
-	Matrix position = {};
-	position.Translation(mPosition);
-
-	mWorld *= scale;
-	mWorld *= rotation;
-	mWorld *= position;
+	mWorld = Transform::CalculateWorldMatrix(mPosition, mRotation, mScale);
 
 	GameObject* const parent = GetOwner()->GetParentOrNull();
 

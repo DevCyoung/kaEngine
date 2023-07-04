@@ -21,18 +21,18 @@ TimeManager::~TimeManager()
 void TimeManager::update()
 {
 	QueryPerformanceCounter(&mCurFrequency);
-	const float differnceFrequency = static_cast<float>(mCurFrequency.QuadPart - mPrevFrequency.QuadPart);
-	mDeltaTime = differnceFrequency / static_cast<float>(mCpuFrequency.QuadPart);
+	const float DIFERENCE_FREQUENCY = static_cast<float>(mCurFrequency.QuadPart - mPrevFrequency.QuadPart);
+	mDeltaTime = DIFERENCE_FREQUENCY / static_cast<float>(mCpuFrequency.QuadPart);
 	mGlobalTime += mDeltaTime;
 	mPrevFrequency.QuadPart = mCurFrequency.QuadPart;
 
 	if (MessageManager::GetInstance()->IsSendMessage())
 	{
-		const float fps = 1.0f / mDeltaTime;
+		const float FPS = 1.0f / mDeltaTime;
 
-		constexpr UINT bufferSize = 256;
-		wchar_t buffer[bufferSize] = { 0, };
-		swprintf_s(buffer, bufferSize, L"<FPS : %.f>", fps);
+		constexpr UINT BUFFER_SIZE = 256;
+		wchar_t buffer[BUFFER_SIZE] = { 0, };
+		swprintf_s(buffer, BUFFER_SIZE, L"<FPS : %.f>", FPS);
 
 		MessageManager::GetInstance()->AddMessage(buffer);
 	}
@@ -50,6 +50,6 @@ float TimeManager::EndTime(LARGE_INTEGER* const starTime)
 
 	QueryPerformanceCounter(&endTime);
 
-	const float differnceFrequency = static_cast<float>(endTime.QuadPart - starTime->QuadPart);
-	return differnceFrequency / static_cast<float>(mCpuFrequency.QuadPart);
+	const float DIFERENCE_FREQUENCY = static_cast<float>(endTime.QuadPart - starTime->QuadPart);
+	return DIFERENCE_FREQUENCY / static_cast<float>(mCpuFrequency.QuadPart);
 }

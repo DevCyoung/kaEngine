@@ -8,6 +8,7 @@ const wchar_t* eResShaderPath[static_cast<UINT>(eResShader::End)]
 	L"\\Shader\\Header\\Struct.fxh",
 	L"\\Shader\\Header\\TestShaderHeader.fxh",
 	L"\\Shader\\Header\\Texture.fxh",
+	L"\\Shader\\PixelDebug.hlsl",
 	L"\\Shader\\PixelShader.hlsl",
 	L"\\Shader\\VertexShader.hlsl",
 };

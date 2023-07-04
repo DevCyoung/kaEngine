@@ -13,15 +13,19 @@ class Engine
 	SINGLETON_DECLARE(Engine);
 
 private:
-	Engine(const HWND hWnd, const UINT screenWidth, const UINT screenHeight);
+	Engine(const HWND H_WND, const UINT RENDER_TARGET_WIDTH, const UINT RENDER_TARGET_HEIGHT);
 
 public:
-	UINT GetScreenWidth() const { return mScreenWidth; }
-	UINT GetScreenHeight() const { return mScreenHeight; }
-	Vector2 GetScreenSize() const  
+	Vector2 GetRenderTargetSize() const  
 	{  
-		return Vector2(static_cast<float>(mScreenWidth), static_cast<float>(mScreenHeight)); 
+		return Vector2(static_cast<float>(mRenderTargetWidth), static_cast<float>(mRenderTargetHeight));
 	}
+
+	Vector2 GetWindowScreenSize() const
+	{
+		return Vector2(static_cast<float>(mWindowScreenWidth), static_cast<float>(mWindowScreenHeight));
+	}
+
 	HWND GetHwnd() const { Assert(mHwnd, WCHAR_IS_NULLPTR); return mHwnd; }
 	GraphicDeviceDX11* GetGraphicDevice() const { return mGraphicDevice; }
 
@@ -34,7 +38,9 @@ public:
 	}
 
 private:
-	static void initialize(const HWND hwnd, const UINT screenWidth, const UINT screenHeight);
+	static void initialize(const HWND H_WND, const UINT RENDER_TARGET_WIDTH, const UINT RENDER_TARGET_HEIGHT);
+	void setWindowSize(const UINT WINDOW_SCREEN_WIDTH, const UINT WINDOW_SCREEN_HEIGHT);
+	void updateWindowScreenSize();
 
 	void run();
 	void update();
@@ -43,8 +49,10 @@ private:
 
 private:
 	HWND mHwnd;
-	UINT mScreenWidth;
-	UINT mScreenHeight;
+	UINT mRenderTargetWidth;
+	UINT mRenderTargetHeight;
+	UINT mWindowScreenWidth;
+	UINT mWindowScreenHeight;
 
 	GraphicDeviceDX11* mGraphicDevice;
 	RenderTargetRenderer* mRenderTargetRenderer;

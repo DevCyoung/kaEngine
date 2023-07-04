@@ -30,8 +30,8 @@ public:
 	template<typename T>
 		requires (is_component_type<T>::value)
 	T* GetComponent() const;
-	Component* GetComponentOrNull(const eComponentType type) const;
-	ScriptComponent* GetComponentOrNull(const eScriptComponentType type) const;
+	Component* GetComponentOrNull(const eComponentType COMPONENT_TYPE) const;
+	ScriptComponent* GetComponentOrNull(const eScriptComponentType SCRIPT_COMPONENT_TYPE) const;
 
 	template<typename T>
 		requires (is_component_type<T>::value)
@@ -42,8 +42,8 @@ public:
 	void AddComponent(ScriptComponent* const component);
 	void AddComponent(Component* const component);
 
-	void RemoveComponent(eComponentType type);
-	void RemoveComponent(eScriptComponentType type);
+	void RemoveComponent(const eComponentType COMPONENT_TYPE);
+	void RemoveComponent(const eScriptComponentType SCRIPT_COMPONENT_TYPE);
 
 	// 0 ~ 31
 	eLayerType GetLayer() const { return mCurLayer;}; 
@@ -69,8 +69,7 @@ private:
 template<typename T>
 	requires (is_component_type<T>::value)
 inline void GameObject::AddComponent(T* const component)
-{
-	static_assert(engine_component_type<T>::value || script_component_type<T>::value);
+{	
 	Assert(component, WCHAR_IS_NULLPTR);
 	Assert(!(component->mOwner), WCHAR_IS_NOT_NULLPTR);
 
@@ -81,9 +80,9 @@ inline void GameObject::AddComponent(T* const component)
 	}
 	else if constexpr (script_component_type<T>::value)
 	{
-		for (const ScriptComponent* const curScript : mUserComponents)
+		for (const ScriptComponent* const P_SCRIPT : mUserComponents)
 		{			
-			if (curScript->GetScriptType() == script_component_type<T>::type)
+			if (P_SCRIPT->GetScriptType() == script_component_type<T>::type)
 			{
 				Assert(false, WCHAR_IS_INVALID_TYPE);
 				break;

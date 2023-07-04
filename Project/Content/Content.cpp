@@ -36,42 +36,8 @@ void Content::resourceInitialize()
 void Content::loadMesh()
 {
 	{
-		//RectMesh
-		const UINT VERTEX_COUNT = 4;
-		tVertex vertexs[VERTEX_COUNT] = {};
-		//0---1
-		//|   |
-		//3---2
-		vertexs[0].pos = Vector3(-0.5f, 0.5f, 0.0f);
-		vertexs[0].color = Vector4(1.0f, 0.0f, 1.0f, 1.0f);
-		vertexs[0].uv = Vector2(0.0f, 0.0f);
+	
 
-		vertexs[1].pos = Vector3(0.5f, 0.5f, 0.0f);
-		vertexs[1].color = Vector4(1.0f, 0.0f, 1.0f, 1.0f);
-		vertexs[1].uv = Vector2(1.0f, 0.0f);
-
-		vertexs[2].pos = Vector3(+0.5f, -0.5f, 0.0f);
-		vertexs[2].color = Vector4(1.0f, 0.0f, 1.0f, 1.0f);
-		vertexs[2].uv = Vector2(1.0f, 1.0f);
-
-		vertexs[3].pos = Vector3(-0.5f, -0.5f, 0.0f);
-		vertexs[3].color = Vector4(1.0f, 0.0f, 1.0f, 1.0f);
-		vertexs[3].uv = Vector2(0.0f, 1.0f);
-
-		std::vector<UINT> indexes;
-		indexes.reserve(10);
-
-		indexes.push_back(0);
-		indexes.push_back(1);
-		indexes.push_back(2);
-
-		indexes.push_back(0);
-		indexes.push_back(2);
-		indexes.push_back(3);
-
-		gResourceManager->Insert<Mesh>(L"Rect",
-			new Mesh(vertexs, VERTEX_COUNT, sizeof(tVertex),
-				indexes.data(), indexes.size(), sizeof(UINT)));
 	}
 }
 
@@ -106,6 +72,8 @@ void Content::loadShader()
 				eBSType::AlphaBlend);
 		gResourceManager->Insert<Shader>(L"UIShader", UIShader);
 	}
+
+
 }
 
 
@@ -123,6 +91,13 @@ void Content::loadMaterial()
 	{
 		Material* const material =
 			MaterialBuilder::BuildDefault2DMaterial(
+				eRenderPriorityType::Opqaue, L"Default", eResTexture::charactor_atlas_zero_black);
+		gResourceManager->Insert<Material>(L"BlackZero", material);
+	}
+
+	{
+		Material* const material =
+			MaterialBuilder::BuildDefault2DMaterial(
 				eRenderPriorityType::Opqaue, L"Default", eResTexture::orange);
 		gResourceManager->Insert<Material>(L"Sample", material);
 	}
@@ -130,15 +105,15 @@ void Content::loadMaterial()
 	{
 		Material* const material =
 			MaterialBuilder::BuildDefault2DMaterial(
-				eRenderPriorityType::Opqaue, L"Default", eResTexture::bg_club_full_0);
-		gResourceManager->Insert<Material>(L"BackGround01", material);
+				eRenderPriorityType::Opqaue, L"Default", eResTexture::door);
+		gResourceManager->Insert<Material>(L"Door", material);
 	}
 
 	{
 		Material* const material =
 			MaterialBuilder::BuildDefault2DMaterial(
-				eRenderPriorityType::Opqaue, L"Default", eResTexture::door);
-		gResourceManager->Insert<Material>(L"Door", material);
+				eRenderPriorityType::Opqaue, L"Default", eResTexture::bg_club_full_0);
+		gResourceManager->Insert<Material>(L"BackGround01", material);
 	}
 
 	{
@@ -281,17 +256,16 @@ void Content::loadPrefab()
 
 void Content::testSceneInitialize()
 {
-	const Vector2 screenSize = gEngine->GetScreenSize();
+	const Vector2 screenSize = gEngine->GetRenderTargetSize();
 	Scene* testScene = new Scene();
 
 	//BackGround parent
 	{
-		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"BackGround01");
+		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"BlackZero");
 
 		obj->AddComponent<Bugiman>();
 
 		obj->GetComponent<Transform>()->SetScale(2.0f, 2.0f, 1.f);
-
 
 		testScene->AddGameObject(obj, eLayerType::Default);
 
@@ -318,7 +292,7 @@ void Content::testSceneInitialize()
 		testScene->AddGameObject(obj, eLayerType::Player);
 	}
 
-	const float hudPosY = gEngine->GetScreenHeight() / 2.f - 23.f;
+	const float hudPosY = gEngine->GetRenderTargetSize().y / 2.f - 23.f;
 
 	//UI UP Hud
 	{
@@ -436,9 +410,9 @@ void Content::testSceneInitialize()
 		mainCameraObj->AddComponent<Camera>();
 		mainCameraObj->AddComponent<CameraInputMoveMent>();
 
-		mainCameraObj->GetComponent<Camera>()->SetCameraType(Camera::eCameraType::Main);
+		mainCameraObj->GetComponent<Camera>()->SetCameraType(Camera::eCameraPriorityType::Main);
 		mainCameraObj->GetComponent<Camera>()->SetRenderTargetRenderer(gEngine->GetRenderTargetRenderer());
-		mainCameraObj->GetComponent<Camera>()->SetScreenSize(screenSize);
+		mainCameraObj->GetComponent<Camera>()->SetRenderTargetSize(screenSize);
 		mainCameraObj->GetComponent<Camera>()->TurnOnAllLayer();
 		mainCameraObj->GetComponent<Camera>()->TurnOffLayer(eLayerType::UI);
 		mainCameraObj->GetComponent<Transform>()->SetPosition(0.f, 0.f, -10.f);
@@ -452,9 +426,9 @@ void Content::testSceneInitialize()
 
 		mainCameraObj->AddComponent<Camera>();
 
-		mainCameraObj->GetComponent<Camera>()->SetCameraType(Camera::eCameraType::UI);
+		mainCameraObj->GetComponent<Camera>()->SetCameraType(Camera::eCameraPriorityType::UI);
 		mainCameraObj->GetComponent<Camera>()->SetRenderTargetRenderer(gEngine->GetRenderTargetRenderer());
-		mainCameraObj->GetComponent<Camera>()->SetScreenSize(screenSize);
+		mainCameraObj->GetComponent<Camera>()->SetRenderTargetSize(screenSize);
 		mainCameraObj->GetComponent<Camera>()->TurnOffAllLayer();
 		mainCameraObj->GetComponent<Camera>()->TurnOnLayer(eLayerType::UI);
 		mainCameraObj->GetComponent<Transform>()->SetPosition(0.f, 0.f, -10.f);

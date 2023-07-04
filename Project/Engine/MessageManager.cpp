@@ -12,7 +12,7 @@ MessageManager::~MessageManager()
 {
 }
 
-void MessageManager::render(HWND hWnd)
+void MessageManager::render(const HWND H_WND)
 {	
 	if (IsSendMessage())
 	{
@@ -26,7 +26,7 @@ void MessageManager::render(HWND hWnd)
 			outMessage += message;
 		}
 
-		SetWindowText(hWnd, outMessage.data());
+		SetWindowText(H_WND, outMessage.data());
 
 		mSecond = 0.0f;
 
