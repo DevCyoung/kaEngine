@@ -88,9 +88,6 @@
     <Filter Include="Source\00. Engine\01. Graphics">
       <UniqueIdentifier>{8231d530-7a53-4699-a9cc-a474fbba78b9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\00. Engine\01. Graphics\ConstantBuffer">
-      <UniqueIdentifier>{86007f0a-87c4-4846-8ce4-366ac4909a67}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\00. Engine\01. Graphics\Struct">
       <UniqueIdentifier>{75d05b67-be0b-4438-b5be-231eb5b0122a}</UniqueIdentifier>
     </Filter>
@@ -118,15 +115,6 @@
     <Filter Include="Source\03. Component\02. Camera">
       <UniqueIdentifier>{e14f60d0-e934-4672-9f50-d542fcfce5dc}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\00. Engine\01. Graphics\BSState">
-      <UniqueIdentifier>{aad05e29-2be7-4738-9733-6f4a7158ea8d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\00. Engine\01. Graphics\DSState">
-      <UniqueIdentifier>{dfaab231-b6b0-444e-bf80-08ca1c4dd5f2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\00. Engine\01. Graphics\RSState">
-      <UniqueIdentifier>{144f794e-0d7c-4273-9773-6a1fb84f99f3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\01. Manager\Render">
       <UniqueIdentifier>{8394a018-d586-4464-9bf2-b0b9d1e9bba3}</UniqueIdentifier>
     </Filter>
@@ -151,7 +139,19 @@
     <Filter Include="Source\03. Component\03. Render\DebugRenderer2D">
       <UniqueIdentifier>{db24be88-563d-4a08-8924-e29df47653a8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\01. Manager\Debug">
+    <Filter Include="Source\00. Engine\01. Graphics\BS">
+      <UniqueIdentifier>{aad05e29-2be7-4738-9733-6f4a7158ea8d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\00. Engine\01. Graphics\CB">
+      <UniqueIdentifier>{86007f0a-87c4-4846-8ce4-366ac4909a67}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\00. Engine\01. Graphics\DS">
+      <UniqueIdentifier>{dfaab231-b6b0-444e-bf80-08ca1c4dd5f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\00. Engine\01. Graphics\RS">
+      <UniqueIdentifier>{144f794e-0d7c-4273-9773-6a1fb84f99f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\01. Manager\Render\Debug">
       <UniqueIdentifier>{79536815-d5ea-4211-a2e4-35a0884bb69c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -199,13 +199,13 @@
       <Filter>Source\04. Scene</Filter>
     </ClInclude>
     <ClInclude Include="ConstantBuffer.h">
-      <Filter>Source\00. Engine\01. Graphics\ConstantBuffer</Filter>
+      <Filter>Source\00. Engine\01. Graphics\CB</Filter>
     </ClInclude>
     <ClInclude Include="SceneManager.h">
       <Filter>Source\01. Manager\Scene</Filter>
     </ClInclude>
     <ClInclude Include="CBCollection.h">
-      <Filter>Source\00. Engine\01. Graphics\ConstantBuffer</Filter>
+      <Filter>Source\00. Engine\01. Graphics\CB</Filter>
     </ClInclude>
     <ClInclude Include="Layer.h">
       <Filter>Source\05. Layer</Filter>
@@ -268,13 +268,13 @@
       <Filter>Windows</Filter>
     </ClInclude>
     <ClInclude Include="DSCollection.h">
-      <Filter>Source\00. Engine\01. Graphics\DSState</Filter>
+      <Filter>Source\00. Engine\01. Graphics\DS</Filter>
     </ClInclude>
     <ClInclude Include="BSCollection.h">
-      <Filter>Source\00. Engine\01. Graphics\BSState</Filter>
+      <Filter>Source\00. Engine\01. Graphics\BS</Filter>
     </ClInclude>
     <ClInclude Include="RSCollection.h">
-      <Filter>Source\00. Engine\01. Graphics\RSState</Filter>
+      <Filter>Source\00. Engine\01. Graphics\RS</Filter>
     </ClInclude>
     <ClInclude Include="RenderTargetRenderer.h">
       <Filter>Source\01. Manager\Render</Filter>
@@ -316,7 +316,7 @@
       <Filter>Source\03. Component\03. Render\DebugRenderer2D</Filter>
     </ClInclude>
     <ClInclude Include="DebugRenderer.h">
-      <Filter>Source\01. Manager\Debug</Filter>
+      <Filter>Source\01. Manager\Render\Debug</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -348,7 +348,7 @@
       <Filter>Source\04. Scene</Filter>
     </ClCompile>
     <ClCompile Include="ConstantBuffer.cpp">
-      <Filter>Source\00. Engine\01. Graphics\ConstantBuffer</Filter>
+      <Filter>Source\00. Engine\01. Graphics\CB</Filter>
     </ClCompile>
     <ClCompile Include="SceneManager.cpp">
       <Filter>Source\01. Manager\Scene</Filter>
@@ -357,7 +357,7 @@
       <Filter>Windows</Filter>
     </ClCompile>
     <ClCompile Include="CBCollection.cpp">
-      <Filter>Source\00. Engine\01. Graphics\ConstantBuffer</Filter>
+      <Filter>Source\00. Engine\01. Graphics\CB</Filter>
     </ClCompile>
     <ClCompile Include="Layer.cpp">
       <Filter>Source\05. Layer</Filter>
@@ -411,13 +411,13 @@
       <Filter>Source\01. Manager\Message</Filter>
     </ClCompile>
     <ClCompile Include="DSCollection.cpp">
-      <Filter>Source\00. Engine\01. Graphics\DSState</Filter>
+      <Filter>Source\00. Engine\01. Graphics\DS</Filter>
     </ClCompile>
     <ClCompile Include="BSCollection.cpp">
-      <Filter>Source\00. Engine\01. Graphics\BSState</Filter>
+      <Filter>Source\00. Engine\01. Graphics\BS</Filter>
     </ClCompile>
     <ClCompile Include="RSCollection.cpp">
-      <Filter>Source\00. Engine\01. Graphics\RSState</Filter>
+      <Filter>Source\00. Engine\01. Graphics\RS</Filter>
     </ClCompile>
     <ClCompile Include="RenderTargetRenderer.cpp">
       <Filter>Source\01. Manager\Render</Filter>
@@ -438,7 +438,7 @@
       <Filter>Source\03. Component\03. Render\DebugRenderer2D</Filter>
     </ClCompile>
     <ClCompile Include="DebugRenderer.cpp">
-      <Filter>Source\01. Manager\Debug</Filter>
+      <Filter>Source\01. Manager\Render\Debug</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

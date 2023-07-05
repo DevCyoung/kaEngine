@@ -29,12 +29,6 @@ float4 main(tVSOut In) : SV_TARGET
 			color.rgba = float4(1.0f, 0.0f, 1.0f, 1.0f);
 		}				
 	}
-	
-	//y
-	//if (color.r == 0.0f && color.g == 0.0f && color.b == 0.0f && color.a == 1.0f)
-	//{
-	//	discard;		
-	//}
-	
+
 	return color;
 }

@@ -54,19 +54,20 @@ void Content::loadShader()
 	//Default Shader
 	{
 		Shader* const defaultShader =
-			new Shader(eResShader::VertexShader, L"main",
-				eResShader::PixelShader, L"main",
+			new Shader(eResShader::VSSprite, L"main",
+				eResShader::PSSprite, L"main",
 				eRSType::CullNone,
 				eDSType::Less,
 				eBSType::AlphaBlend);
 		gResourceManager->Insert(L"Default", defaultShader);
 	}
 
+
 	//UI Shader
 	{
 		Shader* const UIShader =
-			new Shader(eResShader::VertexShader, L"main",
-				eResShader::PixelShader, L"main",
+			new Shader(eResShader::VSSprite, L"main",
+				eResShader::PSSprite, L"main",
 				eRSType::CullNone,
 				eDSType::None,
 				eBSType::AlphaBlend);

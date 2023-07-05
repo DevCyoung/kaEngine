@@ -34,6 +34,12 @@
     <Filter Include="Source\01. Script\Enum">
       <UniqueIdentifier>{c34d8bbf-e30d-458e-8f53-43db7792fa6e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ShaderCode\Debug">
+      <UniqueIdentifier>{e40c434b-8c6d-410e-abaa-cb5f10dd81d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ShaderCode\Sprite2D">
+      <UniqueIdentifier>{c87d12e4-e329-4c8d-b9d2-4a66d513ed5b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -181,17 +187,25 @@
     <None Include="..\..\Output\bin\Resources\Shader\Header\Texture.fxh">
       <Filter>ShaderCode\Header</Filter>
     </None>
-    <None Include="..\..\Output\bin\Resources\Shader\VertexShader.hlsl">
-      <Filter>ShaderCode</Filter>
-    </None>
-    <None Include="..\..\Output\bin\Resources\Shader\PixelShader.hlsl">
-      <Filter>ShaderCode</Filter>
-    </None>
     <None Include="dpend.diff">
       <Filter>Windows</Filter>
     </None>
-    <None Include="..\..\Output\bin\Resources\Shader\PixelDebug.hlsl">
-      <Filter>ShaderCode</Filter>
+    <None Include="..\..\Output\bin\Resources\Shader\PSDebug.hlsl">
+      <Filter>ShaderCode\Debug</Filter>
     </None>
+    <None Include="..\..\Output\bin\Resources\Shader\PSGrid.hlsl">
+      <Filter>ShaderCode\Debug</Filter>
+    </None>
+    <None Include="..\..\Output\bin\Resources\Shader\PSSprite.hlsl">
+      <Filter>ShaderCode\Sprite2D</Filter>
+    </None>
+    <None Include="..\..\Output\bin\Resources\Shader\VSSprite.hlsl">
+      <Filter>ShaderCode\Sprite2D</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="..\..\Output\bin\Resources\Shader\VSDebug.hlsl">
+      <Filter>ShaderCode\Debug</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

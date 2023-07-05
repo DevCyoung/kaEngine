@@ -23,12 +23,12 @@ void CursorMovement::initialize()
 
 void CursorMovement::update()
 {	
-	if (false == gInput->IsWindowMouseHoverd())
-	{
-		return;
-	}
+	//if (false == gInput->IsWindowMouseHoverd())
+	//{
+	//	return;
+	//}
 
-	RenderTargetRenderer* const renderTargetRenderer = gEngine->GetRenderTargetRenderer();
+	RenderTargetRenderer* const renderTargetRenderer = gEngine->GetRenderTargetRenderer();	
 	Transform* const transform = GetComponent<Transform>();
 
 	const Camera* const P_UI_CAMERA = renderTargetRenderer->GetRegisteredRenderCamera(Camera::eCameraPriorityType::UI);
@@ -50,9 +50,10 @@ void CursorMovement::update()
 
 	if (gInput->GetKeyUp(eKeyCode::LBTN))
 	{
-		renderTargetRenderer->DrawRect2(mPrevClickPos, MOUSE_WORLD_3D_POS, 3.f);
+		renderTargetRenderer->DrawRect2(mPrevClickPos, MOUSE_WORLD_3D_POS, 100.f);
 	}
-	
+
+	renderTargetRenderer->DrawGrid2D(Vector3(0.f, 0.f, 1.f), Vector2(32, 32), Vector2(1000, 1000), 0.f);
 }
 
 void CursorMovement::lateUpdate()

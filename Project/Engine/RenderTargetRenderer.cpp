@@ -44,6 +44,11 @@ void RenderTargetRenderer::DrawRect2(const Vector3& WORLD_LEFT_UP_POS,
 
 }
 
+void RenderTargetRenderer::DrawGrid2D(const Vector3& WORLD_POS, const Vector2& XY_SIZE, const Vector2& XY_COUNT, const float DRAW_TIME)
+{
+	mDebugRenderer->DrawGrid2D(WORLD_POS, XY_SIZE, XY_COUNT, DRAW_TIME);
+}
+
 void RenderTargetRenderer::RegisterRenderCamera(Camera* const camera)
 {
 	const Camera::eCameraPriorityType type = camera->GetCameraType();

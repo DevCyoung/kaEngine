@@ -72,11 +72,11 @@ void CameraInputMoveMent::update()
 
 		if (gInput->GetKey(eKeyCode::NUM1))
 		{
-			cameraSize += gDeltaTime;
+			cameraSize += gDeltaTime * 10.f;
 		}
 		if (gInput->GetKey(eKeyCode::NUM2))
 		{
-			cameraSize -= gDeltaTime;
+			cameraSize -= gDeltaTime * 10.f;
 		}
 
 		if (cameraSize < 0.1f)

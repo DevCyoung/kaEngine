@@ -15,4 +15,12 @@ cbuffer ColorInfo : register(b1)
 	float4 cbColor;
 }
 
+cbuffer GridInfo : register(b2)
+{
+	float3 cbMousePos;
+	float cbGridDummy;	
+	float2 cbScale;
+	int2 cbXYCount;	
+}
+
 #endif

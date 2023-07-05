@@ -127,6 +127,13 @@ void Shader::createShader(const eShaderBindType SHADER_BIND_TYPE,
 			arrLayout[2].SemanticName = "TEXCOORD";
 			arrLayout[2].SemanticIndex = 0;
 
+			//arrLayout[3].AlignedByteOffset = 36;
+			//arrLayout[3].Format = DXGI_FORMAT::DXGI_FORMAT_R32G32_FLOAT;
+			//arrLayout[3].InputSlot = 0;
+			//arrLayout[3].InputSlotClass = D3D11_INPUT_CLASSIFICATION::D3D11_INPUT_PER_VERTEX_DATA;
+			//arrLayout[3].SemanticName = "WORLDPOS";
+			//arrLayout[3].SemanticIndex = 0;
+
 
 			if (FAILED(gGraphicDevice->UnSafe_GetDevice()->CreateInputLayout(arrLayout, MAX_INPUT_ELEMENT
 				, vsBlob->GetBufferPointer()
@@ -137,6 +144,7 @@ void Shader::createShader(const eShaderBindType SHADER_BIND_TYPE,
 				return;
 			}
 		}
+
 		break;
 	case eShaderBindType::HS:
 		break;
@@ -153,7 +161,9 @@ void Shader::createShader(const eShaderBindType SHADER_BIND_TYPE,
 		}
 
 		if (FAILED(gGraphicDevice->UnSafe_GetDevice()->CreatePixelShader(psBlob->GetBufferPointer(),
-			psBlob->GetBufferSize(), nullptr, mPS.GetAddressOf())))
+			psBlob->GetBufferSize(), 
+			nullptr, 
+			mPS.GetAddressOf())))
 		{
 			Assert(false, L"failed to create pixel shader");
 			return;

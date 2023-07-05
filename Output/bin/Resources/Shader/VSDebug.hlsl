@@ -15,6 +15,5 @@ tVSOut main(tVSIn In)
 	Out.UV = In.UV;
 	Out.Color = In.Color;
 	
-	
 	return Out;
 }
