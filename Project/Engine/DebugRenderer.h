@@ -20,7 +20,7 @@ public:
 
 	void DrawWorld2DRect(const Vector2& WORLD_POS, const Vector2& RECT_Scale, const float DRAW_TIME);
 
-	void Render(const Camera* const camera);
+	void Render(const Camera* const P_CAMERA);
 
 private:
 	GameObject* mDebugDrawRectObject;

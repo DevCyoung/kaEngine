@@ -44,23 +44,18 @@ void DebugRenderer::DrawWorld2DRect(const Vector2& WORLD_POS,
 	mDebugDrawInfos.push_back(drawInfo);
 }
 
-void DebugRenderer::Render(const Camera* const camera)
+void DebugRenderer::Render(const Camera* const P_CAMERA)
 {
 	const Mesh* const P_MESH = gResourceManager->FindOrNullByRelativePath<Mesh>(L"Rect");
 	const Shader* const P_SHADER = gResourceManager->FindOrNullByRelativePath<Shader>(L"Debug");
 
 	for (tDebugDrawInfo& drawInfo : mDebugDrawInfos)
 	{
-		if (drawInfo.drawTime < 0.f)
-		{
-			continue;
-		}
-
 		tCBTransform tTrans = {};
 		{
 			tTrans.World = Transform::CalculateWorldMatrix(drawInfo.worldPos, drawInfo.rotation, drawInfo.rectScale);
-			tTrans.View = camera->GetView();
-			tTrans.Proj = camera->GetProjection();
+			tTrans.View = P_CAMERA->GetView();
+			tTrans.Proj = P_CAMERA->GetProjection();
 		}
 
 		gGraphicDevice->PassCB(eCBType::Transform, sizeof(tTrans), &tTrans);
@@ -80,17 +75,6 @@ void DebugRenderer::Render(const Camera* const camera)
 		drawInfo.drawTime -= gDeltaTime;
 	}
 
-	std::vector<tDebugDrawInfo>::iterator iter = mDebugDrawInfos.begin();
-
-	for (; iter != mDebugDrawInfos.end();)
-	{
-		if (iter->drawTime < 0.f)
-		{
-			iter = mDebugDrawInfos.erase(iter);
-		}
-		else
-		{
-			++iter;
-		}
-	}
+	mDebugDrawInfos.erase(std::remove_if(mDebugDrawInfos.begin(), mDebugDrawInfos.end(),
+		[](tDebugDrawInfo& drawInfo) {return drawInfo.drawTime < 0.f; }), mDebugDrawInfos.end());
 }
