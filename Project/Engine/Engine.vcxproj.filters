@@ -136,9 +136,6 @@
     <Filter Include="Source\03. Component\03. Render\SpriteRenderer">
       <UniqueIdentifier>{519c1661-d91c-4e37-8020-1698bcb4688f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\03. Component\03. Render\DebugRenderer2D">
-      <UniqueIdentifier>{db24be88-563d-4a08-8924-e29df47653a8}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\00. Engine\01. Graphics\BS">
       <UniqueIdentifier>{aad05e29-2be7-4738-9733-6f4a7158ea8d}</UniqueIdentifier>
     </Filter>
@@ -150,9 +147,6 @@
     </Filter>
     <Filter Include="Source\00. Engine\01. Graphics\RS">
       <UniqueIdentifier>{144f794e-0d7c-4273-9773-6a1fb84f99f3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\01. Manager\Render\Debug">
-      <UniqueIdentifier>{79536815-d5ea-4211-a2e4-35a0884bb69c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -313,10 +307,7 @@
       <Filter>Source\03. Component\03. Render</Filter>
     </ClInclude>
     <ClInclude Include="DebugRenderer2D.h">
-      <Filter>Source\03. Component\03. Render\DebugRenderer2D</Filter>
-    </ClInclude>
-    <ClInclude Include="DebugRenderer.h">
-      <Filter>Source\01. Manager\Render\Debug</Filter>
+      <Filter>Source\01. Manager\Render</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -435,10 +426,7 @@
       <Filter>Source\03. Component\03. Render</Filter>
     </ClCompile>
     <ClCompile Include="DebugRenderer2D.cpp">
-      <Filter>Source\03. Component\03. Render\DebugRenderer2D</Filter>
-    </ClCompile>
-    <ClCompile Include="DebugRenderer.cpp">
-      <Filter>Source\01. Manager\Render\Debug</Filter>
+      <Filter>Source\01. Manager\Render</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

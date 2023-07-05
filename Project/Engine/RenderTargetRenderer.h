@@ -6,7 +6,7 @@
 
 class RenderComponent;
 class Camera;
-class DebugRenderer;
+class DebugRenderer2D;
 class RenderTargetRenderer
 {
 	friend class Camera;
@@ -16,9 +16,9 @@ public:
 	RenderTargetRenderer();
 	virtual ~RenderTargetRenderer();
 
-	void Render(const UINT screenWidth,
-		const UINT screenHeight,
-		const FLOAT bgColor[4],
+	void Render(const UINT RENDER_TARGET_WIDTH,
+		const UINT RENDER_TARGET_HEIGHT,
+		const FLOAT BG_COLOR[4],
 		Microsoft::WRL::ComPtr<ID3D11RenderTargetView> renderTargetView,
 		Microsoft::WRL::ComPtr<ID3D11DepthStencilView> depthStencilView);
 
@@ -30,22 +30,18 @@ public:
 		return mCameras[static_cast<UINT>(type)];
 	}
 
-	void DrawRect(const Vector3& WORLD_POS, const Vector2& RECT_SCALE, const float DRAW_TIME);
-	void DrawRect2(const Vector3& WORLD_LEFT_UP_POS, const Vector3& WORLD_RIGHT_BOTTOM_POS, const float DRAW_TIME);
+	void DrawRect2D(const Vector3& WORLD_POS, const Vector2& RECT_SCALE, const float DRAW_TIME);
+	void DrawRect2D2(const Vector3& WORLD_LEFT_UP_POS, const Vector3& WORLD_RIGHT_BOTTOM_POS, const float DRAW_TIME);
 	void DrawGrid2D(const Vector3& WORLD_POS, const Vector2& XY_SIZE, const Vector2& XY_COUNT, const float DRAW_TIME);
 
 
 private:
 	void RegisterRenderCamera(Camera* const camera);
-
 	void RegisterRenderComponent(RenderComponent* const renderComponent);
-
-	void zSortRenderObjectArray(const eRenderPriorityType type);
-
+	void zSortRenderObjectArray(const eRenderPriorityType RENDER_PRIORITY_TYPE);
 
 private:
-	DebugRenderer* mDebugRenderer;
-
+	DebugRenderer2D* mDebugRenderer;
 	Camera* mCameras[static_cast<UINT>(Camera::eCameraPriorityType::End)];
 	std::vector<RenderComponent*> mRenderComponentArrays[static_cast<UINT>(eRenderPriorityType::End)];
 };

@@ -78,6 +78,7 @@ void Content::loadShader()
 }
 
 
+
 void Content::loadMaterial()
 {
 	loadUIMaterial();
@@ -92,7 +93,8 @@ void Content::loadMaterial()
 	{
 		Material* const material =
 			MaterialBuilder::BuildDefault2DMaterial(
-				eRenderPriorityType::Opqaue, L"Default", eResTexture::charactor_atlas_zero_black);
+				eRenderPriorityType::Opqaue, L"Default", eResTexture::TileMap_bg_haunted_background);
+
 		gResourceManager->Insert(L"BlackZero", material);
 	}
 
@@ -267,6 +269,7 @@ void Content::testSceneInitialize()
 		obj->AddComponent<Bugiman>();
 
 		obj->GetComponent<Transform>()->SetScale(2.0f, 2.0f, 1.f);
+		obj->GetComponent<Transform>()->SetPosition(0.f, 0.f, 1.f);
 
 		testScene->AddGameObject(obj, eLayerType::Default);
 
@@ -299,7 +302,7 @@ void Content::testSceneInitialize()
 	{
 		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UIHud");
 
-		const Vector2 pos = helper::ScreenToWorldScreen(Vector2(screenSize.x / 2.f, 23.f), screenSize);
+		const Vector2 pos = helper::RenderTargetToWorldUI(Vector2(screenSize.x / 2.f, 23.f), screenSize);
 
 		obj->GetComponent<Transform>()->SetPosition(Vector3(pos.x, pos.y, 10.f));
 		obj->GetComponent<Transform>()->SetScale(2.f, 2.f, 1.f);

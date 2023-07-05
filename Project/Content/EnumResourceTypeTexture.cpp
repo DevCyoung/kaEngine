@@ -7,6 +7,8 @@ const wchar_t* eResTexturePath[static_cast<UINT>(eResTexture::End)]
 	L"\\Texture\\charactor\\atlas_zero_ori.bmp",
 	L"\\Texture\\charactor\\atlas_zero_s.bmp",
 	L"\\Texture\\charactor\\atlas_zero_virus.bmp",
+	L"\\Texture\\TileMap\\bg_club_background.png",
+	L"\\Texture\\TileMap\\bg_haunted_background.png",
 	L"\\Texture\\UI\\spr_cursor.png",
 	L"\\Texture\\UI\\spr_hud.png",
 	L"\\Texture\\UI\\spr_hud_battery.png",

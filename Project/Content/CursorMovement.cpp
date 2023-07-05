@@ -45,15 +45,27 @@ void CursorMovement::update()
 
 	if (gInput->GetKey(eKeyCode::LBTN))
 	{
-		renderTargetRenderer->DrawRect2(mPrevClickPos, MOUSE_WORLD_3D_POS, 0.f);
+		renderTargetRenderer->DrawRect2D2(mPrevClickPos, MOUSE_WORLD_3D_POS, 0.f);
 	}
 
 	if (gInput->GetKeyUp(eKeyCode::LBTN))
 	{
-		renderTargetRenderer->DrawRect2(mPrevClickPos, MOUSE_WORLD_3D_POS, 100.f);
+		renderTargetRenderer->DrawRect2D2(mPrevClickPos, MOUSE_WORLD_3D_POS, 0.f);
 	}
 
-	renderTargetRenderer->DrawGrid2D(Vector3(0.f, 0.f, 1.f), Vector2(32, 32), Vector2(1000, 1000), 0.f);
+	static float size = 32;
+
+	if (gInput->GetKeyDown(eKeyCode::NUM3))
+	{		
+		size += 16;
+
+		if (size >  64)
+		{
+			size = 32;
+		}
+	}	
+
+	renderTargetRenderer->DrawGrid2D(Vector3(0.f, 0.f, 1.f), Vector2(size, size), Vector2(1000, 1000), 0.f);
 }
 
 void CursorMovement::lateUpdate()

@@ -1,21 +1,45 @@
 #pragma once
-#include "RenderComponent.h"
+#include <d3d11.h>
 
-REGISTER_COMPONENT_TYPE(DebugRenderer2D);
+class GameObject;
+class Camera;
 
-class DebugRenderer2D : public RenderComponent
+class DebugRenderer2D
 {
 public:
 	DebugRenderer2D();
 	virtual ~DebugRenderer2D();
-	DebugRenderer2D(const DebugRenderer2D&) = delete;
-	DebugRenderer2D& operator=(const DebugRenderer2D&) = delete;
+
+	void DrawWorld2DRect(const Vector3& WORLD_POS, const Vector2& RECT_SCALE, const float DRAW_TIME);
+	void DrawGrid2D(const Vector3& WORLD_POS, const Vector2& TILE_SIZE, const Vector2& TILE_COUNT, const float DRAW_TIME);
+
+	void Render(const Camera* const P_MAIN_CAMERA);
 
 private:
-	virtual void initialize() override final;
-	virtual void update() override final;
-	virtual void lateUpdate() override final;
-public:
-	virtual void render(const Camera* const camera) override final;
+	enum class eDebugDrawType
+	{
+		Grid2D,
+		Rect2D,
+		End,
+	};
 
+	struct tDebugDrawInfo
+	{
+		eDebugDrawType DebugDrawType;
+		Vector3 WorldPos;
+		Vector3 Rotation;
+		Vector3 Scale;
+		Vector3 MousePos;
+		Vector2 XYCount;
+		float DrawTime;
+	};
+
+	void renderRect2D();
+	void renderGrid2D(const tDebugDrawInfo& drawInfo);
+
+private:
+	GameObject* mDebugDrawRectObject;
+	std::vector<tDebugDrawInfo> mDebugDrawInfos;
 };
+
+

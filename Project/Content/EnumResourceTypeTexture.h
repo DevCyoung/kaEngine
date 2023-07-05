@@ -6,6 +6,8 @@ enum class eResTexture
 	charactor_atlas_zero_ori,
 	charactor_atlas_zero_s,
 	charactor_atlas_zero_virus,
+	TileMap_bg_club_background,
+	TileMap_bg_haunted_background,
 	UI_spr_cursor,
 	UI_spr_hud,
 	UI_spr_hud_battery,

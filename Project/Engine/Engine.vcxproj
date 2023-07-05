@@ -172,10 +172,6 @@ call ScriptGen.exe Component $(SolutionDir)Project\Engine $(SolutionDir)Project\
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="DebugRenderer.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
     <ClInclude Include="EngineComponentTrait.h" />
     <ClInclude Include="ConstantBuffer.h" />
     <ClInclude Include="DirectXTex.h" />
@@ -240,10 +236,6 @@ call ScriptGen.exe Component $(SolutionDir)Project\Engine $(SolutionDir)Project\
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="ConstantBuffer.cpp" />
     <ClCompile Include="DebugRenderer2D.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
-    <ClCompile Include="DebugRenderer.cpp">
       <SubType>
       </SubType>
     </ClCompile>
