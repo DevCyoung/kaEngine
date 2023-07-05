@@ -40,7 +40,7 @@ ResourceManager::ResourceManager()
 		indexes.push_back(2);
 		indexes.push_back(3);
 
-		Insert<Mesh>(L"Rect",
+		Insert(L"Rect",
 			new Mesh(vertexs, VERTEX_COUNT, sizeof(tVertex),
 				indexes.data(), indexes.size(), sizeof(UINT)));
 	}
@@ -57,7 +57,7 @@ ResourceManager::ResourceManager()
 				eRSType::WireframeNone,
 				eDSType::None,
 				eBSType::Default);
-		Insert<Shader>(L"Debug", debugShader);
+		Insert(L"Debug", debugShader);
 	}
 
 }

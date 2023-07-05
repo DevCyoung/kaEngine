@@ -8,7 +8,7 @@ Material* MaterialBuilder::BuildDefault2DMaterial(const eRenderPriorityType rend
 	Material* const material = new Material(renderType);
 
 	material->SetShader(gResourceManager
-		->FindOrNullByRelativePath<Shader>(shaderName));
+		->FindOrNull<Shader>(shaderName));
 	material->SetTexture(gResourceManager
 		->FindOrNullByEnum<Texture>(textureType));
 

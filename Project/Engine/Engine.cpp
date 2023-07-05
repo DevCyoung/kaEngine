@@ -55,19 +55,19 @@ void Engine::initialize(const HWND H_WND, const UINT RENDER_TARGET_WIDTH, const 
 }
 
 void Engine::run()
-{
+{	
 	updateWindowScreenSize();
 
 	update();
 
 	lateUpdate();
 
-	render();
+	render();	
 }
 
 void Engine::update()
 {	
-	TimeManager::GetInstance()->update();
+	TimeManager::GetInstance()->update();	
 	InputManager::GetInstance()->update(mHwnd);
 	SceneManager::GetInstance()->update();
 }
@@ -114,9 +114,9 @@ void Engine::setWindowSize(const UINT WINDOW_SCREEN_WIDTH, const UINT WINDOW_SCR
 		static_cast<LONG>(WINDOW_SCREEN_WIDTH), static_cast<LONG>(WINDOW_SCREEN_HEIGHT)
 	};
 
-	const BOOL B_MENU = GetMenu(mHwnd) != nullptr;
+	const BOOL bMENU = GetMenu(mHwnd) != nullptr;
 
-	AdjustWindowRect(&windowSize, WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX, B_MENU);
+	AdjustWindowRect(&windowSize, WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX, bMENU);
 
 	const int ADJUST_WIDTH  = static_cast<int>(windowSize.right - windowSize.left);
 	const int ADJUST_HEIGHT = static_cast<int>(windowSize.bottom - windowSize.top);

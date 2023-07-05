@@ -29,7 +29,7 @@ public:
 
 	const Matrix& GetWorldMatrix() const { return mWorld; }
 
-	static Matrix CalculateWorldMatrix(const Vector3& POSITION, const Vector3& ROTATION, const Vector3& SCALE);
+	static Matrix CreateWorldMatrix(const Vector3& POSITION, const Vector3& ROTATION, const Vector3& SCALE);
 
 private:
 	virtual void initialize() override final;

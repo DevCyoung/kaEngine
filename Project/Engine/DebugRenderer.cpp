@@ -46,14 +46,14 @@ void DebugRenderer::DrawWorld2DRect(const Vector2& WORLD_POS,
 
 void DebugRenderer::Render(const Camera* const P_CAMERA)
 {
-	const Mesh* const P_MESH = gResourceManager->FindOrNullByRelativePath<Mesh>(L"Rect");
-	const Shader* const P_SHADER = gResourceManager->FindOrNullByRelativePath<Shader>(L"Debug");
+	const Mesh* const P_MESH = gResourceManager->FindOrNull<Mesh>(L"Rect");
+	const Shader* const P_SHADER = gResourceManager->FindOrNull<Shader>(L"Debug");
 
 	for (tDebugDrawInfo& drawInfo : mDebugDrawInfos)
 	{
 		tCBTransform tTrans = {};
 		{
-			tTrans.World = Transform::CalculateWorldMatrix(drawInfo.worldPos, drawInfo.rotation, drawInfo.rectScale);
+			tTrans.World = Transform::CreateWorldMatrix(drawInfo.worldPos, drawInfo.rotation, drawInfo.rectScale);
 			tTrans.View = P_CAMERA->GetView();
 			tTrans.Proj = P_CAMERA->GetProjection();
 		}

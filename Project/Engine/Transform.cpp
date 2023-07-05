@@ -17,7 +17,7 @@ Transform::~Transform()
 {
 }
 
-Matrix Transform::CalculateWorldMatrix(const Vector3& POSITION, const Vector3& ROTATION, const Vector3& SCALE)
+Matrix Transform::CreateWorldMatrix(const Vector3& POSITION, const Vector3& ROTATION, const Vector3& SCALE)
 {
 	Matrix world = Matrix::Identity;
 
@@ -48,7 +48,7 @@ void Transform::update()
 
 void Transform::lateUpdate()
 {
-	mWorld = Transform::CalculateWorldMatrix(mPosition, mRotation, mScale);
+	mWorld = Transform::CreateWorldMatrix(mPosition, mRotation, mScale);
 
 	GameObject* const parent = GetOwner()->GetParentOrNull();
 
