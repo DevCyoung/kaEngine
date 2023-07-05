@@ -16,8 +16,10 @@
 #include "EngineMath.h"
 
 DebugRenderer2D::DebugRenderer2D()
-	: mDebugDrawRectObject(nullptr)
+	: mDebugDrawShader{ 0, }
 {
+	mDebugDrawShader[static_cast<UINT>(eDebugDrawType::Rect2D)] = gResourceManager->FindOrNull<Shader>(L"DebugRect2D");
+	mDebugDrawShader[static_cast<UINT>(eDebugDrawType::Grid2D)] = gResourceManager->FindOrNull<Shader>(L"DebugGrid2D");
 }
 
 DebugRenderer2D::~DebugRenderer2D()
@@ -56,8 +58,6 @@ void DebugRenderer2D::DrawGrid2D(const Vector3& WORLD_POS,
 	mDebugDrawInfos.push_back(drawInfo);
 }
 
-
-
 void DebugRenderer2D::Render(const Camera* const P_MAIN_CAMERA)
 {
 	Assert(P_MAIN_CAMERA, WCHAR_IS_NULLPTR);
@@ -70,43 +70,41 @@ void DebugRenderer2D::Render(const Camera* const P_MAIN_CAMERA)
 	gGraphicDevice->BindMesh(P_MESH);
 
 	for (tDebugDrawInfo& drawInfo : mDebugDrawInfos)
-	{		
-		tTrans.World = Transform::CreateWorldMatrix(drawInfo.WorldPos, drawInfo.Rotation, drawInfo.Scale);
-		gGraphicDevice->PassCB(eCBType::Transform, sizeof(tTrans), &tTrans);
-		gGraphicDevice->BindCB(eCBType::Transform, eShaderBindType::VS);
+	{
+		drawInfo.DrawTime -= gDeltaTime;
+
+		const Shader* const shader = mDebugDrawShader[static_cast<UINT>(drawInfo.DebugDrawType)];
+		Assert(shader, WCHAR_IS_NULLPTR);
 
 		Vector3 worldMousePos = helper::WindowScreenMouseToWorld3D(P_MAIN_CAMERA);
+		worldMousePos = Vector3(worldMousePos.x, -worldMousePos.y, worldMousePos.z);		
 
-		//월드 좌표계의 Y는 그리드 좌표계와 반대이다.
-		worldMousePos = Vector3(worldMousePos.x, -worldMousePos.y, worldMousePos.z);
-
-		Shader* shader = nullptr;
-
-		switch (drawInfo.DebugDrawType)
-		{
-		case eDebugDrawType::Rect2D:
-			shader = gResourceManager->FindOrNull<Shader>(L"Debug");
-
-			renderRect2D();
-			break;
-		case eDebugDrawType::Grid2D:
-			shader = gResourceManager->FindOrNull<Shader>(L"DebugGrid");
-
-			drawInfo.MousePos = worldMousePos + Vector3(drawInfo.Scale) / 2.f;
-			renderGrid2D(drawInfo);
-			break;
-		default:
-			Assert(P_MAIN_CAMERA, WCHAR_IS_INVALID_TYPE);
-			break;
-		}
+		tTrans.World = Transform::CreateWorldMatrix(drawInfo.WorldPos, drawInfo.Rotation, drawInfo.Scale);
+		gGraphicDevice->PassCB(eCBType::Transform, sizeof(tTrans), &tTrans);
+		gGraphicDevice->BindCB(eCBType::Transform, eShaderBindType::VS);		
 
 		gGraphicDevice->BindIA(shader);
 		gGraphicDevice->BindPS(shader);
 		gGraphicDevice->BindVS(shader);
+		gGraphicDevice->BindRS(shader->GetRSType());
+		gGraphicDevice->BindBS(shader->GetBSType());
+		gGraphicDevice->BindDS(shader->GetDSType());
+
+		switch (drawInfo.DebugDrawType)
+		{
+		case eDebugDrawType::Rect2D:
+			renderRect2D();
+			break;
+		case eDebugDrawType::Grid2D:
+			drawInfo.MousePos = worldMousePos + Vector3(drawInfo.Scale) / 2.f;
+			renderGrid2D(drawInfo);
+			break;
+		default:
+			Assert(false, WCHAR_IS_INVALID_TYPE);
+			break;
+		}
 
 		gGraphicDevice->Draw(P_MESH);
-
-		drawInfo.DrawTime -= gDeltaTime;
 	}
 
 	mDebugDrawInfos.erase(std::remove_if(mDebugDrawInfos.begin(), mDebugDrawInfos.end(),
@@ -115,13 +113,10 @@ void DebugRenderer2D::Render(const Camera* const P_MAIN_CAMERA)
 
 void DebugRenderer2D::renderRect2D()
 {
-	gGraphicDevice->BindRS(eRSType::CullNone);
-	gGraphicDevice->BindBS(eBSType::AlphaBlend);
-	gGraphicDevice->BindDS(eDSType::None);
 }
 
 void DebugRenderer2D::renderGrid2D(const tDebugDrawInfo& drawInfo)
-{		
+{
 	tCBGridInfo tGrid = {};
 	{
 		tGrid.MouseWorldPos = drawInfo.MousePos;
@@ -133,7 +128,4 @@ void DebugRenderer2D::renderGrid2D(const tDebugDrawInfo& drawInfo)
 		gGraphicDevice->BindCB(eCBType::GridInfo, eShaderBindType::PS);
 	}
 
-	gGraphicDevice->BindRS(eRSType::CullNone);
-	gGraphicDevice->BindBS(eBSType::Default);
-	gGraphicDevice->BindDS(eDSType::None);	
 }

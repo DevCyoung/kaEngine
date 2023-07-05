@@ -16,7 +16,7 @@ Engine::Engine(const HWND H_WND, const UINT RENDER_TARGET_WIDTH, const UINT REND
 	, mRenderTargetWidth(RENDER_TARGET_WIDTH)
 	, mRenderTargetHeight(RENDER_TARGET_HEIGHT)
 	, mGraphicDevice(new GraphicDeviceDX11(mHwnd, mRenderTargetWidth, mRenderTargetHeight))
-	, mRenderTargetRenderer(new RenderTargetRenderer())
+	, mRenderTargetRenderer(nullptr)
 {
 	setWindowSize(mRenderTargetWidth, mRenderTargetHeight);
 	updateWindowScreenSize();
@@ -52,6 +52,7 @@ void Engine::initialize(const HWND H_WND, const UINT RENDER_TARGET_WIDTH, const 
 	ResourceManager::initialize();
 	SceneManager::initialize();
 
+	sInstance->mRenderTargetRenderer = new RenderTargetRenderer();
 }
 
 void Engine::run()

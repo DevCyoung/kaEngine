@@ -3,6 +3,7 @@
 
 class GameObject;
 class Camera;
+class Shader;
 
 class DebugRenderer2D
 {
@@ -37,8 +38,8 @@ private:
 	void renderRect2D();
 	void renderGrid2D(const tDebugDrawInfo& drawInfo);
 
-private:
-	GameObject* mDebugDrawRectObject;
+private:	
+	Shader* mDebugDrawShader[static_cast<UINT>(eDebugDrawType::End)];
 	std::vector<tDebugDrawInfo> mDebugDrawInfos;
 };
 

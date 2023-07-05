@@ -52,28 +52,28 @@ ResourceManager::ResourceManager()
 	//L"\\Shader\\PixelDebug.hlsl",
 
 
-	//Debug Shader
+	//Debug Rect2D Shader
 	{
 		Shader* const debugShader =
 			new Shader(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST,
 				L"\\Shader\\VSDebug.hlsl", L"main",
 				L"\\Shader\\PSDebug.hlsl", L"main",
-				eRSType::WireframeNone,
+				eRSType::CullNone,
 				eDSType::None,
-				eBSType::Default);
-		Insert(L"Debug", debugShader);
+				eBSType::AlphaBlend);
+		Insert(L"DebugRect2D", debugShader);
 	}
 
-	//Grid Shader
+	//Debug Grid2D Shader
 	{
 		Shader* const debugShader =
 			new Shader(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST,
 				L"\\Shader\\VSDebug.hlsl", L"main",
 				L"\\Shader\\PSGrid.hlsl", L"main",
-				eRSType::WireframeNone,
+				eRSType::CullNone,
 				eDSType::None,
-				eBSType::Default);
-		Insert(L"DebugGrid", debugShader);
+				eBSType::AlphaBlend);
+		Insert(L"DebugGrid2D", debugShader);
 	}
 
 }

@@ -64,24 +64,6 @@
     <Filter Include="Source\06. Resource\04. Texture">
       <UniqueIdentifier>{7ee995f9-2bd7-4ac3-88ba-6a2ce18b291e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\07. Helper">
-      <UniqueIdentifier>{c549a15d-9112-48dc-b1ab-cc8178f448bc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\07. Helper\File">
-      <UniqueIdentifier>{2d9164a7-f9d1-44ba-b093-7a129be4a17c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\07. Helper\String">
-      <UniqueIdentifier>{8a8f7d10-2e43-4c78-93bc-2cd3bc497544}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\07. Helper\Math">
-      <UniqueIdentifier>{c6fe055c-5313-4b7b-b8b0-9caf2912f921}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\07. Helper\SafeDelete">
-      <UniqueIdentifier>{aeb89aa9-f7a8-4330-9142-7dcf545eaa7f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\07. Helper\Singleton">
-      <UniqueIdentifier>{ee78ce07-d9a5-4e30-bcf8-2e77dbd9fa7d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\00. Engine\00. Entity">
       <UniqueIdentifier>{0febf985-2089-4d69-9d73-46a0d133a463}</UniqueIdentifier>
     </Filter>
@@ -103,9 +85,6 @@
     <Filter Include="Windows\Extern\MicrosoftMath">
       <UniqueIdentifier>{b6269c47-ecb2-4beb-902d-116f19f3c122}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\07. Helper\Include">
-      <UniqueIdentifier>{75a58b25-b5b9-4fcb-ab41-d8b4a2cbedb8}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\06. Resource\07. Sound">
       <UniqueIdentifier>{df9269fc-6aed-4f3e-9089-f4a2e4b7231b}</UniqueIdentifier>
     </Filter>
@@ -114,9 +93,6 @@
     </Filter>
     <Filter Include="Source\03. Component\02. Camera">
       <UniqueIdentifier>{e14f60d0-e934-4672-9f50-d542fcfce5dc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\01. Manager\Render">
-      <UniqueIdentifier>{8394a018-d586-4464-9bf2-b0b9d1e9bba3}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source\03. Component\00. Component\Trait">
       <UniqueIdentifier>{f0103407-cafd-45cb-b67c-8dfca0674168}</UniqueIdentifier>
@@ -148,6 +124,30 @@
     <Filter Include="Source\00. Engine\01. Graphics\RS">
       <UniqueIdentifier>{144f794e-0d7c-4273-9773-6a1fb84f99f3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\07. Render">
+      <UniqueIdentifier>{8394a018-d586-4464-9bf2-b0b9d1e9bba3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\08. Helper">
+      <UniqueIdentifier>{c549a15d-9112-48dc-b1ab-cc8178f448bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\08. Helper\File">
+      <UniqueIdentifier>{2d9164a7-f9d1-44ba-b093-7a129be4a17c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\08. Helper\String">
+      <UniqueIdentifier>{8a8f7d10-2e43-4c78-93bc-2cd3bc497544}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\08. Helper\Math">
+      <UniqueIdentifier>{c6fe055c-5313-4b7b-b8b0-9caf2912f921}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\08. Helper\SafeDelete">
+      <UniqueIdentifier>{aeb89aa9-f7a8-4330-9142-7dcf545eaa7f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\08. Helper\Singleton">
+      <UniqueIdentifier>{ee78ce07-d9a5-4e30-bcf8-2e77dbd9fa7d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\08. Helper\Include">
+      <UniqueIdentifier>{75a58b25-b5b9-4fcb-ab41-d8b4a2cbedb8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Entity.h">
@@ -169,13 +169,13 @@
       <Filter>Source\01. Manager\Input</Filter>
     </ClInclude>
     <ClInclude Include="Singleton.h">
-      <Filter>Source\07. Helper\Singleton</Filter>
+      <Filter>Source\08. Helper\Singleton</Filter>
     </ClInclude>
     <ClInclude Include="EngineIncludes.h">
-      <Filter>Source\07. Helper\Include</Filter>
+      <Filter>Source\08. Helper\Include</Filter>
     </ClInclude>
     <ClInclude Include="EnumFlag.h">
-      <Filter>Source\07. Helper\Include</Filter>
+      <Filter>Source\08. Helper\Include</Filter>
     </ClInclude>
     <ClInclude Include="Textrue.h">
       <Filter>Source\06. Resource\04. Texture</Filter>
@@ -184,7 +184,7 @@
       <Filter>Source\06. Resource\02. Shader</Filter>
     </ClInclude>
     <ClInclude Include="String.h">
-      <Filter>Source\07. Helper\String</Filter>
+      <Filter>Source\08. Helper\String</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.h">
       <Filter>Source\02. GameObject</Filter>
@@ -214,7 +214,7 @@
       <Filter>Source\03. Component\01. Transform</Filter>
     </ClInclude>
     <ClInclude Include="SafeDelete.h">
-      <Filter>Source\07. Helper\SafeDelete</Filter>
+      <Filter>Source\08. Helper\SafeDelete</Filter>
     </ClInclude>
     <ClInclude Include="Engine.h">
       <Filter>Source\00. Engine</Filter>
@@ -271,7 +271,7 @@
       <Filter>Source\00. Engine\01. Graphics\RS</Filter>
     </ClInclude>
     <ClInclude Include="RenderTargetRenderer.h">
-      <Filter>Source\01. Manager\Render</Filter>
+      <Filter>Source\07. Render</Filter>
     </ClInclude>
     <ClInclude Include="EngineComponentTrait.h">
       <Filter>Source\03. Component\00. Component\Trait</Filter>
@@ -289,10 +289,10 @@
       <Filter>Source\03. Component\00. Component\Enum</Filter>
     </ClInclude>
     <ClInclude Include="EnumRenderType.h">
-      <Filter>Source\01. Manager\Render</Filter>
+      <Filter>Source\07. Render</Filter>
     </ClInclude>
     <ClInclude Include="EngineMath.h">
-      <Filter>Source\07. Helper\Math</Filter>
+      <Filter>Source\08. Helper\Math</Filter>
     </ClInclude>
     <ClInclude Include="EnumLayer.h">
       <Filter>Source\05. Layer</Filter>
@@ -307,7 +307,7 @@
       <Filter>Source\03. Component\03. Render</Filter>
     </ClInclude>
     <ClInclude Include="DebugRenderer2D.h">
-      <Filter>Source\01. Manager\Render</Filter>
+      <Filter>Source\07. Render</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -330,7 +330,7 @@
       <Filter>Source\06. Resource\02. Shader</Filter>
     </ClCompile>
     <ClCompile Include="String.cpp">
-      <Filter>Source\07. Helper\String</Filter>
+      <Filter>Source\08. Helper\String</Filter>
     </ClCompile>
     <ClCompile Include="GameObject.cpp">
       <Filter>Source\02. GameObject</Filter>
@@ -363,7 +363,7 @@
       <Filter>Source\03. Component\01. Transform</Filter>
     </ClCompile>
     <ClCompile Include="SafeDelete.cpp">
-      <Filter>Source\07. Helper\SafeDelete</Filter>
+      <Filter>Source\08. Helper\SafeDelete</Filter>
     </ClCompile>
     <ClCompile Include="ResourceManager.cpp">
       <Filter>Source\01. Manager\Resource</Filter>
@@ -411,13 +411,13 @@
       <Filter>Source\00. Engine\01. Graphics\RS</Filter>
     </ClCompile>
     <ClCompile Include="RenderTargetRenderer.cpp">
-      <Filter>Source\01. Manager\Render</Filter>
+      <Filter>Source\07. Render</Filter>
     </ClCompile>
     <ClCompile Include="EnumComponent.cpp">
       <Filter>Source\03. Component\00. Component\Enum</Filter>
     </ClCompile>
     <ClCompile Include="EngineMath.cpp">
-      <Filter>Source\07. Helper\Math</Filter>
+      <Filter>Source\08. Helper\Math</Filter>
     </ClCompile>
     <ClCompile Include="Prefab.cpp">
       <Filter>Source\06. Resource\08. Prefab</Filter>
@@ -426,7 +426,7 @@
       <Filter>Source\03. Component\03. Render</Filter>
     </ClCompile>
     <ClCompile Include="DebugRenderer2D.cpp">
-      <Filter>Source\01. Manager\Render</Filter>
+      <Filter>Source\07. Render</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
