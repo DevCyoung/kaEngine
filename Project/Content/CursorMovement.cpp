@@ -29,27 +29,28 @@ void CursorMovement::update()
 	}
 
 	RenderTargetRenderer* const renderTargetRenderer = gEngine->GetRenderTargetRenderer();
-	const Camera* const P_MAIN_CAMERA = renderTargetRenderer->GetRegisteredRenderCamera(Camera::eCameraPriorityType::Main);
-
-	const Vector2 MOUSE_WORLD_2D_POS = helper::WindowScreenMouseToWorld2D(P_MAIN_CAMERA);
-
 	Transform* const transform = GetComponent<Transform>();
 
-	transform->SetPosition(Vector3(MOUSE_WORLD_2D_POS.x, MOUSE_WORLD_2D_POS.y, transform->GetPosition().z));	
+	const Camera* const P_UI_CAMERA = renderTargetRenderer->GetRegisteredRenderCamera(Camera::eCameraPriorityType::UI);
+	const Vector3 UI_POS = helper::WindowScreenMouseToWorld3D(P_UI_CAMERA);
+	transform->SetPosition(UI_POS);
+
+	const Camera* const P_MAIN_CAMERA = renderTargetRenderer->GetRegisteredRenderCamera(Camera::eCameraPriorityType::Main);
+	const Vector3 MOUSE_WORLD_3D_POS = helper::WindowScreenMouseToWorld3D(P_MAIN_CAMERA);
 
 	if (gInput->GetKeyDown(eKeyCode::LBTN))
 	{
-		mPrevClickPos = MOUSE_WORLD_2D_POS;
+		mPrevClickPos = MOUSE_WORLD_3D_POS;
 	}
 
 	if (gInput->GetKey(eKeyCode::LBTN))
 	{
-		renderTargetRenderer->DrawRect2(mPrevClickPos, MOUSE_WORLD_2D_POS, 0.f);
+		renderTargetRenderer->DrawRect2(mPrevClickPos, MOUSE_WORLD_3D_POS, 0.f);
 	}
 
 	if (gInput->GetKeyUp(eKeyCode::LBTN))
 	{
-		renderTargetRenderer->DrawRect2(mPrevClickPos, MOUSE_WORLD_2D_POS, 3.f);
+		renderTargetRenderer->DrawRect2(mPrevClickPos, MOUSE_WORLD_3D_POS, 3.f);
 	}
 	
 }

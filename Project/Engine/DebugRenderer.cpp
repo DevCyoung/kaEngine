@@ -29,13 +29,13 @@ DebugRenderer::~DebugRenderer()
 {
 }
 
-void DebugRenderer::DrawWorld2DRect(const Vector2& WORLD_POS,
+void DebugRenderer::DrawWorld2DRect(const Vector3& WORLD_POS,
 	const Vector2& RECT_Scale,
 	const float DRAW_TIME)
 {
 	tDebugDrawInfo drawInfo =
 	{
-		Vector3(WORLD_POS.x, WORLD_POS.y, 1.f),
+		WORLD_POS,
 		Vector3(0.f, 0.f, 0.f),
 		Vector3(RECT_Scale.x, RECT_Scale.y, 1.f),
 		DRAW_TIME

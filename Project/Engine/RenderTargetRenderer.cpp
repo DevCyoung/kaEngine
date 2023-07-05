@@ -28,19 +28,19 @@ RenderTargetRenderer::~RenderTargetRenderer()
 	SAFE_DELETE_POINTER(mDebugRenderer);
 }
 
-void RenderTargetRenderer::DrawRect(const Vector2& WORLD_POS, const Vector2& RECT_SCALE, const float DRAW_TIME)
+void RenderTargetRenderer::DrawRect(const Vector3& WORLD_POS, const Vector2& RECT_SCALE, const float DRAW_TIME)
 {	
 	mDebugRenderer->DrawWorld2DRect(WORLD_POS, RECT_SCALE, DRAW_TIME);
 }
 
-void RenderTargetRenderer::DrawRect2(const Vector2& WORLD_LEFT_UP_POS, 
-	const Vector2& WORLD_RIGHT_BOTTOM_POS, 
+void RenderTargetRenderer::DrawRect2(const Vector3& WORLD_LEFT_UP_POS, 
+	const Vector3& WORLD_RIGHT_BOTTOM_POS, 
 	const float DRAW_TIME)
 {
-	const Vector2 WORLD_POS = (WORLD_LEFT_UP_POS + WORLD_RIGHT_BOTTOM_POS) * 0.5f;
-	const Vector2 RECT_SCALE = WORLD_RIGHT_BOTTOM_POS - WORLD_LEFT_UP_POS;
+	const Vector3 WORLD_POS = (WORLD_LEFT_UP_POS + WORLD_RIGHT_BOTTOM_POS) * 0.5f;
+	const Vector3 RECT_SCALE_3D = WORLD_RIGHT_BOTTOM_POS - WORLD_LEFT_UP_POS;
 
-	mDebugRenderer->DrawWorld2DRect(WORLD_POS, RECT_SCALE, DRAW_TIME);
+	mDebugRenderer->DrawWorld2DRect(WORLD_POS, Vector2(RECT_SCALE_3D.x, RECT_SCALE_3D.y), DRAW_TIME);
 
 }
 

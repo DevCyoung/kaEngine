@@ -22,6 +22,8 @@ namespace helper
 
 	Vector2 WindowScreenMouseToWorld2D(const Camera* const P_CAMERA);
 
+	Vector3 WindowScreenMouseToWorld3D(const Camera* const P_CAMERA);
+
 	float LerpCosBtwZeroAndOne(const float VALUE);
 	float LerpSinBtwZeroAndOne(const float VALUE);
 }

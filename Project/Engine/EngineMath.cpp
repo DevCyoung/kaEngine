@@ -55,6 +55,26 @@ namespace helper
 		return MOUSE_WORLD_2D_POS;
 	}
 
+	Vector3 WindowScreenMouseToWorld3D(const Camera* const P_CAMERA)
+	{		
+		const Vector2& WINDOW_MOUSE_2D_POS	= gInput->GetWindowMousePos();		
+		const Vector2& WINDOW_SCREEN_SIZE	= gEngine->GetWindowScreenSize();
+		const Vector3 WINDOW_MOUSE_3D_POS	= Vector3(WINDOW_MOUSE_2D_POS.x, WINDOW_MOUSE_2D_POS.y, 0.0f);
+
+		Viewport viewport = {};
+		viewport.width = WINDOW_SCREEN_SIZE.x;
+		viewport.height = WINDOW_SCREEN_SIZE.y;
+		viewport.x = 0;
+		viewport.y = 0;
+		viewport.minDepth = 0.0f;
+		viewport.maxDepth = 1.0f;
+
+		Vector3 mouseWorldPos3D = viewport.Unproject(WINDOW_MOUSE_3D_POS, 
+			P_CAMERA->GetProjection(), P_CAMERA->GetView(), Matrix::Identity);
+		return mouseWorldPos3D;
+
+	}
+
 
 	float LerpCosBtwZeroAndOne(const float VALUE)
 	{

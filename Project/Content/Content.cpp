@@ -289,7 +289,7 @@ void Content::testSceneInitialize()
 
 		obj->GetComponent<Transform>()->SetScale(2.f, 2.f, 1.f);
 
-		testScene->AddGameObject(obj, eLayerType::Player);
+		testScene->AddGameObject(obj, eLayerType::UI);
 	}
 
 	const float hudPosY = gEngine->GetRenderTargetSize().y / 2.f - 23.f;

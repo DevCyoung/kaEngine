@@ -30,8 +30,8 @@ public:
 		return mCameras[static_cast<UINT>(type)];
 	}
 
-	void DrawRect(const Vector2& WORLD_POS, const Vector2& RECT_SCALE, const float DRAW_TIME);
-	void DrawRect2(const Vector2& WORLD_LEFT_UP_POS, const Vector2& WORLD_RIGHT_BOTTOM_POS, const float DRAW_TIME);
+	void DrawRect(const Vector3& WORLD_POS, const Vector2& RECT_SCALE, const float DRAW_TIME);
+	void DrawRect2(const Vector3& WORLD_LEFT_UP_POS, const Vector3& WORLD_RIGHT_BOTTOM_POS, const float DRAW_TIME);
 
 private:
 	void RegisterRenderCamera(Camera* const camera);

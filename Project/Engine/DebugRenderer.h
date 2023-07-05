@@ -18,7 +18,7 @@ public:
 		float drawTime;
 	};
 
-	void DrawWorld2DRect(const Vector2& WORLD_POS, const Vector2& RECT_Scale, const float DRAW_TIME);
+	void DrawWorld2DRect(const Vector3& WORLD_POS, const Vector2& RECT_Scale, const float DRAW_TIME);
 
 	void Render(const Camera* const P_CAMERA);
 
