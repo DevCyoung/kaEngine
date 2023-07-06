@@ -7,4 +7,4 @@
 #define Assert(expression, message) assert(expression && message)
 #define Static_Assert(expression, message) static_assert(expression, message)
 
-//#define FIXME(message, filenameHint) MessageBox(nullptr, message, L"FIXME", MB_OK | MB_ICONWARNING)
+#define FIXME(message) MessageBox(nullptr, message, L"FIXME", MB_OK | MB_ICONWARNING)

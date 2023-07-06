@@ -225,6 +225,7 @@ call ScriptGen.exe Component $(SolutionDir)Project\Engine $(SolutionDir)Project\
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="String.h" />
     <ClInclude Include="StructConstantBuffer.h" />
+    <ClInclude Include="StructVertex.h" />
     <ClInclude Include="Textrue.h" />
     <ClInclude Include="TimeManager.h" />
     <ClInclude Include="Mesh.h" />
@@ -282,6 +283,7 @@ call ScriptGen.exe Component $(SolutionDir)Project\Engine $(SolutionDir)Project\
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="String.cpp" />
     <ClCompile Include="StructConstantBuffer.cpp" />
+    <ClCompile Include="StructVertex.cpp" />
     <ClCompile Include="Textrue.cpp" />
     <ClCompile Include="TimeManager.cpp" />
     <ClCompile Include="Mesh.cpp" />

@@ -52,7 +52,7 @@ private:
 		ID3DBlob** const errorBlob);
 
 
-	virtual HRESULT Load(const std::wstring& path) override;
+	virtual HRESULT Load(const std::wstring& FULL_PATH) override;
 
 private:
 	D3D11_PRIMITIVE_TOPOLOGY mTopology;

@@ -26,7 +26,7 @@ DebugRenderer2D::~DebugRenderer2D()
 {
 }
 
-void DebugRenderer2D::DrawRect2D(const Vector3& WORLD_POS,
+void DebugRenderer2D::DrawFillRect2D(const Vector3& WORLD_POS,
 	const Vector2& RECT_SCALE,
 	const float DRAW_TIME, 
 	const Vector4& FILL_COLOR)
@@ -42,7 +42,7 @@ void DebugRenderer2D::DrawRect2D(const Vector3& WORLD_POS,
 	mDebugDrawInfos.push_back(drawInfo);
 }
 
-void DebugRenderer2D::DrawRect2D2(const Vector3& WORLD_LEFT_UP_POS,
+void DebugRenderer2D::DrawFillRect2D2(const Vector3& WORLD_LEFT_UP_POS,
 	const Vector3& WORLD_RIGHT_BOTTOM_POS,
 	const float DRAW_TIME, 
 	const Vector4& FILL_COLOR)
@@ -50,7 +50,7 @@ void DebugRenderer2D::DrawRect2D2(const Vector3& WORLD_LEFT_UP_POS,
 	const Vector3 WORLD_POS = (WORLD_LEFT_UP_POS + WORLD_RIGHT_BOTTOM_POS) * 0.5f;
 	const Vector3 RECT_SCALE_3D = WORLD_RIGHT_BOTTOM_POS - WORLD_LEFT_UP_POS;
 
-	DrawRect2D(WORLD_POS, Vector2(RECT_SCALE_3D.x, RECT_SCALE_3D.y), DRAW_TIME, FILL_COLOR);
+	DrawFillRect2D(WORLD_POS, Vector2(RECT_SCALE_3D.x, RECT_SCALE_3D.y), DRAW_TIME, FILL_COLOR);
 }
 
 
@@ -88,8 +88,8 @@ void DebugRenderer2D::render(const Camera* const P_MAIN_CAMERA)
 	{
 		drawInfo.DrawTime -= gDeltaTime;
 
-		const Shader* const shader = mDebugDrawShader[static_cast<UINT>(drawInfo.DebugDrawType)];
-		Assert(shader, WCHAR_IS_NULLPTR);
+		const Shader* const P_SHADER = mDebugDrawShader[static_cast<UINT>(drawInfo.DebugDrawType)];
+		Assert(P_SHADER, WCHAR_IS_NULLPTR);
 
 		Vector3 worldMousePos = helper::WindowScreenMouseToWorld3D(P_MAIN_CAMERA);
 		worldMousePos = Vector3(worldMousePos.x, -worldMousePos.y, worldMousePos.z);		
@@ -98,12 +98,12 @@ void DebugRenderer2D::render(const Camera* const P_MAIN_CAMERA)
 		gGraphicDevice->PassCB(eCBType::Transform, sizeof(tTrans), &tTrans);
 		gGraphicDevice->BindCB(eCBType::Transform, eShaderBindType::VS);		
 
-		gGraphicDevice->BindIA(shader);
-		gGraphicDevice->BindPS(shader);
-		gGraphicDevice->BindVS(shader);
-		gGraphicDevice->BindRS(shader->GetRSType());
-		gGraphicDevice->BindBS(shader->GetBSType());
-		gGraphicDevice->BindDS(shader->GetDSType());
+		gGraphicDevice->BindIA(P_SHADER);
+		gGraphicDevice->BindPS(P_SHADER);
+		gGraphicDevice->BindVS(P_SHADER);
+		gGraphicDevice->BindRS(P_SHADER->GetRSType());
+		gGraphicDevice->BindBS(P_SHADER->GetBSType());
+		gGraphicDevice->BindDS(P_SHADER->GetDSType());
 
 		switch (drawInfo.DebugDrawType)
 		{
@@ -137,17 +137,17 @@ void DebugRenderer2D::renderRect2D(const tDebugDrawInfo& drawInfo)
 	}
 }
 
-void DebugRenderer2D::renderGrid2D(const tDebugDrawInfo& drawInfo)
+void DebugRenderer2D::renderGrid2D(const tDebugDrawInfo& DEBUG_DRAW_INFO)
 {
 	tCBDebugInfo tGrid = {};
 	{
-		tGrid.MouseWorldPos = drawInfo.MousePos;
-		tGrid.Scale = Vector2(drawInfo.Scale.x, drawInfo.Scale.y);
-		tGrid.XYCount[0] = static_cast<int>(drawInfo.XYCount.x);
-		tGrid.XYCount[1] = static_cast<int>(drawInfo.XYCount.y);
+		tGrid.MouseWorldPos = DEBUG_DRAW_INFO.MousePos;
+		tGrid.Scale = Vector2(DEBUG_DRAW_INFO.Scale.x, DEBUG_DRAW_INFO.Scale.y);
+		tGrid.XYCount[0] = static_cast<int>(DEBUG_DRAW_INFO.XYCount.x);
+		tGrid.XYCount[1] = static_cast<int>(DEBUG_DRAW_INFO.XYCount.y);
 
-		tGrid.Color_0 = drawInfo.OutLineColor;
-		tGrid.Color_1 = drawInfo.FillColor;
+		tGrid.Color_0 = DEBUG_DRAW_INFO.OutLineColor;
+		tGrid.Color_1 = DEBUG_DRAW_INFO.FillColor;
 
 		gGraphicDevice->PassCB(eCBType::DebugInfo, sizeof(tGrid), &tGrid);
 		gGraphicDevice->BindCB(eCBType::DebugInfo, eShaderBindType::PS);

@@ -21,20 +21,20 @@ Texture::~Texture()
 {
 }
 
-HRESULT Texture::Load(const std::wstring& path)
+HRESULT Texture::Load(const std::wstring& FULL_PATH)
 {
-	const std::wstring extension = helper::String::SplitFilePathExtension(path);
+	const std::wstring extension = helper::String::SplitFilePathExtension(FULL_PATH);
 
 	if (extension == L".dds" || extension == L".DDS")
 	{
-		if (FAILED(LoadFromDDSFile(path.c_str(), DDS_FLAGS::DDS_FLAGS_NONE, nullptr, mImage)))
+		if (FAILED(LoadFromDDSFile(FULL_PATH.c_str(), DDS_FLAGS::DDS_FLAGS_NONE, nullptr, mImage)))
 		{
 			Assert(false, L"fail load file .dds");
 		}
 	}
 	else if (extension == L".tga" || extension == L".TGA")
 	{
-		if (FAILED(LoadFromTGAFile(path.c_str(), nullptr, mImage)))
+		if (FAILED(LoadFromTGAFile(FULL_PATH.c_str(), nullptr, mImage)))
 		{
 			Assert(false, L"fail load file .tga");
 		}
@@ -44,14 +44,14 @@ HRESULT Texture::Load(const std::wstring& path)
 		extension == L".jpeg" || extension == L".JPEG" ||
 		extension == L".bmp" || extension == L".BMP") // WIC (png, jpg, jpeg, bmp )
 	{
-		if (FAILED(LoadFromWICFile(path.c_str(), WIC_FLAGS::WIC_FLAGS_NONE, nullptr, mImage)))
+		if (FAILED(LoadFromWICFile(FULL_PATH.c_str(), WIC_FLAGS::WIC_FLAGS_NONE, nullptr, mImage)))
 		{
 			Assert(false, L"fail load file other");
 		}
 	}
 	else
 	{
-		std::wstring errorMessage = path;
+		std::wstring errorMessage = FULL_PATH;
 		errorMessage += L" is not supported";		
 		Assert(false, errorMessage.c_str());
 	}

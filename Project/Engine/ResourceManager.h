@@ -4,15 +4,6 @@
 #include "PathManager.h"
 #include "ResourceTypeTrait.h"
 
-struct tVertex
-{
-	Vector3 pos;
-	Vector4 color;
-	Vector2 uv;
-	Vector2 worldPos;
-};
-
-
 class ResourceManager
 {
 	friend class Engine;
@@ -27,24 +18,24 @@ public:
 public:
 	template<typename T>
 		requires (is_engine_resource<T>::value)
-	T* FindOrNull(const Key& RELATIVE_PATH_OR_NAME) const ; //or Relative Path
+	T* FindOrNull(const Key& RELATIVE_PATH_OR_NAME) const ;
 	template<typename T>
 		requires (is_engine_resource<T>::value)
-	T* FindOrNullByEnum(engine_resource_type<T>::eResEnumType resName) const ;
+	T* FindOrNullByEnum(const typename engine_resource_type<T>::eResEnumType RES_NAME_TYPE) const ;
 
 	template<typename T>
 		requires (is_engine_resource<T>::value)
 	T* Find(const Key& RELATIVE_PATH_OR_NAME);
 	template<typename T>
 		requires (is_engine_resource<T>::value)
-	T* FindByEnum(engine_resource_type<T>::eResEnumType resName);
+	T* FindByEnum(const typename engine_resource_type<T>::eResEnumType RES_NAME_TYPE);
 
 	template <typename T>
 		requires (is_engine_resource<T>::value)
 	void Load(const Key& RELATIVE_PATH_OR_NAME);
 	template <typename T>
 		requires (is_engine_resource<T>::value)
-	void LoadByEnum(engine_resource_type<T>::eResEnumType resType);
+	void LoadByEnum(const typename engine_resource_type<T>::eResEnumType RES_NAME_TYPE);
 
 	template<typename T>
 		requires (is_engine_resource<T>::value)
@@ -77,32 +68,32 @@ inline T* ResourceManager::FindOrNull(const Key& RELATIVE_PATH_OR_NAME) const
 
 template<typename T>
 	requires (is_engine_resource<T>::value)
-inline T* ResourceManager::FindOrNullByEnum(engine_resource_type<T>::eResEnumType resName) const
+inline T* ResourceManager::FindOrNullByEnum(const typename engine_resource_type<T>::eResEnumType RES_NAME_TYPE) const
 {
-	return FindOrNull<T>(EnumResourcePath(resName));
+	return FindOrNull<T>(EnumResourcePath(RES_NAME_TYPE));
 }
 
 template<typename T>
 	requires (is_engine_resource<T>::value)
 inline T* ResourceManager::Find(const Key& RELATIVE_PATH_OR_NAME)
 {
-	T* res = FindOrNull<T>(RELATIVE_PATH_OR_NAME);
+	T* resource = FindOrNull<T>(RELATIVE_PATH_OR_NAME);
 
-	if (nullptr == res)
+	if (nullptr == resource)
 	{
 		Load<T>(RELATIVE_PATH_OR_NAME);
-		res = FindOrNull<T>(RELATIVE_PATH_OR_NAME);
+		resource = FindOrNull<T>(RELATIVE_PATH_OR_NAME);
 	}
 
-	Assert(res, WCHAR_IS_NULLPTR);
-	return res;
+	Assert(resource, WCHAR_IS_NULLPTR);
+	return resource;
 }
 
 template<typename T>
 	requires (is_engine_resource<T>::value)
-inline T* ResourceManager::FindByEnum(engine_resource_type<T>::eResEnumType resName)
+inline T* ResourceManager::FindByEnum(const typename engine_resource_type<T>::eResEnumType RES_NAME_TYPE)
 {
-	return Find<T>(EnumResourcePath(resName));
+	return Find<T>(EnumResourcePath(RES_NAME_TYPE));
 }
 
 
@@ -110,28 +101,28 @@ template<typename T>
 	requires (is_engine_resource<T>::value)
 inline void ResourceManager::Load(const Key& RELATIVE_PATH_OR_NAME)
 {
-	T* res = FindOrNull<T>(RELATIVE_PATH_OR_NAME);
-	Assert(!res, WCHAR_IS_NOT_NULLPTR);
+	T* resource = FindOrNull<T>(RELATIVE_PATH_OR_NAME);
+	Assert(!resource, WCHAR_IS_NOT_NULLPTR);
 
 	constexpr eResourceType RES_TYPE = engine_resource_type<T>::type;
 	Dictionary& resources = mResources[static_cast<UINT>(RES_TYPE)];
 
-	res = new T();
+	resource = new T();
 
 	const std::wstring FULL_PATH = PathManager::GetInstance()->GetResourcePath() + RELATIVE_PATH_OR_NAME;
-	res->Load(FULL_PATH);
+	resource->Load(FULL_PATH);
 
-	res->mKey = RELATIVE_PATH_OR_NAME;
-	res->mPath = RELATIVE_PATH_OR_NAME;
+	resource->mKey = RELATIVE_PATH_OR_NAME;
+	resource->mPath = RELATIVE_PATH_OR_NAME;
 
-	resources.insert(std::make_pair(RELATIVE_PATH_OR_NAME, res)); //key : relative Path
+	resources.insert(std::make_pair(RELATIVE_PATH_OR_NAME, resource)); //key : relative Path
 }
 
 template<typename T>
 	requires (is_engine_resource<T>::value)
-inline void ResourceManager::LoadByEnum(engine_resource_type<T>::eResEnumType resType)
+inline void ResourceManager::LoadByEnum(const typename engine_resource_type<T>::eResEnumType RES_NAME_TYPE)
 {
-	Load<T>(EnumResourcePath(resType));
+	Load<T>(EnumResourcePath(RES_NAME_TYPE));
 }
 
 

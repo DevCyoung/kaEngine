@@ -8,12 +8,12 @@ class Mesh : public Resource
 	friend class GraphicDeviceDX11;
 public:
 	Mesh(
-		const void* const vertexData,
-		const size_t vertexCount,
-		const size_t vertexSize,
-		const void* const indexData,
-		const size_t indexCount,
-		const size_t indexSize);
+		const void* const VERTEX_DATA_ARRAY,
+		const size_t VERTEX_COUNT,
+		const size_t VERTEX_DATA_SIZE,
+		const void* const INDEX_DATA_ARRAY,
+		const size_t INDEX_COUNT,
+		const size_t INDEX_DATA_SIZE);
 
 	Mesh(const Mesh&) = delete;
 	Mesh& operator=(const Mesh&) = delete;

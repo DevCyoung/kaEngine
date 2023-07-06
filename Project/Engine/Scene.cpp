@@ -11,12 +11,12 @@ Scene::~Scene()
 {
 }
 
-void Scene::AddGameObject(GameObject* const obj, const eLayerType type)
+void Scene::AddGameObject(GameObject* const obj, const eLayerType LAYER_TYPE)
 {
 	Assert(obj, WCHAR_IS_NULLPTR);
 
-	obj->mCurLayer = type;
-	mLayers[static_cast<int>(type)].AddGameObject(obj);
+	obj->mCurLayer = LAYER_TYPE;
+	mLayers[static_cast<int>(LAYER_TYPE)].AddGameObject(obj);
 }
 
 void Scene::initialize()
@@ -43,9 +43,9 @@ void Scene::lateUpdate()
 	}
 }
 
-HRESULT Scene::Load(const std::wstring& path)
+HRESULT Scene::Load(const std::wstring& FULL_PATH)
 {
-	(void)path;
+	(void)FULL_PATH;
 
 	Assert(false, L"");
 

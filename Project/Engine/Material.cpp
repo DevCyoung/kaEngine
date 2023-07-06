@@ -2,10 +2,10 @@
 #include "Material.h"
 
 
-Material::Material(const eRenderPriorityType type)
+Material::Material(const eRenderPriorityType RENDER_PRIORITY_TYPE)
 	: mShader(nullptr)
 	, mTexture(nullptr)
-	, mRenderType(type)
+	, mRenderType(RENDER_PRIORITY_TYPE)
 {
 }
 
@@ -13,9 +13,9 @@ Material::~Material()
 {
 }
 
-HRESULT Material::Load(const std::wstring& path)
+HRESULT Material::Load(const std::wstring& FULL_PATH)
 {
 	Assert(false, "");
-	(void)path;
+	(void)FULL_PATH;
 	return E_NOTIMPL;
 }

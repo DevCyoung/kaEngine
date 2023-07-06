@@ -55,12 +55,12 @@ void CursorMovement::update()
 
 	if (gInput->GetKey(eKeyCode::LBTN))
 	{
-		debugRenderer2D->DrawRect2D2(mPrevClickPos, MOUSE_WORLD_3D_POS, 0.f, fillColor);
+		debugRenderer2D->DrawFillRect2D2(mPrevClickPos, MOUSE_WORLD_3D_POS, 0.f, fillColor);
 	}
 
 	if (gInput->GetKeyUp(eKeyCode::LBTN))
 	{
-		debugRenderer2D->DrawRect2D2(mPrevClickPos, MOUSE_WORLD_3D_POS, 0.f, fillColor);
+		debugRenderer2D->DrawFillRect2D2(mPrevClickPos, MOUSE_WORLD_3D_POS, 0.f, fillColor);
 	}
 
 	static float size = 32;

@@ -315,6 +315,9 @@
     <ClInclude Include="IEDCollection.h">
       <Filter>Source\00. Engine\01. Graphics\IED</Filter>
     </ClInclude>
+    <ClInclude Include="StructVertex.h">
+      <Filter>Source\06. Resource\01. Mesh</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Entity.cpp">
@@ -436,6 +439,9 @@
     </ClCompile>
     <ClCompile Include="IEDCollection.cpp">
       <Filter>Source\00. Engine\01. Graphics\IED</Filter>
+    </ClCompile>
+    <ClCompile Include="StructVertex.cpp">
+      <Filter>Source\06. Resource\01. Mesh</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
