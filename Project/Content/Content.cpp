@@ -77,8 +77,6 @@ void Content::loadShader()
 				eBSType::AlphaBlend);
 		gResourceManager->Insert(L"UIShader", UIShader);
 	}
-
-
 }
 
 
