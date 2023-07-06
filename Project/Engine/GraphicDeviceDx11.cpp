@@ -7,6 +7,7 @@
 #include "RSCollection.h"
 #include "BSCollection.h"
 #include "DSCollection.h"
+#include "IEDCollection.h"
 
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "d3dcompiler.lib")
@@ -40,6 +41,7 @@ GraphicDeviceDX11::GraphicDeviceDX11(const HWND H_WND, const UINT RENDER_TARGET_
 	, mRSCollection(nullptr)
 	, mBSCollection(nullptr)
 	, mDSCollection(nullptr)
+	, mIEDCollection(nullptr)
 {
 	Assert(H_WND, WCHAR_IS_NULLPTR);
 
@@ -186,6 +188,7 @@ GraphicDeviceDX11::GraphicDeviceDX11(const HWND H_WND, const UINT RENDER_TARGET_
 	mRSCollection = new RSCollection(mDevice.Get());
 	mBSCollection = new BSCollection(mDevice.Get());
 	mDSCollection = new DSCollection(mDevice.Get());
+	mIEDCollection = new IEDCollection();
 #pragma endregion
 
 }
@@ -193,10 +196,11 @@ GraphicDeviceDX11::GraphicDeviceDX11(const HWND H_WND, const UINT RENDER_TARGET_
 
 GraphicDeviceDX11::~GraphicDeviceDX11()
 {
-	SAFE_DELETE_POINTER(mCBCollection);
-	SAFE_DELETE_POINTER(mRSCollection);
-	SAFE_DELETE_POINTER(mBSCollection);
+	SAFE_DELETE_POINTER(mIEDCollection);
 	SAFE_DELETE_POINTER(mDSCollection);
+	SAFE_DELETE_POINTER(mBSCollection);
+	SAFE_DELETE_POINTER(mRSCollection);
+	SAFE_DELETE_POINTER(mCBCollection);
 }
 
 void GraphicDeviceDX11::BindIA(const Shader* const P_SHADER) const
@@ -355,11 +359,11 @@ void GraphicDeviceDX11::Draw(const Mesh* const P_MESH) const
 void GraphicDeviceDX11::ClearRenderTarget(const UINT RENDER_TARGET_WIDTH,
 	const UINT RENDER_TARGET_HEIGHT,
 	const FLOAT BG_COLOR[4],
-	Microsoft::WRL::ComPtr<ID3D11RenderTargetView> renderTargetView,
-	Microsoft::WRL::ComPtr<ID3D11DepthStencilView> depthStencilView) const
-{
-	mContext->ClearRenderTargetView(renderTargetView.Get(), BG_COLOR);
-	mContext->ClearDepthStencilView(depthStencilView.Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
+	ID3D11RenderTargetView** const ppRnderTargetView,
+	ID3D11DepthStencilView** const ppDepthStencilView) const
+{	
+	mContext->ClearRenderTargetView(*ppRnderTargetView, BG_COLOR);
+	mContext->ClearDepthStencilView(*ppDepthStencilView, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
 
 	const D3D11_VIEWPORT VIEW_PORT =
 	{
@@ -369,7 +373,7 @@ void GraphicDeviceDX11::ClearRenderTarget(const UINT RENDER_TARGET_WIDTH,
 	};
 
 	mContext->RSSetViewports(1, &VIEW_PORT);
-	mContext->OMSetRenderTargets(1, renderTargetView.GetAddressOf(), depthStencilView.Get());
+	mContext->OMSetRenderTargets(1, ppRnderTargetView, *ppDepthStencilView);
 }
 
 void GraphicDeviceDX11::present()

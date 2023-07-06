@@ -7,9 +7,11 @@ enum class eResShader
 	Header_Struct,
 	Header_TestShaderHeader,
 	Header_Texture,
-	PixelDebug,
-	PixelShader,
-	VertexShader,
+	PSDebug,
+	PSGrid,
+	PSSprite,
+	VSDebug,
+	VSSprite,
 	End
 };
 

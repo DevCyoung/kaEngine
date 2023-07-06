@@ -87,6 +87,7 @@ void InputManager::update(const HWND H_WND)
 			}
 		}
 
+		mPrevMousePos = mMousePos;
 
 		POINT ptMousePos = {};
 		GetCursorPos(&ptMousePos);
@@ -94,8 +95,6 @@ void InputManager::update(const HWND H_WND)
 
 		mMousePos.x = static_cast<float>(ptMousePos.x);
 		mMousePos.y = static_cast<float>(ptMousePos.y);
-
-		mPrevMousePos = mMousePos;
 
 		mMouseDir = mMousePos - mPrevMousePos;
 		mMouseDir.y *= -1;

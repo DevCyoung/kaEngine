@@ -21,11 +21,11 @@ void ShiftController::update()
 {    
     if (gInput->GetKey(eKeyCode::LSHIFT))
     {
-        GetComponent<SpriteRenderer>()->SetMaterial(gResourceManager->FindOrNullByRelativePath<Material>(L"UIShift01"));
+        GetComponent<SpriteRenderer>()->SetMaterial(gResourceManager->FindOrNull<Material>(L"UIShift01"));
     }
     else
     {
-        GetComponent<SpriteRenderer>()->SetMaterial(gResourceManager->FindOrNullByRelativePath<Material>(L"UIShift00"));
+        GetComponent<SpriteRenderer>()->SetMaterial(gResourceManager->FindOrNull<Material>(L"UIShift00"));
     }
     
 }

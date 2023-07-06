@@ -16,7 +16,7 @@ Engine::Engine(const HWND H_WND, const UINT RENDER_TARGET_WIDTH, const UINT REND
 	, mRenderTargetWidth(RENDER_TARGET_WIDTH)
 	, mRenderTargetHeight(RENDER_TARGET_HEIGHT)
 	, mGraphicDevice(new GraphicDeviceDX11(mHwnd, mRenderTargetWidth, mRenderTargetHeight))
-	, mRenderTargetRenderer(new RenderTargetRenderer())
+	, mRenderTargetRenderer(nullptr)
 {
 	setWindowSize(mRenderTargetWidth, mRenderTargetHeight);
 	updateWindowScreenSize();
@@ -52,22 +52,23 @@ void Engine::initialize(const HWND H_WND, const UINT RENDER_TARGET_WIDTH, const 
 	ResourceManager::initialize();
 	SceneManager::initialize();
 
+	sInstance->mRenderTargetRenderer = new RenderTargetRenderer();
 }
 
 void Engine::run()
-{
+{	
 	updateWindowScreenSize();
 
 	update();
 
 	lateUpdate();
 
-	render();
+	render();	
 }
 
 void Engine::update()
 {	
-	TimeManager::GetInstance()->update();
+	TimeManager::GetInstance()->update();	
 	InputManager::GetInstance()->update(mHwnd);
 	SceneManager::GetInstance()->update();
 }
@@ -84,8 +85,8 @@ void Engine::render()
 	mRenderTargetRenderer->Render(mRenderTargetWidth,
 		mRenderTargetHeight,
 		BG_COLOR,
-		mGraphicDevice->GetRenderTargetView(),
-		mGraphicDevice->GetDepthStencilView());
+		mGraphicDevice->GetRenderTargetViewAddressOf(),
+		mGraphicDevice->GetDepthStencilViewAddressOf());
 
 	mGraphicDevice->present();
 
@@ -114,9 +115,9 @@ void Engine::setWindowSize(const UINT WINDOW_SCREEN_WIDTH, const UINT WINDOW_SCR
 		static_cast<LONG>(WINDOW_SCREEN_WIDTH), static_cast<LONG>(WINDOW_SCREEN_HEIGHT)
 	};
 
-	const BOOL B_MENU = GetMenu(mHwnd) != nullptr;
+	const BOOL bMENU = GetMenu(mHwnd) != nullptr;
 
-	AdjustWindowRect(&windowSize, WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX, B_MENU);
+	AdjustWindowRect(&windowSize, WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX, bMENU);
 
 	const int ADJUST_WIDTH  = static_cast<int>(windowSize.right - windowSize.left);
 	const int ADJUST_HEIGHT = static_cast<int>(windowSize.bottom - windowSize.top);

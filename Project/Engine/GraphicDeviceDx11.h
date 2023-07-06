@@ -15,6 +15,8 @@ class CBCollection;
 class RSCollection;
 class BSCollection;
 class DSCollection;
+class IEDCollection;
+
 
 class Shader;
 class Mesh;
@@ -34,9 +36,7 @@ public:
 
 	void BindIA(const Shader* const P_SHADER) const;
 	void BindMesh(const Mesh* const P_MESH) const;
-	void BindTexture(const eShaderBindType SHADER_BIND_STAGE_TYPE,
-		const UINT START_SLOT,
-		const Texture* const P_TEXTURE) const;
+	void BindTexture(const eShaderBindType SHADER_BIND_STAGE_TYPE, const UINT START_SLOT, const Texture* const P_TEXTURE) const;
 	void BindCB(const eCBType CB_TYPE, const eShaderBindType SHADER_BIND_STAGE_TYPE) const;
 	void PassCB(const eCBType CB_TYPE, const UINT BYTE_SIZE, const void* const P_DATA) const;
 	void BindVS(const Shader* const P_SHADER) const;
@@ -46,26 +46,29 @@ public:
 	void BindRS(const eRSType RS_TYPE) const;
 
 	void Draw(const Mesh* const P_MESH) const;
+
 	void ClearRenderTarget(const UINT RENDER_TARGET_WIDTH,
 		const UINT RENDER_TARGET_HEIGHT,
 		const FLOAT BG_COLOR[4],
-		Microsoft::WRL::ComPtr<ID3D11RenderTargetView> renderTargetView,
-		Microsoft::WRL::ComPtr<ID3D11DepthStencilView> depthStencilView) const;
+		ID3D11RenderTargetView** const ppRenderTargetView,
+		ID3D11DepthStencilView** const ppDepthStencilView) const;
+
+	const IEDCollection* GetIEDCollection() const { Assert(mIEDCollection, WCHAR_IS_NULLPTR); return mIEDCollection; }
 
 private:
 	void present();
 
-	Microsoft::WRL::ComPtr<ID3D11RenderTargetView> GetRenderTargetView() const
-	{
+	ID3D11RenderTargetView** GetRenderTargetViewAddressOf()
+	{		
 		Assert(mRenderTargetView, WCHAR_IS_NULLPTR);
 
-		return mRenderTargetView;
+		return mRenderTargetView.GetAddressOf();
 	}
-	Microsoft::WRL::ComPtr<ID3D11DepthStencilView> GetDepthStencilView() const
+	ID3D11DepthStencilView** GetDepthStencilViewAddressOf()
 	{
 		Assert(mDepthStencilView, WCHAR_IS_NULLPTR);
 
-		return mDepthStencilView;
+		return mDepthStencilView.GetAddressOf();
 	}
 
 private:
@@ -82,5 +85,6 @@ private:
 	RSCollection* mRSCollection;
 	BSCollection* mBSCollection;
 	DSCollection* mDSCollection;
+	IEDCollection* mIEDCollection;
 };
 

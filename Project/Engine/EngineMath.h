@@ -7,20 +7,10 @@ class Camera;
 
 namespace helper
 {	
-	Vector2 ScreenToWorldScreen(const Vector2& RENDER_TARGET_MOUSE_POS,
-		const Vector2& RENDER_TARGET_SIZE);
+	Vector2 RenderTargetToWorldUI(const Vector2& RENDER_TARGET_POS, const Vector2& RENDER_TARGET_SIZE);
 
-	//2D Camera
-	Vector2 ScreenToWorld2D(const Vector2& RENDER_TARGET_MOUSE_POS,
-		const Vector2& RENDER_TARGET_SIZE,
-		const Vector3& CAMERA_POS,
-		const float CAMERA_SIZE);
-
-	Vector2 ScreenToWorld2D(const Vector2& RENDER_TARGET_MOUSE_POS,
-		const Vector2& RENDER_TARGET_SIZE,
-		const Camera* const P_CAMERA);
-
-	Vector2 WindowScreenMouseToWorld2D(const Camera* const P_CAMERA);
+	Vector3 ScreenMouseToWorld3D(const Vector3& SCREEN_MOUSE_POS, const Vector2& SCREEN_SIZE, const Camera* const P_CAMERA);
+	Vector3 WindowScreenMouseToWorld3D(const Camera* const P_CAMERA);
 
 	float LerpCosBtwZeroAndOne(const float VALUE);
 	float LerpSinBtwZeroAndOne(const float VALUE);

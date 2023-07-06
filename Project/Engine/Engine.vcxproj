@@ -172,10 +172,6 @@ call ScriptGen.exe Component $(SolutionDir)Project\Engine $(SolutionDir)Project\
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="DebugRenderer.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
     <ClInclude Include="EngineComponentTrait.h" />
     <ClInclude Include="ConstantBuffer.h" />
     <ClInclude Include="DirectXTex.h" />
@@ -191,6 +187,7 @@ call ScriptGen.exe Component $(SolutionDir)Project\Engine $(SolutionDir)Project\
     <ClInclude Include="EnumLayer.h" />
     <ClInclude Include="EnumRenderType.h" />
     <ClInclude Include="EnumResource.h" />
+    <ClInclude Include="IEDCollection.h" />
     <ClInclude Include="Prefab.h" />
     <ClInclude Include="RenderComponent.h">
       <SubType>
@@ -243,10 +240,6 @@ call ScriptGen.exe Component $(SolutionDir)Project\Engine $(SolutionDir)Project\
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="DebugRenderer.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
     <ClCompile Include="DSCollection.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="DXMath.cpp" />
@@ -256,6 +249,7 @@ call ScriptGen.exe Component $(SolutionDir)Project\Engine $(SolutionDir)Project\
     <ClCompile Include="EventManager.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GraphicDeviceDX11.cpp" />
+    <ClCompile Include="IEDCollection.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Layer.cpp" />
     <ClCompile Include="Material.cpp" />

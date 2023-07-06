@@ -16,18 +16,22 @@ ResourceManager::ResourceManager()
 		vertexs[0].pos = Vector3(-0.5f, 0.5f, 0.0f);
 		vertexs[0].color = Vector4(1.0f, 0.0f, 1.0f, 1.0f);
 		vertexs[0].uv = Vector2(0.0f, 0.0f);
+		vertexs[0].worldPos = Vector2(0.0f, 0.0f); //test
 
 		vertexs[1].pos = Vector3(0.5f, 0.5f, 0.0f);
 		vertexs[1].color = Vector4(1.0f, 0.0f, 1.0f, 1.0f);
 		vertexs[1].uv = Vector2(1.0f, 0.0f);
+		vertexs[1].worldPos = Vector2(0.0f, 0.0f); //test
 
 		vertexs[2].pos = Vector3(+0.5f, -0.5f, 0.0f);
 		vertexs[2].color = Vector4(1.0f, 0.0f, 1.0f, 1.0f);
 		vertexs[2].uv = Vector2(1.0f, 1.0f);
+		vertexs[2].worldPos = Vector2(0.0f, 0.0f); //test
 
 		vertexs[3].pos = Vector3(-0.5f, -0.5f, 0.0f);
 		vertexs[3].color = Vector4(1.0f, 0.0f, 1.0f, 1.0f);
 		vertexs[3].uv = Vector2(0.0f, 1.0f);
+		vertexs[3].worldPos = Vector2(0.0f, 0.0f); //test
 
 		std::vector<UINT> indexes;
 		indexes.reserve(10);
@@ -40,7 +44,7 @@ ResourceManager::ResourceManager()
 		indexes.push_back(2);
 		indexes.push_back(3);
 
-		Insert<Mesh>(L"Rect",
+		Insert(L"Rect",
 			new Mesh(vertexs, VERTEX_COUNT, sizeof(tVertex),
 				indexes.data(), indexes.size(), sizeof(UINT)));
 	}
@@ -48,16 +52,31 @@ ResourceManager::ResourceManager()
 	//L"\\Shader\\PixelDebug.hlsl",
 
 
-	//Debug Shader
+	//Debug Rect2D Shader
 	{
 		Shader* const debugShader =
 			new Shader(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST,
-				L"\\Shader\\VertexShader.hlsl", L"main",
-				L"\\Shader\\PixelDebug.hlsl", L"main",
-				eRSType::WireframeNone,
+				L"\\Shader\\VSDebug.hlsl", L"main",
+				L"\\Shader\\PSDebug.hlsl", L"main",
+				eIEDType::Default,
+				eRSType::CullNone,
 				eDSType::None,
-				eBSType::Default);
-		Insert<Shader>(L"Debug", debugShader);
+				eBSType::AlphaBlend);
+
+		Insert(L"DebugRect2D", debugShader);
+	}
+
+	//Debug Grid2D Shader
+	{
+		Shader* const debugShader =
+			new Shader(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST,
+				L"\\Shader\\VSDebug.hlsl", L"main",
+				L"\\Shader\\PSGrid.hlsl", L"main",
+				eIEDType::Default,
+				eRSType::CullNone,
+				eDSType::None,
+				eBSType::AlphaBlend);
+		Insert(L"DebugGrid2D", debugShader);
 	}
 
 }

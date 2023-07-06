@@ -322,14 +322,14 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
       </ObjectFileOutput>
       <FileType>Document</FileType>
     </None>
-    <None Include="..\..\Output\bin\Resources\Shader\PixelShader.hlsl">
+    <None Include="..\..\Output\bin\Resources\Shader\PSSprite.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
       <FileType>Document</FileType>
     </None>
-    <None Include="..\..\Output\bin\Resources\Shader\VertexShader.hlsl">
+    <None Include="..\..\Output\bin\Resources\Shader\VSSprite.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
@@ -342,9 +342,17 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
     <None Include="..\..\Output\bin\Resources\Shader\Header\TestShaderHeader.fxh" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\Output\bin\Resources\Shader\PixelDebug.hlsl">
+    <None Include="..\..\Output\bin\Resources\Shader\PSDebug.hlsl">
       <FileType>Document</FileType>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\Output\bin\Resources\Shader\PSGrid.hlsl">
+      <FileType>Document</FileType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="..\..\Output\bin\Resources\Shader\VSDebug.hlsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

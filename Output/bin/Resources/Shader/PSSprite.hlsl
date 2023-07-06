@@ -14,14 +14,14 @@ float4 main(tVSOut In) : SV_TARGET
 	}
 	
 	//Test Module
-	if (bUseColor == 1)	
+	if (B1_bUseColor == 1)	
 	{		
-		if (cbColor.x <= In.UV.x)
+		if (B1_cbColor.x <= In.UV.x)
 		{
 			discard;			
 		}
 		
-		float yNormal = (sin(cbColor.y) + 1) / 2.f;
+		float yNormal = (sin(B1_cbColor.y) + 1) / 2.f;
 		float width = 0.08f;
 	
 		if (yNormal - width / 2.f <= In.UV.y && In.UV.y <= yNormal + width / 2.f)
@@ -29,12 +29,6 @@ float4 main(tVSOut In) : SV_TARGET
 			color.rgba = float4(1.0f, 0.0f, 1.0f, 1.0f);
 		}				
 	}
-	
-	//y
-	//if (color.r == 0.0f && color.g == 0.0f && color.b == 0.0f && color.a == 1.0f)
-	//{
-	//	discard;		
-	//}
-	
+
 	return color;
 }

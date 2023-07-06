@@ -1,21 +1,54 @@
 #pragma once
-#include "RenderComponent.h"
+#include <d3d11.h>
 
-REGISTER_COMPONENT_TYPE(DebugRenderer2D);
+class GameObject;
+class Camera;
+class Shader;
 
-class DebugRenderer2D : public RenderComponent
+class DebugRenderer2D
 {
 public:
+	friend class RenderTargetRenderer;
+private:
 	DebugRenderer2D();
 	virtual ~DebugRenderer2D();
-	DebugRenderer2D(const DebugRenderer2D&) = delete;
-	DebugRenderer2D& operator=(const DebugRenderer2D&) = delete;
+
+public:
+	void DrawRect2D(const Vector3& WORLD_POS, const Vector2& RECT_SCALE, const float DRAW_TIME, const Vector4& FILL_COLOR);
+	void DrawRect2D2(const Vector3& WORLD_LEFT_UP_POS, const Vector3& WORLD_RIGHT_BOTTOM_POS, const float DRAW_TIME, 
+		const Vector4& FILL_COLOR);
+	void DrawGrid2D(const Vector3& WORLD_POS, const Vector2& TILE_SIZE, const Vector2& TILE_COUNT, const float DRAW_TIME
+		, const Vector4& FILL_COLOR);
 
 private:
-	virtual void initialize() override final;
-	virtual void update() override final;
-	virtual void lateUpdate() override final;
-public:
-	virtual void render(const Camera* const camera) override final;
+	enum class eDebugDrawType
+	{
+		Grid2D,
+		Rect2D,
+		End,
+	};
 
+	struct tDebugDrawInfo
+	{
+		eDebugDrawType DebugDrawType;
+		Vector3 WorldPos;
+		Vector3 Rotation;
+		Vector3 Scale;
+		Vector3 MousePos;
+		Vector2 XYCount;
+
+		Vector4 FillColor;
+		Vector4 OutLineColor;
+
+		float DrawTime;
+	};
+
+	void renderRect2D(const tDebugDrawInfo& drawInfo);
+	void renderGrid2D(const tDebugDrawInfo& drawInfo);
+	void render(const Camera* const P_MAIN_CAMERA);
+private:	
+	Shader* mDebugDrawShader[static_cast<UINT>(eDebugDrawType::End)];
+	std::vector<tDebugDrawInfo> mDebugDrawInfos;
 };
+
+

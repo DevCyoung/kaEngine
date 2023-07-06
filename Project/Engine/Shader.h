@@ -5,6 +5,7 @@
 #include "DSCollection.h"
 #include "RSCollection.h"
 #include "BSCollection.h"
+#include "IEDCollection.h"
 
 enum class eResShader;
 
@@ -13,71 +14,43 @@ enum class eShaderBindType
 	VS, HS, DS, GS, PS, CS, End
 };
 
+
 class	Shader : public Resource
 {
 	friend class GraphicDeviceDX11;
-public:
-	Shader(const eResShader vsFileName,
-		const std::wstring& vsFunName,
-		const eResShader psFileName,
-		const std::wstring psFunName,
-		const eRSType RSType, const eDSType DSType, const eBSType BSType);
 
+public:
 	Shader(const D3D11_PRIMITIVE_TOPOLOGY topology,
-		const eResShader vsFileName,
-		const std::wstring& vsFunName,
-		const eResShader psFileName,
-		const std::wstring psFunName,
-		const eRSType RSType, const eDSType DSType, const eBSType BSType);
+		const eResShader VS_RELATIVE_PATH, const std::wstring& VS_FUN_NAME,
+		const eResShader PS_RELATIVE_PATH, const std::wstring& PS_FUN_NAME,
+		const eIEDType IED_TYPE, const eRSType RS_TYPE, const eDSType DS_TYPE, const eBSType BS_TYPE);
 
-public:
 	Shader(const D3D11_PRIMITIVE_TOPOLOGY TOPOLOGY,
-		const std::wstring& VS_RELATIVE_PATH,
-		const std::wstring& VS_FUN_NAME,
-		const std::wstring& PS_RELATIVE_PATH,
-		const std::wstring& PS_FUN_NAME,
-		const eRSType RSType, const eDSType DSType, const eBSType BSType);
+		const std::wstring& VS_RELATIVE_PATH, const std::wstring& VS_FUN_NAME ,
+		const std::wstring& PS_RELATIVE_PATH, const std::wstring& PS_FUN_NAME ,
+		const eIEDType IED_TYPE, const eRSType RS_TYPE, const eDSType DS_TYPE, const eBSType BS_TYPE);
 
 	virtual ~Shader();
 	Shader(const Shader&) = delete;
 	Shader& operator=(const Shader&) = delete;
-
-	void CreateHSShader(const eResShader hsFileName,
-		const std::wstring& hsFunName);
-
-	void CreateDSShader(const eResShader dsFileName,
-		const std::wstring& dsFunName);
-
-	void CreateGSShader(const eResShader gsFileName,
-		const std::wstring& gsFunName);
 
 	eRSType GetRSType() const  { return mRSType;  };
 	eDSType GetDSType() const  { return mDSType;  };
 	eBSType GetBSType() const  { return mBSType;  };
 
 private:
-	void createShader(const eShaderBindType sType,
-		const std::wstring& version,
-		const eResShader fileName,
-		const std::wstring& funName);
-
-	void createShader(const eShaderBindType sType,
-		const std::wstring& VERSION,
-		const std::wstring& RELATIVE_PATH,
-		const std::wstring& FUN_NAME);
-
-
 	void createVSShader(const std::wstring& VS_RELATIVE_PATH,
-		const std::wstring& VS_FUN_NAME);
+		const std::wstring& VS_FUN_NAME, const eIEDType& IED_TYPE);
 
 	void createPSShader(const std::wstring& PS_RELATIVE_PATH,
 		const std::wstring& PS_FUN_NAME);
 
-	void createVSShader(const eResShader vsFileName,
-		const std::wstring& vsFunName);
+	void shaderCompile(const std::wstring& RELATIVE_PATH, 
+		const std::wstring& FUN_NAME, 
+		const std::wstring& VERSION,
+		ID3DBlob** const blob,
+		ID3DBlob** const errorBlob);
 
-	void createPSShader(const eResShader psFileName,
-		const std::wstring& psFunName);
 
 	virtual HRESULT Load(const std::wstring& path) override;
 
