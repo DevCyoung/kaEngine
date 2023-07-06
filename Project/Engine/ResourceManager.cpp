@@ -10,25 +10,25 @@ ResourceManager::ResourceManager()
 	//RectMesh
 	{
 		constexpr UINT VERTEX_COUNT = 4;
-		tVertex vertexs[VERTEX_COUNT] = {};
+		tVertex vertexArray[VERTEX_COUNT] = {};
 		//0---1
 		//|   |
 		//3---2
-		vertexs[0].pos = Vector3(-0.5f, 0.5f, 0.0f);
-		vertexs[0].color = Vector4(1.0f, 0.0f, 1.0f, 1.0f);
-		vertexs[0].uv = Vector2(0.0f, 0.0f);		
+		vertexArray[0].pos = Vector3(-0.5f, 0.5f, 0.0f);
+		vertexArray[0].color = Vector4(1.0f, 0.0f, 1.0f, 1.0f);
+		vertexArray[0].uv = Vector2(0.0f, 0.0f);		
 
-		vertexs[1].pos = Vector3(0.5f, 0.5f, 0.0f);
-		vertexs[1].color = Vector4(1.0f, 0.0f, 1.0f, 1.0f);
-		vertexs[1].uv = Vector2(1.0f, 0.0f);		
+		vertexArray[1].pos = Vector3(0.5f, 0.5f, 0.0f);
+		vertexArray[1].color = Vector4(1.0f, 0.0f, 1.0f, 1.0f);
+		vertexArray[1].uv = Vector2(1.0f, 0.0f);		
 
-		vertexs[2].pos = Vector3(+0.5f, -0.5f, 0.0f);
-		vertexs[2].color = Vector4(1.0f, 0.0f, 1.0f, 1.0f);
-		vertexs[2].uv = Vector2(1.0f, 1.0f);		
+		vertexArray[2].pos = Vector3(+0.5f, -0.5f, 0.0f);
+		vertexArray[2].color = Vector4(1.0f, 0.0f, 1.0f, 1.0f);
+		vertexArray[2].uv = Vector2(1.0f, 1.0f);		
 
-		vertexs[3].pos = Vector3(-0.5f, -0.5f, 0.0f);
-		vertexs[3].color = Vector4(1.0f, 0.0f, 1.0f, 1.0f);
-		vertexs[3].uv = Vector2(0.0f, 1.0f);		
+		vertexArray[3].pos = Vector3(-0.5f, -0.5f, 0.0f);
+		vertexArray[3].color = Vector4(1.0f, 0.0f, 1.0f, 1.0f);
+		vertexArray[3].uv = Vector2(0.0f, 1.0f);		
 
 		std::vector<UINT> indexes;
 		indexes.reserve(10);
@@ -42,7 +42,7 @@ ResourceManager::ResourceManager()
 		indexes.push_back(3);
 
 		Insert(L"Rect",
-			new Mesh(vertexs, VERTEX_COUNT, sizeof(tVertex),
+			new Mesh(vertexArray, VERTEX_COUNT, sizeof(tVertex),
 				indexes.data(), indexes.size(), sizeof(UINT)));
 	}
 
@@ -56,7 +56,6 @@ ResourceManager::ResourceManager()
 				eRSType::CullNone,
 				eDSType::None,
 				eBSType::AlphaBlend);
-
 		Insert(L"DebugRect2D", debugShader);
 	}
 

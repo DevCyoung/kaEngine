@@ -2,8 +2,8 @@
 #include "RenderComponent.h"
 #include "RenderTargetRenderer.h"
 
-RenderComponent::RenderComponent(const eComponentType type)
-	: Component(type)
+RenderComponent::RenderComponent(const eComponentType COMPONENT_TYPE)
+	: Component(COMPONENT_TYPE)
 	, mMesh(nullptr)
 	, mMaterial(nullptr)
 {
