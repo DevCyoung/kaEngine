@@ -58,6 +58,7 @@ void Shader::createVSShader(const std::wstring& VS_RELATIVE_PATH, const std::wst
 	if (FAILED(gGraphicDevice->UnSafe_GetDevice()->CreateVertexShader(vsBlob->GetBufferPointer(),
 		vsBlob->GetBufferSize(), nullptr, mVS.GetAddressOf())))
 	{
+		OutputDebugStringA(reinterpret_cast<LPCSTR>((errBlob)->GetBufferPointer()));
 		Assert(false, L"failed to create vertex shader");
 		return;
 	}
@@ -92,6 +93,7 @@ void Shader::createPSShader(const std::wstring& PS_RELATIVE_PATH, const std::wst
 		nullptr,
 		mPS.GetAddressOf())))
 	{
+		OutputDebugStringA(reinterpret_cast<LPCSTR>((errBlob)->GetBufferPointer()));
 		Assert(false, L"failed to create pixel shader");
 		return;
 	}
@@ -110,9 +112,11 @@ void Shader::shaderCompile(const std::wstring& RELATIVE_PATH,
 	if (FAILED(D3DCompileFromFile(SHADER_FULL_PATH.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE,
 		STR_FUN_NAME.c_str(), STR_VERSION_NAME.c_str(), 0, 0, blob, errorBlob)))
 	{
+		OutputDebugStringA(reinterpret_cast<LPCSTR>((*errorBlob)->GetBufferPointer()));
 		Assert(false, L"failed to compile shader");
 		return;
 	}
+
 }
 
 
