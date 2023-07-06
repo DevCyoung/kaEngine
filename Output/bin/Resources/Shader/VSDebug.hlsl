@@ -7,11 +7,11 @@ tVSOut main(tVSIn In)
 {
 	tVSOut Out = (tVSOut) 0.0f;
     
-	float4 world = mul(float4(In.Pos, 1.0f), B0_World);
-	float4 view = mul(world, B0_View);
-	float4 proj = mul(view, B0_Projection);
+	const float4 WORLD = mul(float4(In.Pos, 1.0f), B0_World);
+	const float4 VIEW = mul(WORLD, B0_View);
+	const float4 PROJ = mul(VIEW, B0_Projection);
     
-	Out.Pos = proj;
+	Out.Pos = PROJ;
 	Out.UV = In.UV;
 	Out.Color = In.Color;
 	
