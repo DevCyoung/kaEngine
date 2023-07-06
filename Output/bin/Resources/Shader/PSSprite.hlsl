@@ -14,14 +14,14 @@ float4 main(tVSOut In) : SV_TARGET
 	}
 	
 	//Test Module
-	if (bUseColor == 1)	
+	if (B1_bUseColor == 1)	
 	{		
-		if (cbColor.x <= In.UV.x)
+		if (B1_cbColor.x <= In.UV.x)
 		{
 			discard;			
 		}
 		
-		float yNormal = (sin(cbColor.y) + 1) / 2.f;
+		float yNormal = (sin(B1_cbColor.y) + 1) / 2.f;
 		float width = 0.08f;
 	
 		if (yNormal - width / 2.f <= In.UV.y && In.UV.y <= yNormal + width / 2.f)

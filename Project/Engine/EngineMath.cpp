@@ -15,26 +15,33 @@ namespace helper
 	Vector2 RenderTargetToWorldUI(const Vector2& RENDER_TARGET_POS, const Vector2& RENDER_TARGET_SIZE)
 	{
 		return Vector2(RENDER_TARGET_POS.x - RENDER_TARGET_SIZE.x / 2, -RENDER_TARGET_POS.y + RENDER_TARGET_SIZE.y / 2);
-	} 
-	Vector3 WindowScreenMouseToWorld3D(const Camera* const P_CAMERA)
-	{		
-		const Vector2& WINDOW_MOUSE_2D_POS	= gInput->GetWindowMousePos();		
-		const Vector2& WINDOW_SCREEN_SIZE	= gEngine->GetWindowScreenSize();
-		const Vector3 WINDOW_MOUSE_3D_POS	= Vector3(WINDOW_MOUSE_2D_POS.x, WINDOW_MOUSE_2D_POS.y, 0.0f);
+	}
 
+	Vector3 ScreenMouseToWorld3D(const Vector3& SCREEN_MOUSE_POS, const Vector2& SCREEN_SIZE, const Camera* const P_CAMERA)
+	{
 		Viewport viewport = {};
-		viewport.width = WINDOW_SCREEN_SIZE.x;
-		viewport.height = WINDOW_SCREEN_SIZE.y;
+		viewport.width = SCREEN_SIZE.x;
+		viewport.height = SCREEN_SIZE.y;
 		viewport.x = 0;
 		viewport.y = 0;
 		viewport.minDepth = 0.0f;
 		viewport.maxDepth = 1.0f;
 
-		Vector3 mouseWorldPos3D = viewport.Unproject(WINDOW_MOUSE_3D_POS,  
+		Vector3 mouseWorldPos3D = viewport.Unproject(SCREEN_MOUSE_POS,
 			P_CAMERA->GetProjection(), P_CAMERA->GetView(), Matrix::Identity);
 		return mouseWorldPos3D;
+	}
+
+	Vector3 WindowScreenMouseToWorld3D(const Camera* const P_CAMERA)
+	{		
+		const Vector2& WINDOW_MOUSE_2D_POS	= gInput->GetWindowMousePos();		
+		const Vector2& WINDOW_SCREEN_SIZE	= gEngine->GetWindowScreenSize();
+		const Vector3 WINDOW_MOUSE_3D_POS	= Vector3(WINDOW_MOUSE_2D_POS.x, WINDOW_MOUSE_2D_POS.y, 0.0f);
+		
+		return ScreenMouseToWorld3D(WINDOW_MOUSE_3D_POS, WINDOW_SCREEN_SIZE, P_CAMERA);;
 
 	}
+
 
 	float LerpCosBtwZeroAndOne(const float VALUE)
 	{

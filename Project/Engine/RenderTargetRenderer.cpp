@@ -1,14 +1,11 @@
 #include "pch.h"
 #include "RenderTargetRenderer.h"
-#include "Shader.h"
+#include "DebugRenderer2D.h"
 #include "Transform.h"
+#include "RenderComponent.h"
 #include "Material.h"
-#include "CBCollection.h"
-#include "StructConstantBuffer.h"
 #include "Engine.h"
 #include "GraphicDeviceDx11.h"
-#include "RenderComponent.h"
-#include "DebugRenderer2D.h"
 
 RenderTargetRenderer::RenderTargetRenderer()
 	: mDebugRenderer(new DebugRenderer2D())
@@ -25,31 +22,6 @@ RenderTargetRenderer::~RenderTargetRenderer()
 {
 	SAFE_DELETE_POINTER(mDebugRenderer);
 }
-
-void RenderTargetRenderer::DrawRect2D(const Vector3& WORLD_POS, const Vector2& RECT_SCALE, const float DRAW_TIME)
-{
-	mDebugRenderer->DrawWorld2DRect(WORLD_POS, RECT_SCALE, DRAW_TIME);
-}
-
-void RenderTargetRenderer::DrawRect2D2(const Vector3& WORLD_LEFT_UP_POS,
-	const Vector3& WORLD_RIGHT_BOTTOM_POS,
-	const float DRAW_TIME)
-{
-	const Vector3 WORLD_POS = (WORLD_LEFT_UP_POS + WORLD_RIGHT_BOTTOM_POS) * 0.5f;
-	const Vector3 RECT_SCALE_3D = WORLD_RIGHT_BOTTOM_POS - WORLD_LEFT_UP_POS;
-
-	mDebugRenderer->DrawWorld2DRect(WORLD_POS, Vector2(RECT_SCALE_3D.x, RECT_SCALE_3D.y), DRAW_TIME);
-
-}
-
-void RenderTargetRenderer::DrawGrid2D(const Vector3& WORLD_POS, 
-	const Vector2& XY_SIZE, 
-	const Vector2& XY_COUNT, 
-	const float DRAW_TIME)
-{
-	mDebugRenderer->DrawGrid2D(WORLD_POS, XY_SIZE, XY_COUNT, DRAW_TIME);
-}
-
 
 void RenderTargetRenderer::RegisterRenderCamera(Camera* const camera)
 {
@@ -72,7 +44,7 @@ void RenderTargetRenderer::RegisterRenderComponent(RenderComponent* const render
 
 void RenderTargetRenderer::zSortRenderObjectArray(const eRenderPriorityType RENDER_PRIORITY_TYPE)
 {
-	std::vector<RenderComponent*>& renderObjects = mRenderComponentArrays[static_cast<UINT>(RENDER_PRIORITY_TYPE)];
+	auto& renderObjects = mRenderComponentArrays[static_cast<UINT>(RENDER_PRIORITY_TYPE)];
 
 	std::sort(renderObjects.begin(), renderObjects.end(), [](RenderComponent* const lhs, RenderComponent* const rhs)
 		{
@@ -85,10 +57,11 @@ void RenderTargetRenderer::zSortRenderObjectArray(const eRenderPriorityType REND
 void RenderTargetRenderer::Render(const UINT RENDER_TARGET_WIDTH,
 	const UINT RENDER_TARGET_HEIGHT,
 	const FLOAT BG_COLOR[4],
-	Microsoft::WRL::ComPtr<ID3D11RenderTargetView> renderTargetView,
-	Microsoft::WRL::ComPtr<ID3D11DepthStencilView> depthStencilView)
+	ID3D11RenderTargetView** const ppRenderTargetView,
+	ID3D11DepthStencilView** const ppDepthStencilView)
 {
-	gGraphicDevice->ClearRenderTarget(RENDER_TARGET_WIDTH, RENDER_TARGET_HEIGHT, BG_COLOR, renderTargetView, depthStencilView);
+	gGraphicDevice->ClearRenderTarget(RENDER_TARGET_WIDTH, RENDER_TARGET_HEIGHT, 
+		BG_COLOR, ppRenderTargetView, ppDepthStencilView);
 
 	//알파블렌딩 Z솔트가 필요할떄 적용한다.
 	//zSortRenderObjectArray(eRenderType::Transparent);
@@ -117,8 +90,7 @@ void RenderTargetRenderer::Render(const UINT RENDER_TARGET_WIDTH,
 	}
 
 	const Camera* const P_MAIN_CAMERA = mCameras[static_cast<UINT>(Camera::eCameraPriorityType::Main)];
-
-	mDebugRenderer->Render(P_MAIN_CAMERA);
+	mDebugRenderer->render(P_MAIN_CAMERA);
 
 	for (auto& camera : mCameras)
 	{

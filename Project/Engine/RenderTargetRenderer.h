@@ -19,8 +19,8 @@ public:
 	void Render(const UINT RENDER_TARGET_WIDTH,
 		const UINT RENDER_TARGET_HEIGHT,
 		const FLOAT BG_COLOR[4],
-		Microsoft::WRL::ComPtr<ID3D11RenderTargetView> renderTargetView,
-		Microsoft::WRL::ComPtr<ID3D11DepthStencilView> depthStencilView);
+		ID3D11RenderTargetView** const ppRenderTargetView,
+		ID3D11DepthStencilView** const ppDepthStencilView);
 
 	Camera* GetRegisteredRenderCamera(const Camera::eCameraPriorityType type) const
 	{
@@ -30,10 +30,7 @@ public:
 		return mCameras[static_cast<UINT>(type)];
 	}
 
-	void DrawRect2D(const Vector3& WORLD_POS, const Vector2& RECT_SCALE, const float DRAW_TIME);
-	void DrawRect2D2(const Vector3& WORLD_LEFT_UP_POS, const Vector3& WORLD_RIGHT_BOTTOM_POS, const float DRAW_TIME);
-	void DrawGrid2D(const Vector3& WORLD_POS, const Vector2& XY_SIZE, const Vector2& XY_COUNT, const float DRAW_TIME);
-
+	DebugRenderer2D* GetDebugRenderer() const { Assert(mDebugRenderer, WCHAR_IS_NULLPTR); return mDebugRenderer; }			
 
 private:
 	void RegisterRenderCamera(Camera* const camera);

@@ -58,9 +58,11 @@ ResourceManager::ResourceManager()
 			new Shader(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST,
 				L"\\Shader\\VSDebug.hlsl", L"main",
 				L"\\Shader\\PSDebug.hlsl", L"main",
+				eIEDType::Default,
 				eRSType::CullNone,
 				eDSType::None,
 				eBSType::AlphaBlend);
+
 		Insert(L"DebugRect2D", debugShader);
 	}
 
@@ -70,6 +72,7 @@ ResourceManager::ResourceManager()
 			new Shader(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST,
 				L"\\Shader\\VSDebug.hlsl", L"main",
 				L"\\Shader\\PSGrid.hlsl", L"main",
+				eIEDType::Default,
 				eRSType::CullNone,
 				eDSType::None,
 				eBSType::AlphaBlend);

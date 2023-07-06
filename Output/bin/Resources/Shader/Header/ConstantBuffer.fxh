@@ -3,24 +3,34 @@
 
 cbuffer Transform : register(b0)
 {
-	row_major matrix cbWorld;
-	row_major matrix cbView;
-	row_major matrix cbProjection;
+	row_major matrix B0_World;
+	row_major matrix B0_View;
+	row_major matrix B0_Projection;
 }
 
 cbuffer ColorInfo : register(b1)
 {
-	int	bUseColor;
-	float3 dummy;	
-	float4 cbColor;
+	int B1_bUseColor;
+	float3 B1_dummy;
+	float4 B1_cbColor;
 }
 
-cbuffer GridInfo : register(b2)
+cbuffer DebugInfo : register(b2)
 {
-	float3 cbMousePos;
-	float cbGridDummy;	
-	float2 cbScale;
-	int2 cbXYCount;	
+	float3 B2_MousePos;
+	float B2_GridDummy;
+	float2 B2_Scale;
+	int2 B2_XYCount;
+	
+	float4 B2_Color_0;
+	float4 B2_Color_1;
+	float4 B2_Color_2;
+	float4 B2_Color_3;
+	
+	float4 B2_Vector4_0;
+	float4 B2_Vector4_1;
+	float4 B2_Vector4_2;
+	float4 B2_Vector4_3;
 }
 
 #endif

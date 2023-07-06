@@ -8,7 +8,7 @@ CBCollection::CBCollection(ID3D11Device* const device)
 	{
 		ConstantBuffer(eCBType::Transform, sizeof(tCBTransform), device),
 		ConstantBuffer(eCBType::ColorInfo, sizeof(tCBColorInfo), device),
-		ConstantBuffer(eCBType::GridInfo, sizeof(tCBGridInfo), device),
+		ConstantBuffer(eCBType::DebugInfo, sizeof(tCBDebugInfo), device),
 	}
 {
 }

@@ -85,8 +85,8 @@ void Engine::render()
 	mRenderTargetRenderer->Render(mRenderTargetWidth,
 		mRenderTargetHeight,
 		BG_COLOR,
-		mGraphicDevice->GetRenderTargetView(),
-		mGraphicDevice->GetDepthStencilView());
+		mGraphicDevice->GetRenderTargetViewAddressOf(),
+		mGraphicDevice->GetDepthStencilViewAddressOf());
 
 	mGraphicDevice->present();
 

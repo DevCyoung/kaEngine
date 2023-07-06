@@ -54,8 +54,10 @@ void Content::loadShader()
 	//Default Shader
 	{
 		Shader* const defaultShader =
-			new Shader(eResShader::VSSprite, L"main",
+			new Shader(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST,
+				eResShader::VSSprite, L"main",
 				eResShader::PSSprite, L"main",
+				eIEDType::Default,
 				eRSType::CullNone,
 				eDSType::Less,
 				eBSType::AlphaBlend);
@@ -66,8 +68,10 @@ void Content::loadShader()
 	//UI Shader
 	{
 		Shader* const UIShader =
-			new Shader(eResShader::VSSprite, L"main",
+			new Shader(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST,
+				eResShader::VSSprite, L"main",
 				eResShader::PSSprite, L"main",
+				eIEDType::Default,
 				eRSType::CullNone,
 				eDSType::None,
 				eBSType::AlphaBlend);

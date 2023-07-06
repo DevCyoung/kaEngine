@@ -6,7 +6,7 @@
 float4 main(tVSOut In) : SV_TARGET
 {
 	float4 color = In.Color;
-	color = float4(0.f, 1.f, 0.f, 0.3f);
+	color = B2_Color_1; // fill COlor
 	
 	return color;
 }
