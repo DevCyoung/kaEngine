@@ -177,6 +177,10 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="BulletMovement.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="CameraInputMoveMent.h">
       <SubType>
       </SubType>
@@ -199,6 +203,10 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
     <ClInclude Include="GameObjectBuilder.h" />
     <ClInclude Include="MaterialBuilder.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="PlayerMovementTest.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="ShiftController.h">
       <SubType>
@@ -216,6 +224,10 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Bugiman.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="BulletMovement.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -246,6 +258,10 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">pch.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)$(TargetName).pch</PrecompiledHeaderOutputFile>
       <PrecompiledHeaderOutputFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)$(TargetName).pch</PrecompiledHeaderOutputFile>
+    </ClCompile>
+    <ClCompile Include="PlayerMovementTest.cpp">
+      <SubType>
+      </SubType>
     </ClCompile>
     <ClCompile Include="ShiftController.cpp">
       <SubType>

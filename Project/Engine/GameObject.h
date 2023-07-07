@@ -10,12 +10,12 @@ class GameObject : public Entity
 {
 	friend class Layer;
 	friend class Scene;
+
 public:
 	enum class eState
 	{
 		Active,
-		Paused,
-		Dead,
+		Destroy,
 	};
 
 	GameObject();
@@ -47,11 +47,14 @@ public:
 
 	// 0 ~ 31
 	eLayerType GetLayer() const { return mCurLayer;}; 
+	GameObject* GetParentOrNull() const { return mParent; }
+	eState GetState() const { return mState; }
 
 	//FIXME:
 	void SetParent(GameObject* const parent) { mParent = parent; }
 
-	GameObject* GetParentOrNull() const { return mParent; }
+	void RegisterSetStateEvent(const eState STATE_TYPE);
+
 
 private:
 	void initialize();

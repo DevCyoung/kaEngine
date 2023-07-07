@@ -1,4 +1,8 @@
 #pragma once
+//Manager
+#include <Engine/TimeManager.h>
+#include <Engine/InputManager.h>
+
 //Engine Component
 #include <Engine/Component.h>
 #include <Engine/Transform.h>

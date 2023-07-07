@@ -176,7 +176,6 @@ call ScriptGen.exe Component $(SolutionDir)Project\Engine $(SolutionDir)Project\
     <ClInclude Include="ConstantBuffer.h" />
     <ClInclude Include="DirectXTex.h" />
     <ClInclude Include="DSCollection.h" />
-    <ClInclude Include="eEventType.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="EngineIncludes.h" />
     <ClInclude Include="EngineMath.h" />
@@ -194,7 +193,6 @@ call ScriptGen.exe Component $(SolutionDir)Project\Engine $(SolutionDir)Project\
       </SubType>
     </ClInclude>
     <ClInclude Include="ResourceTypeTrait.h" />
-    <ClInclude Include="EventManager.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GraphicDeviceDX11.h" />
@@ -247,7 +245,6 @@ call ScriptGen.exe Component $(SolutionDir)Project\Engine $(SolutionDir)Project\
     <ClCompile Include="EngineMath.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="EnumComponent.cpp" />
-    <ClCompile Include="EventManager.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GraphicDeviceDX11.cpp" />
     <ClCompile Include="IEDCollection.cpp" />

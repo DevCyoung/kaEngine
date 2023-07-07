@@ -40,6 +40,9 @@
     <Filter Include="ShaderCode\Sprite2D">
       <UniqueIdentifier>{c87d12e4-e329-4c8d-b9d2-4a66d513ed5b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\01. Script\Player">
+      <UniqueIdentifier>{4a8600b9-3ddd-42b4-826d-d1d3defbd9bd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -108,6 +111,12 @@
     <ClInclude Include="TestScript.h">
       <Filter>Source</Filter>
     </ClInclude>
+    <ClInclude Include="PlayerMovementTest.h">
+      <Filter>Source\01. Script\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletMovement.h">
+      <Filter>Source\01. Script\Player</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -169,6 +178,12 @@
     </ClCompile>
     <ClCompile Include="TestScript.cpp">
       <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerMovementTest.cpp">
+      <Filter>Source\01. Script\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="BulletMovement.cpp">
+      <Filter>Source\01. Script\Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

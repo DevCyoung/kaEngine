@@ -12,7 +12,7 @@ MessageManager::~MessageManager()
 {
 }
 
-void MessageManager::render(const HWND H_WND)
+void MessageManager::eventUpdate(const HWND H_WND)
 {	
 	if (IsSendMessage())
 	{

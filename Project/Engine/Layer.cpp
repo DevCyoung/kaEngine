@@ -12,16 +12,15 @@ Layer::~Layer()
 	memory::safe::DeleteVec(mGameObjects);
 }
 
-void Layer::AddGameObject(GameObject* const obj)
-{
-	mGameObjects.push_back(obj);
-}
 
 void Layer::initialize()
 {
 	for (GameObject* const gameObject : mGameObjects)
 	{
-		gameObject->initialize();
+		if (gameObject->mState == GameObject::eState::Active)
+		{
+			gameObject->initialize();
+		}
 	}
 }
 
@@ -29,7 +28,10 @@ void Layer::update()
 {
 	for (GameObject* const gameObject : mGameObjects)
 	{
-		gameObject->update();
+		if (gameObject->mState == GameObject::eState::Active)
+		{
+			gameObject->update();
+		}
 	}
 }
 
@@ -37,6 +39,9 @@ void Layer::lateUpdate()
 {
 	for (GameObject* const gameObject : mGameObjects)
 	{
-		gameObject->lateUpdate();
-	}
+		if (gameObject->mState == GameObject::eState::Active)
+		{
+			gameObject->lateUpdate();
+		}
+	}	
 }

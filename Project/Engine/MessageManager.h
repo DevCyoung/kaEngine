@@ -17,7 +17,7 @@ public:
 	bool IsSendMessage() { return mSecond > 1.0f; }
 
 private:
-	void render(const HWND H_WND);
+	void eventUpdate(const HWND H_WND);
 
 private:
 	std::vector<std::wstring> mMessages;

@@ -1,17 +1,17 @@
 #include "pch.h"
 #include "Scene.h"
 #include "SceneManager.h"
+#include "GameObject.h"
+#include "Layer.h"
 
 SceneManager::SceneManager()
 	: mCurrentScene(nullptr)
-
 {
 }
 
 SceneManager::~SceneManager()
 {
-	delete mCurrentScene;
-	mCurrentScene = nullptr;
+	DELETE_POINTER(mCurrentScene);
 }
 
 void SceneManager::LoadScene(Scene* const scene)
@@ -19,15 +19,20 @@ void SceneManager::LoadScene(Scene* const scene)
 	Assert(scene, WCHAR_IS_NULLPTR);
 	DELETE_ARRAY(sInstance->mCurrentScene);
 
-	sInstance->mCurrentScene = scene;
+	mCurrentScene = scene;
 	scene->initialize();
 }
 
 void SceneManager::update()
 {
-	mCurrentScene->update();
+	mCurrentScene->update();	
 }
 void SceneManager::lateUpdate()
 {
 	mCurrentScene->lateUpdate();
+}
+
+void SceneManager::eventUpdate()
+{
+	mCurrentScene->eventUpdate();
 }

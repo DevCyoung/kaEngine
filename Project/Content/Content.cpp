@@ -9,6 +9,7 @@
 #include "CursorMovement.h"
 #include "UIEffect.h"
 #include "Bugiman.h"
+#include "PlayerMovementTest.h"
 #include "ShiftController.h"
 #include <Engine/Engine.h>
 #include <Engine/SceneManager.h>
@@ -148,6 +149,7 @@ void Content::loadMaterial()
 				eRenderPriorityType::Opqaue, L"Default", eResTexture::spr_bg_neighbor_apartment_0);
 		gResourceManager->Insert(L"BackGround05", material);
 	}
+	
 }
 
 void Content::loadUIMaterial()
@@ -264,28 +266,44 @@ void Content::testSceneInitialize()
 	const Vector2 screenSize = gEngine->GetRenderTargetSize();
 	Scene* testScene = new Scene();
 
-	//BackGround parent
+	
+
+	////BackGround parent
+	//{
+	//	GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"BlackZero");
+	//
+	//	obj->AddComponent<Bugiman>();
+	//
+	//	obj->GetComponent<Transform>()->SetScale(2.0f, 2.0f, 1.f);
+	//	obj->GetComponent<Transform>()->SetPosition(0.f, 0.f, 1.f);
+	//
+	//	testScene->AddGameObject(obj, eLayerType::Default);
+	//
+	//	//chid
+	//	{
+	//		GameObject* const child = GameObjectBuilder::BuildDefault2DGameObject(L"BackGround03");
+	//
+	//		child->GetComponent<Transform>()->SetPosition(1200.f, 0.f, -100.f);
+	//
+	//		child->SetParent(obj);
+	//
+	//		testScene->AddGameObject(child, eLayerType::Default);
+	//	}
+	//}
+
+	//Player
 	{
-		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"BlackZero");
+		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"Door");
 
 		obj->AddComponent<Bugiman>();
+		obj->AddComponent<PlayerMovementTest>();
 
 		obj->GetComponent<Transform>()->SetScale(2.0f, 2.0f, 1.f);
 		obj->GetComponent<Transform>()->SetPosition(0.f, 0.f, 1.f);
 
 		testScene->AddGameObject(obj, eLayerType::Default);
-
-		//chid
-		{
-			GameObject* const child = GameObjectBuilder::BuildDefault2DGameObject(L"BackGround03");
-
-			child->GetComponent<Transform>()->SetPosition(1200.f, 0.f, -100.f);
-
-			child->SetParent(obj);
-
-			testScene->AddGameObject(child, eLayerType::Default);
-		}
 	}
+
 
 	//Mouse Cursor
 	{
@@ -418,7 +436,7 @@ void Content::testSceneInitialize()
 
 		mainCameraObj->GetComponent<Camera>()->SetCameraType(Camera::eCameraPriorityType::Main);
 		mainCameraObj->GetComponent<Camera>()->SetRenderTargetRenderer(gEngine->GetRenderTargetRenderer());
-		mainCameraObj->GetComponent<Camera>()->SetRenderTargetSize(screenSize);
+		mainCameraObj->GetComponent<Camera>()->SetRenderTargetSize(screenSize);		
 		mainCameraObj->GetComponent<Camera>()->TurnOnAllLayer();
 		mainCameraObj->GetComponent<Camera>()->TurnOffLayer(eLayerType::UI);
 		mainCameraObj->GetComponent<Transform>()->SetPosition(0.f, 0.f, -10.f);

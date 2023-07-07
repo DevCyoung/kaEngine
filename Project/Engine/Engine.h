@@ -42,12 +42,14 @@ public:
 private:
 	static void initialize(const HWND H_WND, const UINT RENDER_TARGET_WIDTH, const UINT RENDER_TARGET_HEIGHT);
 	void setWindowSize(const UINT WINDOW_SCREEN_WIDTH, const UINT WINDOW_SCREEN_HEIGHT);
-	void updateWindowScreenSize();
+	void updateWindowInfo();
 
 	void run();
 	void update();
 	void lateUpdate();
-	void render();
+	void render();	
+	void eventUpdate();
+
 
 private:
 	HWND mHwnd;

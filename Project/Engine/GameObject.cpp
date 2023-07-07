@@ -13,6 +13,7 @@ GameObject::GameObject()
 {
 	//모든 오브젝트는 반드시 Transform 을 가지고있는다.
 	AddComponent<Transform>();
+
 }
 
 GameObject::~GameObject()
@@ -102,6 +103,12 @@ void GameObject::RemoveComponent(eScriptComponentType SCRIPT_COMPONENT_TYPE)
 	}
 
 	Assert(false, WCHAR_IS_INVALID_TYPE);
+}
+
+void GameObject::RegisterSetStateEvent(const eState STATE_TYPE)
+{
+	//Event Manager -> Set State
+	(void)STATE_TYPE;
 }
 
 void GameObject::initialize()

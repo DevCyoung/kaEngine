@@ -28,9 +28,6 @@
     <Filter Include="Source\01. Manager\Path">
       <UniqueIdentifier>{20bb7a84-673b-4c1c-aaaf-73dccb84b97b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\01. Manager\Event">
-      <UniqueIdentifier>{fafed600-a4fd-44a7-a650-842b47962378}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\02. GameObject">
       <UniqueIdentifier>{7ea5e00e-4716-4077-874d-183be25aae78}</UniqueIdentifier>
     </Filter>
@@ -42,12 +39,6 @@
     </Filter>
     <Filter Include="Source\03. Component\01. Transform">
       <UniqueIdentifier>{72b259ff-208f-4147-99d1-350359d39cc9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\04. Scene">
-      <UniqueIdentifier>{685c70d2-48e1-49d1-9f6e-24916c88ecf2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\05. Layer">
-      <UniqueIdentifier>{aa7c299d-4c28-4be3-b4c8-cc76acd75ae3}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source\06. Resource">
       <UniqueIdentifier>{900dd22f-333f-406b-a983-efbf64ce02ed}</UniqueIdentifier>
@@ -151,6 +142,12 @@
     <Filter Include="Source\00. Engine\01. Graphics\IED">
       <UniqueIdentifier>{0089d8e1-bc20-46bf-adb8-c8eb1969fa8c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\05. Scene">
+      <UniqueIdentifier>{685c70d2-48e1-49d1-9f6e-24916c88ecf2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\04. Layer">
+      <UniqueIdentifier>{6de68158-2bc2-412a-9dc5-372c1ab6e096}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Entity.h">
@@ -193,7 +190,7 @@
       <Filter>Source\02. GameObject</Filter>
     </ClInclude>
     <ClInclude Include="Scene.h">
-      <Filter>Source\04. Scene</Filter>
+      <Filter>Source\05. Scene</Filter>
     </ClInclude>
     <ClInclude Include="ConstantBuffer.h">
       <Filter>Source\00. Engine\01. Graphics\CB</Filter>
@@ -203,9 +200,6 @@
     </ClInclude>
     <ClInclude Include="CBCollection.h">
       <Filter>Source\00. Engine\01. Graphics\CB</Filter>
-    </ClInclude>
-    <ClInclude Include="Layer.h">
-      <Filter>Source\05. Layer</Filter>
     </ClInclude>
     <ClInclude Include="Mesh.h">
       <Filter>Source\06. Resource\01. Mesh</Filter>
@@ -239,12 +233,6 @@
     </ClInclude>
     <ClInclude Include="Resource.h">
       <Filter>Source\06. Resource\06. Resource</Filter>
-    </ClInclude>
-    <ClInclude Include="EventManager.h">
-      <Filter>Source\01. Manager\Event</Filter>
-    </ClInclude>
-    <ClInclude Include="eEventType.h">
-      <Filter>Source\01. Manager\Event</Filter>
     </ClInclude>
     <ClInclude Include="ResourceTypeTrait.h">
       <Filter>Source\06. Resource</Filter>
@@ -297,9 +285,6 @@
     <ClInclude Include="EngineMath.h">
       <Filter>Source\08. Helper\Math</Filter>
     </ClInclude>
-    <ClInclude Include="EnumLayer.h">
-      <Filter>Source\05. Layer</Filter>
-    </ClInclude>
     <ClInclude Include="EnumResource.h">
       <Filter>Source\06. Resource</Filter>
     </ClInclude>
@@ -317,6 +302,12 @@
     </ClInclude>
     <ClInclude Include="StructVertex.h">
       <Filter>Source\06. Resource\01. Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Layer.h">
+      <Filter>Source\04. Layer</Filter>
+    </ClInclude>
+    <ClInclude Include="EnumLayer.h">
+      <Filter>Source\04. Layer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -345,7 +336,7 @@
       <Filter>Source\02. GameObject</Filter>
     </ClCompile>
     <ClCompile Include="Scene.cpp">
-      <Filter>Source\04. Scene</Filter>
+      <Filter>Source\05. Scene</Filter>
     </ClCompile>
     <ClCompile Include="ConstantBuffer.cpp">
       <Filter>Source\00. Engine\01. Graphics\CB</Filter>
@@ -358,9 +349,6 @@
     </ClCompile>
     <ClCompile Include="CBCollection.cpp">
       <Filter>Source\00. Engine\01. Graphics\CB</Filter>
-    </ClCompile>
-    <ClCompile Include="Layer.cpp">
-      <Filter>Source\05. Layer</Filter>
     </ClCompile>
     <ClCompile Include="Mesh.cpp">
       <Filter>Source\06. Resource\01. Mesh</Filter>
@@ -394,9 +382,6 @@
     </ClCompile>
     <ClCompile Include="Resource.cpp">
       <Filter>Source\06. Resource\06. Resource</Filter>
-    </ClCompile>
-    <ClCompile Include="EventManager.cpp">
-      <Filter>Source\01. Manager\Event</Filter>
     </ClCompile>
     <ClCompile Include="DXMath.cpp">
       <Filter>Windows\Extern\MicrosoftMath</Filter>
@@ -442,6 +427,9 @@
     </ClCompile>
     <ClCompile Include="StructVertex.cpp">
       <Filter>Source\06. Resource\01. Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Layer.cpp">
+      <Filter>Source\04. Layer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

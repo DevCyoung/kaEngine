@@ -11,10 +11,6 @@ private:
 	Layer(const Layer&) = delete;
 	Layer& operator=(const Layer&) = delete;
 
-	const std::vector<GameObject*>& GetGameObjects() const { return mGameObjects; }
-
-	void AddGameObject(GameObject* const obj);
-
 private:
 	virtual void initialize();
 	virtual void update();

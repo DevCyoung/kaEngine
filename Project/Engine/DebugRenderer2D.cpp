@@ -123,7 +123,7 @@ void DebugRenderer2D::render(const Camera* const P_MAIN_CAMERA)
 	}
 
 	mDebugDrawInfos.erase(std::remove_if(mDebugDrawInfos.begin(), mDebugDrawInfos.end(),
-		[](tDebugDrawInfo& drawInfo) {return drawInfo.DrawTime < 0.f; }), mDebugDrawInfos.end());
+		[](tDebugDrawInfo& drawInfo) {return drawInfo.DrawTime <= 0.f; }), mDebugDrawInfos.end());
 }
 
 void DebugRenderer2D::renderRect2D(const tDebugDrawInfo& drawInfo)

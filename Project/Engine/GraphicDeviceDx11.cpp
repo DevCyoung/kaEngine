@@ -85,7 +85,7 @@ GraphicDeviceDX11::GraphicDeviceDX11(const HWND H_WND, const UINT RENDER_TARGET_
 	swapChainDesc.BufferDesc.Scaling = DXGI_MODE_SCALING::DXGI_MODE_SCALING_UNSPECIFIED;
 	swapChainDesc.BufferDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER::DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;
 
-	swapChainDesc.SwapEffect = DXGI_SWAP_EFFECT::DXGI_SWAP_EFFECT_DISCARD;
+	swapChainDesc.SwapEffect = DXGI_SWAP_EFFECT::DXGI_SWAP_EFFECT_FLIP_DISCARD;
 	swapChainDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
 	swapChainDesc.BufferDesc.Format = DXGI_FORMAT::DXGI_FORMAT_R8G8B8A8_UNORM; //ÇÈ¼¿ Æ÷¸Ë          
 
@@ -361,7 +361,7 @@ void GraphicDeviceDX11::ClearRenderTarget(const UINT RENDER_TARGET_WIDTH,
 	const FLOAT BG_COLOR[4],
 	ID3D11RenderTargetView** const ppRnderTargetView,
 	ID3D11DepthStencilView** const ppDepthStencilView) const
-{	
+{
 	mContext->ClearRenderTargetView(*ppRnderTargetView, BG_COLOR);
 	mContext->ClearDepthStencilView(*ppDepthStencilView, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
 
