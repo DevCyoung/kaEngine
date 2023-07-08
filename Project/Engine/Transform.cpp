@@ -18,19 +18,19 @@ Transform::~Transform()
 {
 }
 
-Matrix Transform::CreateWorldMatrix(const Vector3& POSITION, const Vector3& ROTATION, const Vector3& SCALE)
+Matrix Transform::CreateWorldMatrix(const Vector3& position, const Vector3& rotation, const Vector3& scale)
 {
 	Matrix world = Matrix::Identity;
 
-	Matrix scaleMatrix = Matrix::CreateScale(SCALE);
+	Matrix scaleMatrix = Matrix::CreateScale(scale);
 
 	Matrix rotationMatrix = {};
-	rotationMatrix = Matrix::CreateRotationX(Deg2Rad(ROTATION.x));
-	rotationMatrix *= Matrix::CreateRotationY(Deg2Rad(ROTATION.y));
-	rotationMatrix *= Matrix::CreateRotationZ(Deg2Rad(ROTATION.z));
+	rotationMatrix = Matrix::CreateRotationX(Deg2Rad(rotation.x));
+	rotationMatrix *= Matrix::CreateRotationY(Deg2Rad(rotation.y));
+	rotationMatrix *= Matrix::CreateRotationZ(Deg2Rad(rotation.z));
 
 	Matrix positionMatrix = {};
-	positionMatrix.Translation(POSITION);
+	positionMatrix.Translation(position);
 
 	world *= scaleMatrix;
 	world *= rotationMatrix;
