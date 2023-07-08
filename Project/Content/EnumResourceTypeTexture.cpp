@@ -1,7 +1,7 @@
 ﻿#include "pch.h"
 #include "EnumResourceTypeTexture.h"
 
-const wchar_t* eResTexturePath[static_cast<UINT>(eResTexture::End)]
+static constexpr const wchar_t* eResTexturePath[static_cast<UINT>(eResTexture::End)]
 {
 	L"\\Texture\\charactor\\atlas_zero_black.bmp",
 	L"\\Texture\\charactor\\atlas_zero_ori.bmp",

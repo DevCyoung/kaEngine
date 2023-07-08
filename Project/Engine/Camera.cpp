@@ -18,7 +18,7 @@ Camera::Camera()
 	, mAspectRatio(1.0f)
 	, mView(Matrix::Identity)
 	, mProjection(Matrix::Identity)
-	, mProjectionType(eProjectionType::Orthographic)
+	, mProjectionType(eCameraProjectionType::Orthographic)
 	, mCameraType(eCameraPriorityType::End)
 {
 }
@@ -36,7 +36,7 @@ void Camera::update()
 	Assert(mRenderTargetRenderer, WCHAR_IS_NULLPTR);
 	Assert(mRenderTargetSize != Vector2::Zero, WCHAR_IS_NULLPTR);
 
-	mRenderTargetRenderer->RegisterRenderCamera(this);
+	mRenderTargetRenderer->registerRenderCamera(this);
 }
 
 void Camera::lateUpdate()
@@ -67,10 +67,10 @@ void Camera::lateUpdate()
 
 	switch (mProjectionType)
 	{
-	case Camera::eProjectionType::Perspective:
+	case eCameraProjectionType::Perspective:
 		mProjection = Matrix::CreatePerspectiveFieldOfViewLH(Deg2Rad(mFOV), mAspectRatio, mNear, mFar);
 		break;
-	case Camera::eProjectionType::Orthographic:
+	case eCameraProjectionType::Orthographic:
 	{
 		const float ORTHOGRAPHIC_RATIO = mSize / 1.0f;
 		const float WIDTH = mRenderTargetSize.x * ORTHOGRAPHIC_RATIO;

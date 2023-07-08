@@ -2,6 +2,7 @@
 #include "RenderTargetRenderer.h"
 #include "DebugRenderer2D.h"
 #include "Transform.h"
+#include "Camera.h"
 #include "RenderComponent.h"
 #include "Material.h"
 #include "Engine.h"
@@ -23,18 +24,18 @@ RenderTargetRenderer::~RenderTargetRenderer()
 	SAFE_DELETE_POINTER(mDebugRenderer);
 }
 
-void RenderTargetRenderer::RegisterRenderCamera(Camera* const camera)
+void RenderTargetRenderer::registerRenderCamera(Camera* const camera)
 {
-	const Camera::eCameraPriorityType CAMERA_PRIORITY_TYPE = camera->GetCameraType();
+	const eCameraPriorityType CAMERA_PRIORITY_TYPE = camera->GetCameraType();
 
 	Assert(camera, WCHAR_IS_NULLPTR);
-	Assert(CAMERA_PRIORITY_TYPE != Camera::eCameraPriorityType::End, WCHAR_IS_INVALID_TYPE);
+	Assert(CAMERA_PRIORITY_TYPE != eCameraPriorityType::End, WCHAR_IS_INVALID_TYPE);
 	Assert(!mCameras[static_cast<UINT>(CAMERA_PRIORITY_TYPE)], WCHAR_IS_NOT_NULLPTR);
 
 	mCameras[static_cast<UINT>(CAMERA_PRIORITY_TYPE)] = camera;
 }
 
-void RenderTargetRenderer::RegisterRenderComponent(RenderComponent* const renderComponent)
+void RenderTargetRenderer::registerRenderComponent(RenderComponent* const renderComponent)
 {
 	Assert(renderComponent, WCHAR_IS_NULLPTR);
 
@@ -89,7 +90,7 @@ void RenderTargetRenderer::Render(const UINT renderTargetWidth,
 		}
 	}
 
-	const Camera* const P_MAIN_CAMERA = mCameras[static_cast<UINT>(Camera::eCameraPriorityType::Main)];
+	const Camera* const P_MAIN_CAMERA = mCameras[static_cast<UINT>(eCameraPriorityType::Main)];
 	mDebugRenderer->render(P_MAIN_CAMERA);
 
 	for (auto& camera : mCameras)

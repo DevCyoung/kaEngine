@@ -223,6 +223,7 @@ call ScriptGen.exe Component $(SolutionDir)Project\Engine $(SolutionDir)Project\
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="String.h" />
     <ClInclude Include="StructConstantBuffer.h" />
+    <ClInclude Include="StructureEngineData.h" />
     <ClInclude Include="StructVertex.h" />
     <ClInclude Include="Textrue.h" />
     <ClInclude Include="TimeManager.h" />

@@ -1,8 +1,5 @@
 #include "pch.h"
-#include "Scene.h"
 #include "SceneManager.h"
-#include "GameObject.h"
-#include "Layer.h"
 
 SceneManager::SceneManager()
 	: mCurrentScene(nullptr)

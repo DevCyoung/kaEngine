@@ -18,7 +18,7 @@ public:
 	float GetWidth() const {  return static_cast<float>(mImage.GetMetadata().width);  }
 	float GetHeight() const { return static_cast<float>(mImage.GetMetadata().height); }
 
-	virtual HRESULT Load(const std::wstring& fullPath) override;
+	virtual HRESULT Load(const std::wstring& filePath) override;
 
 private:	
 	ScratchImage mImage;

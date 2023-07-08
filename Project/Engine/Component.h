@@ -51,4 +51,3 @@ inline T* Component::GetComponent() const
 	return component;
 }
 
-

@@ -30,21 +30,22 @@ public:
 	GraphicDeviceDX11* GetGraphicDevice() const { return mGraphicDevice; }
 
 	//FIXME
-	RenderTargetRenderer* GetRenderTargetRenderer() const { Assert(mRenderTargetRenderer, WCHAR_IS_NULLPTR); return mRenderTargetRenderer; }
-
-
+	RenderTargetRenderer* GetRenderTargetRenderer() const 
+	{ 
+		Assert(mRenderTargetRenderer, WCHAR_IS_NULLPTR); 
+		
+		return mRenderTargetRenderer; 
+	}
 
 private:
 	static void initialize(const HWND hWnd, const UINT renderTargetWidth, const UINT renderTargetHeight);
 	void setWindowSize(const UINT windowScreenWidth, const UINT windowScreenHeight);
-	void updateWindowInfo();
-
 	void run();
+	void updateWindowInfo();
 	void update();
 	void lateUpdate();
 	void render();	
 	void eventUpdate();
-
 
 private:
 	HWND mHwnd;

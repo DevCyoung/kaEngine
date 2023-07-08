@@ -37,7 +37,7 @@ public:
 
 	void AddGameObject(GameObject* const gameObject, const eLayerType layerType);
 
-	virtual HRESULT Load(const std::wstring& path) override;
+	virtual HRESULT Load(const std::wstring& filePath) override;
 
 private:
 	virtual void initialize();

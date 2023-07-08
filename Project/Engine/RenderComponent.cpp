@@ -21,7 +21,7 @@ void RenderComponent::update()
 {
 	Assert(mRenderTargetRenderer, WCHAR_IS_NULLPTR);
 
-	mRenderTargetRenderer->RegisterRenderComponent(this);
+	mRenderTargetRenderer->registerRenderComponent(this);
 }
 
 void RenderComponent::lateUpdate()

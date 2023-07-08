@@ -7,20 +7,20 @@ class MessageManager
 	SINGLETON_DECLARE(MessageManager);
 
 public:
-	void AddMessage(const std::wstring& MESSAGE)
+	void AddTitleMessage(const std::wstring& message)
 	{
-		Assert(IsSendMessage(), WCHAR_IS_INVALID_TYPE);
+		Assert(IsAddTitleMessage(), WCHAR_IS_INVALID_TYPE);
 
-		mMessages.push_back(MESSAGE);
+		mTitleMessages.push_back(message);
 	}
 
-	bool IsSendMessage() { return mSecond > 1.0f; }
+	bool IsAddTitleMessage() { return mTimeInterval > 1.0f; }
 
 private:
-	void eventUpdate(const HWND H_WND);
+	void eventUpdate(const HWND hWnd);
 
 private:
-	std::vector<std::wstring> mMessages;
-	float mSecond;
+	std::vector<std::wstring> mTitleMessages;
+	float mTimeInterval;
 };
 #define gMessageManager MessageManager::GetInstance()

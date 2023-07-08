@@ -1,7 +1,7 @@
 ﻿#include "pch.h"
 #include "EnumResourceTypeMaterial.h"
 
-const wchar_t* eResMaterialPath[static_cast<UINT>(eResMaterial::End)]
+static constexpr const wchar_t* eResMaterialPath[static_cast<UINT>(eResMaterial::End)]
 {
 	L"\\Material\\dummy.mat",
 };

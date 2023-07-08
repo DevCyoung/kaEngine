@@ -1,29 +1,15 @@
 #pragma once
 #include "Component.h"
-
-enum class eLayerType;
-class RenderTargetRenderer;
+#include "EnumRenderType.h"
 
 REGISTER_COMPONENT_TYPE(Camera);
 
+class RenderTargetRenderer;
+
+enum class eLayerType;
+
 class Camera : public Component
 {
-public:
-	enum class eProjectionType
-	{
-		Perspective,
-		Orthographic,
-		End
-	};
-
-public:
-	enum class eCameraPriorityType
-	{
-		Main,
-		UI,
-		End
-	};
-
 public:
 	Camera();
 	virtual ~Camera();
@@ -39,7 +25,7 @@ public:
 	const Matrix& GetProjection() const { return mProjection; }
 	eCameraPriorityType GetCameraType () const { return mCameraType; }
 	UINT GetLayerMask() const { return mLayerMask; }
-	eProjectionType GetProjectiontType() const { return mProjectionType; }
+	eCameraProjectionType GetProjectiontType() const { return mProjectionType; }
 
 	void SetRenderTargetRenderer(RenderTargetRenderer* const renderTargetRenderer) 
 	{ 
@@ -54,7 +40,7 @@ public:
 	void SetCamera2DSize(const float camera2DSize) { mSize = camera2DSize; }
 	void SetRenderTargetSize(const Vector2& renderTargetSize) { mRenderTargetSize = renderTargetSize; };
 	void SetCameraType(const eCameraPriorityType cameraPriorityType) { mCameraType = cameraPriorityType; }
-	void SetProjectiontType(const eProjectionType projectionType) { mProjectionType = projectionType; }
+	void SetProjectiontType(const eCameraProjectionType projectionType) { mProjectionType = projectionType; }
 
 	void TurnOnLayer(const  eLayerType layerType)  { mLayerMask |=  (1 <<  static_cast<UINT>(layerType)); }
 	void TurnOffLayer(const eLayerType layerType)  { mLayerMask &= ~(1 <<  static_cast<UINT>(layerType)); }
@@ -83,6 +69,6 @@ private:
 	Matrix mView;
 	Matrix mProjection;
 
-	eProjectionType mProjectionType;
+	eCameraProjectionType mProjectionType;
 	eCameraPriorityType mCameraType;
 };

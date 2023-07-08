@@ -43,20 +43,23 @@ void Scene::lateUpdate()
 		gameObjectCount += layer.mGameObjects.size();
 
 		//if exist garbage, remove it, No rendering
-		if (mGarbages.empty() == false)
+		if (false == mGarbages.empty())
 		{
 			std::vector<GameObject*>& gameObjects = layer.mGameObjects;
 			gameObjects.erase(std::remove_if(gameObjects.begin(), gameObjects.end(),
-				[](const GameObject* const P_GAME_OBJECT) { return P_GAME_OBJECT->mState == GameObject::eState::Destroy; }), gameObjects.end());
+				[](const GameObject* const gameObject) 
+				{ 
+					return GameObject::eState::Destroy == gameObject->mState; 
+				}), gameObjects.end());
 		}
 	}
 
-	if (MessageManager::GetInstance()->IsSendMessage())
+	if (MessageManager::GetInstance()->IsAddTitleMessage())
 	{
 		constexpr UINT WSTR_LEN = 256;
 		wchar_t buff[WSTR_LEN] = { 0, };
 		swprintf_s(buff, WSTR_LEN, L"<GameObject Count : %zu>", gameObjectCount);
-		MessageManager::GetInstance()->AddMessage(buff);
+		MessageManager::GetInstance()->AddTitleMessage(buff);
 	}
 }
 
@@ -130,14 +133,14 @@ void Scene::AddGameObject(GameObject* const gameObject, const eLayerType layerTy
 	Assert(gameObject, WCHAR_IS_NULLPTR);
 	Assert(layerType != eLayerType::End, WCHAR_IS_INVALID_TYPE);
 
-	gameObject->mCurLayer = layerType;
+	gameObject->mLayerType = layerType;
 	mLayers[static_cast<UINT>(layerType)].mGameObjects.push_back(gameObject);
 }
 
-HRESULT Scene::Load(const std::wstring& fullPath)
+HRESULT Scene::Load(const std::wstring& filePath)
 {
 	Assert(false, L"");
-	(void)fullPath;
+	(void)filePath;
 
 	return E_NOTIMPL;
 }

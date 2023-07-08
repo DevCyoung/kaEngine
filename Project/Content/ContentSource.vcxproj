@@ -212,7 +212,6 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="StructVertex.h" />
     <ClInclude Include="TestScript.h">
       <SubType>
       </SubType>
@@ -267,7 +266,6 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="StructVertex.cpp" />
     <ClCompile Include="TestScript.cpp">
       <SubType>
       </SubType>
@@ -352,7 +350,15 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
       <FileType>Document</FileType>
     </None>
+    <None Include="Animation_Res_dpend.diff" />
     <None Include="dpend.diff" />
+    <None Include="Font_Res_dpend.diff" />
+    <None Include="Material_Res_dpend.diff" />
+    <None Include="Mesh_Res_dpend.diff" />
+    <None Include="Scene_Res_dpend.diff" />
+    <None Include="Shader_Res_dpend.diff" />
+    <None Include="Sound_Res_dpend.diff" />
+    <None Include="Texture_Res_dpend.diff" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Output\bin\Resources\Shader\Header\TestShaderHeader.fxh" />

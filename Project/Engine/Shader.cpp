@@ -119,10 +119,10 @@ void Shader::shaderCompile(const std::wstring& relativePath,
 	}
 }
 
-HRESULT Shader::Load(const std::wstring& fullPath)
+HRESULT Shader::Load(const std::wstring& filePath)
 {
 	Assert(false, L"");
 
-	(void)fullPath;
+	(void)filePath;
 	return E_NOTIMPL;
 }

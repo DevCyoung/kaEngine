@@ -2,7 +2,6 @@
 #include "Content.h"
 #include "Components.h"
 #include "ResourceManager.h"
-#include "StructVertex.h"
 #include "GameObjectBuilder.h"
 #include "MaterialBuilder.h"
 #include "CameraInputMoveMent.h"
@@ -27,19 +26,9 @@ Content::~Content()
 
 void Content::resourceInitialize()
 {
-	loadMesh();
 	loadTexture();
 	loadShader();
-	loadMaterial();
-	loadPrefab();
-}
-
-void Content::loadMesh()
-{
-	{
-	
-
-	}
+	loadMaterial();	
 }
 
 void Content::loadTexture()
@@ -64,7 +53,6 @@ void Content::loadShader()
 				eBSType::AlphaBlend);
 		gResourceManager->Insert(L"Default", defaultShader);
 	}
-
 
 	//UI Shader
 	{
@@ -253,43 +241,33 @@ void Content::loadUIMaterial()
 	}
 }
 
-void Content::loadPrefab()
-{
-	//GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"Door");
-	//Prefab* const prefab = new Prefab(obj);
-	//
-	//gResourceManager->Insert<Prefab>(L"Door", prefab);
-}
-
 void Content::testSceneInitialize()
 {
 	const Vector2 screenSize = gEngine->GetRenderTargetSize();
 	Scene* testScene = new Scene();
 
+	//BackGround parent
+	{
+		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"BlackZero");
 	
-
-	////BackGround parent
-	//{
-	//	GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"BlackZero");
-	//
-	//	obj->AddComponent<Bugiman>();
-	//
-	//	obj->GetComponent<Transform>()->SetScale(2.0f, 2.0f, 1.f);
-	//	obj->GetComponent<Transform>()->SetPosition(0.f, 0.f, 1.f);
-	//
-	//	testScene->AddGameObject(obj, eLayerType::Default);
-	//
-	//	//chid
-	//	{
-	//		GameObject* const child = GameObjectBuilder::BuildDefault2DGameObject(L"BackGround03");
-	//
-	//		child->GetComponent<Transform>()->SetPosition(1200.f, 0.f, -100.f);
-	//
-	//		child->SetParent(obj);
-	//
-	//		testScene->AddGameObject(child, eLayerType::Default);
-	//	}
-	//}
+		obj->AddComponent<Bugiman>();
+	
+		obj->GetComponent<Transform>()->SetScale(2.0f, 2.0f, 1.f);
+		obj->GetComponent<Transform>()->SetPosition(0.f, 0.f, 1.f);
+	
+		testScene->AddGameObject(obj, eLayerType::Default);
+	
+		//chid
+		{
+			GameObject* const child = GameObjectBuilder::BuildDefault2DGameObject(L"BackGround03");
+	
+			child->GetComponent<Transform>()->SetPosition(1200.f, 0.f, -100.f);
+	
+			child->SetParent(obj);
+	
+			testScene->AddGameObject(child, eLayerType::Default);
+		}
+	}
 
 	//Player
 	{
@@ -434,7 +412,7 @@ void Content::testSceneInitialize()
 		mainCameraObj->AddComponent<Camera>();
 		mainCameraObj->AddComponent<CameraInputMoveMent>();
 
-		mainCameraObj->GetComponent<Camera>()->SetCameraType(Camera::eCameraPriorityType::Main);
+		mainCameraObj->GetComponent<Camera>()->SetCameraType(eCameraPriorityType::Main);
 		mainCameraObj->GetComponent<Camera>()->SetRenderTargetRenderer(gEngine->GetRenderTargetRenderer());
 		mainCameraObj->GetComponent<Camera>()->SetRenderTargetSize(screenSize);		
 		mainCameraObj->GetComponent<Camera>()->TurnOnAllLayer();
@@ -450,7 +428,7 @@ void Content::testSceneInitialize()
 
 		mainCameraObj->AddComponent<Camera>();
 
-		mainCameraObj->GetComponent<Camera>()->SetCameraType(Camera::eCameraPriorityType::UI);
+		mainCameraObj->GetComponent<Camera>()->SetCameraType(eCameraPriorityType::UI);
 		mainCameraObj->GetComponent<Camera>()->SetRenderTargetRenderer(gEngine->GetRenderTargetRenderer());
 		mainCameraObj->GetComponent<Camera>()->SetRenderTargetSize(screenSize);
 		mainCameraObj->GetComponent<Camera>()->TurnOffAllLayer();

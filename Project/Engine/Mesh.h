@@ -22,7 +22,7 @@ public:
 	virtual ~Mesh();	
 	UINT GetVertexCount() const { return static_cast<UINT>(mVertexCount); }
 	UINT GetIndexCount()  const { return static_cast<UINT>(mIndexCount); }
-	virtual HRESULT Load(const std::wstring& fullPath) override;
+	virtual HRESULT Load(const std::wstring& filePath) override;
 
 private:
 	Microsoft::WRL::ComPtr<ID3D11Buffer> mVertexBuffer;

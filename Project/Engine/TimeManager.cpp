@@ -21,21 +21,23 @@ TimeManager::~TimeManager()
 void TimeManager::update()
 {
 	QueryPerformanceCounter(&mCurFrequency);
+
 	const float DIFERENCE_FREQUENCY = static_cast<float>(mCurFrequency.QuadPart - mPrevFrequency.QuadPart);
+
 	mDeltaTime = DIFERENCE_FREQUENCY / static_cast<float>(mCpuFrequency.QuadPart);
 	mGlobalTime += mDeltaTime;
 	mPrevFrequency.QuadPart = mCurFrequency.QuadPart;
 
-	if (MessageManager::GetInstance()->IsSendMessage())
+	if (MessageManager::GetInstance()->IsAddTitleMessage())
 	{
 		constexpr UINT WSTR_LEN = 256;
 		const float FPS = 1.0f / mDeltaTime;		
 		wchar_t buffer[WSTR_LEN] = { 0, };
+
 		swprintf_s(buffer, WSTR_LEN, L"<FPS : %.f>", FPS);
 
-		MessageManager::GetInstance()->AddMessage(buffer);
+		MessageManager::GetInstance()->AddTitleMessage(buffer);
 	}
-
 }
 
 void TimeManager::StartTime(LARGE_INTEGER* const starTime)
@@ -50,5 +52,6 @@ float TimeManager::EndTime(LARGE_INTEGER* const starTime)
 	QueryPerformanceCounter(&endTime);
 
 	const float DIFERENCE_FREQUENCY = static_cast<float>(endTime.QuadPart - starTime->QuadPart);
+
 	return DIFERENCE_FREQUENCY / static_cast<float>(mCpuFrequency.QuadPart);
 }

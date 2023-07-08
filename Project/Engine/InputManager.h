@@ -35,7 +35,7 @@ private:
 		Up,
 		None,
 	};
-private:
+
 	struct tKeyInfo
 	{
 		eKeyCode key;
@@ -78,6 +78,7 @@ public:
 
 private:
 	void update(const HWND hWnd);
+
 private:
 	std::vector<tKeyInfo> mKeyInfos;
 	Vector2 mMousePos;

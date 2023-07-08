@@ -110,7 +110,7 @@ void Engine::setWindowSize(const UINT windowScreenWidth, const UINT windowScreen
 {
 	Assert(mHwnd, WCHAR_IS_NULLPTR);
 
-	RECT windowSize =
+	RECT windowScreen =
 	{
 		0, 0,
 		static_cast<LONG>(windowScreenWidth), static_cast<LONG>(windowScreenHeight)
@@ -118,10 +118,10 @@ void Engine::setWindowSize(const UINT windowScreenWidth, const UINT windowScreen
 
 	const BOOL bMENU = GetMenu(mHwnd) != nullptr;
 
-	AdjustWindowRect(&windowSize, WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX, bMENU);
+	AdjustWindowRect(&windowScreen, WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX, bMENU);
 
-	const int ADJUST_WIDTH = static_cast<int>(windowSize.right - windowSize.left);
-	const int ADJUST_HEIGHT = static_cast<int>(windowSize.bottom - windowSize.top);
+	const int ADJUST_WIDTH = static_cast<int>(windowScreen.right - windowScreen.left);
+	const int ADJUST_HEIGHT = static_cast<int>(windowScreen.bottom - windowScreen.top);
 
 	const int LEFT_X_POS = GetSystemMetrics(SM_CXSCREEN) / 2 - static_cast<int>(ADJUST_WIDTH) / 2;
 	const int LEFT_Y_POS = GetSystemMetrics(SM_CYSCREEN) / 2 - static_cast<int>(ADJUST_HEIGHT) / 2;

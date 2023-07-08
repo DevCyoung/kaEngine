@@ -17,11 +17,7 @@ float4 main(tVSOut In) : SV_TARGET
 	const int2 MOUSE_IDX = int2((MOUSE_POSITION.xy - 1) / WIDTH.xy);
 	const int2 GRID_IDX = int2((NORMAL_XY.xy - 1) / WIDTH.xy);
 
-	if (MOUSE_IDX.y == GRID_IDX.y && MOUSE_IDX.x == GRID_IDX.x)
-	{
-		color = float4(1.0f, 0.0f, 0.f, 0.8f);
-	}
-	else if (NORMAL_XY.x % WIDTH.x >= 2 && NORMAL_XY.y % WIDTH.y >= 2)
+	if (NORMAL_XY.x % WIDTH.x >= 2 && NORMAL_XY.y % WIDTH.y >= 2)
 	{
 		discard;
 	}

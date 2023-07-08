@@ -12,8 +12,8 @@ Prefab::~Prefab()
 	SAFE_DELETE_POINTER(mRoot);
 }
 
-HRESULT Prefab::Load(const std::wstring& fullPath)
+HRESULT Prefab::Load(const std::wstring& filePath)
 {
-	(void)fullPath;
+	(void)filePath;
 	return E_NOTIMPL;
 }

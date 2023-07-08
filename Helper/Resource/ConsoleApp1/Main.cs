@@ -11,6 +11,9 @@ public class MyProgram
     static string END_ENGINE_NAMESPACE   = ""; //"}//namespace engine End";
     static string RESOURCE_PATH = "";
 
+    static string RETURN_TYPE = "const wchar_t*";
+    static string STRING_TYPE = "static constexpr const wchar_t*";
+
     //static List<string> allResourceFileNames = new List<string>();
 
     static void WriteLine(string str)
@@ -289,7 +292,7 @@ public class MyProgram
 
             if (enumNames.Count > 0)
             {
-                header += $"const wchar_t* EnumResourcePath(eRes{enumType} type);\n";
+                header += $"{RETURN_TYPE} EnumResourcePath(eRes{enumType} type);\n";
             }
 
         }
@@ -314,7 +317,7 @@ public class MyProgram
             //const wchar
             if (relativePaths.Count > 0)
             {
-                cpp += $"const wchar_t* {enumResourcePathArray}[static_cast<UINT>({eResEnumType}::End)]\n";
+                cpp += $"{STRING_TYPE} {enumResourcePathArray}[static_cast<UINT>({eResEnumType}::End)]\n";
                 cpp += "{\n";
 
                 foreach (string relativePath in relativePaths)
@@ -324,7 +327,7 @@ public class MyProgram
                 }
                 cpp += "};\n";
                 cpp += "\n";
-                cpp += $"const wchar_t* EnumResourcePath(eRes{enumType} type)\n";
+                cpp += $"{RETURN_TYPE} EnumResourcePath(eRes{enumType} type)\n";
                 cpp += "{\n";
                 cpp += $"\treturn {enumResourcePathArray}[static_cast<UINT>(type)];\n";
                 cpp += "}\n";

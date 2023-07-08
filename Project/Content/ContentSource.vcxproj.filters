@@ -22,15 +22,6 @@
     <Filter Include="Source\01. Script">
       <UniqueIdentifier>{de857324-cd4d-4a4d-80a7-707699222472}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\00. Content\Builder">
-      <UniqueIdentifier>{459c7f76-89f1-41a4-a31e-c85b091c460f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\00. Content\ResourceManager">
-      <UniqueIdentifier>{b5760e71-803f-4f22-9af7-d44435ab071e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\00. Content\Struct">
-      <UniqueIdentifier>{07df51b7-2383-4921-8caa-5def729de20d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\01. Script\Enum">
       <UniqueIdentifier>{c34d8bbf-e30d-458e-8f53-43db7792fa6e}</UniqueIdentifier>
     </Filter>
@@ -42,6 +33,24 @@
     </Filter>
     <Filter Include="Source\01. Script\Player">
       <UniqueIdentifier>{4a8600b9-3ddd-42b4-826d-d1d3defbd9bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Windows\diff">
+      <UniqueIdentifier>{a3755df9-006f-44d9-9b02-2f1ca79c02bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\01. Script\Camera">
+      <UniqueIdentifier>{6f4c4a58-8154-41fa-8602-6b4bc9308b7a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\01. Script\UI">
+      <UniqueIdentifier>{f941533d-3a3d-44f6-830e-e9959d0a18dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Helper">
+      <UniqueIdentifier>{62501ae3-1002-480d-bc13-d492a198f2ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Helper\Builder">
+      <UniqueIdentifier>{459c7f76-89f1-41a4-a31e-c85b091c460f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Helper\ResourceManager">
+      <UniqueIdentifier>{b5760e71-803f-4f22-9af7-d44435ab071e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -78,44 +87,41 @@
     <ClInclude Include="EnumResourceTypeScene.h">
       <Filter>Resources</Filter>
     </ClInclude>
-    <ClInclude Include="StructVertex.h">
-      <Filter>Source\00. Content\Struct</Filter>
-    </ClInclude>
     <ClInclude Include="GameObjectBuilder.h">
-      <Filter>Source\00. Content\Builder</Filter>
+      <Filter>Source\Helper\Builder</Filter>
     </ClInclude>
     <ClInclude Include="MaterialBuilder.h">
-      <Filter>Source\00. Content\Builder</Filter>
+      <Filter>Source\Helper\Builder</Filter>
     </ClInclude>
     <ClInclude Include="ResourceManager.h">
-      <Filter>Source\00. Content\ResourceManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Bugiman.h">
-      <Filter>Source\01. Script</Filter>
-    </ClInclude>
-    <ClInclude Include="CameraInputMoveMent.h">
-      <Filter>Source\01. Script</Filter>
-    </ClInclude>
-    <ClInclude Include="CursorMovement.h">
-      <Filter>Source\01. Script</Filter>
-    </ClInclude>
-    <ClInclude Include="UIEffect.h">
-      <Filter>Source\01. Script</Filter>
-    </ClInclude>
-    <ClInclude Include="ShiftController.h">
-      <Filter>Source\01. Script</Filter>
+      <Filter>Source\Helper\ResourceManager</Filter>
     </ClInclude>
     <ClInclude Include="EnumScriptComponent.h">
       <Filter>Source\01. Script\Enum</Filter>
-    </ClInclude>
-    <ClInclude Include="TestScript.h">
-      <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="PlayerMovementTest.h">
       <Filter>Source\01. Script\Player</Filter>
     </ClInclude>
     <ClInclude Include="BulletMovement.h">
       <Filter>Source\01. Script\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="CursorMovement.h">
+      <Filter>Source\01. Script\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraInputMoveMent.h">
+      <Filter>Source\01. Script\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Bugiman.h">
+      <Filter>Source\01. Script\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="ShiftController.h">
+      <Filter>Source\01. Script\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="TestScript.h">
+      <Filter>Source\01. Script\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UIEffect.h">
+      <Filter>Source\01. Script\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -149,41 +155,38 @@
     <ClCompile Include="EnumResourceTypeScene.cpp">
       <Filter>Resources</Filter>
     </ClCompile>
-    <ClCompile Include="StructVertex.cpp">
-      <Filter>Source\00. Content\Struct</Filter>
-    </ClCompile>
     <ClCompile Include="GameObjectBuilder.cpp">
-      <Filter>Source\00. Content\Builder</Filter>
+      <Filter>Source\Helper\Builder</Filter>
     </ClCompile>
     <ClCompile Include="MaterialBuilder.cpp">
-      <Filter>Source\00. Content\Builder</Filter>
-    </ClCompile>
-    <ClCompile Include="Bugiman.cpp">
-      <Filter>Source\01. Script</Filter>
-    </ClCompile>
-    <ClCompile Include="CameraInputMoveMent.cpp">
-      <Filter>Source\01. Script</Filter>
-    </ClCompile>
-    <ClCompile Include="CursorMovement.cpp">
-      <Filter>Source\01. Script</Filter>
-    </ClCompile>
-    <ClCompile Include="UIEffect.cpp">
-      <Filter>Source\01. Script</Filter>
-    </ClCompile>
-    <ClCompile Include="ShiftController.cpp">
-      <Filter>Source\01. Script</Filter>
+      <Filter>Source\Helper\Builder</Filter>
     </ClCompile>
     <ClCompile Include="EnumScriptComponent.cpp">
       <Filter>Source\01. Script\Enum</Filter>
-    </ClCompile>
-    <ClCompile Include="TestScript.cpp">
-      <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="PlayerMovementTest.cpp">
       <Filter>Source\01. Script\Player</Filter>
     </ClCompile>
     <ClCompile Include="BulletMovement.cpp">
       <Filter>Source\01. Script\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraInputMoveMent.cpp">
+      <Filter>Source\01. Script\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="CursorMovement.cpp">
+      <Filter>Source\01. Script\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Bugiman.cpp">
+      <Filter>Source\01. Script\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="ShiftController.cpp">
+      <Filter>Source\01. Script\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="TestScript.cpp">
+      <Filter>Source\01. Script\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="UIEffect.cpp">
+      <Filter>Source\01. Script\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -202,9 +205,6 @@
     <None Include="..\..\Output\bin\Resources\Shader\Header\Texture.fxh">
       <Filter>ShaderCode\Header</Filter>
     </None>
-    <None Include="dpend.diff">
-      <Filter>Windows</Filter>
-    </None>
     <None Include="..\..\Output\bin\Resources\Shader\PSDebug.hlsl">
       <Filter>ShaderCode\Debug</Filter>
     </None>
@@ -216,6 +216,33 @@
     </None>
     <None Include="..\..\Output\bin\Resources\Shader\VSSprite.hlsl">
       <Filter>ShaderCode\Sprite2D</Filter>
+    </None>
+    <None Include="Material_Res_dpend.diff">
+      <Filter>Windows\diff</Filter>
+    </None>
+    <None Include="Mesh_Res_dpend.diff">
+      <Filter>Windows\diff</Filter>
+    </None>
+    <None Include="Font_Res_dpend.diff">
+      <Filter>Windows\diff</Filter>
+    </None>
+    <None Include="dpend.diff">
+      <Filter>Windows\diff</Filter>
+    </None>
+    <None Include="Animation_Res_dpend.diff">
+      <Filter>Windows\diff</Filter>
+    </None>
+    <None Include="Texture_Res_dpend.diff">
+      <Filter>Windows\diff</Filter>
+    </None>
+    <None Include="Sound_Res_dpend.diff">
+      <Filter>Windows\diff</Filter>
+    </None>
+    <None Include="Shader_Res_dpend.diff">
+      <Filter>Windows\diff</Filter>
+    </None>
+    <None Include="Scene_Res_dpend.diff">
+      <Filter>Windows\diff</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

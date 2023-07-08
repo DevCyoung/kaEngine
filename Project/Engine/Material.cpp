@@ -12,10 +12,10 @@ Material::~Material()
 {
 }
 
-HRESULT Material::Load(const std::wstring& fullPath)
+HRESULT Material::Load(const std::wstring& filePath)
 {
 	Assert(false, "");
 
-	(void)fullPath;
+	(void)filePath;
 	return E_NOTIMPL;
 }

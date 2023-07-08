@@ -2,11 +2,13 @@
 #include <d3d11.h>
 #include "Singleton.h"
 #include "EnumRenderType.h"
-#include "Camera.h"
 
-class RenderComponent;
 class Camera;
+class RenderComponent;
 class DebugRenderer2D;
+
+enum class eCameraPriorityType;
+
 class RenderTargetRenderer
 {
 	friend class Camera;
@@ -22,23 +24,22 @@ public:
 		ID3D11RenderTargetView** const ppRenderTargetView,
 		ID3D11DepthStencilView* const depthStencilView);
 
-	Camera* GetRegisteredRenderCamera(const Camera::eCameraPriorityType cameraPriorityType) const
-	{
-		Assert(cameraPriorityType != Camera::eCameraPriorityType::End, WCHAR_IS_INVALID_TYPE);
+	Camera* GetRegisteredRenderCamera(const eCameraPriorityType cameraPriorityType) const
+	{		
 		Assert(mCameras[static_cast<UINT>(cameraPriorityType)], WCHAR_IS_NULLPTR);
 
 		return mCameras[static_cast<UINT>(cameraPriorityType)];
 	}
 
-	DebugRenderer2D* GetDebugRenderer() const { Assert(mDebugRenderer, WCHAR_IS_NULLPTR); return mDebugRenderer; }			
+	DebugRenderer2D* GetDebugRenderer() const { Assert(mDebugRenderer, WCHAR_IS_NULLPTR); return mDebugRenderer; }
 
 private:
-	void RegisterRenderCamera(Camera* const camera);
-	void RegisterRenderComponent(RenderComponent* const renderComponent);
+	void registerRenderCamera(Camera* const camera);
+	void registerRenderComponent(RenderComponent* const renderComponent);
 	void zSortRenderObjectArray(const eRenderPriorityType renderPriorityType);
 
 private:
 	DebugRenderer2D* mDebugRenderer;
-	Camera* mCameras[static_cast<UINT>(Camera::eCameraPriorityType::End)];
+	Camera* mCameras[static_cast<UINT>(eCameraPriorityType::End)];
 	std::vector<RenderComponent*> mRenderComponentsArray[static_cast<UINT>(eRenderPriorityType::End)];
 };

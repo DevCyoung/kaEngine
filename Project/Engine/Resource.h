@@ -7,7 +7,7 @@ public:
 	Resource();
 	virtual ~Resource();
 
-	virtual HRESULT Load(const std::wstring& fullPath) = 0;
+	virtual HRESULT Load(const std::wstring& filePath) = 0;
 
 	const std::wstring& GetRelativePath() const { return mRelativePath; }
 

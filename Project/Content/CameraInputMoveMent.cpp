@@ -24,11 +24,11 @@ void CameraInputMoveMent::update()
 
 	if (gInput->GetKeyDown(eKeyCode::F1))
 	{
-		camera->SetProjectiontType(Camera::eProjectionType::Orthographic);
+		camera->SetProjectiontType(eCameraProjectionType::Orthographic);
 	}
 	else if (gInput->GetKeyDown(eKeyCode::F2))
 	{
-		camera->SetProjectiontType(Camera::eProjectionType::Perspective);
+		camera->SetProjectiontType(eCameraProjectionType::Perspective);
 	}	
 
 	constexpr float cameraSpeed = 600.f;
@@ -41,7 +41,7 @@ void CameraInputMoveMent::update()
 	}
 
 	Transform* const transform = GetComponent<Transform>();
-	if (camera->GetProjectiontType() == Camera::eProjectionType::Orthographic)
+	if (camera->GetProjectiontType() == eCameraProjectionType::Orthographic)
 	{
 		Vector3 pos = transform->GetPosition();
 		Vector3 dir = Vector3::Zero;
@@ -90,11 +90,11 @@ void CameraInputMoveMent::update()
 
 		camera->SetCamera2DSize(cameraSize);
 
-		if (MessageManager::GetInstance()->IsSendMessage())
+		if (MessageManager::GetInstance()->IsAddTitleMessage())
 		{
 			wchar_t buffer[256] = { 0, };
 			swprintf_s(buffer, 256, L"<Main Camera Position : %.2f, %.2f, %.2f Size : %.2f>", pos.x, pos.y, pos.z, cameraSize);
-			MessageManager::GetInstance()->AddMessage(buffer);
+			MessageManager::GetInstance()->AddTitleMessage(buffer);
 		}		
 	}
 	else

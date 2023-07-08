@@ -27,19 +27,82 @@ namespace helper
 		viewport.minDepth = 0.0f;
 		viewport.maxDepth = 1.0f;
 
-		const Vector3& mouseWorldPos3D = 
+		const Vector3& mouseWorldPos3D =
 			viewport.Unproject(screenMousePos, camera->GetProjection(), camera->GetView(), Matrix::Identity);
 
 		return mouseWorldPos3D;
 	}
 
 	Vector3 WindowScreenMouseToWorld3D(const Camera* const camera)
-	{		
-		const Vector2& WINDOW_MOUSE_2D_POS	= gInput->GetWindowMousePos();		
-		const Vector3& WINDOW_MOUSE_3D_POS	= Vector3(WINDOW_MOUSE_2D_POS.x, WINDOW_MOUSE_2D_POS.y, 0.0f);
-		const Vector2& WINDOW_SCREEN_SIZE	= gEngine->GetWindowScreenSize();
-		
+	{
+		const Vector2& WINDOW_MOUSE_2D_POS = gInput->GetWindowMousePos();
+		const Vector3& WINDOW_MOUSE_3D_POS = Vector3(WINDOW_MOUSE_2D_POS.x, WINDOW_MOUSE_2D_POS.y, 0.0f);
+		const Vector2& WINDOW_SCREEN_SIZE = gEngine->GetWindowScreenSize();
+
 		return ScreenMouseToWorld3D(WINDOW_MOUSE_3D_POS, WINDOW_SCREEN_SIZE, camera);
+	}
+
+	tINT2 GridIndex(const Vector3& selectWorldPos,
+		const Vector2& cellSize, const tUINT2& tileCountXY)
+	{
+		Vector2 selectPointToCenterPos = Vector2(selectWorldPos.x, -selectWorldPos.y);
+
+		selectPointToCenterPos.x += (cellSize.x * tileCountXY.x) / 2.f;
+		selectPointToCenterPos.y += (cellSize.y * tileCountXY.y) / 2.f;
+
+		int x = static_cast<int>(selectPointToCenterPos.x / cellSize.x);
+		int y = static_cast<int>(selectPointToCenterPos.y / cellSize.y);
+
+		if (selectPointToCenterPos.x < 0.f)
+		{
+			x = -1;
+		}
+		if (selectPointToCenterPos.y < 0.f)
+		{
+			y = -1;
+		}
+
+		return tINT2(x, y);
+	}
+
+	Vector3 GridIndexToWorldPosition(const tINT2& gridIndex,
+		const Vector2& cellSize, const tUINT2& tileCountXY)
+	{
+		Vector3 rectPos = Vector3::Zero;
+
+		rectPos.x -= (cellSize.x * tileCountXY.x) / 2;
+		rectPos.y += (cellSize.y * tileCountXY.y) / 2;
+
+		rectPos.x += (gridIndex.x * cellSize.x) + (cellSize.x / 2);
+		rectPos.y -= (gridIndex.y * cellSize.y) + (cellSize.y / 2);
+
+		return rectPos;
+	}
+
+	bool IsInGrid(const tINT2& gridIndex, const tUINT2& tileCountXY)
+	{
+		tINT2 countXY = {};
+
+		countXY.x = static_cast<int>(tileCountXY.x);
+		countXY.y = static_cast<int>(tileCountXY.y);
+
+		return 0 <= gridIndex.x && gridIndex.x < countXY.x &&
+			0 <= gridIndex.y && gridIndex.y < countXY.y;
+	}
+}
+
+namespace helper::math
+{
+	void INT2MinAndMax(const tINT2& a, const tINT2& b, tINT2* const outMin, tINT2* const outMax)
+	{
+		Assert(outMin, WCHAR_IS_NULLPTR);
+		Assert(outMAX, WCHAR_IS_NULLPTR);
+
+		outMin->x = min(a.x, b.x);
+		outMin->y = min(a.y, b.y);
+
+		outMax->x = max(a.x, b.x);
+		outMax->y = max(a.y, b.y);
 	}
 
 	float LerpCosBtwZeroAndOne(const float x)
@@ -53,72 +116,3 @@ namespace helper
 	}
 }
 
-#pragma region dummy
-//
-//Vector2 ScreenToWorldScreen(const Vector2& RENDER_TARGET_MOUSE_POS,
-//	const Vector2& RENDER_TARGET_SIZE);
-//
-////2D Camera
-//Vector2 ScreenToWorld2D(const Vector2& RENDER_TARGET_MOUSE_POS,
-//	const Vector2& RENDER_TARGET_SIZE,
-//	const Vector3& CAMERA_POS,
-//	const float CAMERA_SIZE);
-//
-//Vector2 ScreenToWorld2D(const Vector2& RENDER_TARGET_MOUSE_POS,
-//	const Vector2& RENDER_TARGET_SIZE,
-//	const Camera* const P_CAMERA);
-//
-//Vector2 WindowScreenMouseToWorld2D(const Camera* const P_CAMERA);
-
-
-//Vector2 ScreenToWorldScreen(const Vector2& RENDER_TARGET_MOUSE_POS,
-//	const Vector2& RENDER_TARGET_SIZE)
-//{
-//	Assert(false, WCHAR_IS_INVALID_TYPE);
-//
-//	return Vector2(RENDER_TARGET_MOUSE_POS.x - RENDER_TARGET_SIZE.x / 2,
-//		-RENDER_TARGET_MOUSE_POS.y + RENDER_TARGET_SIZE.y / 2);
-//}
-//
-//Vector2 ScreenToWorld2D(const Vector2& RENDER_TARGET_POS,
-//	const Vector2& RENDER_TARGET_SIZE,
-//	const Vector3& CAMERA_POS,
-//	const float CAMERA_SIZE)
-//{
-//	Assert(false, WCHAR_IS_INVALID_TYPE);
-//
-//	const Vector2 CAMERA_2D_POS = Vector2(CAMERA_POS.x, CAMERA_POS.y);
-//
-//	return ScreenToWorldScreen(RENDER_TARGET_POS * CAMERA_SIZE, RENDER_TARGET_SIZE * CAMERA_SIZE) + CAMERA_2D_POS;
-//}
-//
-//Vector2 ScreenToWorld2D(const Vector2& RENDER_TARGET_MOUSE_POS,
-//	const Vector2& RENDER_TARGET_SIZE,
-//	const Camera* const P_CAMERA)
-//{
-//	Assert(false, WCHAR_IS_INVALID_TYPE);
-//
-//	const Vector2 MOUSE_WORLD_2D_POS = ScreenToWorld2D(RENDER_TARGET_MOUSE_POS,
-//		RENDER_TARGET_SIZE,
-//		P_CAMERA->GetComponent<Transform>()->GetPosition(),
-//		P_CAMERA->GetCameraSize());
-//
-//	return MOUSE_WORLD_2D_POS;
-//}
-//
-//Vector2 WindowScreenMouseToWorld2D(const Camera* const P_CAMERA)
-//{
-//	Assert(false, WCHAR_IS_INVALID_TYPE);
-//
-//	const Vector2& WINDOW_SCREEN_SIZE = gEngine->GetWindowScreenSize();
-//	const Vector2& RENDER_TARGET_SIZE = gEngine->GetRenderTargetSize();
-//	const Vector2& WINDOW_MOUSE_POS = gInput->GetWindowMousePos();
-//	const Vector2 RENDER_TARGET_MOUSE_POS = WINDOW_MOUSE_POS * (RENDER_TARGET_SIZE / WINDOW_SCREEN_SIZE);
-//
-//	const Vector2 MOUSE_WORLD_2D_POS = ScreenToWorld2D(RENDER_TARGET_MOUSE_POS,
-//		RENDER_TARGET_SIZE,
-//		P_CAMERA);
-//
-//	return MOUSE_WORLD_2D_POS;
-//}
-#pragma endregion

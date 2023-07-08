@@ -3,25 +3,22 @@
 #include <d3dcompiler.h>
 #include <wrl/client.h>
 
-struct ID3D11Device;
-
-enum class eShaderBindType;
-enum class eCBType;
-enum class eBSType;
-enum class eDSType;
-enum class eRSType;
-
 class CBCollection;
 class RSCollection;
 class BSCollection;
 class DSCollection;
 class SMCollection;
-
-
 class Shader;
 class Mesh;
 class Texture;
 
+struct ID3D11Device;
+
+enum class eCBType;
+enum class eRSType;
+enum class eBSType;
+enum class eDSType;
+enum class eShaderBindType;
 
 class GraphicDeviceDX11
 {

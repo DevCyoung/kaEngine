@@ -1,7 +1,7 @@
 ﻿#include "pch.h"
 #include "EnumResourceTypeAnimation.h"
 
-const wchar_t* eResAnimationPath[static_cast<UINT>(eResAnimation::End)]
+static constexpr const wchar_t* eResAnimationPath[static_cast<UINT>(eResAnimation::End)]
 {
 	L"\\Animation\\Player\\DOWN.anim",
 	L"\\Animation\\Player\\DOWN_READY.anim",

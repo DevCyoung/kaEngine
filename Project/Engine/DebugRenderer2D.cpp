@@ -2,17 +2,16 @@
 #include "DebugRenderer2D.h"
 #include "Engine.h"
 #include "GraphicDeviceDx11.h"
-#include "GameObject.h"
-#include "Transform.h"
-#include "Camera.h"
 #include "CBCollection.h"
 #include "StructConstantBuffer.h"
+#include "TimeManager.h"
+#include "InputManager.h"
+#include "Transform.h"
+#include "Camera.h"
 #include "Mesh.h"
 #include "Shader.h"
 #include "Material.h"
 #include "ResourceManager.h"
-#include "TimeManager.h"
-#include "InputManager.h"
 #include "EngineMath.h"
 
 DebugRenderer2D::DebugRenderer2D()
@@ -53,17 +52,17 @@ void DebugRenderer2D::DrawFillRect2D2(const Vector3& WORLD_LEFT_UP_POS,
 
 
 void DebugRenderer2D::DrawGrid2D(const Vector3& worldPos,
-	const Vector2& tileSize, const Vector2& tileCount,
+	const Vector2& cellSizeXY, const tUINT2& tileCountXY,
 	const float drawTime, const Vector4& fillColor)
 {
 	tDebugDrawInfo drawInfo = {};
 
 	drawInfo.DebugDrawType = eDebugDrawType::Grid2D;
 	drawInfo.WorldPos = worldPos;
-	drawInfo.Scale = Vector3(tileSize.x * tileCount.x, tileSize.y * tileCount.y, 1.f);
+	drawInfo.Scale = Vector3(cellSizeXY.x * tileCountXY.x, cellSizeXY.y * tileCountXY.y, 1.f);
 	drawInfo.Rotation = Vector3::Zero;
 	drawInfo.DrawTime = drawTime;
-	drawInfo.XYCount = tileCount;
+	drawInfo.XYCount = tileCountXY;
 	drawInfo.FillColor = fillColor;
 
 	mDebugDrawInfos.push_back(drawInfo);
@@ -79,29 +78,29 @@ void DebugRenderer2D::render(const Camera* const camera)
 	}
 
 	tCBTransform CBTransform = {};
+
 	CBTransform.View = camera->GetView();
 	CBTransform.Proj = camera->GetProjection();
 
 	const Mesh* const P_MESH = gResourceManager->FindOrNull<Mesh>(L"Rect");
+
 	gGraphicDevice->BindMesh(P_MESH);
 
 	for (tDebugDrawInfo& drawInfo : mDebugDrawInfos)
-	{
-		drawInfo.DrawTime -= gDeltaTime;
-
-		const Shader* const P_SHADER = mDebugDrawShader[static_cast<UINT>(drawInfo.DebugDrawType)];
-		Assert(P_SHADER, WCHAR_IS_NULLPTR);
-
+	{	
+		const Shader* const P_SHADER = mDebugDrawShader[static_cast<UINT>(drawInfo.DebugDrawType)];		
 		Vector3 worldMousePos = helper::WindowScreenMouseToWorld3D(camera);
-		worldMousePos = Vector3(worldMousePos.x, -worldMousePos.y, worldMousePos.z);
 
+		worldMousePos = Vector3(worldMousePos.x, -worldMousePos.y, worldMousePos.z);
 		CBTransform.World = Transform::CreateWorldMatrix(drawInfo.WorldPos, drawInfo.Rotation, drawInfo.Scale);
+
 		gGraphicDevice->PassCB(eCBType::Transform, sizeof(CBTransform), &CBTransform);
 		gGraphicDevice->BindCB(eCBType::Transform, eShaderBindType::VS);
 
 		gGraphicDevice->BindIA(P_SHADER);
 		gGraphicDevice->BindPS(P_SHADER);
 		gGraphicDevice->BindVS(P_SHADER);
+
 		gGraphicDevice->BindRS(P_SHADER->GetRSType());
 		gGraphicDevice->BindBS(P_SHADER->GetBSType());
 		gGraphicDevice->BindDS(P_SHADER->GetDSType());
@@ -111,20 +110,24 @@ void DebugRenderer2D::render(const Camera* const camera)
 		case eDebugDrawType::Rect2D:
 			renderRect2D(drawInfo);
 			break;
+
 		case eDebugDrawType::Grid2D:
 			drawInfo.MousePos = worldMousePos + Vector3(drawInfo.Scale) / 2.f;
 			renderGrid2D(drawInfo);
 			break;
+
 		default:
 			Assert(false, WCHAR_IS_INVALID_TYPE);
 			break;
 		}
 
 		gGraphicDevice->Draw(P_MESH);
+
+		drawInfo.DrawTime -= gDeltaTime;
 	}
 
 	mDebugDrawInfos.erase(std::remove_if(mDebugDrawInfos.begin(), mDebugDrawInfos.end(),
-		[](tDebugDrawInfo& drawInfo) {return drawInfo.DrawTime <= 0.f; }), mDebugDrawInfos.end());
+		[](tDebugDrawInfo& drawInfo) { return drawInfo.DrawTime <= 0.f; }), mDebugDrawInfos.end());
 }
 
 void DebugRenderer2D::renderRect2D(const tDebugDrawInfo& drawInfo)

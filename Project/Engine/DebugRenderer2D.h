@@ -1,7 +1,6 @@
 #pragma once
 #include <d3d11.h>
 
-class GameObject;
 class Camera;
 class Shader;
 
@@ -21,7 +20,7 @@ public:
 		const float drawTime, const Vector4& fillColor);
 
 	void DrawGrid2D(const Vector3& worldPos, 
-		const Vector2& tileSize, const Vector2& tileCount,
+		const Vector2& cellSizeXY, const tUINT2& tileCountXY,
 		const float drawTime, const Vector4& fillColor);
 
 private:
@@ -39,11 +38,9 @@ private:
 		Vector3 Scale;
 		Vector3 Rotation;
 		Vector3 MousePos;
-		Vector2 XYCount;
-
 		Vector4 FillColor;
 		Vector4 OutLineColor;
-
+		tUINT2 XYCount;
 		float DrawTime;
 	};
 

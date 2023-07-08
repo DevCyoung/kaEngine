@@ -4,9 +4,6 @@
     <Filter Include="Source">
       <UniqueIdentifier>{078f7a60-0f22-4edc-9272-bb057849412a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Windows">
-      <UniqueIdentifier>{fa146637-41d5-4cfd-a22f-e855ac8d7bc2}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\00. Engine">
       <UniqueIdentifier>{e6430191-00da-4151-afd7-1c9c3cd0ce20}</UniqueIdentifier>
     </Filter>
@@ -30,15 +27,6 @@
     </Filter>
     <Filter Include="Source\06. Resource\01. Mesh">
       <UniqueIdentifier>{10483826-e309-44fc-962d-6c91b0d3b85f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Windows\Extern">
-      <UniqueIdentifier>{76c9455a-0147-49a4-8582-413a530bd265}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Windows\Extern\MicrosoftTex">
-      <UniqueIdentifier>{9e4a9ccb-9191-42b7-b96f-fcf1c16a86a7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Windows\Extern\MicrosoftMath">
-      <UniqueIdentifier>{b6269c47-ecb2-4beb-902d-116f19f3c122}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source\03. Component\02. Camera">
       <UniqueIdentifier>{e14f60d0-e934-4672-9f50-d542fcfce5dc}</UniqueIdentifier>
@@ -103,21 +91,6 @@
     <Filter Include="Source\01. Manager\04. Message">
       <UniqueIdentifier>{99caa1da-81c0-4847-a8c9-e6150438b1ab}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\00. Engine\01. Graphics\00. BS">
-      <UniqueIdentifier>{aad05e29-2be7-4738-9733-6f4a7158ea8d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\00. Engine\01. Graphics\01. CB">
-      <UniqueIdentifier>{86007f0a-87c4-4846-8ce4-366ac4909a67}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\00. Engine\01. Graphics\02. DS">
-      <UniqueIdentifier>{dfaab231-b6b0-444e-bf80-08ca1c4dd5f2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\00. Engine\01. Graphics\04. RS">
-      <UniqueIdentifier>{144f794e-0d7c-4273-9773-6a1fb84f99f3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\00. Engine\01. Graphics\05. Struct">
-      <UniqueIdentifier>{75d05b67-be0b-4438-b5be-231eb5b0122a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\03. Component\00. Component\00. Enum">
       <UniqueIdentifier>{5c43f8c4-4ed6-4834-8f84-667bbbc0d4fc}</UniqueIdentifier>
     </Filter>
@@ -148,8 +121,41 @@
     <Filter Include="Source\06. Resource\00. Texture">
       <UniqueIdentifier>{7ee995f9-2bd7-4ac3-88ba-6a2ce18b291e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\00. Engine\01. Graphics\03. SM">
+    <Filter Include="Source\00. Engine\01. Graphics\Collection">
+      <UniqueIdentifier>{e5d08581-9454-4016-b3fa-cce421db9f96}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\00. Engine\01. Graphics\Collection\04. RS">
+      <UniqueIdentifier>{144f794e-0d7c-4273-9773-6a1fb84f99f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\00. Engine\01. Graphics\Collection\00. BS">
+      <UniqueIdentifier>{aad05e29-2be7-4738-9733-6f4a7158ea8d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\00. Engine\01. Graphics\Collection\01. CB">
+      <UniqueIdentifier>{86007f0a-87c4-4846-8ce4-366ac4909a67}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\00. Engine\01. Graphics\Collection\02. DS">
+      <UniqueIdentifier>{dfaab231-b6b0-444e-bf80-08ca1c4dd5f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\00. Engine\01. Graphics\Collection\03. SM">
       <UniqueIdentifier>{0089d8e1-bc20-46bf-adb8-c8eb1969fa8c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\00. Engine\01. Graphics\StructCB">
+      <UniqueIdentifier>{75d05b67-be0b-4438-b5be-231eb5b0122a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Windows">
+      <UniqueIdentifier>{fa146637-41d5-4cfd-a22f-e855ac8d7bc2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Windows\Extern">
+      <UniqueIdentifier>{76c9455a-0147-49a4-8582-413a530bd265}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Windows\Extern\MicrosoftTex">
+      <UniqueIdentifier>{9e4a9ccb-9191-42b7-b96f-fcf1c16a86a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Windows\Extern\MicrosoftMath">
+      <UniqueIdentifier>{b6269c47-ecb2-4beb-902d-116f19f3c122}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Windows\diff">
+      <UniqueIdentifier>{21b12c7c-f83e-496c-a646-ca9e8834ddc3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -160,10 +166,10 @@
       <Filter>Source\01. Manager\00. Time</Filter>
     </ClInclude>
     <ClInclude Include="framework.h">
-      <Filter>Windows</Filter>
+      <Filter>Source\Windows</Filter>
     </ClInclude>
     <ClInclude Include="pch.h">
-      <Filter>Windows</Filter>
+      <Filter>Source\Windows</Filter>
     </ClInclude>
     <ClInclude Include="GraphicDeviceDX11.h">
       <Filter>Source\00. Engine\01. Graphics</Filter>
@@ -196,13 +202,13 @@
       <Filter>Source\05. Scene</Filter>
     </ClInclude>
     <ClInclude Include="ConstantBuffer.h">
-      <Filter>Source\00. Engine\01. Graphics\01. CB</Filter>
+      <Filter>Source\00. Engine\01. Graphics\Collection\01. CB</Filter>
     </ClInclude>
     <ClInclude Include="SceneManager.h">
       <Filter>Source\01. Manager\02. Scene</Filter>
     </ClInclude>
     <ClInclude Include="CBCollection.h">
-      <Filter>Source\00. Engine\01. Graphics\01. CB</Filter>
+      <Filter>Source\00. Engine\01. Graphics\Collection\01. CB</Filter>
     </ClInclude>
     <ClInclude Include="Mesh.h">
       <Filter>Source\06. Resource\01. Mesh</Filter>
@@ -232,16 +238,16 @@
       <Filter>Source\03. Component\00. Component</Filter>
     </ClInclude>
     <ClInclude Include="StructConstantBuffer.h">
-      <Filter>Source\00. Engine\01. Graphics\05. Struct</Filter>
+      <Filter>Source\00. Engine\01. Graphics\StructCB</Filter>
     </ClInclude>
     <ClInclude Include="ResourceTypeTrait.h">
       <Filter>Source\06. Resource</Filter>
     </ClInclude>
     <ClInclude Include="DirectXTex.h">
-      <Filter>Windows\Extern\MicrosoftTex</Filter>
+      <Filter>Source\Windows\Extern\MicrosoftTex</Filter>
     </ClInclude>
     <ClInclude Include="DXMath.h">
-      <Filter>Windows\Extern\MicrosoftMath</Filter>
+      <Filter>Source\Windows\Extern\MicrosoftMath</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>Source\03. Component\02. Camera</Filter>
@@ -250,16 +256,16 @@
       <Filter>Source\01. Manager\04. Message</Filter>
     </ClInclude>
     <ClInclude Include="DefineMacro.h">
-      <Filter>Windows</Filter>
+      <Filter>Source\Windows</Filter>
     </ClInclude>
     <ClInclude Include="DSCollection.h">
-      <Filter>Source\00. Engine\01. Graphics\02. DS</Filter>
+      <Filter>Source\00. Engine\01. Graphics\Collection\02. DS</Filter>
     </ClInclude>
     <ClInclude Include="BSCollection.h">
-      <Filter>Source\00. Engine\01. Graphics\00. BS</Filter>
+      <Filter>Source\00. Engine\01. Graphics\Collection\00. BS</Filter>
     </ClInclude>
     <ClInclude Include="RSCollection.h">
-      <Filter>Source\00. Engine\01. Graphics\04. RS</Filter>
+      <Filter>Source\00. Engine\01. Graphics\Collection\04. RS</Filter>
     </ClInclude>
     <ClInclude Include="RenderTargetRenderer.h">
       <Filter>Source\07. Render</Filter>
@@ -298,7 +304,7 @@
       <Filter>Source\07. Render</Filter>
     </ClInclude>
     <ClInclude Include="SMCollection.h">
-      <Filter>Source\00. Engine\01. Graphics\03. SM</Filter>
+      <Filter>Source\00. Engine\01. Graphics\Collection\03. SM</Filter>
     </ClInclude>
     <ClInclude Include="StructVertex.h">
       <Filter>Source\06. Resource\01. Mesh</Filter>
@@ -311,6 +317,9 @@
     </ClInclude>
     <ClInclude Include="Resource.h">
       <Filter>Source\06. Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="StructureEngineData.h">
+      <Filter>Source\08. Helper\Include</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -342,16 +351,16 @@
       <Filter>Source\05. Scene</Filter>
     </ClCompile>
     <ClCompile Include="ConstantBuffer.cpp">
-      <Filter>Source\00. Engine\01. Graphics\01. CB</Filter>
+      <Filter>Source\00. Engine\01. Graphics\Collection\01. CB</Filter>
     </ClCompile>
     <ClCompile Include="SceneManager.cpp">
       <Filter>Source\01. Manager\02. Scene</Filter>
     </ClCompile>
     <ClCompile Include="pch.cpp">
-      <Filter>Windows</Filter>
+      <Filter>Source\Windows</Filter>
     </ClCompile>
     <ClCompile Include="CBCollection.cpp">
-      <Filter>Source\00. Engine\01. Graphics\01. CB</Filter>
+      <Filter>Source\00. Engine\01. Graphics\Collection\01. CB</Filter>
     </ClCompile>
     <ClCompile Include="Mesh.cpp">
       <Filter>Source\06. Resource\01. Mesh</Filter>
@@ -381,10 +390,10 @@
       <Filter>Source\03. Component\00. Component</Filter>
     </ClCompile>
     <ClCompile Include="StructConstantBuffer.cpp">
-      <Filter>Source\00. Engine\01. Graphics\05. Struct</Filter>
+      <Filter>Source\00. Engine\01. Graphics\StructCB</Filter>
     </ClCompile>
     <ClCompile Include="DXMath.cpp">
-      <Filter>Windows\Extern\MicrosoftMath</Filter>
+      <Filter>Source\Windows\Extern\MicrosoftMath</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>Source\03. Component\02. Camera</Filter>
@@ -396,13 +405,13 @@
       <Filter>Source\01. Manager\04. Message</Filter>
     </ClCompile>
     <ClCompile Include="DSCollection.cpp">
-      <Filter>Source\00. Engine\01. Graphics\02. DS</Filter>
+      <Filter>Source\00. Engine\01. Graphics\Collection\02. DS</Filter>
     </ClCompile>
     <ClCompile Include="BSCollection.cpp">
-      <Filter>Source\00. Engine\01. Graphics\00. BS</Filter>
+      <Filter>Source\00. Engine\01. Graphics\Collection\00. BS</Filter>
     </ClCompile>
     <ClCompile Include="RSCollection.cpp">
-      <Filter>Source\00. Engine\01. Graphics\04. RS</Filter>
+      <Filter>Source\00. Engine\01. Graphics\Collection\04. RS</Filter>
     </ClCompile>
     <ClCompile Include="RenderTargetRenderer.cpp">
       <Filter>Source\07. Render</Filter>
@@ -423,7 +432,7 @@
       <Filter>Source\07. Render</Filter>
     </ClCompile>
     <ClCompile Include="SMCollection.cpp">
-      <Filter>Source\00. Engine\01. Graphics\03. SM</Filter>
+      <Filter>Source\00. Engine\01. Graphics\Collection\03. SM</Filter>
     </ClCompile>
     <ClCompile Include="StructVertex.cpp">
       <Filter>Source\06. Resource\01. Mesh</Filter>
@@ -437,13 +446,13 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="DirectXTex.inl">
-      <Filter>Windows\Extern\MicrosoftTex</Filter>
+      <Filter>Source\Windows\Extern\MicrosoftTex</Filter>
     </None>
     <None Include="DXMath.inl">
-      <Filter>Windows\Extern\MicrosoftMath</Filter>
+      <Filter>Source\Windows\Extern\MicrosoftMath</Filter>
     </None>
     <None Include="dpend.diff">
-      <Filter>Windows</Filter>
+      <Filter>Source\Windows\diff</Filter>
     </None>
   </ItemGroup>
 </Project>

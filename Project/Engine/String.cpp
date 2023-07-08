@@ -6,6 +6,7 @@ namespace helper
 	String::String()
 	{
 	}
+
 	String::~String()
 	{
 	}
@@ -30,15 +31,14 @@ namespace helper
 
 	std::wstring String::SplitFilePathExtension(const std::wstring& filePath)
 	{
-		constexpr UINT PATH_MAX_LEN = 256;
-		wchar_t szExtension[PATH_MAX_LEN] = {0, };
+		constexpr UINT FILE_PATH_MAX_LEN = 256;
+		wchar_t szExtension[FILE_PATH_MAX_LEN] = { 0, };
 
-		errno_t err = _wsplitpath_s(filePath.c_str(), nullptr, 0, nullptr, 0, nullptr, 0, szExtension, PATH_MAX_LEN);
+		errno_t err = _wsplitpath_s(filePath.c_str(), nullptr, 0, nullptr, 0, nullptr, 0, szExtension, FILE_PATH_MAX_LEN);
 		(void)(err);
 
 		Assert(!err, L"error file path");
 
 		return szExtension;
 	}
-	
 }

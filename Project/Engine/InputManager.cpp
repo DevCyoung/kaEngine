@@ -24,6 +24,7 @@ InputManager::InputManager()
 	: mKeyInfos()
 	, mMousePos(Vector2::Zero)
 	, mPrevMousePos(Vector2::Zero)
+	, mMouseDir(Vector2::Zero)
 {
 	mKeyInfos.reserve(static_cast<UINT>(eKeyCode::END));
 
@@ -41,7 +42,6 @@ InputManager::InputManager()
 InputManager::~InputManager()
 {
 }
-
 
 bool InputManager::IsWindowMouseHoverd()
 {
@@ -87,8 +87,6 @@ void InputManager::update(const HWND hWnd)
 			}
 		}
 
-		mPrevMousePos = mMousePos;
-
 		POINT ptMousePos = {};
 		GetCursorPos(&ptMousePos);
 		ScreenToClient(hWnd, &ptMousePos);
@@ -98,6 +96,8 @@ void InputManager::update(const HWND hWnd)
 
 		mMouseDir = mMousePos - mPrevMousePos;
 		mMouseDir.y *= -1;
+
+		mPrevMousePos = mMousePos;
 	}
 	else
 	{

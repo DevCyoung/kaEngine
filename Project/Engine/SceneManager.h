@@ -1,8 +1,6 @@
 #include "Singleton.h"
 #include "Scene.h"
 
-class GameObject;
-
 class SceneManager
 {
 	friend class Engine;
