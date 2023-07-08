@@ -116,9 +116,7 @@ void Engine::setWindowSize(const UINT windowScreenWidth, const UINT windowScreen
 		static_cast<LONG>(windowScreenWidth), static_cast<LONG>(windowScreenHeight)
 	};
 
-	const BOOL bMENU = GetMenu(mHwnd) != nullptr;
-
-	AdjustWindowRect(&windowScreen, WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX, bMENU);
+	AdjustWindowRect(&windowScreen, WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX, GetMenu(mHwnd) != nullptr);
 
 	const int ADJUST_WIDTH = static_cast<int>(windowScreen.right - windowScreen.left);
 	const int ADJUST_HEIGHT = static_cast<int>(windowScreen.bottom - windowScreen.top);

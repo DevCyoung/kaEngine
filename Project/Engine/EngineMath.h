@@ -14,16 +14,9 @@ namespace helper
 
 	tINT2 GridIndex(const Vector3& selectWorldPos,
 		const Vector2& cellSize, const tUINT2& tileCountXY);
-
 	Vector3 GridIndexToWorldPosition(const tINT2& gridIndex, 
 		const Vector2& cellSize, const tUINT2& tileCountXY);
-
 	bool IsInGrid(const tINT2& gridIndex, const tUINT2& tileCountXY);
-
-
-
-
-
 }
 
 namespace helper::math
