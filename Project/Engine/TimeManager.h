@@ -1,7 +1,6 @@
 #pragma once
 #include "Singleton.h"
 
-
 class TimeManager
 {
 	friend class Engine;	

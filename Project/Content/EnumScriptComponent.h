@@ -6,8 +6,10 @@ class ScriptComponent;
 enum class eScriptComponentType 
 {
 	Bugiman,
+	BulletMovement,
 	CameraInputMoveMent,
 	CursorMovement,
+	PlayerMovementTest,
 	ShiftController,
 	TestScript,
 	UIEffect,

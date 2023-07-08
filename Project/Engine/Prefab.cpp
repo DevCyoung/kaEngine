@@ -2,8 +2,8 @@
 #include "Prefab.h"
 #include "GameObject.h"
 
-Prefab::Prefab(GameObject* obj)
-	: mRoot(obj)
+Prefab::Prefab(GameObject* gameObject)
+	: mRoot(gameObject)
 {
 }
 
@@ -12,8 +12,8 @@ Prefab::~Prefab()
 	SAFE_DELETE_POINTER(mRoot);
 }
 
-HRESULT Prefab::Load(const std::wstring& FULL_PATH)
+HRESULT Prefab::Load(const std::wstring& filePath)
 {
-	(void)FULL_PATH;
+	(void)filePath;
 	return E_NOTIMPL;
 }

@@ -177,6 +177,10 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="BulletMovement.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="CameraInputMoveMent.h">
       <SubType>
       </SubType>
@@ -199,12 +203,15 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
     <ClInclude Include="GameObjectBuilder.h" />
     <ClInclude Include="MaterialBuilder.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="PlayerMovementTest.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="ShiftController.h">
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="StructVertex.h" />
     <ClInclude Include="TestScript.h">
       <SubType>
       </SubType>
@@ -216,6 +223,10 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Bugiman.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="BulletMovement.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -247,11 +258,14 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
       <PrecompiledHeaderOutputFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)$(TargetName).pch</PrecompiledHeaderOutputFile>
       <PrecompiledHeaderOutputFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)$(TargetName).pch</PrecompiledHeaderOutputFile>
     </ClCompile>
+    <ClCompile Include="PlayerMovementTest.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="ShiftController.cpp">
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="StructVertex.cpp" />
     <ClCompile Include="TestScript.cpp">
       <SubType>
       </SubType>
@@ -336,7 +350,15 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
       <FileType>Document</FileType>
     </None>
+    <None Include="Animation_Res_dpend.diff" />
     <None Include="dpend.diff" />
+    <None Include="Font_Res_dpend.diff" />
+    <None Include="Material_Res_dpend.diff" />
+    <None Include="Mesh_Res_dpend.diff" />
+    <None Include="Scene_Res_dpend.diff" />
+    <None Include="Shader_Res_dpend.diff" />
+    <None Include="Sound_Res_dpend.diff" />
+    <None Include="Texture_Res_dpend.diff" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Output\bin\Resources\Shader\Header\TestShaderHeader.fxh" />

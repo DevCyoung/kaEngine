@@ -10,7 +10,6 @@
 #include "GraphicDeviceDx11.h"
 #include "Transform.h"
 
-
 SpriteRenderer::SpriteRenderer()
 	: RenderComponent(eComponentType::SpriteRenderer)	
 	, mTestColor(Vector4::One)
@@ -42,25 +41,25 @@ void SpriteRenderer::render(const Camera* const camera)
 	Assert(mMaterial, WCHAR_IS_NULLPTR);
 	Assert(camera, WCHAR_IS_NULLPTR);
 
-	tCBTransform tTrans = {};
+	tCBTransform CBTransform = {};
 	{
-		Vector3 scale(mMaterial->GetTexture()->GetWidth(), mMaterial->GetTexture()->GetHeight(), 1.f);
-		Matrix scaleMtrix = Matrix::CreateScale(scale);
+		const Vector3& SCALE = Vector3(mMaterial->GetTexture()->GetWidth(), mMaterial->GetTexture()->GetHeight(), 1.f);
+		const Matrix& SCALE_MATRIX = Matrix::CreateScale(SCALE);
 
-		tTrans.World = scaleMtrix * GetComponent<Transform>()->GetWorldMatrix();
-		tTrans.View = camera->GetView();
-		tTrans.Proj = camera->GetProjection();
+		CBTransform.World = SCALE_MATRIX * GetComponent<Transform>()->GetWorldMatrix();
+		CBTransform.View = camera->GetView();
+		CBTransform.Proj = camera->GetProjection();
 	}
-	gGraphicDevice->PassCB(eCBType::Transform, sizeof(tTrans), &tTrans);
+	gGraphicDevice->PassCB(eCBType::Transform, sizeof(CBTransform), &CBTransform);
 	gGraphicDevice->BindCB(eCBType::Transform, eShaderBindType::VS);
 
 	//FIXME: Material Info 범용성있는 방법으로 수정
-	tCBColorInfo colorInfo = {};
+	tCBColorInfo CBColorInfo = {};
 	{
-		colorInfo.bUseColor = bColorInfo;
-		colorInfo.Color = testX;
+		CBColorInfo.bUseColor = bColorInfo;
+		CBColorInfo.Color = testX;
 
-		gGraphicDevice->PassCB(eCBType::ColorInfo, sizeof(colorInfo), &colorInfo);
+		gGraphicDevice->PassCB(eCBType::ColorInfo, sizeof(CBColorInfo), &CBColorInfo);
 		gGraphicDevice->BindCB(eCBType::ColorInfo, eShaderBindType::PS);
 	}
 

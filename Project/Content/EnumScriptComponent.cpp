@@ -2,8 +2,10 @@
 #include "EnumScriptComponent.h"
 
 #include "Bugiman.h"
+#include "BulletMovement.h"
 #include "CameraInputMoveMent.h"
 #include "CursorMovement.h"
+#include "PlayerMovementTest.h"
 #include "ShiftController.h"
 #include "TestScript.h"
 #include "UIEffect.h"
@@ -11,8 +13,10 @@
 static constexpr const wchar_t* const ScriptComponentNames[static_cast<UINT>(eScriptComponentType::End)]
 {
 	L"Bugiman",
+	L"BulletMovement",
 	L"CameraInputMoveMent",
 	L"CursorMovement",
+	L"PlayerMovementTest",
 	L"ShiftController",
 	L"TestScript",
 	L"UIEffect",
@@ -30,10 +34,14 @@ ScriptComponent* CreateScriptComponentByName(const std::wstring& scriptcomponent
 
 	if (L"Bugiman" == scriptcomponentName)
 		scriptcomponent = new Bugiman;
+	else if (L"BulletMovement" == scriptcomponentName)
+		scriptcomponent = new BulletMovement;
 	else if (L"CameraInputMoveMent" == scriptcomponentName)
 		scriptcomponent = new CameraInputMoveMent;
 	else if (L"CursorMovement" == scriptcomponentName)
 		scriptcomponent = new CursorMovement;
+	else if (L"PlayerMovementTest" == scriptcomponentName)
+		scriptcomponent = new PlayerMovementTest;
 	else if (L"ShiftController" == scriptcomponentName)
 		scriptcomponent = new ShiftController;
 	else if (L"TestScript" == scriptcomponentName)
@@ -54,11 +62,17 @@ ScriptComponent* CreateScriptComponentByEnum(const eScriptComponentType type)
 	case eScriptComponentType::Bugiman:
 		scriptcomponent = new Bugiman;
 		break;
+	case eScriptComponentType::BulletMovement:
+		scriptcomponent = new BulletMovement;
+		break;
 	case eScriptComponentType::CameraInputMoveMent:
 		scriptcomponent = new CameraInputMoveMent;
 		break;
 	case eScriptComponentType::CursorMovement:
 		scriptcomponent = new CursorMovement;
+		break;
+	case eScriptComponentType::PlayerMovementTest:
+		scriptcomponent = new PlayerMovementTest;
 		break;
 	case eScriptComponentType::ShiftController:
 		scriptcomponent = new ShiftController;

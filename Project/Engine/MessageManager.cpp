@@ -3,8 +3,8 @@
 #include "TimeManager.h"
 
 MessageManager::MessageManager()
-	: mMessages()
-	, mSecond(0.0f)
+	: mTitleMessages()
+	, mTimeInterval(0.0f)
 {
 }
 
@@ -12,28 +12,29 @@ MessageManager::~MessageManager()
 {
 }
 
-void MessageManager::render(const HWND H_WND)
+void MessageManager::eventUpdate(const HWND hWnd)
 {	
-	if (IsSendMessage())
+	if (IsAddTitleMessage())
 	{
-		std::wstring outMessage;
-		outMessage.reserve(256);
-		outMessage = L"<SEO Egine>";
+		constexpr UINT SHOW_TITLE_MESSAGE_MAX_LEN = 256;
+		std::wstring showTitleMessage = L"";
 
-		for (const std::wstring& message : mMessages)
+		showTitleMessage.reserve(SHOW_TITLE_MESSAGE_MAX_LEN);
+		showTitleMessage = L"<SEO Egine>";
+
+		for (const std::wstring& titleMessage : mTitleMessages)
 		{
-			outMessage += L" ";
-			outMessage += message;
+			showTitleMessage += L" ";
+			showTitleMessage += titleMessage;
 		}
 
-		SetWindowText(H_WND, outMessage.data());
+		SetWindowText(hWnd, showTitleMessage.data());
 
-		mSecond = 0.0f;
-
-		mMessages.clear();
+		mTimeInterval = 0.0f;
+		mTitleMessages.clear();
 	}
 	else
 	{
-		mSecond += gDeltaTime;
+		mTimeInterval += gDeltaTime;
 	}	
 }

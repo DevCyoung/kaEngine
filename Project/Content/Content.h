@@ -8,13 +8,10 @@ class Content
 	SINGLETON_DECLARE(Content);
 
 private:
-	void loadShader();
-	void loadMesh();
+	void loadShader();	
 	void loadTexture();
-
 	void loadMaterial();
-	void loadUIMaterial();
-	void loadPrefab();
+	void loadUIMaterial();	
 
 private:
 	void resourceInitialize();

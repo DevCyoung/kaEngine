@@ -7,7 +7,8 @@
 
 ResourceManager::ResourceManager()
 {
-	//RectMesh
+
+#pragma region RectMesh
 	{
 		constexpr UINT VERTEX_COUNT = 4;
 		tVertex vertexArray[VERTEX_COUNT] = {};
@@ -16,19 +17,19 @@ ResourceManager::ResourceManager()
 		//3---2
 		vertexArray[0].pos = Vector3(-0.5f, 0.5f, 0.0f);
 		vertexArray[0].color = Vector4(1.0f, 0.0f, 1.0f, 1.0f);
-		vertexArray[0].uv = Vector2(0.0f, 0.0f);		
+		vertexArray[0].uv = Vector2(0.0f, 0.0f);
 
 		vertexArray[1].pos = Vector3(0.5f, 0.5f, 0.0f);
 		vertexArray[1].color = Vector4(1.0f, 0.0f, 1.0f, 1.0f);
-		vertexArray[1].uv = Vector2(1.0f, 0.0f);		
+		vertexArray[1].uv = Vector2(1.0f, 0.0f);
 
 		vertexArray[2].pos = Vector3(+0.5f, -0.5f, 0.0f);
 		vertexArray[2].color = Vector4(1.0f, 0.0f, 1.0f, 1.0f);
-		vertexArray[2].uv = Vector2(1.0f, 1.0f);		
+		vertexArray[2].uv = Vector2(1.0f, 1.0f);
 
 		vertexArray[3].pos = Vector3(-0.5f, -0.5f, 0.0f);
 		vertexArray[3].color = Vector4(1.0f, 0.0f, 1.0f, 1.0f);
-		vertexArray[3].uv = Vector2(0.0f, 1.0f);		
+		vertexArray[3].uv = Vector2(0.0f, 1.0f);
 
 		std::vector<UINT> indexes;
 		indexes.reserve(10);
@@ -45,14 +46,16 @@ ResourceManager::ResourceManager()
 			new Mesh(vertexArray, VERTEX_COUNT, sizeof(tVertex),
 				indexes.data(), indexes.size(), sizeof(UINT)));
 	}
+#pragma endregion
 
+#pragma region Shader
 	//Debug Rect2D Shader
 	{
 		Shader* const debugShader =
 			new Shader(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST,
 				L"\\Shader\\VSDebug.hlsl", L"main",
 				L"\\Shader\\PSDebug.hlsl", L"main",
-				eIEDType::Default,
+				eSMType::Default,
 				eRSType::CullNone,
 				eDSType::None,
 				eBSType::AlphaBlend);
@@ -65,12 +68,13 @@ ResourceManager::ResourceManager()
 			new Shader(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST,
 				L"\\Shader\\VSDebug.hlsl", L"main",
 				L"\\Shader\\PSGrid.hlsl", L"main",
-				eIEDType::Default,
+				eSMType::Default,
 				eRSType::CullNone,
 				eDSType::None,
 				eBSType::AlphaBlend);
 		Insert(L"DebugGrid2D", debugShader);
 	}
+#pragma endregion
 
 }
 

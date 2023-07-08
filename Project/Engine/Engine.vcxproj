@@ -176,7 +176,6 @@ call ScriptGen.exe Component $(SolutionDir)Project\Engine $(SolutionDir)Project\
     <ClInclude Include="ConstantBuffer.h" />
     <ClInclude Include="DirectXTex.h" />
     <ClInclude Include="DSCollection.h" />
-    <ClInclude Include="eEventType.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="EngineIncludes.h" />
     <ClInclude Include="EngineMath.h" />
@@ -187,14 +186,13 @@ call ScriptGen.exe Component $(SolutionDir)Project\Engine $(SolutionDir)Project\
     <ClInclude Include="EnumLayer.h" />
     <ClInclude Include="EnumRenderType.h" />
     <ClInclude Include="EnumResource.h" />
-    <ClInclude Include="IEDCollection.h" />
+    <ClInclude Include="SMCollection.h" />
     <ClInclude Include="Prefab.h" />
     <ClInclude Include="RenderComponent.h">
       <SubType>
       </SubType>
     </ClInclude>
     <ClInclude Include="ResourceTypeTrait.h" />
-    <ClInclude Include="EventManager.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GraphicDeviceDX11.h" />
@@ -225,6 +223,7 @@ call ScriptGen.exe Component $(SolutionDir)Project\Engine $(SolutionDir)Project\
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="String.h" />
     <ClInclude Include="StructConstantBuffer.h" />
+    <ClInclude Include="StructureEngineData.h" />
     <ClInclude Include="StructVertex.h" />
     <ClInclude Include="Textrue.h" />
     <ClInclude Include="TimeManager.h" />
@@ -247,10 +246,9 @@ call ScriptGen.exe Component $(SolutionDir)Project\Engine $(SolutionDir)Project\
     <ClCompile Include="EngineMath.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="EnumComponent.cpp" />
-    <ClCompile Include="EventManager.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GraphicDeviceDX11.cpp" />
-    <ClCompile Include="IEDCollection.cpp" />
+    <ClCompile Include="SMCollection.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Layer.cpp" />
     <ClCompile Include="Material.cpp" />

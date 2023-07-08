@@ -1,7 +1,7 @@
 ﻿#include "pch.h"
 #include "EnumResourceTypeFont.h"
 
-const wchar_t* eResFontPath[static_cast<UINT>(eResFont::End)]
+static constexpr const wchar_t* eResFontPath[static_cast<UINT>(eResFont::End)]
 {
 	L"\\Font\\dummy.font",
 };

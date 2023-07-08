@@ -18,5 +18,5 @@ private:
 	virtual void lateUpdate() override final;	
 
 	Vector3 mPrevClickPos;
-	Vector2 mHoverPos;
+	Vector2 mHoverPos;	
 };

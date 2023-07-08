@@ -2,10 +2,10 @@
 #include "ConstantBuffer.h"
 
 
-	ConstantBuffer::ConstantBuffer(const eCBType CB_TYPE, const UINT BUFFER_SIZE, ID3D11Device* const device)
-		: mType(CB_TYPE)
+	ConstantBuffer::ConstantBuffer(const eCBType CBType, const UINT bufferSize, ID3D11Device* const device)
+		: mType(CBType)
 		, mDesc{}
-		, mSize(BUFFER_SIZE)
+		, mSize(bufferSize)
 		, mBuffer(nullptr)
 	{
 		Assert(device, WCHAR_IS_NULLPTR);
@@ -17,7 +17,7 @@
 		mDesc.Usage = D3D11_USAGE::D3D11_USAGE_DYNAMIC;
 
 		device->CreateBuffer(&mDesc, nullptr, mBuffer.GetAddressOf());
-		Assert(mBuffer.Get(), WCHAR_IS_NULLPTR);		
+		Assert(mBuffer.Get(), WCHAR_IS_NULLPTR);
 	}
 
 	ConstantBuffer::~ConstantBuffer()

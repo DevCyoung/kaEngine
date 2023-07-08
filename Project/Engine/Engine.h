@@ -13,7 +13,7 @@ class Engine
 	SINGLETON_DECLARE(Engine);
 
 private:
-	Engine(const HWND H_WND, const UINT RENDER_TARGET_WIDTH, const UINT RENDER_TARGET_HEIGHT);
+	Engine(const HWND hWnd, const UINT renderTargetWidth, const UINT renderTargetHeight);
 
 public:
 	Vector2 GetRenderTargetSize() const  
@@ -30,24 +30,22 @@ public:
 	GraphicDeviceDX11* GetGraphicDevice() const { return mGraphicDevice; }
 
 	//FIXME
-	RenderTargetRenderer* GetRenderTargetRenderer() const
-	{
-		Assert(mRenderTargetRenderer, WCHAR_IS_NULLPTR);
-
-		return mRenderTargetRenderer;
+	RenderTargetRenderer* GetRenderTargetRenderer() const 
+	{ 
+		Assert(mRenderTargetRenderer, WCHAR_IS_NULLPTR); 
+		
+		return mRenderTargetRenderer; 
 	}
 
-
-
 private:
-	static void initialize(const HWND H_WND, const UINT RENDER_TARGET_WIDTH, const UINT RENDER_TARGET_HEIGHT);
-	void setWindowSize(const UINT WINDOW_SCREEN_WIDTH, const UINT WINDOW_SCREEN_HEIGHT);
-	void updateWindowScreenSize();
-
+	static void initialize(const HWND hWnd, const UINT renderTargetWidth, const UINT renderTargetHeight);
+	void setWindowSize(const UINT windowScreenWidth, const UINT windowScreenHeight);
 	void run();
+	void updateWindowInfo();
 	void update();
 	void lateUpdate();
-	void render();
+	void render();	
+	void eventUpdate();
 
 private:
 	HWND mHwnd;

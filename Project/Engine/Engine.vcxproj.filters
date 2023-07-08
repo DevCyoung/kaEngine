@@ -4,32 +4,11 @@
     <Filter Include="Source">
       <UniqueIdentifier>{078f7a60-0f22-4edc-9272-bb057849412a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Windows">
-      <UniqueIdentifier>{fa146637-41d5-4cfd-a22f-e855ac8d7bc2}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\00. Engine">
       <UniqueIdentifier>{e6430191-00da-4151-afd7-1c9c3cd0ce20}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source\01. Manager">
       <UniqueIdentifier>{6dc5af30-629b-4a73-b9a8-0cc83a894c99}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\01. Manager\Time">
-      <UniqueIdentifier>{942ebe70-fdee-4307-8221-98dbfc5e1edd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\01. Manager\Input">
-      <UniqueIdentifier>{13a6a959-909c-4762-ba4c-c888cd9168a9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\01. Manager\Scene">
-      <UniqueIdentifier>{c48e7023-e96c-4b8b-a4f3-98e7f7c3e42a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\01. Manager\Resource">
-      <UniqueIdentifier>{f57217ad-10a4-448d-9c49-8ba591549eda}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\01. Manager\Path">
-      <UniqueIdentifier>{20bb7a84-673b-4c1c-aaaf-73dccb84b97b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\01. Manager\Event">
-      <UniqueIdentifier>{fafed600-a4fd-44a7-a650-842b47962378}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source\02. GameObject">
       <UniqueIdentifier>{7ea5e00e-4716-4077-874d-183be25aae78}</UniqueIdentifier>
@@ -43,86 +22,20 @@
     <Filter Include="Source\03. Component\01. Transform">
       <UniqueIdentifier>{72b259ff-208f-4147-99d1-350359d39cc9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\04. Scene">
-      <UniqueIdentifier>{685c70d2-48e1-49d1-9f6e-24916c88ecf2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\05. Layer">
-      <UniqueIdentifier>{aa7c299d-4c28-4be3-b4c8-cc76acd75ae3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\06. Resource">
       <UniqueIdentifier>{900dd22f-333f-406b-a983-efbf64ce02ed}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source\06. Resource\01. Mesh">
       <UniqueIdentifier>{10483826-e309-44fc-962d-6c91b0d3b85f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\06. Resource\02. Shader">
-      <UniqueIdentifier>{6e853aac-cd23-41af-9a41-92878832d38b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\06. Resource\05. Material">
-      <UniqueIdentifier>{28e4d04a-4bc8-4621-8434-3c207f501543}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\06. Resource\04. Texture">
-      <UniqueIdentifier>{7ee995f9-2bd7-4ac3-88ba-6a2ce18b291e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\00. Engine\00. Entity">
-      <UniqueIdentifier>{0febf985-2089-4d69-9d73-46a0d133a463}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\00. Engine\01. Graphics">
-      <UniqueIdentifier>{8231d530-7a53-4699-a9cc-a474fbba78b9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\00. Engine\01. Graphics\Struct">
-      <UniqueIdentifier>{75d05b67-be0b-4438-b5be-231eb5b0122a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\06. Resource\06. Resource">
-      <UniqueIdentifier>{c086c77c-086f-49ce-a1be-edfeb13b7185}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Windows\Extern">
-      <UniqueIdentifier>{76c9455a-0147-49a4-8582-413a530bd265}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Windows\Extern\MicrosoftTex">
-      <UniqueIdentifier>{9e4a9ccb-9191-42b7-b96f-fcf1c16a86a7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Windows\Extern\MicrosoftMath">
-      <UniqueIdentifier>{b6269c47-ecb2-4beb-902d-116f19f3c122}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\06. Resource\07. Sound">
-      <UniqueIdentifier>{df9269fc-6aed-4f3e-9089-f4a2e4b7231b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\01. Manager\Message">
-      <UniqueIdentifier>{99caa1da-81c0-4847-a8c9-e6150438b1ab}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\03. Component\02. Camera">
       <UniqueIdentifier>{e14f60d0-e934-4672-9f50-d542fcfce5dc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\03. Component\00. Component\Trait">
-      <UniqueIdentifier>{f0103407-cafd-45cb-b67c-8dfca0674168}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\03. Component\00. Component\Enum">
-      <UniqueIdentifier>{5c43f8c4-4ed6-4834-8f84-667bbbc0d4fc}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source\03. Component\04. Animator">
       <UniqueIdentifier>{bc69a198-03d8-45de-9057-d4b3c0c45454}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\06. Resource\08. Prefab">
-      <UniqueIdentifier>{9797c301-f5a0-45de-bf25-2e476c6e6628}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\03. Component\03. Render">
       <UniqueIdentifier>{e9bab1db-c3de-4cbb-ab50-05273207949d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\03. Component\03. Render\SpriteRenderer">
-      <UniqueIdentifier>{519c1661-d91c-4e37-8020-1698bcb4688f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\00. Engine\01. Graphics\BS">
-      <UniqueIdentifier>{aad05e29-2be7-4738-9733-6f4a7158ea8d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\00. Engine\01. Graphics\CB">
-      <UniqueIdentifier>{86007f0a-87c4-4846-8ce4-366ac4909a67}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\00. Engine\01. Graphics\DS">
-      <UniqueIdentifier>{dfaab231-b6b0-444e-bf80-08ca1c4dd5f2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\00. Engine\01. Graphics\RS">
-      <UniqueIdentifier>{144f794e-0d7c-4273-9773-6a1fb84f99f3}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source\07. Render">
       <UniqueIdentifier>{8394a018-d586-4464-9bf2-b0b9d1e9bba3}</UniqueIdentifier>
@@ -148,8 +61,101 @@
     <Filter Include="Source\08. Helper\Include">
       <UniqueIdentifier>{75a58b25-b5b9-4fcb-ab41-d8b4a2cbedb8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\00. Engine\01. Graphics\IED">
+    <Filter Include="Source\05. Scene">
+      <UniqueIdentifier>{685c70d2-48e1-49d1-9f6e-24916c88ecf2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\04. Layer">
+      <UniqueIdentifier>{6de68158-2bc2-412a-9dc5-372c1ab6e096}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\00. Engine\00. Entity">
+      <UniqueIdentifier>{0febf985-2089-4d69-9d73-46a0d133a463}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\00. Engine\01. Graphics">
+      <UniqueIdentifier>{8231d530-7a53-4699-a9cc-a474fbba78b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\01. Manager\00. Time">
+      <UniqueIdentifier>{942ebe70-fdee-4307-8221-98dbfc5e1edd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\01. Manager\01. Input">
+      <UniqueIdentifier>{13a6a959-909c-4762-ba4c-c888cd9168a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\01. Manager\03, Path">
+      <UniqueIdentifier>{20bb7a84-673b-4c1c-aaaf-73dccb84b97b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\01. Manager\02. Scene">
+      <UniqueIdentifier>{c48e7023-e96c-4b8b-a4f3-98e7f7c3e42a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\01. Manager\05. Resource">
+      <UniqueIdentifier>{f57217ad-10a4-448d-9c49-8ba591549eda}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\01. Manager\04. Message">
+      <UniqueIdentifier>{99caa1da-81c0-4847-a8c9-e6150438b1ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\03. Component\00. Component\00. Enum">
+      <UniqueIdentifier>{5c43f8c4-4ed6-4834-8f84-667bbbc0d4fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\03. Component\00. Component\01. Trait">
+      <UniqueIdentifier>{f0103407-cafd-45cb-b67c-8dfca0674168}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\03. Component\03. Render\00. SpriteRenderer">
+      <UniqueIdentifier>{519c1661-d91c-4e37-8020-1698bcb4688f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\06. Resource\03. Shader">
+      <UniqueIdentifier>{6e853aac-cd23-41af-9a41-92878832d38b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\06. Resource\08. Prefab">
+      <UniqueIdentifier>{9797c301-f5a0-45de-bf25-2e476c6e6628}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\06. Resource\02. Material">
+      <UniqueIdentifier>{28e4d04a-4bc8-4621-8434-3c207f501543}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\06. Resource\06. Sound">
+      <UniqueIdentifier>{df9269fc-6aed-4f3e-9089-f4a2e4b7231b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\06. Resource\04. Animation">
+      <UniqueIdentifier>{045168f5-b207-4502-a728-39fb691dccad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\06. Resource\05. Font">
+      <UniqueIdentifier>{5c5d10d4-736f-425d-a55c-82ff360d924b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\06. Resource\00. Texture">
+      <UniqueIdentifier>{7ee995f9-2bd7-4ac3-88ba-6a2ce18b291e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\00. Engine\01. Graphics\Collection">
+      <UniqueIdentifier>{e5d08581-9454-4016-b3fa-cce421db9f96}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\00. Engine\01. Graphics\Collection\04. RS">
+      <UniqueIdentifier>{144f794e-0d7c-4273-9773-6a1fb84f99f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\00. Engine\01. Graphics\Collection\00. BS">
+      <UniqueIdentifier>{aad05e29-2be7-4738-9733-6f4a7158ea8d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\00. Engine\01. Graphics\Collection\01. CB">
+      <UniqueIdentifier>{86007f0a-87c4-4846-8ce4-366ac4909a67}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\00. Engine\01. Graphics\Collection\02. DS">
+      <UniqueIdentifier>{dfaab231-b6b0-444e-bf80-08ca1c4dd5f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\00. Engine\01. Graphics\Collection\03. SM">
       <UniqueIdentifier>{0089d8e1-bc20-46bf-adb8-c8eb1969fa8c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\00. Engine\01. Graphics\StructCB">
+      <UniqueIdentifier>{75d05b67-be0b-4438-b5be-231eb5b0122a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Windows">
+      <UniqueIdentifier>{fa146637-41d5-4cfd-a22f-e855ac8d7bc2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Windows\Extern">
+      <UniqueIdentifier>{76c9455a-0147-49a4-8582-413a530bd265}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Windows\Extern\MicrosoftTex">
+      <UniqueIdentifier>{9e4a9ccb-9191-42b7-b96f-fcf1c16a86a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Windows\Extern\MicrosoftMath">
+      <UniqueIdentifier>{b6269c47-ecb2-4beb-902d-116f19f3c122}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Windows\diff">
+      <UniqueIdentifier>{21b12c7c-f83e-496c-a646-ca9e8834ddc3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -157,19 +163,19 @@
       <Filter>Source\00. Engine\00. Entity</Filter>
     </ClInclude>
     <ClInclude Include="TimeManager.h">
-      <Filter>Source\01. Manager\Time</Filter>
+      <Filter>Source\01. Manager\00. Time</Filter>
     </ClInclude>
     <ClInclude Include="framework.h">
-      <Filter>Windows</Filter>
+      <Filter>Source\Windows</Filter>
     </ClInclude>
     <ClInclude Include="pch.h">
-      <Filter>Windows</Filter>
+      <Filter>Source\Windows</Filter>
     </ClInclude>
     <ClInclude Include="GraphicDeviceDX11.h">
       <Filter>Source\00. Engine\01. Graphics</Filter>
     </ClInclude>
     <ClInclude Include="InputManager.h">
-      <Filter>Source\01. Manager\Input</Filter>
+      <Filter>Source\01. Manager\01. Input</Filter>
     </ClInclude>
     <ClInclude Include="Singleton.h">
       <Filter>Source\08. Helper\Singleton</Filter>
@@ -181,10 +187,10 @@
       <Filter>Source\08. Helper\Include</Filter>
     </ClInclude>
     <ClInclude Include="Textrue.h">
-      <Filter>Source\06. Resource\04. Texture</Filter>
+      <Filter>Source\06. Resource\00. Texture</Filter>
     </ClInclude>
     <ClInclude Include="Shader.h">
-      <Filter>Source\06. Resource\02. Shader</Filter>
+      <Filter>Source\06. Resource\03. Shader</Filter>
     </ClInclude>
     <ClInclude Include="String.h">
       <Filter>Source\08. Helper\String</Filter>
@@ -193,25 +199,22 @@
       <Filter>Source\02. GameObject</Filter>
     </ClInclude>
     <ClInclude Include="Scene.h">
-      <Filter>Source\04. Scene</Filter>
+      <Filter>Source\05. Scene</Filter>
     </ClInclude>
     <ClInclude Include="ConstantBuffer.h">
-      <Filter>Source\00. Engine\01. Graphics\CB</Filter>
+      <Filter>Source\00. Engine\01. Graphics\Collection\01. CB</Filter>
     </ClInclude>
     <ClInclude Include="SceneManager.h">
-      <Filter>Source\01. Manager\Scene</Filter>
+      <Filter>Source\01. Manager\02. Scene</Filter>
     </ClInclude>
     <ClInclude Include="CBCollection.h">
-      <Filter>Source\00. Engine\01. Graphics\CB</Filter>
-    </ClInclude>
-    <ClInclude Include="Layer.h">
-      <Filter>Source\05. Layer</Filter>
+      <Filter>Source\00. Engine\01. Graphics\Collection\01. CB</Filter>
     </ClInclude>
     <ClInclude Include="Mesh.h">
       <Filter>Source\06. Resource\01. Mesh</Filter>
     </ClInclude>
     <ClInclude Include="SpriteRenderer.h">
-      <Filter>Source\03. Component\03. Render\SpriteRenderer</Filter>
+      <Filter>Source\03. Component\03. Render\00. SpriteRenderer</Filter>
     </ClInclude>
     <ClInclude Include="Transform.h">
       <Filter>Source\03. Component\01. Transform</Filter>
@@ -223,82 +226,70 @@
       <Filter>Source\00. Engine</Filter>
     </ClInclude>
     <ClInclude Include="ResourceManager.h">
-      <Filter>Source\01. Manager\Resource</Filter>
+      <Filter>Source\01. Manager\05. Resource</Filter>
     </ClInclude>
     <ClInclude Include="PathManager.h">
-      <Filter>Source\01. Manager\Path</Filter>
+      <Filter>Source\01. Manager\03, Path</Filter>
     </ClInclude>
     <ClInclude Include="Material.h">
-      <Filter>Source\06. Resource\05. Material</Filter>
+      <Filter>Source\06. Resource\02. Material</Filter>
     </ClInclude>
     <ClInclude Include="Component.h">
       <Filter>Source\03. Component\00. Component</Filter>
     </ClInclude>
     <ClInclude Include="StructConstantBuffer.h">
-      <Filter>Source\00. Engine\01. Graphics\Struct</Filter>
-    </ClInclude>
-    <ClInclude Include="Resource.h">
-      <Filter>Source\06. Resource\06. Resource</Filter>
-    </ClInclude>
-    <ClInclude Include="EventManager.h">
-      <Filter>Source\01. Manager\Event</Filter>
-    </ClInclude>
-    <ClInclude Include="eEventType.h">
-      <Filter>Source\01. Manager\Event</Filter>
+      <Filter>Source\00. Engine\01. Graphics\StructCB</Filter>
     </ClInclude>
     <ClInclude Include="ResourceTypeTrait.h">
       <Filter>Source\06. Resource</Filter>
     </ClInclude>
     <ClInclude Include="DirectXTex.h">
-      <Filter>Windows\Extern\MicrosoftTex</Filter>
+      <Filter>Source\Windows\Extern\MicrosoftTex</Filter>
     </ClInclude>
     <ClInclude Include="DXMath.h">
-      <Filter>Windows\Extern\MicrosoftMath</Filter>
+      <Filter>Source\Windows\Extern\MicrosoftMath</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>Source\03. Component\02. Camera</Filter>
     </ClInclude>
     <ClInclude Include="MessageManager.h">
-      <Filter>Source\01. Manager\Message</Filter>
+      <Filter>Source\01. Manager\04. Message</Filter>
     </ClInclude>
     <ClInclude Include="DefineMacro.h">
-      <Filter>Windows</Filter>
+      <Filter>Source\Windows</Filter>
     </ClInclude>
     <ClInclude Include="DSCollection.h">
-      <Filter>Source\00. Engine\01. Graphics\DS</Filter>
+      <Filter>Source\00. Engine\01. Graphics\Collection\02. DS</Filter>
     </ClInclude>
     <ClInclude Include="BSCollection.h">
-      <Filter>Source\00. Engine\01. Graphics\BS</Filter>
+      <Filter>Source\00. Engine\01. Graphics\Collection\00. BS</Filter>
     </ClInclude>
     <ClInclude Include="RSCollection.h">
-      <Filter>Source\00. Engine\01. Graphics\RS</Filter>
+      <Filter>Source\00. Engine\01. Graphics\Collection\04. RS</Filter>
     </ClInclude>
     <ClInclude Include="RenderTargetRenderer.h">
       <Filter>Source\07. Render</Filter>
     </ClInclude>
     <ClInclude Include="EngineComponentTrait.h">
-      <Filter>Source\03. Component\00. Component\Trait</Filter>
+      <Filter>Source\03. Component\00. Component\01. Trait</Filter>
     </ClInclude>
     <ClInclude Include="ScriptComponentTrait.h">
-      <Filter>Source\03. Component\00. Component\Trait</Filter>
+      <Filter>Source\03. Component\00. Component\01. Trait</Filter>
     </ClInclude>
     <ClInclude Include="ScriptComponent.h">
       <Filter>Source\03. Component\00. Component</Filter>
     </ClInclude>
     <ClInclude Include="ComponentTrait.h">
-      <Filter>Source\03. Component\00. Component\Trait</Filter>
+      <Filter>Source\03. Component\00. Component\01. Trait</Filter>
     </ClInclude>
     <ClInclude Include="EnumComponent.h">
-      <Filter>Source\03. Component\00. Component\Enum</Filter>
+      <Filter>Source\03. Component\00. Component\00. Enum</Filter>
     </ClInclude>
     <ClInclude Include="EnumRenderType.h">
       <Filter>Source\07. Render</Filter>
     </ClInclude>
     <ClInclude Include="EngineMath.h">
       <Filter>Source\08. Helper\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="EnumLayer.h">
-      <Filter>Source\05. Layer</Filter>
     </ClInclude>
     <ClInclude Include="EnumResource.h">
       <Filter>Source\06. Resource</Filter>
@@ -312,11 +303,23 @@
     <ClInclude Include="DebugRenderer2D.h">
       <Filter>Source\07. Render</Filter>
     </ClInclude>
-    <ClInclude Include="IEDCollection.h">
-      <Filter>Source\00. Engine\01. Graphics\IED</Filter>
+    <ClInclude Include="SMCollection.h">
+      <Filter>Source\00. Engine\01. Graphics\Collection\03. SM</Filter>
     </ClInclude>
     <ClInclude Include="StructVertex.h">
       <Filter>Source\06. Resource\01. Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Layer.h">
+      <Filter>Source\04. Layer</Filter>
+    </ClInclude>
+    <ClInclude Include="EnumLayer.h">
+      <Filter>Source\04. Layer</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>Source\06. Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="StructureEngineData.h">
+      <Filter>Source\08. Helper\Include</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -324,19 +327,19 @@
       <Filter>Source\00. Engine\00. Entity</Filter>
     </ClCompile>
     <ClCompile Include="TimeManager.cpp">
-      <Filter>Source\01. Manager\Time</Filter>
+      <Filter>Source\01. Manager\00. Time</Filter>
     </ClCompile>
     <ClCompile Include="GraphicDeviceDX11.cpp">
       <Filter>Source\00. Engine\01. Graphics</Filter>
     </ClCompile>
     <ClCompile Include="InputManager.cpp">
-      <Filter>Source\01. Manager\Input</Filter>
+      <Filter>Source\01. Manager\01. Input</Filter>
     </ClCompile>
     <ClCompile Include="Textrue.cpp">
-      <Filter>Source\06. Resource\04. Texture</Filter>
+      <Filter>Source\06. Resource\00. Texture</Filter>
     </ClCompile>
     <ClCompile Include="Shader.cpp">
-      <Filter>Source\06. Resource\02. Shader</Filter>
+      <Filter>Source\06. Resource\03. Shader</Filter>
     </ClCompile>
     <ClCompile Include="String.cpp">
       <Filter>Source\08. Helper\String</Filter>
@@ -345,28 +348,25 @@
       <Filter>Source\02. GameObject</Filter>
     </ClCompile>
     <ClCompile Include="Scene.cpp">
-      <Filter>Source\04. Scene</Filter>
+      <Filter>Source\05. Scene</Filter>
     </ClCompile>
     <ClCompile Include="ConstantBuffer.cpp">
-      <Filter>Source\00. Engine\01. Graphics\CB</Filter>
+      <Filter>Source\00. Engine\01. Graphics\Collection\01. CB</Filter>
     </ClCompile>
     <ClCompile Include="SceneManager.cpp">
-      <Filter>Source\01. Manager\Scene</Filter>
+      <Filter>Source\01. Manager\02. Scene</Filter>
     </ClCompile>
     <ClCompile Include="pch.cpp">
-      <Filter>Windows</Filter>
+      <Filter>Source\Windows</Filter>
     </ClCompile>
     <ClCompile Include="CBCollection.cpp">
-      <Filter>Source\00. Engine\01. Graphics\CB</Filter>
-    </ClCompile>
-    <ClCompile Include="Layer.cpp">
-      <Filter>Source\05. Layer</Filter>
+      <Filter>Source\00. Engine\01. Graphics\Collection\01. CB</Filter>
     </ClCompile>
     <ClCompile Include="Mesh.cpp">
       <Filter>Source\06. Resource\01. Mesh</Filter>
     </ClCompile>
     <ClCompile Include="SpriteRenderer.cpp">
-      <Filter>Source\03. Component\03. Render\SpriteRenderer</Filter>
+      <Filter>Source\03. Component\03. Render\00. SpriteRenderer</Filter>
     </ClCompile>
     <ClCompile Include="Transform.cpp">
       <Filter>Source\03. Component\01. Transform</Filter>
@@ -375,13 +375,13 @@
       <Filter>Source\08. Helper\SafeDelete</Filter>
     </ClCompile>
     <ClCompile Include="ResourceManager.cpp">
-      <Filter>Source\01. Manager\Resource</Filter>
+      <Filter>Source\01. Manager\05. Resource</Filter>
     </ClCompile>
     <ClCompile Include="PathManager.cpp">
-      <Filter>Source\01. Manager\Path</Filter>
+      <Filter>Source\01. Manager\03, Path</Filter>
     </ClCompile>
     <ClCompile Include="Material.cpp">
-      <Filter>Source\06. Resource\05. Material</Filter>
+      <Filter>Source\06. Resource\02. Material</Filter>
     </ClCompile>
     <ClCompile Include="Engine.cpp">
       <Filter>Source\00. Engine</Filter>
@@ -390,16 +390,10 @@
       <Filter>Source\03. Component\00. Component</Filter>
     </ClCompile>
     <ClCompile Include="StructConstantBuffer.cpp">
-      <Filter>Source\00. Engine\01. Graphics\Struct</Filter>
-    </ClCompile>
-    <ClCompile Include="Resource.cpp">
-      <Filter>Source\06. Resource\06. Resource</Filter>
-    </ClCompile>
-    <ClCompile Include="EventManager.cpp">
-      <Filter>Source\01. Manager\Event</Filter>
+      <Filter>Source\00. Engine\01. Graphics\StructCB</Filter>
     </ClCompile>
     <ClCompile Include="DXMath.cpp">
-      <Filter>Windows\Extern\MicrosoftMath</Filter>
+      <Filter>Source\Windows\Extern\MicrosoftMath</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>Source\03. Component\02. Camera</Filter>
@@ -408,22 +402,22 @@
       <Filter>Source\03. Component\00. Component</Filter>
     </ClCompile>
     <ClCompile Include="MessageManager.cpp">
-      <Filter>Source\01. Manager\Message</Filter>
+      <Filter>Source\01. Manager\04. Message</Filter>
     </ClCompile>
     <ClCompile Include="DSCollection.cpp">
-      <Filter>Source\00. Engine\01. Graphics\DS</Filter>
+      <Filter>Source\00. Engine\01. Graphics\Collection\02. DS</Filter>
     </ClCompile>
     <ClCompile Include="BSCollection.cpp">
-      <Filter>Source\00. Engine\01. Graphics\BS</Filter>
+      <Filter>Source\00. Engine\01. Graphics\Collection\00. BS</Filter>
     </ClCompile>
     <ClCompile Include="RSCollection.cpp">
-      <Filter>Source\00. Engine\01. Graphics\RS</Filter>
+      <Filter>Source\00. Engine\01. Graphics\Collection\04. RS</Filter>
     </ClCompile>
     <ClCompile Include="RenderTargetRenderer.cpp">
       <Filter>Source\07. Render</Filter>
     </ClCompile>
     <ClCompile Include="EnumComponent.cpp">
-      <Filter>Source\03. Component\00. Component\Enum</Filter>
+      <Filter>Source\03. Component\00. Component\00. Enum</Filter>
     </ClCompile>
     <ClCompile Include="EngineMath.cpp">
       <Filter>Source\08. Helper\Math</Filter>
@@ -437,22 +431,28 @@
     <ClCompile Include="DebugRenderer2D.cpp">
       <Filter>Source\07. Render</Filter>
     </ClCompile>
-    <ClCompile Include="IEDCollection.cpp">
-      <Filter>Source\00. Engine\01. Graphics\IED</Filter>
+    <ClCompile Include="SMCollection.cpp">
+      <Filter>Source\00. Engine\01. Graphics\Collection\03. SM</Filter>
     </ClCompile>
     <ClCompile Include="StructVertex.cpp">
       <Filter>Source\06. Resource\01. Mesh</Filter>
     </ClCompile>
+    <ClCompile Include="Layer.cpp">
+      <Filter>Source\04. Layer</Filter>
+    </ClCompile>
+    <ClCompile Include="Resource.cpp">
+      <Filter>Source\06. Resource</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="DirectXTex.inl">
-      <Filter>Windows\Extern\MicrosoftTex</Filter>
+      <Filter>Source\Windows\Extern\MicrosoftTex</Filter>
     </None>
     <None Include="DXMath.inl">
-      <Filter>Windows\Extern\MicrosoftMath</Filter>
+      <Filter>Source\Windows\Extern\MicrosoftMath</Filter>
     </None>
     <None Include="dpend.diff">
-      <Filter>Windows</Filter>
+      <Filter>Source\Windows\diff</Filter>
     </None>
   </ItemGroup>
 </Project>

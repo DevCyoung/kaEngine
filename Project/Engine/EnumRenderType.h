@@ -7,3 +7,17 @@ enum class eRenderPriorityType
 	Transparent,
 	End
 };
+
+enum class eCameraPriorityType
+{
+	Main,
+	UI,
+	End
+};
+
+enum class eCameraProjectionType
+{
+	Perspective,
+	Orthographic,
+	End
+};

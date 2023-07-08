@@ -2,31 +2,27 @@
 #include "Engine.h"
 #include "GraphicDeviceDx11.h"
 #include "TimeManager.h"
-#include "RenderTargetRenderer.h"
 #include "MessageManager.h"
 #include "InputManager.h"
 #include "PathManager.h"
 #include "ResourceManager.h"
 #include "SceneManager.h"
-#include "EventManager.h"
 #include "RenderTargetRenderer.h"
 
-Engine::Engine(const HWND H_WND, const UINT RENDER_TARGET_WIDTH, const UINT RENDER_TARGET_HEIGHT)
-	: mHwnd(H_WND)
-	, mRenderTargetWidth(RENDER_TARGET_WIDTH)
-	, mRenderTargetHeight(RENDER_TARGET_HEIGHT)
+Engine::Engine(const HWND hWnd, const UINT renderTargetWidth, const UINT renderTargetHeight)
+	: mHwnd(hWnd)
+	, mRenderTargetWidth(renderTargetWidth)
+	, mRenderTargetHeight(renderTargetHeight)
+	, mWindowScreenWidth(renderTargetWidth)
+	, mWindowScreenHeight(renderTargetHeight)
 	, mGraphicDevice(new GraphicDeviceDX11(mHwnd, mRenderTargetWidth, mRenderTargetHeight))
 	, mRenderTargetRenderer(nullptr)
 {
 	setWindowSize(mRenderTargetWidth, mRenderTargetHeight);
-	updateWindowScreenSize();
-	
-	//EventManager::initialize();
 }
 
 Engine::~Engine()
 {
-	//EventManager::deleteInstance();
 	SceneManager::deleteInstance();
 	ResourceManager::deleteInstance();
 	InputManager::deleteInstance();
@@ -38,12 +34,12 @@ Engine::~Engine()
 	SAFE_DELETE_POINTER(mGraphicDevice);
 }
 
-void Engine::initialize(const HWND H_WND, const UINT RENDER_TARGET_WIDTH, const UINT RENDER_TARGET_HEIGHT)
+void Engine::initialize(const HWND hWnd, const UINT renderTargetWidth, const UINT renderTargetHeight)
 {
-	Assert(H_WND, WCHAR_IS_NULLPTR);
+	Assert(hWnd, WCHAR_IS_NULLPTR);
 	Assert(!sInstance, WCHAR_IS_NOT_NULLPTR);
 
-	sInstance = new Engine(H_WND, RENDER_TARGET_WIDTH, RENDER_TARGET_HEIGHT);
+	sInstance = new Engine(hWnd, renderTargetWidth, renderTargetHeight);
 
 	TimeManager::initialize();
 	MessageManager::initialize();
@@ -56,19 +52,32 @@ void Engine::initialize(const HWND H_WND, const UINT RENDER_TARGET_WIDTH, const 
 }
 
 void Engine::run()
-{	
-	updateWindowScreenSize();
+{
+	updateWindowInfo();
 
 	update();
 
 	lateUpdate();
 
-	render();	
+	render();
+
+	eventUpdate();
+}
+
+void Engine::updateWindowInfo()
+{
+	Assert(mHwnd, WCHAR_IS_NULLPTR);
+
+	RECT windowRect;
+	GetClientRect(mHwnd, &windowRect);
+
+	mWindowScreenWidth = windowRect.right - windowRect.left;
+	mWindowScreenHeight = windowRect.bottom - windowRect.top;
 }
 
 void Engine::update()
-{	
-	TimeManager::GetInstance()->update();	
+{
+	TimeManager::GetInstance()->update();
 	InputManager::GetInstance()->update(mHwnd);
 	SceneManager::GetInstance()->update();
 }
@@ -86,43 +95,32 @@ void Engine::render()
 		mRenderTargetHeight,
 		BG_COLOR,
 		mGraphicDevice->GetRenderTargetViewAddressOf(),
-		mGraphicDevice->GetDepthStencilViewAddressOf());
+		mGraphicDevice->GetDepthStencilView());
 
 	mGraphicDevice->present();
-
-	MessageManager::GetInstance()->render(mHwnd);
 }
 
-void Engine::updateWindowScreenSize()
+void Engine::eventUpdate()
+{
+	SceneManager::GetInstance()->eventUpdate();
+	MessageManager::GetInstance()->eventUpdate(mHwnd);
+}
+
+void Engine::setWindowSize(const UINT windowScreenWidth, const UINT windowScreenHeight)
 {
 	Assert(mHwnd, WCHAR_IS_NULLPTR);
 
-	RECT windowRect;
-	GetClientRect(mHwnd, &windowRect);
-
-	mWindowScreenWidth = windowRect.right - windowRect.left;
-	mWindowScreenHeight = windowRect.bottom - windowRect.top;
-}
-
-
-void Engine::setWindowSize(const UINT WINDOW_SCREEN_WIDTH, const UINT WINDOW_SCREEN_HEIGHT)
-{
-	Assert(mHwnd, WCHAR_IS_NULLPTR);
-
-	RECT windowSize =
+	RECT windowScreen =
 	{
 		0, 0,
-		static_cast<LONG>(WINDOW_SCREEN_WIDTH), static_cast<LONG>(WINDOW_SCREEN_HEIGHT)
+		static_cast<LONG>(windowScreenWidth), static_cast<LONG>(windowScreenHeight)
 	};
 
-	const BOOL bMENU = GetMenu(mHwnd) != nullptr;
+	AdjustWindowRect(&windowScreen, WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX, GetMenu(mHwnd) != nullptr);
 
-	AdjustWindowRect(&windowSize, WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX, bMENU);
+	const int ADJUST_WIDTH = static_cast<int>(windowScreen.right - windowScreen.left);
+	const int ADJUST_HEIGHT = static_cast<int>(windowScreen.bottom - windowScreen.top);
 
-	const int ADJUST_WIDTH  = static_cast<int>(windowSize.right - windowSize.left);
-	const int ADJUST_HEIGHT = static_cast<int>(windowSize.bottom - windowSize.top);
-
-	//가운데 정렬
 	const int LEFT_X_POS = GetSystemMetrics(SM_CXSCREEN) / 2 - static_cast<int>(ADJUST_WIDTH) / 2;
 	const int LEFT_Y_POS = GetSystemMetrics(SM_CYSCREEN) / 2 - static_cast<int>(ADJUST_HEIGHT) / 2;
 

@@ -10,12 +10,12 @@ class GameObject : public Entity
 {
 	friend class Layer;
 	friend class Scene;
+
 public:
 	enum class eState
 	{
 		Active,
-		Paused,
-		Dead,
+		Destroy,
 	};
 
 	GameObject();
@@ -30,8 +30,8 @@ public:
 	template<typename T>
 		requires (is_component_type<T>::value)
 	T* GetComponent() const;
-	Component* GetComponentOrNull(const eComponentType COMPONENT_TYPE) const;
-	ScriptComponent* GetComponentOrNull(const eScriptComponentType SCRIPT_COMPONENT_TYPE) const;
+	Component* GetComponentOrNull(const eComponentType componentType) const;
+	ScriptComponent* GetComponentOrNull(const eScriptComponentType scriptComponentType) const;
 
 	template<typename T>
 		requires (is_component_type<T>::value)
@@ -42,16 +42,15 @@ public:
 	void AddComponent(ScriptComponent* const component);
 	void AddComponent(Component* const component);
 
-	void RemoveComponent(const eComponentType COMPONENT_TYPE);
-	void RemoveComponent(const eScriptComponentType SCRIPT_COMPONENT_TYPE);
+	void RemoveComponent(const eComponentType componentType);
+	void RemoveComponent(const eScriptComponentType scriptComponentType);
 
-	// 0 ~ 31
-	eLayerType GetLayer() const { return mCurLayer;}; 
+	eLayerType GetLayer() const { return mLayerType;};
+	GameObject* GetParentOrNull() const { return mParent; }
+	eState GetState() const { return mState; }
 
 	//FIXME:
 	void SetParent(GameObject* const parent) { mParent = parent; }
-
-	GameObject* GetParentOrNull() const { return mParent; }
 
 private:
 	void initialize();
@@ -59,7 +58,7 @@ private:
 	void lateUpdate();	
 
 private:
-	eLayerType mCurLayer;
+	eLayerType mLayerType;
 	eState mState;
 	Component* mEngineComponents[static_cast<UINT>(eComponentType::End)];
 	std::vector<ScriptComponent*> mUserComponents;
@@ -72,6 +71,9 @@ inline void GameObject::AddComponent(T* const component)
 {	
 	Assert(component, WCHAR_IS_NULLPTR);
 	Assert(!(component->mOwner), WCHAR_IS_NOT_NULLPTR);
+	Assert(!(GetComponentOrNull<T>()), WCHAR_IS_NOT_NULLPTR);
+
+	component->mOwner = this;
 
 	if constexpr (engine_component_type<T>::value)
 	{
@@ -79,20 +81,9 @@ inline void GameObject::AddComponent(T* const component)
 		mEngineComponents[static_cast<UINT>(engine_component_type<T>::type)] = component;
 	}
 	else if constexpr (script_component_type<T>::value)
-	{
-		for (const ScriptComponent* const P_SCRIPT : mUserComponents)
-		{			
-			if (P_SCRIPT->GetScriptType() == script_component_type<T>::type)
-			{
-				Assert(false, WCHAR_IS_INVALID_TYPE);
-				break;
-			}
-		}
-
+	{		
 		mUserComponents.push_back(component);
 	}
-
-	component->mOwner = this;
 }
 
 template<typename T>
@@ -100,6 +91,7 @@ template<typename T>
 inline void GameObject::AddComponent()
 {
 	T* const component = new T();
+
 	Assert(component, WCHAR_IS_NULLPTR);
 
 	AddComponent(component);
@@ -122,6 +114,7 @@ inline T* GameObject::GetComponentOrNull() const
 			if (script->GetScriptType() == script_component_type<T>::type)
 			{
 				component = dynamic_cast<T*>(script);
+
 				break;
 			}
 		}
@@ -134,7 +127,8 @@ template<typename T>
 	requires (is_component_type<T>::value)
 inline T* GameObject::GetComponent() const
 {	
-	T* component = GetComponentOrNull<T>();
+	T* const component = GetComponentOrNull<T>();
+
 	Assert(component, WCHAR_IS_NULLPTR);
 
 	return component;

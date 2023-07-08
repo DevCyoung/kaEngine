@@ -21,39 +21,37 @@ Texture::~Texture()
 {
 }
 
-HRESULT Texture::Load(const std::wstring& FULL_PATH)
+HRESULT Texture::Load(const std::wstring& filePath)
 {
-	const std::wstring extension = helper::String::SplitFilePathExtension(FULL_PATH);
+	const std::wstring& FILE_EXTENSION = helper::String::SplitFilePathExtension(filePath);
 
-	if (extension == L".dds" || extension == L".DDS")
+	if (FILE_EXTENSION == L".dds" || FILE_EXTENSION == L".DDS")
 	{
-		if (FAILED(LoadFromDDSFile(FULL_PATH.c_str(), DDS_FLAGS::DDS_FLAGS_NONE, nullptr, mImage)))
+		if (FAILED(LoadFromDDSFile(filePath.c_str(), DDS_FLAGS::DDS_FLAGS_NONE, nullptr, mImage)))
 		{
 			Assert(false, L"fail load file .dds");
 		}
 	}
-	else if (extension == L".tga" || extension == L".TGA")
+	else if (FILE_EXTENSION == L".tga" || FILE_EXTENSION == L".TGA")
 	{
-		if (FAILED(LoadFromTGAFile(FULL_PATH.c_str(), nullptr, mImage)))
+		if (FAILED(LoadFromTGAFile(filePath.c_str(), nullptr, mImage)))
 		{
 			Assert(false, L"fail load file .tga");
 		}
 	}
-	else if (extension == L".png" || extension == L".PNG" ||
-		extension == L".jpg" || extension == L".JPG" ||
-		extension == L".jpeg" || extension == L".JPEG" ||
-		extension == L".bmp" || extension == L".BMP") // WIC (png, jpg, jpeg, bmp )
+	else if (FILE_EXTENSION == L".png" || FILE_EXTENSION == L".PNG" ||
+		FILE_EXTENSION == L".jpg" || FILE_EXTENSION == L".JPG" ||
+		FILE_EXTENSION == L".jpeg" || FILE_EXTENSION == L".JPEG" ||
+		FILE_EXTENSION == L".bmp" || FILE_EXTENSION == L".BMP") // WIC (png, jpg, jpeg, bmp )
 	{
-		if (FAILED(LoadFromWICFile(FULL_PATH.c_str(), WIC_FLAGS::WIC_FLAGS_NONE, nullptr, mImage)))
+		if (FAILED(LoadFromWICFile(filePath.c_str(), WIC_FLAGS::WIC_FLAGS_NONE, nullptr, mImage)))
 		{
 			Assert(false, L"fail load file other");
 		}
 	}
 	else
-	{
-		std::wstring errorMessage = FULL_PATH;
-		errorMessage += L" is not supported";		
-		Assert(false, errorMessage.c_str());
+	{				
+		Assert(false, L"is not supported");
 	}
 
 	if (FAILED(CreateShaderResourceView(gGraphicDevice->UnSafe_GetDevice()
@@ -65,6 +63,7 @@ HRESULT Texture::Load(const std::wstring& FULL_PATH)
 	}
 
 	Assert(mSRV, WCHAR_IS_NULLPTR);
+
 	mSRV->GetResource(reinterpret_cast<ID3D11Resource**>(mTexture.GetAddressOf()));
 	return S_OK;
 }

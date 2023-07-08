@@ -7,7 +7,7 @@
 #include "RSCollection.h"
 #include "BSCollection.h"
 #include "DSCollection.h"
-#include "IEDCollection.h"
+#include "SMCollection.h"
 
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "d3dcompiler.lib")
@@ -36,14 +36,17 @@
 #pragma endregion
 
 #pragma region Constructor
-GraphicDeviceDX11::GraphicDeviceDX11(const HWND H_WND, const UINT RENDER_TARGET_WIDTH, const UINT RENDER_TARGET_HEIGHT)
+GraphicDeviceDX11::GraphicDeviceDX11(const HWND hWnd, 
+	const UINT renderTargetWidth, const UINT renderTargetHeight)
 	: mCBCollection(nullptr)
 	, mRSCollection(nullptr)
 	, mBSCollection(nullptr)
 	, mDSCollection(nullptr)
-	, mIEDCollection(nullptr)
+	, mSMCollection(nullptr)
 {
-	Assert(H_WND, WCHAR_IS_NULLPTR);
+	Assert(hWnd, WCHAR_IS_NULLPTR);
+
+#pragma region Create Device And Context
 
 #ifdef _DEBUG
 	constexpr UINT DEVICE_FLAG = D3D11_CREATE_DEVICE_FLAG::D3D11_CREATE_DEVICE_DEBUG;
@@ -51,7 +54,6 @@ GraphicDeviceDX11::GraphicDeviceDX11(const HWND H_WND, const UINT RENDER_TARGET_
 	constexpr UINT DEVICE_FLAG = 0;
 #endif
 
-#pragma region Create Device And Context
 	//https://learn.microsoft.com/ko-kr/windows/win32/api/d3dcommon/ne-d3dcommon-d3d_feature_level
 	//셰이더 모델 5를 포함하여 Direct3D 11.0에서 지원하는 기능을 대상으로 합니다.
 	D3D_FEATURE_LEVEL featureLevel = D3D_FEATURE_LEVEL_11_0;
@@ -67,19 +69,20 @@ GraphicDeviceDX11::GraphicDeviceDX11(const HWND H_WND, const UINT RENDER_TARGET_
 
 	Assert(mDevice.Get(), WCHAR_IS_NULLPTR);
 	Assert(mContext.Get(), WCHAR_IS_NULLPTR);
+
 #pragma endregion
 
-#pragma region Create SwaphChain	
+#pragma region Create SwaphChain
 	DXGI_SWAP_CHAIN_DESC swapChainDesc = {};
 
 	swapChainDesc.BufferCount = 2;
 	swapChainDesc.SampleDesc.Count = 1;
 	swapChainDesc.SampleDesc.Quality = 0;
-	swapChainDesc.OutputWindow = H_WND;
+	swapChainDesc.OutputWindow = hWnd;
 	swapChainDesc.Windowed = TRUE;
 
-	swapChainDesc.BufferDesc.Width = RENDER_TARGET_WIDTH;
-	swapChainDesc.BufferDesc.Height = RENDER_TARGET_HEIGHT;
+	swapChainDesc.BufferDesc.Width = renderTargetWidth;
+	swapChainDesc.BufferDesc.Height = renderTargetHeight;
 	swapChainDesc.BufferDesc.RefreshRate.Numerator = 240;   //최대프레임
 	swapChainDesc.BufferDesc.RefreshRate.Denominator = 1;   //최소프레임
 	swapChainDesc.BufferDesc.Scaling = DXGI_MODE_SCALING::DXGI_MODE_SCALING_UNSPECIFIED;
@@ -136,8 +139,8 @@ GraphicDeviceDX11::GraphicDeviceDX11(const HWND H_WND, const UINT RENDER_TARGET_
 	depthStencilDesc.BindFlags = D3D11_BIND_FLAG::D3D11_BIND_DEPTH_STENCIL;
 	depthStencilDesc.Format = DXGI_FORMAT::DXGI_FORMAT_D24_UNORM_S8_UINT;
 	depthStencilDesc.Usage = D3D11_USAGE_DEFAULT;
-	depthStencilDesc.Width = RENDER_TARGET_WIDTH;
-	depthStencilDesc.Height = RENDER_TARGET_HEIGHT;
+	depthStencilDesc.Width = renderTargetWidth;
+	depthStencilDesc.Height = renderTargetHeight;
 	depthStencilDesc.ArraySize = 1;
 	depthStencilDesc.SampleDesc.Count = 1;
 	depthStencilDesc.MiscFlags = 0;
@@ -188,7 +191,7 @@ GraphicDeviceDX11::GraphicDeviceDX11(const HWND H_WND, const UINT RENDER_TARGET_
 	mRSCollection = new RSCollection(mDevice.Get());
 	mBSCollection = new BSCollection(mDevice.Get());
 	mDSCollection = new DSCollection(mDevice.Get());
-	mIEDCollection = new IEDCollection();
+	mSMCollection = new SMCollection();
 #pragma endregion
 
 }
@@ -196,59 +199,59 @@ GraphicDeviceDX11::GraphicDeviceDX11(const HWND H_WND, const UINT RENDER_TARGET_
 
 GraphicDeviceDX11::~GraphicDeviceDX11()
 {
-	SAFE_DELETE_POINTER(mIEDCollection);
+	SAFE_DELETE_POINTER(mSMCollection);
 	SAFE_DELETE_POINTER(mDSCollection);
 	SAFE_DELETE_POINTER(mBSCollection);
 	SAFE_DELETE_POINTER(mRSCollection);
 	SAFE_DELETE_POINTER(mCBCollection);
 }
 
-void GraphicDeviceDX11::BindIA(const Shader* const P_SHADER) const
+void GraphicDeviceDX11::BindIA(const Shader* const shader) const
 {
-	Assert(P_SHADER, WCHAR_IS_NULLPTR);
-	Assert(P_SHADER->mInputLayout.Get(), WCHAR_IS_NULLPTR);
+	Assert(shader, WCHAR_IS_NULLPTR);
+	Assert(shader->mInputLayout.Get(), WCHAR_IS_NULLPTR);
 
-	mContext->IASetInputLayout(P_SHADER->mInputLayout.Get());
-	mContext->IASetPrimitiveTopology(P_SHADER->mTopology);
+	mContext->IASetInputLayout(shader->mInputLayout.Get());
+	mContext->IASetPrimitiveTopology(shader->mTopology);
 }
 
-void GraphicDeviceDX11::BindMesh(const Mesh* const P_MESH) const
+void GraphicDeviceDX11::BindMesh(const Mesh* const mesh) const
 {
-	Assert(P_MESH, WCHAR_IS_NULLPTR);
+	Assert(mesh, WCHAR_IS_NULLPTR);
 
 	const UINT OFFSET = 0;
-	const UINT STRIDE = static_cast<UINT>(P_MESH->mVertexSize);
+	const UINT STRIDE = static_cast<UINT>(mesh->mVertexSize);
 
-	mContext->IASetVertexBuffers(0, 1, P_MESH->mVertexBuffer.GetAddressOf(), &STRIDE, &OFFSET);
-	mContext->IASetIndexBuffer(P_MESH->mIndexBuffer.Get(), DXGI_FORMAT_R32_UINT, 0);
+	mContext->IASetVertexBuffers(0, 1, mesh->mVertexBuffer.GetAddressOf(), &STRIDE, &OFFSET);
+	mContext->IASetIndexBuffer(mesh->mIndexBuffer.Get(), DXGI_FORMAT_R32_UINT, 0);
 }
 
-void GraphicDeviceDX11::BindTexture(const eShaderBindType SHADER_BIND_STAGE_TYPE,
-	const UINT START_SLOT,
-	const Texture* const P_TEXTURE) const
+void GraphicDeviceDX11::BindTexture(const eShaderBindType stageType,
+	const UINT startSlot,
+	const Texture* const texture) const
 {
-	Assert(eShaderBindType::End != SHADER_BIND_STAGE_TYPE, WCHAR_IS_INVALID_TYPE);
-	Assert(P_TEXTURE, WCHAR_IS_NULLPTR);
+	Assert(eShaderBindType::End != stageType, WCHAR_IS_INVALID_TYPE);
+	Assert(texture, WCHAR_IS_NULLPTR);
 
-	switch (SHADER_BIND_STAGE_TYPE)
+	switch (stageType)
 	{
 	case eShaderBindType::VS:
-		mContext->VSSetShaderResources(START_SLOT, 1, P_TEXTURE->mSRV.GetAddressOf());
+		mContext->VSSetShaderResources(startSlot, 1, texture->mSRV.GetAddressOf());
 		break;
 	case eShaderBindType::HS:
-		mContext->HSSetShaderResources(START_SLOT, 1, P_TEXTURE->mSRV.GetAddressOf());
+		mContext->HSSetShaderResources(startSlot, 1, texture->mSRV.GetAddressOf());
 		break;
 	case eShaderBindType::DS:
-		mContext->DSSetShaderResources(START_SLOT, 1, P_TEXTURE->mSRV.GetAddressOf());
+		mContext->DSSetShaderResources(startSlot, 1, texture->mSRV.GetAddressOf());
 		break;
 	case eShaderBindType::GS:
-		mContext->GSSetShaderResources(START_SLOT, 1, P_TEXTURE->mSRV.GetAddressOf());
+		mContext->GSSetShaderResources(startSlot, 1, texture->mSRV.GetAddressOf());
 		break;
 	case eShaderBindType::PS:
-		mContext->PSSetShaderResources(START_SLOT, 1, P_TEXTURE->mSRV.GetAddressOf());
+		mContext->PSSetShaderResources(startSlot, 1, texture->mSRV.GetAddressOf());
 		break;
 	case eShaderBindType::CS:
-		mContext->CSSetShaderResources(START_SLOT, 1, P_TEXTURE->mSRV.GetAddressOf());
+		mContext->CSSetShaderResources(startSlot, 1, texture->mSRV.GetAddressOf());
 		break;
 	default:
 		Assert(false, WCHAR_SWITCH_DEFAULT);
@@ -256,16 +259,15 @@ void GraphicDeviceDX11::BindTexture(const eShaderBindType SHADER_BIND_STAGE_TYPE
 	}
 }
 
-void GraphicDeviceDX11::BindCB(const eCBType CB_TYPE, const eShaderBindType SHADER_BIND_STAGE_TYPE) const
+void GraphicDeviceDX11::BindCB(const eCBType CBType, const eShaderBindType stageType) const
 {
-	Assert(eCBType::End != CB_TYPE, WCHAR_IS_INVALID_TYPE);
-	Assert(eShaderBindType::End != SHADER_BIND_STAGE_TYPE, WCHAR_IS_INVALID_TYPE);
+	Assert(eCBType::End != CBType, WCHAR_IS_INVALID_TYPE);
+	Assert(eShaderBindType::End != stageType, WCHAR_IS_INVALID_TYPE);
 
-
-	const ConstantBuffer& CB = mCBCollection->GetConstantBuffer(CB_TYPE);
+	const ConstantBuffer& CB = mCBCollection->GetConstantBuffer(CBType);
 	const UINT START_SLOT = static_cast<UINT>(CB.mType);
 
-	switch (SHADER_BIND_STAGE_TYPE)
+	switch (stageType)
 	{
 	case eShaderBindType::VS:
 		mContext->VSSetConstantBuffers(START_SLOT, 1, CB.mBuffer.GetAddressOf());
@@ -291,89 +293,91 @@ void GraphicDeviceDX11::BindCB(const eCBType CB_TYPE, const eShaderBindType SHAD
 	}
 }
 
-void GraphicDeviceDX11::PassCB(const eCBType CB_TYPE, const UINT BYTE_SIZE, const void* const P_DATA) const
+void GraphicDeviceDX11::PassCB(const eCBType CBType, const UINT dataSize, const void* const data) const
 {
-	Assert(eCBType::End != CB_TYPE, WCHAR_IS_INVALID_TYPE);
-	Assert(P_DATA, WCHAR_IS_NULLPTR);
-	UNREFERENCED_PARAMETER(BYTE_SIZE);
+	Assert(eCBType::End != CBType, WCHAR_IS_INVALID_TYPE);
+	Assert(data, WCHAR_IS_NULLPTR);
 
-	ConstantBuffer& CB = mCBCollection->GetConstantBuffer(CB_TYPE);
-	Assert(CB.mSize == BYTE_SIZE, L"data size not ali 16");
+	UNREFERENCED_PARAMETER(dataSize);
+
+	ConstantBuffer& CB = mCBCollection->GetConstantBuffer(CBType);
+
+	Assert(CB.mSize == dataSize, L"data size not ali 16");
 
 	D3D11_MAPPED_SUBRESOURCE subResource = {};
 
 	mContext->Map(CB.mBuffer.Get(), 0, D3D11_MAP::D3D11_MAP_WRITE_DISCARD, 0, &subResource);
 	{
-		memcpy_s(subResource.pData, CB.mDesc.ByteWidth, P_DATA, CB.mDesc.ByteWidth);
+		memcpy_s(subResource.pData, CB.mDesc.ByteWidth, data, CB.mDesc.ByteWidth);
 	}
 	mContext->Unmap(CB.mBuffer.Get(), 0);
 }
 
-void GraphicDeviceDX11::BindVS(const Shader* const P_SHADER) const
+void GraphicDeviceDX11::BindVS(const Shader* const shader) const
 {
-	Assert(P_SHADER, WCHAR_IS_NULLPTR);
-	Assert(P_SHADER->mVS.Get(), WCHAR_IS_NULLPTR);
+	Assert(shader, WCHAR_IS_NULLPTR);
+	Assert(shader->mVS.Get(), WCHAR_IS_NULLPTR);
 
-	mContext->VSSetShader(P_SHADER->mVS.Get(), nullptr, 0);
+	mContext->VSSetShader(shader->mVS.Get(), nullptr, 0);
 }
 
-void GraphicDeviceDX11::BindPS(const Shader* const P_SHADER) const
+void GraphicDeviceDX11::BindPS(const Shader* const shader) const
 {
-	Assert(P_SHADER, WCHAR_IS_NULLPTR);
-	Assert(P_SHADER->mPS.Get(), WCHAR_IS_NULLPTR);
+	Assert(shader, WCHAR_IS_NULLPTR);
+	Assert(shader->mPS.Get(), WCHAR_IS_NULLPTR);
 
-	mContext->PSSetShader(P_SHADER->mPS.Get(), nullptr, 0);
+	mContext->PSSetShader(shader->mPS.Get(), nullptr, 0);
 }
 
-void GraphicDeviceDX11::BindBS(const eBSType BS_TYPE) const
+void GraphicDeviceDX11::BindBS(const eBSType BSType) const
 {
-	Assert(eBSType::End != BS_TYPE, WCHAR_IS_INVALID_TYPE);
+	Assert(eBSType::End != BSType, WCHAR_IS_INVALID_TYPE);
 
-	mContext->OMSetBlendState(mBSCollection->mBStates[static_cast<UINT>(BS_TYPE)].Get(), nullptr, 0xffffffff);
+	mContext->OMSetBlendState(mBSCollection->mBStates[static_cast<UINT>(BSType)].Get(), nullptr, 0xffffffff);
 }
 
-void GraphicDeviceDX11::BindDS(const eDSType DS_TYPE) const
+void GraphicDeviceDX11::BindDS(const eDSType DSType) const
 {
-	Assert(eDSType::End != DS_TYPE, WCHAR_IS_INVALID_TYPE);
+	Assert(eDSType::End != DSType, WCHAR_IS_INVALID_TYPE);
 
-	mContext->OMSetDepthStencilState(mDSCollection->mDStates[static_cast<UINT>(DS_TYPE)].Get(), 0);
+	mContext->OMSetDepthStencilState(mDSCollection->mDStates[static_cast<UINT>(DSType)].Get(), 0);
 }
 
-void GraphicDeviceDX11::BindRS(const eRSType RS_TYPE) const
+void GraphicDeviceDX11::BindRS(const eRSType RSType) const
 {
-	Assert(eRSType::End != RS_TYPE, WCHAR_IS_INVALID_TYPE);
+	Assert(eRSType::End != RSType, WCHAR_IS_INVALID_TYPE);
 
-	mContext->RSSetState(mRSCollection->mRStates[static_cast<UINT>(RS_TYPE)].Get());
+	mContext->RSSetState(mRSCollection->mRStates[static_cast<UINT>(RSType)].Get());
 }
 
-void GraphicDeviceDX11::Draw(const Mesh* const P_MESH) const
+void GraphicDeviceDX11::Draw(const Mesh* const mesh) const
 {
-	Assert(P_MESH, WCHAR_IS_NULLPTR);
+	Assert(mesh, WCHAR_IS_NULLPTR);
 
-	const UINT indexCount = P_MESH->GetIndexCount();
-	const UINT StartVertexLocation = 0;
+	const UINT INDEX_COUNT = mesh->GetIndexCount();
+	const UINT START_VERTEX_LOCATION = 0;
 
-	mContext->DrawIndexed(indexCount, StartVertexLocation, 0);
+	mContext->DrawIndexed(INDEX_COUNT, START_VERTEX_LOCATION, 0);
 }
 
-void GraphicDeviceDX11::ClearRenderTarget(const UINT RENDER_TARGET_WIDTH,
-	const UINT RENDER_TARGET_HEIGHT,
-	const FLOAT BG_COLOR[4],
-	ID3D11RenderTargetView** const ppRnderTargetView,
-	ID3D11DepthStencilView** const ppDepthStencilView) const
-{	
-	mContext->ClearRenderTargetView(*ppRnderTargetView, BG_COLOR);
-	mContext->ClearDepthStencilView(*ppDepthStencilView, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
+void GraphicDeviceDX11::ClearRenderTarget(const UINT renderTargetWidth, 
+	const UINT renderTargetHeight,
+	const FLOAT backgroundColor[4],
+	ID3D11RenderTargetView* const* const ppRnderTargetView,
+	ID3D11DepthStencilView* const depthStencilView) const
+{	            		
+	mContext->ClearRenderTargetView(*ppRnderTargetView, backgroundColor);
+	mContext->ClearDepthStencilView(depthStencilView, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
 
 	const D3D11_VIEWPORT VIEW_PORT =
 	{
 		0.0f, 0.0f,
-		static_cast<FLOAT>(RENDER_TARGET_WIDTH), static_cast<FLOAT>(RENDER_TARGET_HEIGHT),
+		static_cast<FLOAT>(renderTargetWidth), static_cast<FLOAT>(renderTargetHeight),
 		0.0f, 1.0f
 	};
 
 	mContext->RSSetViewports(1, &VIEW_PORT);
-	mContext->OMSetRenderTargets(1, ppRnderTargetView, *ppDepthStencilView);
+	mContext->OMSetRenderTargets(1, ppRnderTargetView, depthStencilView);
 }
 
 void GraphicDeviceDX11::present()

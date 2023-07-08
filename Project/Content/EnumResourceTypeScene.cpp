@@ -1,7 +1,7 @@
 ﻿#include "pch.h"
 #include "EnumResourceTypeScene.h"
 
-const wchar_t* eResScenePath[static_cast<UINT>(eResScene::End)]
+static constexpr const wchar_t* eResScenePath[static_cast<UINT>(eResScene::End)]
 {
 	L"\\Scene\\dummy.scene",
 };

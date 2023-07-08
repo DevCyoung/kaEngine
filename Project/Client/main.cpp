@@ -38,6 +38,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 	//_CrtSetBreakAlloc(263);
 #endif
+
 	// 전역 문자열을 초기화합니다.
 	LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
 	LoadStringW(hInstance, IDC_CLIENT, szWindowClass, MAX_LOADSTRING);
@@ -53,11 +54,11 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	MSG msg;
 
 	constexpr UINT EDIT_SCREEN_WIDTH = 1600;
-	constexpr UINT EDIT_SCREEN_HEIGHT = 900;
+	constexpr UINT EDIT_SCREEN_HEIGHT = 900;	
 
 	//constexpr UINT KATANA_SCREEN_WIDTH = 1280;
 	//constexpr UINT KATANA_SCREEN_HEIGHT = 720;
-	//
+
 	Engine::initialize(gHwnd, EDIT_SCREEN_WIDTH, EDIT_SCREEN_HEIGHT);
 	Content::initialize();	
 

@@ -4,44 +4,41 @@
 #include "GraphicDeviceDx11.h"
 
 Mesh::Mesh(
-	const void* const VERTEX_DATA_ARRAY,
-	const size_t VERTEX_COUNT,
-	const size_t VERTEX_DATA_SIZE,
-	const void* const INDEX_DATA_ARRAY,
-	const size_t INDEX_COUNT,
-	const size_t INDEX_DATA_SIZE)
+	const void* const vertexs,
+	const size_t vertexCount,
+	const size_t vertexSize,
+	const void* const indexs,
+	const size_t indexCount,
+	const size_t indexSize)
 	: mVertexBuffer(nullptr)
-	, mVertexCount(VERTEX_COUNT)
-	, mVertexSize(VERTEX_DATA_SIZE)
+	, mVertexCount(vertexCount)
+	, mVertexSize(vertexSize)
 	, mVertexDesc{}
 	, mIndexBuffer(nullptr)
-	, mIndexCount(INDEX_COUNT)
-	, mIndexSize(INDEX_DATA_SIZE)
+	, mIndexCount(indexCount)
+	, mIndexSize(indexSize)
 	, mIdexDesc{}
-{
-
-	//Create Vertex Buffer
+{	
 	mVertexDesc.BindFlags = D3D11_BIND_FLAG::D3D11_BIND_VERTEX_BUFFER;
 	mVertexDesc.CPUAccessFlags = 0;
 	mVertexDesc.Usage = D3D11_USAGE_DEFAULT;
-	mVertexDesc.ByteWidth = static_cast<UINT>(mVertexSize * mVertexCount);
+	mVertexDesc.ByteWidth = static_cast<UINT>(mVertexCount * mVertexSize);
 
-	D3D11_SUBRESOURCE_DATA tVertexSub = {};
-	tVertexSub.pSysMem = VERTEX_DATA_ARRAY;
+	D3D11_SUBRESOURCE_DATA outVertexSub = {};
+	outVertexSub.pSysMem = vertexs;
 
-	if (FAILED(gGraphicDevice->UnSafe_GetDevice()->CreateBuffer(&mVertexDesc, &tVertexSub, mVertexBuffer.GetAddressOf())))
+	if (FAILED(gGraphicDevice->UnSafe_GetDevice()->CreateBuffer(&mVertexDesc, &outVertexSub, mVertexBuffer.GetAddressOf())))
 	{
 		Assert(false, L"failed to create vertex buffer");
 	}
-
-	//Create Index Buffer
+	
 	mIdexDesc.BindFlags = D3D11_BIND_FLAG::D3D11_BIND_INDEX_BUFFER;
 	mIdexDesc.CPUAccessFlags = 0;
 	mIdexDesc.Usage = D3D11_USAGE_DEFAULT;
-	mIdexDesc.ByteWidth = static_cast<UINT>(mIndexSize * mIndexCount);
+	mIdexDesc.ByteWidth = static_cast<UINT>(mIndexCount * mIndexSize);
 
 	D3D11_SUBRESOURCE_DATA tIndexSub = {};
-	tIndexSub.pSysMem = INDEX_DATA_ARRAY;
+	tIndexSub.pSysMem = indexs;
 
 	if (FAILED(gGraphicDevice->UnSafe_GetDevice()->CreateBuffer(&mIdexDesc, &tIndexSub, mIndexBuffer.GetAddressOf())))
 	{
@@ -53,10 +50,10 @@ Mesh::~Mesh()
 {
 }
 
-HRESULT Mesh::Load(const std::wstring& path)
+HRESULT Mesh::Load(const std::wstring& filePath)
 {
 	Assert(false, L"");
 
-	(void)path;
+	(void)filePath;
 	return E_NOTIMPL;
 }

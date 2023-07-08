@@ -18,25 +18,25 @@ namespace memory::safe
 	}
 
 	template<typename Pointer>
-	void DeleteVec(std::vector<Pointer>& vec)
+	void DeleteVec(std::vector<Pointer>& vector)
 	{
-		for (size_t i = 0; i < vec.size(); ++i)
+		for (size_t i = 0; i < vector.size(); ++i)
 		{
-			SAFE_DELETE_POINTER(vec[i]);
+			SAFE_DELETE_POINTER(vector[i]);
 		}
 
-		vec.clear();
+		vector.clear();
 	}
 
 	template<typename Key, typename Pointer>
-	void DeleteUnorderedMap(std::unordered_map<Key, Pointer>& map)
+	void DeleteUnorderedMap(std::unordered_map<Key, Pointer>& unordered_map)
 	{
-		for (auto& value : map)
+		for (auto& value : unordered_map)
 		{
 			SAFE_DELETE_POINTER(value.second);
 		}
 
-		map.clear();
+		unordered_map.clear();
 	}
 }
 
@@ -52,24 +52,24 @@ namespace memory::unsafe
 	}
 
 	template<typename T>
-	void DeleteVec(std::vector<T>& vec)
+	void DeleteVec(std::vector<T>& vector)
 	{
-		for (size_t i = 0; i < vec.size(); ++i)
+		for (size_t i = 0; i < vector.size(); ++i)
 		{
-			DELETE_POINTER(vec[i]);
+			DELETE_POINTER(vector[i]);
 		}
 
-		vec.clear();
+		vector.clear();
 	}
 
 	template<typename Key, typename T>
-	void DeleteUnorderedMap(std::unordered_map<Key, T>& map)
+	void DeleteUnorderedMap(std::unordered_map<Key, T>& unordered_map)
 	{
-		for (auto& value : map)
+		for (auto& value : unordered_map)
 		{
 			DELETE_POINTER(value.second);
 		}
 
-		map.clear();
+		unordered_map.clear();
 	}
 }

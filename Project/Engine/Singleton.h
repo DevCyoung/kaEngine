@@ -23,7 +23,7 @@ public:														\
 private:													\
 	CLASSNAME();											\
 	virtual ~CLASSNAME();									\
-	CLASSNAME(const CLASSNAME& other) = delete;				\
-	CLASSNAME& operator=(const CLASSNAME& other) = delete;	\
+	CLASSNAME(const CLASSNAME&) = delete;					\
+	CLASSNAME& operator=(const CLASSNAME&) = delete;		\
 private:													\
 	inline static CLASSNAME* sInstance = nullptr;			\

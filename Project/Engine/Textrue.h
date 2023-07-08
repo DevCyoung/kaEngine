@@ -15,18 +15,13 @@ private:
 	Texture(const Texture&) = delete;
 	Texture& operator=(const Texture&) = delete;		
 public:
-	float GetWidth() const {  return static_cast<float>(mImage.GetMetadata().width) ;}
+	float GetWidth() const {  return static_cast<float>(mImage.GetMetadata().width);  }
 	float GetHeight() const { return static_cast<float>(mImage.GetMetadata().height); }
 
-	virtual HRESULT Load(const std::wstring& FULL_PATH) override;
+	virtual HRESULT Load(const std::wstring& filePath) override;
 
 private:	
 	ScratchImage mImage;
 	Microsoft::WRL::ComPtr<ID3D11Texture2D> mTexture;
 	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> mSRV;
-
-	//Comment: 추후에 작업해야함
-	//Microsoft::WRL::ComPtr<ID3D11RenderTargetView> mRenderTargetView;
-	//Microsoft::WRL::ComPtr<ID3D11Texture2D> mDepthStencilTexture;
-	//Microsoft::WRL::ComPtr<ID3D11DepthStencilView> mDepthStencilView;		
 };

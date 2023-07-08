@@ -6,6 +6,7 @@ struct engine_resource_type
 {
 	static constexpr bool value = false;
 };
+
 #define ENGINE_RESOURCE_TYPE(RES_TYPE)									\
 class RES_TYPE;															\
 enum class eRes##RES_TYPE;												\

@@ -2,11 +2,13 @@
 #include <d3d11.h>
 #include "Singleton.h"
 #include "EnumRenderType.h"
-#include "Camera.h"
 
-class RenderComponent;
 class Camera;
+class RenderComponent;
 class DebugRenderer2D;
+
+enum class eCameraPriorityType;
+
 class RenderTargetRenderer
 {
 	friend class Camera;
@@ -16,29 +18,28 @@ public:
 	RenderTargetRenderer();
 	virtual ~RenderTargetRenderer();
 
-	void Render(const UINT RENDER_TARGET_WIDTH,
-		const UINT RENDER_TARGET_HEIGHT,
-		const FLOAT BG_COLOR[4],
+	void Render(const UINT renderTargetWidth,
+		const UINT renderTargetHeight,
+		const FLOAT backgroundColor[4],
 		ID3D11RenderTargetView** const ppRenderTargetView,
-		ID3D11DepthStencilView** const ppDepthStencilView);
+		ID3D11DepthStencilView* const depthStencilView);
 
-	Camera* GetRegisteredRenderCamera(const Camera::eCameraPriorityType type) const
-	{
-		Assert(type != Camera::eCameraPriorityType::End, WCHAR_IS_INVALID_TYPE);
-		Assert(mCameras[static_cast<UINT>(type)], WCHAR_IS_NULLPTR);
+	Camera* GetRegisteredRenderCamera(const eCameraPriorityType cameraPriorityType) const
+	{		
+		Assert(mCameras[static_cast<UINT>(cameraPriorityType)], WCHAR_IS_NULLPTR);
 
-		return mCameras[static_cast<UINT>(type)];
+		return mCameras[static_cast<UINT>(cameraPriorityType)];
 	}
 
-	DebugRenderer2D* GetDebugRenderer() const { Assert(mDebugRenderer, WCHAR_IS_NULLPTR); return mDebugRenderer; }			
+	DebugRenderer2D* GetDebugRenderer() const { Assert(mDebugRenderer, WCHAR_IS_NULLPTR); return mDebugRenderer; }
 
 private:
-	void RegisterRenderCamera(Camera* const camera);
-	void RegisterRenderComponent(RenderComponent* const renderComponent);
-	void zSortRenderObjectArray(const eRenderPriorityType RENDER_PRIORITY_TYPE);
+	void registerRenderCamera(Camera* const camera);
+	void registerRenderComponent(RenderComponent* const renderComponent);
+	void zSortRenderObjectArray(const eRenderPriorityType renderPriorityType);
 
 private:
 	DebugRenderer2D* mDebugRenderer;
-	Camera* mCameras[static_cast<UINT>(Camera::eCameraPriorityType::End)];
-	std::vector<RenderComponent*> mRenderComponentArrays[static_cast<UINT>(eRenderPriorityType::End)];
+	Camera* mCameras[static_cast<UINT>(eCameraPriorityType::End)];
+	std::vector<RenderComponent*> mRenderComponentsArray[static_cast<UINT>(eRenderPriorityType::End)];
 };

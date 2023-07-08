@@ -8,10 +8,10 @@ BSCollection::BSCollection(ID3D11Device* const device)
 
 	D3D11_BLEND_DESC blendDesc = {};
 
-	//default
+	//Default
 	mBStates[(UINT)eBSType::Default] = nullptr;
 
-	// Alpha Blend
+	//Alpha Blend
 	blendDesc.AlphaToCoverageEnable = false;
 	blendDesc.IndependentBlendEnable = false;
 	blendDesc.RenderTarget[0].BlendEnable = true;
@@ -26,7 +26,7 @@ BSCollection::BSCollection(ID3D11Device* const device)
 		, mBStates[(UINT)eBSType::AlphaBlend].GetAddressOf());
 	Assert(mBStates[static_cast<UINT>(eBSType::AlphaBlend)].Get(), WCHAR_IS_NULLPTR);
 
-	// one one
+	//One and one
 	blendDesc.AlphaToCoverageEnable = false;
 	blendDesc.IndependentBlendEnable = false;
 	blendDesc.RenderTarget[0].BlendEnable = true;

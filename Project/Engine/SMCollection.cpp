@@ -1,16 +1,17 @@
 #include "pch.h"
-#include "IEDCollection.h"
+#include "SMCollection.h"
 
-IEDCollection::IEDCollection()
+SMCollection::SMCollection()
 {
-	for (auto& IEDArray : mIEDArrays)
+	for (auto& mInputElements : mInputElementsArray)
 	{
-		IEDArray.reserve(10);
+		mInputElements.reserve(10);
 	}
 
 	//Default
 	{
-		std::vector<D3D11_INPUT_ELEMENT_DESC>& DeafultIEDArray = mIEDArrays[static_cast<UINT>(eIEDType::Default)];
+		std::vector<D3D11_INPUT_ELEMENT_DESC>& DeafultIEDArray = 
+			mInputElementsArray[static_cast<UINT>(eSMType::Default)];
 
 		constexpr UINT MAX_INPUT_ELEMENT = 3;
 		DeafultIEDArray.resize(MAX_INPUT_ELEMENT);
@@ -38,6 +39,6 @@ IEDCollection::IEDCollection()
 	}
 }
 
-IEDCollection::~IEDCollection()
+SMCollection::~SMCollection()
 {
 }

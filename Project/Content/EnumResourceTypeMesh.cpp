@@ -1,7 +1,7 @@
 ﻿#include "pch.h"
 #include "EnumResourceTypeMesh.h"
 
-const wchar_t* eResMeshPath[static_cast<UINT>(eResMesh::End)]
+static constexpr const wchar_t* eResMeshPath[static_cast<UINT>(eResMesh::End)]
 {
 	L"\\Mesh\\dummy.mesh",
 };

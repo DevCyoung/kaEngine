@@ -20,5 +20,6 @@
 #include "EnumFlag.h"
 #include "DefineMacro.h"
 #include "SafeDelete.h"
+#include "StructureEngineData.h"
 
 using namespace engine::math;
