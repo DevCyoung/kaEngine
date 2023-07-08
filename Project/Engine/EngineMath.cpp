@@ -96,7 +96,7 @@ namespace helper::math
 	void INT2MinAndMax(const tINT2& a, const tINT2& b, tINT2* const outMin, tINT2* const outMax)
 	{
 		Assert(outMin, WCHAR_IS_NULLPTR);
-		Assert(outMAX, WCHAR_IS_NULLPTR);
+		Assert(outMax, WCHAR_IS_NULLPTR);
 
 		outMin->x = min(a.x, b.x);
 		outMin->y = min(a.y, b.y);
