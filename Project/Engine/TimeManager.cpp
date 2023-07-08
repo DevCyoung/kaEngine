@@ -28,11 +28,10 @@ void TimeManager::update()
 
 	if (MessageManager::GetInstance()->IsSendMessage())
 	{
-		const float FPS = 1.0f / mDeltaTime;
-
-		constexpr UINT BUFFER_SIZE = 256;
-		wchar_t buffer[BUFFER_SIZE] = { 0, };
-		swprintf_s(buffer, BUFFER_SIZE, L"<FPS : %.f>", FPS);
+		constexpr UINT WSTR_LEN = 256;
+		const float FPS = 1.0f / mDeltaTime;		
+		wchar_t buffer[WSTR_LEN] = { 0, };
+		swprintf_s(buffer, WSTR_LEN, L"<FPS : %.f>", FPS);
 
 		MessageManager::GetInstance()->AddMessage(buffer);
 	}

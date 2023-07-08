@@ -11,32 +11,33 @@ namespace helper
 	}
 
 	//ÇöÀçÇÙÀ¸·Î ÇÏ¿´À½ ÃßÈÄ¿¡ Á¤È®È÷ »ç¿ë¹ýÀ» ÀÍÈú°Í
-	std::wstring String::StrToWStr(const std::string& STR)
+	std::wstring String::StrToWStr(const std::string& str)
 	{
-		const int SIZE = MultiByteToWideChar(CP_UTF8, 0, STR.c_str(), -1, nullptr, 0);
-		std::wstring wstr(SIZE, 0);
-		MultiByteToWideChar(CP_UTF8, 0, STR.c_str(), -1, wstr.data(), SIZE);
+		const int WSTR_LEN = MultiByteToWideChar(CP_UTF8, 0, str.c_str(), -1, nullptr, 0);
+		std::wstring wstr(WSTR_LEN, 0);
+		MultiByteToWideChar(CP_UTF8, 0, str.c_str(), -1, wstr.data(), WSTR_LEN);
 		return wstr;
 	}
 
-	std::string String::WStrToStr(const std::wstring& WSTR)
+	std::string String::WStrToStr(const std::wstring& wstr)
 	{
-		const int SIZE = WideCharToMultiByte(CP_UTF8, 0, WSTR.c_str(), -1, nullptr, 0, nullptr, nullptr);
-		std::string str(SIZE, 0);
-		WideCharToMultiByte(CP_UTF8, 0, WSTR.c_str(), -1, str.data(), SIZE, nullptr, nullptr);
+		const int STR_LEN = WideCharToMultiByte(CP_UTF8, 0, wstr.c_str(), -1, nullptr, 0, nullptr, nullptr);
+		std::string str(STR_LEN, 0);
+		WideCharToMultiByte(CP_UTF8, 0, wstr.c_str(), -1, str.data(), STR_LEN, nullptr, nullptr);
 		return str;
 	}
 	//ÇÙÇÙÇÙ
 
-	std::wstring String::SplitFilePathExtension(const std::wstring& FILE_PATH)
+	std::wstring String::SplitFilePathExtension(const std::wstring& filePath)
 	{
-		constexpr UINT PATH_LEN = 256;
-		wchar_t szExtension[PATH_LEN] = {0, };
+		constexpr UINT PATH_MAX_LEN = 256;
+		wchar_t szExtension[PATH_MAX_LEN] = {0, };
 
-		errno_t err = _wsplitpath_s(FILE_PATH.c_str(), nullptr, 0, nullptr, 0, nullptr, 0, szExtension, PATH_LEN);
+		errno_t err = _wsplitpath_s(filePath.c_str(), nullptr, 0, nullptr, 0, nullptr, 0, szExtension, PATH_MAX_LEN);
 		(void)(err);
 
 		Assert(!err, L"error file path");
+
 		return szExtension;
 	}
 	

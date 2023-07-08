@@ -12,7 +12,6 @@ Layer::~Layer()
 	memory::safe::DeleteVec(mGameObjects);
 }
 
-
 void Layer::initialize()
 {
 	for (GameObject* const gameObject : mGameObjects)

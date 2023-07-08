@@ -12,48 +12,47 @@
 
 namespace helper
 {
-	Vector2 RenderTargetToWorldUI(const Vector2& RENDER_TARGET_POS, const Vector2& RENDER_TARGET_SIZE)
+	Vector2 RenderTargetToWorldUI(const Vector2& renderTargetMousePos, const Vector2& renderTargetSize)
 	{
-		return Vector2(RENDER_TARGET_POS.x - RENDER_TARGET_SIZE.x / 2, -RENDER_TARGET_POS.y + RENDER_TARGET_SIZE.y / 2);
+		return Vector2(renderTargetMousePos.x - renderTargetSize.x / 2, -renderTargetMousePos.y + renderTargetSize.y / 2);
 	}
 
-	Vector3 ScreenMouseToWorld3D(const Vector3& SCREEN_MOUSE_POS, const Vector2& SCREEN_SIZE, const Camera* const P_CAMERA)
+	Vector3 ScreenMouseToWorld3D(const Vector3& screenMousePos, const Vector2& screenSize, const Camera* const camera)
 	{
 		Viewport viewport = {};
-		viewport.width = SCREEN_SIZE.x;
-		viewport.height = SCREEN_SIZE.y;
+		viewport.width = screenSize.x;
+		viewport.height = screenSize.y;
 		viewport.x = 0;
 		viewport.y = 0;
 		viewport.minDepth = 0.0f;
 		viewport.maxDepth = 1.0f;
 
-		Vector3 mouseWorldPos3D = viewport.Unproject(SCREEN_MOUSE_POS,
-			P_CAMERA->GetProjection(), P_CAMERA->GetView(), Matrix::Identity);
+		const Vector3& mouseWorldPos3D = 
+			viewport.Unproject(screenMousePos, camera->GetProjection(), camera->GetView(), Matrix::Identity);
+
 		return mouseWorldPos3D;
 	}
 
-	Vector3 WindowScreenMouseToWorld3D(const Camera* const P_CAMERA)
+	Vector3 WindowScreenMouseToWorld3D(const Camera* const camera)
 	{		
 		const Vector2& WINDOW_MOUSE_2D_POS	= gInput->GetWindowMousePos();		
+		const Vector3& WINDOW_MOUSE_3D_POS	= Vector3(WINDOW_MOUSE_2D_POS.x, WINDOW_MOUSE_2D_POS.y, 0.0f);
 		const Vector2& WINDOW_SCREEN_SIZE	= gEngine->GetWindowScreenSize();
-		const Vector3 WINDOW_MOUSE_3D_POS	= Vector3(WINDOW_MOUSE_2D_POS.x, WINDOW_MOUSE_2D_POS.y, 0.0f);
 		
-		return ScreenMouseToWorld3D(WINDOW_MOUSE_3D_POS, WINDOW_SCREEN_SIZE, P_CAMERA);;
-
+		return ScreenMouseToWorld3D(WINDOW_MOUSE_3D_POS, WINDOW_SCREEN_SIZE, camera);
 	}
 
-
-	float LerpCosBtwZeroAndOne(const float VALUE)
+	float LerpCosBtwZeroAndOne(const float x)
 	{
-		return (cos(VALUE) + 1.f) / 2.f;
+		return (cos(x) + 1.f) / 2.f;
 	}
 
-	float LerpSinBtwZeroAndOne(const float VALUE)
+	float LerpSinBtwZeroAndOne(const float x)
 	{
-		return (sin(VALUE) + 1.f) / 2.f;
+		return (sin(x) + 1.f) / 2.f;
 	}
-
 }
+
 #pragma region dummy
 //
 //Vector2 ScreenToWorldScreen(const Vector2& RENDER_TARGET_MOUSE_POS,

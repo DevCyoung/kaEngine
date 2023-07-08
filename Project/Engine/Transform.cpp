@@ -10,6 +10,7 @@ Transform::Transform()
 	, mForward(Vector3::Forward)
 	, mRight(Vector3::Right)
 	, mUp(Vector3::Up)
+	, mWorld(Matrix::Identity)
 {
 }
 

@@ -25,7 +25,6 @@ RSCollection::RSCollection(ID3D11Device* const device)
 	rasterizerDesc.CullMode = D3D11_CULL_MODE::D3D11_CULL_NONE;
 	device->CreateRasterizerState(&rasterizerDesc, mRStates[static_cast<UINT>(eRSType::WireframeNone)].GetAddressOf());
 	Assert(mRStates[static_cast<UINT>(eRSType::WireframeNone)].Get(), WCHAR_IS_NULLPTR);
-
 }
 
 RSCollection::~RSCollection()

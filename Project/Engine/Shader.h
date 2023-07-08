@@ -5,7 +5,7 @@
 #include "DSCollection.h"
 #include "RSCollection.h"
 #include "BSCollection.h"
-#include "IEDCollection.h"
+#include "SMCollection.h"
 
 enum class eResShader;
 
@@ -14,21 +14,20 @@ enum class eShaderBindType
 	VS, HS, DS, GS, PS, CS, End
 };
 
-
 class	Shader : public Resource
 {
 	friend class GraphicDeviceDX11;
 
 public:
 	Shader(const D3D11_PRIMITIVE_TOPOLOGY topology,
-		const eResShader VS_RELATIVE_PATH, const std::wstring& VS_FUN_NAME,
-		const eResShader PS_RELATIVE_PATH, const std::wstring& PS_FUN_NAME,
-		const eIEDType IED_TYPE, const eRSType RS_TYPE, const eDSType DS_TYPE, const eBSType BS_TYPE);
+		const eResShader VSRelativePath, const std::wstring& VSFunName,
+		const eResShader PSRelativePath, const std::wstring& PSFunName,
+		const eSMType SMType, const eRSType RSType, const eDSType DSType, const eBSType BSType);
 
-	Shader(const D3D11_PRIMITIVE_TOPOLOGY TOPOLOGY,
-		const std::wstring& VS_RELATIVE_PATH, const std::wstring& VS_FUN_NAME ,
-		const std::wstring& PS_RELATIVE_PATH, const std::wstring& PS_FUN_NAME ,
-		const eIEDType IED_TYPE, const eRSType RS_TYPE, const eDSType DS_TYPE, const eBSType BS_TYPE);
+	Shader(const D3D11_PRIMITIVE_TOPOLOGY topology,
+		const std::wstring& VSRelativePath, const std::wstring& VSFunName,
+		const std::wstring& PSRelativePath, const std::wstring& PSFunName,
+		const eSMType SMType, const eRSType RSType, const eDSType DSType, const eBSType BSType);
 
 	virtual ~Shader();
 	Shader(const Shader&) = delete;
@@ -39,20 +38,19 @@ public:
 	eBSType GetBSType() const  { return mBSType;  };
 
 private:
-	void createVSShader(const std::wstring& VS_RELATIVE_PATH,
-		const std::wstring& VS_FUN_NAME, const eIEDType& IED_TYPE);
+	void createVSShader(const std::wstring& VSRelativePath,
+		const std::wstring& VSFunName, const eSMType SMType);
 
-	void createPSShader(const std::wstring& PS_RELATIVE_PATH,
-		const std::wstring& PS_FUN_NAME);
+	void createPSShader(const std::wstring& PSRelativePath,
+		const std::wstring& PSFunName);
 
-	void shaderCompile(const std::wstring& RELATIVE_PATH, 
-		const std::wstring& FUN_NAME, 
-		const std::wstring& VERSION,
-		ID3DBlob** const blob,
-		ID3DBlob** const errorBlob);
+	void shaderCompile(const std::wstring& relativePath, 
+		const std::wstring& funName, 
+		const std::wstring& version,
+		ID3DBlob** const ppBlob,
+		ID3DBlob** const ppErrorBlob);
 
-
-	virtual HRESULT Load(const std::wstring& FULL_PATH) override;
+	virtual HRESULT Load(const std::wstring& fullPath) override;
 
 private:
 	D3D11_PRIMITIVE_TOPOLOGY mTopology;

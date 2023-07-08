@@ -58,7 +58,7 @@ void Content::loadShader()
 			new Shader(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST,
 				eResShader::VSSprite, L"main",
 				eResShader::PSSprite, L"main",
-				eIEDType::Default,
+				eSMType::Default,
 				eRSType::CullNone,
 				eDSType::Less,
 				eBSType::AlphaBlend);
@@ -72,7 +72,7 @@ void Content::loadShader()
 			new Shader(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST,
 				eResShader::VSSprite, L"main",
 				eResShader::PSSprite, L"main",
-				eIEDType::Default,
+				eSMType::Default,
 				eRSType::CullNone,
 				eDSType::None,
 				eBSType::AlphaBlend);

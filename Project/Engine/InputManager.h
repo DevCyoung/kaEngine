@@ -44,24 +44,24 @@ private:
 	};
 
 public:
-	eKeyState GetKeyState(const eKeyCode KEY)
+	eKeyState GetKeyState(const eKeyCode key)
 	{
-		return mKeyInfos[static_cast<UINT>(KEY)].state;
+		return mKeyInfos[static_cast<UINT>(key)].state;
 	};
 
-	bool GetKey(const eKeyCode KEY)
+	bool GetKey(const eKeyCode key)
 	{
-		return mKeyInfos[static_cast<UINT>(KEY)].state == eKeyState::Pressed;
+		return mKeyInfos[static_cast<UINT>(key)].state == eKeyState::Pressed;
 	}
 
-	bool GetKeyDown(const eKeyCode KEY)
+	bool GetKeyDown(const eKeyCode key)
 	{
-		return mKeyInfos[static_cast<UINT>(KEY)].state == eKeyState::Down;
+		return mKeyInfos[static_cast<UINT>(key)].state == eKeyState::Down;
 	};
 
-	bool GetKeyUp(const eKeyCode KEY)
+	bool GetKeyUp(const eKeyCode key)
 	{
-		return mKeyInfos[static_cast<UINT>(KEY)].state == eKeyState::Up;
+		return mKeyInfos[static_cast<UINT>(key)].state == eKeyState::Up;
 	};
 
 	const Vector2& GetWindowMousePos() const
@@ -77,7 +77,7 @@ public:
 	bool IsWindowMouseHoverd();
 
 private:
-	void update(const HWND H_WND);
+	void update(const HWND hWnd);
 private:
 	std::vector<tKeyInfo> mKeyInfos;
 	Vector2 mMousePos;

@@ -21,14 +21,14 @@ void BulletMovement::update()
 	Transform* transform = GetComponent<Transform>();
 	Vector3 pos = transform->GetPosition();
 
-	pos += transform->GetUp() * 3000.f * gDeltaTime;
+	pos += transform->GetUp() * 1000.f * gDeltaTime;
 	transform->SetPosition(pos);
 
 	mDelay += gDeltaTime;
 
 	//SceneManager::GetInstance()->GetCurrentScene()->RegisterEventSetDestroy(GetOwner());	
 
-	if (mDelay > 4.f)
+	if (mDelay > 2.f)
 	{
 		SceneManager::GetInstance()->GetCurrentScene()->RegisterEventSetDestroy(GetOwner());
 		//SceneManager::GetInstance()->GetCurrentScene()->RegisterEventSetDestroy(GetOwner());

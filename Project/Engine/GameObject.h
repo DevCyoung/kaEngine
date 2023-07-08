@@ -30,8 +30,8 @@ public:
 	template<typename T>
 		requires (is_component_type<T>::value)
 	T* GetComponent() const;
-	Component* GetComponentOrNull(const eComponentType COMPONENT_TYPE) const;
-	ScriptComponent* GetComponentOrNull(const eScriptComponentType SCRIPT_COMPONENT_TYPE) const;
+	Component* GetComponentOrNull(const eComponentType componentType) const;
+	ScriptComponent* GetComponentOrNull(const eScriptComponentType scriptComponentType) const;
 
 	template<typename T>
 		requires (is_component_type<T>::value)
@@ -42,8 +42,8 @@ public:
 	void AddComponent(ScriptComponent* const component);
 	void AddComponent(Component* const component);
 
-	void RemoveComponent(const eComponentType COMPONENT_TYPE);
-	void RemoveComponent(const eScriptComponentType SCRIPT_COMPONENT_TYPE);
+	void RemoveComponent(const eComponentType componentType);
+	void RemoveComponent(const eScriptComponentType scriptComponentType);
 
 	// 0 ~ 31
 	eLayerType GetLayer() const { return mCurLayer;}; 
@@ -53,7 +53,7 @@ public:
 	//FIXME:
 	void SetParent(GameObject* const parent) { mParent = parent; }
 
-	void RegisterSetStateEvent(const eState STATE_TYPE);
+	void RegisterSetStateEvent(const eState stateType);
 
 
 private:

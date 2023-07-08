@@ -16,7 +16,7 @@ class ConstantBuffer
 	friend class GraphicDeviceDX11;
 
 private:
-	ConstantBuffer(const eCBType CB_TYPE, const UINT BUFFER_SIZE, ID3D11Device* const device);
+	ConstantBuffer(const eCBType CBType, const UINT bufferSize, ID3D11Device* const device);
 	virtual ~ConstantBuffer();
 	ConstantBuffer(const ConstantBuffer&) = delete;
 	ConstantBuffer& operator=(const ConstantBuffer&) = delete;

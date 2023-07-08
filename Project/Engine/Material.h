@@ -9,7 +9,7 @@ class Material : public Resource
 {	
 	friend class GraphicDeviceDX11;
 public:
-	Material(const eRenderPriorityType RENDER_PRIORITY_TYPE);
+	Material(const eRenderPriorityType renderPriorityType);
 	virtual ~Material();
 	Material(const Material&) = delete;
 	Material& operator=(const Material&) = delete;
@@ -22,7 +22,7 @@ public:
 	void SetShader(Shader* const shader) { Assert(shader, WCHAR_IS_NULLPTR); mShader = shader; }
 	void SetTexture(Texture* const texture) { Assert(texture, WCHAR_IS_NULLPTR); mTexture = texture; }
 
-	virtual HRESULT Load(const std::wstring& FULL_PATH) override final;
+	virtual HRESULT Load(const std::wstring& fullPath) override final;
 
 private:
 	Shader* mShader;

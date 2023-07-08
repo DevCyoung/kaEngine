@@ -11,7 +11,7 @@ class RenderComponent : public Component
 {
 	friend class RenderTargetRenderer;
 protected:
-	RenderComponent(const eComponentType type);
+	RenderComponent(const eComponentType componentType);
 	virtual ~RenderComponent();
 	RenderComponent(const RenderComponent&) = delete;
 	RenderComponent& operator=(const RenderComponent&) = delete;

@@ -25,7 +25,7 @@ InputManager::InputManager()
 	, mMousePos(Vector2::Zero)
 	, mPrevMousePos(Vector2::Zero)
 {
-	mKeyInfos.reserve(static_cast<size_t>(eKeyCode::END));
+	mKeyInfos.reserve(static_cast<UINT>(eKeyCode::END));
 
 	for (UINT i = 0; i < static_cast<UINT>(eKeyCode::END); ++i)
 	{
@@ -51,9 +51,9 @@ bool InputManager::IsWindowMouseHoverd()
 		(0.f <= mMousePos.y && mMousePos.y <= WINDOW_SCREEN_SIZE.y);
 }
 
-void InputManager::update(const HWND H_WND)
+void InputManager::update(const HWND hWnd)
 {
-	Assert(H_WND, WCHAR_IS_NULLPTR);
+	Assert(hWnd, WCHAR_IS_NULLPTR);
 
 	if (GetFocus())
 	{
@@ -91,7 +91,7 @@ void InputManager::update(const HWND H_WND)
 
 		POINT ptMousePos = {};
 		GetCursorPos(&ptMousePos);
-		ScreenToClient(H_WND, &ptMousePos);
+		ScreenToClient(hWnd, &ptMousePos);
 
 		mMousePos.x = static_cast<float>(ptMousePos.x);
 		mMousePos.y = static_cast<float>(ptMousePos.y);

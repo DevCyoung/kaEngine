@@ -17,7 +17,7 @@ struct alignas(16) tCBColorInfo // b1
 struct alignas(16) tCBDebugInfo // b2
 {
 	Vector3 MouseWorldPos;
-	float dummy;	
+	float dummy;
 	Vector2 Scale;
 	int XYCount[2];
 

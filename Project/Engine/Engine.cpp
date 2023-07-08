@@ -9,12 +9,12 @@
 #include "SceneManager.h"
 #include "RenderTargetRenderer.h"
 
-Engine::Engine(const HWND H_WND, const UINT RENDER_TARGET_WIDTH, const UINT RENDER_TARGET_HEIGHT)
-	: mHwnd(H_WND)
-	, mRenderTargetWidth(RENDER_TARGET_WIDTH)
-	, mRenderTargetHeight(RENDER_TARGET_HEIGHT)
-	, mWindowScreenWidth(RENDER_TARGET_WIDTH)
-	, mWindowScreenHeight(RENDER_TARGET_HEIGHT)
+Engine::Engine(const HWND hWnd, const UINT renderTargetWidth, const UINT renderTargetHeight)
+	: mHwnd(hWnd)
+	, mRenderTargetWidth(renderTargetWidth)
+	, mRenderTargetHeight(renderTargetHeight)
+	, mWindowScreenWidth(renderTargetWidth)
+	, mWindowScreenHeight(renderTargetHeight)
 	, mGraphicDevice(new GraphicDeviceDX11(mHwnd, mRenderTargetWidth, mRenderTargetHeight))
 	, mRenderTargetRenderer(nullptr)
 {
@@ -34,12 +34,12 @@ Engine::~Engine()
 	SAFE_DELETE_POINTER(mGraphicDevice);
 }
 
-void Engine::initialize(const HWND H_WND, const UINT RENDER_TARGET_WIDTH, const UINT RENDER_TARGET_HEIGHT)
+void Engine::initialize(const HWND hWnd, const UINT renderTargetWidth, const UINT renderTargetHeight)
 {
-	Assert(H_WND, WCHAR_IS_NULLPTR);
+	Assert(hWnd, WCHAR_IS_NULLPTR);
 	Assert(!sInstance, WCHAR_IS_NOT_NULLPTR);
 
-	sInstance = new Engine(H_WND, RENDER_TARGET_WIDTH, RENDER_TARGET_HEIGHT);
+	sInstance = new Engine(hWnd, renderTargetWidth, renderTargetHeight);
 
 	TimeManager::initialize();
 	MessageManager::initialize();
@@ -95,7 +95,7 @@ void Engine::render()
 		mRenderTargetHeight,
 		BG_COLOR,
 		mGraphicDevice->GetRenderTargetViewAddressOf(),
-		mGraphicDevice->GetDepthStencilViewAddressOf());
+		mGraphicDevice->GetDepthStencilView());
 
 	mGraphicDevice->present();
 }
@@ -106,14 +106,14 @@ void Engine::eventUpdate()
 	MessageManager::GetInstance()->eventUpdate(mHwnd);
 }
 
-void Engine::setWindowSize(const UINT WINDOW_SCREEN_WIDTH, const UINT WINDOW_SCREEN_HEIGHT)
+void Engine::setWindowSize(const UINT windowScreenWidth, const UINT windowScreenHeight)
 {
 	Assert(mHwnd, WCHAR_IS_NULLPTR);
 
 	RECT windowSize =
 	{
 		0, 0,
-		static_cast<LONG>(WINDOW_SCREEN_WIDTH), static_cast<LONG>(WINDOW_SCREEN_HEIGHT)
+		static_cast<LONG>(windowScreenWidth), static_cast<LONG>(windowScreenHeight)
 	};
 
 	const BOOL bMENU = GetMenu(mHwnd) != nullptr;

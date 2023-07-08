@@ -48,16 +48,16 @@ public:
 
 		mRenderTargetRenderer = renderTargetRenderer; 
 	}
-	void Set3DFOV(const float FOV_DEGREE) { mFOV = FOV_DEGREE; }
-	void SetNear(const float CAMERA_NEAR) { mNear = CAMERA_NEAR; }
-	void SetFar(const float CAMERA_FAR) { mFar = CAMERA_FAR; }
-	void SetCamera2DSize(const float CAMERA_2D_SIZE) { mSize = CAMERA_2D_SIZE; }
-	void SetRenderTargetSize(const Vector2& RENDER_TARGET_SIZE) { mRenderTargetSize = RENDER_TARGET_SIZE; };
-	void SetCameraType(const eCameraPriorityType CAMERA_TYPE) { mCameraType = CAMERA_TYPE; }
-	void SetProjectiontType(const eProjectionType PROJECTION_TYPE) { mProjectionType = PROJECTION_TYPE; }
+	void Set3DFOV(const float fov) { mFOV = fov; }
+	void SetNear(const float cameraNear) { mNear = cameraNear; }
+	void SetFar(const float cameraFar) { mFar = cameraFar; }
+	void SetCamera2DSize(const float camera2DSize) { mSize = camera2DSize; }
+	void SetRenderTargetSize(const Vector2& renderTargetSize) { mRenderTargetSize = renderTargetSize; };
+	void SetCameraType(const eCameraPriorityType cameraPriorityType) { mCameraType = cameraPriorityType; }
+	void SetProjectiontType(const eProjectionType projectionType) { mProjectionType = projectionType; }
 
-	void TurnOnLayer(const  eLayerType LAYER_TYPE)  { mLayerMask |=  (1 <<  static_cast<UINT>(LAYER_TYPE)); }
-	void TurnOffLayer(const eLayerType LAYER_TYPE)  { mLayerMask &= ~(1 <<  static_cast<UINT>(LAYER_TYPE)); }
+	void TurnOnLayer(const  eLayerType layerType)  { mLayerMask |=  (1 <<  static_cast<UINT>(layerType)); }
+	void TurnOffLayer(const eLayerType layerType)  { mLayerMask &= ~(1 <<  static_cast<UINT>(layerType)); }
 
 	void TurnOnAllLayer()  { mLayerMask = 0XFFFFFFFF; }
 	void TurnOffAllLayer() { mLayerMask = 0; }

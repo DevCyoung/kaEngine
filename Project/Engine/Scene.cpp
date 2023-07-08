@@ -49,12 +49,13 @@ void Scene::lateUpdate()
 			gameObjects.erase(std::remove_if(gameObjects.begin(), gameObjects.end(),
 				[](const GameObject* const P_GAME_OBJECT) { return P_GAME_OBJECT->mState == GameObject::eState::Destroy; }), gameObjects.end());
 		}
-	}	
+	}
 
 	if (MessageManager::GetInstance()->IsSendMessage())
 	{
-		wchar_t buff[256] = { 0, };
-		swprintf_s(buff, 256, L"<GameObject Count : %zu>", gameObjectCount);
+		constexpr UINT WSTR_LEN = 256;
+		wchar_t buff[WSTR_LEN] = { 0, };
+		swprintf_s(buff, WSTR_LEN, L"<GameObject Count : %zu>", gameObjectCount);
 		MessageManager::GetInstance()->AddMessage(buff);
 	}
 }
@@ -70,14 +71,14 @@ void Scene::eventUpdate()
 
 		switch (EVENT_TYPE)
 		{
-		case eEventOfScene::DestroyGameObject:			
+		case eEventOfScene::DestroyGameObject:
 			Assert(message.EventGameObject->mState != GameObject::eState::Destroy, WCHAR_IS_INVALID_TYPE);
 
 			message.EventGameObject->mState = GameObject::eState::Destroy;
 			mGarbages.push_back(message.EventGameObject);
 			break;
 
-		case eEventOfScene::AddGameObject:			
+		case eEventOfScene::AddGameObject:
 			Assert(message.LayerType != eLayerType::End, WCHAR_IS_INVALID_TYPE);
 
 			message.EventGameObject->initialize();
@@ -93,17 +94,17 @@ void Scene::eventUpdate()
 	mEventMessages.clear();
 }
 
-void Scene::RegisterEventAddGameObject(GameObject* const gameObject, const eLayerType LAYER_TYPE
-	, const std::source_location& location)
+void Scene::RegisterEventAddGameObject(GameObject* const gameObject, const eLayerType layerType,
+	const std::source_location& location)
 {
 	Assert(gameObject, WCHAR_IS_NULLPTR);
-	Assert(LAYER_TYPE != eLayerType::End, WCHAR_IS_INVALID_TYPE);
+	Assert(layerType != eLayerType::End, WCHAR_IS_INVALID_TYPE);
 
 	tEventMessageScene message = {};
 
 	message.EventOfSceneType = eEventOfScene::AddGameObject;
 	message.EventGameObject = gameObject;
-	message.LayerType = LAYER_TYPE;
+	message.LayerType = layerType;
 	message.ErrorHint = location;
 
 	mEventMessages.push_back(message);
@@ -124,19 +125,19 @@ void Scene::RegisterEventSetDestroy(GameObject* const gameObject
 	mEventMessages.push_back(message);
 }
 
-void Scene::AddGameObject(GameObject* const gameObject, const eLayerType LAYER_TYPE)
+void Scene::AddGameObject(GameObject* const gameObject, const eLayerType layerType)
 {
 	Assert(gameObject, WCHAR_IS_NULLPTR);
-	Assert(LAYER_TYPE != eLayerType::End, WCHAR_IS_INVALID_TYPE);
+	Assert(layerType != eLayerType::End, WCHAR_IS_INVALID_TYPE);
 
-	gameObject->mCurLayer = LAYER_TYPE;
-	mLayers[static_cast<UINT>(LAYER_TYPE)].mGameObjects.push_back(gameObject);
+	gameObject->mCurLayer = layerType;
+	mLayers[static_cast<UINT>(layerType)].mGameObjects.push_back(gameObject);
 }
 
-HRESULT Scene::Load(const std::wstring& FULL_PATH)
+HRESULT Scene::Load(const std::wstring& fullPath)
 {
 	Assert(false, L"");
-	(void)FULL_PATH;
+	(void)fullPath;
 
 	return E_NOTIMPL;
 }

@@ -16,18 +16,18 @@ public:
 	RenderTargetRenderer();
 	virtual ~RenderTargetRenderer();
 
-	void Render(const UINT RENDER_TARGET_WIDTH,
-		const UINT RENDER_TARGET_HEIGHT,
-		const FLOAT BG_COLOR[4],
+	void Render(const UINT renderTargetWidth,
+		const UINT renderTargetHeight,
+		const FLOAT backgroundColor[4],
 		ID3D11RenderTargetView** const ppRenderTargetView,
-		ID3D11DepthStencilView** const ppDepthStencilView);
+		ID3D11DepthStencilView* const depthStencilView);
 
-	Camera* GetRegisteredRenderCamera(const Camera::eCameraPriorityType type) const
+	Camera* GetRegisteredRenderCamera(const Camera::eCameraPriorityType cameraPriorityType) const
 	{
-		Assert(type != Camera::eCameraPriorityType::End, WCHAR_IS_INVALID_TYPE);
-		Assert(mCameras[static_cast<UINT>(type)], WCHAR_IS_NULLPTR);
+		Assert(cameraPriorityType != Camera::eCameraPriorityType::End, WCHAR_IS_INVALID_TYPE);
+		Assert(mCameras[static_cast<UINT>(cameraPriorityType)], WCHAR_IS_NULLPTR);
 
-		return mCameras[static_cast<UINT>(type)];
+		return mCameras[static_cast<UINT>(cameraPriorityType)];
 	}
 
 	DebugRenderer2D* GetDebugRenderer() const { Assert(mDebugRenderer, WCHAR_IS_NULLPTR); return mDebugRenderer; }			
@@ -35,10 +35,10 @@ public:
 private:
 	void RegisterRenderCamera(Camera* const camera);
 	void RegisterRenderComponent(RenderComponent* const renderComponent);
-	void zSortRenderObjectArray(const eRenderPriorityType RENDER_PRIORITY_TYPE);
+	void zSortRenderObjectArray(const eRenderPriorityType renderPriorityType);
 
 private:
 	DebugRenderer2D* mDebugRenderer;
 	Camera* mCameras[static_cast<UINT>(Camera::eCameraPriorityType::End)];
-	std::vector<RenderComponent*> mRenderComponentArrays[static_cast<UINT>(eRenderPriorityType::End)];
+	std::vector<RenderComponent*> mRenderComponentsArray[static_cast<UINT>(eRenderPriorityType::End)];
 };

@@ -14,12 +14,15 @@ private:
 	virtual ~DebugRenderer2D();
 
 public:
-	void DrawFillRect2D(const Vector3& WORLD_POS, const Vector2& RECT_SCALE, 
-		const float DRAW_TIME, const Vector4& FILL_COLOR);
-	void DrawFillRect2D2(const Vector3& WORLD_LEFT_UP_POS, const Vector3& WORLD_RIGHT_BOTTOM_POS, 
-		const float DRAW_TIME, const Vector4& FILL_COLOR);
-	void DrawGrid2D(const Vector3& WORLD_POS, const Vector2& TILE_SIZE, const Vector2& TILE_COUNT, 
-		const float DRAW_TIME, const Vector4& FILL_COLOR);
+	void DrawFillRect2D(const Vector3& worldPos, const Vector2& rectScale,
+		const float drawTime, const Vector4& fillColor);
+
+	void DrawFillRect2D2(const Vector3& wolrdLeftUpPos, const Vector3& worldRightDownPos, 
+		const float drawTime, const Vector4& fillColor);
+
+	void DrawGrid2D(const Vector3& worldPos, 
+		const Vector2& tileSize, const Vector2& tileCount,
+		const float drawTime, const Vector4& fillColor);
 
 private:
 	enum class eDebugDrawType
@@ -44,9 +47,10 @@ private:
 		float DrawTime;
 	};
 
-	void renderRect2D(const tDebugDrawInfo& DEBUG_DRAW_INFO);
-	void renderGrid2D(const tDebugDrawInfo& DEBUG_DRAW_INFO);
-	void render(const Camera* const P_MAIN_CAMERA);
+	void renderRect2D(const tDebugDrawInfo& debugDrawInfo);
+	void renderGrid2D(const tDebugDrawInfo& debugDrawInfo);
+	void render(const Camera* const camera);
+
 private:	
 	Shader* mDebugDrawShader[static_cast<UINT>(eDebugDrawType::End)];
 	std::vector<tDebugDrawInfo> mDebugDrawInfos;

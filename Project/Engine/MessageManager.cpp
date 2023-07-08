@@ -16,8 +16,10 @@ void MessageManager::eventUpdate(const HWND H_WND)
 {	
 	if (IsSendMessage())
 	{
+		constexpr UINT WSTR_LEN = 256;
 		std::wstring outMessage;
-		outMessage.reserve(256);
+
+		outMessage.reserve(WSTR_LEN);
 		outMessage = L"<SEO Egine>";
 
 		for (const std::wstring& message : mMessages)

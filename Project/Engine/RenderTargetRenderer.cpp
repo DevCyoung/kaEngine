@@ -10,9 +10,9 @@
 RenderTargetRenderer::RenderTargetRenderer()
 	: mDebugRenderer(new DebugRenderer2D())
 	, mCameras{ 0, }
-	, mRenderComponentArrays()
+	, mRenderComponentsArray()
 {	
-	for (auto& renderObjectArray : mRenderComponentArrays)
+	for (auto& renderObjectArray : mRenderComponentsArray)
 	{
 		renderObjectArray.reserve(100);
 	}
@@ -39,12 +39,12 @@ void RenderTargetRenderer::RegisterRenderComponent(RenderComponent* const render
 	Assert(renderComponent, WCHAR_IS_NULLPTR);
 
 	const eRenderPriorityType RENDER_PRIORITY_TYPE = renderComponent->GetMaterial()->GetRenderType();
-	mRenderComponentArrays[static_cast<UINT>(RENDER_PRIORITY_TYPE)].push_back(renderComponent);
+	mRenderComponentsArray[static_cast<UINT>(RENDER_PRIORITY_TYPE)].push_back(renderComponent);
 }
 
-void RenderTargetRenderer::zSortRenderObjectArray(const eRenderPriorityType RENDER_PRIORITY_TYPE)
+void RenderTargetRenderer::zSortRenderObjectArray(const eRenderPriorityType renderPriorityType)
 {
-	auto& renderObjects = mRenderComponentArrays[static_cast<UINT>(RENDER_PRIORITY_TYPE)];
+	auto& renderObjects = mRenderComponentsArray[static_cast<UINT>(renderPriorityType)];
 
 	std::sort(renderObjects.begin(), renderObjects.end(), [](RenderComponent* const lhs, RenderComponent* const rhs)
 		{
@@ -54,14 +54,14 @@ void RenderTargetRenderer::zSortRenderObjectArray(const eRenderPriorityType REND
 		});
 }
 
-void RenderTargetRenderer::Render(const UINT RENDER_TARGET_WIDTH,
-	const UINT RENDER_TARGET_HEIGHT,
-	const FLOAT BG_COLOR[4],
+void RenderTargetRenderer::Render(const UINT renderTargetWidth,
+	const UINT renderTargetHeight,
+	const FLOAT backgroundColor[4],
 	ID3D11RenderTargetView** const ppRenderTargetView,
-	ID3D11DepthStencilView** const ppDepthStencilView)
+	ID3D11DepthStencilView* const depthStencilView)
 {
-	gGraphicDevice->ClearRenderTarget(RENDER_TARGET_WIDTH, RENDER_TARGET_HEIGHT, 
-		BG_COLOR, ppRenderTargetView, ppDepthStencilView);
+	gGraphicDevice->ClearRenderTarget(renderTargetWidth, renderTargetHeight, 
+		backgroundColor, ppRenderTargetView, depthStencilView);
 
 	//알파블렌딩 Z솔트가 필요할떄 적용한다.
 	//zSortRenderObjectArray(eRenderType::Transparent);
@@ -75,9 +75,9 @@ void RenderTargetRenderer::Render(const UINT RENDER_TARGET_WIDTH,
 
 		const UINT CAMERA_LAYER_MASK = P_CAMERA->GetLayerMask();
 
-		for (auto& renderObjectArray : mRenderComponentArrays)
+		for (auto& renderComponents : mRenderComponentsArray)
 		{
-			for (RenderComponent* const renderComponent : renderObjectArray)
+			for (RenderComponent* const renderComponent : renderComponents)
 			{
 				const UINT RENDER_OBJ_LAYER = static_cast<UINT>(renderComponent->GetOwner()->GetLayer());
 
@@ -97,8 +97,8 @@ void RenderTargetRenderer::Render(const UINT RENDER_TARGET_WIDTH,
 		camera = nullptr;
 	}
 
-	for (auto& renderComponentArray : mRenderComponentArrays)
+	for (auto& renderComponents : mRenderComponentsArray)
 	{
-		renderComponentArray.clear();
+		renderComponents.clear();
 	}
 }

@@ -7,38 +7,38 @@
 
 const wchar_t* EnumResourcePath(eResShader type);
 
-Shader::Shader(const D3D11_PRIMITIVE_TOPOLOGY TOPOLOGY,
-	const std::wstring& VS_RELATIVE_PATH, const std::wstring& VS_FUN_NAME,
-	const std::wstring& PS_RELATIVE_PATH, const std::wstring& PS_FUN_NAME,
-	const eIEDType IED_TYPE, const eRSType RS_TYPE, const eDSType DS_TYPE, const eBSType BS_TYPE)
+Shader::Shader(const D3D11_PRIMITIVE_TOPOLOGY topology,
+	const std::wstring& VSRelativePath, const std::wstring& VSFunName,
+	const std::wstring& PSRelativePath, const std::wstring& PSFunName,
+	const eSMType SMType, const eRSType RSType, const eDSType DSType, const eBSType BSType)
 	: Resource()
-	, mTopology(TOPOLOGY)
+	, mTopology(topology)
 	, mInputLayout(nullptr)
 	, mVS(nullptr)
 	, mHS(nullptr)
 	, mDS(nullptr)
 	, mGS(nullptr)
 	, mPS(nullptr)
-	, mRSType(RS_TYPE)
-	, mDSType(DS_TYPE)
-	, mBSType(BS_TYPE)
+	, mRSType(RSType)
+	, mDSType(DSType)
+	, mBSType(BSType)
 {
-	Assert(eRSType::End != RS_TYPE, WCHAR_IS_INVALID_TYPE);
-	Assert(eDSType::End != DS_TYPE, WCHAR_IS_INVALID_TYPE);
-	Assert(eBSType::End != BS_TYPE, WCHAR_IS_INVALID_TYPE);
+	Assert(eRSType::End != RSType, WCHAR_IS_INVALID_TYPE);
+	Assert(eDSType::End != DSType, WCHAR_IS_INVALID_TYPE);
+	Assert(eBSType::End != BSType, WCHAR_IS_INVALID_TYPE);
 
-	createVSShader(VS_RELATIVE_PATH, VS_FUN_NAME, IED_TYPE);
-	createPSShader(PS_RELATIVE_PATH, PS_FUN_NAME);
+	createVSShader(VSRelativePath, VSFunName, SMType);
+	createPSShader(PSRelativePath, PSFunName);
 }
 
-Shader::Shader(const D3D11_PRIMITIVE_TOPOLOGY TOPOLOGY,
-	const eResShader VS_RELATIVE_PATH_TYPE, const std::wstring& VS_FUN_NAME,
-	const eResShader PS_RELATIVE_PATH_TYPE, const std::wstring& PS_FUN_NAME,
-	const eIEDType IED_TYPE, const eRSType RS_TYPE, const eDSType DS_TYPE, const eBSType BS_TYPE)
-	: Shader(TOPOLOGY,
-		EnumResourcePath(VS_RELATIVE_PATH_TYPE), VS_FUN_NAME,
-		EnumResourcePath(PS_RELATIVE_PATH_TYPE), PS_FUN_NAME,
-		IED_TYPE, RS_TYPE, DS_TYPE, BS_TYPE)
+Shader::Shader(const D3D11_PRIMITIVE_TOPOLOGY topology,
+	const eResShader VSRelativePath, const std::wstring& VSFunName,
+	const eResShader PSRelativePath, const std::wstring& PSFunName,
+	const eSMType SMType, const eRSType RSType, const eDSType DSType, const eBSType BSType)
+	: Shader(topology,
+		EnumResourcePath(VSRelativePath), VSFunName,
+		EnumResourcePath(PSRelativePath), PSFunName,
+		SMType, RSType, DSType, BSType)
 {
 }
 
@@ -46,14 +46,16 @@ Shader::~Shader()
 {
 }
 
-void Shader::createVSShader(const std::wstring& VS_RELATIVE_PATH, const std::wstring& VS_FUN_NAME, const eIEDType& IED_TYPE)
+void Shader::createVSShader(const std::wstring& VSRelativePath,
+	const std::wstring& VSFunName,
+	const eSMType SMType)
 {
 	Assert(!mVS.Get(), WCHAR_IS_NOT_NULLPTR);
 
 	Microsoft::WRL::ComPtr<ID3DBlob> vsBlob;
 	Microsoft::WRL::ComPtr<ID3DBlob> errBlob;
 
-	shaderCompile(VS_RELATIVE_PATH, VS_FUN_NAME, L"vs_5_0", vsBlob.GetAddressOf(), errBlob.GetAddressOf());
+	shaderCompile(VSRelativePath, VSFunName, L"vs_5_0", vsBlob.GetAddressOf(), errBlob.GetAddressOf());
 
 	if (FAILED(gGraphicDevice->UnSafe_GetDevice()->CreateVertexShader(vsBlob->GetBufferPointer(),
 		vsBlob->GetBufferSize(), nullptr, mVS.GetAddressOf())))
@@ -63,13 +65,12 @@ void Shader::createVSShader(const std::wstring& VS_RELATIVE_PATH, const std::wst
 		return;
 	}
 
-	const IEDCollection* const P_IED_COLLECTION = gGraphicDevice->GetIEDCollection();
+	const SMCollection* const P_SM_COLLECTION = gGraphicDevice->GetIEDCollection();
+	const UINT INPUT_ELEMENT_COUNT = static_cast<UINT>(P_SM_COLLECTION->GetInputElementCount(SMType));
+	const D3D11_INPUT_ELEMENT_DESC* const P_SM_DATA = P_SM_COLLECTION->GetInputElementDatas(SMType);
 
-	const UINT MAX_INPUT_ELEMENT = static_cast<UINT>(P_IED_COLLECTION->GetIEDSize(IED_TYPE));
-	const D3D11_INPUT_ELEMENT_DESC* const P_IED_DATA = P_IED_COLLECTION->GetData(IED_TYPE);
-
-	if (FAILED(gGraphicDevice->UnSafe_GetDevice()->CreateInputLayout(P_IED_DATA,
-		MAX_INPUT_ELEMENT,
+	if (FAILED(gGraphicDevice->UnSafe_GetDevice()->CreateInputLayout(P_SM_DATA,
+		INPUT_ELEMENT_COUNT,
 		vsBlob->GetBufferPointer(),
 		vsBlob->GetBufferSize(),
 		mInputLayout.GetAddressOf())))
@@ -79,14 +80,14 @@ void Shader::createVSShader(const std::wstring& VS_RELATIVE_PATH, const std::wst
 	}
 }
 
-void Shader::createPSShader(const std::wstring& PS_RELATIVE_PATH, const std::wstring& PS_FUN_NAME)
+void Shader::createPSShader(const std::wstring& PSRelativePath, const std::wstring& PSFunName)
 {
 	Assert(!mPS.Get(), WCHAR_IS_NOT_NULLPTR);
 
 	Microsoft::WRL::ComPtr<ID3DBlob> psBlob;
 	Microsoft::WRL::ComPtr<ID3DBlob> errBlob;
 
-	shaderCompile(PS_RELATIVE_PATH, PS_FUN_NAME, L"ps_5_0", psBlob.GetAddressOf(), errBlob.GetAddressOf());
+	shaderCompile(PSRelativePath, PSFunName, L"ps_5_0", psBlob.GetAddressOf(), errBlob.GetAddressOf());
 
 	if (FAILED(gGraphicDevice->UnSafe_GetDevice()->CreatePixelShader(psBlob->GetBufferPointer(),
 		psBlob->GetBufferSize(),
@@ -99,31 +100,29 @@ void Shader::createPSShader(const std::wstring& PS_RELATIVE_PATH, const std::wst
 	}
 }
 
-void Shader::shaderCompile(const std::wstring& RELATIVE_PATH,
-	const std::wstring& FUN_NAME,
-	const std::wstring& VERSION,
-	ID3DBlob** const blob,
-	ID3DBlob** const errorBlob)
+void Shader::shaderCompile(const std::wstring& relativePath,
+	const std::wstring& funName,
+	const std::wstring& version,
+	ID3DBlob** const ppBlob,
+	ID3DBlob** const ppErrorBlob)
 {
-	const std::wstring& SHADER_FULL_PATH = PathManager::GetInstance()->GetResourcePath() + RELATIVE_PATH;
-	const std::string STR_FUN_NAME(helper::String::WStrToStr(FUN_NAME));
-	const std::string STR_VERSION_NAME(helper::String::WStrToStr(VERSION));
+	const std::wstring& SHADER_FULL_PATH = PathManager::GetInstance()->GetResourcePath() + relativePath;
+	const std::string& FUN_NAME = helper::String::WStrToStr(funName);
+	const std::string& VERSION_NAME = helper::String::WStrToStr(version);
 
 	if (FAILED(D3DCompileFromFile(SHADER_FULL_PATH.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE,
-		STR_FUN_NAME.c_str(), STR_VERSION_NAME.c_str(), 0, 0, blob, errorBlob)))
+		FUN_NAME.c_str(), VERSION_NAME.c_str(), 0, 0, ppBlob, ppErrorBlob)))
 	{
-		OutputDebugStringA(reinterpret_cast<LPCSTR>((*errorBlob)->GetBufferPointer()));
+		OutputDebugStringA(reinterpret_cast<LPCSTR>((*ppErrorBlob)->GetBufferPointer()));
 		Assert(false, L"failed to compile shader");
 		return;
 	}
-
 }
 
-
-HRESULT Shader::Load(const std::wstring& FULL_PATH)
+HRESULT Shader::Load(const std::wstring& fullPath)
 {
 	Assert(false, L"");
 
-	(void)FULL_PATH;
+	(void)fullPath;
 	return E_NOTIMPL;
 }

@@ -2,14 +2,9 @@
 #include "Resource.h"
 #include "Layer.h"
 #include "EnumLayer.h"
-
-class GameObject;
-
-
 #include <source_location>
 
-//##Event## error	
-
+class GameObject;
 
 class Scene : public Resource
 {
@@ -35,15 +30,13 @@ public:
 	Scene();
 	virtual ~Scene();
 
-	void AddGameObject(GameObject* const obj, const eLayerType type);
-
-	void RegisterEventAddGameObject(GameObject* const obj, const eLayerType LAYER_TYPE
-		, const std::source_location& location = std::source_location::current());
-
-	void RegisterEventSetDestroy(GameObject* const obj, 
+	void RegisterEventAddGameObject(GameObject* const gameObject, const eLayerType layerType,
+		const std::source_location& location = std::source_location::current());
+	void RegisterEventSetDestroy(GameObject* const gameObject,
 		const std::source_location& location = std::source_location::current());
 
-public:
+	void AddGameObject(GameObject* const gameObject, const eLayerType layerType);
+
 	virtual HRESULT Load(const std::wstring& path) override;
 
 private:
@@ -51,7 +44,7 @@ private:
 	virtual void update();
 	virtual void lateUpdate();
 
-	void eventUpdate() ;
+	void eventUpdate();
 private:
 	Layer mLayers[static_cast<UINT>(eLayerType::End)];
 
