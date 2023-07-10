@@ -30,11 +30,11 @@ void TimeManager::update()
 
 	if (MessageManager::GetInstance()->IsAddTitleMessage())
 	{
-		constexpr UINT WSTR_LEN = 256;
+		constexpr UINT FPS_LEN = 256;
 		const float FPS = 1.0f / mDeltaTime;		
-		wchar_t buffer[WSTR_LEN] = { 0, };
+		wchar_t buffer[FPS_LEN] = { 0, };
 
-		swprintf_s(buffer, WSTR_LEN, L"<FPS : %.f>", FPS);
+		swprintf_s(buffer, FPS_LEN, L"<FPS : %.f>", FPS);
 
 		MessageManager::GetInstance()->AddTitleMessage(buffer);
 	}
