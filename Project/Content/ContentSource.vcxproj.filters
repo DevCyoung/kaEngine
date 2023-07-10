@@ -52,6 +52,15 @@
     <Filter Include="Source\Helper\UI">
       <UniqueIdentifier>{f941533d-3a3d-44f6-830e-e9959d0a18dc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ShaderCode\Debug\Fill">
+      <UniqueIdentifier>{56924750-d941-47f0-9ad0-d5751dc777bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ShaderCode\Debug\Line">
+      <UniqueIdentifier>{42f24343-9c0a-4f7f-b0df-4c6daf0472e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ShaderCode\Debug\Grid">
+      <UniqueIdentifier>{86fb1d1f-6799-44f0-9fbe-64c00bcfe0dc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -205,12 +214,6 @@
     <None Include="..\..\Output\bin\Resources\Shader\Header\Texture.fxh">
       <Filter>ShaderCode\Header</Filter>
     </None>
-    <None Include="..\..\Output\bin\Resources\Shader\PSDebug.hlsl">
-      <Filter>ShaderCode\Debug</Filter>
-    </None>
-    <None Include="..\..\Output\bin\Resources\Shader\PSGrid.hlsl">
-      <Filter>ShaderCode\Debug</Filter>
-    </None>
     <None Include="..\..\Output\bin\Resources\Shader\PSSprite.hlsl">
       <Filter>ShaderCode\Sprite2D</Filter>
     </None>
@@ -244,10 +247,23 @@
     <None Include="Scene_Res_dpend.diff">
       <Filter>Windows\diff</Filter>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <FxCompile Include="..\..\Output\bin\Resources\Shader\VSDebug.hlsl">
-      <Filter>ShaderCode\Debug</Filter>
-    </FxCompile>
+    <None Include="..\..\Output\bin\Resources\Shader\PSFillDebug2D.hlsl">
+      <Filter>ShaderCode\Debug\Fill</Filter>
+    </None>
+    <None Include="..\..\Output\bin\Resources\Shader\VSLineDebug2D.hlsl">
+      <Filter>ShaderCode\Debug\Line</Filter>
+    </None>
+    <None Include="..\..\Output\bin\Resources\Shader\PSGrid2D.hlsl">
+      <Filter>ShaderCode\Debug\Grid</Filter>
+    </None>
+    <None Include="..\..\Output\bin\Resources\Shader\VSGrid2D.hlsl">
+      <Filter>ShaderCode\Debug\Grid</Filter>
+    </None>
+    <None Include="..\..\Output\bin\Resources\Shader\PSLineDebug2D.hlsl">
+      <Filter>ShaderCode\Debug\Line</Filter>
+    </None>
+    <None Include="..\..\Output\bin\Resources\Shader\VSFillDebug2D.hlsl">
+      <Filter>ShaderCode\Debug\Fill</Filter>
+    </None>
   </ItemGroup>
 </Project>

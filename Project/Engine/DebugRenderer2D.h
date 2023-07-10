@@ -3,6 +3,7 @@
 
 class Camera;
 class Shader;
+class Mesh;
 
 class DebugRenderer2D
 {
@@ -13,21 +14,42 @@ private:
 	virtual ~DebugRenderer2D();
 
 public:
+	void DrawRect2D(const Vector3& worldPos, const Vector2& rectScale,
+		const float drawTime, const Vector4& outLineColor);
+	void DrawRect2D2(const Vector3& wolrdLeftUpPos, const Vector3& worldRightDownPos,
+		const float drawTime, const Vector4& outLineColor);
+
 	void DrawFillRect2D(const Vector3& worldPos, const Vector2& rectScale,
 		const float drawTime, const Vector4& fillColor);
-
 	void DrawFillRect2D2(const Vector3& wolrdLeftUpPos, const Vector3& worldRightDownPos, 
 		const float drawTime, const Vector4& fillColor);
+
+	void DrawCircle2D(const Vector3& worldPos, float raduis,
+		const float drawTime, const Vector4& outLineColor);
+
+	void DrawFillCircle2D(const Vector3& worldPos, float raduis,
+		const float drawTime, const Vector4& fillColor);
+
+	void DrawLine2D(const Vector3& startPos, const Vector3& endPos,
+		const float drawTime, const Vector4& lineColor);
+	void DrawLine2D2(const Vector3& startPos, const Vector2& direction, const float length,
+		const float drawTime, const Vector4& lineColor);
 
 	void DrawGrid2D(const Vector3& worldPos, 
 		const Vector2& cellSizeXY, const tUINT2& tileCountXY,
 		const float drawTime, const Vector4& fillColor);
 
+
+
 private:
 	enum class eDebugDrawType
 	{
-		Grid2D,
 		Rect2D,
+		FillRect2D,
+		Circle2D,
+		FillCircle2D,
+		Line2D,
+		Grid2D,
 		End,
 	};
 
@@ -44,12 +66,19 @@ private:
 		float DrawTime;
 	};
 
-	void renderRect2D(const tDebugDrawInfo& debugDrawInfo);
+	struct tDebugMaterial
+	{
+		Shader* debugShader;
+		Mesh* debugMesh;
+	};
+
+	void renderFill2D(const tDebugDrawInfo& debugDrawInfo);
 	void renderGrid2D(const tDebugDrawInfo& debugDrawInfo);
+	void renderLine2D(const tDebugDrawInfo& debugDrawInfo);
 	void render(const Camera* const camera);
 
 private:	
-	Shader* mDebugDrawShader[static_cast<UINT>(eDebugDrawType::End)];
+	tDebugMaterial mDebugMaterial[static_cast<UINT>(eDebugDrawType::End)];
 	std::vector<tDebugDrawInfo> mDebugDrawInfos;
 };
 

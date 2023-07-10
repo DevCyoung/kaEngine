@@ -5,12 +5,12 @@
 Material* MaterialBuilder::BuildDefault2DMaterial(const eRenderPriorityType renderPriorityType, 
 	const std::wstring& shaderKey, const eResTexture textureType)
 {
-	Material* const material = new Material(renderPriorityType);
+		Material* const material = new Material(renderPriorityType);
 
-	material->SetShader(gResourceManager
-		->FindOrNull<Shader>(shaderKey));
-	material->SetTexture(gResourceManager
-		->FindOrNullByEnum<Texture>(textureType));
+		material->SetShader(gResourceManager
+			->FindOrNull<Shader>(shaderKey));
+		material->SetTexture(gResourceManager
+			->FindOrNullByEnum<Texture>(textureType));
 
 	return material;
 }
