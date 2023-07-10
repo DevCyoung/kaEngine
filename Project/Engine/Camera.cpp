@@ -2,7 +2,6 @@
 #include "Camera.h"
 #include "GameObject.h"
 #include "Transform.h"
-#include "Engine.h"
 #include "RenderTargetRenderer.h"
 #include "EngineMath.h"
 
@@ -60,9 +59,7 @@ void Camera::lateUpdate()
 	viewRotate._31 = RIGHT.z;	viewRotate._32 = UP.z;	viewRotate._33 = FORWARD.z;
 
 	mView *= viewRotate;
-
-	//const Vector2 screenSize = gEngine->GetScreenSize();
-
+	
 	mAspectRatio = mRenderTargetSize.x / mRenderTargetSize.y;
 
 	switch (mProjectionType)

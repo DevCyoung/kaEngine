@@ -40,9 +40,6 @@
     <Filter Include="Source\01. Script\Camera">
       <UniqueIdentifier>{6f4c4a58-8154-41fa-8602-6b4bc9308b7a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\01. Script\UI">
-      <UniqueIdentifier>{f941533d-3a3d-44f6-830e-e9959d0a18dc}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\Helper">
       <UniqueIdentifier>{62501ae3-1002-480d-bc13-d492a198f2ec}</UniqueIdentifier>
     </Filter>
@@ -51,6 +48,9 @@
     </Filter>
     <Filter Include="Source\Helper\ResourceManager">
       <UniqueIdentifier>{b5760e71-803f-4f22-9af7-d44435ab071e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Helper\UI">
+      <UniqueIdentifier>{f941533d-3a3d-44f6-830e-e9959d0a18dc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -112,16 +112,16 @@
       <Filter>Source\01. Script\Camera</Filter>
     </ClInclude>
     <ClInclude Include="Bugiman.h">
-      <Filter>Source\01. Script\UI</Filter>
+      <Filter>Source\Helper\UI</Filter>
     </ClInclude>
     <ClInclude Include="ShiftController.h">
-      <Filter>Source\01. Script\UI</Filter>
+      <Filter>Source\Helper\UI</Filter>
     </ClInclude>
     <ClInclude Include="TestScript.h">
-      <Filter>Source\01. Script\UI</Filter>
+      <Filter>Source\Helper\UI</Filter>
     </ClInclude>
     <ClInclude Include="UIEffect.h">
-      <Filter>Source\01. Script\UI</Filter>
+      <Filter>Source\Helper\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -177,16 +177,16 @@
       <Filter>Source\01. Script\Camera</Filter>
     </ClCompile>
     <ClCompile Include="Bugiman.cpp">
-      <Filter>Source\01. Script\UI</Filter>
+      <Filter>Source\Helper\UI</Filter>
     </ClCompile>
     <ClCompile Include="ShiftController.cpp">
-      <Filter>Source\01. Script\UI</Filter>
+      <Filter>Source\Helper\UI</Filter>
     </ClCompile>
     <ClCompile Include="TestScript.cpp">
-      <Filter>Source\01. Script\UI</Filter>
+      <Filter>Source\Helper\UI</Filter>
     </ClCompile>
     <ClCompile Include="UIEffect.cpp">
-      <Filter>Source\01. Script\UI</Filter>
+      <Filter>Source\Helper\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

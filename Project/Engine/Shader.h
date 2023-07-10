@@ -17,7 +17,9 @@ enum class eShaderBindType
 class	Shader : public Resource
 {
 	friend class GraphicDeviceDX11;
-
+	friend class ResourceManager;
+private:
+	Shader() = default;
 public:
 	Shader(const D3D11_PRIMITIVE_TOPOLOGY topology,
 		const eResShader VSRelativePath, const std::wstring& VSFunName,

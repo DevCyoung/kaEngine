@@ -17,8 +17,8 @@
 DebugRenderer2D::DebugRenderer2D()
 	: mDebugDrawShader{ 0, }
 {
-	mDebugDrawShader[static_cast<UINT>(eDebugDrawType::Rect2D)] = gResourceManager->FindOrNull<Shader>(L"DebugRect2D");
-	mDebugDrawShader[static_cast<UINT>(eDebugDrawType::Grid2D)] = gResourceManager->FindOrNull<Shader>(L"DebugGrid2D");
+	mDebugDrawShader[static_cast<UINT>(eDebugDrawType::Rect2D)] = gResourceManager->Find<Shader>(L"DebugRect2D");
+	mDebugDrawShader[static_cast<UINT>(eDebugDrawType::Grid2D)] = gResourceManager->Find<Shader>(L"DebugGrid2D");
 }
 
 DebugRenderer2D::~DebugRenderer2D()

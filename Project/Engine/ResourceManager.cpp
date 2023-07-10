@@ -8,7 +8,7 @@
 ResourceManager::ResourceManager()
 {
 
-#pragma region RectMesh
+#pragma region Mesh
 	{
 		constexpr UINT VERTEX_COUNT = 4;
 		tVertex vertexArray[VERTEX_COUNT] = {};

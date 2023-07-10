@@ -97,8 +97,8 @@ void Scene::eventUpdate()
 	mEventMessages.clear();
 }
 
-void Scene::RegisterEventAddGameObject(GameObject* const gameObject, const eLayerType layerType,
-	const std::source_location& location)
+void Scene::RegisterEventAddGameObject(GameObject* const gameObject, 
+	const eLayerType layerType, const std::source_location& location)
 {
 	Assert(gameObject, WCHAR_IS_NULLPTR);
 	Assert(layerType != eLayerType::End, WCHAR_IS_INVALID_TYPE);

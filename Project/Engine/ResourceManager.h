@@ -100,20 +100,16 @@ inline T* ResourceManager::FindByEnum(const typename engine_resource_type<T>::eR
 template<typename T>
 	requires (is_engine_resource<T>::value)
 inline void ResourceManager::Load(const Key& relativePathOrName)
-{
-	T* resource = FindOrNull<T>(relativePathOrName);
-	Assert(!resource, WCHAR_IS_NOT_NULLPTR);
+{	
+	Assert(!FindOrNull<T>(relativePathOrName), WCHAR_IS_NOT_NULLPTR);
 
+	T* resource = new T();
 	constexpr eResourceType RES_TYPE = engine_resource_type<T>::type;
 	Dictionary& resources = mResources[static_cast<UINT>(RES_TYPE)];
+	const std::wstring FILE_PATH = PathManager::GetInstance()->GetResourcePath() + relativePathOrName;
 
-	resource = new T();
-
-	const std::wstring FULL_PATH = PathManager::GetInstance()->GetResourcePath() + relativePathOrName;
-
-	resource->Load(FULL_PATH);
+	resource->Load(FILE_PATH);
 	resource->mRelativePath = relativePathOrName;
-
 	resources.insert(std::make_pair(relativePathOrName, resource)); //key : relative Path
 }
 
@@ -130,14 +126,12 @@ template<typename T>
 inline void ResourceManager::Insert(const Key& relativePathOrName, T* const value)
 {
 	Assert(value, WCHAR_IS_NULLPTR);
-	constexpr eResourceType RES_TYPE = engine_resource_type<T>::type;
-
-	Dictionary& resources = mResources[static_cast<UINT>(RES_TYPE)];
-	ConstIterator citer = resources.find(relativePathOrName);
-
-	Assert(resources.end() == citer, L"already");
+	Assert(!(FindOrNull<T>(relativePathOrName)), WCHAR_IS_NOT_NULLPTR);
 
 	value->mRelativePath = relativePathOrName;
+
+	constexpr eResourceType RES_TYPE = engine_resource_type<T>::type;
+	Dictionary& resources = mResources[static_cast<UINT>(RES_TYPE)];
 
 	resources.insert(std::make_pair(relativePathOrName, value));
 }
