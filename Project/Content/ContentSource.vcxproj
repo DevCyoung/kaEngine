@@ -364,17 +364,28 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
     <None Include="..\..\Output\bin\Resources\Shader\Header\TestShaderHeader.fxh" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\Output\bin\Resources\Shader\PSDebug.hlsl">
+    <None Include="..\..\Output\bin\Resources\Shader\PSFillDebug2D.hlsl">
       <FileType>Document</FileType>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\Output\bin\Resources\Shader\PSGrid.hlsl">
+    <None Include="..\..\Output\bin\Resources\Shader\PSGrid2D.hlsl">
       <FileType>Document</FileType>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="..\..\Output\bin\Resources\Shader\VSDebug.hlsl" />
+    <None Include="..\..\Output\bin\Resources\Shader\PSLineDebug2D.hlsl">
+      <FileType>Document</FileType>
+    </None>
+    <None Include="..\..\Output\bin\Resources\Shader\VSFillDebug2D.hlsl">
+      <FileType>Document</FileType>
+    </None>
+    <None Include="..\..\Output\bin\Resources\Shader\VSGrid2D.hlsl">
+      <FileType>Document</FileType>
+    </None>
+    <None Include="..\..\Output\bin\Resources\Shader\VSLineDebug2D.hlsl">
+      <FileType>Document</FileType>
+    </None>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

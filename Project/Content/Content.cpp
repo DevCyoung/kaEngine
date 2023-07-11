@@ -137,7 +137,14 @@ void Content::loadMaterial()
 				eRenderPriorityType::Opqaue, L"Default", eResTexture::spr_bg_neighbor_apartment_0);
 		gResourceManager->Insert(L"BackGround05", material);
 	}
-	
+
+	{
+		Material* const material =
+			MaterialBuilder::BuildDefault2DMaterial(
+				eRenderPriorityType::Opqaue, L"Default", eResTexture::TILE);
+		gResourceManager->Insert(L"Tile", material);
+	}
+
 }
 
 void Content::loadUIMaterial()
@@ -271,13 +278,15 @@ void Content::testSceneInitialize()
 
 	//Player
 	{
-		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"Door");
+		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"Tile");
 
 		obj->AddComponent<Bugiman>();
 		obj->AddComponent<PlayerMovementTest>();
 
-		obj->GetComponent<Transform>()->SetScale(2.0f, 2.0f, 1.f);
+		obj->GetComponent<Transform>()->SetScale(1.0f, 1.0f, 1.f);
 		obj->GetComponent<Transform>()->SetPosition(0.f, 0.f, 1.f);
+
+		obj->GetComponent<SpriteRenderer>()->SetMesh(gResourceManager->FindOrNull<Mesh>(L"FillCircle2D"));
 
 		testScene->AddGameObject(obj, eLayerType::Default);
 	}
