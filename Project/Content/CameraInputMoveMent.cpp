@@ -41,7 +41,7 @@ void CameraInputMoveMent::update()
 	}
 
 	Transform* const transform = GetComponent<Transform>();
-	if (camera->GetProjectiontType() == eCameraProjectionType::Orthographic)
+	if (camera->GetProjectionType() == eCameraProjectionType::Orthographic)
 	{
 		Vector3 pos = transform->GetPosition();
 		Vector3 dir = Vector3::Zero;
@@ -88,7 +88,7 @@ void CameraInputMoveMent::update()
 			cameraSize = 5.f;
 		}
 
-		camera->SetCamera2DSize(cameraSize);
+		camera->Set2DSize(cameraSize);
 
 		if (MessageManager::GetInstance()->IsAddTitleMessage())
 		{

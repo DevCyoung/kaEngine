@@ -43,15 +43,17 @@ void SpriteRenderer::render(const Camera* const camera)
 
 	tCBTransform CBTransform = {};
 	{
-		const Vector3& SCALE = Vector3(mMaterial->GetTexture()->GetWidth(), mMaterial->GetTexture()->GetHeight(), 1.f);
+		const Vector3& SCALE 
+			= Vector3(mMaterial->GetTexture()->GetWidth(), mMaterial->GetTexture()->GetHeight(), 1.f);
 		const Matrix& SCALE_MATRIX = Matrix::CreateScale(SCALE);
 
 		CBTransform.World = SCALE_MATRIX * GetComponent<Transform>()->GetWorldMatrix();
 		CBTransform.View = camera->GetView();
 		CBTransform.Proj = camera->GetProjection();
-	}
-	gGraphicDevice->PassCB(eCBType::Transform, sizeof(CBTransform), &CBTransform);
-	gGraphicDevice->BindCB(eCBType::Transform, eShaderBindType::VS);
+
+		gGraphicDevice->PassCB(eCBType::Transform, sizeof(CBTransform), &CBTransform);
+		gGraphicDevice->BindCB(eCBType::Transform, eShaderBindType::VS);
+	}	
 
 	//FIXME: Material Info 범용성있는 방법으로 수정
 	tCBColorInfo CBColorInfo = {};

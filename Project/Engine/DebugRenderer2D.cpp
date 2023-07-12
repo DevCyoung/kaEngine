@@ -19,47 +19,45 @@ DebugRenderer2D::DebugRenderer2D()
 {
 	{
 		tDebugMaterial debugMaterial = {};
-		debugMaterial.debugMesh = gResourceManager->FindOrNull<Mesh>(L"LineRect2D");
+		debugMaterial.debugMesh = gResourceManager->Find<Mesh>(L"LineRect2D");
 		debugMaterial.debugShader = gResourceManager->Find<Shader>(L"LineDebug2D");
 		mDebugMaterial[static_cast<UINT>(eDebugDrawType::Rect2D)] = debugMaterial;
 	}
 
 	{
 		tDebugMaterial debugMaterial = {};
-		debugMaterial.debugMesh = gResourceManager->FindOrNull<Mesh>(L"FillRect2D");
+		debugMaterial.debugMesh = gResourceManager->Find<Mesh>(L"FillRect2D");
 		debugMaterial.debugShader = gResourceManager->Find<Shader>(L"FillDebug2D");
 		mDebugMaterial[static_cast<UINT>(eDebugDrawType::FillRect2D)] = debugMaterial;
 	}
 
 	{
 		tDebugMaterial debugMaterial = {};
-		debugMaterial.debugMesh = gResourceManager->FindOrNull<Mesh>(L"LineCircle2D");
+		debugMaterial.debugMesh = gResourceManager->Find<Mesh>(L"LineCircle2D");
 		debugMaterial.debugShader = gResourceManager->Find<Shader>(L"LineDebug2D");
 		mDebugMaterial[static_cast<UINT>(eDebugDrawType::Circle2D)] = debugMaterial;
 	}
 
 	{
 		tDebugMaterial debugMaterial = {};
-		debugMaterial.debugMesh = gResourceManager->FindOrNull<Mesh>(L"FillCircle2D");
+		debugMaterial.debugMesh = gResourceManager->Find<Mesh>(L"FillCircle2D");
 		debugMaterial.debugShader = gResourceManager->Find<Shader>(L"FillDebug2D");
 		mDebugMaterial[static_cast<UINT>(eDebugDrawType::FillCircle2D)] = debugMaterial;
 	}
 
 	{
 		tDebugMaterial debugMaterial = {};
-		debugMaterial.debugMesh = gResourceManager->FindOrNull<Mesh>(L"Line");
+		debugMaterial.debugMesh = gResourceManager->Find<Mesh>(L"Line");
 		debugMaterial.debugShader = gResourceManager->Find<Shader>(L"LineDebug2D");
 		mDebugMaterial[static_cast<UINT>(eDebugDrawType::Line2D)] = debugMaterial;
 	}
 
 	{
 		tDebugMaterial debugMaterial = {};
-		debugMaterial.debugMesh = gResourceManager->FindOrNull<Mesh>(L"FillRect2D");
+		debugMaterial.debugMesh = gResourceManager->Find<Mesh>(L"FillRect2D");
 		debugMaterial.debugShader = gResourceManager->Find<Shader>(L"DebugGrid2D");
 		mDebugMaterial[static_cast<UINT>(eDebugDrawType::Grid2D)] = debugMaterial;
 	}
-
-
 }
 
 DebugRenderer2D::~DebugRenderer2D()
@@ -183,9 +181,8 @@ void DebugRenderer2D::DrawLine2D2(const Vector3& startPos,
 	DrawLine2D(startPos, END_POS, drawTime, lineColor);
 }
 
-
 void DebugRenderer2D::DrawGrid2D(const Vector3& worldPos,
-	const Vector2& cellSizeXY, const tUINT2& tileCountXY,
+	const Vector2& cellSizeXY, const XMUINT2& tileCountXY,
 	const float drawTime, const Vector4& fillColor)
 {
 	tDebugDrawInfo drawInfo = {};
@@ -202,7 +199,7 @@ void DebugRenderer2D::DrawGrid2D(const Vector3& worldPos,
 }
 
 
-void DebugRenderer2D::render(const Camera* const camera)
+void DebugRenderer2D::render(const Camera* const camera) const
 {
 	Assert(camera, WCHAR_IS_NULLPTR);
 
@@ -216,10 +213,10 @@ void DebugRenderer2D::render(const Camera* const camera)
 	CBTransform.View = camera->GetView();
 	CBTransform.Proj = camera->GetProjection();
 
-	for (tDebugDrawInfo& drawInfo : mDebugDrawInfos)
+	for (const tDebugDrawInfo& DRAW_INFO : mDebugDrawInfos)
 	{
 		const tDebugMaterial& debugMat =
-			mDebugMaterial[static_cast<UINT>(drawInfo.DebugDrawType)];
+			mDebugMaterial[static_cast<UINT>(DRAW_INFO.DebugDrawType)];
 
 		const Mesh* const P_MESH = debugMat.debugMesh;
 		const Shader* const P_SHADER = debugMat.debugShader;
@@ -227,13 +224,12 @@ void DebugRenderer2D::render(const Camera* const camera)
 		Assert(P_MESH, WCHAR_IS_NULLPTR);
 		Assert(P_SHADER, WCHAR_IS_NULLPTR);
 
-		Vector3 worldMousePos = helper::WindowScreenMouseToWorld3D(camera);
-		worldMousePos = Vector3(worldMousePos.x, -worldMousePos.y, worldMousePos.z);
-		CBTransform.World = Transform::CreateWorldMatrix(drawInfo.WorldPos, drawInfo.Rotation, drawInfo.Scale);
-		gGraphicDevice->BindMesh(P_MESH);
-
+		CBTransform.World = Transform::CreateWorldMatrix(DRAW_INFO.WorldPos, 
+			DRAW_INFO.Rotation, DRAW_INFO.Scale);		
 		gGraphicDevice->PassCB(eCBType::Transform, sizeof(CBTransform), &CBTransform);
 		gGraphicDevice->BindCB(eCBType::Transform, eShaderBindType::VS);
+
+		gGraphicDevice->BindMesh(P_MESH);
 
 		gGraphicDevice->BindIA(P_SHADER);
 		gGraphicDevice->BindPS(P_SHADER);
@@ -243,31 +239,30 @@ void DebugRenderer2D::render(const Camera* const camera)
 		gGraphicDevice->BindBS(P_SHADER->GetBSType());
 		gGraphicDevice->BindDS(P_SHADER->GetDSType());
 
-		switch (drawInfo.DebugDrawType)
+		switch (DRAW_INFO.DebugDrawType)
 		{
 		case eDebugDrawType::Rect2D:
-			renderLine2D(drawInfo);
+			renderLine2D(DRAW_INFO);
 			break;
 
 		case eDebugDrawType::FillRect2D:
-			renderFill2D(drawInfo);
+			renderFill2D(DRAW_INFO);
 			break;
 
 		case eDebugDrawType::Circle2D:
-			renderLine2D(drawInfo);
+			renderLine2D(DRAW_INFO);
 			break;
 
 		case eDebugDrawType::FillCircle2D:
-			renderFill2D(drawInfo);
+			renderFill2D(DRAW_INFO);
 			break;
 
 		case eDebugDrawType::Line2D:
-			renderLine2D(drawInfo);
+			renderLine2D(DRAW_INFO);
 			break;
 
-		case eDebugDrawType::Grid2D:
-			drawInfo.MousePos = worldMousePos + Vector3(drawInfo.Scale) / 2.f;
-			renderGrid2D(drawInfo);
+		case eDebugDrawType::Grid2D:			
+			renderGrid2D(DRAW_INFO);
 			break;
 
 		default:
@@ -276,15 +271,10 @@ void DebugRenderer2D::render(const Camera* const camera)
 		}
 
 		gGraphicDevice->Draw(P_MESH);
-
-		drawInfo.DrawTime -= gDeltaTime;
 	}
-
-	mDebugDrawInfos.erase(std::remove_if(mDebugDrawInfos.begin(), mDebugDrawInfos.end(),
-		[](tDebugDrawInfo& drawInfo) { return drawInfo.DrawTime <= 0.f; }), mDebugDrawInfos.end());
 }
 
-void DebugRenderer2D::renderLine2D(const tDebugDrawInfo& drawInfo)
+void DebugRenderer2D::renderLine2D(const tDebugDrawInfo& drawInfo) const
 {
 	tCBDebugInfo CBRectInfo = {};
 	{
@@ -295,7 +285,7 @@ void DebugRenderer2D::renderLine2D(const tDebugDrawInfo& drawInfo)
 	}
 }
 
-void DebugRenderer2D::renderFill2D(const tDebugDrawInfo& drawInfo)
+void DebugRenderer2D::renderFill2D(const tDebugDrawInfo& drawInfo) const
 {
 	tCBDebugInfo CBRectInfo = {};
 	{
@@ -306,7 +296,18 @@ void DebugRenderer2D::renderFill2D(const tDebugDrawInfo& drawInfo)
 	}
 }
 
-void DebugRenderer2D::renderGrid2D(const tDebugDrawInfo& debugDrawInfo)
+void DebugRenderer2D::flush()
+{
+	for (tDebugDrawInfo& drawInfo : mDebugDrawInfos)
+	{
+		drawInfo.DrawTime -= gDeltaTime;
+	}
+
+	mDebugDrawInfos.erase(std::remove_if(mDebugDrawInfos.begin(), mDebugDrawInfos.end(),
+		[](tDebugDrawInfo& drawInfo) { return drawInfo.DrawTime <= 0.f; }), mDebugDrawInfos.end());
+}
+
+void DebugRenderer2D::renderGrid2D(const tDebugDrawInfo& debugDrawInfo) const
 {
 	tCBDebugInfo CBGridInfo = {};
 	{

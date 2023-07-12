@@ -23,23 +23,16 @@ public:
 	float GetAspectRatio() const { return mAspectRatio; }
 	const Matrix& GetView() const { return mView; }
 	const Matrix& GetProjection() const { return mProjection; }
-	eCameraPriorityType GetCameraType () const { return mCameraType; }
+	eCameraPriorityType GetPriorityType () const { return mCameraType; }
 	UINT GetLayerMask() const { return mLayerMask; }
-	eCameraProjectionType GetProjectiontType() const { return mProjectionType; }
+	eCameraProjectionType GetProjectionType() const { return mProjectionType; }
 
-	void SetRenderTargetRenderer(RenderTargetRenderer* const renderTargetRenderer) 
-	{ 
-		Assert(renderTargetRenderer, WCHAR_IS_NULLPTR);
-		Assert(!mRenderTargetRenderer, WCHAR_IS_NOT_NULLPTR);
-
-		mRenderTargetRenderer = renderTargetRenderer; 
-	}
 	void Set3DFOV(const float fov) { mFOV = fov; }
 	void SetNear(const float cameraNear) { mNear = cameraNear; }
 	void SetFar(const float cameraFar) { mFar = cameraFar; }
-	void SetCamera2DSize(const float camera2DSize) { mSize = camera2DSize; }
+	void Set2DSize(const float camera2DSize) { mSize = camera2DSize; }
 	void SetRenderTargetSize(const Vector2& renderTargetSize) { mRenderTargetSize = renderTargetSize; };
-	void SetCameraType(const eCameraPriorityType cameraPriorityType) { mCameraType = cameraPriorityType; }
+	void SetProjectionType(const eCameraPriorityType cameraPriorityType) { mCameraType = cameraPriorityType; }
 	void SetProjectiontType(const eCameraProjectionType projectionType) { mProjectionType = projectionType; }
 
 	void TurnOnLayer(const  eLayerType layerType)  { mLayerMask |=  (1 <<  static_cast<UINT>(layerType)); }
@@ -54,8 +47,6 @@ private:
 	virtual void lateUpdate() override final;	
 
 private:
-	RenderTargetRenderer* mRenderTargetRenderer;
-
 	Vector2 mRenderTargetSize;
 
 	UINT mLayerMask;

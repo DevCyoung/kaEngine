@@ -157,6 +157,12 @@
     <Filter Include="Source\Windows\diff">
       <UniqueIdentifier>{21b12c7c-f83e-496c-a646-ca9e8834ddc3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\05. Scene\TestScene">
+      <UniqueIdentifier>{1bdced3a-2ec9-4e93-a046-e10250202f05}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\00. Engine\02. Loader">
+      <UniqueIdentifier>{9a462464-9aa2-4de2-b5b8-02b586551f88}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Entity.h">
@@ -318,8 +324,11 @@
     <ClInclude Include="Resource.h">
       <Filter>Source\06. Resource</Filter>
     </ClInclude>
-    <ClInclude Include="StructureEngineData.h">
-      <Filter>Source\08. Helper\Include</Filter>
+    <ClInclude Include="TestScene.h">
+      <Filter>Source\05. Scene\TestScene</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineResourceLoader.h">
+      <Filter>Source\00. Engine\02. Loader</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -442,6 +451,12 @@
     </ClCompile>
     <ClCompile Include="Resource.cpp">
       <Filter>Source\06. Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="TestScene.cpp">
+      <Filter>Source\05. Scene\TestScene</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineResourceLoader.cpp">
+      <Filter>Source\00. Engine\02. Loader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

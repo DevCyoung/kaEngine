@@ -12,16 +12,16 @@ namespace helper
 		const Camera* const camera);
 	Vector3 WindowScreenMouseToWorld3D(const Camera* const camera);
 
-	tINT2 GridIndex(const Vector3& selectWorldPos,
-		const Vector2& cellSize, const tUINT2& tileCountXY);
-	Vector3 GridIndexToWorldPosition(const tINT2& gridIndex, 
-		const Vector2& cellSize, const tUINT2& tileCountXY);
-	bool IsInGrid(const tINT2& gridIndex, const tUINT2& tileCountXY);
+	XMINT2 GridIndex(const Vector3& selectWorldPos,
+		const Vector2& cellSize, const XMUINT2& tileCountXY);
+	Vector3 GridIndexToWorldPosition(const XMINT2& gridIndex, 
+		const Vector2& cellSize, const XMUINT2& tileCountXY);
+	bool IsInGrid(const XMINT2& gridIndex, const XMUINT2& tileCountXY);
 }
 
 namespace helper::math
 {
-	void INT2MinAndMax(const tINT2& a, const tINT2& b, tINT2* const outMin, tINT2* const outMax);
+	void INT2MinAndMax(const XMINT2& a, const XMINT2& b, XMINT2* const outMin, XMINT2* const outMax);
 	float LerpCosBtwZeroAndOne(const float x);
 	float LerpSinBtwZeroAndOne(const float x);
 }

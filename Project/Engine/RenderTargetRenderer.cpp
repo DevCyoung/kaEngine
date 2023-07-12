@@ -12,6 +12,8 @@ RenderTargetRenderer::RenderTargetRenderer()
 	: mDebugRenderer(new DebugRenderer2D())
 	, mCameras{ 0, }
 	, mRenderComponentsArray()
+	, mbDebugRender(true)
+	, mCameraMask(0XFFFFFFFF)
 {	
 	for (auto& renderObjectArray : mRenderComponentsArray)
 	{
@@ -26,7 +28,7 @@ RenderTargetRenderer::~RenderTargetRenderer()
 
 void RenderTargetRenderer::registerRenderCamera(Camera* const camera)
 {
-	const eCameraPriorityType CAMERA_PRIORITY_TYPE = camera->GetCameraType();
+	const eCameraPriorityType CAMERA_PRIORITY_TYPE = camera->GetPriorityType();
 
 	Assert(camera, WCHAR_IS_NULLPTR);
 	Assert(CAMERA_PRIORITY_TYPE != eCameraPriorityType::End, WCHAR_IS_INVALID_TYPE);
@@ -59,7 +61,7 @@ void RenderTargetRenderer::Render(const UINT renderTargetWidth,
 	const UINT renderTargetHeight,
 	const FLOAT backgroundColor[4],
 	ID3D11RenderTargetView** const ppRenderTargetView,
-	ID3D11DepthStencilView* const depthStencilView)
+	ID3D11DepthStencilView* const depthStencilView) const
 {
 	gGraphicDevice->ClearRenderTarget(renderTargetWidth, renderTargetHeight, 
 		backgroundColor, ppRenderTargetView, depthStencilView);
@@ -70,6 +72,13 @@ void RenderTargetRenderer::Render(const UINT renderTargetWidth,
 	for (const Camera* const P_CAMERA : mCameras)
 	{
 		if (nullptr == P_CAMERA)
+		{
+			continue;
+		}
+		
+		const UINT RENDER_PRIORITY = static_cast<UINT>(P_CAMERA->GetPriorityType());
+
+		if (!(mCameraMask & (1 << RENDER_PRIORITY)))
 		{
 			continue;
 		}
@@ -91,7 +100,16 @@ void RenderTargetRenderer::Render(const UINT renderTargetWidth,
 	}
 
 	const Camera* const P_MAIN_CAMERA = mCameras[static_cast<UINT>(eCameraPriorityType::Main)];
-	mDebugRenderer->render(P_MAIN_CAMERA);
+
+	if (mbDebugRender)
+	{
+		mDebugRenderer->render(P_MAIN_CAMERA);
+	}	
+}
+
+void RenderTargetRenderer::flush()
+{
+	mDebugRenderer->flush();
 
 	for (auto& camera : mCameras)
 	{

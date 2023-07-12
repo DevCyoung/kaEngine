@@ -27,28 +27,40 @@ void CursorMovement::initialize()
 
 void CursorMovement::update()
 {
-	RenderTargetRenderer* const renderTargetRenderer = gEngine->GetRenderTargetRenderer();
-	const Camera* const P_UI_CAMERA =
-		renderTargetRenderer->GetRegisteredRenderCamera(eCameraPriorityType::UI);
-	const Vector3 UI_POS = WindowScreenMouseToWorld3D(P_UI_CAMERA);
-	Transform* const transform = GetComponent<Transform>();
-
-	transform->SetPosition(UI_POS);
-
-	const Camera* const P_MAIN_CAMERA =
-		renderTargetRenderer->GetRegisteredRenderCamera(eCameraPriorityType::Main);
-	const Vector3& MOUSE_WORLD_3D_POS = WindowScreenMouseToWorld3D(P_MAIN_CAMERA);
-
-	DebugRenderer2D* const debugRenderer2D = renderTargetRenderer->GetDebugRenderer();
-	const Vector4& fillColor = Vector4(LerpCosBtwZeroAndOne(gGlobalTime),
+	const Vector4& FILL_COLOR = Vector4(LerpCosBtwZeroAndOne(gGlobalTime),
 		LerpSinBtwZeroAndOne(gGlobalTime),
 		LerpSinBtwZeroAndOne(gGlobalTime),
 		LerpCosBtwZeroAndOne(gGlobalTime) * 100.f);
 
-	const Vector3 GRID_WORLD_POS = Vector3(0.f, 0.f, 1.f);
-	const tUINT2 TILE_COUNT_XY = tUINT2(500, 500);
+	RenderTargetRenderer* const renderTargetRenderer = GetOwner()->GetRenderTargetRenderer();
+	DebugRenderer2D* const debugRenderer2D = renderTargetRenderer->GetDebugRenderer();
+	Transform* const transform = GetComponent<Transform>();
 
-	static float size = 16;
+	const Camera* const P_UI_CAMERA =
+		renderTargetRenderer->GetRegisteredRenderCamera(eCameraPriorityType::UI);
+
+	const Camera* const P_MAIN_CAMERA =
+		renderTargetRenderer->GetRegisteredRenderCamera(eCameraPriorityType::Main);
+
+	const Vector3 UI_MOUSE_POS = WindowScreenMouseToWorld3D(P_UI_CAMERA);
+	const Vector3& MOUSE_WORLD_3D_POS = WindowScreenMouseToWorld3D(P_MAIN_CAMERA);
+
+	const Vector3 GRID_WORLD_POS = Vector3(0.f, 0.f, 1.f);
+	const XMUINT2 TILE_COUNT_XY = XMUINT2(500, 500);
+
+	static float size = 32;
+
+	const Vector2 CELL_SIZE_XY = Vector2(size, size);
+
+	transform->SetPosition(UI_MOUSE_POS);
+
+	debugRenderer2D->DrawGrid2D(GRID_WORLD_POS,
+		CELL_SIZE_XY, TILE_COUNT_XY, 0.f, FILL_COLOR);
+
+	const XMINT2 INDEX_XY = GridIndex(MOUSE_WORLD_3D_POS,
+		CELL_SIZE_XY, TILE_COUNT_XY);
+	const Vector3& RECT_POS = GridIndexToWorldPosition(INDEX_XY, CELL_SIZE_XY,
+		TILE_COUNT_XY);
 
 	if (gInput->GetKeyDown(eKeyCode::NUM3))
 	{
@@ -60,34 +72,69 @@ void CursorMovement::update()
 		}
 	}
 
-	const Vector2 CELL_SIZE_XY = Vector2(size, size);
-
-	debugRenderer2D->DrawGrid2D(GRID_WORLD_POS,
-		CELL_SIZE_XY, TILE_COUNT_XY, 0.f, fillColor);
-
-	const tINT2 INDEX_XY = GridIndex(MOUSE_WORLD_3D_POS,
-		CELL_SIZE_XY, TILE_COUNT_XY);
-	const Vector3& RECT_POS = GridIndexToWorldPosition(INDEX_XY, CELL_SIZE_XY,
-		TILE_COUNT_XY);
-
-	if (MessageManager::GetInstance()->IsAddTitleMessage())
+	if (gInput->GetKeyDown(eKeyCode::O))
 	{
-		wchar_t buffer[256];
-		swprintf_s(buffer, 256, L"<tile X : %d, Y : %d>", INDEX_XY.x, INDEX_XY.y);
-		MessageManager::GetInstance()->AddTitleMessage(buffer);
+		renderTargetRenderer->TurnOnCamera(eCameraPriorityType::UI);
+	}
+	if (gInput->GetKeyDown(eKeyCode::P))
+	{
+		renderTargetRenderer->TurnOffCamera(eCameraPriorityType::UI);
 	}
 
-	//debugRenderer2D->DrawRect2D(MOUSE_WORLD_3D_POS, 
-	//	Vector2(300.f, 300.f), 0.f, Vector4(0.f, 1.f, 0.f, 1.f));
+	if (gInput->GetKeyDown(eKeyCode::K))
+	{
+		renderTargetRenderer->TurnOnCamera(eCameraPriorityType::Main);
+	}
+	if (gInput->GetKeyDown(eKeyCode::L))
+	{
+		renderTargetRenderer->TurnOffCamera(eCameraPriorityType::Main);
+	}
 
-	debugRenderer2D->DrawCircle2D(MOUSE_WORLD_3D_POS, size * 5.5f, 0.f, Vector4(1.f, 0.f, 1.f, 1.f));
+	if (gInput->GetKeyDown(eKeyCode::N))
+	{
+		renderTargetRenderer->TurnOnDebugRenderer();
+	}
+	if (gInput->GetKeyDown(eKeyCode::M))
+	{
+		renderTargetRenderer->TurnOffDebugRenderer();
+	}
 
-	debugRenderer2D->DrawFillCircle2D(MOUSE_WORLD_3D_POS, size * 2.5f, 0.f, Vector4(1.f, 1.f, 1.f, 1.f));
+	debugRenderer2D->DrawCircle2D(MOUSE_WORLD_3D_POS,
+		size * 5.5f, 0.f, Vector4(LerpSinBtwZeroAndOne(gGlobalTime), 0.f, 1.f, 1.f));
 
+	debugRenderer2D->DrawFillCircle2D(MOUSE_WORLD_3D_POS,
+		size * 0.5f * 5.f * LerpSinBtwZeroAndOne(gGlobalTime), 0.f, 
+		Vector4(1.f, LerpSinBtwZeroAndOne(gGlobalTime), 1.f, 1.f));
 
-	debugRenderer2D->DrawRect2D(MOUSE_WORLD_3D_POS, 
-		Vector2(size * 15.f, size * 15.f), 0.f, Vector4(1.f, 0.f, 0.f, 1.f));
+	debugRenderer2D->DrawRect2D(MOUSE_WORLD_3D_POS,
+		Vector2(size * 15.f, size * 15.f), 0.f, Vector4(1.f, 0.f, LerpSinBtwZeroAndOne(gGlobalTime), 1.f));
 
+	debugRenderer2D->DrawFillRect2D(MOUSE_WORLD_3D_POS + Vector3(-100.f, +100.f, 0.f),
+		Vector2(50.f, 50.f), 0.f, Vector4(0.f, 1.f, 1.f, 1.f));
+	debugRenderer2D->DrawFillRect2D(MOUSE_WORLD_3D_POS + Vector3(+100.f, +100.f, 0.f),
+		Vector2(50.f, 50.f), 0.f, Vector4(0.f, 1.f, 1.f, 1.f));
+	debugRenderer2D->DrawFillRect2D(MOUSE_WORLD_3D_POS + Vector3(+100.f, -100.f, 0.f),
+		Vector2(50.f, 50.f), 0.f, Vector4(0.f, 1.f, 1.f, 1.f));
+	debugRenderer2D->DrawFillRect2D(MOUSE_WORLD_3D_POS + Vector3(-100.f, -100.f, 0.f),
+		Vector2(50.f, 50.f), 0.f, Vector4(0.f, 1.f, 1.f, 1.f));
+
+	debugRenderer2D->DrawLine2D2(MOUSE_WORLD_3D_POS,
+		Vector2(1.f, 0.0f), 100.f, 0.f, Vector4(0.f, 0.f, 1.f, 1.f));
+	debugRenderer2D->DrawLine2D2(MOUSE_WORLD_3D_POS,
+		Vector2(-1.f, 0.0f), 100.f, 0.f, Vector4(0.f, 0.f, 1.f, 1.f));
+	debugRenderer2D->DrawLine2D2(MOUSE_WORLD_3D_POS,
+		Vector2(0.f, 1.0f), 100.f, 0.f, Vector4(0.f, 0.f, 1.f, 1.f));
+	debugRenderer2D->DrawLine2D2(MOUSE_WORLD_3D_POS,
+		Vector2(0.f, -1.0f), 100.f, 0.f, Vector4(0.f, 0.f, 1.f, 1.f));
+
+	debugRenderer2D->DrawLine2D(MOUSE_WORLD_3D_POS + Vector3(-100.f, +100.f, 0.f),
+		MOUSE_WORLD_3D_POS, 0.f, Vector4(1.f, 0.f, 1.f, 1.f));
+	debugRenderer2D->DrawLine2D(MOUSE_WORLD_3D_POS + Vector3(+100.f, +100.f, 0.f),
+		MOUSE_WORLD_3D_POS, 0.f, Vector4(1.f, 0.f, 1.f, 1.f));
+	debugRenderer2D->DrawLine2D(MOUSE_WORLD_3D_POS + Vector3(+100.f, -100.f, 0.f),
+		MOUSE_WORLD_3D_POS, 0.f, Vector4(1.f, 0.f, 1.f, 1.f));
+	debugRenderer2D->DrawLine2D(MOUSE_WORLD_3D_POS + Vector3(-100.f, -100.f, 0.f),
+		MOUSE_WORLD_3D_POS, 0.f, Vector4(1.f, 0.f, 1.f, 1.f));
 
 	if (gInput->GetKeyDown(eKeyCode::RBTN))
 	{
@@ -98,10 +145,6 @@ void CursorMovement::update()
 	{
 		debugRenderer2D->DrawLine2D(mPrevClickPos, MOUSE_WORLD_3D_POS, 0.f, Vector4(1.f, 0.f, 0.f, 1.f));
 	}
-
-
-	
-
 
 	if (IsInGrid(INDEX_XY, TILE_COUNT_XY))
 	{
@@ -114,13 +157,11 @@ void CursorMovement::update()
 			debugRenderer2D->DrawFillRect2D(RECT_POS, CELL_SIZE_XY, 0.f, Vector4(0.f, 1.f, 0.f, 0.5f));
 		}
 
-
-
 		if (gInput->GetKey(eKeyCode::RBTN))
 		{
-			const tINT2 PREV_INDEX_XY = helper::GridIndex(mPrevClickPos, CELL_SIZE_XY, TILE_COUNT_XY);
-			tINT2 min = {};
-			tINT2 max = {};
+			const XMINT2 PREV_INDEX_XY = helper::GridIndex(mPrevClickPos, CELL_SIZE_XY, TILE_COUNT_XY);
+			XMINT2 min = {};
+			XMINT2 max = {};
 
 			helper::math::INT2MinAndMax(INDEX_XY, PREV_INDEX_XY, &min, &max);
 			Vector3 leftUpPos = helper::GridIndexToWorldPosition(min, CELL_SIZE_XY, TILE_COUNT_XY);
@@ -136,9 +177,12 @@ void CursorMovement::update()
 		}
 	}
 
-	
-
-	
+	if (MessageManager::GetInstance()->IsAddTitleMessage())
+	{
+		wchar_t buffer[256];
+		swprintf_s(buffer, 256, L"<tile X : %d, Y : %d>", INDEX_XY.x, INDEX_XY.y);
+		MessageManager::GetInstance()->AddTitleMessage(buffer);
+	}
 }
 
 void CursorMovement::lateUpdate()

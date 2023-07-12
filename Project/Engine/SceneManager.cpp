@@ -17,19 +17,35 @@ void SceneManager::LoadScene(Scene* const scene)
 	DELETE_ARRAY(sInstance->mCurrentScene);
 
 	mCurrentScene = scene;
-	scene->initialize();
+	scene->Initialize();
 }
 
 void SceneManager::update()
 {
-	mCurrentScene->update();	
+	mCurrentScene->Update();
 }
+
 void SceneManager::lateUpdate()
 {
-	mCurrentScene->lateUpdate();
+	mCurrentScene->LateUpdate();
 }
 
 void SceneManager::eventUpdate()
 {
-	mCurrentScene->eventUpdate();
+	mCurrentScene->EventUpdate();
+}
+
+void SceneManager::render(const UINT renderTargetWidth,
+	const UINT renderTargetHeight,
+	const FLOAT backgroundColor[4],
+	ID3D11RenderTargetView** const ppRenderTargetView,
+	ID3D11DepthStencilView* const depthStencilView)
+{
+	mCurrentScene->Render(renderTargetWidth,
+		renderTargetHeight,
+		backgroundColor,
+		ppRenderTargetView,
+		depthStencilView);
+
+	mCurrentScene->RenderFlush();
 }

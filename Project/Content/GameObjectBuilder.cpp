@@ -11,8 +11,7 @@ GameObject* GameObjectBuilder::BuildDefault2DGameObject(const std::wstring& mate
 
 	SpriteRenderer* const spriteRenderer = obj->GetComponent<SpriteRenderer>();
 	spriteRenderer->SetMesh(gResourceManager->FindOrNull<Mesh>(L"FillRect2D"));
-	spriteRenderer->SetMaterial(gResourceManager->FindOrNull<Material>(materialName));
-	spriteRenderer->SetRenderTargetRenderer(gEngine->GetRenderTargetRenderer());
+	spriteRenderer->SetMaterial(gResourceManager->FindOrNull<Material>(materialName));	
 
 	return obj;
 }

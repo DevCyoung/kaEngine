@@ -29,14 +29,6 @@ public:
 	HWND GetHwnd() const { Assert(mHwnd, WCHAR_IS_NULLPTR); return mHwnd; }
 	GraphicDeviceDX11* GetGraphicDevice() const { return mGraphicDevice; }
 
-	//FIXME
-	RenderTargetRenderer* GetRenderTargetRenderer() const 
-	{ 
-		Assert(mRenderTargetRenderer, WCHAR_IS_NULLPTR); 
-		
-		return mRenderTargetRenderer; 
-	}
-
 private:
 	static void initialize(const HWND hWnd, const UINT renderTargetWidth, const UINT renderTargetHeight);
 	void setWindowSize(const UINT windowScreenWidth, const UINT windowScreenHeight);
@@ -44,7 +36,7 @@ private:
 	void updateWindowInfo();
 	void update();
 	void lateUpdate();
-	void render();	
+	void render();
 	void eventUpdate();
 
 private:
@@ -54,8 +46,7 @@ private:
 	UINT mWindowScreenWidth;
 	UINT mWindowScreenHeight;
 
-	GraphicDeviceDX11* mGraphicDevice;
-	RenderTargetRenderer* mRenderTargetRenderer;
+	GraphicDeviceDX11* mGraphicDevice;	
 };
 
 #define gEngine Engine::GetInstance()
