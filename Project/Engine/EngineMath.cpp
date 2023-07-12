@@ -17,7 +17,8 @@ namespace helper
 		return Vector2(renderTargetMousePos.x - renderTargetSize.x / 2, -renderTargetMousePos.y + renderTargetSize.y / 2);
 	}
 
-	Vector3 ScreenMouseToWorld3D(const Vector3& screenMousePos, const Vector2& screenSize, const Camera* const camera)
+	Vector3 ScreenMouseToWorld3D(const Vector3& screenMousePos, 
+		const Vector2& screenSize, const Camera* const camera)
 	{
 		Viewport viewport = {};
 		viewport.width = screenSize.x;
@@ -42,8 +43,8 @@ namespace helper
 		return ScreenMouseToWorld3D(WINDOW_MOUSE_3D_POS, WINDOW_SCREEN_SIZE, camera);
 	}
 
-	tINT2 GridIndex(const Vector3& selectWorldPos,
-		const Vector2& cellSize, const tUINT2& tileCountXY)
+	XMINT2 GridIndex(const Vector3& selectWorldPos,
+		const Vector2& cellSize, const XMUINT2& tileCountXY)
 	{
 		Vector2 selectPointToCenterPos = Vector2(selectWorldPos.x, -selectWorldPos.y);
 
@@ -62,11 +63,11 @@ namespace helper
 			y = -1;
 		}
 
-		return tINT2(x, y);
+		return XMINT2(x, y);
 	}
 
-	Vector3 GridIndexToWorldPosition(const tINT2& gridIndex,
-		const Vector2& cellSize, const tUINT2& tileCountXY)
+	Vector3 GridIndexToWorldPosition(const XMINT2& gridIndex,
+		const Vector2& cellSize, const XMUINT2& tileCountXY)
 	{
 		Vector3 rectPos = Vector3::Zero;
 
@@ -79,9 +80,9 @@ namespace helper
 		return rectPos;
 	}
 
-	bool IsInGrid(const tINT2& gridIndex, const tUINT2& tileCountXY)
+	bool IsInGrid(const XMINT2& gridIndex, const XMUINT2& tileCountXY)
 	{
-		tINT2 countXY = {};
+		XMINT2 countXY = {};
 
 		countXY.x = static_cast<int>(tileCountXY.x);
 		countXY.y = static_cast<int>(tileCountXY.y);
@@ -93,7 +94,7 @@ namespace helper
 
 namespace helper::math
 {
-	void INT2MinAndMax(const tINT2& a, const tINT2& b, tINT2* const outMin, tINT2* const outMax)
+	void INT2MinAndMax(const XMINT2& a, const XMINT2& b, XMINT2* const outMin, XMINT2* const outMax)
 	{
 		Assert(outMin, WCHAR_IS_NULLPTR);
 		Assert(outMax, WCHAR_IS_NULLPTR);

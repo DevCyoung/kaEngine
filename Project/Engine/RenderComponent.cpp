@@ -18,10 +18,8 @@ void RenderComponent::initialize()
 }
 
 void RenderComponent::update()
-{
-	Assert(mRenderTargetRenderer, WCHAR_IS_NULLPTR);
-
-	mRenderTargetRenderer->registerRenderComponent(this);
+{	
+	GetOwner()->GetRenderTargetRenderer()->registerRenderComponent(this);
 }
 
 void RenderComponent::lateUpdate()

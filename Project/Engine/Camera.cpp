@@ -6,8 +6,7 @@
 #include "EngineMath.h"
 
 Camera::Camera()
-	: Component(eComponentType::Camera)
-	, mRenderTargetRenderer(nullptr)
+	: Component(eComponentType::Camera)	
 	, mRenderTargetSize(Vector2::Zero)
 	, mLayerMask(0XFFFFFFFF)
 	, mNear(1.0f)
@@ -31,11 +30,10 @@ void Camera::initialize()
 }
 
 void Camera::update()
-{
-	Assert(mRenderTargetRenderer, WCHAR_IS_NULLPTR);
+{	
 	Assert(mRenderTargetSize != Vector2::Zero, WCHAR_IS_NULLPTR);
 
-	mRenderTargetRenderer->registerRenderCamera(this);
+	GetOwner()->GetRenderTargetRenderer()->registerRenderCamera(this);
 }
 
 void Camera::lateUpdate()

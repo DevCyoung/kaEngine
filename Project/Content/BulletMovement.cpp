@@ -28,7 +28,7 @@ void BulletMovement::update()
 
 	//SceneManager::GetInstance()->GetCurrentScene()->RegisterEventSetDestroy(GetOwner());	
 
-	if (mDelay > 3.f)
+	if (mDelay > 1.f)
 	{
 		SceneManager::GetInstance()->GetCurrentScene()->RegisterEventSetDestroy(GetOwner());
 		//SceneManager::GetInstance()->GetCurrentScene()->RegisterEventSetDestroy(GetOwner());

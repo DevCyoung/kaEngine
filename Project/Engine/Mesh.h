@@ -6,6 +6,10 @@
 class Mesh : public Resource
 {
 	friend class GraphicDeviceDX11;
+	friend class ResourceManager;
+
+private:
+	Mesh() = default;
 public:
 	Mesh(
 		const void* const vertexs,

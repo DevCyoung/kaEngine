@@ -36,7 +36,7 @@ public:
 		const float drawTime, const Vector4& lineColor);
 
 	void DrawGrid2D(const Vector3& worldPos, 
-		const Vector2& cellSizeXY, const tUINT2& tileCountXY,
+		const Vector2& cellSizeXY, const XMUINT2& tileCountXY,
 		const float drawTime, const Vector4& fillColor);
 
 
@@ -62,7 +62,7 @@ private:
 		Vector3 MousePos;
 		Vector4 FillColor;
 		Vector4 OutLineColor;
-		tUINT2 XYCount;
+		XMUINT2 XYCount;
 		float DrawTime;
 	};
 
@@ -72,10 +72,12 @@ private:
 		Mesh* debugMesh;
 	};
 
-	void renderFill2D(const tDebugDrawInfo& debugDrawInfo);
-	void renderGrid2D(const tDebugDrawInfo& debugDrawInfo);
-	void renderLine2D(const tDebugDrawInfo& debugDrawInfo);
-	void render(const Camera* const camera);
+	void renderFill2D(const tDebugDrawInfo& debugDrawInfo) const;
+	void renderGrid2D(const tDebugDrawInfo& debugDrawInfo) const;
+	void renderLine2D(const tDebugDrawInfo& debugDrawInfo) const;
+	void render(const Camera* const camera) const;
+	void flush();
+
 
 private:	
 	tDebugMaterial mDebugMaterial[static_cast<UINT>(eDebugDrawType::End)];

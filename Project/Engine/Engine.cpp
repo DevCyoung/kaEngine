@@ -8,6 +8,7 @@
 #include "ResourceManager.h"
 #include "SceneManager.h"
 #include "RenderTargetRenderer.h"
+#include "EngineResourceLoader.h"
 
 Engine::Engine(const HWND hWnd, const UINT renderTargetWidth, const UINT renderTargetHeight)
 	: mHwnd(hWnd)
@@ -16,9 +17,15 @@ Engine::Engine(const HWND hWnd, const UINT renderTargetWidth, const UINT renderT
 	, mWindowScreenWidth(renderTargetWidth)
 	, mWindowScreenHeight(renderTargetHeight)
 	, mGraphicDevice(new GraphicDeviceDX11(mHwnd, mRenderTargetWidth, mRenderTargetHeight))
-	, mRenderTargetRenderer(nullptr)
 {
 	setWindowSize(mRenderTargetWidth, mRenderTargetHeight);
+
+	TimeManager::initialize();
+	MessageManager::initialize();
+	PathManager::initialize();
+	InputManager::initialize();
+	ResourceManager::initialize();
+	SceneManager::initialize();
 }
 
 Engine::~Engine()
@@ -29,8 +36,7 @@ Engine::~Engine()
 	PathManager::deleteInstance();
 	MessageManager::deleteInstance();
 	TimeManager::deleteInstance();
-
-	SAFE_DELETE_POINTER(mRenderTargetRenderer);
+	
 	SAFE_DELETE_POINTER(mGraphicDevice);
 }
 
@@ -41,14 +47,7 @@ void Engine::initialize(const HWND hWnd, const UINT renderTargetWidth, const UIN
 
 	sInstance = new Engine(hWnd, renderTargetWidth, renderTargetHeight);
 
-	TimeManager::initialize();
-	MessageManager::initialize();
-	PathManager::initialize();
-	InputManager::initialize();
-	ResourceManager::initialize();
-	SceneManager::initialize();
-
-	sInstance->mRenderTargetRenderer = new RenderTargetRenderer();
+	EngineResourceLoader::loadResource();
 }
 
 void Engine::run()
@@ -91,11 +90,11 @@ void Engine::render()
 {
 	constexpr FLOAT BG_COLOR[4] = { 0.4f, 0.4f, 0.4f, 1.f };
 
-	mRenderTargetRenderer->Render(mRenderTargetWidth,
-		mRenderTargetHeight,
-		BG_COLOR,
-		mGraphicDevice->GetRenderTargetViewAddressOf(),
-		mGraphicDevice->GetDepthStencilView());
+	SceneManager::GetInstance()->render(mRenderTargetWidth,
+				mRenderTargetHeight,
+				BG_COLOR,
+				mGraphicDevice->GetRenderTargetViewAddressOf(),
+				mGraphicDevice->GetDepthStencilView());
 
 	mGraphicDevice->present();
 }

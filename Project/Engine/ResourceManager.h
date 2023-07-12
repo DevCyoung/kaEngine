@@ -46,7 +46,6 @@ private:
 };
 #define gResourceManager ResourceManager::GetInstance()
 
-
 template<typename T>
 	requires (is_engine_resource<T>::value)
 inline T* ResourceManager::FindOrNull(const Key& relativePathOrName) const
@@ -96,7 +95,6 @@ inline T* ResourceManager::FindByEnum(const typename engine_resource_type<T>::eR
 	return Find<T>(EnumResourcePath(resNameType));
 }
 
-
 template<typename T>
 	requires (is_engine_resource<T>::value)
 inline void ResourceManager::Load(const Key& relativePathOrName)
@@ -119,7 +117,6 @@ inline void ResourceManager::LoadByEnum(const typename engine_resource_type<T>::
 {
 	Load<T>(EnumResourcePath(resNameType));
 }
-
 
 template<typename T>
 	requires (is_engine_resource<T>::value)

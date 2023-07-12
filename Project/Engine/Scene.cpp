@@ -2,11 +2,13 @@
 #include "Scene.h"
 #include "GameObject.h"
 #include "MessageManager.h"
+#include "RenderTargetRenderer.h"
 
 Scene::Scene()
 	: mLayers()
 	, mEventMessages()
 	, mGarbages()
+	, mRenderTargetRenderer(new RenderTargetRenderer())
 {
 	mEventMessages.reserve(100);
 	mGarbages.reserve(100);
@@ -14,9 +16,10 @@ Scene::Scene()
 
 Scene::~Scene()
 {
+	SAFE_DELETE_POINTER(mRenderTargetRenderer);
 }
 
-void Scene::initialize()
+void Scene::Initialize()
 {
 	for (Layer& layer : mLayers)
 	{
@@ -24,7 +27,7 @@ void Scene::initialize()
 	}
 }
 
-void Scene::update()
+void Scene::Update()
 {
 	for (Layer& layer : mLayers)
 	{
@@ -32,7 +35,7 @@ void Scene::update()
 	}
 }
 
-void Scene::lateUpdate()
+void Scene::LateUpdate()
 {
 	size_t gameObjectCount = 0;
 
@@ -41,17 +44,6 @@ void Scene::lateUpdate()
 		layer.lateUpdate();
 
 		gameObjectCount += layer.mGameObjects.size();
-
-		//if exist garbage, remove it, No rendering
-		if (false == mGarbages.empty())
-		{
-			std::vector<GameObject*>& gameObjects = layer.mGameObjects;
-			gameObjects.erase(std::remove_if(gameObjects.begin(), gameObjects.end(),
-				[](const GameObject* const gameObject) 
-				{ 
-					return GameObject::eState::Destroy == gameObject->mState; 
-				}), gameObjects.end());
-		}
 	}
 
 	if (MessageManager::GetInstance()->IsAddTitleMessage())
@@ -61,9 +53,41 @@ void Scene::lateUpdate()
 		swprintf_s(buff, WSTR_LEN, L"<GameObject Count : %zu>", gameObjectCount);
 		MessageManager::GetInstance()->AddTitleMessage(buff);
 	}
+	
+	//if exist garbage, remove it, No rendering
+	if (false == mGarbages.empty())
+	{
+		for (Layer& layer : mLayers)
+		{
+			std::vector<GameObject*>& gameObjects = layer.mGameObjects;
+			gameObjects.erase(std::remove_if(gameObjects.begin(), gameObjects.end(),
+				[](const GameObject* const gameObject)
+				{
+					return GameObject::eState::Destroy == gameObject->mState;
+				}), gameObjects.end());
+		}
+	}
 }
 
-void Scene::eventUpdate()
+void Scene::Render(const UINT renderTargetWidth,
+	const UINT renderTargetHeight,
+	const FLOAT backgroundColor[4],
+	ID3D11RenderTargetView** const ppRenderTargetView,
+	ID3D11DepthStencilView* const depthStencilView) const
+{
+	mRenderTargetRenderer->Render(renderTargetWidth,
+		renderTargetHeight,
+		backgroundColor,
+		ppRenderTargetView,
+		depthStencilView);
+}
+
+void Scene::RenderFlush()
+{
+	mRenderTargetRenderer->flush();
+}
+
+void Scene::EventUpdate()
 {
 	memory::safe::DeleteVec(mGarbages);
 
@@ -84,8 +108,8 @@ void Scene::eventUpdate()
 		case eEventOfScene::AddGameObject:
 			Assert(message.LayerType != eLayerType::End, WCHAR_IS_INVALID_TYPE);
 
-			message.EventGameObject->initialize();
 			AddGameObject(message.EventGameObject, message.LayerType);
+			message.EventGameObject->initialize();
 			break;
 
 		default:
@@ -97,7 +121,7 @@ void Scene::eventUpdate()
 	mEventMessages.clear();
 }
 
-void Scene::RegisterEventAddGameObject(GameObject* const gameObject, 
+void Scene::RegisterEventAddGameObject(GameObject* const gameObject,
 	const eLayerType layerType, const std::source_location& location)
 {
 	Assert(gameObject, WCHAR_IS_NULLPTR);
@@ -132,8 +156,10 @@ void Scene::AddGameObject(GameObject* const gameObject, const eLayerType layerTy
 {
 	Assert(gameObject, WCHAR_IS_NULLPTR);
 	Assert(layerType != eLayerType::End, WCHAR_IS_INVALID_TYPE);
+	Assert(mRenderTargetRenderer, WCHAR_IS_NULLPTR);
 
 	gameObject->mLayerType = layerType;
+	gameObject->mRenderTargetRenderer = mRenderTargetRenderer;
 	mLayers[static_cast<UINT>(layerType)].mGameObjects.push_back(gameObject);
 }
 

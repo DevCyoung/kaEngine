@@ -68,7 +68,7 @@ void PlayerMovementTest::update()
 
     pos.y += 200.f;
 
-    for (int i = 0; i < 1; ++i)
+    for (int i = 0; i < 32; ++i)
     {
         GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"Door");
 

@@ -5,6 +5,7 @@
 #include "EnumLayer.h"
 
 class ScriptComponent;
+class RenderTargetRenderer;
 
 class GameObject : public Entity
 {
@@ -46,8 +47,15 @@ public:
 	void RemoveComponent(const eScriptComponentType scriptComponentType);
 
 	eLayerType GetLayer() const { return mLayerType;};
-	GameObject* GetParentOrNull() const { return mParent; }
+	GameObject* GetParentOrNull() const { return mParent; }	
 	eState GetState() const { return mState; }
+
+	RenderTargetRenderer* GetRenderTargetRenderer() const
+	{
+		Assert(mRenderTargetRenderer, WCHAR_IS_NULLPTR);
+
+		return mRenderTargetRenderer;
+	}
 
 	//FIXME:
 	void SetParent(GameObject* const parent) { mParent = parent; }
@@ -58,11 +66,12 @@ private:
 	void lateUpdate();	
 
 private:
-	eLayerType mLayerType;
-	eState mState;
 	Component* mEngineComponents[static_cast<UINT>(eComponentType::End)];
 	std::vector<ScriptComponent*> mUserComponents;
+	eLayerType mLayerType;
+	eState mState;
 	GameObject* mParent;
+	RenderTargetRenderer* mRenderTargetRenderer;
 };
 
 template<typename T>
@@ -78,6 +87,7 @@ inline void GameObject::AddComponent(T* const component)
 	if constexpr (engine_component_type<T>::value)
 	{
 		Assert(!mEngineComponents[static_cast<UINT>(engine_component_type<T>::type)], WCHAR_IS_NOT_NULLPTR);
+
 		mEngineComponents[static_cast<UINT>(engine_component_type<T>::type)] = component;
 	}
 	else if constexpr (script_component_type<T>::value)

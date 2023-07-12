@@ -421,8 +421,7 @@ void Content::testSceneInitialize()
 		mainCameraObj->AddComponent<Camera>();
 		mainCameraObj->AddComponent<CameraInputMoveMent>();
 
-		mainCameraObj->GetComponent<Camera>()->SetCameraType(eCameraPriorityType::Main);
-		mainCameraObj->GetComponent<Camera>()->SetRenderTargetRenderer(gEngine->GetRenderTargetRenderer());
+		mainCameraObj->GetComponent<Camera>()->SetProjectionType(eCameraPriorityType::Main);		
 		mainCameraObj->GetComponent<Camera>()->SetRenderTargetSize(screenSize);		
 		mainCameraObj->GetComponent<Camera>()->TurnOnAllLayer();
 		mainCameraObj->GetComponent<Camera>()->TurnOffLayer(eLayerType::UI);
@@ -437,8 +436,7 @@ void Content::testSceneInitialize()
 
 		mainCameraObj->AddComponent<Camera>();
 
-		mainCameraObj->GetComponent<Camera>()->SetCameraType(eCameraPriorityType::UI);
-		mainCameraObj->GetComponent<Camera>()->SetRenderTargetRenderer(gEngine->GetRenderTargetRenderer());
+		mainCameraObj->GetComponent<Camera>()->SetProjectionType(eCameraPriorityType::UI);		
 		mainCameraObj->GetComponent<Camera>()->SetRenderTargetSize(screenSize);
 		mainCameraObj->GetComponent<Camera>()->TurnOffAllLayer();
 		mainCameraObj->GetComponent<Camera>()->TurnOnLayer(eLayerType::UI);

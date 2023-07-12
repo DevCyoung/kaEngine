@@ -5,11 +5,12 @@
 #include "EnumLayer.h"
 
 GameObject::GameObject()
-	: mLayerType(eLayerType::Default)
-	, mState(eState::Active)
-	, mEngineComponents{ 0, }
+	: mEngineComponents{0, }
 	, mUserComponents()
+	, mLayerType(eLayerType::Default)
+	, mState(eState::Active)
 	, mParent(nullptr)
+	, mRenderTargetRenderer(nullptr)
 {
 	AddComponent<Transform>();
 }
@@ -22,6 +23,8 @@ GameObject::~GameObject()
 
 void GameObject::initialize()
 {
+	Assert(mRenderTargetRenderer, WCHAR_IS_NULLPTR);
+
 	for (Component* const component : mEngineComponents)
 	{
 		if (component)
