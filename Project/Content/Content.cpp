@@ -443,7 +443,7 @@ void Content::testSceneInitialize()
 		mainCameraObj->GetComponent<Transform>()->SetPosition(0.f, 0.f, -10.f);
 
 		testScene->AddGameObject(mainCameraObj, eLayerType::Default);
-	}
+	}		
 
 	SceneManager::GetInstance()->LoadScene(testScene);
 }

@@ -59,12 +59,13 @@ void RenderTargetRenderer::zSortRenderObjectArray(const eRenderPriorityType rend
 
 void RenderTargetRenderer::Render(const UINT renderTargetWidth,
 	const UINT renderTargetHeight,
-	const FLOAT backgroundColor[4],
 	ID3D11RenderTargetView** const ppRenderTargetView,
 	ID3D11DepthStencilView* const depthStencilView) const
 {
-	gGraphicDevice->ClearRenderTarget(renderTargetWidth, renderTargetHeight, 
-		backgroundColor, ppRenderTargetView, depthStencilView);
+	gGraphicDevice->BindRenderTarget(renderTargetWidth, 
+		renderTargetHeight,
+		ppRenderTargetView,
+		depthStencilView);	
 
 	//알파블렌딩 Z솔트가 필요할떄 적용한다.
 	//zSortRenderObjectArray(eRenderType::Transparent);
@@ -76,9 +77,9 @@ void RenderTargetRenderer::Render(const UINT renderTargetWidth,
 			continue;
 		}
 		
-		const UINT RENDER_PRIORITY = static_cast<UINT>(P_CAMERA->GetPriorityType());
+		const UINT CAMERA_PRIORITY = static_cast<UINT>(P_CAMERA->GetPriorityType());
 
-		if (!(mCameraMask & (1 << RENDER_PRIORITY)))
+		if (!(mCameraMask & (1 << CAMERA_PRIORITY)))
 		{
 			continue;
 		}
@@ -110,7 +111,7 @@ void RenderTargetRenderer::Render(const UINT renderTargetWidth,
 void RenderTargetRenderer::flush()
 {
 	mDebugRenderer->flush();
-
+	
 	for (auto& camera : mCameras)
 	{
 		camera = nullptr;

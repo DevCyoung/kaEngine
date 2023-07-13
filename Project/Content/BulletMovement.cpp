@@ -25,13 +25,10 @@ void BulletMovement::update()
 	transform->SetPosition(pos);
 
 	mDelay += gDeltaTime;
-
-	//SceneManager::GetInstance()->GetCurrentScene()->RegisterEventSetDestroy(GetOwner());	
-
+	
 	if (mDelay > 1.f)
 	{
-		SceneManager::GetInstance()->GetCurrentScene()->RegisterEventSetDestroy(GetOwner());
-		//SceneManager::GetInstance()->GetCurrentScene()->RegisterEventSetDestroy(GetOwner());
+		gCurrentScene->RegisterEventSetDestroy(GetOwner());		
 	}
 }
 

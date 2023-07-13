@@ -298,13 +298,12 @@ void DebugRenderer2D::renderFill2D(const tDebugDrawInfo& drawInfo) const
 
 void DebugRenderer2D::flush()
 {
-	for (tDebugDrawInfo& drawInfo : mDebugDrawInfos)
-	{
-		drawInfo.DrawTime -= gDeltaTime;
-	}
-
 	mDebugDrawInfos.erase(std::remove_if(mDebugDrawInfos.begin(), mDebugDrawInfos.end(),
-		[](tDebugDrawInfo& drawInfo) { return drawInfo.DrawTime <= 0.f; }), mDebugDrawInfos.end());
+		[](tDebugDrawInfo& drawInfo) 
+		{ 
+			drawInfo.DrawTime -= gDeltaTime;
+			return drawInfo.DrawTime <= 0.f;
+		}), mDebugDrawInfos.end());
 }
 
 void DebugRenderer2D::renderGrid2D(const tDebugDrawInfo& debugDrawInfo) const
