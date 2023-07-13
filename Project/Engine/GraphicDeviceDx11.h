@@ -42,14 +42,16 @@ public:
 	void BindBS(const eBSType BSType) const;
 	void BindDS(const eDSType DSType) const;
 	void BindRS(const eRSType RSType) const;
+	void BindRenderTarget(const UINT renderTargetWidth,
+		const UINT renderTargetHeight,
+		ID3D11RenderTargetView* const* const ppRnderTargetView,
+		ID3D11DepthStencilView* const depthStencilView) const;
 
 	void Draw(const Mesh* const mesh) const;
 
-	void ClearRenderTarget(const UINT renderTargetWidth,
-		const UINT renderTargetHeight,
-		const FLOAT backgroundColor[4],
-		ID3D11RenderTargetView* const* const ppRenderTargetView,
-		ID3D11DepthStencilView* const depthStencilView) const;
+	void ClearRenderTarget(ID3D11RenderTargetView* const* const ppRnderTargetView,
+		ID3D11DepthStencilView* const depthStencilView,
+		const FLOAT backgroundColor[4]) const;
 
 	const SMCollection* GetIEDCollection() const 
 	{ 

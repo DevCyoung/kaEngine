@@ -1,5 +1,7 @@
 #include "pch.h"
 #include "SceneManager.h"
+#include "Engine.h"
+#include "GraphicDeviceDx11.h"
 
 SceneManager::SceneManager()
 	: mCurrentScene(nullptr)
@@ -17,22 +19,22 @@ void SceneManager::LoadScene(Scene* const scene)
 	DELETE_ARRAY(sInstance->mCurrentScene);
 
 	mCurrentScene = scene;
-	scene->Initialize();
+	scene->initialize();
 }
 
 void SceneManager::update()
 {
-	mCurrentScene->Update();
+	mCurrentScene->update();
 }
 
 void SceneManager::lateUpdate()
 {
-	mCurrentScene->LateUpdate();
+	mCurrentScene->lateUpdate();
 }
 
 void SceneManager::eventUpdate()
 {
-	mCurrentScene->EventUpdate();
+	mCurrentScene->eventUpdate();
 }
 
 void SceneManager::render(const UINT renderTargetWidth,
@@ -41,11 +43,14 @@ void SceneManager::render(const UINT renderTargetWidth,
 	ID3D11RenderTargetView** const ppRenderTargetView,
 	ID3D11DepthStencilView* const depthStencilView)
 {
-	mCurrentScene->Render(renderTargetWidth,
-		renderTargetHeight,
-		backgroundColor,
+	gGraphicDevice->ClearRenderTarget(ppRenderTargetView,
+		depthStencilView,
+		backgroundColor);
+
+	mCurrentScene->render(renderTargetWidth,
+		renderTargetHeight,		
 		ppRenderTargetView,
 		depthStencilView);
 
-	mCurrentScene->RenderFlush();
+	mCurrentScene->renderFlush();
 }

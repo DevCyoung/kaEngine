@@ -360,15 +360,19 @@ void GraphicDeviceDX11::Draw(const Mesh* const mesh) const
 	mContext->DrawIndexed(INDEX_COUNT, START_VERTEX_LOCATION, 0);
 }
 
-void GraphicDeviceDX11::ClearRenderTarget(const UINT renderTargetWidth, 
+void GraphicDeviceDX11::ClearRenderTarget(ID3D11RenderTargetView* const* const ppRnderTargetView,
+	ID3D11DepthStencilView* const depthStencilView,
+	const FLOAT backgroundColor[4]) const
+{
+	mContext->ClearRenderTargetView(*ppRnderTargetView, backgroundColor);
+	mContext->ClearDepthStencilView(depthStencilView, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
+}
+
+void GraphicDeviceDX11::BindRenderTarget(const UINT renderTargetWidth, 
 	const UINT renderTargetHeight,
-	const FLOAT backgroundColor[4],
 	ID3D11RenderTargetView* const* const ppRnderTargetView,
 	ID3D11DepthStencilView* const depthStencilView) const
 {	            		
-	mContext->ClearRenderTargetView(*ppRnderTargetView, backgroundColor);
-	mContext->ClearDepthStencilView(depthStencilView, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
-
 	const D3D11_VIEWPORT VIEW_PORT =
 	{
 		0.0f, 0.0f,

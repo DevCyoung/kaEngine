@@ -19,7 +19,7 @@ Scene::~Scene()
 	SAFE_DELETE_POINTER(mRenderTargetRenderer);
 }
 
-void Scene::Initialize()
+void Scene::initialize()
 {
 	for (Layer& layer : mLayers)
 	{
@@ -27,7 +27,7 @@ void Scene::Initialize()
 	}
 }
 
-void Scene::Update()
+void Scene::update()
 {
 	for (Layer& layer : mLayers)
 	{
@@ -35,7 +35,7 @@ void Scene::Update()
 	}
 }
 
-void Scene::LateUpdate()
+void Scene::lateUpdate()
 {
 	size_t gameObjectCount = 0;
 
@@ -69,25 +69,23 @@ void Scene::LateUpdate()
 	}
 }
 
-void Scene::Render(const UINT renderTargetWidth,
+void Scene::render(const UINT renderTargetWidth,
 	const UINT renderTargetHeight,
-	const FLOAT backgroundColor[4],
 	ID3D11RenderTargetView** const ppRenderTargetView,
 	ID3D11DepthStencilView* const depthStencilView) const
 {
 	mRenderTargetRenderer->Render(renderTargetWidth,
-		renderTargetHeight,
-		backgroundColor,
+		renderTargetHeight,		
 		ppRenderTargetView,
 		depthStencilView);
 }
 
-void Scene::RenderFlush()
+void Scene::renderFlush()
 {
 	mRenderTargetRenderer->flush();
 }
 
-void Scene::EventUpdate()
+void Scene::eventUpdate()
 {
 	memory::safe::DeleteVec(mGarbages);
 

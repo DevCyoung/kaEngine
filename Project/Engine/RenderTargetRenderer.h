@@ -19,7 +19,6 @@ public:
 
 	void Render(const UINT renderTargetWidth,
 		const UINT renderTargetHeight,
-		const FLOAT backgroundColor[4],
 		ID3D11RenderTargetView** const ppRenderTargetView,
 		ID3D11DepthStencilView* const depthStencilView) const;
 
@@ -32,8 +31,8 @@ public:
 
 	DebugRenderer2D* GetDebugRenderer() const { Assert(mDebugRenderer, WCHAR_IS_NULLPTR); return mDebugRenderer; }
 
-	void TurnAllOnCamera()  { mCameraMask = 0XFFFFFFFF; }
-	void TurnAllOffCamera() { mCameraMask = 0; }
+	void TurnOnAllCamera()  { mCameraMask = 0XFFFFFFFF; }
+	void TurnOffAllCamera() { mCameraMask = 0; }
 
 	void TurnOnCamera(const eCameraPriorityType priorityType) 
 	{

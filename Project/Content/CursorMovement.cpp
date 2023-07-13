@@ -110,13 +110,55 @@ void CursorMovement::update()
 		Vector2(size * 15.f, size * 15.f), 0.f, Vector4(1.f, 0.f, LerpSinBtwZeroAndOne(gGlobalTime), 1.f));
 
 	debugRenderer2D->DrawFillRect2D(MOUSE_WORLD_3D_POS + Vector3(-100.f, +100.f, 0.f),
-		Vector2(50.f, 50.f), 0.f, Vector4(0.f, 1.f, 1.f, 1.f));
+		Vector2(50.f, 50.f), 0.f, Vector4(0.f, 1.f, 1.f, 0.3f));
 	debugRenderer2D->DrawFillRect2D(MOUSE_WORLD_3D_POS + Vector3(+100.f, +100.f, 0.f),
-		Vector2(50.f, 50.f), 0.f, Vector4(0.f, 1.f, 1.f, 1.f));
+		Vector2(50.f, 50.f), 0.f, Vector4(0.f, 1.f, 1.f, 0.3f));
 	debugRenderer2D->DrawFillRect2D(MOUSE_WORLD_3D_POS + Vector3(+100.f, -100.f, 0.f),
-		Vector2(50.f, 50.f), 0.f, Vector4(0.f, 1.f, 1.f, 1.f));
+		Vector2(50.f, 50.f), 0.f, Vector4(0.f, 1.f, 1.f, 0.3f));
 	debugRenderer2D->DrawFillRect2D(MOUSE_WORLD_3D_POS + Vector3(-100.f, -100.f, 0.f),
-		Vector2(50.f, 50.f), 0.f, Vector4(0.f, 1.f, 1.f, 1.f));
+		Vector2(50.f, 50.f), 0.f, Vector4(0.f, 1.f, 1.f, 0.3f));
+
+	{
+		const XMINT2 INDEX_XY2 = GridIndex(MOUSE_WORLD_3D_POS + Vector3(-100.f, +100.f, 0.f),
+			CELL_SIZE_XY, TILE_COUNT_XY);
+		const Vector3& RECT_POS2 = GridIndexToWorldPosition(INDEX_XY2, CELL_SIZE_XY,
+			TILE_COUNT_XY);
+
+		debugRenderer2D->DrawFillRect2D(RECT_POS2,
+			CELL_SIZE_XY, 0.f, Vector4(0.f, 1.f, 1.f, 0.4f));
+	}
+
+	{
+		const XMINT2 INDEX_XY2 = GridIndex(MOUSE_WORLD_3D_POS + Vector3(+100.f, +100.f, 0.f),
+			CELL_SIZE_XY, TILE_COUNT_XY);
+		const Vector3& RECT_POS2 = GridIndexToWorldPosition(INDEX_XY2, CELL_SIZE_XY,
+			TILE_COUNT_XY);
+
+		debugRenderer2D->DrawFillRect2D(RECT_POS2,
+			CELL_SIZE_XY, 0.f, Vector4(0.f, 1.f, 1.f, 0.4f));
+	}
+
+	{
+		const XMINT2 INDEX_XY2 = GridIndex(MOUSE_WORLD_3D_POS + Vector3(+100.f, -100.f, 0.f),
+			CELL_SIZE_XY, TILE_COUNT_XY);
+		const Vector3& RECT_POS2 = GridIndexToWorldPosition(INDEX_XY2, CELL_SIZE_XY,
+			TILE_COUNT_XY);
+
+		debugRenderer2D->DrawFillRect2D(RECT_POS2,
+			CELL_SIZE_XY, 0.f, Vector4(0.f, 1.f, 1.f, 0.4f));
+	}
+
+	{
+		const XMINT2 INDEX_XY2 = GridIndex(MOUSE_WORLD_3D_POS + Vector3(-100.f, -100.f, 0.f),
+			CELL_SIZE_XY, TILE_COUNT_XY);
+		const Vector3& RECT_POS2 = GridIndexToWorldPosition(INDEX_XY2, CELL_SIZE_XY,
+			TILE_COUNT_XY);
+
+		debugRenderer2D->DrawFillRect2D(RECT_POS2,
+			CELL_SIZE_XY, 0.f, Vector4(0.f, 1.f, 1.f, 0.4f));
+	}
+
+
 
 	debugRenderer2D->DrawLine2D2(MOUSE_WORLD_3D_POS,
 		Vector2(1.f, 0.0f), 100.f, 0.f, Vector4(0.f, 0.f, 1.f, 1.f));
@@ -135,6 +177,8 @@ void CursorMovement::update()
 		MOUSE_WORLD_3D_POS, 0.f, Vector4(1.f, 0.f, 1.f, 1.f));
 	debugRenderer2D->DrawLine2D(MOUSE_WORLD_3D_POS + Vector3(-100.f, -100.f, 0.f),
 		MOUSE_WORLD_3D_POS, 0.f, Vector4(1.f, 0.f, 1.f, 1.f));
+
+
 
 	if (gInput->GetKeyDown(eKeyCode::RBTN))
 	{

@@ -12,6 +12,8 @@ struct ID3D11DepthStencilView;
 
 class Scene : public Resource
 {
+	friend class SceneManager;
+
 public:
 	Scene();
 	virtual ~Scene();
@@ -43,19 +45,18 @@ private:
 		std::source_location ErrorHint;
 	};
 
-public:
-	virtual void Initialize();
-	virtual void Update();
-	virtual void LateUpdate();
+private:
+	virtual void initialize();
+	virtual void update();
+	virtual void lateUpdate();
 	//virtual void physicsUpdate
-	virtual void Render(const UINT renderTargetWidth,
+	virtual void render(const UINT renderTargetWidth,
 		const UINT renderTargetHeight,
-		const FLOAT backgroundColor[4],
 		ID3D11RenderTargetView** const ppRenderTargetView,
 		ID3D11DepthStencilView* const depthStencilView) const;
 
-	virtual void RenderFlush();
-	virtual void EventUpdate();
+	virtual void renderFlush();
+	virtual void eventUpdate();
 
 private:
 	Layer mLayers[static_cast<UINT>(eLayerType::End)];
