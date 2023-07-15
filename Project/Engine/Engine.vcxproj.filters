@@ -163,6 +163,9 @@
     <Filter Include="Source\00. Engine\02. Loader">
       <UniqueIdentifier>{9a462464-9aa2-4de2-b5b8-02b586551f88}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\03. Component\Collision">
+      <UniqueIdentifier>{b4009016-722d-4433-980a-79b985f6d586}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Entity.h">
@@ -330,6 +333,9 @@
     <ClInclude Include="EngineResourceLoader.h">
       <Filter>Source\00. Engine\02. Loader</Filter>
     </ClInclude>
+    <ClInclude Include="Collider2D.h">
+      <Filter>Source\03. Component\Collision</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Entity.cpp">
@@ -457,6 +463,9 @@
     </ClCompile>
     <ClCompile Include="EngineResourceLoader.cpp">
       <Filter>Source\00. Engine\02. Loader</Filter>
+    </ClCompile>
+    <ClCompile Include="Collider2D.cpp">
+      <Filter>Source\03. Component\Collision</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

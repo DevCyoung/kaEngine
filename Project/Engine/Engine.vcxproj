@@ -166,6 +166,10 @@ call ScriptGen.exe Component $(SolutionDir)Project\Engine $(SolutionDir)Project\
     <ClInclude Include="BSCollection.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CBCollection.h" />
+    <ClInclude Include="Collider2D.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Component.h" />
     <ClInclude Include="ComponentTrait.h" />
     <ClInclude Include="DebugRenderer2D.h">
@@ -235,6 +239,10 @@ call ScriptGen.exe Component $(SolutionDir)Project\Engine $(SolutionDir)Project\
     <ClCompile Include="BSCollection.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CBCollection.cpp" />
+    <ClCompile Include="Collider2D.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="ConstantBuffer.cpp" />
     <ClCompile Include="DebugRenderer2D.cpp">

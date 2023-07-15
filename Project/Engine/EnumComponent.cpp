@@ -2,12 +2,14 @@
 #include "EnumComponent.h"
 
 #include "Camera.h"
+#include "Collider2D.h"
 #include "SpriteRenderer.h"
 #include "Transform.h"
 
 static constexpr const wchar_t* const ComponentNames[static_cast<UINT>(eComponentType::End)]
 {
 	L"Camera",
+	L"Collider2D",
 	L"SpriteRenderer",
 	L"Transform",
 };
@@ -24,6 +26,8 @@ Component* CreateComponentByName(const std::wstring& componentName)
 
 	if (L"Camera" == componentName)
 		component = new Camera;
+	else if (L"Collider2D" == componentName)
+		component = new Collider2D;
 	else if (L"SpriteRenderer" == componentName)
 		component = new SpriteRenderer;
 	else if (L"Transform" == componentName)
@@ -41,6 +45,9 @@ Component* CreateComponentByEnum(const eComponentType type)
 	{
 	case eComponentType::Camera:
 		component = new Camera;
+		break;
+	case eComponentType::Collider2D:
+		component = new Collider2D;
 		break;
 	case eComponentType::SpriteRenderer:
 		component = new SpriteRenderer;
