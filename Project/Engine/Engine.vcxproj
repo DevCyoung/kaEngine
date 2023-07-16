@@ -166,10 +166,15 @@ call ScriptGen.exe Component $(SolutionDir)Project\Engine $(SolutionDir)Project\
     <ClInclude Include="BSCollection.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CBCollection.h" />
+    <ClInclude Include="CircleCollider2D.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Collider2D.h">
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="CollisionManagement2D.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="ComponentTrait.h" />
     <ClInclude Include="DebugRenderer2D.h">
@@ -191,6 +196,10 @@ call ScriptGen.exe Component $(SolutionDir)Project\Engine $(SolutionDir)Project\
     <ClInclude Include="EnumLayer.h" />
     <ClInclude Include="EnumRenderType.h" />
     <ClInclude Include="EnumResource.h" />
+    <ClInclude Include="RectCollider2D.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="SMCollection.h" />
     <ClInclude Include="Prefab.h" />
     <ClInclude Include="RenderComponent.h">
@@ -239,10 +248,15 @@ call ScriptGen.exe Component $(SolutionDir)Project\Engine $(SolutionDir)Project\
     <ClCompile Include="BSCollection.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CBCollection.cpp" />
+    <ClCompile Include="CircleCollider2D.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Collider2D.cpp">
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="CollisionManagement2D.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="ConstantBuffer.cpp" />
     <ClCompile Include="DebugRenderer2D.cpp">
@@ -258,6 +272,10 @@ call ScriptGen.exe Component $(SolutionDir)Project\Engine $(SolutionDir)Project\
     <ClCompile Include="EnumComponent.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GraphicDeviceDX11.cpp" />
+    <ClCompile Include="RectCollider2D.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="SMCollection.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Layer.cpp" />

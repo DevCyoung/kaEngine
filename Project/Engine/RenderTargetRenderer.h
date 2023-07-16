@@ -22,12 +22,18 @@ public:
 		ID3D11RenderTargetView** const ppRenderTargetView,
 		ID3D11DepthStencilView* const depthStencilView) const;
 
+	Camera* GetRegisteredRenderCameraOrNull(const eCameraPriorityType priorityType) const
+	{		
+		return mCameras[static_cast<UINT>(priorityType)];
+	}
+
 	Camera* GetRegisteredRenderCamera(const eCameraPriorityType priorityType) const
 	{		
 		Assert(mCameras[static_cast<UINT>(priorityType)], WCHAR_IS_NULLPTR);
 
 		return mCameras[static_cast<UINT>(priorityType)];
 	}
+
 
 	DebugRenderer2D* GetDebugRenderer() const { Assert(mDebugRenderer, WCHAR_IS_NULLPTR); return mDebugRenderer; }
 

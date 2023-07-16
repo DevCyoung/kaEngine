@@ -5,11 +5,34 @@
 BulletMovement::BulletMovement()
     : ScriptComponent(eScriptComponentType::BulletMovement)
 	, mDelay(0.f)
+	, mDir{}
 {
 }
 
 BulletMovement::~BulletMovement()
 {
+}
+
+void BulletMovement::OnCollisionEnter(Collider2D* other)
+{
+	(void)other;
+
+	if (GetOwner()->GetState() == GameObject::eState::Destroy)
+	{
+		return;
+	}
+
+	gCurrentScene->RegisterEventSetDestroy(GetOwner());
+}
+
+void BulletMovement::OnCollisionStay(Collider2D* other)
+{
+	(void)other;
+}
+
+void BulletMovement::OnCollisionExit(Collider2D* other)
+{
+	(void)other;
 }
 
 void BulletMovement::initialize()
@@ -18,17 +41,21 @@ void BulletMovement::initialize()
 
 void BulletMovement::update()
 {
-	Transform* transform = GetComponent<Transform>();
+	Transform* transform = GetOwner()->GetComponent<Transform>();
 	Vector3 pos = transform->GetPosition();
-
-	pos += transform->GetUp() * 6000.f * gDeltaTime;
+	
+	pos += mDir * 600.f * gDeltaTime;
 	transform->SetPosition(pos);
-
+	//
 	mDelay += gDeltaTime;
 	
-	if (mDelay > 1.f)
+	if (mDelay > 5.f)
 	{
-		gCurrentScene->RegisterEventSetDestroy(GetOwner());		
+		if (GetOwner()->GetState() != GameObject::eState::Destroy)
+		{
+			gCurrentScene->RegisterEventSetDestroy(GetOwner());
+		}
+		
 	}
 }
 

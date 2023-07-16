@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Transform.h"
 #include "EngineMath.h"
+#include "GameObject.h"
 
 Transform::Transform()
 	: Component(eComponentType::Transform)

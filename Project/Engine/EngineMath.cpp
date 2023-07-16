@@ -117,3 +117,18 @@ namespace helper::math
 	}
 }
 
+
+
+
+
+namespace helper::rand
+{
+	static std::random_device rd;
+	static std::mt19937 gen(rd());
+	int RandInt(const int a, const int b)
+	{
+		std::uniform_int_distribution<int> dis(a, b);
+	
+		return dis(gen);
+	}
+}

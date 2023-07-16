@@ -13,11 +13,15 @@
 #include <Engine/Engine.h>
 #include <Engine/SceneManager.h>
 #include <Engine/EngineMath.h>
+#include "LerpTest.h"
+#include "Collide2DTestScene.h"
 
 Content::Content()
 {
 	resourceInitialize();
-	testSceneInitialize();
+	
+	Scene* testScene = new Collide2DTestScene();
+	SceneManager::GetInstance()->LoadScene(testScene);
 }
 
 Content::~Content()
@@ -67,8 +71,6 @@ void Content::loadShader()
 		gResourceManager->Insert(L"UIShader", UIShader);
 	}
 }
-
-
 
 void Content::loadMaterial()
 {
@@ -251,198 +253,504 @@ void Content::loadUIMaterial()
 void Content::testSceneInitialize()
 {
 	const Vector2 screenSize = gEngine->GetRenderTargetSize();
+
 	Scene* testScene = new Scene();
 
 	//BackGround parent
+	//{
+	//	GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UIRightItem");
+	//	obj->AddComponent<RectCollider2D>();				
+	//
+	//	obj->GetComponent<Transform>()->SetPosition(0.f, 0.f, 1.f);
+	//	obj->GetComponent<Transform>()->SetRotation(0.f, 0.f, 45.f);
+	//
+	//	testScene->AddGameObject(obj, eLayerType::Default);
+	//
+	//
+	//
+	//	////chid
+	//	//{
+	//	//	GameObject* const child = GameObjectBuilder::BuildDefault2DGameObject(L"BackGround03");
+	//	//
+	//	//	child->GetComponent<Transform>()->SetPosition(1200.f, 0.f, -100.f);
+	//	//
+	//	//	child->SetParent(obj);
+	//	//
+	//	//	testScene->AddGameObject(child, eLayerType::Default);
+	//	//}
+	//}
+	//
+
 	{
-		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"BlackZero");
-	
-		obj->AddComponent<Bugiman>();
-	
-		obj->GetComponent<Transform>()->SetScale(2.0f, 2.0f, 1.f);
-		obj->GetComponent<Transform>()->SetPosition(0.f, 0.f, 1.f);
-	
+		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UICursor");
+		obj->AddComponent<RectCollider2D>();
+		obj->AddComponent<PlayerMovementTest>();
+
+		obj->GetComponent<PlayerMovementTest>()->mbRight = false;
+		obj->GetComponent<Transform>()->SetPosition(-500.f, 200.f, 1.f);
+		obj->GetComponent<RectCollider2D>()->SetScale(Vector2(200.f, 100.f));
+
 		testScene->AddGameObject(obj, eLayerType::Default);
-	
-		//chid
+
 		{
-			GameObject* const child = GameObjectBuilder::BuildDefault2DGameObject(L"BackGround03");
-	
-			child->GetComponent<Transform>()->SetPosition(1200.f, 0.f, -100.f);
-	
+			GameObject* const child = GameObjectBuilder::BuildDefault2DGameObject(L"UICursor");
+			child->AddComponent<RectCollider2D>();
+			child->AddComponent<PlayerMovementTest>();
+
+			child->GetComponent<PlayerMovementTest>()->mbRight = false;
+			child->GetComponent<Transform>()->SetPosition(300.f, 0.f, 1.f);
+			child->GetComponent<RectCollider2D>()->SetScale(Vector2(100.f, 100.f));
+
 			child->SetParent(obj);
-	
 			testScene->AddGameObject(child, eLayerType::Default);
+
+			{
+				GameObject* const child2 = GameObjectBuilder::BuildDefault2DGameObject(L"UICursor");
+				child2->AddComponent<RectCollider2D>();
+				child2->AddComponent<PlayerMovementTest>();
+
+				child2->GetComponent<PlayerMovementTest>()->mbRight = false;
+				child2->GetComponent<Transform>()->SetPosition(300.f, 0.f, 1.f);
+				child2->GetComponent<RectCollider2D>()->SetScale(Vector2(100.f, 100.f));
+
+				child2->SetParent(child);
+				testScene->AddGameObject(child2, eLayerType::Default);
+
+				{
+					GameObject* const child3 = GameObjectBuilder::BuildDefault2DGameObject(L"UICursor");
+					child3->AddComponent<CircleCollider2D>();
+					child3->AddComponent<PlayerMovementTest>();
+
+					child3->GetComponent<PlayerMovementTest>()->mbRight = false;
+					child3->GetComponent<Transform>()->SetPosition(-300.f, 0.f, 1.f);
+					child3->GetComponent<CircleCollider2D>()->SetRdius(30.f);
+
+					child3->SetParent(child2);
+					testScene->AddGameObject(child3, eLayerType::Bullet);
+				}
+
+				{
+					GameObject* const child3 = GameObjectBuilder::BuildDefault2DGameObject(L"UICursor");
+					child3->AddComponent<CircleCollider2D>();
+					child3->AddComponent<PlayerMovementTest>();
+
+					child3->GetComponent<PlayerMovementTest>()->mbRight = false;
+					child3->GetComponent<Transform>()->SetPosition(300.f, 0.f, 1.f);
+					child3->GetComponent<CircleCollider2D>()->SetRdius(30.f);
+
+					child3->SetParent(child2);
+					testScene->AddGameObject(child3, eLayerType::Bullet);
+				}
+
+				{
+					GameObject* const child3 = GameObjectBuilder::BuildDefault2DGameObject(L"UICursor");
+					child3->AddComponent<CircleCollider2D>();
+					child3->AddComponent<PlayerMovementTest>();
+
+					child3->GetComponent<PlayerMovementTest>()->mbRight = false;
+					child3->GetComponent<Transform>()->SetPosition(0.f, 300.f, 1.f);
+					child3->GetComponent<CircleCollider2D>()->SetRdius(30.f);
+
+					child3->SetParent(child2);
+					testScene->AddGameObject(child3, eLayerType::Bullet);
+				}
+
+				{
+					GameObject* const child3 = GameObjectBuilder::BuildDefault2DGameObject(L"UICursor");
+					child3->AddComponent<CircleCollider2D>();
+					child3->AddComponent<PlayerMovementTest>();
+
+					child3->GetComponent<PlayerMovementTest>()->mbRight = false;
+					child3->GetComponent<Transform>()->SetPosition(0.f, -300.f, 1.f);
+					child3->GetComponent<CircleCollider2D>()->SetRdius(30.f);
+
+					child3->SetParent(child2);
+					testScene->AddGameObject(child3, eLayerType::Bullet);
+
+					{
+						GameObject* const child4 = GameObjectBuilder::BuildDefault2DGameObject(L"UICursor");
+						child4->AddComponent<RectCollider2D>();
+						child4->AddComponent<PlayerMovementTest>();
+
+						child4->GetComponent<PlayerMovementTest>()->mbRight = false;
+						child4->GetComponent<Transform>()->SetPosition(500.f, 0.f, 1.f);
+						child4->GetComponent<RectCollider2D>()->SetScale(Vector2(300.f, 200.f));
+
+						child4->SetParent(child3);
+						testScene->AddGameObject(child4, eLayerType::Default);
+					}
+				}
+
+			}
+
+
 		}
 	}
 
-	//Player
-	{
-		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"Tile");
 
-		obj->AddComponent<Bugiman>();
+	{
+		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UICursor");
+		obj->AddComponent<RectCollider2D>();
 		obj->AddComponent<PlayerMovementTest>();
 
-		obj->GetComponent<Transform>()->SetScale(1.0f, 1.0f, 1.f);
-		obj->GetComponent<Transform>()->SetPosition(0.f, 0.f, 1.f);
-
-		obj->GetComponent<SpriteRenderer>()->SetMesh(gResourceManager->FindOrNull<Mesh>(L"FillCircle2D"));
+		obj->GetComponent<PlayerMovementTest>()->mbRight = false;
+		obj->GetComponent<Transform>()->SetPosition(300.f, 0.f, 1.f);
+		obj->GetComponent<RectCollider2D>()->SetScale(Vector2(500.f, 100.f));
 
 		testScene->AddGameObject(obj, eLayerType::Default);
 	}
 
 
-	//Mouse Cursor
 	{
 		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UICursor");
+		obj->AddComponent<RectCollider2D>();
+		obj->AddComponent<PlayerMovementTest>();
 
+		obj->GetComponent<PlayerMovementTest>()->mbRight = false;
+		obj->GetComponent<Transform>()->SetPosition(-300.f, -300.f, 1.f);
+		obj->GetComponent<RectCollider2D>()->SetScale(Vector2(500.f, 20.f));
+
+		testScene->AddGameObject(obj, eLayerType::Default);
+	}
+
+
+	{
+		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UICursor");
+		obj->AddComponent<RectCollider2D>();
+		obj->AddComponent<PlayerMovementTest>();
+	
+		obj->GetComponent<PlayerMovementTest>()->mbRight = false;
+		obj->GetComponent<Transform>()->SetPosition(300.f, 0.f, 1.f);
+		obj->GetComponent<RectCollider2D>()->SetScale(Vector2(500.f, 100.f));
+	
+		testScene->AddGameObject(obj, eLayerType::Default);
+	}
+	
+	{
+		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UICursor");
+		obj->AddComponent<RectCollider2D>();
+		obj->AddComponent<PlayerMovementTest>();
+	
+	
+		obj->GetComponent<Transform>()->SetPosition(-100.f, -500.f, 1.f);
+		obj->GetComponent<RectCollider2D>()->SetScale(Vector2(1000.f, 100.f));
+	
+		testScene->AddGameObject(obj, eLayerType::Default);
+	}
+	
+	//{
+	//	GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UICursor");
+	//	obj->AddComponent<CircleCollider2D>();
+	//	obj->AddComponent<PlayerMovementTest>();
+	//	obj->AddComponent<LerpTest>();
+	//
+	//	obj->GetComponent<Transform>()->SetPosition(-500.f, 200.f, 1.f);
+	//	obj->GetComponent<CircleCollider2D>()->SetScale(Vector2(300, 300));
+	//
+	//	testScene->AddGameObject(obj, eLayerType::Default);
+	//}
+	//
+	//{
+	//	GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UICursor");
+	//	obj->AddComponent<CircleCollider2D>();
+	//	obj->AddComponent<PlayerMovementTest>();
+	//
+	//
+	//	obj->GetComponent<Transform>()->SetPosition(-550.f, 200.f, 1.f);
+	//	obj->GetComponent<CircleCollider2D>()->SetScale(Vector2(300, 300));
+	//	obj->GetComponent<CircleCollider2D>()->SetRdius(100.f);
+	//
+	//	testScene->AddGameObject(obj, eLayerType::Default);
+	//}
+	//
+	//
+	//{
+	//	GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UICursor");
+	//	obj->AddComponent<RectCollider2D>();		
+	//
+	//	obj->GetComponent<Transform>()->SetPosition(-200.f, 300.f, 1.f);
+	//	obj->GetComponent<RectCollider2D>()->SetScale(Vector2(200, 200));
+	//	obj->GetComponent<RectCollider2D>()->SetRdius(50.f);
+	//
+	//	testScene->AddGameObject(obj, eLayerType::Default);
+	//}
+	//
+	{
+		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UICursor");
+		obj->AddComponent<CircleCollider2D>();
+		obj->AddComponent<PlayerMovementTest>();
 		obj->AddComponent<CursorMovement>();
-
-		obj->GetComponent<Transform>()->SetScale(2.f, 2.f, 1.f);
-
-		testScene->AddGameObject(obj, eLayerType::UI);
+	
+		//obj->GetComponent<Transform>()->SetPosition(-550.f, 200.f, 1.f);
+		//obj->GetComponent<CircleCollider2D>()->SetScale(Vector2(300, 300));
+		obj->GetComponent<CircleCollider2D>()->SetRdius(50.f);
+	
+		testScene->AddGameObject(obj, eLayerType::Mouse);
 	}
+	//
+	//{
+	//	GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UICursor");
+	//	obj->AddComponent<RectCollider2D>();
+	//
+	//	obj->GetComponent<Transform>()->SetPosition(0.f, 300.f, 1.f);
+	//	obj->GetComponent<Transform>()->SetRotation(0.f, 0.f, 10.f);
+	//	obj->GetComponent<RectCollider2D>()->SetScale(Vector2(100, 100));
+	//	obj->GetComponent<RectCollider2D>()->SetRdius(50.f);
+	//
+	//	testScene->AddGameObject(obj, eLayerType::Default);
+	//}
+	//
+	//
+	//{
+	//	GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UICursor");
+	//	obj->AddComponent<RectCollider2D>();
+	//
+	//	obj->GetComponent<Transform>()->SetPosition(200.f, 300.f, 1.f);
+	//	obj->GetComponent<Transform>()->SetRotation(0.f, 0.f, -10.f);
+	//	obj->GetComponent<RectCollider2D>()->SetScale(Vector2(100, 100));
+	//	obj->GetComponent<RectCollider2D>()->SetRdius(50.f);
+	//
+	//	testScene->AddGameObject(obj, eLayerType::Default);
+	//}
+	//
+	//{
+	//	GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UICursor");
+	//	obj->AddComponent<RectCollider2D>();
+	//
+	//	obj->GetComponent<Transform>()->SetPosition(300.f, 300.f, 1.f);
+	//	obj->GetComponent<Transform>()->SetRotation(0.f, 0.f, 45.f);
+	//	obj->GetComponent<RectCollider2D>()->SetScale(Vector2(100, 100));
+	//	obj->GetComponent<RectCollider2D>()->SetRdius(50.f);
+	//
+	//	testScene->AddGameObject(obj, eLayerType::Default);
+	//}
+	//
+	//
+	//{
+	//	GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UICursor");
+	//	obj->AddComponent<RectCollider2D>();
+	//	obj->AddComponent<PlayerMovementTest>();
+	//	
+	//	obj->GetComponent<PlayerMovementTest>()->mbRight = false;
+	//	obj->GetComponent<Transform>()->SetPosition(500.f, 300.f, 1.f);
+	//	//obj->GetComponent<Transform>()->SetRotation(0.f, 0.f, 10.f);
+	//	obj->GetComponent<RectCollider2D>()->SetScale(Vector2(100, 100));
+	//	//obj->GetComponent<RectCollider2D>()->SetRdius(50.f);
+	//
+	//	testScene->AddGameObject(obj, eLayerType::Default);
+	//}
+	//
+	//{
+	//	GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UICursor");
+	//	obj->AddComponent<RectCollider2D>();
+	//	//obj->AddComponent<PlayerMovementTest>();
+	//
+	//	//obj->GetComponent<PlayerMovementTest>()->mbRight = true;
+	//	obj->GetComponent<Transform>()->SetPosition(500.f, 150.f, 1.f);
+	//	//obj->GetComponent<Transform>()->SetRotation(0.f, 0.f, 10.f);
+	//	obj->GetComponent<RectCollider2D>()->SetScale(Vector2(500, 50));
+	//	//obj->GetComponent<RectCollider2D>()->SetRdius(50.f);
+	//
+	//	testScene->AddGameObject(obj, eLayerType::Default);
+	//}
+	//
+	//
+	//{
+	//	GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UICursor");
+	//	obj->AddComponent<RectCollider2D>();
+	//	obj->AddComponent<PlayerMovementTest>();
+	//
+	//	//obj->GetComponent<PlayerMovementTest>()->mbRight = true;
+	//	obj->GetComponent<Transform>()->SetPosition(0.f, -100.f, 1.f);
+	//	//obj->GetComponent<Transform>()->SetRotation(0.f, 0.f, 10.f);
+	//	obj->GetComponent<RectCollider2D>()->SetScale(Vector2(500, 50));
+	//	//obj->GetComponent<RectCollider2D>()->SetRdius(50.f);
+	//
+	//	testScene->AddGameObject(obj, eLayerType::Default);
+	//}
 
-	const float hudPosY = gEngine->GetRenderTargetSize().y / 2.f - 23.f;
 
-	//UI UP Hud
 	{
-		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UIHud");
+		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UICursor");
+		obj->AddComponent<RectCollider2D>();
+		obj->AddComponent<PlayerMovementTest>();
 
-		const Vector2 pos = helper::RenderTargetToWorldUI(Vector2(screenSize.x / 2.f, 23.f), screenSize);
+		obj->GetComponent<PlayerMovementTest>()->mbRight = true;
+		obj->GetComponent<Transform>()->SetPosition(150, 150, 1.f);
+		obj->GetComponent<Transform>()->SetRotation(0.f, 0.f, 10.f);
+		obj->GetComponent<RectCollider2D>()->SetScale(Vector2(500, 20));
+		//obj->GetComponent<RectCollider2D>()->SetRdius(50.f);
 
-		obj->GetComponent<Transform>()->SetPosition(Vector3(pos.x, pos.y, 10.f));
-		obj->GetComponent<Transform>()->SetScale(2.f, 2.f, 1.f);
-
-		testScene->AddGameObject(obj, eLayerType::UI);
+		testScene->AddGameObject(obj, eLayerType::Default);
 	}
 
-	constexpr float timerPosX = -8.f;
-
-	//UI HudTimer
 	{
-		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UIHudTimer");
+		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UICursor");
+		obj->AddComponent<RectCollider2D>();
+		obj->AddComponent<PlayerMovementTest>();
 
-		obj->GetComponent<Transform>()->SetPosition(timerPosX, hudPosY + 2.f, -10.f);
-		obj->GetComponent<Transform>()->SetScale(2.f, 2.f, 1.f);
+		obj->GetComponent<PlayerMovementTest>()->mbRight = false;
+		obj->GetComponent<Transform>()->SetPosition(450, -350, 1.f);
+		obj->GetComponent<Transform>()->SetRotation(0.f, 0.f, 10.f);
+		obj->GetComponent<RectCollider2D>()->SetScale(Vector2(400, 20));
+		//obj->GetComponent<RectCollider2D>()->SetRdius(50.f);
 
-		testScene->AddGameObject(obj, eLayerType::UI);
+		testScene->AddGameObject(obj, eLayerType::Default);
 	}
 
-	//UI Timer
-	{
 
-		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UITimer");
 
-		obj->AddComponent<UIEffect>();
+	////Mouse Cursor
+	//{
+	//	GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UICursor");
+	//
+	//	obj->AddComponent<CursorMovement>();
+	//
+	//	obj->GetComponent<Transform>()->SetScale(2.f, 2.f, 1.f);
+	//
+	//	testScene->AddGameObject(obj, eLayerType::UI);
+	//}
+	//
+	//const float hudPosY = gEngine->GetRenderTargetSize().y / 2.f - 23.f;
 
-		obj->GetComponent<Transform>()->SetPosition(timerPosX + 16.f, hudPosY + 6.f, -10.f);
-		obj->GetComponent<Transform>()->SetScale(2.f, 2.f, 1.f);
-
-		testScene->AddGameObject(obj, eLayerType::UI);
-	}
-
-	//UIShift
-	{
-		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UIShift00");
-
-		obj->AddComponent<ShiftController>();
-
-		obj->GetComponent<Transform>()->SetPosition(-455.f, hudPosY + 1.f, -10.f);
-		obj->GetComponent<Transform>()->SetScale(2.f, 2.f, 1.f);
-
-		testScene->AddGameObject(obj, eLayerType::UI);
-	}
-
-	//UI Battery
-	{
-		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UIBattery");
-
-		obj->GetComponent<Transform>()->SetPosition(-561.f, hudPosY - 1.f, -10.f);
-		obj->GetComponent<Transform>()->SetScale(2.f, 2.f, 1.f);
-
-		testScene->AddGameObject(obj, eLayerType::UI);
-	}
-
-	//UI Hud Item
-	{
-		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UIHudItem");
-
-		obj->GetComponent<Transform>()->SetPosition(+560.f, hudPosY + 1.f, -10.f);
-		obj->GetComponent<Transform>()->SetScale(2.f, 2.f, 1.f);
-
-		testScene->AddGameObject(obj, eLayerType::UI);
-	}
-
-	//UI Left Item
-	{
-		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UILeftItem");
-
-		obj->GetComponent<Transform>()->SetPosition(528.f, hudPosY + 1.f, -10.f);
-		obj->GetComponent<Transform>()->SetScale(2.f, 2.f, 1.f);
-
-		testScene->AddGameObject(obj, eLayerType::UI);
-	}
-
-	//UI Right Item
-	{
-		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UIRightItem");
-
-		obj->GetComponent<Transform>()->SetPosition(592.f, hudPosY + 1.f, -10.f);
-		obj->GetComponent<Transform>()->SetScale(2.f, 2.f, 1.f);
-
-		testScene->AddGameObject(obj, eLayerType::UI);
-	}
-
-	//UI Left Click
-	{
-		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UILeftClick");
-
-		obj->GetComponent<Transform>()->SetPosition(550.f, hudPosY - 24.f, -10.f);
-		obj->GetComponent<Transform>()->SetScale(2.f, 2.f, 1.f);
-
-		testScene->AddGameObject(obj, eLayerType::UI);
-	}
-
-	//UI Right Click
-	{
-		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UIRightClick");
-
-		obj->GetComponent<Transform>()->SetPosition(610.f, hudPosY - 24.f, -10.f);
-		obj->GetComponent<Transform>()->SetScale(2.f, 2.f, 1.f);
-
-		testScene->AddGameObject(obj, eLayerType::UI);
-	}
+	////UI UP Hud
+	//{
+	//	GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UIHud");
+	//
+	//	const Vector2 pos = helper::RenderTargetToWorldUI(Vector2(screenSize.x / 2.f, 23.f), screenSize);
+	//
+	//	obj->GetComponent<Transform>()->SetPosition(Vector3(pos.x, pos.y, 10.f));
+	//	obj->GetComponent<Transform>()->SetScale(2.f, 2.f, 1.f);
+	//
+	//	testScene->AddGameObject(obj, eLayerType::UI);
+	//}
+	//
+	//constexpr float timerPosX = -8.f;
+	//
+	////UI HudTimer
+	//{
+	//	GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UIHudTimer");
+	//
+	//	obj->GetComponent<Transform>()->SetPosition(timerPosX, hudPosY + 2.f, -10.f);
+	//	obj->GetComponent<Transform>()->SetScale(2.f, 2.f, 1.f);
+	//
+	//	testScene->AddGameObject(obj, eLayerType::UI);
+	//}
+	//
+	////UI Timer
+	//{
+	//
+	//	GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UITimer");
+	//
+	//	obj->AddComponent<UIEffect>();
+	//
+	//	obj->GetComponent<Transform>()->SetPosition(timerPosX + 16.f, hudPosY + 6.f, -10.f);
+	//	obj->GetComponent<Transform>()->SetScale(2.f, 2.f, 1.f);
+	//
+	//	testScene->AddGameObject(obj, eLayerType::UI);
+	//}
+	//
+	////UIShift
+	//{
+	//	GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UIShift00");
+	//
+	//	obj->AddComponent<ShiftController>();
+	//
+	//	obj->GetComponent<Transform>()->SetPosition(-455.f, hudPosY + 1.f, -10.f);
+	//	obj->GetComponent<Transform>()->SetScale(2.f, 2.f, 1.f);
+	//
+	//	testScene->AddGameObject(obj, eLayerType::UI);
+	//}
+	//
+	////UI Battery
+	//{
+	//	GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UIBattery");
+	//
+	//	obj->GetComponent<Transform>()->SetPosition(-561.f, hudPosY - 1.f, -10.f);
+	//	obj->GetComponent<Transform>()->SetScale(2.f, 2.f, 1.f);
+	//
+	//	testScene->AddGameObject(obj, eLayerType::UI);
+	//}
+	//
+	////UI Hud Item
+	//{
+	//	GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UIHudItem");
+	//
+	//	obj->GetComponent<Transform>()->SetPosition(+560.f, hudPosY + 1.f, -10.f);
+	//	obj->GetComponent<Transform>()->SetScale(2.f, 2.f, 1.f);
+	//
+	//	testScene->AddGameObject(obj, eLayerType::UI);
+	//}
+	//
+	////UI Left Item
+	//{
+	//	GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UILeftItem");
+	//
+	//	obj->GetComponent<Transform>()->SetPosition(528.f, hudPosY + 1.f, -10.f);
+	//	obj->GetComponent<Transform>()->SetScale(2.f, 2.f, 1.f);
+	//
+	//	testScene->AddGameObject(obj, eLayerType::UI);
+	//}
+	//
+	////UI Right Item
+	//{
+	//	GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UIRightItem");
+	//
+	//	obj->GetComponent<Transform>()->SetPosition(592.f, hudPosY + 1.f, -10.f);
+	//	obj->GetComponent<Transform>()->SetScale(2.f, 2.f, 1.f);
+	//
+	//	testScene->AddGameObject(obj, eLayerType::UI);
+	//}
+	//
+	////UI Left Click
+	//{
+	//	GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UILeftClick");
+	//
+	//	obj->GetComponent<Transform>()->SetPosition(550.f, hudPosY - 24.f, -10.f);
+	//	obj->GetComponent<Transform>()->SetScale(2.f, 2.f, 1.f);
+	//
+	//	testScene->AddGameObject(obj, eLayerType::UI);
+	//}
+	//
+	////UI Right Click
+	//{
+	//	GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UIRightClick");
+	//
+	//	obj->GetComponent<Transform>()->SetPosition(610.f, hudPosY - 24.f, -10.f);
+	//	obj->GetComponent<Transform>()->SetScale(2.f, 2.f, 1.f);
+	//
+	//	testScene->AddGameObject(obj, eLayerType::UI);
+	//}
 
 	//Main Camera
 	{
-		GameObject* const mainCameraObj = new GameObject();
+		GameObject* const mainCamera = new GameObject();
 
-		mainCameraObj->AddComponent<Camera>();
-		mainCameraObj->AddComponent<CameraInputMoveMent>();
+		mainCamera->AddComponent<Camera>();
+		mainCamera->AddComponent<CameraInputMoveMent>();
 
-		mainCameraObj->GetComponent<Camera>()->SetProjectionType(eCameraPriorityType::Main);		
-		mainCameraObj->GetComponent<Camera>()->SetRenderTargetSize(screenSize);		
-		mainCameraObj->GetComponent<Camera>()->TurnOnAllLayer();
-		mainCameraObj->GetComponent<Camera>()->TurnOffLayer(eLayerType::UI);
-		mainCameraObj->GetComponent<Transform>()->SetPosition(0.f, 0.f, -10.f);
+		mainCamera->GetComponent<Camera>()->SetProjectionType(eCameraPriorityType::Main);		
+		mainCamera->GetComponent<Camera>()->SetRenderTargetSize(screenSize);		
+		mainCamera->GetComponent<Camera>()->TurnOnAllLayer();
+		mainCamera->GetComponent<Camera>()->TurnOffLayer(eLayerType::UI);
+		mainCamera->GetComponent<Transform>()->SetPosition(0.f, 0.f, -10.f);
 
-		testScene->AddGameObject(mainCameraObj, eLayerType::Default);
+		testScene->AddGameObject(mainCamera, eLayerType::Default);
 	}
 
 	//UI Camera
 	{
-		GameObject* const mainCameraObj = new GameObject();
+		GameObject* const uiCamera = new GameObject();
 
-		mainCameraObj->AddComponent<Camera>();
+		uiCamera->AddComponent<Camera>();
 
-		mainCameraObj->GetComponent<Camera>()->SetProjectionType(eCameraPriorityType::UI);		
-		mainCameraObj->GetComponent<Camera>()->SetRenderTargetSize(screenSize);
-		mainCameraObj->GetComponent<Camera>()->TurnOffAllLayer();
-		mainCameraObj->GetComponent<Camera>()->TurnOnLayer(eLayerType::UI);
-		mainCameraObj->GetComponent<Transform>()->SetPosition(0.f, 0.f, -10.f);
+		uiCamera->GetComponent<Camera>()->SetProjectionType(eCameraPriorityType::UI);		
+		uiCamera->GetComponent<Camera>()->SetRenderTargetSize(screenSize);
+		uiCamera->GetComponent<Camera>()->TurnOffAllLayer();
+		uiCamera->GetComponent<Camera>()->TurnOnLayer(eLayerType::UI);
+		uiCamera->GetComponent<Transform>()->SetPosition(0.f, 0.f, -10.f);
 
-		testScene->AddGameObject(mainCameraObj, eLayerType::Default);
+		testScene->AddGameObject(uiCamera, eLayerType::Default);
 	}		
 
 	SceneManager::GetInstance()->LoadScene(testScene);

@@ -20,3 +20,18 @@ void ScriptComponent::update()
 void ScriptComponent::lateUpdate()
 {
 }
+
+void ScriptComponent::OnCollisionEnter(Collider2D* other)
+{
+	(void)other;
+}
+
+void ScriptComponent::OnCollisionStay(Collider2D* other)
+{
+	(void)other;
+}
+
+void ScriptComponent::OnCollisionExit(Collider2D* other)
+{
+	(void)other;
+}

@@ -1,5 +1,6 @@
 #pragma once
 #include "Component.h"
+#include "GameObject.h"
 
 REGISTER_COMPONENT_TYPE(Transform);
 
@@ -31,6 +32,13 @@ public:
 
 	static Matrix CreateWorldMatrix(const Vector3& position, const Vector3& rotation, const Vector3& scale);
 
+	template<typename T>
+		requires (is_component_type<T>::value)
+	T* GetComponentOrNull() const;
+	template<typename T>
+		requires (is_component_type<T>::value)
+	T* GetComponent() const;
+
 private:
 	virtual void initialize() override final;
 	virtual void update() override final;
@@ -45,3 +53,21 @@ private:
 	Vector3 mUp;
 	Matrix mWorld;
 };
+
+template<typename T>
+	requires (is_component_type<T>::value)
+inline T* Transform::GetComponentOrNull() const
+{
+	return GetOwner()->GetComponentOrNull<T>();
+}
+
+template<typename T>
+	requires (is_component_type<T>::value)
+inline T* Transform::GetComponent() const
+{
+	T* const component = GetComponentOrNull<T>();
+
+	Assert(component, WCHAR_IS_NULLPTR);
+
+	return component;
+}

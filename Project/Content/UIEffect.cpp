@@ -19,7 +19,7 @@ void UIEffect::initialize()
 
 void UIEffect::update()
 {
-    SpriteRenderer* meshRenderer = GetComponent<SpriteRenderer>();
+    SpriteRenderer* meshRenderer = GetOwner()->GetComponent<SpriteRenderer>();
 
     meshRenderer->bColorInfo = 1;
     meshRenderer->testX.x -= gDeltaTime * 0.05f;

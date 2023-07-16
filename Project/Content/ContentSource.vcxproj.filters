@@ -61,6 +61,9 @@
     <Filter Include="ShaderCode\Debug\Grid">
       <UniqueIdentifier>{86fb1d1f-6799-44f0-9fbe-64c00bcfe0dc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Scene">
+      <UniqueIdentifier>{dc9dacee-4c8c-4f52-a1b7-a2548ff7810f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -132,6 +135,10 @@
     <ClInclude Include="UIEffect.h">
       <Filter>Source\Helper\UI</Filter>
     </ClInclude>
+    <ClInclude Include="LerpTest.h">
+      <Filter>Source\01. Script</Filter>
+    </ClInclude>
+    <ClInclude Include="Collide2DTestScene.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -197,6 +204,10 @@
     <ClCompile Include="UIEffect.cpp">
       <Filter>Source\Helper\UI</Filter>
     </ClCompile>
+    <ClCompile Include="LerpTest.cpp">
+      <Filter>Source\01. Script</Filter>
+    </ClCompile>
+    <ClCompile Include="Collide2DTestScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Output\bin\Resources\Shader\Header\TestShaderHeader.fxh">

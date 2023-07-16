@@ -2,6 +2,7 @@
 #define PI 3.1415926535897f
 #define Deg2Rad(degree) (degree * (PI / 180.0f))
 #define Rad2Deg(radian) (radian * (180.0f / PI))
+#include <random>
 
 class Camera;
 
@@ -24,4 +25,9 @@ namespace helper::math
 	void INT2MinAndMax(const XMINT2& a, const XMINT2& b, XMINT2* const outMin, XMINT2* const outMax);
 	float LerpCosBtwZeroAndOne(const float x);
 	float LerpSinBtwZeroAndOne(const float x);
+}
+
+namespace helper::rand
+{
+	int RandInt(int a, int b);
 }

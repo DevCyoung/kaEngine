@@ -2,10 +2,12 @@
 #include "Resource.h"
 #include "Layer.h"
 #include "EnumLayer.h"
+
 #include <source_location>
 
 class GameObject;
 class RenderTargetRenderer;
+class CollisionManagement2D;
 
 struct ID3D11RenderTargetView;
 struct ID3D11DepthStencilView;
@@ -13,6 +15,7 @@ struct ID3D11DepthStencilView;
 class Scene : public Resource
 {
 	friend class SceneManager;
+	friend class CollisionManagement2D;
 
 public:
 	Scene();
@@ -63,4 +66,5 @@ private:
 	std::vector<tEventMessageScene> mEventMessages;
 	std::vector<GameObject*> mGarbages;
 	RenderTargetRenderer* mRenderTargetRenderer;	
+	CollisionManagement2D* mCollisionManagement2D;
 };

@@ -12,6 +12,13 @@ public:
 	BulletMovement(const BulletMovement&) = delete;
 	BulletMovement& operator=(const BulletMovement&) = delete;
 
+	Vector3 mDir;
+
+	virtual void OnCollisionEnter(Collider2D* other);
+	virtual void OnCollisionStay(Collider2D* other);
+	virtual void OnCollisionExit(Collider2D* other);
+
+
 private:
 	virtual void initialize() override final;
 	virtual void update() override final;

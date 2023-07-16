@@ -14,13 +14,6 @@ public:
 	Component& operator=(const Component&) = delete;
 
 public:
-	template<typename T>
-		requires (is_component_type<T>::value)
-	T* GetComponentOrNull() const;		
-	template<typename T>
-		requires (is_component_type<T>::value)
-	T* GetComponent() const;	
-
 	GameObject* GetOwner() const { Assert(mOwner, WCHAR_IS_NULLPTR); return mOwner; }
 	eComponentType GetType() const { return mType; }
 
@@ -33,21 +26,4 @@ private:
 	eComponentType mType;
 	GameObject* mOwner;
 };
-
-template<typename T>
-	requires (is_component_type<T>::value)
-inline T* Component::GetComponentOrNull() const
-{
-	return mOwner->GetComponentOrNull<T>();
-}
-
-template<typename T>
-	requires (is_component_type<T>::value)
-inline T* Component::GetComponent() const
-{
-	T* const component = GetComponentOrNull<T>();
-	Assert(component, WCHAR_IS_NULLPTR);
-
-	return component;
-}
 

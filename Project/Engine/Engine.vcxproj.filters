@@ -166,6 +166,9 @@
     <Filter Include="Source\03. Component\Collision">
       <UniqueIdentifier>{b4009016-722d-4433-980a-79b985f6d586}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\CollideManagement">
+      <UniqueIdentifier>{b92eb5c8-881e-4b6b-a705-a1f8d05a1935}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Entity.h">
@@ -336,6 +339,15 @@
     <ClInclude Include="Collider2D.h">
       <Filter>Source\03. Component\Collision</Filter>
     </ClInclude>
+    <ClInclude Include="RectCollider2D.h">
+      <Filter>Source\03. Component\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="CircleCollider2D.h">
+      <Filter>Source\03. Component\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionManagement2D.h">
+      <Filter>Source\CollideManagement</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Entity.cpp">
@@ -466,6 +478,15 @@
     </ClCompile>
     <ClCompile Include="Collider2D.cpp">
       <Filter>Source\03. Component\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="RectCollider2D.cpp">
+      <Filter>Source\03. Component\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="CircleCollider2D.cpp">
+      <Filter>Source\03. Component\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionManagement2D.cpp">
+      <Filter>Source\CollideManagement</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
