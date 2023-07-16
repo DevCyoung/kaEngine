@@ -223,7 +223,120 @@ Collide2DTestScene::Collide2DTestScene()
 		AddGameObject(obj, eLayerType::Default);
 	}
 
+
+
+	//UI
 	const Vector2 screenSize = gEngine->GetRenderTargetSize();
+	const float hudPosY = gEngine->GetRenderTargetSize().y / 2.f - 23.f;
+
+	//UI UP Hud
+	{
+		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UIHud");
+	
+		const Vector2 pos = helper::RenderTargetToWorldUI(Vector2(screenSize.x / 2.f, 23.f), screenSize);
+	
+		obj->GetComponent<Transform>()->SetPosition(Vector3(pos.x, pos.y, 10.f));
+		obj->GetComponent<Transform>()->SetScale(2.f, 2.f, 1.f);
+	
+		AddGameObject(obj, eLayerType::UI);
+	}
+	
+	constexpr float timerPosX = -8.f;
+	
+	//UI HudTimer
+	{
+		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UIHudTimer");
+	
+		obj->GetComponent<Transform>()->SetPosition(timerPosX, hudPosY + 2.f, -10.f);
+		obj->GetComponent<Transform>()->SetScale(2.f, 2.f, 1.f);
+	
+		AddGameObject(obj, eLayerType::UI);
+	}
+	
+	//UI Timer
+	{
+	
+		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UITimer");
+	
+		obj->AddComponent<UIEffect>();
+	
+		obj->GetComponent<Transform>()->SetPosition(timerPosX + 16.f, hudPosY + 6.f, -10.f);
+		obj->GetComponent<Transform>()->SetScale(2.f, 2.f, 1.f);
+	
+		AddGameObject(obj, eLayerType::UI);
+	}
+	
+	//UIShift
+	{
+		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UIShift00");
+	
+		obj->AddComponent<ShiftController>();
+	
+		obj->GetComponent<Transform>()->SetPosition(-455.f, hudPosY + 1.f, -10.f);
+		obj->GetComponent<Transform>()->SetScale(2.f, 2.f, 1.f);
+	
+		AddGameObject(obj, eLayerType::UI);
+	}
+	
+	//UI Battery
+	{
+		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UIBattery");
+	
+		obj->GetComponent<Transform>()->SetPosition(-561.f, hudPosY - 1.f, -10.f);
+		obj->GetComponent<Transform>()->SetScale(2.f, 2.f, 1.f);
+	
+		AddGameObject(obj, eLayerType::UI);
+	}
+	
+	//UI Hud Item
+	{
+		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UIHudItem");
+	
+		obj->GetComponent<Transform>()->SetPosition(+560.f, hudPosY + 1.f, -10.f);
+		obj->GetComponent<Transform>()->SetScale(2.f, 2.f, 1.f);
+	
+		AddGameObject(obj, eLayerType::UI);
+	}
+	
+	//UI Left Item
+	{
+		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UILeftItem");
+	
+		obj->GetComponent<Transform>()->SetPosition(528.f, hudPosY + 1.f, -10.f);
+		obj->GetComponent<Transform>()->SetScale(2.f, 2.f, 1.f);
+	
+		AddGameObject(obj, eLayerType::UI);
+	}
+	
+	//UI Right Item
+	{
+		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UIRightItem");
+	
+		obj->GetComponent<Transform>()->SetPosition(592.f, hudPosY + 1.f, -10.f);
+		obj->GetComponent<Transform>()->SetScale(2.f, 2.f, 1.f);
+	
+		AddGameObject(obj, eLayerType::UI);
+	}
+	
+	//UI Left Click
+	{
+		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UILeftClick");
+	
+		obj->GetComponent<Transform>()->SetPosition(550.f, hudPosY - 24.f, -10.f);
+		obj->GetComponent<Transform>()->SetScale(2.f, 2.f, 1.f);
+	
+		AddGameObject(obj, eLayerType::UI);
+	}
+	
+	//UI Right Click
+	{
+		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UIRightClick");
+	
+		obj->GetComponent<Transform>()->SetPosition(610.f, hudPosY - 24.f, -10.f);
+		obj->GetComponent<Transform>()->SetScale(2.f, 2.f, 1.f);
+	
+		AddGameObject(obj, eLayerType::UI);
+	}
 
 	{
 		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UICursor");
@@ -234,7 +347,7 @@ Collide2DTestScene::Collide2DTestScene()
 		obj->GetComponent<CircleCollider2D>()->SetRdius(50.f);
 
 		AddGameObject(obj, eLayerType::Mouse);
-	}
+	}	
 
 	//Main Camera
 	{
