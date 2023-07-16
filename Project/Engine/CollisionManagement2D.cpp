@@ -106,7 +106,7 @@ void CollisionManagement2D::phisicsUpdate(Scene* const scene)
 					for (UINT j = 0; j < rightGameObjects.size(); ++j)
 					{
 						collisionGameObject(leftGameObjects[i], rightGameObjects[j]);
-						}
+					}
 				}
 			}
 		}
@@ -185,22 +185,19 @@ void CollisionManagement2D::collisionGameObject(const GameObject* const leftGame
 
 	if (bCollision)
 	{
-		// 이전에 충돌한 적이 있고, 둘중 하나 이상이 삭제 예정이라면
 		if (bExit && iter->second)
 		{
 			leftCollider->OnCollisionExit(rightCollider);
 			rightCollider->OnCollisionExit(leftCollider);
 		}
 		else if (iter->second)
-		{
-			// 계속 충돌 중
+		{			
 			leftCollider->OnCollisionStay(rightCollider);
 			rightCollider->OnCollisionStay(leftCollider);
 		}
 		else
-		{
-			// 이번 프레임에 충돌
-			if (bExit == false) // 둘중 하나라도 Dead 상태면 충돌을 무시한다.
+		{			
+			if (bExit == false)
 			{
 				leftCollider->OnCollisionEnter(rightCollider);
 				rightCollider->OnCollisionEnter(leftCollider);
@@ -208,10 +205,8 @@ void CollisionManagement2D::collisionGameObject(const GameObject* const leftGame
 			}
 		}
 	}
-
 	else
-	{
-		// 충돌 해제
+	{		
 		if (iter->second)
 		{
 			leftCollider->OnCollisionExit(rightCollider);
@@ -223,9 +218,6 @@ void CollisionManagement2D::collisionGameObject(const GameObject* const leftGame
 
 bool CollisionManagement2D::collisionBoxCollider2D(const Collider2D* left, const Collider2D* right)
 {
-	// 0 -- 1
-	// |    |
-	// 3 -- 2
 	Vector3 arrLocal[4] =
 	{
 		Vector3(-0.5f, 0.5f, 0.f),
@@ -234,7 +226,6 @@ bool CollisionManagement2D::collisionBoxCollider2D(const Collider2D* left, const
 		Vector3(-0.5f, -0.5f, 0.f),
 	};
 
-	// 두 충돌체의 각 표면 벡터 2개씩 구함
 	Vector3 arrProj[4] = {};
 
 	arrProj[0] = XMVector3TransformCoord(arrLocal[1],
@@ -247,28 +238,26 @@ bool CollisionManagement2D::collisionBoxCollider2D(const Collider2D* left, const
 	arrProj[3] = XMVector3TransformCoord(arrLocal[3],
 		right->GetColliderWorldMat()) - XMVector3TransformCoord(arrLocal[0], right->GetColliderWorldMat());
 
-	// 두 충돌체의 중심점을 구함
 	Vector3 vCenter = XMVector3TransformCoord(Vector3(0.f, 0.f, 0.f), right->GetColliderWorldMat()) - XMVector3TransformCoord(Vector3(0.f, 0.f, 0.f), left->GetColliderWorldMat());
 
-
-	// 분리축 테스트
 	for (int i = 0; i < 4; ++i)
 	{
-		Vector3 vProj = arrProj[i];
-		vProj.Normalize();
-
-		// 4개의 표면백터를 지정된 투영축으로 투영시킨 거리의 총합 / 2
-		float fProjDist = 0.f;
+		Vector3 proj = arrProj[i];
+		proj.Normalize();
+		
+		float projDist = 0.f;
 		for (int j = 0; j < 4; ++j)
 		{
-			fProjDist += fabsf(arrProj[j].Dot(vProj));
+			projDist += fabsf(arrProj[j].Dot(proj));
 		}
-		fProjDist /= 2.f;
+		projDist /= 2.f;
 
-		float fCenter = fabsf(vCenter.Dot(vProj));
+		float center = fabsf(vCenter.Dot(proj));
 
-		if (fProjDist < fCenter)
+		if (projDist < center)
+		{
 			return false;
+		}			
 	}
 
 	return true;
@@ -291,11 +280,8 @@ bool CollisionManagement2D::collisionBoxAndCircleCollider2D(const Collider2D* bo
 		Vector3(0.5f, -0.5f, 0.f),
 		Vector3(-0.5f, -0.5f, 0.f),
 	};
-
-	Vector3 worldVertexPosArray[4] = {};
-
 	const Matrix& BOX_WORLD_MATRIX = box->GetColliderWorldMat();
-
+	Vector3 worldVertexPosArray[4] = {};
 
 	for (int i = 0; i < 2; ++i)
 	{
@@ -319,11 +305,10 @@ bool CollisionManagement2D::collisionBoxAndCircleCollider2D(const Collider2D* bo
 
 	//rotating
 	boxZeroWorldMAtrix = boxZeroWorldMAtrix * BOX_ROTATION;
-
-
+	
+	//Move to origin pos
 	for (int i = 0; i < 4; ++i)
-	{
-		//원점으로 이동
+	{		
 		worldVertexPosArray[i] = XMVector3TransformNormal(vertexPosArray[i], boxZeroWorldMAtrix);
 	}
 
