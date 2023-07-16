@@ -47,7 +47,7 @@ void SpriteRenderer::render(const Camera* const camera)
 			= Vector3(mMaterial->GetTexture()->GetWidth(), mMaterial->GetTexture()->GetHeight(), 1.f);
 		const Matrix& SCALE_MATRIX = Matrix::CreateScale(SCALE);
 
-		CBTransform.World = SCALE_MATRIX * GetComponent<Transform>()->GetWorldMatrix();
+		CBTransform.World = SCALE_MATRIX * GetOwner()->GetComponent<Transform>()->GetWorldMatrix();
 		CBTransform.View = camera->GetView();
 		CBTransform.Proj = camera->GetProjection();
 

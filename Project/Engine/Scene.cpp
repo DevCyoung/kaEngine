@@ -3,20 +3,28 @@
 #include "GameObject.h"
 #include "MessageManager.h"
 #include "RenderTargetRenderer.h"
+#include "CollisionManagement2D.h"
 
 Scene::Scene()
 	: mLayers()
 	, mEventMessages()
 	, mGarbages()
 	, mRenderTargetRenderer(new RenderTargetRenderer())
+	, mCollisionManagement2D(new CollisionManagement2D())
 {
 	mEventMessages.reserve(100);
 	mGarbages.reserve(100);
+
+	mCollisionManagement2D->TurnOnAllCollisionLayer();
+	mCollisionManagement2D->mRenderTargetRenderer = mRenderTargetRenderer;
+	mCollisionManagement2D->TurnOffCollisionLayer(eLayerType::Bullet, eLayerType::Bullet);
+	mCollisionManagement2D->TurnOffCollisionLayer(eLayerType::Bullet, eLayerType::Mouse);
 }
 
 Scene::~Scene()
 {
 	SAFE_DELETE_POINTER(mRenderTargetRenderer);
+	SAFE_DELETE_POINTER(mCollisionManagement2D);
 }
 
 void Scene::initialize()
@@ -53,6 +61,8 @@ void Scene::lateUpdate()
 		swprintf_s(buff, WSTR_LEN, L"<GameObject Count : %zu>", gameObjectCount);
 		MessageManager::GetInstance()->AddTitleMessage(buff);
 	}
+
+	mCollisionManagement2D->phisicsUpdate(this);
 	
 	//if exist garbage, remove it, No rendering
 	if (false == mGarbages.empty())
@@ -96,11 +106,15 @@ void Scene::eventUpdate()
 
 		switch (EVENT_TYPE)
 		{
-		case eEventOfScene::DestroyGameObject:
-			Assert(message.EventGameObject->mState != GameObject::eState::Destroy, WCHAR_IS_INVALID_TYPE);
+		case eEventOfScene::DestroyGameObject:			
+			//Assert(message.EventGameObject->mState != GameObject::eState::Destroy, WCHAR_IS_INVALID_TYPE);
 
-			message.EventGameObject->mState = GameObject::eState::Destroy;
-			mGarbages.push_back(message.EventGameObject);
+			if (message.EventGameObject->mState != GameObject::eState::Destroy)
+			{
+				message.EventGameObject->mState = GameObject::eState::Destroy;
+				mGarbages.push_back(message.EventGameObject);
+			}
+
 			break;
 
 		case eEventOfScene::AddGameObject:
@@ -139,10 +153,14 @@ void Scene::RegisterEventSetDestroy(GameObject* const gameObject
 	, const std::source_location& location)
 {
 	Assert(gameObject, WCHAR_IS_NULLPTR);
+	if (gameObject->mState == GameObject::eState::Destroy)
+	{
+		return;
+	}
+
 	Assert(gameObject->mState != GameObject::eState::Destroy, WCHAR_IS_INVALID_TYPE);
 
 	tEventMessageScene message = {};
-
 	message.EventOfSceneType = eEventOfScene::DestroyGameObject;
 	message.EventGameObject = gameObject;
 	message.ErrorHint = location;

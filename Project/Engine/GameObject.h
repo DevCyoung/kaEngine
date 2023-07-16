@@ -26,13 +26,16 @@ public:
 
 public:
 	template<typename T>
-		requires (is_component_type<T>::value)
+		requires (std::is_base_of_v<Component, T>)
 	T* GetComponentOrNull() const;
 	template<typename T>
 		requires (is_component_type<T>::value)
-	T* GetComponent() const;
+	T* GetComponent() const;	
+
 	Component* GetComponentOrNull(const eComponentType componentType) const;
 	ScriptComponent* GetComponentOrNull(const eScriptComponentType scriptComponentType) const;
+
+	const std::vector<ScriptComponent*>& GetScriptComponents() const { return mUserComponents; }
 
 	template<typename T>
 		requires (is_component_type<T>::value)
@@ -62,7 +65,7 @@ public:
 
 private:
 	void initialize();
-	void update();
+	void update();	
 	void lateUpdate();	
 
 private:
@@ -85,9 +88,7 @@ inline void GameObject::AddComponent(T* const component)
 	component->mOwner = this;
 
 	if constexpr (engine_component_type<T>::value)
-	{
-		Assert(!mEngineComponents[static_cast<UINT>(engine_component_type<T>::type)], WCHAR_IS_NOT_NULLPTR);
-
+	{		
 		mEngineComponents[static_cast<UINT>(engine_component_type<T>::type)] = component;
 	}
 	else if constexpr (script_component_type<T>::value)
@@ -102,13 +103,11 @@ inline void GameObject::AddComponent()
 {
 	T* const component = new T();
 
-	Assert(component, WCHAR_IS_NULLPTR);
-
 	AddComponent(component);
 }
 
 template<typename T>
-	requires (is_component_type<T>::value)
+	requires (std::is_base_of_v<Component, T>)
 inline T* GameObject::GetComponentOrNull() const
 {
 	T* component = nullptr;
@@ -129,7 +128,34 @@ inline T* GameObject::GetComponentOrNull() const
 			}
 		}
 	}
+	else
+	{
+		if constexpr (std::is_base_of_v<ScriptComponent, T>)
+		{
+			for (ScriptComponent* scriptComponent : mUserComponents)
+			{
+				component = dynamic_cast<T*>(scriptComponent);
 
+				if (component)
+				{
+					break;
+				}
+			}
+		}
+		else
+		{
+			for (Component* engineComponent : mEngineComponents)
+			{
+				component = dynamic_cast<T*>(engineComponent);
+
+				if (component)
+				{
+					break;
+				}
+			}
+
+		}		
+	}
 	return component;
 }
 

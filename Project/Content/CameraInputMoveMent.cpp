@@ -20,7 +20,7 @@ void CameraInputMoveMent::initialize()
 
 void CameraInputMoveMent::update()
 {
-	Camera* const camera = GetComponent<Camera>();
+	Camera* const camera = GetOwner()->GetComponent<Camera>();
 
 	if (gInput->GetKeyDown(eKeyCode::F1))
 	{
@@ -40,7 +40,7 @@ void CameraInputMoveMent::update()
 		fSpeed *= 5.f;
 	}
 
-	Transform* const transform = GetComponent<Transform>();
+	Transform* const transform = GetOwner()->GetComponent<Transform>();
 	if (camera->GetProjectionType() == eCameraProjectionType::Orthographic)
 	{
 		Vector3 pos = transform->GetPosition();

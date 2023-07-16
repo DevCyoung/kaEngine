@@ -19,4 +19,5 @@ private:
 
 	Vector3 mPrevClickPos;
 	Vector2 mHoverPos;	
+	float mDelay;
 };

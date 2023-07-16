@@ -185,6 +185,7 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Collide2DTestScene.h" />
     <ClInclude Include="Content.h" />
     <ClInclude Include="CursorMovement.h">
       <SubType>
@@ -201,6 +202,10 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
     <ClInclude Include="EnumScriptComponent.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="GameObjectBuilder.h" />
+    <ClInclude Include="LerpTest.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="MaterialBuilder.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="PlayerMovementTest.h">
@@ -234,6 +239,7 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="Collide2DTestScene.cpp" />
     <ClCompile Include="Content.cpp" />
     <ClCompile Include="CursorMovement.cpp">
       <SubType>
@@ -249,6 +255,10 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
     <ClCompile Include="EnumResourceTypeTexture.cpp" />
     <ClCompile Include="EnumScriptComponent.cpp" />
     <ClCompile Include="GameObjectBuilder.cpp" />
+    <ClCompile Include="LerpTest.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="MaterialBuilder.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

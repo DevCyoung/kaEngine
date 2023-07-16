@@ -14,32 +14,62 @@ private:
 	virtual ~DebugRenderer2D();
 
 public:
-	void DrawRect2D(const Vector3& worldPos, const Vector2& rectScale,
-		const float drawTime, const Vector4& outLineColor);
-	void DrawRect2D2(const Vector3& wolrdLeftUpPos, const Vector3& worldRightDownPos,
-		const float drawTime, const Vector4& outLineColor);
+	void DrawRect2D(const Vector3& worldPos, 
+		const Vector2& rectScale, 
+		const Vector3& rotation,
+		const float drawTime, 
+		const Vector4& outLineColor);
 
-	void DrawFillRect2D(const Vector3& worldPos, const Vector2& rectScale,
-		const float drawTime, const Vector4& fillColor);
-	void DrawFillRect2D2(const Vector3& wolrdLeftUpPos, const Vector3& worldRightDownPos, 
-		const float drawTime, const Vector4& fillColor);
+	void DrawRect2D2(const Vector3& wolrdLeftUpPos, 
+		const Vector3& worldRightDownPos, 
+		const Vector3& rotation,
+		const float drawTime, 
+		const Vector4& outLineColor);
 
-	void DrawCircle2D(const Vector3& worldPos, float raduis,
-		const float drawTime, const Vector4& outLineColor);
+	void DrawRect2D3(const Matrix& worldMatrix, 
+		const float drawTime, const 
+		Vector4& outLineColor);
 
-	void DrawFillCircle2D(const Vector3& worldPos, float raduis,
-		const float drawTime, const Vector4& fillColor);
+	void DrawFillRect2D(const Vector3& worldPos, 
+		const Vector2& rectScale,
+		const float drawTime, 
+		const Vector4& fillColor);
 
-	void DrawLine2D(const Vector3& startPos, const Vector3& endPos,
-		const float drawTime, const Vector4& lineColor);
-	void DrawLine2D2(const Vector3& startPos, const Vector2& direction, const float length,
-		const float drawTime, const Vector4& lineColor);
+	void DrawFillRect2D2(const Vector3& wolrdLeftUpPos, 
+		const Vector3& worldRightDownPos, 
+		const float drawTime,
+		const Vector4& fillColor);
+
+	void DrawCircle2D(const Vector3& worldPos, 
+		float raduis,
+		const float drawTime, 
+		const Vector4& outLineColor);
+
+	void DrawCircle2D2(const Matrix& worldMatrix,
+		const float drawTime,
+		const Vector4& outLineColor);
+
+	void DrawFillCircle2D(const Vector3& worldPos,
+		float raduis,
+		const float drawTime, 
+		const Vector4& fillColor);
+
+	void DrawLine2D(const Vector3& startPos, 
+		const Vector3& endPos,
+		const float drawTime, 
+		const Vector4& lineColor);
+
+	void DrawLine2D2(const Vector3& startPos,
+		const Vector2& direction,
+		const float length,
+		const float drawTime,
+		const Vector4& lineColor);
 
 	void DrawGrid2D(const Vector3& worldPos, 
-		const Vector2& cellSizeXY, const XMUINT2& tileCountXY,
-		const float drawTime, const Vector4& fillColor);
-
-
+		const Vector2& cellSizeXY, 
+		const XMUINT2& tileCountXY,
+		const float drawTime, 
+		const Vector4& fillColor);
 
 private:
 	enum class eDebugDrawType
@@ -57,8 +87,9 @@ private:
 	{
 		eDebugDrawType DebugDrawType;
 		Vector3 WorldPos;
-		Vector3 Scale;
 		Vector3 Rotation;
+		Vector3 Scale;
+		Matrix WorldMatrix;
 		Vector3 MousePos;
 		Vector4 FillColor;
 		Vector4 OutLineColor;

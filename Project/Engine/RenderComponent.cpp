@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "RenderComponent.h"
 #include "RenderTargetRenderer.h"
+#include "GameObject.h"
 
 RenderComponent::RenderComponent(const eComponentType componentType)
 	: Component(componentType)

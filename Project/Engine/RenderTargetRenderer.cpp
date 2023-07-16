@@ -7,6 +7,7 @@
 #include "Material.h"
 #include "Engine.h"
 #include "GraphicDeviceDx11.h"
+#include "Transform.h"
 
 RenderTargetRenderer::RenderTargetRenderer()
 	: mDebugRenderer(new DebugRenderer2D())
@@ -51,8 +52,8 @@ void RenderTargetRenderer::zSortRenderObjectArray(const eRenderPriorityType rend
 
 	std::sort(renderObjects.begin(), renderObjects.end(), [](RenderComponent* const lhs, RenderComponent* const rhs)
 		{
-			const Transform* const lhsTransform = lhs->GetComponent<Transform>();
-			const Transform* const rhsTransform = rhs->GetComponent<Transform>();
+			const Transform* const lhsTransform = lhs->GetOwner()->GetComponent<Transform>();
+			const Transform* const rhsTransform = rhs->GetOwner()->GetComponent<Transform>();
 			return lhsTransform->GetPosition().z < rhsTransform->GetPosition().z;
 		});
 }
@@ -112,10 +113,10 @@ void RenderTargetRenderer::flush()
 {
 	mDebugRenderer->flush();
 	
-	for (auto& camera : mCameras)
-	{
-		camera = nullptr;
-	}
+	//for (auto& camera : mCameras)
+	//{
+	//	camera = nullptr;
+	//}
 
 	for (auto& renderComponents : mRenderComponentsArray)
 	{

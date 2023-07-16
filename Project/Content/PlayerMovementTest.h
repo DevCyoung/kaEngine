@@ -12,6 +12,10 @@ public:
 	PlayerMovementTest(const PlayerMovementTest&) = delete;
 	PlayerMovementTest& operator=(const PlayerMovementTest&) = delete;
 
+	bool mbRight;
+	float angle;
+
+
 private:
 	virtual void initialize() override final;
 	virtual void update() override final;

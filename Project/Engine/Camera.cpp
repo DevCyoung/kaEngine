@@ -27,18 +27,18 @@ Camera::~Camera()
 
 void Camera::initialize()
 {
-}
-
-void Camera::update()
-{	
 	Assert(mRenderTargetSize != Vector2::Zero, WCHAR_IS_NULLPTR);
 
 	GetOwner()->GetRenderTargetRenderer()->registerRenderCamera(this);
 }
 
+void Camera::update()
+{
+}
+
 void Camera::lateUpdate()
 {
-	const Transform* const P_TRANSFORM = GetComponent<Transform>();
+	const Transform* const P_TRANSFORM = GetOwner()->GetComponent<Transform>();
 	const Vector3& POSITION = P_TRANSFORM->GetPosition();
 
 	// View Translate Matrix

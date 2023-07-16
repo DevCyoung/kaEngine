@@ -53,7 +53,6 @@ void GameObject::update()
 	{
 		script->update();
 	}
-
 }
 
 void GameObject::lateUpdate()

@@ -66,14 +66,20 @@ DebugRenderer2D::~DebugRenderer2D()
 
 void DebugRenderer2D::DrawRect2D(const Vector3& worldPos,
 	const Vector2& rectScale,
-	const float drawTime, const Vector4& outLineColor)
+	const Vector3& rotation,
+	const float drawTime, 
+	const Vector4& outLineColor)
 {
 	tDebugDrawInfo drawInfo = {};
 
 	drawInfo.DebugDrawType = eDebugDrawType::Rect2D;
 	drawInfo.WorldPos = worldPos;
+	drawInfo.Rotation = rotation;
 	drawInfo.Scale = Vector3(rectScale.x, rectScale.y, 1.f);
-	drawInfo.Rotation = Vector3::Zero;
+
+	drawInfo.WorldMatrix =
+		Transform::CreateWorldMatrix(drawInfo.WorldPos, drawInfo.Rotation, drawInfo.Scale);
+
 	drawInfo.DrawTime = drawTime;
 	drawInfo.OutLineColor = outLineColor;
 
@@ -81,13 +87,28 @@ void DebugRenderer2D::DrawRect2D(const Vector3& worldPos,
 }
 
 void DebugRenderer2D::DrawRect2D2(const Vector3& wolrdLeftUpPos,
-	const Vector3& worldRightDownPos,
-	const float drawTime, const Vector4& outLineColor)
+	const Vector3& worldRightDownPos, 
+	const Vector3& rotation,
+	const float drawTime, 
+	const Vector4& outLineColor)
 {
 	const Vector3 WORLD_POS = (wolrdLeftUpPos + worldRightDownPos) * 0.5f;
 	const Vector3 RECT_SCALE_3D = worldRightDownPos - wolrdLeftUpPos;
 
-	DrawRect2D(WORLD_POS, Vector2(RECT_SCALE_3D.x, RECT_SCALE_3D.y), drawTime, outLineColor);
+	DrawRect2D(WORLD_POS, Vector2(RECT_SCALE_3D.x, RECT_SCALE_3D.y), rotation, drawTime, outLineColor);
+}
+
+void DebugRenderer2D::DrawRect2D3(const Matrix& worldMatrix, const float drawTime, const Vector4& outLineColor)
+{
+	tDebugDrawInfo drawInfo = {};
+
+	drawInfo.DebugDrawType = eDebugDrawType::Rect2D;
+
+	drawInfo.WorldMatrix = worldMatrix;
+	drawInfo.DrawTime = drawTime;
+	drawInfo.OutLineColor = outLineColor;
+
+	mDebugDrawInfos.push_back(drawInfo);
 }
 
 void DebugRenderer2D::DrawFillRect2D(const Vector3& worldPos,
@@ -97,9 +118,15 @@ void DebugRenderer2D::DrawFillRect2D(const Vector3& worldPos,
 	tDebugDrawInfo drawInfo = {};
 
 	drawInfo.DebugDrawType = eDebugDrawType::FillRect2D;
+
 	drawInfo.WorldPos = worldPos;
-	drawInfo.Scale = Vector3(rectScale.x, rectScale.y, 1.f);
 	drawInfo.Rotation = Vector3::Zero;
+	drawInfo.Scale = Vector3(rectScale.x, rectScale.y, 1.f);
+
+	drawInfo.WorldMatrix =
+		Transform::CreateWorldMatrix(drawInfo.WorldPos, drawInfo.Rotation, drawInfo.Scale);
+
+
 	drawInfo.DrawTime = drawTime;
 	drawInfo.FillColor = fillColor;
 
@@ -123,9 +150,30 @@ void DebugRenderer2D::DrawCircle2D(const Vector3& worldPos,
 	tDebugDrawInfo drawInfo = {};
 
 	drawInfo.DebugDrawType = eDebugDrawType::Circle2D;
+
 	drawInfo.WorldPos = worldPos;
-	drawInfo.Scale = Vector3(raduis * 2.f, raduis * 2.f, 1.f);
 	drawInfo.Rotation = Vector3::Zero;
+	drawInfo.Scale = Vector3(raduis * 2.f, raduis * 2.f, 1.f);
+
+	drawInfo.WorldMatrix =
+		Transform::CreateWorldMatrix(drawInfo.WorldPos, drawInfo.Rotation, drawInfo.Scale);
+
+	drawInfo.DrawTime = drawTime;
+	drawInfo.OutLineColor = outLineColor;
+
+	mDebugDrawInfos.push_back(drawInfo);
+}
+
+
+void DebugRenderer2D::DrawCircle2D2(const Matrix& worldMatrix,
+	const float drawTime,
+	const Vector4& outLineColor)
+{
+	tDebugDrawInfo drawInfo = {};
+
+	drawInfo.DebugDrawType = eDebugDrawType::Circle2D;
+	drawInfo.WorldMatrix = worldMatrix;
+
 	drawInfo.DrawTime = drawTime;
 	drawInfo.OutLineColor = outLineColor;
 
@@ -139,9 +187,14 @@ void DebugRenderer2D::DrawFillCircle2D(const Vector3& worldPos,
 	tDebugDrawInfo drawInfo = {};
 
 	drawInfo.DebugDrawType = eDebugDrawType::FillCircle2D;
+
 	drawInfo.WorldPos = worldPos;
-	drawInfo.Scale = Vector3(raduis * 2.f, raduis * 2.f, 1.f);
 	drawInfo.Rotation = Vector3::Zero;
+	drawInfo.Scale = Vector3(raduis * 2.f, raduis * 2.f, 1.f);
+
+	drawInfo.WorldMatrix =
+		Transform::CreateWorldMatrix(drawInfo.WorldPos, drawInfo.Rotation, drawInfo.Scale);
+
 	drawInfo.DrawTime = drawTime;
 	drawInfo.FillColor = fillColor;
 
@@ -160,9 +213,14 @@ void DebugRenderer2D::DrawLine2D(const Vector3& startPos,
 	const Vector3 scale = Vector3(dist.Length(), 1.f, 1.f);
 
 	drawInfo.DebugDrawType = eDebugDrawType::Line2D;
+
 	drawInfo.WorldPos = pivot;
-	drawInfo.Scale = scale;
 	drawInfo.Rotation = rotation;
+	drawInfo.Scale = scale;
+
+	drawInfo.WorldMatrix =
+		Transform::CreateWorldMatrix(drawInfo.WorldPos, drawInfo.Rotation, drawInfo.Scale);
+
 	drawInfo.DrawTime = drawTime;
 	drawInfo.OutLineColor = lineColor;
 
@@ -188,9 +246,14 @@ void DebugRenderer2D::DrawGrid2D(const Vector3& worldPos,
 	tDebugDrawInfo drawInfo = {};
 
 	drawInfo.DebugDrawType = eDebugDrawType::Grid2D;
+
 	drawInfo.WorldPos = worldPos;
-	drawInfo.Scale = Vector3(cellSizeXY.x * tileCountXY.x, cellSizeXY.y * tileCountXY.y, 1.f);
 	drawInfo.Rotation = Vector3::Zero;
+	drawInfo.Scale = Vector3(cellSizeXY.x * tileCountXY.x, cellSizeXY.y * tileCountXY.y, 1.f);
+
+	drawInfo.WorldMatrix =
+		Transform::CreateWorldMatrix(drawInfo.WorldPos, drawInfo.Rotation, drawInfo.Scale);
+
 	drawInfo.DrawTime = drawTime;
 	drawInfo.XYCount = tileCountXY;
 	drawInfo.FillColor = fillColor;
@@ -224,8 +287,8 @@ void DebugRenderer2D::render(const Camera* const camera) const
 		Assert(P_MESH, WCHAR_IS_NULLPTR);
 		Assert(P_SHADER, WCHAR_IS_NULLPTR);
 
-		CBTransform.World = Transform::CreateWorldMatrix(DRAW_INFO.WorldPos, 
-			DRAW_INFO.Rotation, DRAW_INFO.Scale);		
+		CBTransform.World = DRAW_INFO.WorldMatrix;
+
 		gGraphicDevice->PassCB(eCBType::Transform, sizeof(CBTransform), &CBTransform);
 		gGraphicDevice->BindCB(eCBType::Transform, eShaderBindType::VS);
 
