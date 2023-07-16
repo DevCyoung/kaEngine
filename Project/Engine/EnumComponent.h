@@ -7,9 +7,9 @@ enum class eComponentType
 {
 	Transform,
 	Camera,
+	SpriteRenderer,
 	CircleCollider2D,
 	RectCollider2D,
-	SpriteRenderer,
 	End,
 	ScriptComponent
 };

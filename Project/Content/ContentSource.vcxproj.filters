@@ -31,14 +31,8 @@
     <Filter Include="ShaderCode\Sprite2D">
       <UniqueIdentifier>{c87d12e4-e329-4c8d-b9d2-4a66d513ed5b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\01. Script\Player">
-      <UniqueIdentifier>{4a8600b9-3ddd-42b4-826d-d1d3defbd9bd}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Windows\diff">
       <UniqueIdentifier>{a3755df9-006f-44d9-9b02-2f1ca79c02bc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\01. Script\Camera">
-      <UniqueIdentifier>{6f4c4a58-8154-41fa-8602-6b4bc9308b7a}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source\Helper">
       <UniqueIdentifier>{62501ae3-1002-480d-bc13-d492a198f2ec}</UniqueIdentifier>
@@ -63,6 +57,24 @@
     </Filter>
     <Filter Include="Source\Scene">
       <UniqueIdentifier>{dc9dacee-4c8c-4f52-a1b7-a2548ff7810f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scene\CollideTest">
+      <UniqueIdentifier>{429f4d90-ac74-41bc-989e-ed00f2f0aa4a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\01. Script\Movement">
+      <UniqueIdentifier>{d9d4e410-c75a-4f94-b17b-90014d16b5bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\01. Script\Movement\Bullet">
+      <UniqueIdentifier>{58311b9c-d575-4f29-af48-66c9f6f89ad7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\01. Script\Movement\Cursur">
+      <UniqueIdentifier>{f0c38e71-c5ab-4474-874a-981d4a959921}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\01. Script\Movement\Camera">
+      <UniqueIdentifier>{f33adfa7-ae53-4c27-b2dc-1f5fa529591d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\01. Script\Movement\Player">
+      <UniqueIdentifier>{4a8600b9-3ddd-42b4-826d-d1d3defbd9bd}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -112,16 +124,7 @@
       <Filter>Source\01. Script\Enum</Filter>
     </ClInclude>
     <ClInclude Include="PlayerMovementTest.h">
-      <Filter>Source\01. Script\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="BulletMovement.h">
-      <Filter>Source\01. Script\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="CursorMovement.h">
-      <Filter>Source\01. Script\Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="CameraInputMoveMent.h">
-      <Filter>Source\01. Script\Camera</Filter>
+      <Filter>Source\01. Script\Movement\Player</Filter>
     </ClInclude>
     <ClInclude Include="Bugiman.h">
       <Filter>Source\Helper\UI</Filter>
@@ -138,7 +141,18 @@
     <ClInclude Include="LerpTest.h">
       <Filter>Source\01. Script</Filter>
     </ClInclude>
-    <ClInclude Include="Collide2DTestScene.h" />
+    <ClInclude Include="Collide2DTestScene.h">
+      <Filter>Source\Scene\CollideTest</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletMovement.h">
+      <Filter>Source\01. Script\Movement\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="CursorMovement.h">
+      <Filter>Source\01. Script\Movement\Cursur</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraInputMoveMent.h">
+      <Filter>Source\01. Script\Movement\Camera</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -181,16 +195,7 @@
       <Filter>Source\01. Script\Enum</Filter>
     </ClCompile>
     <ClCompile Include="PlayerMovementTest.cpp">
-      <Filter>Source\01. Script\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="BulletMovement.cpp">
-      <Filter>Source\01. Script\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="CameraInputMoveMent.cpp">
-      <Filter>Source\01. Script\Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="CursorMovement.cpp">
-      <Filter>Source\01. Script\Camera</Filter>
+      <Filter>Source\01. Script\Movement\Player</Filter>
     </ClCompile>
     <ClCompile Include="Bugiman.cpp">
       <Filter>Source\Helper\UI</Filter>
@@ -207,7 +212,18 @@
     <ClCompile Include="LerpTest.cpp">
       <Filter>Source\01. Script</Filter>
     </ClCompile>
-    <ClCompile Include="Collide2DTestScene.cpp" />
+    <ClCompile Include="Collide2DTestScene.cpp">
+      <Filter>Source\Scene\CollideTest</Filter>
+    </ClCompile>
+    <ClCompile Include="BulletMovement.cpp">
+      <Filter>Source\01. Script\Movement\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="CursorMovement.cpp">
+      <Filter>Source\01. Script\Movement\Cursur</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraInputMoveMent.cpp">
+      <Filter>Source\01. Script\Movement\Camera</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Output\bin\Resources\Shader\Header\TestShaderHeader.fxh">

@@ -4,6 +4,7 @@ enum class eLayerType
 {
 	Default,
 	Player,
+	Satellite,
 	Bullet,
 	Mouse,
 	UI,
