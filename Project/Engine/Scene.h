@@ -61,10 +61,12 @@ private:
 	virtual void renderFlush();
 	virtual void eventUpdate();
 
+protected:
+	CollisionManagement2D* mCollisionManagement2D;
+
 private:
 	Layer mLayers[static_cast<UINT>(eLayerType::End)];
 	std::vector<tEventMessageScene> mEventMessages;
 	std::vector<GameObject*> mGarbages;
 	RenderTargetRenderer* mRenderTargetRenderer;	
-	CollisionManagement2D* mCollisionManagement2D;
 };

@@ -26,6 +26,11 @@ CursorMovement::~CursorMovement()
 {
 }
 
+void CursorMovement::OnCollisionEnter(Collider2D* other)
+{
+	(void)other;
+}
+
 void CursorMovement::initialize()
 {
 }
@@ -39,6 +44,7 @@ void CursorMovement::update()
 	//
 	RenderTargetRenderer* const renderTargetRenderer = GetOwner()->GetRenderTargetRenderer();
 	//DebugRenderer2D* const debugRenderer2D = renderTargetRenderer->GetDebugRenderer();
+	
 	Transform* const transform = GetOwner()->GetComponent<Transform>();
 	//
 	//const Camera* const P_UI_CAMERA =
@@ -58,27 +64,33 @@ void CursorMovement::update()
 
 	mDelay += gDeltaTime;
 
-	if (mDelay > 0.005f)
+	if (mDelay > 0.0025f)
 	{
 		GameObject* const bullet = GameObjectBuilder::BuildDefault2DGameObject(L"UIRightItem");
 		bullet->AddComponent<BulletMovement>();
-		bullet->AddComponent<CircleCollider2D>();
-
-		Vector3 dir = Vector3(cosf(gGlobalTime * 10.f), sinf(gGlobalTime * 10.f), 0.f);
+		bullet->AddComponent <CircleCollider2D> ();
+		
+		Vector3 dir = Vector3(cosf(gGlobalTime * 10.f), sinf(gGlobalTime * 10.f), 0.f);		
 
 
 		bullet->GetComponent<Transform>()->SetPosition(MOUSE_WORLD_3D_POS + dir * 100.f);
 		bullet->GetComponent<BulletMovement>()->mDir = dir;
-		bullet->GetComponent<CircleCollider2D>()->SetRdius(50.f * helper::math::LerpSinBtwZeroAndOne(gGlobalTime));
-
-
+		bullet->GetComponent<CircleCollider2D>()->SetRdius(20.f);
 
 		gCurrentScene->RegisterEventAddGameObject(bullet, eLayerType::Bullet);
-
+		
 		mDelay = 0.f;
 	}	
 
 
+	if (gInput->GetKeyDown(eKeyCode::P))
+	{
+		renderTargetRenderer->TurnOffDebugRenderer();
+	}
+	if (gInput->GetKeyDown(eKeyCode::O))
+	{
+		renderTargetRenderer->TurnOnDebugRenderer();
+	}
 
 
 	//const Vector3 GRID_WORLD_POS = Vector3(0.f, 0.f, 1.f);

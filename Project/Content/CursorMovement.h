@@ -12,6 +12,9 @@ public:
 	CursorMovement(const CursorMovement&) = delete;
 	CursorMovement& operator=(const CursorMovement&) = delete;
 
+	virtual void OnCollisionEnter(Collider2D* other);
+	
+
 private:
 	virtual void initialize() override final;
 	virtual void update() override final;

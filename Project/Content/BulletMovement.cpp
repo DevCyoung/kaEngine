@@ -16,12 +16,12 @@ BulletMovement::~BulletMovement()
 void BulletMovement::OnCollisionEnter(Collider2D* other)
 {
 	(void)other;
-
+	//
 	if (GetOwner()->GetState() == GameObject::eState::Destroy)
 	{
 		return;
 	}
-
+	
 	gCurrentScene->RegisterEventSetDestroy(GetOwner());
 }
 
@@ -44,12 +44,12 @@ void BulletMovement::update()
 	Transform* transform = GetOwner()->GetComponent<Transform>();
 	Vector3 pos = transform->GetPosition();
 	
-	pos += mDir * 600.f * gDeltaTime;
+	pos += mDir * 30.f * gDeltaTime;
 	transform->SetPosition(pos);
 	//
 	mDelay += gDeltaTime;
 	
-	if (mDelay > 5.f)
+	if (mDelay > 18.f)
 	{
 		if (GetOwner()->GetState() != GameObject::eState::Destroy)
 		{
