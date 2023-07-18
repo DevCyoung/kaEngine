@@ -39,7 +39,7 @@ void Camera::update()
 void Camera::lateUpdate()
 {
 	const Transform* const P_TRANSFORM = GetOwner()->GetComponent<Transform>();
-	const Vector3& POSITION = P_TRANSFORM->GetPosition();
+	const Vector3& POSITION = P_TRANSFORM->GetWorldMatrix().Translation();
 
 	// View Translate Matrix
 	mView = Matrix::Identity;

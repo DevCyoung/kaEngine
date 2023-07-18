@@ -2,6 +2,7 @@
 
 enum class eLayerType
 {
+	BackGround,
 	Default,
 	Player,
 	Satellite,

@@ -15,14 +15,20 @@
 #include <Engine/EngineMath.h>
 #include "LerpTest.h"
 #include "Collide2DTestScene.h"
+
 #include "TItleScene.h"
 #include "Chinatown01Scene.h"
+#include "Chinatown04Scene.h"
+#include "Chinatown05Scene.h"
+
+
 Content::Content()
 {
 	resourceInitialize();
 	
-	//Scene* testScene = new TItleScene();
-	Scene* testScene = new Chinatown01Scene();
+	//Scene* testScene = new TItleScene();	
+	Scene* testScene = new Chinatown04Scene();
+	//Scene* testScene = new Chinatown05Scene();
 	SceneManager::GetInstance()->LoadScene(testScene);
 }
 
@@ -152,6 +158,8 @@ void Content::loadMaterial()
 
 
 
+
+
 }
 
 void Content::loadUIMaterial()
@@ -212,6 +220,14 @@ void Content::loadUIMaterial()
 			MaterialBuilder::BuildDefault2DMaterial(
 				eRenderPriorityType::Opqaue, L"UIShader", eResTexture::UI_spr_hud_battery);
 		gResourceManager->Insert(L"UIBattery", material);
+	}
+
+	//Battrey part
+	{
+		Material* const material =
+			MaterialBuilder::BuildDefault2DMaterial(
+				eRenderPriorityType::Opqaue, L"UIShader", eResTexture::UI_spr_battery_part);
+		gResourceManager->Insert(L"UIBatteryPart", material);
 	}
 
 	//Hud Item

@@ -9,6 +9,7 @@ enum class eScriptComponentType
 	BulletMovement,
 	CameraInputMoveMent,
 	ChildTest,
+	Chinatown04Controller,
 	CursorMovement,
 	InputMovementTest,
 	LerpTest,

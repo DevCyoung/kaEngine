@@ -190,6 +190,12 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
       </SubType>
     </ClInclude>
     <ClInclude Include="Chinatown01Scene.h" />
+    <ClInclude Include="Chinatown04Controller.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Chinatown04Scene.h" />
+    <ClInclude Include="Chinatown05Scene.h" />
     <ClInclude Include="Collide2DTestScene.h" />
     <ClInclude Include="Content.h" />
     <ClInclude Include="CursorMovement.h">
@@ -262,6 +268,12 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
       </SubType>
     </ClCompile>
     <ClCompile Include="Chinatown01Scene.cpp" />
+    <ClCompile Include="Chinatown04Controller.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Chinatown04Scene.cpp" />
+    <ClCompile Include="Chinatown05Scene.cpp" />
     <ClCompile Include="Collide2DTestScene.cpp" />
     <ClCompile Include="Content.cpp" />
     <ClCompile Include="CursorMovement.cpp">

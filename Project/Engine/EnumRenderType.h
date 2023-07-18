@@ -10,6 +10,7 @@ enum class eRenderPriorityType
 
 enum class eCameraPriorityType
 {
+	BackGround,
 	Main,
 	UI,
 	End

@@ -85,6 +85,15 @@
     <Filter Include="Source\Scene\Chianatown01">
       <UniqueIdentifier>{da98e5d6-9aba-4417-8f28-dcfa99b62c7b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Scene\Chinatown04">
+      <UniqueIdentifier>{e8cd688f-3ebd-4352-a0f3-3a059f04198c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\01. ScriptComponent\Scene">
+      <UniqueIdentifier>{cc7e087a-78df-4419-bf59-204d1219fdb7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scene\Chinatown05">
+      <UniqueIdentifier>{20332b64-296c-4050-bb16-34cb7cddc831}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -180,6 +189,15 @@
     <ClInclude Include="NoiseTest.h">
       <Filter>Source\01. ScriptComponent\Test</Filter>
     </ClInclude>
+    <ClInclude Include="Chinatown04Scene.h">
+      <Filter>Source\Scene\Chinatown04</Filter>
+    </ClInclude>
+    <ClInclude Include="Chinatown04Controller.h">
+      <Filter>Source\01. ScriptComponent\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Chinatown05Scene.h">
+      <Filter>Source\Scene\Chinatown05</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -268,6 +286,15 @@
     </ClCompile>
     <ClCompile Include="NoiseTest.cpp">
       <Filter>Source\01. ScriptComponent\Test</Filter>
+    </ClCompile>
+    <ClCompile Include="Chinatown04Scene.cpp">
+      <Filter>Source\Scene\Chinatown04</Filter>
+    </ClCompile>
+    <ClCompile Include="Chinatown04Controller.cpp">
+      <Filter>Source\01. ScriptComponent\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Chinatown05Scene.cpp">
+      <Filter>Source\Scene\Chinatown05</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
