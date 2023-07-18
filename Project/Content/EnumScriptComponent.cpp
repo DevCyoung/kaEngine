@@ -4,8 +4,11 @@
 #include "Bugiman.h"
 #include "BulletMovement.h"
 #include "CameraInputMoveMent.h"
+#include "ChildTest.h"
 #include "CursorMovement.h"
+#include "InputMovementTest.h"
 #include "LerpTest.h"
+#include "ParentTest.h"
 #include "PlayerMovementTest.h"
 #include "ShiftController.h"
 #include "TestScript.h"
@@ -16,8 +19,11 @@ static constexpr const wchar_t* const ScriptComponentNames[static_cast<UINT>(eSc
 	L"Bugiman",
 	L"BulletMovement",
 	L"CameraInputMoveMent",
+	L"ChildTest",
 	L"CursorMovement",
+	L"InputMovementTest",
 	L"LerpTest",
+	L"ParentTest",
 	L"PlayerMovementTest",
 	L"ShiftController",
 	L"TestScript",
@@ -40,10 +46,16 @@ ScriptComponent* CreateScriptComponentByName(const std::wstring& scriptcomponent
 		scriptcomponent = new BulletMovement;
 	else if (L"CameraInputMoveMent" == scriptcomponentName)
 		scriptcomponent = new CameraInputMoveMent;
+	else if (L"ChildTest" == scriptcomponentName)
+		scriptcomponent = new ChildTest;
 	else if (L"CursorMovement" == scriptcomponentName)
 		scriptcomponent = new CursorMovement;
+	else if (L"InputMovementTest" == scriptcomponentName)
+		scriptcomponent = new InputMovementTest;
 	else if (L"LerpTest" == scriptcomponentName)
 		scriptcomponent = new LerpTest;
+	else if (L"ParentTest" == scriptcomponentName)
+		scriptcomponent = new ParentTest;
 	else if (L"PlayerMovementTest" == scriptcomponentName)
 		scriptcomponent = new PlayerMovementTest;
 	else if (L"ShiftController" == scriptcomponentName)
@@ -72,11 +84,20 @@ ScriptComponent* CreateScriptComponentByEnum(const eScriptComponentType type)
 	case eScriptComponentType::CameraInputMoveMent:
 		scriptcomponent = new CameraInputMoveMent;
 		break;
+	case eScriptComponentType::ChildTest:
+		scriptcomponent = new ChildTest;
+		break;
 	case eScriptComponentType::CursorMovement:
 		scriptcomponent = new CursorMovement;
 		break;
+	case eScriptComponentType::InputMovementTest:
+		scriptcomponent = new InputMovementTest;
+		break;
 	case eScriptComponentType::LerpTest:
 		scriptcomponent = new LerpTest;
+		break;
+	case eScriptComponentType::ParentTest:
+		scriptcomponent = new ParentTest;
 		break;
 	case eScriptComponentType::PlayerMovementTest:
 		scriptcomponent = new PlayerMovementTest;

@@ -39,10 +39,12 @@ void SceneManager::eventUpdate()
 
 void SceneManager::render(const UINT renderTargetWidth,
 	const UINT renderTargetHeight,
-	const FLOAT backgroundColor[4],
 	ID3D11RenderTargetView** const ppRenderTargetView,
 	ID3D11DepthStencilView* const depthStencilView)
 {
+	const Vector4& color = mCurrentScene->GetBackgroundColor();
+	const FLOAT backgroundColor[4] = { color.x, color.y, color.z, color.w };
+
 	gGraphicDevice->ClearRenderTarget(ppRenderTargetView,
 		depthStencilView,
 		backgroundColor);

@@ -6,6 +6,14 @@ class Collider2D;
 class GameObject;
 class RenderTargetRenderer;
 
+////TODO : work
+//struct RayCastHit2D
+//{
+//	Vector2 hitPos;
+//	float distance;
+//	Collider2D* collider;
+//};
+
 class CollisionManagement2D
 {
 	friend class Scene;
@@ -19,14 +27,14 @@ public:
 	void TurnOffAllCollisionLayer();
 	void TurnOnCollisionLayer(const eLayerType left, const eLayerType right);
 	void TurnOffCollisionLayer(const eLayerType left, const eLayerType right);
-
 private:
-	void phisicsUpdate(Scene* const scene);
-	void collisionGameObject(const GameObject* const left, const GameObject* const right);
+	void phisicsUpdate(const Scene* const scene);
+	void Collide2DGameObject(const GameObject* const left, const GameObject* const right);
+	bool checkCollision2DBoxAndBox(const Collider2D* const left, const Collider2D* const right);
+	bool checkCollision2DCircleAndCircle(const Collider2D* const left, const Collider2D* const right);
+	bool checkCollision2DBoxAndCircle(const Collider2D* const box, const Collider2D* const circle);
 
-	bool collisionBoxCollider2D(const Collider2D* left, const Collider2D* right);
-	bool collisionCircleCollider2D(const Collider2D* left, const Collider2D* right);
-	bool collisionBoxAndCircleCollider2D(const Collider2D* box, const Collider2D* circle);
+	float getCircleRadius(const Collider2D* const collider) const;
 
 private:
 	union CollisionID

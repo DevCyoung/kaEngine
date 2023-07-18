@@ -26,7 +26,7 @@ CursorMovement::~CursorMovement()
 {
 }
 
-void CursorMovement::OnCollisionEnter(Collider2D* other)
+void CursorMovement::onCollisionEnter(Collider2D* other)
 {
 	(void)other;
 }
@@ -56,7 +56,11 @@ void CursorMovement::update()
 	//const Vector3 UI_MOUSE_POS = WindowScreenMouseToWorld3D(P_UI_CAMERA);
 	const Vector3& MOUSE_WORLD_3D_POS = WindowScreenMouseToWorld3D(P_MAIN_CAMERA);
 	
-	transform->SetPosition(MOUSE_WORLD_3D_POS);
+	Vector3 mousePos = MOUSE_WORLD_3D_POS;
+	mousePos.z = 0.f;
+	
+	transform->SetPosition(mousePos);
+
 
 	
 
@@ -75,7 +79,7 @@ void CursorMovement::update()
 
 		bullet->GetComponent<Transform>()->SetPosition(MOUSE_WORLD_3D_POS + dir * 100.f);
 		bullet->GetComponent<BulletMovement>()->mDir = dir;
-		bullet->GetComponent<CircleCollider2D>()->SetRdius(20.f);
+		bullet->GetComponent<CircleCollider2D>()->SetRadius(20.f);
 
 		gCurrentScene->RegisterEventAddGameObject(bullet, eLayerType::Bullet);
 		

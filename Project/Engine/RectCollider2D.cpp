@@ -23,9 +23,11 @@ void RectCollider2D::update()
 
 void RectCollider2D::lateUpdate()
 {
-	mColliderWorldMat = XMMatrixScaling(mScale.x, mScale.y, mScale.z);
+	const Transform* const P_TRANSFORM = GetOwner()->GetComponent<Transform>();
+
+	mColliderWorldMat = XMMatrixScaling(mSize.x, mSize.y, mSize.z);
 	mColliderWorldMat *= XMMatrixTranslation(mOffset.x, mOffset.y, mOffset.z);
-	mColliderWorldMat *= GetOwner()->GetComponent<Transform>()->GetWorldMatrix();
+	mColliderWorldMat *= P_TRANSFORM->GetWorldMatrix();
 
 	DebugRenderer2D* debugRenderer = GetOwner()->GetRenderTargetRenderer()->GetDebugRenderer();
 

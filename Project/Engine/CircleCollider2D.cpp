@@ -23,9 +23,11 @@ void CircleCollider2D::update()
 
 void CircleCollider2D::lateUpdate()
 {
+	const Transform* const P_TRANSFORM = GetOwner()->GetComponent<Transform>();
+
 	mColliderWorldMat = XMMatrixScaling(mRadius * 2.f, mRadius * 2.f, mRadius * 2.f);
 	mColliderWorldMat *= XMMatrixTranslation(mOffset.x, mOffset.y, mOffset.z);
-	mColliderWorldMat *= GetOwner()->GetComponent<Transform>()->GetWorldMatrix();
+	mColliderWorldMat *= P_TRANSFORM->GetWorldMatrix();
 
 	DebugRenderer2D* debugRenderer = GetOwner()->GetRenderTargetRenderer()->GetDebugRenderer();
 

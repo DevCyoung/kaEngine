@@ -13,7 +13,7 @@ BulletMovement::~BulletMovement()
 {
 }
 
-void BulletMovement::OnCollisionEnter(Collider2D* other)
+void BulletMovement::onCollisionEnter(Collider2D* other)
 {
 	(void)other;
 	//
@@ -25,12 +25,12 @@ void BulletMovement::OnCollisionEnter(Collider2D* other)
 	gCurrentScene->RegisterEventSetDestroy(GetOwner());
 }
 
-void BulletMovement::OnCollisionStay(Collider2D* other)
+void BulletMovement::onCollisionStay(Collider2D* other)
 {
 	(void)other;
 }
 
-void BulletMovement::OnCollisionExit(Collider2D* other)
+void BulletMovement::onCollisionExit(Collider2D* other)
 {
 	(void)other;
 }

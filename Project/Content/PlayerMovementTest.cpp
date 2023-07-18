@@ -31,32 +31,9 @@ void PlayerMovementTest::update()
     Vector3 pos = transform->GetPosition();
     Vector3 dir = Vector3::Zero;
 
-    if (gInput->GetKey(eKeyCode::UP))
-    {
-        dir.y += 1.f;
-    }
-
-    if (gInput->GetKey(eKeyCode::DOWN))
-    {
-        dir.y -= 1.f;
-    }
-
-    if (gInput->GetKey(eKeyCode::LEFT))
-    {
-        dir.x -= 1.f;
-    }
-
-    if (gInput->GetKey(eKeyCode::RIGHT))
-    {
-        dir.x += 1.f;
-    }
-
     dir.Normalize();
-    pos += dir * gDeltaTime * 100.f;
+    pos += dir * gDeltaTime * 300.f;
     transform->SetPosition(pos);
-
-
-    
 
     if (mbRight)
     {

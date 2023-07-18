@@ -11,6 +11,7 @@ Scene::Scene()
 	, mGarbages()
 	, mRenderTargetRenderer(new RenderTargetRenderer())
 	, mCollisionManagement2D(new CollisionManagement2D())
+	, mBackgroundColor(Vector4(0.4f, 0.4f, 0.4f, 1.f))
 {
 	mEventMessages.reserve(100);
 	mGarbages.reserve(100);

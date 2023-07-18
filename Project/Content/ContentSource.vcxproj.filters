@@ -19,12 +19,6 @@
     <Filter Include="ShaderCode\Header">
       <UniqueIdentifier>{abd7499d-ca04-4dfd-b4d0-94b1bb510403}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\01. Script">
-      <UniqueIdentifier>{de857324-cd4d-4a4d-80a7-707699222472}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\01. Script\Enum">
-      <UniqueIdentifier>{c34d8bbf-e30d-458e-8f53-43db7792fa6e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ShaderCode\Debug">
       <UniqueIdentifier>{e40c434b-8c6d-410e-abaa-cb5f10dd81d0}</UniqueIdentifier>
     </Filter>
@@ -61,20 +55,35 @@
     <Filter Include="Source\Scene\CollideTest">
       <UniqueIdentifier>{429f4d90-ac74-41bc-989e-ed00f2f0aa4a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\01. Script\Movement">
+    <Filter Include="Source\01. ScriptComponent">
+      <UniqueIdentifier>{de857324-cd4d-4a4d-80a7-707699222472}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\01. ScriptComponent\Enum">
+      <UniqueIdentifier>{c34d8bbf-e30d-458e-8f53-43db7792fa6e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\01. ScriptComponent\Movement">
       <UniqueIdentifier>{d9d4e410-c75a-4f94-b17b-90014d16b5bc}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\01. Script\Movement\Bullet">
+    <Filter Include="Source\01. ScriptComponent\Movement\Bullet">
       <UniqueIdentifier>{58311b9c-d575-4f29-af48-66c9f6f89ad7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\01. Script\Movement\Cursur">
+    <Filter Include="Source\01. ScriptComponent\Movement\Cursur">
       <UniqueIdentifier>{f0c38e71-c5ab-4474-874a-981d4a959921}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\01. Script\Movement\Camera">
+    <Filter Include="Source\01. ScriptComponent\Movement\Camera">
       <UniqueIdentifier>{f33adfa7-ae53-4c27-b2dc-1f5fa529591d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\01. Script\Movement\Player">
+    <Filter Include="Source\01. ScriptComponent\Movement\Player">
       <UniqueIdentifier>{4a8600b9-3ddd-42b4-826d-d1d3defbd9bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\01. ScriptComponent\Test">
+      <UniqueIdentifier>{71fc1149-d8c0-4313-a60e-2304d41cfd1c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scene\TitleScene">
+      <UniqueIdentifier>{96946f4c-9e4a-43d1-9bde-9ef81cae4896}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scene\Chianatown01">
+      <UniqueIdentifier>{da98e5d6-9aba-4417-8f28-dcfa99b62c7b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -121,10 +130,10 @@
       <Filter>Source\Helper\ResourceManager</Filter>
     </ClInclude>
     <ClInclude Include="EnumScriptComponent.h">
-      <Filter>Source\01. Script\Enum</Filter>
+      <Filter>Source\01. ScriptComponent\Enum</Filter>
     </ClInclude>
     <ClInclude Include="PlayerMovementTest.h">
-      <Filter>Source\01. Script\Movement\Player</Filter>
+      <Filter>Source\01. ScriptComponent\Movement\Player</Filter>
     </ClInclude>
     <ClInclude Include="Bugiman.h">
       <Filter>Source\Helper\UI</Filter>
@@ -138,20 +147,35 @@
     <ClInclude Include="UIEffect.h">
       <Filter>Source\Helper\UI</Filter>
     </ClInclude>
-    <ClInclude Include="LerpTest.h">
-      <Filter>Source\01. Script</Filter>
-    </ClInclude>
     <ClInclude Include="Collide2DTestScene.h">
       <Filter>Source\Scene\CollideTest</Filter>
     </ClInclude>
     <ClInclude Include="BulletMovement.h">
-      <Filter>Source\01. Script\Movement\Bullet</Filter>
+      <Filter>Source\01. ScriptComponent\Movement\Bullet</Filter>
     </ClInclude>
     <ClInclude Include="CursorMovement.h">
-      <Filter>Source\01. Script\Movement\Cursur</Filter>
+      <Filter>Source\01. ScriptComponent\Movement\Cursur</Filter>
     </ClInclude>
     <ClInclude Include="CameraInputMoveMent.h">
-      <Filter>Source\01. Script\Movement\Camera</Filter>
+      <Filter>Source\01. ScriptComponent\Movement\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="LerpTest.h">
+      <Filter>Source\01. ScriptComponent\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="InputMovementTest.h">
+      <Filter>Source\01. ScriptComponent\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="ChildTest.h">
+      <Filter>Source\01. ScriptComponent\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="ParentTest.h">
+      <Filter>Source\01. ScriptComponent\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="TItleScene.h">
+      <Filter>Source\Scene\TitleScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Chinatown01Scene.h">
+      <Filter>Source\Scene\Chianatown01</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -192,10 +216,10 @@
       <Filter>Source\Helper\Builder</Filter>
     </ClCompile>
     <ClCompile Include="EnumScriptComponent.cpp">
-      <Filter>Source\01. Script\Enum</Filter>
+      <Filter>Source\01. ScriptComponent\Enum</Filter>
     </ClCompile>
     <ClCompile Include="PlayerMovementTest.cpp">
-      <Filter>Source\01. Script\Movement\Player</Filter>
+      <Filter>Source\01. ScriptComponent\Movement\Player</Filter>
     </ClCompile>
     <ClCompile Include="Bugiman.cpp">
       <Filter>Source\Helper\UI</Filter>
@@ -209,20 +233,35 @@
     <ClCompile Include="UIEffect.cpp">
       <Filter>Source\Helper\UI</Filter>
     </ClCompile>
-    <ClCompile Include="LerpTest.cpp">
-      <Filter>Source\01. Script</Filter>
-    </ClCompile>
     <ClCompile Include="Collide2DTestScene.cpp">
       <Filter>Source\Scene\CollideTest</Filter>
     </ClCompile>
     <ClCompile Include="BulletMovement.cpp">
-      <Filter>Source\01. Script\Movement\Bullet</Filter>
+      <Filter>Source\01. ScriptComponent\Movement\Bullet</Filter>
     </ClCompile>
     <ClCompile Include="CursorMovement.cpp">
-      <Filter>Source\01. Script\Movement\Cursur</Filter>
+      <Filter>Source\01. ScriptComponent\Movement\Cursur</Filter>
     </ClCompile>
     <ClCompile Include="CameraInputMoveMent.cpp">
-      <Filter>Source\01. Script\Movement\Camera</Filter>
+      <Filter>Source\01. ScriptComponent\Movement\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="LerpTest.cpp">
+      <Filter>Source\01. ScriptComponent\Test</Filter>
+    </ClCompile>
+    <ClCompile Include="InputMovementTest.cpp">
+      <Filter>Source\01. ScriptComponent\Test</Filter>
+    </ClCompile>
+    <ClCompile Include="ChildTest.cpp">
+      <Filter>Source\01. ScriptComponent\Test</Filter>
+    </ClCompile>
+    <ClCompile Include="ParentTest.cpp">
+      <Filter>Source\01. ScriptComponent\Test</Filter>
+    </ClCompile>
+    <ClCompile Include="TItleScene.cpp">
+      <Filter>Source\Scene\TitleScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Chinatown01Scene.cpp">
+      <Filter>Source\Scene\Chianatown01</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

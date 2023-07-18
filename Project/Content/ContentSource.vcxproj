@@ -185,6 +185,11 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="ChildTest.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Chinatown01Scene.h" />
     <ClInclude Include="Collide2DTestScene.h" />
     <ClInclude Include="Content.h" />
     <ClInclude Include="CursorMovement.h">
@@ -202,11 +207,19 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
     <ClInclude Include="EnumScriptComponent.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="GameObjectBuilder.h" />
+    <ClInclude Include="InputMovementTest.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="LerpTest.h">
       <SubType>
       </SubType>
     </ClInclude>
     <ClInclude Include="MaterialBuilder.h" />
+    <ClInclude Include="ParentTest.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="pch.h" />
     <ClInclude Include="PlayerMovementTest.h">
       <SubType>
@@ -221,6 +234,7 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="TItleScene.h" />
     <ClInclude Include="UIEffect.h">
       <SubType>
       </SubType>
@@ -239,6 +253,11 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="ChildTest.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Chinatown01Scene.cpp" />
     <ClCompile Include="Collide2DTestScene.cpp" />
     <ClCompile Include="Content.cpp" />
     <ClCompile Include="CursorMovement.cpp">
@@ -255,11 +274,19 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
     <ClCompile Include="EnumResourceTypeTexture.cpp" />
     <ClCompile Include="EnumScriptComponent.cpp" />
     <ClCompile Include="GameObjectBuilder.cpp" />
+    <ClCompile Include="InputMovementTest.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="LerpTest.cpp">
       <SubType>
       </SubType>
     </ClCompile>
     <ClCompile Include="MaterialBuilder.cpp" />
+    <ClCompile Include="ParentTest.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">pch.h</PrecompiledHeaderFile>
@@ -280,6 +307,7 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="TItleScene.cpp" />
     <ClCompile Include="UIEffect.cpp">
       <SubType>
       </SubType>

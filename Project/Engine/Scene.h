@@ -29,8 +29,13 @@ public:
 	void AddGameObject(GameObject* const gameObject, const eLayerType layerType);
 
 	RenderTargetRenderer* GetRenderTargetRenderer() const { return mRenderTargetRenderer; }
+	CollisionManagement2D* GetCollisionManagement2D() const { return mCollisionManagement2D; }
 
 	virtual HRESULT Load(const std::wstring& filePath) override;
+
+	const Vector4& GetBackgroundColor() const { return mBackgroundColor; }
+	void SetBackgroundColor(const Vector4& color) { mBackgroundColor = color; }
+
 
 private:
 	enum class eEventOfScene
@@ -69,4 +74,5 @@ private:
 	std::vector<tEventMessageScene> mEventMessages;
 	std::vector<GameObject*> mGarbages;
 	RenderTargetRenderer* mRenderTargetRenderer;	
+	Vector4 mBackgroundColor;
 };

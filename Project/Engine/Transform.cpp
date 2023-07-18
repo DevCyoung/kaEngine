@@ -10,34 +10,13 @@ Transform::Transform()
 	, mScale(Vector3::One)
 	, mForward(Vector3::Forward)
 	, mRight(Vector3::Right)
-	, mUp(Vector3::Up)
+	, mUp(Vector3::Up)	
 	, mWorld(Matrix::Identity)
 {
 }
 
 Transform::~Transform()
 {
-}
-
-Matrix Transform::CreateWorldMatrix(const Vector3& position, const Vector3& rotation, const Vector3& scale)
-{
-	Matrix world = Matrix::Identity;
-
-	Matrix scaleMatrix = Matrix::CreateScale(scale);
-
-	Matrix rotationMatrix = {};
-	rotationMatrix = Matrix::CreateRotationX(Deg2Rad(rotation.x));
-	rotationMatrix *= Matrix::CreateRotationY(Deg2Rad(rotation.y));
-	rotationMatrix *= Matrix::CreateRotationZ(Deg2Rad(rotation.z));
-
-	Matrix positionMatrix = {};
-	positionMatrix.Translation(position);
-
-	world *= scaleMatrix;
-	world *= rotationMatrix;
-	world *= positionMatrix;
-
-	return world;
 }
 
 void Transform::initialize()
@@ -50,20 +29,42 @@ void Transform::update()
 
 void Transform::lateUpdate()
 {
-	mWorld = Transform::CreateWorldMatrix(mPosition, mRotation, mScale);
+	mWorld = CreateWorldMatrix(mPosition, mRotation, mScale);
 
 	GameObject* const parent = GetOwner()->GetParentOrNull();
 
-	if (GetOwner()->GetParentOrNull())
+	if (parent)
 	{
-		//부모공간으로 들어간다.
-		//부모가 이미 계산이 되어있어야한다.
-		mWorld *= parent->GetComponent<Transform>()->mWorld;
+		const Transform* const transform = parent->GetComponent<Transform>();
+		mWorld *= transform->mWorld;
 	}
 
-	//FIXME
 	mUp = XMVector3TransformNormal(Vector3::Up, mWorld);
 	mForward = XMVector3TransformNormal(Vector3::Forward, mWorld);
 	mRight = XMVector3TransformNormal(Vector3::Right, mWorld);
-}
 
+	mUp.Normalize();
+	mForward.Normalize();
+	mRight.Normalize();
+}	
+
+Matrix Transform::CreateWorldMatrix(const Vector3& position, const Vector3& rotation, const Vector3& scale)
+{
+	Matrix world = Matrix::Identity;
+
+	Matrix scaleMatrix = Matrix::CreateScale(scale);
+
+	Matrix rotationMatrix = {};
+	rotationMatrix = Matrix::CreateRotationZ(Deg2Rad(rotation.z));
+	rotationMatrix *= Matrix::CreateRotationY(Deg2Rad(rotation.y));
+	rotationMatrix *= Matrix::CreateRotationX(Deg2Rad(rotation.x));
+
+	Matrix positionMatrix = {};
+	positionMatrix.Translation(position);
+
+	world *= scaleMatrix;
+	world *= rotationMatrix;
+	world *= positionMatrix;
+
+	return world;
+}

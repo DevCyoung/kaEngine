@@ -132,6 +132,16 @@ void CameraInputMoveMent::update()
 			rot.x -= gDeltaTime * mouseDir.y * 100.f;
 		}
 
+		if (gInput->GetKey(eKeyCode::UP))
+		{
+			pos += Vector3::Up * fSpeed * gDeltaTime;
+		}
+
+		if (gInput->GetKey(eKeyCode::DOWN))
+		{
+			pos += Vector3::Down * fSpeed * gDeltaTime;
+		}
+
 		transform->SetPosition(pos);
 		transform->SetRotation(rot);
 	}

@@ -88,11 +88,8 @@ void Engine::lateUpdate()
 
 void Engine::render()
 {
-	constexpr FLOAT BG_COLOR[4] = { 0.4f, 0.4f, 0.4f, 1.f };
-
 	SceneManager::GetInstance()->render(mRenderTargetWidth,
-				mRenderTargetHeight,
-				BG_COLOR,
+				mRenderTargetHeight,				
 				mGraphicDevice->GetRenderTargetViewAddressOf(),
 				mGraphicDevice->GetDepthStencilView());
 
