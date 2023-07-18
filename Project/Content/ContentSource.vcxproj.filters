@@ -177,6 +177,9 @@
     <ClInclude Include="Chinatown01Scene.h">
       <Filter>Source\Scene\Chianatown01</Filter>
     </ClInclude>
+    <ClInclude Include="NoiseTest.h">
+      <Filter>Source\01. ScriptComponent\Test</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -262,6 +265,9 @@
     </ClCompile>
     <ClCompile Include="Chinatown01Scene.cpp">
       <Filter>Source\Scene\Chianatown01</Filter>
+    </ClCompile>
+    <ClCompile Include="NoiseTest.cpp">
+      <Filter>Source\01. ScriptComponent\Test</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

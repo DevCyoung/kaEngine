@@ -19,6 +19,7 @@
 #include "InputMovementTest.h"
 #include "ChildTest.h"
 #include "ParentTest.h"
+#include "NoiseTest.h"
 
 Chinatown01Scene::Chinatown01Scene()
 {
@@ -62,6 +63,34 @@ Chinatown01Scene::Chinatown01Scene()
 		gResourceManager->Insert(L"ChanatownTest", material);
 	}
 
+	{
+		Material* const material =
+			MaterialBuilder::BuildDefault2DMaterial(
+				eRenderPriorityType::Opqaue, L"Default", eResTexture::Noise_01);
+		gResourceManager->Insert(L"Noise01", material);
+	}
+
+	{
+		Material* const material =
+			MaterialBuilder::BuildDefault2DMaterial(
+				eRenderPriorityType::Opqaue, L"Default", eResTexture::Noise_02);
+		gResourceManager->Insert(L"Noise02", material);
+	}
+
+	{
+		Material* const material =
+			MaterialBuilder::BuildDefault2DMaterial(
+				eRenderPriorityType::Opqaue, L"Default", eResTexture::Noise_03);
+		gResourceManager->Insert(L"Noise03", material);
+	}
+
+	{
+		Material* const material =
+			MaterialBuilder::BuildDefault2DMaterial(
+				eRenderPriorityType::Opqaue, L"Default", eResTexture::Noise_04);
+		gResourceManager->Insert(L"Noise04", material);
+	}
+
 	////Map	
 	//{
 	//	GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"Chanatown01Backgorund01");
@@ -91,6 +120,15 @@ Chinatown01Scene::Chinatown01Scene()
 		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"ChanatownTest");
 		
 		obj->GetComponent<Transform>()->SetPosition(800.f, -800.f, 32.f);
+		AddGameObject(obj, eLayerType::Default);
+	}
+
+	{
+		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"Noise01");
+		obj->AddComponent<NoiseTest>();
+
+		obj->GetComponent<Transform>()->SetPosition(0.f, 0.f, 32.f);
+		
 		AddGameObject(obj, eLayerType::Default);
 	}
 

@@ -12,6 +12,7 @@ enum class eScriptComponentType
 	CursorMovement,
 	InputMovementTest,
 	LerpTest,
+	NoiseTest,
 	ParentTest,
 	PlayerMovementTest,
 	ShiftController,
