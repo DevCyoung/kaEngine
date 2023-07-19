@@ -25,7 +25,7 @@
 Content::Content()
 {
 	resourceInitialize();
-	
+	//Scene* testScene = new Collide2DTestScene;
 	//Scene* testScene = new TItleScene();	
 	//Scene* testScene = new Chinatown01Scene();
 	Scene* testScene = new Chinatown04Scene();
@@ -752,7 +752,7 @@ void Content::testSceneInitialize()
 		mainCamera->AddComponent<Camera>();
 		mainCamera->AddComponent<CameraInputMoveMent>();
 
-		mainCamera->GetComponent<Camera>()->SetProjectionType(eCameraPriorityType::Main);		
+		mainCamera->GetComponent<Camera>()->SetPriorityType(eCameraPriorityType::Main);		
 		mainCamera->GetComponent<Camera>()->SetRenderTargetSize(screenSize);		
 		mainCamera->GetComponent<Camera>()->TurnOnAllLayer();
 		mainCamera->GetComponent<Camera>()->TurnOffLayer(eLayerType::UI);
@@ -767,7 +767,7 @@ void Content::testSceneInitialize()
 
 		uiCamera->AddComponent<Camera>();
 
-		uiCamera->GetComponent<Camera>()->SetProjectionType(eCameraPriorityType::UI);		
+		uiCamera->GetComponent<Camera>()->SetPriorityType(eCameraPriorityType::UI);		
 		uiCamera->GetComponent<Camera>()->SetRenderTargetSize(screenSize);
 		uiCamera->GetComponent<Camera>()->TurnOffAllLayer();
 		uiCamera->GetComponent<Camera>()->TurnOnLayer(eLayerType::UI);

@@ -166,7 +166,7 @@ TItleScene::TItleScene()
 		mainCamera->AddComponent<CameraInputMoveMent>();
 
 		mainCamera->GetComponent<Transform>()->SetPosition(0.f, 0.f, -10.f);
-		mainCamera->GetComponent<Camera>()->SetProjectionType(eCameraPriorityType::Main);
+		mainCamera->GetComponent<Camera>()->SetPriorityType(eCameraPriorityType::Main);
 		mainCamera->GetComponent<Camera>()->SetRenderTargetSize(SCREEN_SIZE);
 		mainCamera->GetComponent<Camera>()->TurnOnAllLayer();
 		mainCamera->GetComponent<Camera>()->TurnOffLayer(eLayerType::UI);
@@ -181,7 +181,7 @@ TItleScene::TItleScene()
 		uiCamera->AddComponent<Camera>();
 
 		uiCamera->GetComponent<Transform>()->SetPosition(0.f, 0.f, -10.f);
-		uiCamera->GetComponent<Camera>()->SetProjectionType(eCameraPriorityType::UI);
+		uiCamera->GetComponent<Camera>()->SetPriorityType(eCameraPriorityType::UI);
 		uiCamera->GetComponent<Camera>()->SetRenderTargetSize(SCREEN_SIZE);
 		uiCamera->GetComponent<Camera>()->TurnOffAllLayer();
 		uiCamera->GetComponent<Camera>()->TurnOnLayer(eLayerType::UI);

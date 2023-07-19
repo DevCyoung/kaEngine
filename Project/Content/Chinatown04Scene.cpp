@@ -23,7 +23,7 @@
 Chinatown04Scene::Chinatown04Scene()
 {
 	mCollisionManagement2D->TurnOffAllCollisionLayer();
-	
+
 	mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Default, eLayerType::Default);
 
 	{
@@ -33,13 +33,30 @@ Chinatown04Scene::Chinatown04Scene()
 		gResourceManager->Insert(L"Chanatown04TileMap", material);
 	}
 
-
-
 	{
 		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"Chanatown04TileMap");
 		obj->AddComponent<Chinatown04Controller>();
 
 		AddGameObject(obj, eLayerType::Default);
+	}
+
+	{
+		GameObject* const obj = new GameObject();
+
+		obj->AddComponent<CircleCollider2D>();
+		
+
+		AddGameObject(obj, eLayerType::Default);
+	}
+
+	{
+		GameObject* const obj = new GameObject();
+		obj->AddComponent<RectCollider2D>();
+		obj->AddComponent<InputMovementTest>();
+
+		obj->GetComponent<Transform>()->SetPosition(150.f, 0.f, 1.f);
+
+		AddGameObject(obj, eLayerType::Player);
 	}
 
 
@@ -172,6 +189,7 @@ Chinatown04Scene::Chinatown04Scene()
 
 #pragma endregion
 
+#pragma region CameraGameObject
 	//Main Camera
 	{
 		GameObject* const mainCamera = new GameObject();
@@ -180,7 +198,7 @@ Chinatown04Scene::Chinatown04Scene()
 		mainCamera->AddComponent<CameraInputMoveMent>();
 
 		mainCamera->GetComponent<Transform>()->SetPosition(0.f, 0.f, -10.f);
-		mainCamera->GetComponent<Camera>()->SetProjectionType(eCameraPriorityType::Main);
+		mainCamera->GetComponent<Camera>()->SetPriorityType(eCameraPriorityType::Main);
 		mainCamera->GetComponent<Camera>()->SetRenderTargetSize(screenSize);
 		mainCamera->GetComponent<Camera>()->TurnOnAllLayer();
 		mainCamera->GetComponent<Camera>()->TurnOffLayer(eLayerType::UI);
@@ -195,13 +213,15 @@ Chinatown04Scene::Chinatown04Scene()
 		uiCamera->AddComponent<Camera>();
 
 		uiCamera->GetComponent<Transform>()->SetPosition(0.f, 0.f, -10.f);
-		uiCamera->GetComponent<Camera>()->SetProjectionType(eCameraPriorityType::UI);
+		uiCamera->GetComponent<Camera>()->SetPriorityType(eCameraPriorityType::UI);
 		uiCamera->GetComponent<Camera>()->SetRenderTargetSize(screenSize);
 		uiCamera->GetComponent<Camera>()->TurnOffAllLayer();
 		uiCamera->GetComponent<Camera>()->TurnOnLayer(eLayerType::UI);
 
 		AddGameObject(uiCamera, eLayerType::Default);
 	}
+
+#pragma endregion
 }
 
 Chinatown04Scene::~Chinatown04Scene()

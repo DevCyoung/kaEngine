@@ -13,7 +13,7 @@ Collider2D::Collider2D(const eComponentType componentType,
 	, mSize{ 100.f, 100.f, 1.f }
 	, mOffset{}
 	, mCollisionCount(0)
-	, mRadius(1000.f)
+	, mRadius(50.f)
 {
 
 }

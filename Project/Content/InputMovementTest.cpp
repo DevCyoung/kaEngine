@@ -48,6 +48,29 @@ void InputMovementTest::update()
 
 }
 
+#include <Engine/GameSystem.h>
+#include <Engine/Physics2D.h>
+#include <Engine/RenderTargetRenderer.h>
+#include <Engine/DebugRenderer2D.h>
 void InputMovementTest::lateUpdate()
 {
+	GameSystem* const gameSystem = GetOwner()->GetGameSystem();
+	DebugRenderer2D* const debugRenderer2D = gameSystem->GetRenderTargetRenderer()->GetDebugRenderer();
+	Physics2D* const physcis2D = gameSystem->GetPhysics2D();
+	Transform* const transform = GetOwner()->GetComponent<Transform>();		
+
+	const Vector3& POS = transform->GetPosition();
+	RayCast2DHitInfo hitInfo = {};
+
+	const Vector2& DIRECTION = Vector2(1.f, -1.f);
+	const float DISTANCE = 500.f;
+
+	if (physcis2D->RayCastHit2D(Vector2(POS.x, POS.y), DIRECTION, DISTANCE, eLayerType::Default, &hitInfo))
+	{
+		debugRenderer2D->DrawLine2D2(POS, DIRECTION, DISTANCE, 0.f, Vector4(1.f, 0.f, 1.f, 1.f));
+	}
+	else
+	{
+		debugRenderer2D->DrawLine2D2(POS, DIRECTION, DISTANCE, 0.f, Vector4(1.f, 1.f, 1.f, 1.f));
+	}	
 }

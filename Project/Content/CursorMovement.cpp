@@ -12,6 +12,7 @@
 #include "BulletMovement.h"
 #include <Engine/SceneManager.h>
 #include <Engine/EngineMath.h>
+#include <Engine/GameSystem.h>
 
 using namespace helper;
 using namespace helper::math;
@@ -42,7 +43,7 @@ void CursorMovement::update()
 	//	LerpSinBtwZeroAndOne(gGlobalTime),
 	//	LerpCosBtwZeroAndOne(gGlobalTime) * 100.f);
 	//
-	RenderTargetRenderer* const renderTargetRenderer = GetOwner()->GetRenderTargetRenderer();
+	RenderTargetRenderer* const renderTargetRenderer = GetOwner()->GetGameSystem()->GetRenderTargetRenderer();
 	//DebugRenderer2D* const debugRenderer2D = renderTargetRenderer->GetDebugRenderer();
 	
 	Transform* const transform = GetOwner()->GetComponent<Transform>();

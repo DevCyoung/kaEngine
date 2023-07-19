@@ -32,8 +32,8 @@ public:
 	void SetFar(const float cameraFar) { mFar = cameraFar; }
 	void Set2DSize(const float camera2DSize) { mSize = camera2DSize; }
 	void SetRenderTargetSize(const Vector2& renderTargetSize) { mRenderTargetSize = renderTargetSize; };
-	void SetProjectionType(const eCameraPriorityType cameraPriorityType) { mCameraType = cameraPriorityType; }
-	void SetProjectiontType(const eCameraProjectionType projectionType) { mProjectionType = projectionType; }
+	void SetPriorityType(const eCameraPriorityType cameraPriorityType) { mCameraType = cameraPriorityType; }
+	void SetProjectionType(const eCameraProjectionType projectionType) { mProjectionType = projectionType; }
 
 	void TurnOnLayer(const  eLayerType layerType)  { mLayerMask |=  (1 <<  static_cast<UINT>(layerType)); }
 	void TurnOffLayer(const eLayerType layerType)  { mLayerMask &= ~(1 <<  static_cast<UINT>(layerType)); }

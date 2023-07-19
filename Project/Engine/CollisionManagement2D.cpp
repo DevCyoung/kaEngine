@@ -21,7 +21,6 @@
 CollisionManagement2D::CollisionManagement2D()
 	: mCollisionMatrix{ 0, }
 	, mCollisionCheckMap()
-	, mRenderTargetRenderer(nullptr)
 {
 }
 
@@ -98,7 +97,7 @@ void CollisionManagement2D::phisicsUpdate(const Scene* const scene)
 				{
 					for (UINT j = i + 1; j < rightGameObjects.size(); ++j)
 					{
-						Collide2DGameObject(leftGameObjects[i], rightGameObjects[j]);
+						collide2DGameObject(leftGameObjects[i], rightGameObjects[j]);
 					}
 				}
 			}
@@ -108,7 +107,7 @@ void CollisionManagement2D::phisicsUpdate(const Scene* const scene)
 				{
 					for (UINT j = 0; j < rightGameObjects.size(); ++j)
 					{
-						Collide2DGameObject(leftGameObjects[i], rightGameObjects[j]);
+						collide2DGameObject(leftGameObjects[i], rightGameObjects[j]);
 					}
 				}
 			}
@@ -116,7 +115,7 @@ void CollisionManagement2D::phisicsUpdate(const Scene* const scene)
 	}
 }
 
-void CollisionManagement2D::Collide2DGameObject(const GameObject* const left,
+void CollisionManagement2D::collide2DGameObject(const GameObject* const left,
 	const GameObject* const right)
 {
 	Collider2D* const leftCollider = left->GetComponentOrNull<Collider2D>();

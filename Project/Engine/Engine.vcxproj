@@ -196,10 +196,12 @@ call ScriptGen.exe Component $(SolutionDir)Project\Engine $(SolutionDir)Project\
     <ClInclude Include="EnumLayer.h" />
     <ClInclude Include="EnumRenderType.h" />
     <ClInclude Include="EnumResource.h" />
+    <ClInclude Include="Physics2D.h" />
     <ClInclude Include="RectCollider2D.h">
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="GameSystem.h" />
     <ClInclude Include="SMCollection.h" />
     <ClInclude Include="Prefab.h" />
     <ClInclude Include="RenderComponent.h">
@@ -272,10 +274,12 @@ call ScriptGen.exe Component $(SolutionDir)Project\Engine $(SolutionDir)Project\
     <ClCompile Include="EnumComponent.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GraphicDeviceDX11.cpp" />
+    <ClCompile Include="Physics2D.cpp" />
     <ClCompile Include="RectCollider2D.cpp">
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="GameSystem.cpp" />
     <ClCompile Include="SMCollection.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Layer.cpp" />

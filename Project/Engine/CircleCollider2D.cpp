@@ -3,7 +3,7 @@
 #include "CircleCollider2D.h"
 #include "RenderTargetRenderer.h"
 #include "DebugRenderer2D.h"
-
+#include "GameSystem.h"
 CircleCollider2D::CircleCollider2D()
 	: Collider2D(eComponentType::CircleCollider2D, eCollider2DType::Circle)
 {
@@ -29,7 +29,7 @@ void CircleCollider2D::lateUpdate()
 	mColliderWorldMat *= XMMatrixTranslation(mOffset.x, mOffset.y, mOffset.z);
 	mColliderWorldMat *= P_TRANSFORM->GetWorldMatrix();
 
-	DebugRenderer2D* debugRenderer = GetOwner()->GetRenderTargetRenderer()->GetDebugRenderer();
+	DebugRenderer2D* debugRenderer = GetOwner()->GetGameSystem()->GetRenderTargetRenderer()->GetDebugRenderer();
 
 	Vector4 color = Vector4(0.f, 1.f, 0.f, 1.f);
 

@@ -24,11 +24,11 @@ void CameraInputMoveMent::update()
 
 	if (gInput->GetKeyDown(eKeyCode::F1))
 	{
-		camera->SetProjectiontType(eCameraProjectionType::Orthographic);
+		camera->SetProjectionType(eCameraProjectionType::Orthographic);
 	}
 	else if (gInput->GetKeyDown(eKeyCode::F2))
 	{
-		camera->SetProjectiontType(eCameraProjectionType::Perspective);
+		camera->SetProjectionType(eCameraProjectionType::Perspective);
 	}	
 
 	constexpr float cameraSpeed = 600.f;

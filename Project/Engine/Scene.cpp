@@ -3,28 +3,29 @@
 #include "GameObject.h"
 #include "MessageManager.h"
 #include "RenderTargetRenderer.h"
+#include "Physics2D.h"
 #include "CollisionManagement2D.h"
+#include "GameSystem.h"
 
 Scene::Scene()
-	: mLayers()
+	: mCollisionManagement2D(new CollisionManagement2D())
+	, mGameSystem(new GameSystem(this))
+	, mLayers()
 	, mEventMessages()
-	, mGarbages()
-	, mRenderTargetRenderer(new RenderTargetRenderer())
-	, mCollisionManagement2D(new CollisionManagement2D())
+	, mGarbages()	
 	, mBackgroundColor(Vector4(0.4f, 0.4f, 0.4f, 1.f))
 {
 	mEventMessages.reserve(100);
 	mGarbages.reserve(100);
 
-	mCollisionManagement2D->TurnOnAllCollisionLayer();
-	mCollisionManagement2D->mRenderTargetRenderer = mRenderTargetRenderer;
+	mCollisionManagement2D->TurnOnAllCollisionLayer();	
 	mCollisionManagement2D->TurnOffCollisionLayer(eLayerType::Bullet, eLayerType::Bullet);
 	mCollisionManagement2D->TurnOffCollisionLayer(eLayerType::Bullet, eLayerType::Mouse);
 }
 
 Scene::~Scene()
 {
-	SAFE_DELETE_POINTER(mRenderTargetRenderer);
+	SAFE_DELETE_POINTER(mGameSystem);
 	SAFE_DELETE_POINTER(mCollisionManagement2D);
 }
 
@@ -85,7 +86,7 @@ void Scene::render(const UINT renderTargetWidth,
 	ID3D11RenderTargetView** const ppRenderTargetView,
 	ID3D11DepthStencilView* const depthStencilView) const
 {
-	mRenderTargetRenderer->Render(renderTargetWidth,
+	mGameSystem->GetRenderTargetRenderer()->Render(renderTargetWidth,
 		renderTargetHeight,		
 		ppRenderTargetView,
 		depthStencilView);
@@ -93,7 +94,7 @@ void Scene::render(const UINT renderTargetWidth,
 
 void Scene::renderFlush()
 {
-	mRenderTargetRenderer->flush();
+	mGameSystem->GetRenderTargetRenderer()->flush();
 }
 
 void Scene::eventUpdate()
@@ -173,10 +174,10 @@ void Scene::AddGameObject(GameObject* const gameObject, const eLayerType layerTy
 {
 	Assert(gameObject, WCHAR_IS_NULLPTR);
 	Assert(layerType != eLayerType::End, WCHAR_IS_INVALID_TYPE);
-	Assert(mRenderTargetRenderer, WCHAR_IS_NULLPTR);
+	Assert(mGameSystem, WCHAR_IS_NULLPTR);
 
 	gameObject->mLayerType = layerType;
-	gameObject->mRenderTargetRenderer = mRenderTargetRenderer;
+	gameObject->mGameSystem = mGameSystem;
 	mLayers[static_cast<UINT>(layerType)].mGameObjects.push_back(gameObject);
 }
 

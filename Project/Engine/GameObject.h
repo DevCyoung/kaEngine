@@ -5,7 +5,7 @@
 #include "EnumLayer.h"
 
 class ScriptComponent;
-class RenderTargetRenderer;
+class GameSystem;
 
 class GameObject : public Entity
 {
@@ -41,13 +41,14 @@ public:
 	eLayerType GetLayer() const { return mLayerType; };
 
 	GameObject* GetParentOrNull() const { return mParent; }
+	GameSystem* GetGameSystem() const { return mGameSystem; }
 
-	RenderTargetRenderer* GetRenderTargetRenderer() const
-	{
-		Assert(mRenderTargetRenderer, WCHAR_IS_NULLPTR);
-
-		return mRenderTargetRenderer;
-	}
+	//RenderTargetRenderer* GetRenderTargetRenderer() const
+	//{
+	//	Assert(mRenderTargetRenderer, WCHAR_IS_NULLPTR);
+	//
+	//	return mRenderTargetRenderer;
+	//}
 
 	//FIXME:
 	void SetParent(GameObject* const parent) { mParent = parent; }
@@ -75,7 +76,8 @@ private:
 	eLayerType mLayerType;
 	eState mState;
 	GameObject* mParent;
-	RenderTargetRenderer* mRenderTargetRenderer;
+	GameSystem* mGameSystem;
+	//RenderTargetRenderer* mRenderTargetRenderer;
 };
 
 template<typename T>
