@@ -213,6 +213,7 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
     <ClInclude Include="EnumScriptComponent.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="GameObjectBuilder.h" />
+    <ClInclude Include="HeadHunterScene.h" />
     <ClInclude Include="InputMovementTest.h">
       <SubType>
       </SubType>
@@ -290,6 +291,7 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
     <ClCompile Include="EnumResourceTypeTexture.cpp" />
     <ClCompile Include="EnumScriptComponent.cpp" />
     <ClCompile Include="GameObjectBuilder.cpp" />
+    <ClCompile Include="HeadHunterScene.cpp" />
     <ClCompile Include="InputMovementTest.cpp">
       <SubType>
       </SubType>

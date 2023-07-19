@@ -94,6 +94,9 @@
     <Filter Include="Source\Scene\Chinatown05">
       <UniqueIdentifier>{20332b64-296c-4050-bb16-34cb7cddc831}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Scene\HeadHunter">
+      <UniqueIdentifier>{5bb296e2-92d1-45c0-b3c4-2d5be6c8f361}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -198,6 +201,9 @@
     <ClInclude Include="Chinatown05Scene.h">
       <Filter>Source\Scene\Chinatown05</Filter>
     </ClInclude>
+    <ClInclude Include="HeadHunterScene.h">
+      <Filter>Source\Scene\HeadHunter</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -295,6 +301,9 @@
     </ClCompile>
     <ClCompile Include="Chinatown05Scene.cpp">
       <Filter>Source\Scene\Chinatown05</Filter>
+    </ClCompile>
+    <ClCompile Include="HeadHunterScene.cpp">
+      <Filter>Source\Scene\HeadHunter</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

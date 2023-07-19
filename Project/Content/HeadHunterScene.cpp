@@ -1,6 +1,6 @@
 #include "pch.h"
-#include "Chinatown01Scene.h"
-#include "TItleScene.h"
+#include "HeadHunterScene.h"
+
 #include "Components.h"
 #include "ResourceManager.h"
 #include "GameObjectBuilder.h"
@@ -19,12 +19,10 @@
 #include "InputMovementTest.h"
 #include "ChildTest.h"
 #include "ParentTest.h"
-#include "NoiseTest.h"
+#include "Chinatown04Controller.h"
 
-Chinatown01Scene::Chinatown01Scene()
+	HeadHunterScene::HeadHunterScene()
 {
-	SetBackgroundColor(Vector4(0.5294f, 0.5254f, 0.7843f, 1.f));
-
 	mCollisionManagement2D->TurnOffAllCollisionLayer();
 
 	mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Default, eLayerType::Default);
@@ -32,67 +30,61 @@ Chinatown01Scene::Chinatown01Scene()
 	{
 		Material* const material =
 			MaterialBuilder::BuildDefault2DMaterial(
-				eRenderPriorityType::Opqaue, L"Default", eResTexture::Map_Chinatown01_spr_chinatown_parallax_1);
-		gResourceManager->Insert(L"Chanatown05BackGround01", material);
-	}
-	
-	{
-		Material* const material =
-			MaterialBuilder::BuildDefault2DMaterial(
-				eRenderPriorityType::Opqaue, L"Default", eResTexture::Map_Chinatown01_spr_chinatown_parallax_2);
-		gResourceManager->Insert(L"Chanatown05BackGround02", material);
-	}
-
-
-	{
-		Material* const material =
-			MaterialBuilder::BuildDefault2DMaterial(
-				eRenderPriorityType::Opqaue, L"Default", eResTexture::Map_Chinatown01_spr_chinatown_parallax_3);
-		gResourceManager->Insert(L"Chanatown05BackGround03", material);
+				eRenderPriorityType::Opqaue, L"Default", eResTexture::Map_HeadHunter_map);
+		gResourceManager->Insert(L"HeadHunterMap", material);
 	}
 
 	{
 		Material* const material =
 			MaterialBuilder::BuildDefault2DMaterial(
-				eRenderPriorityType::Opqaue, L"Default", eResTexture::Map_Chinatown01_Tilemap);
-		gResourceManager->Insert(L"Chanatown01TileMap", material);
+				eRenderPriorityType::Opqaue, L"Default", eResTexture::Map_HeadHunter_spr_vaultdoor_open_spr_vaultdoor_open_0);
+
+		gResourceManager->Insert(L"HeadHunterMapDoor", material);
 	}
-
-	{
-		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"Chanatown05BackGround01");
-		obj->GetComponent<Transform>()->SetScale(2.f, 2.f, 1.f);
-		obj->GetComponent<Transform>()->SetPosition(-580, 560.f, 500.f);
-
-		AddGameObject(obj, eLayerType::BackGround);
-	}
-
-	{
-		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"Chanatown05BackGround02");
-
-		obj->GetComponent<Transform>()->SetScale(2.5f, 2.5f, 1.f);
-		obj->GetComponent<Transform>()->SetPosition(-640, 560.f, 600.f);
-
 	
-		AddGameObject(obj, eLayerType::BackGround);
-	}
+	//{
+	//	Material* const material =
+	//		MaterialBuilder::BuildDefault2DMaterial(
+	//			eRenderPriorityType::Opqaue, L"Default", eResTexture::Map_Chinatown05_Tilemap);
+	//	gResourceManager->Insert(L"Chanatown05TileMap", material);
+	//}
 
-	
 	{
-		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"Chanatown05BackGround03");
+		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"HeadHunterMap");		
 
-		obj->GetComponent<Transform>()->SetScale(2.5f, 2.5f, 1.f);
-		obj->GetComponent<Transform>()->SetPosition(-640, 560.f, 700.f);
-	
-		AddGameObject(obj, eLayerType::BackGround);
-	}
-
-
-	//Map
-	{
-		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"Chanatown01TileMap");		
+		obj->GetComponent<Transform>()->SetScale(2.0f, 2.0f, 1.f);
+		//obj->GetComponent<Transform>()->SetPosition(400.f, 150.f, 530.f);
 
 		AddGameObject(obj, eLayerType::Default);
 	}
+
+	{
+		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"HeadHunterMapDoor");		
+
+		obj->GetComponent<Transform>()->SetScale(2.0f, 2.0f, 1.f);
+		obj->GetComponent<Transform>()->SetPosition(18.f, -182.f, 0.f);
+
+		AddGameObject(obj, eLayerType::Default);
+	}
+
+	//{
+	//	GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"Chanatown05BackGround01");
+	//
+	//	obj->AddComponent<Chinatown04Controller>();
+	//
+	//	obj->GetComponent<Transform>()->SetScale(2.8f, 2.8f, 1.f);
+	//	obj->GetComponent<Transform>()->SetPosition(400.f, 150.f, 480.f);
+	//
+	//	AddGameObject(obj, eLayerType::BackGround);
+	//}
+	//
+	//{
+	//	GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"Chanatown05TileMap");
+	//	obj->AddComponent<Chinatown04Controller>();
+	//
+	//	AddGameObject(obj, eLayerType::Default);
+	//}
+
 
 #pragma region UIGameOBject
 	//UI
@@ -277,6 +269,6 @@ Chinatown01Scene::Chinatown01Scene()
 	}
 }
 
-Chinatown01Scene::~Chinatown01Scene()
+HeadHunterScene::~HeadHunterScene()
 {
 }
