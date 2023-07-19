@@ -43,6 +43,8 @@ Chinatown04Scene::Chinatown04Scene()
 	{
 		GameObject* const obj = new GameObject();
 
+		obj->GetComponent<Transform>()->SetPosition(500.f, 400.f, 1.f);
+
 		obj->AddComponent<CircleCollider2D>();
 		
 

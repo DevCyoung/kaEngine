@@ -3,6 +3,7 @@
 
 class Collider2D;
 class Scene;
+
 struct RayCast2DHitInfo
 {
 	Vector2 hitPos;

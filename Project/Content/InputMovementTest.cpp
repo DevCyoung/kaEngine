@@ -52,6 +52,8 @@ void InputMovementTest::update()
 #include <Engine/Physics2D.h>
 #include <Engine/RenderTargetRenderer.h>
 #include <Engine/DebugRenderer2D.h>
+#include <Engine/EngineMath.h>
+
 void InputMovementTest::lateUpdate()
 {
 	GameSystem* const gameSystem = GetOwner()->GetGameSystem();
@@ -62,15 +64,46 @@ void InputMovementTest::lateUpdate()
 	const Vector3& POS = transform->GetPosition();
 	RayCast2DHitInfo hitInfo = {};
 
-	const Vector2& DIRECTION = Vector2(1.f, -1.f);
-	const float DISTANCE = 500.f;
+	static float angle = 30.f;
 
-	if (physcis2D->RayCastHit2D(Vector2(POS.x, POS.y), DIRECTION, DISTANCE, eLayerType::Default, &hitInfo))
+	Vector2 direction = Deg2Vec2Dir(angle);
+	float distance = 500.f;
+
+	if (physcis2D->RayCastHit2D(Vector2(POS.x, POS.y), direction, distance, eLayerType::Default, &hitInfo))
 	{
-		debugRenderer2D->DrawLine2D2(POS, DIRECTION, DISTANCE, 0.f, Vector4(1.f, 0.f, 1.f, 1.f));
+		debugRenderer2D->DrawLine2D2(POS, direction, distance, 0.f, Vector4(1.f, 0.f, 1.f, 1.f));
+		Vector3 intersection = Vector3(hitInfo.hitPos.x, hitInfo.hitPos.y, 0.f);
+		debugRenderer2D->DrawFillCircle2D(intersection, 5.f, 0.f, Vector4(1.f, 0.f, 0.f, 1.f));
 	}
 	else
 	{
-		debugRenderer2D->DrawLine2D2(POS, DIRECTION, DISTANCE, 0.f, Vector4(1.f, 1.f, 1.f, 1.f));
-	}	
+		debugRenderer2D->DrawLine2D2(POS, direction, distance, 0.f, Vector4(1.f, 1.f, 1.f, 1.f));
+	}
+
+
+	direction = Deg2Vec2Dir(-angle);
+
+	if (physcis2D->RayCastHit2D(Vector2(POS.x, POS.y), direction, distance, eLayerType::Default, &hitInfo))
+	{
+		debugRenderer2D->DrawLine2D2(POS, direction, distance, 0.f, Vector4(1.f, 0.f, 1.f, 1.f));
+		Vector3 intersection = Vector3(hitInfo.hitPos.x, hitInfo.hitPos.y, 0.f);
+		debugRenderer2D->DrawFillCircle2D(intersection, 5.f, 0.f, Vector4(1.f, 0.f, 0.f, 1.f));
+	}
+	else
+	{
+		debugRenderer2D->DrawLine2D2(POS, direction, distance, 0.f, Vector4(1.f, 1.f, 1.f, 1.f));
+	}
+
+	
+
+	if (gInput->GetKey(eKeyCode::O))
+	{
+		angle += gDeltaTime * 20.f;
+	}
+
+	if (gInput->GetKey(eKeyCode::P))
+	{
+		angle -= gDeltaTime * 20.f;
+	}
 }
+
