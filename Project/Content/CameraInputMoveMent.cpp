@@ -24,11 +24,11 @@ void CameraInputMoveMent::update()
 
 	if (gInput->GetKeyDown(eKeyCode::F1))
 	{
-		camera->SetProjectiontType(eCameraProjectionType::Orthographic);
+		camera->SetProjectionType(eCameraProjectionType::Orthographic);
 	}
 	else if (gInput->GetKeyDown(eKeyCode::F2))
 	{
-		camera->SetProjectiontType(eCameraProjectionType::Perspective);
+		camera->SetProjectionType(eCameraProjectionType::Perspective);
 	}	
 
 	constexpr float cameraSpeed = 600.f;
@@ -130,6 +130,16 @@ void CameraInputMoveMent::update()
 
 			rot.y += gDeltaTime	* mouseDir.x * 100.f;
 			rot.x -= gDeltaTime * mouseDir.y * 100.f;
+		}
+
+		if (gInput->GetKey(eKeyCode::UP))
+		{
+			pos += Vector3::Up * fSpeed * gDeltaTime;
+		}
+
+		if (gInput->GetKey(eKeyCode::DOWN))
+		{
+			pos += Vector3::Down * fSpeed * gDeltaTime;
 		}
 
 		transform->SetPosition(pos);

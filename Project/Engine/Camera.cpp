@@ -4,6 +4,7 @@
 #include "Transform.h"
 #include "RenderTargetRenderer.h"
 #include "EngineMath.h"
+#include "GameSystem.h"
 
 Camera::Camera()
 	: Component(eComponentType::Camera)	
@@ -29,7 +30,7 @@ void Camera::initialize()
 {
 	Assert(mRenderTargetSize != Vector2::Zero, WCHAR_IS_NULLPTR);
 
-	GetOwner()->GetRenderTargetRenderer()->registerRenderCamera(this);
+	GetOwner()->GetGameSystem()->GetRenderTargetRenderer()->registerRenderCamera(this);
 }
 
 void Camera::update()
@@ -39,7 +40,7 @@ void Camera::update()
 void Camera::lateUpdate()
 {
 	const Transform* const P_TRANSFORM = GetOwner()->GetComponent<Transform>();
-	const Vector3& POSITION = P_TRANSFORM->GetPosition();
+	const Vector3& POSITION = P_TRANSFORM->GetWorldMatrix().Translation();
 
 	// View Translate Matrix
 	mView = Matrix::Identity;

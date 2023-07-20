@@ -5,7 +5,7 @@
 #include "EnumLayer.h"
 
 class ScriptComponent;
-class RenderTargetRenderer;
+class GameSystem;
 
 class GameObject : public Entity
 {
@@ -37,6 +37,22 @@ public:
 
 	const std::vector<ScriptComponent*>& GetScriptComponents() const { return mUserComponents; }
 
+	eState GetState() const { return mState; }
+	eLayerType GetLayer() const { return mLayerType; };
+
+	GameObject* GetParentOrNull() const { return mParent; }
+	GameSystem* GetGameSystem() const { return mGameSystem; }
+
+	//RenderTargetRenderer* GetRenderTargetRenderer() const
+	//{
+	//	Assert(mRenderTargetRenderer, WCHAR_IS_NULLPTR);
+	//
+	//	return mRenderTargetRenderer;
+	//}
+
+	//FIXME:
+	void SetParent(GameObject* const parent) { mParent = parent; }
+
 	template<typename T>
 		requires (is_component_type<T>::value)
 	void AddComponent(T* const component);
@@ -49,20 +65,6 @@ public:
 	void RemoveComponent(const eComponentType componentType);
 	void RemoveComponent(const eScriptComponentType scriptComponentType);
 
-	eLayerType GetLayer() const { return mLayerType;};
-	GameObject* GetParentOrNull() const { return mParent; }	
-	eState GetState() const { return mState; }
-
-	RenderTargetRenderer* GetRenderTargetRenderer() const
-	{
-		Assert(mRenderTargetRenderer, WCHAR_IS_NULLPTR);
-
-		return mRenderTargetRenderer;
-	}
-
-	//FIXME:
-	void SetParent(GameObject* const parent) { mParent = parent; }
-
 private:
 	void initialize();
 	void update();	
@@ -74,7 +76,8 @@ private:
 	eLayerType mLayerType;
 	eState mState;
 	GameObject* mParent;
-	RenderTargetRenderer* mRenderTargetRenderer;
+	GameSystem* mGameSystem;
+	//RenderTargetRenderer* mRenderTargetRenderer;
 };
 
 template<typename T>

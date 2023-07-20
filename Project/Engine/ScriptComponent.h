@@ -1,12 +1,13 @@
 #pragma once
 #include "Component.h"
 #include "ScriptComponentTrait.h"
+
 class Collider2D;
 
 class ScriptComponent : public Component
 {
 	friend class GameObject;
-	friend class Collider;
+	friend class Collider2D;
 
 protected:
 	ScriptComponent(eScriptComponentType scriptComonentType);
@@ -17,14 +18,16 @@ public:
 
 	eScriptComponentType GetScriptType() const { return mScriptType; }	
 
-	virtual void OnCollisionEnter(Collider2D* other);
-	virtual void OnCollisionStay(Collider2D* other);
-	virtual void OnCollisionExit(Collider2D* other);
+	
 
 private:
 	virtual void initialize() override;
 	virtual void update() override;
-	virtual void lateUpdate() override;	
+	virtual void lateUpdate() override;
+
+	virtual void onCollisionEnter(Collider2D* other);
+	virtual void onCollisionStay(Collider2D* other);
+	virtual void onCollisionExit(Collider2D* other);
 
 private:
 	eScriptComponentType mScriptType;

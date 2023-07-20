@@ -53,13 +53,13 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_CLIENT));
 	MSG msg;
 
-	constexpr UINT EDIT_SCREEN_WIDTH = 1600;
-	constexpr UINT EDIT_SCREEN_HEIGHT = 900;	
+	//constexpr UINT EDIT_SCREEN_WIDTH = 1600;
+	//constexpr UINT EDIT_SCREEN_HEIGHT = 900;	
 
-	//constexpr UINT KATANA_SCREEN_WIDTH = 1280;
-	//constexpr UINT KATANA_SCREEN_HEIGHT = 720;
+	constexpr UINT KATANA_SCREEN_WIDTH = 1280;
+	constexpr UINT KATANA_SCREEN_HEIGHT = 720;
 
-	Engine::initialize(gHwnd, EDIT_SCREEN_WIDTH, EDIT_SCREEN_HEIGHT);
+	Engine::initialize(gHwnd, KATANA_SCREEN_WIDTH, KATANA_SCREEN_HEIGHT);
 	Content::initialize();	
 
 	while (true)

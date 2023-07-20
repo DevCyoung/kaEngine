@@ -10,10 +10,10 @@ Collider2D::Collider2D(const eComponentType componentType,
 	: Component(componentType)
 	, mColllider2DType(colllider2DType)
 	, mColliderWorldMat{}
-	, mScale{ 100.f, 100.f, 1.f }
+	, mSize{ 100.f, 100.f, 1.f }
 	, mOffset{}
 	, mCollisionCount(0)
-	, mRadius(1000.f)
+	, mRadius(50.f)
 {
 
 }
@@ -35,7 +35,7 @@ void Collider2D::lateUpdate()
 
 }
 
-void Collider2D::OnCollisionEnter(Collider2D* other)
+void Collider2D::onCollisionEnter(Collider2D* other)
 {
 	++mCollisionCount;
 
@@ -43,21 +43,21 @@ void Collider2D::OnCollisionEnter(Collider2D* other)
 
 	for (ScriptComponent* script : scripts)
 	{
-		script->OnCollisionEnter(other);
+		script->onCollisionEnter(other);
 	}
 }
 
-void Collider2D::OnCollisionStay(Collider2D* other)
+void Collider2D::onCollisionStay(Collider2D* other)
 {
 	const std::vector<ScriptComponent*>& scripts = GetOwner()->GetScriptComponents();
 
 	for (ScriptComponent* script : scripts)
 	{
-		script->OnCollisionStay(other);
+		script->onCollisionStay(other);
 	}
 }
 
-void Collider2D::OnCollisionExit(Collider2D* other)
+void Collider2D::onCollisionExit(Collider2D* other)
 {
 	--mCollisionCount;
 
@@ -65,6 +65,6 @@ void Collider2D::OnCollisionExit(Collider2D* other)
 
 	for (ScriptComponent* script : scripts)
 	{
-		script->OnCollisionExit(other);
+		script->onCollisionExit(other);
 	}
 }

@@ -59,7 +59,6 @@ private:
 	void eventUpdate();
 	void render(const UINT renderTargetWidth,
 		const UINT renderTargetHeight,
-		const FLOAT backgroundColor[4],
 		ID3D11RenderTargetView** const ppRenderTargetView,
 		ID3D11DepthStencilView* const depthStencilView);
 

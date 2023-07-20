@@ -2,10 +2,15 @@
 
 enum class eLayerType
 {
-	Default,
-	Player,
-	Satellite,
+	BackGround,
+	Object,
+	Forground,
+	Item,
+	Enemy,
 	Bullet,
+	Satellite,
+	Player,
+	Default,	
 	Mouse,
 	UI,
 	End = 32

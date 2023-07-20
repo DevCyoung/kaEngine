@@ -10,7 +10,7 @@ GameObject::GameObject()
 	, mLayerType(eLayerType::Default)
 	, mState(eState::Active)
 	, mParent(nullptr)
-	, mRenderTargetRenderer(nullptr)
+	, mGameSystem(nullptr)
 {
 	AddComponent<Transform>();
 }
@@ -23,7 +23,7 @@ GameObject::~GameObject()
 
 void GameObject::initialize()
 {
-	Assert(mRenderTargetRenderer, WCHAR_IS_NULLPTR);
+	Assert(mGameSystem, WCHAR_IS_NULLPTR);
 
 	for (Component* const component : mEngineComponents)
 	{

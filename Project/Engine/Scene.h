@@ -6,8 +6,9 @@
 #include <source_location>
 
 class GameObject;
-class RenderTargetRenderer;
 class CollisionManagement2D;
+class GameSystem;
+
 
 struct ID3D11RenderTargetView;
 struct ID3D11DepthStencilView;
@@ -26,11 +27,19 @@ public:
 	void RegisterEventSetDestroy(GameObject* const gameObject,
 		const std::source_location& location = std::source_location::current());
 
+	const Layer& GetLayer(const eLayerType layerType) const { return mLayers[static_cast<UINT>(layerType)]; }
+
 	void AddGameObject(GameObject* const gameObject, const eLayerType layerType);
 
-	RenderTargetRenderer* GetRenderTargetRenderer() const { return mRenderTargetRenderer; }
+	//RenderTargetRenderer* GetRenderTargetRenderer() const { return mRenderTargetRenderer; }
+	GameSystem* GetGameSystem() const { return mGameSystem; }
+	CollisionManagement2D* GetCollisionManagement2D() const { return mCollisionManagement2D; }
 
 	virtual HRESULT Load(const std::wstring& filePath) override;
+
+	const Vector4& GetBackgroundColor() const { return mBackgroundColor; }
+	void SetBackgroundColor(const Vector4& color) { mBackgroundColor = color; }
+
 
 private:
 	enum class eEventOfScene
@@ -62,11 +71,12 @@ private:
 	virtual void eventUpdate();
 
 protected:
-	CollisionManagement2D* mCollisionManagement2D;
+	CollisionManagement2D* mCollisionManagement2D;	
 
 private:
+	GameSystem* mGameSystem;
 	Layer mLayers[static_cast<UINT>(eLayerType::End)];
 	std::vector<tEventMessageScene> mEventMessages;
 	std::vector<GameObject*> mGarbages;
-	RenderTargetRenderer* mRenderTargetRenderer;	
+	Vector4 mBackgroundColor;
 };

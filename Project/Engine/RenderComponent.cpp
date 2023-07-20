@@ -2,6 +2,8 @@
 #include "RenderComponent.h"
 #include "RenderTargetRenderer.h"
 #include "GameObject.h"
+#include "GameSystem.h"
+
 
 RenderComponent::RenderComponent(const eComponentType componentType)
 	: Component(componentType)
@@ -20,7 +22,7 @@ void RenderComponent::initialize()
 
 void RenderComponent::update()
 {	
-	GetOwner()->GetRenderTargetRenderer()->registerRenderComponent(this);
+	GetOwner()->GetGameSystem()->GetRenderTargetRenderer()->registerRenderComponent(this);
 }
 
 void RenderComponent::lateUpdate()

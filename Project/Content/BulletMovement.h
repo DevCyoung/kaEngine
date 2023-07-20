@@ -14,9 +14,6 @@ public:
 
 	Vector3 mDir;
 
-	virtual void OnCollisionEnter(Collider2D* other);
-	virtual void OnCollisionStay(Collider2D* other);
-	virtual void OnCollisionExit(Collider2D* other);
 
 
 private:
@@ -24,6 +21,9 @@ private:
 	virtual void update() override final;
 	virtual void lateUpdate() override final;
 
+	virtual void onCollisionEnter(Collider2D* other) override;
+	virtual void onCollisionStay(Collider2D* other) override;
+	virtual void onCollisionExit(Collider2D* other) override;
 private:
 	float mDelay;
 };

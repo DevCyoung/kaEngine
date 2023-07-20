@@ -68,7 +68,7 @@ void RenderTargetRenderer::Render(const UINT renderTargetWidth,
 		ppRenderTargetView,
 		depthStencilView);	
 
-	//알파블렌딩 Z솔트가 필요할떄 적용한다.
+	//TODO: 알파블렌딩 Z솔트가 필요할떄 적용한다.
 	//zSortRenderObjectArray(eRenderType::Transparent);
 
 	for (const Camera* const P_CAMERA : mCameras)
@@ -91,9 +91,9 @@ void RenderTargetRenderer::Render(const UINT renderTargetWidth,
 		{
 			for (RenderComponent* const renderComponent : renderComponents)
 			{
-				const UINT RENDER_OBJ_LAYER = static_cast<UINT>(renderComponent->GetOwner()->GetLayer());
+				const UINT GAMEOBJECT_LAYER = static_cast<UINT>(renderComponent->GetOwner()->GetLayer());
 
-				if (CAMERA_LAYER_MASK & (1 << RENDER_OBJ_LAYER))
+				if (CAMERA_LAYER_MASK & (1 << GAMEOBJECT_LAYER))
 				{
 					renderComponent->render(P_CAMERA);
 				}
@@ -113,6 +113,7 @@ void RenderTargetRenderer::flush()
 {
 	mDebugRenderer->flush();
 	
+	//TODO: 추후에 다시확인
 	//for (auto& camera : mCameras)
 	//{
 	//	camera = nullptr;

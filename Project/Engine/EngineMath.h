@@ -2,6 +2,8 @@
 #define PI 3.1415926535897f
 #define Deg2Rad(degree) (degree * (PI / 180.0f))
 #define Rad2Deg(radian) (radian * (180.0f / PI))
+#define Deg2Vec2Dir(degree) Vector2(cosf(Deg2Rad(degree)), sinf(Deg2Rad(degree)))
+
 #include <random>
 
 class Camera;
