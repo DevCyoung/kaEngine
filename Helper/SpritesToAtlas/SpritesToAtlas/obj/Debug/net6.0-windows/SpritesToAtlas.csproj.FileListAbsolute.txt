@@ -15,3 +15,4 @@ C:\Users\tkdlq\Desktop\assort\DirectX2D_Engine\Helper\SpritesToAtlas\SpritesToAt
 C:\Users\tkdlq\Desktop\assort\DirectX2D_Engine\Helper\SpritesToAtlas\SpritesToAtlas\obj\Debug\net6.0-windows\SpritesToAtlas.pdb
 C:\Users\tkdlq\Desktop\assort\DirectX2D_Engine\Helper\SpritesToAtlas\SpritesToAtlas\obj\Debug\net6.0-windows\SpritesToAtlas.genruntimeconfig.cache
 C:\Users\tkdlq\Desktop\assort\DirectX2D_Engine\Helper\SpritesToAtlas\SpritesToAtlas\obj\Debug\net6.0-windows\ref\SpritesToAtlas.dll
+C:\Users\tkdlq\Desktop\assort\DirectX2D_Engine\Helper\SpritesToAtlas\SpritesToAtlas\obj\Debug\net6.0-windows\SpritesToAtlas.Properties.Resources.resources
