@@ -2,6 +2,7 @@
 
 enum class eResTexture
 {
+	Atlas_Player_zero,
 	charactor_atlas_zero_black,
 	charactor_atlas_zero_ori,
 	charactor_atlas_zero_s,

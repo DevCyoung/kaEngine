@@ -7,6 +7,7 @@ enum class eResShader
 	Header_Struct,
 	Header_TestShaderHeader,
 	Header_Texture,
+	PSAnimation2D,
 	PSFillDebug2D,
 	PSGrid2D,
 	PSLineDebug2D,

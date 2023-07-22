@@ -1,6 +1,7 @@
 ﻿#include "pch.h"
 #include "EnumComponent.h"
 
+#include "Animator2D.h"
 #include "Camera.h"
 #include "CircleCollider2D.h"
 #include "RectCollider2D.h"
@@ -9,6 +10,7 @@
 
 static constexpr const wchar_t* const ComponentNames[static_cast<UINT>(eComponentType::End)]
 {
+	L"Animator2D",
 	L"Camera",
 	L"CircleCollider2D",
 	L"RectCollider2D",
@@ -26,7 +28,9 @@ Component* CreateComponentByName(const std::wstring& componentName)
 {
 	Component* component = nullptr;
 
-	if (L"Camera" == componentName)
+	if (L"Animator2D" == componentName)
+		component = new Animator2D;
+	else if (L"Camera" == componentName)
 		component = new Camera;
 	else if (L"CircleCollider2D" == componentName)
 		component = new CircleCollider2D;
@@ -47,6 +51,9 @@ Component* CreateComponentByEnum(const eComponentType type)
 
 	switch (type)
 	{
+	case eComponentType::Animator2D:
+		component = new Animator2D;
+		break;
 	case eComponentType::Camera:
 		component = new Camera;
 		break;

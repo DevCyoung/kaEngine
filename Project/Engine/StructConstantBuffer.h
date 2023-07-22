@@ -32,3 +32,16 @@ struct alignas(16) tCBDebugInfo // b2
 	Vector4 Vector4_3;
 
 }; // 16 bytes
+
+
+struct alignas(16) tCBAnimationInfo // b2
+{
+	Vector2 UVBackLeftTop;
+	Vector2 UVBackSIze;
+
+	Vector2 UVLeftTop;
+	Vector2 UVSize;
+
+	Vector2 UVOffset;
+	Vector2 Dummy;
+}; // 16 bytes

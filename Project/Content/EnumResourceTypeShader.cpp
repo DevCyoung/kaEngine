@@ -8,6 +8,7 @@ static constexpr const wchar_t* eResShaderPath[static_cast<UINT>(eResShader::End
 	L"\\Shader\\Header\\Struct.fxh",
 	L"\\Shader\\Header\\TestShaderHeader.fxh",
 	L"\\Shader\\Header\\Texture.fxh",
+	L"\\Shader\\PSAnimation2D.hlsl",
 	L"\\Shader\\PSFillDebug2D.hlsl",
 	L"\\Shader\\PSGrid2D.hlsl",
 	L"\\Shader\\PSLineDebug2D.hlsl",

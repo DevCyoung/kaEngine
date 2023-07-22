@@ -15,6 +15,8 @@ enum class eScriptComponentType
 	LerpTest,
 	NoiseTest,
 	ParentTest,
+	PickPixelTest,
+	PlayerController,
 	PlayerMovementTest,
 	ShiftController,
 	TestScript,

@@ -10,6 +10,8 @@
 #include <Engine/SpriteRenderer.h>
 #include <Engine/RectCollider2D.h>
 #include <Engine/CircleCollider2D.h>
+#include <Engine/Animator2D.h>
+#include <Engine/Animation2D.h>
 
 //Script Component
 #include <Engine/ScriptComponent.h>

@@ -33,4 +33,16 @@ cbuffer DebugInfo : register(b2)
 	float4 B2_Vector4_3;
 }
 
+cbuffer Animation2DInfo : register(b3)
+{
+	float2 B3_UVBackLeftTop;
+	float2 B3_UVBackSIze;
+
+	float2 B3_UVLeftTop;
+	float2 B3_UVSize;
+
+	float2 B3_UVOffset;
+	float2 B3_Dummy;
+}
+
 #endif

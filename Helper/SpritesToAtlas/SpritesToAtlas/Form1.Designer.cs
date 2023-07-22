@@ -32,6 +32,7 @@
             AtlasView = new PictureBox();
             AtlasPanel = new Panel();
             ButtonExport = new Button();
+            PrevAtlasButton = new Button();
             ((System.ComponentModel.ISupportInitialize)AtlasView).BeginInit();
             AtlasPanel.SuspendLayout();
             SuspendLayout();
@@ -69,7 +70,7 @@
             // 
             // ButtonExport
             // 
-            ButtonExport.Location = new Point(731, 60);
+            ButtonExport.Location = new Point(731, 761);
             ButtonExport.Name = "ButtonExport";
             ButtonExport.Size = new Size(104, 41);
             ButtonExport.TabIndex = 3;
@@ -77,11 +78,22 @@
             ButtonExport.UseVisualStyleBackColor = true;
             ButtonExport.Click += ButtonExport_Click;
             // 
+            // PrevAtlasButton
+            // 
+            PrevAtlasButton.Location = new Point(731, 415);
+            PrevAtlasButton.Name = "PrevAtlasButton";
+            PrevAtlasButton.Size = new Size(104, 46);
+            PrevAtlasButton.TabIndex = 4;
+            PrevAtlasButton.Text = "PrevAtlas";
+            PrevAtlasButton.UseVisualStyleBackColor = true;
+            PrevAtlasButton.Click += PrevAtlasButton_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(839, 814);
+            Controls.Add(PrevAtlasButton);
             Controls.Add(ButtonExport);
             Controls.Add(AtlasPanel);
             Controls.Add(SelectSprites);
@@ -98,5 +110,6 @@
         private PictureBox AtlasView;
         private Panel AtlasPanel;
         private Button ButtonExport;
+        private Button PrevAtlasButton;
     }
 }

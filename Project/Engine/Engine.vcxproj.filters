@@ -31,9 +31,6 @@
     <Filter Include="Source\03. Component\02. Camera">
       <UniqueIdentifier>{e14f60d0-e934-4672-9f50-d542fcfce5dc}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\03. Component\04. Animator">
-      <UniqueIdentifier>{bc69a198-03d8-45de-9057-d4b3c0c45454}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\03. Component\03. Render">
       <UniqueIdentifier>{e9bab1db-c3de-4cbb-ab50-05273207949d}</UniqueIdentifier>
     </Filter>
@@ -142,15 +139,6 @@
     <Filter Include="Source\00. Engine\02. Loader">
       <UniqueIdentifier>{9a462464-9aa2-4de2-b5b8-02b586551f88}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\03. Component\05. Collision">
-      <UniqueIdentifier>{b4009016-722d-4433-980a-79b985f6d586}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\03. Component\05. Collision\Circle">
-      <UniqueIdentifier>{486d1d47-5f9f-4179-8c6c-e7da2074027c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\03. Component\05. Collision\Rect">
-      <UniqueIdentifier>{f3f68da6-3700-4d64-8527-a885e1d826d2}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\08. CollideManagement">
       <UniqueIdentifier>{b92eb5c8-881e-4b6b-a705-a1f8d05a1935}</UniqueIdentifier>
     </Filter>
@@ -180,6 +168,18 @@
     </Filter>
     <Filter Include="Source\10. GameSystem">
       <UniqueIdentifier>{890121bb-341b-43f0-8960-4b5690f7b86a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\03. Component\03. Render\01. Animator">
+      <UniqueIdentifier>{bc69a198-03d8-45de-9057-d4b3c0c45454}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\03. Component\04. Collision">
+      <UniqueIdentifier>{b4009016-722d-4433-980a-79b985f6d586}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\03. Component\04. Collision\Circle">
+      <UniqueIdentifier>{486d1d47-5f9f-4179-8c6c-e7da2074027c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\03. Component\04. Collision\Rect">
+      <UniqueIdentifier>{f3f68da6-3700-4d64-8527-a885e1d826d2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -349,22 +349,28 @@
       <Filter>Source\00. Engine\02. Loader</Filter>
     </ClInclude>
     <ClInclude Include="Collider2D.h">
-      <Filter>Source\03. Component\05. Collision</Filter>
+      <Filter>Source\03. Component\04. Collision</Filter>
     </ClInclude>
     <ClInclude Include="CollisionManagement2D.h">
       <Filter>Source\08. CollideManagement</Filter>
     </ClInclude>
     <ClInclude Include="CircleCollider2D.h">
-      <Filter>Source\03. Component\05. Collision\Circle</Filter>
+      <Filter>Source\03. Component\04. Collision\Circle</Filter>
     </ClInclude>
     <ClInclude Include="RectCollider2D.h">
-      <Filter>Source\03. Component\05. Collision\Rect</Filter>
+      <Filter>Source\03. Component\04. Collision\Rect</Filter>
     </ClInclude>
     <ClInclude Include="Physics2D.h">
       <Filter>Source\09. Phsics2D</Filter>
     </ClInclude>
     <ClInclude Include="GameSystem.h">
       <Filter>Source\10. GameSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Animator2D.h">
+      <Filter>Source\03. Component\03. Render\01. Animator</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation2D.h">
+      <Filter>Source\03. Component\03. Render\01. Animator</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -495,22 +501,28 @@
       <Filter>Source\00. Engine\02. Loader</Filter>
     </ClCompile>
     <ClCompile Include="Collider2D.cpp">
-      <Filter>Source\03. Component\05. Collision</Filter>
+      <Filter>Source\03. Component\04. Collision</Filter>
     </ClCompile>
     <ClCompile Include="CollisionManagement2D.cpp">
       <Filter>Source\08. CollideManagement</Filter>
     </ClCompile>
     <ClCompile Include="CircleCollider2D.cpp">
-      <Filter>Source\03. Component\05. Collision\Circle</Filter>
+      <Filter>Source\03. Component\04. Collision\Circle</Filter>
     </ClCompile>
     <ClCompile Include="RectCollider2D.cpp">
-      <Filter>Source\03. Component\05. Collision\Rect</Filter>
+      <Filter>Source\03. Component\04. Collision\Rect</Filter>
     </ClCompile>
     <ClCompile Include="Physics2D.cpp">
       <Filter>Source\09. Phsics2D</Filter>
     </ClCompile>
     <ClCompile Include="GameSystem.cpp">
       <Filter>Source\10. GameSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Animator2D.cpp">
+      <Filter>Source\03. Component\03. Render\01. Animator</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation2D.cpp">
+      <Filter>Source\03. Component\03. Render\01. Animator</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

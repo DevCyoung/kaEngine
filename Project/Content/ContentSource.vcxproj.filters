@@ -49,12 +49,6 @@
     <Filter Include="ShaderCode\Debug\Grid">
       <UniqueIdentifier>{86fb1d1f-6799-44f0-9fbe-64c00bcfe0dc}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Scene">
-      <UniqueIdentifier>{dc9dacee-4c8c-4f52-a1b7-a2548ff7810f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Scene\CollideTest">
-      <UniqueIdentifier>{429f4d90-ac74-41bc-989e-ed00f2f0aa4a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\01. ScriptComponent">
       <UniqueIdentifier>{de857324-cd4d-4a4d-80a7-707699222472}</UniqueIdentifier>
     </Filter>
@@ -79,6 +73,27 @@
     <Filter Include="Source\01. ScriptComponent\Test">
       <UniqueIdentifier>{71fc1149-d8c0-4313-a60e-2304d41cfd1c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\01. ScriptComponent\Scene">
+      <UniqueIdentifier>{cc7e087a-78df-4419-bf59-204d1219fdb7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ShaderCode\Animation2D">
+      <UniqueIdentifier>{0aa6e45d-3d83-43a5-8f60-4cbc676cca7f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\01. ScriptComponent\Controller">
+      <UniqueIdentifier>{cf4bab5e-0fe1-4d3f-afb9-7f1f0515b5a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\FSM">
+      <UniqueIdentifier>{3b3dedf0-265a-41e4-8441-2f709e68542b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\FSM\Player">
+      <UniqueIdentifier>{93ff9403-9d95-4578-8af6-73b327337cbf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scene">
+      <UniqueIdentifier>{dc9dacee-4c8c-4f52-a1b7-a2548ff7810f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scene\CollideTest">
+      <UniqueIdentifier>{429f4d90-ac74-41bc-989e-ed00f2f0aa4a}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Source\Scene\TitleScene">
       <UniqueIdentifier>{96946f4c-9e4a-43d1-9bde-9ef81cae4896}</UniqueIdentifier>
     </Filter>
@@ -88,14 +103,26 @@
     <Filter Include="Source\Scene\Chinatown04">
       <UniqueIdentifier>{e8cd688f-3ebd-4352-a0f3-3a059f04198c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\01. ScriptComponent\Scene">
-      <UniqueIdentifier>{cc7e087a-78df-4419-bf59-204d1219fdb7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\Scene\Chinatown05">
       <UniqueIdentifier>{20332b64-296c-4050-bb16-34cb7cddc831}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source\Scene\HeadHunter">
       <UniqueIdentifier>{5bb296e2-92d1-45c0-b3c4-2d5be6c8f361}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\FSM\FSM">
+      <UniqueIdentifier>{dcc40d4d-ab21-4cf7-a907-f3d7474a44c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\FSM\Player\State">
+      <UniqueIdentifier>{d8c2f1bf-d77c-44ae-808e-2d4c7d2eeb6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\FSM\Player\FSM">
+      <UniqueIdentifier>{4796df72-b367-4664-b396-22777fb27ae0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\FSM\FSM\FSM">
+      <UniqueIdentifier>{81adf7ee-b7b9-4911-ac4f-2bae707e204e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\FSM\FSM\State">
+      <UniqueIdentifier>{206682db-1b1a-4a7d-b997-d2530a1890d3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -204,6 +231,49 @@
     <ClInclude Include="HeadHunterScene.h">
       <Filter>Source\Scene\HeadHunter</Filter>
     </ClInclude>
+    <ClInclude Include="PickPixelTest.h">
+      <Filter>Source\01. ScriptComponent\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerController.h">
+      <Filter>Source\01. ScriptComponent\Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerIdleState.h">
+      <Filter>Source\FSM\Player\State</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerRunState.h">
+      <Filter>Source\FSM\Player\State</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerState.h">
+      <Filter>Source\FSM\Player\State</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerFSM.h">
+      <Filter>Source\FSM\Player\FSM</Filter>
+    </ClInclude>
+    <ClInclude Include="FiniteStateMachine.h">
+      <Filter>Source\FSM\FSM\FSM</Filter>
+    </ClInclude>
+    <ClInclude Include="FSMState.h">
+      <Filter>Source\FSM\FSM\State</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerAttackState.h">
+      <Filter>Source\FSM\Player\State</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerRollState.h">
+      <Filter>Source\FSM\Player\State</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerCrouchState.h">
+      <Filter>Source\FSM\Player\State</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerJumpState.h">
+      <Filter>Source\FSM\Player\State</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerFallState.h">
+      <Filter>Source\FSM\Player\State</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerFlipState.h" />
+    <ClInclude Include="PlayerWallSlideState.h" />
+    <ClInclude Include="PlayerDoorState.h" />
+    <ClInclude Include="PlayerDoorBreakFullState.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -305,6 +375,49 @@
     <ClCompile Include="HeadHunterScene.cpp">
       <Filter>Source\Scene\HeadHunter</Filter>
     </ClCompile>
+    <ClCompile Include="PickPixelTest.cpp">
+      <Filter>Source\01. ScriptComponent\Test</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerController.cpp">
+      <Filter>Source\01. ScriptComponent\Controller</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerIdleState.cpp">
+      <Filter>Source\FSM\Player\State</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerRunState.cpp">
+      <Filter>Source\FSM\Player\State</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerState.cpp">
+      <Filter>Source\FSM\Player\State</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerFSM.cpp">
+      <Filter>Source\FSM\Player\FSM</Filter>
+    </ClCompile>
+    <ClCompile Include="FiniteStateMachine.cpp">
+      <Filter>Source\FSM\FSM\FSM</Filter>
+    </ClCompile>
+    <ClCompile Include="FSMState.cpp">
+      <Filter>Source\FSM\FSM\State</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerAttackState.cpp">
+      <Filter>Source\FSM\Player\State</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerRollState.cpp">
+      <Filter>Source\FSM\Player\State</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerCrouchState.cpp">
+      <Filter>Source\FSM\Player\State</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerFallState.cpp">
+      <Filter>Source\FSM\Player\State</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerJumpState.cpp">
+      <Filter>Source\FSM\Player\State</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerFlipState.cpp" />
+    <ClCompile Include="PlayerWallSlideState.cpp" />
+    <ClCompile Include="PlayerDoorState.cpp" />
+    <ClCompile Include="PlayerDoorBreakFullState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Output\bin\Resources\Shader\Header\TestShaderHeader.fxh">
@@ -372,6 +485,9 @@
     </None>
     <None Include="..\..\Output\bin\Resources\Shader\VSFillDebug2D.hlsl">
       <Filter>ShaderCode\Debug\Fill</Filter>
+    </None>
+    <None Include="..\..\Output\bin\Resources\Shader\PSAnimation2D.hlsl">
+      <Filter>ShaderCode\Animation2D</Filter>
     </None>
   </ItemGroup>
 </Project>

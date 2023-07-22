@@ -11,6 +11,8 @@
 #include "LerpTest.h"
 #include "NoiseTest.h"
 #include "ParentTest.h"
+#include "PickPixelTest.h"
+#include "PlayerController.h"
 #include "PlayerMovementTest.h"
 #include "ShiftController.h"
 #include "TestScript.h"
@@ -28,6 +30,8 @@ static constexpr const wchar_t* const ScriptComponentNames[static_cast<UINT>(eSc
 	L"LerpTest",
 	L"NoiseTest",
 	L"ParentTest",
+	L"PickPixelTest",
+	L"PlayerController",
 	L"PlayerMovementTest",
 	L"ShiftController",
 	L"TestScript",
@@ -64,6 +68,10 @@ ScriptComponent* CreateScriptComponentByName(const std::wstring& scriptcomponent
 		scriptcomponent = new NoiseTest;
 	else if (L"ParentTest" == scriptcomponentName)
 		scriptcomponent = new ParentTest;
+	else if (L"PickPixelTest" == scriptcomponentName)
+		scriptcomponent = new PickPixelTest;
+	else if (L"PlayerController" == scriptcomponentName)
+		scriptcomponent = new PlayerController;
 	else if (L"PlayerMovementTest" == scriptcomponentName)
 		scriptcomponent = new PlayerMovementTest;
 	else if (L"ShiftController" == scriptcomponentName)
@@ -112,6 +120,12 @@ ScriptComponent* CreateScriptComponentByEnum(const eScriptComponentType type)
 		break;
 	case eScriptComponentType::ParentTest:
 		scriptcomponent = new ParentTest;
+		break;
+	case eScriptComponentType::PickPixelTest:
+		scriptcomponent = new PickPixelTest;
+		break;
+	case eScriptComponentType::PlayerController:
+		scriptcomponent = new PlayerController;
 		break;
 	case eScriptComponentType::PlayerMovementTest:
 		scriptcomponent = new PlayerMovementTest;
