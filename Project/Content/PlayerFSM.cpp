@@ -36,6 +36,7 @@ PlayerFSM::~PlayerFSM()
 
 }
 
+//FIXME: 모든 state Initialize 추가해줘야함
 void PlayerFSM::Initialize(PlayerState* const startState)
 {
 	mCurState = startState;	
@@ -71,6 +72,10 @@ void PlayerFSM::GlobalUpdate()
 	else if (gInput->GetKeyDown(eKeyCode::Y))
 	{
 		ChangeState(mPlayerDoorBreakFullState);
+	}
+	else if (gInput->GetKeyDown(eKeyCode::T))
+	{
+		mOwner->GetComponent<Animator2D>()->Play(L"Run", true);		
 	}
 
 

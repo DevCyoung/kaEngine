@@ -55,7 +55,7 @@ void PlayerRunState::Update()
 
 	Transform* const transform = mGameObject->GetComponent<Transform>();
 
-	float speed = 500.f;
+	float speed = 388.f;
 
 	Vector3 pos = dir * speed * gDeltaTime + transform->GetPosition();
 

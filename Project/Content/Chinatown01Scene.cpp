@@ -147,8 +147,8 @@ Chinatown01Scene::Chinatown01Scene()
 		anim->CreateAnimation(L"PreCrouch", atlas, 2,
 			XMUINT2(5, 1639), XMUINT2(36, 40), XMUINT2(10, 10), XMINT2(0, 0), 0.09f);
 
-		anim->CreateAnimation(L"Run", atlas, 10,
-			XMUINT2(5, 1790), XMUINT2(44, 32), XMUINT2(10, 10), XMINT2(0, 0), 0.08f);
+		anim->CreateAnimation(L"Run", atlas, 10,	
+			XMUINT2(5, 1790), XMUINT2(44, 32), XMUINT2(10, 10), XMINT2(0, 0), 0.07f);
 
 		anim->CreateAnimation(L"Crouch", atlas, 1,
 			XMUINT2(5, 2005), XMUINT2(36, 40), XMUINT2(10, 10), XMINT2(0, 0), 0.09f);
