@@ -34,6 +34,17 @@ void Layer::update()
 	}
 }
 
+void Layer::fixedUpdate()
+{
+	for (GameObject* const gameObject : mGameObjects)
+	{
+		if (gameObject->mState == GameObject::eState::Active)
+		{
+			gameObject->fixedUpdate();
+		}
+	}
+}
+
 void Layer::lateUpdate()
 {
 	for (GameObject* const gameObject : mGameObjects)

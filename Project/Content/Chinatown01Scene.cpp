@@ -87,6 +87,31 @@ Chinatown01Scene::Chinatown01Scene()
 		AddGameObject(obj, eLayerType::BackGround);
 	}
 
+	{
+		GameObject* const obj = new GameObject();
+		
+		obj->AddComponent<RectCollider2D>();
+
+		obj->GetComponent<RectCollider2D>()->SetSize(100.f, 100.f);
+		obj->GetComponent<Transform>()->SetPosition(0, 0, 1.f);
+
+
+		AddGameObject(obj, eLayerType::Default);
+	}
+
+	{
+		GameObject* const obj = new GameObject();
+
+		obj->AddComponent<RectCollider2D>();
+
+		obj->GetComponent<RectCollider2D>()->SetSize(100.f, 100.f);
+		obj->GetComponent<Transform>()->SetPosition(100.0f, 0, 1.f);
+
+		AddGameObject(obj, eLayerType::Default);
+	}
+
+
+
 
 	//Map
 	{

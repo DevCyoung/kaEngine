@@ -17,9 +17,10 @@ private:
 	
 
 private:
-	virtual void initialize();
-	virtual void update();
-	virtual void lateUpdate();
+	void initialize();
+	void update();
+	void fixedUpdate();
+	void lateUpdate();
 
 private:
 	std::vector<GameObject*> mGameObjects;

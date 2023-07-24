@@ -45,6 +45,15 @@ void Scene::update()
 	}
 }
 
+void Scene::fixedUpdate()
+{
+	for (Layer& layer : mLayers)
+	{
+		layer.fixedUpdate();
+	}
+}
+
+
 void Scene::lateUpdate()
 {
 	size_t gameObjectCount = 0;

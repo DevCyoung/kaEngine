@@ -20,7 +20,8 @@ public:
 private:
 	virtual void initialize();
 	virtual void update();
-	virtual void lateUpdate();		
+	virtual void fixedUpdate();
+	virtual void lateUpdate();
 
 private:
 	eComponentType mType;

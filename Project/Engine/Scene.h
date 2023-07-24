@@ -60,6 +60,7 @@ private:
 private:
 	virtual void initialize();
 	virtual void update();
+	virtual void fixedUpdate();
 	virtual void lateUpdate();
 	//virtual void physicsUpdate
 	virtual void render(const UINT renderTargetWidth,
