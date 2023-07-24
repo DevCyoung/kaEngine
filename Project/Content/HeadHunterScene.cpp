@@ -21,8 +21,14 @@
 #include "ParentTest.h"
 #include "Chinatown04Controller.h"
 
-	HeadHunterScene::HeadHunterScene()
+#include <Engine/Animation2D.h>
+#include <Engine/Animator2D.h>
+#include "PickPixelTest.h"
+#include "PlayerController.h"
+HeadHunterScene::HeadHunterScene()
 {
+
+
 	mCollisionManagement2D->TurnOffAllCollisionLayer();
 
 	mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Default, eLayerType::Default);
@@ -41,32 +47,33 @@
 
 		gResourceManager->Insert(L"HeadHunterMapDoor", material);
 	}
-	
-	//{
-	//	Material* const material =
-	//		MaterialBuilder::BuildDefault2DMaterial(
-	//			eRenderPriorityType::Opqaue, L"Default", eResTexture::Map_Chinatown05_Tilemap);
-	//	gResourceManager->Insert(L"Chanatown05TileMap", material);
-	//}
 
 	{
-		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"HeadHunterMap");		
+		Material* const material =
+			MaterialBuilder::BuildDefault2DMaterial(
+				eRenderPriorityType::Opqaue, L"Default", eResTexture::Map_Chinatown05_Tilemap);
+		gResourceManager->Insert(L"Chanatown05TileMap", material);
+	}
 
+	{
+		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"HeadHunterMap");
+	
 		obj->GetComponent<Transform>()->SetScale(2.0f, 2.0f, 1.f);
 		//obj->GetComponent<Transform>()->SetPosition(400.f, 150.f, 530.f);
-
+	
 		AddGameObject(obj, eLayerType::Default);
 	}
-
+	
 	{
-		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"HeadHunterMapDoor");		
-
+		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"HeadHunterMapDoor");
+	
 		obj->GetComponent<Transform>()->SetScale(2.0f, 2.0f, 1.f);
 		obj->GetComponent<Transform>()->SetPosition(18.f, -182.f, 0.f);
-
+	
 		AddGameObject(obj, eLayerType::Default);
 	}
 
+	
 	//{
 	//	GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"Chanatown05BackGround01");
 	//

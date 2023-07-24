@@ -20,6 +20,12 @@
 #include "ChildTest.h"
 #include "ParentTest.h"
 #include "NoiseTest.h"
+#include "PlayerController.h"
+#include "PlayerFSM.h"
+#include "GridPainter.h"
+#include <Engine/Color.h>
+#include "PickPixelTest.h"
+#include "Rect2DInterpolation.h"
 
 Chinatown01Scene::Chinatown01Scene()
 {
@@ -86,18 +92,155 @@ Chinatown01Scene::Chinatown01Scene()
 		AddGameObject(obj, eLayerType::BackGround);
 	}
 
+	//{
+	//	GameObject* const obj = new GameObject();
+	//	
+	//	obj->AddComponent<RectCollider2D>();
+	//
+	//	obj->GetComponent<RectCollider2D>()->SetSize(100.f, 100.f);
+	//	obj->GetComponent<Transform>()->SetPosition(0, 0, 1.f);
+	//
+	//
+	//	AddGameObject(obj, eLayerType::Default);
+	//}
+	//
+
+	{
+		GameObject* const obj = new GameObject();
+		
+		obj->AddComponent<RectCollider2D>();
+		obj->SetName(L"Wall");
+		
+		obj->GetComponent<RectCollider2D>()->SetSize(1000.f, 100.f);
+		obj->GetComponent<Transform>()->SetPosition(0.f, -300.f, 1.f);
+		
+		AddGameObject(obj, eLayerType::Default);
+	}
+
+
+
 
 	//Map
 	{
-		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"Chanatown01TileMap");		
+		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"Chanatown01TileMap");
 
-		AddGameObject(obj, eLayerType::Default);
+		
+
+		obj->AddComponent<GridPainter>();		
+
+		obj->GetComponent<GridPainter>()->SetCellSize(32);
+		obj->GetComponent<GridPainter>()->SetCellCount(XMUINT2(200, 200));
+		obj->GetComponent<GridPainter>()->SetColor(helper::Color::YELLOW);
+		obj->GetComponent<GridPainter>()->TurnOffDraw();
+		
+		AddGameObject(obj, eLayerType::TileMap);
 	}
+
+	{
+		GameObject* const player = new GameObject();
+		player->SetName(L"Player");
+		//Animation
+		{
+			player->GetComponent<Transform>()->SetPosition(0.f, 160.f, -1.f);
+
+			player->AddComponent<Animator2D>();
+			player->AddComponent<PlayerController>();
+
+			player->GetComponent<PlayerController>()->SetFSM(new PlayerFSM(player));
+
+			Animator2D* const anim = player->GetComponent<Animator2D>();
+			Texture* atlas = gResourceManager->FindByEnum<Texture>(eResTexture::Atlas_Player_zero);
+
+			anim->SetMaterial(gResourceManager->FindOrNull<Material>(L"Animator2D"));
+			anim->SetMesh(gResourceManager->FindOrNull<Mesh>(L"FillRect2D"));
+
+			anim->CreateAnimation(L"Attack", atlas, 7,
+				XMUINT2(5, 34), XMUINT2(62, 42), XMUINT2(10, 10), XMINT2(0, 0), 0.059f);
+
+			anim->CreateAnimation(L"Roll", atlas, 7,
+				XMUINT2(5, 1718), XMUINT2(48, 33), XMUINT2(10, 10), XMINT2(0, 0), 0.06f);
+
+			anim->CreateAnimation(L"DoorBreakFull", atlas, 10,
+				XMUINT2(5, 198), XMUINT2(50, 44), XMUINT2(10, 10), XMINT2(0, 0), 0.06f);
+
+			anim->CreateAnimation(L"Fall", atlas, 4,
+				XMUINT2(5, 281), XMUINT2(42, 48), XMUINT2(10, 10), XMINT2(0, 0), 0.06f);
+
+			anim->CreateAnimation(L"Idle", atlas, 11,
+				XMUINT2(5, 681), XMUINT2(36, 35), XMUINT2(10, 10), XMINT2(0, 0), 0.1f);
+
+			anim->CreateAnimation(L"Jump", atlas, 4,
+				XMUINT2(5, 826), XMUINT2(32, 42), XMUINT2(10, 10), XMINT2(0, 0), 0.08f);
+
+			anim->CreateAnimation(L"IdleToRun", atlas, 4,
+				XMUINT2(5, 755), XMUINT2(44, 32), XMUINT2(10, 10), XMINT2(0, 0), 0.08f);
+
+			anim->CreateAnimation(L"RunToIdle", atlas, 5,
+				XMUINT2(5, 1861), XMUINT2(52, 36), XMUINT2(10, 10), XMINT2(0, 0), 0.085f);
+
+			anim->CreateAnimation(L"Flip", atlas, 11,
+				XMUINT2(5, 1137), XMUINT2(50, 45), XMUINT2(10, 10), XMINT2(0, 0), 0.065f);
+
+			anim->CreateAnimation(L"PlaySong", atlas, 31,
+				XMUINT2(5, 1221), XMUINT2(36, 39), XMUINT2(10, 10), XMINT2(0, 0), 0.09f);
+
+			anim->CreateAnimation(L"PostCrouch", atlas, 2,
+				XMUINT2(5, 1560), XMUINT2(36, 40), XMUINT2(10, 10), XMINT2(0, 0), 0.09f);
+
+			anim->CreateAnimation(L"PreCrouch", atlas, 2,
+				XMUINT2(5, 1639), XMUINT2(36, 40), XMUINT2(10, 10), XMINT2(0, 0), 0.09f);
+
+			anim->CreateAnimation(L"Run", atlas, 10,
+				XMUINT2(5, 1790), XMUINT2(44, 32), XMUINT2(10, 10), XMINT2(0, 0), 0.07f);
+
+			anim->CreateAnimation(L"Crouch", atlas, 1,
+				XMUINT2(5, 2005), XMUINT2(36, 40), XMUINT2(10, 10), XMINT2(0, 0), 0.09f);
+
+			anim->CreateAnimation(L"WallSlide", atlas, 1,
+				XMUINT2(5, 2250), XMUINT2(46, 42), XMUINT2(10, 10), XMINT2(0, 0), 0.09f);
+
+			player->GetComponent<Transform>()->SetScale(2.0f, 2.0f, 1.f);
+
+			//anim->Play(L"Run", true);
+		}
+
+		player->AddComponent<Rigidbody2D>();
+		player->AddComponent<Rect2DInterpolation>();
+		player->AddComponent<RectCollider2D>();
+
+
+		player->GetComponent<Animator2D>()->Play(L"Idle", true);
+
+		player->GetComponent<Rigidbody2D>()->TurnOnGravity();
+		player->GetComponent<Rigidbody2D>()->SetGravityAccel(300.f);
+
+
+		player->GetComponent<RectCollider2D>()->SetSize(28.f, 42.f);
+		player->GetComponent<RectCollider2D>()->SetOffset(Vector2(0.f, 4.f));
+
+	
+
+		AddGameObject(player, eLayerType::Default);
+	}
+
+
 
 #pragma region UIGameOBject
 	//UI
 	const Vector2 screenSize = gEngine->GetRenderTargetSize();
 	const float hudPosY = gEngine->GetRenderTargetSize().y / 2.f - 23.f;
+
+	//UI Cursur
+	{
+		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UICursor");
+
+		obj->AddComponent<CursorMovement>();
+
+		obj->GetComponent<Transform>()->SetPosition(610.f, hudPosY - 24.f, -10.f);
+		obj->GetComponent<Transform>()->SetScale(2.f, 2.f, 1.f);
+
+		AddGameObject(obj, eLayerType::Mouse);
+	}
 
 	//UI UP Hud
 	{
@@ -220,6 +363,8 @@ Chinatown01Scene::Chinatown01Scene()
 
 		AddGameObject(obj, eLayerType::UI);
 	}
+
+
 
 #pragma endregion
 

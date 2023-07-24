@@ -3,6 +3,8 @@
 
 static constexpr const wchar_t* eResTexturePath[static_cast<UINT>(eResTexture::End)]
 {
+	L"\\Texture\\Atlas\\Player\\zero.png",
+	L"\\Texture\\Atlas\\Title\\Plants.png",
 	L"\\Texture\\charactor\\atlas_zero_black.bmp",
 	L"\\Texture\\charactor\\atlas_zero_ori.bmp",
 	L"\\Texture\\charactor\\atlas_zero_s.bmp",
@@ -60,6 +62,18 @@ static constexpr const wchar_t* eResTexturePath[static_cast<UINT>(eResTexture::E
 	L"\\Texture\\Noise\\04.png",
 	L"\\Texture\\TileMap\\bg_club_background.png",
 	L"\\Texture\\TileMap\\bg_haunted_background.png",
+	L"\\Texture\\Title\\spr_title_plants\\spr_title_plants_0.png",
+	L"\\Texture\\Title\\spr_title_plants\\spr_title_plants_1.png",
+	L"\\Texture\\Title\\spr_title_plants\\spr_title_plants_10.png",
+	L"\\Texture\\Title\\spr_title_plants\\spr_title_plants_11.png",
+	L"\\Texture\\Title\\spr_title_plants\\spr_title_plants_2.png",
+	L"\\Texture\\Title\\spr_title_plants\\spr_title_plants_3.png",
+	L"\\Texture\\Title\\spr_title_plants\\spr_title_plants_4.png",
+	L"\\Texture\\Title\\spr_title_plants\\spr_title_plants_5.png",
+	L"\\Texture\\Title\\spr_title_plants\\spr_title_plants_6.png",
+	L"\\Texture\\Title\\spr_title_plants\\spr_title_plants_7.png",
+	L"\\Texture\\Title\\spr_title_plants\\spr_title_plants_8.png",
+	L"\\Texture\\Title\\spr_title_plants\\spr_title_plants_9.png",
 	L"\\Texture\\Title\\spr_titlegraphic_big2.png",
 	L"\\Texture\\Title\\spr_titlegraphic_big_1.png",
 	L"\\Texture\\Title\\spr_titlegraphic_big_2.png",

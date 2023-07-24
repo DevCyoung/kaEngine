@@ -71,6 +71,17 @@ void GameObject::lateUpdate()
 	}
 }
 
+void GameObject::fixedUpdate()
+{
+	for (Component* const component : mEngineComponents)
+	{
+		if (component)
+		{
+			component->fixedUpdate();
+		}
+	}
+}
+
 void GameObject::AddComponent(ScriptComponent* const scriptComponent)
 {
 	Assert(scriptComponent, WCHAR_IS_NULLPTR);

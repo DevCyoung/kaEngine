@@ -6,7 +6,8 @@ enum class eCBType
 {
 	Transform,
 	ColorInfo,
-	DebugInfo, // 2
+	DebugInfo,
+	Animation2DInfo,
 	End,
 };
 

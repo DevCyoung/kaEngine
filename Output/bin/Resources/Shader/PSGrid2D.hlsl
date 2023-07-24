@@ -9,15 +9,14 @@
 #define MOUSE_POSITION B2_MousePos
 
 float4 main(tVSOut In) : SV_TARGET
-{
-	float4 color = float4(1.0f, 1.0f, 0.7f, 1.0f);
-	
+{	
 	const int2 NORMAL_XY = int2(In.UV * RECT_SCALE + 1);	
 	const int2 WIDTH = int2(RECT_SCALE.xy / XY_COUNT.xy);
 	const int2 MOUSE_IDX = int2((MOUSE_POSITION.xy - 1) / WIDTH.xy);
 	const int2 GRID_IDX = int2((NORMAL_XY.xy - 1) / WIDTH.xy);
 
-	if (NORMAL_XY.x % WIDTH.x >= 2 && NORMAL_XY.y % WIDTH.y >= 2)
+	if (NORMAL_XY.x % WIDTH.x >= B2_Vector4_0.x && 
+		NORMAL_XY.y % WIDTH.y >= B2_Vector4_0.x)
 	{
 		discard;
 	}

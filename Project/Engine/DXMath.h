@@ -190,6 +190,10 @@ namespace engine
 			// Constants
 			static const Vector2 Zero;
 			static const Vector2 One;
+			static const Vector2 Up ;
+			static const Vector2 Down ;
+			static const Vector2 Right;
+			static const Vector2 Left ;
 			static const Vector2 UnitX;
 			static const Vector2 UnitY;
 		};

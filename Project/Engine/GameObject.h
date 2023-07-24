@@ -66,9 +66,10 @@ public:
 	void RemoveComponent(const eScriptComponentType scriptComponentType);
 
 private:
-	void initialize();
+	void initialize();	
 	void update();	
-	void lateUpdate();	
+	void fixedUpdate();
+	void lateUpdate();
 
 private:
 	Component* mEngineComponents[static_cast<UINT>(eComponentType::End)];

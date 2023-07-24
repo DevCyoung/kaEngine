@@ -29,6 +29,8 @@ void SceneManager::update()
 
 void SceneManager::lateUpdate()
 {
+	mCurrentScene->fixedUpdate();
+
 	mCurrentScene->lateUpdate();
 }
 

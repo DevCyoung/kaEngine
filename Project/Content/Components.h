@@ -1,4 +1,7 @@
 #pragma once
+
+#include <Engine/GameObject.h>
+
 //Manager
 #include <Engine/TimeManager.h>
 #include <Engine/InputManager.h>
@@ -10,7 +13,11 @@
 #include <Engine/SpriteRenderer.h>
 #include <Engine/RectCollider2D.h>
 #include <Engine/CircleCollider2D.h>
+#include <Engine/Animator2D.h>
+#include <Engine/Animation2D.h>
+#include <Engine/Rigidbody2D.h>
 
 //Script Component
 #include <Engine/ScriptComponent.h>
 #include "EnumScriptComponent.h"
+

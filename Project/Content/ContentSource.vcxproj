@@ -212,6 +212,7 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
     <ClInclude Include="EnumResourceTypeTexture.h" />
     <ClInclude Include="EnumScriptComponent.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="FSMState.h" />
     <ClInclude Include="GameObjectBuilder.h" />
     <ClInclude Include="HeadHunterScene.h" />
     <ClInclude Include="InputMovementTest.h">
@@ -223,6 +224,10 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
       </SubType>
     </ClInclude>
     <ClInclude Include="MaterialBuilder.h" />
+    <ClInclude Include="GridPainter.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="NoiseTest.h">
       <SubType>
       </SubType>
@@ -232,7 +237,32 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
       </SubType>
     </ClInclude>
     <ClInclude Include="pch.h" />
+    <ClInclude Include="PickPixelTest.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="PlayerAttackState.h" />
+    <ClInclude Include="PlayerController.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="PlayerCrouchState.h" />
+    <ClInclude Include="PlayerDoorBreakFullState.h" />
+    <ClInclude Include="PlayerDoorState.h" />
+    <ClInclude Include="PlayerFallState.h" />
+    <ClInclude Include="PlayerFlipState.h" />
+    <ClInclude Include="PlayerFSM.h" />
+    <ClInclude Include="PlayerIdleState.h" />
+    <ClInclude Include="PlayerJumpState.h" />
     <ClInclude Include="PlayerMovementTest.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="PlayerRollState.h" />
+    <ClInclude Include="PlayerRunState.h" />
+    <ClInclude Include="PlayerState.h" />
+    <ClInclude Include="PlayerWallSlideState.h" />
+    <ClInclude Include="Rect2DInterpolation.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -241,6 +271,7 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="FiniteStateMachine.h" />
     <ClInclude Include="TestScript.h">
       <SubType>
       </SubType>
@@ -290,6 +321,7 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
     <ClCompile Include="EnumResourceTypeSound.cpp" />
     <ClCompile Include="EnumResourceTypeTexture.cpp" />
     <ClCompile Include="EnumScriptComponent.cpp" />
+    <ClCompile Include="FSMState.cpp" />
     <ClCompile Include="GameObjectBuilder.cpp" />
     <ClCompile Include="HeadHunterScene.cpp" />
     <ClCompile Include="InputMovementTest.cpp">
@@ -301,6 +333,10 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
       </SubType>
     </ClCompile>
     <ClCompile Include="MaterialBuilder.cpp" />
+    <ClCompile Include="GridPainter.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="NoiseTest.cpp">
       <SubType>
       </SubType>
@@ -317,7 +353,32 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
       <PrecompiledHeaderOutputFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)$(TargetName).pch</PrecompiledHeaderOutputFile>
       <PrecompiledHeaderOutputFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)$(TargetName).pch</PrecompiledHeaderOutputFile>
     </ClCompile>
+    <ClCompile Include="PickPixelTest.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="PlayerAttackState.cpp" />
+    <ClCompile Include="PlayerController.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="PlayerCrouchState.cpp" />
+    <ClCompile Include="PlayerDoorBreakFullState.cpp" />
+    <ClCompile Include="PlayerDoorState.cpp" />
+    <ClCompile Include="PlayerFallState.cpp" />
+    <ClCompile Include="PlayerFlipState.cpp" />
+    <ClCompile Include="PlayerFSM.cpp" />
+    <ClCompile Include="PlayerIdleState.cpp" />
+    <ClCompile Include="PlayerJumpState.cpp" />
     <ClCompile Include="PlayerMovementTest.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="PlayerRollState.cpp" />
+    <ClCompile Include="PlayerRunState.cpp" />
+    <ClCompile Include="PlayerState.cpp" />
+    <ClCompile Include="PlayerWallSlideState.cpp" />
+    <ClCompile Include="Rect2DInterpolation.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -325,6 +386,7 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="FiniteStateMachine.cpp" />
     <ClCompile Include="TestScript.cpp">
       <SubType>
       </SubType>
@@ -444,6 +506,11 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
       <FileType>Document</FileType>
     </None>
     <None Include="..\..\Output\bin\Resources\Shader\VSLineDebug2D.hlsl">
+      <FileType>Document</FileType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\Output\bin\Resources\Shader\PSAnimation2D.hlsl">
       <FileType>Document</FileType>
     </None>
   </ItemGroup>

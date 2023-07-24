@@ -67,35 +67,35 @@ void CursorMovement::update()
 
 	//static float  delay = 0.f;
 
-	mDelay += gDeltaTime;
-
-	if (mDelay > 0.0025f)
-	{
-		GameObject* const bullet = GameObjectBuilder::BuildDefault2DGameObject(L"UIRightItem");
-		bullet->AddComponent<BulletMovement>();
-		bullet->AddComponent <CircleCollider2D> ();
-		
-		Vector3 dir = Vector3(cosf(gGlobalTime * 10.f), sinf(gGlobalTime * 10.f), 0.f);		
-
-
-		bullet->GetComponent<Transform>()->SetPosition(MOUSE_WORLD_3D_POS + dir * 100.f);
-		bullet->GetComponent<BulletMovement>()->mDir = dir;
-		bullet->GetComponent<CircleCollider2D>()->SetRadius(20.f);
-
-		gCurrentScene->RegisterEventAddGameObject(bullet, eLayerType::Bullet);
-		
-		mDelay = 0.f;
-	}	
-
-
-	if (gInput->GetKeyDown(eKeyCode::P))
-	{
-		renderTargetRenderer->TurnOffDebugRenderer();
-	}
-	if (gInput->GetKeyDown(eKeyCode::O))
-	{
-		renderTargetRenderer->TurnOnDebugRenderer();
-	}
+	//mDelay += gDeltaTime;
+	//
+	//if (mDelay > 0.0025f)
+	//{
+	//	GameObject* const bullet = GameObjectBuilder::BuildDefault2DGameObject(L"UIRightItem");
+	//	bullet->AddComponent<BulletMovement>();
+	//	bullet->AddComponent <CircleCollider2D> ();
+	//	
+	//	Vector3 dir = Vector3(cosf(gGlobalTime * 10.f), sinf(gGlobalTime * 10.f), 0.f);		
+	//
+	//
+	//	bullet->GetComponent<Transform>()->SetPosition(MOUSE_WORLD_3D_POS + dir * 100.f);
+	//	bullet->GetComponent<BulletMovement>()->mDir = dir;
+	//	bullet->GetComponent<CircleCollider2D>()->SetRadius(20.f);
+	//
+	//	gCurrentScene->RegisterEventAddGameObject(bullet, eLayerType::Bullet);
+	//	
+	//	mDelay = 0.f;
+	//}	
+	//
+	//
+	//if (gInput->GetKeyDown(eKeyCode::P))
+	//{
+	//	renderTargetRenderer->TurnOffDebugRenderer();
+	//}
+	//if (gInput->GetKeyDown(eKeyCode::O))
+	//{
+	//	renderTargetRenderer->TurnOnDebugRenderer();
+	//}
 
 
 	//const Vector3 GRID_WORLD_POS = Vector3(0.f, 0.f, 1.f);

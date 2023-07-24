@@ -3,6 +3,7 @@
 enum class eLayerType
 {
 	BackGround,
+	TileMap,		
 	Object,
 	Forground,
 	Item,

@@ -22,15 +22,16 @@
 #include "Chinatown05Scene.h"
 #include "HeadHunterScene.h"
 
+
 Content::Content()
 {
 	resourceInitialize();
 	//Scene* testScene = new Collide2DTestScene;
 	//Scene* testScene = new TItleScene();	
-	//Scene* testScene = new Chinatown01Scene();
-	// Scene* testScene = new Chinatown04Scene();
+	Scene* testScene = new Chinatown01Scene();
+	//Scene* testScene = new Chinatown04Scene();
 	//Scene* testScene = new Chinatown05Scene();
-	Scene* testScene = new HeadHunterScene();
+	//Scene* testScene = new HeadHunterScene();
 	SceneManager::GetInstance()->LoadScene(testScene);
 }
 
@@ -80,10 +81,29 @@ void Content::loadShader()
 				eBSType::AlphaBlend);
 		gResourceManager->Insert(L"UIShader", UIShader);
 	}
+
+	//Animation2D
+	Shader* const defaultShader =
+		new Shader(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST,
+			eResShader::VSSprite, L"main",
+			eResShader::PSAnimation2D, L"main",
+			eSMType::Default,
+			eRSType::CullNone,
+			eDSType::LessEqual,
+			eBSType::AlphaBlend);
+	gResourceManager->Insert(L"Animator2D", defaultShader);
 }
 
 void Content::loadMaterial()
 {
+	//Animation Material
+	{
+		Material* const material =
+			MaterialBuilder::BuildDefault2DMaterial(
+				eRenderPriorityType::Opqaue, L"Animator2D", eResTexture::door);
+		gResourceManager->Insert(L"Animator2D", material);
+	}
+
 	loadUIMaterial();
 
 	{
@@ -157,9 +177,7 @@ void Content::loadMaterial()
 		gResourceManager->Insert(L"Tile", material);
 	}
 
-
-
-
+	
 
 
 }

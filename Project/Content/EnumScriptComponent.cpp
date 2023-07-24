@@ -7,11 +7,15 @@
 #include "ChildTest.h"
 #include "Chinatown04Controller.h"
 #include "CursorMovement.h"
+#include "GridPainter.h"
 #include "InputMovementTest.h"
 #include "LerpTest.h"
 #include "NoiseTest.h"
 #include "ParentTest.h"
+#include "PickPixelTest.h"
+#include "PlayerController.h"
 #include "PlayerMovementTest.h"
+#include "Rect2DInterpolation.h"
 #include "ShiftController.h"
 #include "TestScript.h"
 #include "UIEffect.h"
@@ -24,11 +28,15 @@ static constexpr const wchar_t* const ScriptComponentNames[static_cast<UINT>(eSc
 	L"ChildTest",
 	L"Chinatown04Controller",
 	L"CursorMovement",
+	L"GridPainter",
 	L"InputMovementTest",
 	L"LerpTest",
 	L"NoiseTest",
 	L"ParentTest",
+	L"PickPixelTest",
+	L"PlayerController",
 	L"PlayerMovementTest",
+	L"Rect2DInterpolation",
 	L"ShiftController",
 	L"TestScript",
 	L"UIEffect",
@@ -56,6 +64,8 @@ ScriptComponent* CreateScriptComponentByName(const std::wstring& scriptcomponent
 		scriptcomponent = new Chinatown04Controller;
 	else if (L"CursorMovement" == scriptcomponentName)
 		scriptcomponent = new CursorMovement;
+	else if (L"GridPainter" == scriptcomponentName)
+		scriptcomponent = new GridPainter;
 	else if (L"InputMovementTest" == scriptcomponentName)
 		scriptcomponent = new InputMovementTest;
 	else if (L"LerpTest" == scriptcomponentName)
@@ -64,8 +74,14 @@ ScriptComponent* CreateScriptComponentByName(const std::wstring& scriptcomponent
 		scriptcomponent = new NoiseTest;
 	else if (L"ParentTest" == scriptcomponentName)
 		scriptcomponent = new ParentTest;
+	else if (L"PickPixelTest" == scriptcomponentName)
+		scriptcomponent = new PickPixelTest;
+	else if (L"PlayerController" == scriptcomponentName)
+		scriptcomponent = new PlayerController;
 	else if (L"PlayerMovementTest" == scriptcomponentName)
 		scriptcomponent = new PlayerMovementTest;
+	else if (L"Rect2DInterpolation" == scriptcomponentName)
+		scriptcomponent = new Rect2DInterpolation;
 	else if (L"ShiftController" == scriptcomponentName)
 		scriptcomponent = new ShiftController;
 	else if (L"TestScript" == scriptcomponentName)
@@ -101,6 +117,9 @@ ScriptComponent* CreateScriptComponentByEnum(const eScriptComponentType type)
 	case eScriptComponentType::CursorMovement:
 		scriptcomponent = new CursorMovement;
 		break;
+	case eScriptComponentType::GridPainter:
+		scriptcomponent = new GridPainter;
+		break;
 	case eScriptComponentType::InputMovementTest:
 		scriptcomponent = new InputMovementTest;
 		break;
@@ -113,8 +132,17 @@ ScriptComponent* CreateScriptComponentByEnum(const eScriptComponentType type)
 	case eScriptComponentType::ParentTest:
 		scriptcomponent = new ParentTest;
 		break;
+	case eScriptComponentType::PickPixelTest:
+		scriptcomponent = new PickPixelTest;
+		break;
+	case eScriptComponentType::PlayerController:
+		scriptcomponent = new PlayerController;
+		break;
 	case eScriptComponentType::PlayerMovementTest:
 		scriptcomponent = new PlayerMovementTest;
+		break;
+	case eScriptComponentType::Rect2DInterpolation:
+		scriptcomponent = new Rect2DInterpolation;
 		break;
 	case eScriptComponentType::ShiftController:
 		scriptcomponent = new ShiftController;
