@@ -10,6 +10,7 @@ enum class eComponentType
 	Camera,
 	CircleCollider2D,
 	RectCollider2D,
+	Rigidbody2D,
 	SpriteRenderer,
 	End,
 	ScriptComponent

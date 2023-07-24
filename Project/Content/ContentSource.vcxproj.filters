@@ -288,6 +288,9 @@
     <ClInclude Include="PlayerWallSlideState.h">
       <Filter>Source\FSM\Player\State</Filter>
     </ClInclude>
+    <ClInclude Include="Rect2DInterpolation.h">
+      <Filter>Source\01. ScriptComponent</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -442,6 +445,9 @@
     </ClCompile>
     <ClCompile Include="PlayerWallSlideState.cpp">
       <Filter>Source\FSM\Player\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Rect2DInterpolation.cpp">
+      <Filter>Source\01. ScriptComponent</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

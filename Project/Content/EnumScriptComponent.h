@@ -19,6 +19,7 @@ enum class eScriptComponentType
 	PickPixelTest,
 	PlayerController,
 	PlayerMovementTest,
+	Rect2DInterpolation,
 	ShiftController,
 	TestScript,
 	UIEffect,

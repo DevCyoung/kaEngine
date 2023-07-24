@@ -15,6 +15,7 @@
 #include "PickPixelTest.h"
 #include "PlayerController.h"
 #include "PlayerMovementTest.h"
+#include "Rect2DInterpolation.h"
 #include "ShiftController.h"
 #include "TestScript.h"
 #include "UIEffect.h"
@@ -35,6 +36,7 @@ static constexpr const wchar_t* const ScriptComponentNames[static_cast<UINT>(eSc
 	L"PickPixelTest",
 	L"PlayerController",
 	L"PlayerMovementTest",
+	L"Rect2DInterpolation",
 	L"ShiftController",
 	L"TestScript",
 	L"UIEffect",
@@ -78,6 +80,8 @@ ScriptComponent* CreateScriptComponentByName(const std::wstring& scriptcomponent
 		scriptcomponent = new PlayerController;
 	else if (L"PlayerMovementTest" == scriptcomponentName)
 		scriptcomponent = new PlayerMovementTest;
+	else if (L"Rect2DInterpolation" == scriptcomponentName)
+		scriptcomponent = new Rect2DInterpolation;
 	else if (L"ShiftController" == scriptcomponentName)
 		scriptcomponent = new ShiftController;
 	else if (L"TestScript" == scriptcomponentName)
@@ -136,6 +140,9 @@ ScriptComponent* CreateScriptComponentByEnum(const eScriptComponentType type)
 		break;
 	case eScriptComponentType::PlayerMovementTest:
 		scriptcomponent = new PlayerMovementTest;
+		break;
+	case eScriptComponentType::Rect2DInterpolation:
+		scriptcomponent = new Rect2DInterpolation;
 		break;
 	case eScriptComponentType::ShiftController:
 		scriptcomponent = new ShiftController;

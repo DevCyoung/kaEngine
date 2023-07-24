@@ -208,6 +208,10 @@ call ScriptGen.exe Component $(SolutionDir)Project\Engine $(SolutionDir)Project\
       </SubType>
     </ClInclude>
     <ClInclude Include="GameSystem.h" />
+    <ClInclude Include="Rigidbody2D.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="SMCollection.h" />
     <ClInclude Include="Prefab.h" />
     <ClInclude Include="RenderComponent.h">
@@ -292,6 +296,10 @@ call ScriptGen.exe Component $(SolutionDir)Project\Engine $(SolutionDir)Project\
       </SubType>
     </ClCompile>
     <ClCompile Include="GameSystem.cpp" />
+    <ClCompile Include="Rigidbody2D.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="SMCollection.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Layer.cpp" />

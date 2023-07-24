@@ -15,14 +15,14 @@
 #include <Engine/EngineMath.h>
 #include "LerpTest.h"
 #include <Engine/CollisionManagement2D.h>
-#include "InputMovementTest.h"
+#include "InputMovementTest.h"	
 #include "ChildTest.h"
 #include "ParentTest.h"
-
+#include <Engine/Color.h>
 TItleScene::TItleScene()
 {
 
-	SetBackgroundColor(Vector4(0.f, 0.f, 0.f, 1.f));
+	SetBackgroundColor(helper::Color::BLACK);
 
 	mCollisionManagement2D->TurnOffAllCollisionLayer();
 
@@ -34,7 +34,8 @@ TItleScene::TItleScene()
 	mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Mouse, eLayerType::Satellite);
 
 	//Title
-
+	
+#pragma region Material
 	{
 		Material* const material =
 			MaterialBuilder::BuildDefault2DMaterial(
@@ -85,6 +86,9 @@ TItleScene::TItleScene()
 		gResourceManager->Insert(L"TitlePlant", material);
 	}
 
+#pragma endregion
+
+#pragma region GameObject
 
 	const Vector2& SCREEN_SIZE = gEngine->GetRenderTargetSize();
 
@@ -93,65 +97,66 @@ TItleScene::TItleScene()
 	backgroundParent->GetComponent<Transform>()->SetScale(2.0f, 2.0f, 1.f);
 	{
 		{
-			GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"TitleBackGround");
+			GameObject* const background = GameObjectBuilder::BuildDefault2DGameObject(L"TitleBackGround");
 
-			obj->GetComponent<Transform>()->SetPosition(0.f, 0.f, 32.f);
-			obj->SetParent(backgroundParent);
-			AddGameObject(obj, eLayerType::Default);
+			background->GetComponent<Transform>()->SetPosition(0.f, 0.f, 32.f);
+			background->SetParent(backgroundParent);
+			AddGameObject(background, eLayerType::Default);
 		}
 
 		{
-			GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"TitleFence");
+			GameObject* const fence = GameObjectBuilder::BuildDefault2DGameObject(L"TitleFence");
 
-			obj->GetComponent<Transform>()->SetPosition(0.f, 0.f, 30.f);
-			obj->SetParent(backgroundParent);
-			AddGameObject(obj, eLayerType::Default);
+			fence->GetComponent<Transform>()->SetPosition(0.f, 0.f, 30.f);
+			fence->SetParent(backgroundParent);
+			AddGameObject(fence, eLayerType::Default);
 		}
 
 		{
-			GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"TitleGrass");
+			GameObject* const grass = GameObjectBuilder::BuildDefault2DGameObject(L"TitleGrass");
 
-			obj->GetComponent<Transform>()->SetPosition(0.f, -320.f, 30.f);
-			obj->SetParent(backgroundParent);
-			AddGameObject(obj, eLayerType::Default);
+			grass->GetComponent<Transform>()->SetPosition(0.f, -320.f, 30.f);
+			grass->SetParent(backgroundParent);
+			AddGameObject(grass, eLayerType::Default);
 		}
 
 		{
-			GameObject* const obj = new GameObject();
+			GameObject* const plants = new GameObject();
+			plants->GetComponent<Transform>()->SetPosition(0.f, -175.f, 30.f);
+			plants->GetComponent<Transform>()->SetScale(1.0f, 1.0f, 1.0f);
 			//gResourceManager->LoadByEnum<Texture>(eResTexture::Atlas_Title_Plants);
 
 			Texture* const atlas = gResourceManager->FindByEnum<Texture>(eResTexture::Atlas_Title_Plants);
 
 
-			obj->AddComponent<Animator2D>();
+			plants->AddComponent<Animator2D>();
 
-			Animator2D* const animator = obj->GetComponent< Animator2D>();
+			Animator2D* const animator = plants->GetComponent< Animator2D>();
 
 			animator->CreateAnimation(L"TitlePlant", atlas, 12, XMUINT2(5, 34),
-				XMUINT2(640, 360), XMUINT2(10, 10), XMINT2(0,0), 0.08f);
+				XMUINT2(640, 360), XMUINT2(10, 10), XMINT2(0, 0), 0.08f);
 
 			animator->SetMaterial(gResourceManager->FindOrNull<Material>(L"Animator2D"));
 			animator->SetMesh(gResourceManager->FindOrNull<Mesh>(L"FillRect2D"));
 
 			animator->SetBackSize(XMUINT2(3000, 3000));
 			animator->Play(L"TitlePlant", true);
-
-			obj->GetComponent<Transform>()->SetPosition(0.f, -230.f, 29.f);
-			obj->SetParent(backgroundParent);
-			AddGameObject(obj, eLayerType::Default);
+			
+			plants->SetParent(backgroundParent);
+			AddGameObject(plants, eLayerType::Default);
 		}
 	}
 	AddGameObject(backgroundParent, eLayerType::Default);
 
 
 
-	GameObject* const graphicParent = new GameObject();		
+	GameObject* const graphicParent = new GameObject();
 	graphicParent->GetComponent<Transform>()->SetScale(1.5f, 1.5f, 1.f);
-	graphicParent->GetComponent<Transform>()->SetPosition(0.f, -40.f, 0.f);
+	graphicParent->GetComponent<Transform>()->SetPosition(0.f, -10.f, 0.f);
 
 	{
 		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"TitleGraphic1");
-				
+
 		obj->GetComponent<Transform>()->SetPosition(0.f, 50.f, 31.f);
 		obj->SetParent(graphicParent);
 		AddGameObject(obj, eLayerType::Default);
@@ -159,7 +164,7 @@ TItleScene::TItleScene()
 
 	{
 		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"TitleGraphic2");
-		
+
 		obj->GetComponent<Transform>()->SetPosition(0.f, 50.f, 31.f);
 		obj->SetParent(graphicParent);
 		AddGameObject(obj, eLayerType::Default);
@@ -167,7 +172,7 @@ TItleScene::TItleScene()
 
 	{
 		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"TitleGraphic");
-		
+
 		obj->GetComponent<Transform>()->SetPosition(0.f, 100.f, 31.f);
 		obj->SetParent(graphicParent);
 		AddGameObject(obj, eLayerType::Default);
@@ -205,6 +210,8 @@ TItleScene::TItleScene()
 
 		AddGameObject(uiCamera, eLayerType::Default);
 	}
+#pragma endregion
+
 }
 
 TItleScene::~TItleScene()

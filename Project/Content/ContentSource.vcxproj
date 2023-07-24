@@ -262,6 +262,10 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
     <ClInclude Include="PlayerRunState.h" />
     <ClInclude Include="PlayerState.h" />
     <ClInclude Include="PlayerWallSlideState.h" />
+    <ClInclude Include="Rect2DInterpolation.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="ShiftController.h">
       <SubType>
@@ -374,6 +378,10 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
     <ClCompile Include="PlayerRunState.cpp" />
     <ClCompile Include="PlayerState.cpp" />
     <ClCompile Include="PlayerWallSlideState.cpp" />
+    <ClCompile Include="Rect2DInterpolation.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="ShiftController.cpp">
       <SubType>
       </SubType>

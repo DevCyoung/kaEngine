@@ -378,6 +378,9 @@
     <ClInclude Include="Color.h">
       <Filter>Source\Helper\Color</Filter>
     </ClInclude>
+    <ClInclude Include="Rigidbody2D.h">
+      <Filter>Source\03. Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Entity.cpp">
@@ -532,6 +535,9 @@
     </ClCompile>
     <ClCompile Include="Color.cpp">
       <Filter>Source\Helper\Color</Filter>
+    </ClCompile>
+    <ClCompile Include="Rigidbody2D.cpp">
+      <Filter>Source\03. Component</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

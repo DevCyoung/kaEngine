@@ -25,6 +25,8 @@
 #include "GridPainter.h"
 #include <Engine/Color.h>
 #include "PickPixelTest.h"
+#include "Rect2DInterpolation.h"
+
 Chinatown01Scene::Chinatown01Scene()
 {
 	SetBackgroundColor(Vector4(0.5294f, 0.5254f, 0.7843f, 1.f));
@@ -90,26 +92,28 @@ Chinatown01Scene::Chinatown01Scene()
 		AddGameObject(obj, eLayerType::BackGround);
 	}
 
+	//{
+	//	GameObject* const obj = new GameObject();
+	//	
+	//	obj->AddComponent<RectCollider2D>();
+	//
+	//	obj->GetComponent<RectCollider2D>()->SetSize(100.f, 100.f);
+	//	obj->GetComponent<Transform>()->SetPosition(0, 0, 1.f);
+	//
+	//
+	//	AddGameObject(obj, eLayerType::Default);
+	//}
+	//
+
 	{
 		GameObject* const obj = new GameObject();
 		
 		obj->AddComponent<RectCollider2D>();
-
+		obj->SetName(L"Wall");
+		
 		obj->GetComponent<RectCollider2D>()->SetSize(100.f, 100.f);
-		obj->GetComponent<Transform>()->SetPosition(0, 0, 1.f);
-
-
-		AddGameObject(obj, eLayerType::Default);
-	}
-
-	{
-		GameObject* const obj = new GameObject();
-
-		obj->AddComponent<RectCollider2D>();
-
-		obj->GetComponent<RectCollider2D>()->SetSize(100.f, 100.f);
-		obj->GetComponent<Transform>()->SetPosition(100.0f, 0, 1.f);
-
+		obj->GetComponent<Transform>()->SetPosition(0.f, -300.f, 1.f);
+		
 		AddGameObject(obj, eLayerType::Default);
 	}
 
@@ -119,6 +123,8 @@ Chinatown01Scene::Chinatown01Scene()
 	//Map
 	{
 		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"Chanatown01TileMap");
+
+		
 
 		obj->AddComponent<GridPainter>();		
 
@@ -132,7 +138,7 @@ Chinatown01Scene::Chinatown01Scene()
 
 	{
 		GameObject* const player = new GameObject();
-
+		player->SetName(L"Player");
 		//Animation
 		{
 			player->GetComponent<Transform>()->SetPosition(0.f, 160.f, -1.f);
@@ -197,6 +203,17 @@ Chinatown01Scene::Chinatown01Scene()
 
 			//anim->Play(L"Run", true);
 		}
+
+		player->AddComponent<Rigidbody2D>();
+		player->AddComponent<Rect2DInterpolation>();
+		player->AddComponent<RectCollider2D>();
+
+
+		player->GetComponent<Animator2D>()->Play(L"Idle", true);
+		player->GetComponent<Rigidbody2D>()->TurnOnGravity();
+		player->GetComponent<RectCollider2D>()->SetSize(28.f, 42.f);
+		player->GetComponent<RectCollider2D>()->SetOffset(Vector2(0.f, 4.f));
+
 	
 
 		AddGameObject(player, eLayerType::Default);
