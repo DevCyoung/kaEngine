@@ -78,6 +78,12 @@ void PlayerFSM::GlobalUpdate()
 		mOwner->GetComponent<Animator2D>()->Play(L"Run", true);		
 	}
 
+	Rigidbody2D* const rigidbody = mOwner->GetComponent<Rigidbody2D>();
+
+	if (gInput->GetKeyDown(eKeyCode::X))
+	{
+		rigidbody->SetVelocity(Vector2::Up * 300.f);
+	}
 
 
 }

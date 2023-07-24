@@ -111,7 +111,7 @@ Chinatown01Scene::Chinatown01Scene()
 		obj->AddComponent<RectCollider2D>();
 		obj->SetName(L"Wall");
 		
-		obj->GetComponent<RectCollider2D>()->SetSize(100.f, 100.f);
+		obj->GetComponent<RectCollider2D>()->SetSize(1000.f, 100.f);
 		obj->GetComponent<Transform>()->SetPosition(0.f, -300.f, 1.f);
 		
 		AddGameObject(obj, eLayerType::Default);
@@ -210,7 +210,11 @@ Chinatown01Scene::Chinatown01Scene()
 
 
 		player->GetComponent<Animator2D>()->Play(L"Idle", true);
+
 		player->GetComponent<Rigidbody2D>()->TurnOnGravity();
+		player->GetComponent<Rigidbody2D>()->SetGravityAccel(300.f);
+
+
 		player->GetComponent<RectCollider2D>()->SetSize(28.f, 42.f);
 		player->GetComponent<RectCollider2D>()->SetOffset(Vector2(0.f, 4.f));
 

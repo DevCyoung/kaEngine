@@ -43,5 +43,10 @@ void Rect2DInterpolation::onCollisionStay(Collider2D* other)
 
 void Rect2DInterpolation::onCollisionExit(Collider2D* other)
 {
+    Rigidbody2D* const rigidbody = GetOwner()->GetComponent<Rigidbody2D>();
+
+    rigidbody->TurnOffGround();
+    rigidbody->TurnOnGravity();
+
     (void)other;
 }
