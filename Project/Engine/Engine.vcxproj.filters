@@ -118,21 +118,6 @@
     <Filter Include="Source\00. Engine\01. Graphics\StructCB">
       <UniqueIdentifier>{75d05b67-be0b-4438-b5be-231eb5b0122a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Windows">
-      <UniqueIdentifier>{fa146637-41d5-4cfd-a22f-e855ac8d7bc2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Windows\Extern">
-      <UniqueIdentifier>{76c9455a-0147-49a4-8582-413a530bd265}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Windows\Extern\MicrosoftTex">
-      <UniqueIdentifier>{9e4a9ccb-9191-42b7-b96f-fcf1c16a86a7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Windows\Extern\MicrosoftMath">
-      <UniqueIdentifier>{b6269c47-ecb2-4beb-902d-116f19f3c122}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Windows\diff">
-      <UniqueIdentifier>{21b12c7c-f83e-496c-a646-ca9e8834ddc3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\05. Scene\TestScene">
       <UniqueIdentifier>{1bdced3a-2ec9-4e93-a046-e10250202f05}</UniqueIdentifier>
     </Filter>
@@ -144,27 +129,6 @@
     </Filter>
     <Filter Include="Source\09. Phsics2D">
       <UniqueIdentifier>{e40b0369-6285-45f0-9b44-af71ec486f75}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Windows\Helper">
-      <UniqueIdentifier>{c549a15d-9112-48dc-b1ab-cc8178f448bc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Windows\Helper\File">
-      <UniqueIdentifier>{2d9164a7-f9d1-44ba-b093-7a129be4a17c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Windows\Helper\String">
-      <UniqueIdentifier>{8a8f7d10-2e43-4c78-93bc-2cd3bc497544}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Windows\Helper\Math">
-      <UniqueIdentifier>{c6fe055c-5313-4b7b-b8b0-9caf2912f921}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Windows\Helper\SafeDelete">
-      <UniqueIdentifier>{aeb89aa9-f7a8-4330-9142-7dcf545eaa7f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Windows\Helper\Singleton">
-      <UniqueIdentifier>{ee78ce07-d9a5-4e30-bcf8-2e77dbd9fa7d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Windows\Helper\Include">
-      <UniqueIdentifier>{75a58b25-b5b9-4fcb-ab41-d8b4a2cbedb8}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source\10. GameSystem">
       <UniqueIdentifier>{890121bb-341b-43f0-8960-4b5690f7b86a}</UniqueIdentifier>
@@ -181,6 +145,45 @@
     <Filter Include="Source\03. Component\04. Collision\Rect">
       <UniqueIdentifier>{f3f68da6-3700-4d64-8527-a885e1d826d2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Helper">
+      <UniqueIdentifier>{c549a15d-9112-48dc-b1ab-cc8178f448bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Helper\File">
+      <UniqueIdentifier>{2d9164a7-f9d1-44ba-b093-7a129be4a17c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Helper\String">
+      <UniqueIdentifier>{8a8f7d10-2e43-4c78-93bc-2cd3bc497544}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Helper\Math">
+      <UniqueIdentifier>{c6fe055c-5313-4b7b-b8b0-9caf2912f921}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Helper\SafeDelete">
+      <UniqueIdentifier>{aeb89aa9-f7a8-4330-9142-7dcf545eaa7f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Helper\Singleton">
+      <UniqueIdentifier>{ee78ce07-d9a5-4e30-bcf8-2e77dbd9fa7d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Helper\Include">
+      <UniqueIdentifier>{75a58b25-b5b9-4fcb-ab41-d8b4a2cbedb8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Helper\Color">
+      <UniqueIdentifier>{f8d2bd68-04f3-4972-ab4d-9d26af22791b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Windows">
+      <UniqueIdentifier>{fa146637-41d5-4cfd-a22f-e855ac8d7bc2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Windows\Extern">
+      <UniqueIdentifier>{76c9455a-0147-49a4-8582-413a530bd265}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Windows\Extern\MicrosoftTex">
+      <UniqueIdentifier>{9e4a9ccb-9191-42b7-b96f-fcf1c16a86a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Windows\Extern\MicrosoftMath">
+      <UniqueIdentifier>{b6269c47-ecb2-4beb-902d-116f19f3c122}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Windows\diff">
+      <UniqueIdentifier>{21b12c7c-f83e-496c-a646-ca9e8834ddc3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Entity.h">
@@ -190,10 +193,10 @@
       <Filter>Source\01. Manager\00. Time</Filter>
     </ClInclude>
     <ClInclude Include="framework.h">
-      <Filter>Source\Windows</Filter>
+      <Filter>Windows</Filter>
     </ClInclude>
     <ClInclude Include="pch.h">
-      <Filter>Source\Windows</Filter>
+      <Filter>Windows</Filter>
     </ClInclude>
     <ClInclude Include="GraphicDeviceDX11.h">
       <Filter>Source\00. Engine\01. Graphics</Filter>
@@ -202,13 +205,13 @@
       <Filter>Source\01. Manager\01. Input</Filter>
     </ClInclude>
     <ClInclude Include="Singleton.h">
-      <Filter>Source\Windows\Helper\Singleton</Filter>
+      <Filter>Source\Helper\Singleton</Filter>
     </ClInclude>
     <ClInclude Include="EngineIncludes.h">
-      <Filter>Source\Windows\Helper\Include</Filter>
+      <Filter>Source\Helper\Include</Filter>
     </ClInclude>
     <ClInclude Include="EnumFlag.h">
-      <Filter>Source\Windows\Helper\Include</Filter>
+      <Filter>Source\Helper\Include</Filter>
     </ClInclude>
     <ClInclude Include="Textrue.h">
       <Filter>Source\06. Resource\00. Texture</Filter>
@@ -217,7 +220,7 @@
       <Filter>Source\06. Resource\03. Shader</Filter>
     </ClInclude>
     <ClInclude Include="String.h">
-      <Filter>Source\Windows\Helper\String</Filter>
+      <Filter>Source\Helper\String</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.h">
       <Filter>Source\02. GameObject</Filter>
@@ -244,7 +247,7 @@
       <Filter>Source\03. Component\01. Transform</Filter>
     </ClInclude>
     <ClInclude Include="SafeDelete.h">
-      <Filter>Source\Windows\Helper\SafeDelete</Filter>
+      <Filter>Source\Helper\SafeDelete</Filter>
     </ClInclude>
     <ClInclude Include="Engine.h">
       <Filter>Source\00. Engine</Filter>
@@ -268,10 +271,10 @@
       <Filter>Source\06. Resource</Filter>
     </ClInclude>
     <ClInclude Include="DirectXTex.h">
-      <Filter>Source\Windows\Extern\MicrosoftTex</Filter>
+      <Filter>Windows\Extern\MicrosoftTex</Filter>
     </ClInclude>
     <ClInclude Include="DXMath.h">
-      <Filter>Source\Windows\Extern\MicrosoftMath</Filter>
+      <Filter>Windows\Extern\MicrosoftMath</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>Source\03. Component\02. Camera</Filter>
@@ -280,7 +283,7 @@
       <Filter>Source\01. Manager\04. Message</Filter>
     </ClInclude>
     <ClInclude Include="DefineMacro.h">
-      <Filter>Source\Windows</Filter>
+      <Filter>Windows</Filter>
     </ClInclude>
     <ClInclude Include="DSCollection.h">
       <Filter>Source\00. Engine\01. Graphics\Collection\02. DS</Filter>
@@ -313,7 +316,7 @@
       <Filter>Source\07. Render</Filter>
     </ClInclude>
     <ClInclude Include="EngineMath.h">
-      <Filter>Source\Windows\Helper\Math</Filter>
+      <Filter>Source\Helper\Math</Filter>
     </ClInclude>
     <ClInclude Include="EnumResource.h">
       <Filter>Source\06. Resource</Filter>
@@ -372,6 +375,9 @@
     <ClInclude Include="Animation2D.h">
       <Filter>Source\03. Component\03. Render\01. Animator</Filter>
     </ClInclude>
+    <ClInclude Include="Color.h">
+      <Filter>Source\Helper\Color</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Entity.cpp">
@@ -393,7 +399,7 @@
       <Filter>Source\06. Resource\03. Shader</Filter>
     </ClCompile>
     <ClCompile Include="String.cpp">
-      <Filter>Source\Windows\Helper\String</Filter>
+      <Filter>Source\Helper\String</Filter>
     </ClCompile>
     <ClCompile Include="GameObject.cpp">
       <Filter>Source\02. GameObject</Filter>
@@ -408,7 +414,7 @@
       <Filter>Source\01. Manager\02. Scene</Filter>
     </ClCompile>
     <ClCompile Include="pch.cpp">
-      <Filter>Source\Windows</Filter>
+      <Filter>Windows</Filter>
     </ClCompile>
     <ClCompile Include="CBCollection.cpp">
       <Filter>Source\00. Engine\01. Graphics\Collection\01. CB</Filter>
@@ -423,7 +429,7 @@
       <Filter>Source\03. Component\01. Transform</Filter>
     </ClCompile>
     <ClCompile Include="SafeDelete.cpp">
-      <Filter>Source\Windows\Helper\SafeDelete</Filter>
+      <Filter>Source\Helper\SafeDelete</Filter>
     </ClCompile>
     <ClCompile Include="ResourceManager.cpp">
       <Filter>Source\01. Manager\05. Resource</Filter>
@@ -444,7 +450,7 @@
       <Filter>Source\00. Engine\01. Graphics\StructCB</Filter>
     </ClCompile>
     <ClCompile Include="DXMath.cpp">
-      <Filter>Source\Windows\Extern\MicrosoftMath</Filter>
+      <Filter>Windows\Extern\MicrosoftMath</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>Source\03. Component\02. Camera</Filter>
@@ -471,7 +477,7 @@
       <Filter>Source\03. Component\00. Component\00. Enum</Filter>
     </ClCompile>
     <ClCompile Include="EngineMath.cpp">
-      <Filter>Source\Windows\Helper\Math</Filter>
+      <Filter>Source\Helper\Math</Filter>
     </ClCompile>
     <ClCompile Include="Prefab.cpp">
       <Filter>Source\06. Resource\08. Prefab</Filter>
@@ -524,16 +530,19 @@
     <ClCompile Include="Animation2D.cpp">
       <Filter>Source\03. Component\03. Render\01. Animator</Filter>
     </ClCompile>
+    <ClCompile Include="Color.cpp">
+      <Filter>Source\Helper\Color</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="DirectXTex.inl">
-      <Filter>Source\Windows\Extern\MicrosoftTex</Filter>
+      <Filter>Windows\Extern\MicrosoftTex</Filter>
     </None>
     <None Include="DXMath.inl">
-      <Filter>Source\Windows\Extern\MicrosoftMath</Filter>
+      <Filter>Windows\Extern\MicrosoftMath</Filter>
     </None>
     <None Include="dpend.diff">
-      <Filter>Source\Windows\diff</Filter>
+      <Filter>Windows\diff</Filter>
     </None>
   </ItemGroup>
 </Project>

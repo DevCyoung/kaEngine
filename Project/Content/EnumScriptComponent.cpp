@@ -7,6 +7,7 @@
 #include "ChildTest.h"
 #include "Chinatown04Controller.h"
 #include "CursorMovement.h"
+#include "GridPainter.h"
 #include "InputMovementTest.h"
 #include "LerpTest.h"
 #include "NoiseTest.h"
@@ -26,6 +27,7 @@ static constexpr const wchar_t* const ScriptComponentNames[static_cast<UINT>(eSc
 	L"ChildTest",
 	L"Chinatown04Controller",
 	L"CursorMovement",
+	L"GridPainter",
 	L"InputMovementTest",
 	L"LerpTest",
 	L"NoiseTest",
@@ -60,6 +62,8 @@ ScriptComponent* CreateScriptComponentByName(const std::wstring& scriptcomponent
 		scriptcomponent = new Chinatown04Controller;
 	else if (L"CursorMovement" == scriptcomponentName)
 		scriptcomponent = new CursorMovement;
+	else if (L"GridPainter" == scriptcomponentName)
+		scriptcomponent = new GridPainter;
 	else if (L"InputMovementTest" == scriptcomponentName)
 		scriptcomponent = new InputMovementTest;
 	else if (L"LerpTest" == scriptcomponentName)
@@ -108,6 +112,9 @@ ScriptComponent* CreateScriptComponentByEnum(const eScriptComponentType type)
 		break;
 	case eScriptComponentType::CursorMovement:
 		scriptcomponent = new CursorMovement;
+		break;
+	case eScriptComponentType::GridPainter:
+		scriptcomponent = new GridPainter;
 		break;
 	case eScriptComponentType::InputMovementTest:
 		scriptcomponent = new InputMovementTest;

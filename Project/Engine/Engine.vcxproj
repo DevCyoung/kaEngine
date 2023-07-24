@@ -180,6 +180,7 @@ call ScriptGen.exe Component $(SolutionDir)Project\Engine $(SolutionDir)Project\
       </SubType>
     </ClInclude>
     <ClInclude Include="CollisionManagement2D.h" />
+    <ClInclude Include="Color.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="ComponentTrait.h" />
     <ClInclude Include="DebugRenderer2D.h">
@@ -269,6 +270,7 @@ call ScriptGen.exe Component $(SolutionDir)Project\Engine $(SolutionDir)Project\
       </SubType>
     </ClCompile>
     <ClCompile Include="CollisionManagement2D.cpp" />
+    <ClCompile Include="Color.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="ConstantBuffer.cpp" />
     <ClCompile Include="DebugRenderer2D.cpp">

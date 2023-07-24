@@ -44,12 +44,12 @@ namespace helper
 	}
 
 	XMINT2 GridIndex(const Vector3& selectWorldPos,
-		const Vector2& cellSize, const XMUINT2& tileCountXY)
+		const Vector2& cellSize, const XMUINT2& tileCount)
 	{
 		Vector2 selectPointToCenterPos = Vector2(selectWorldPos.x, -selectWorldPos.y);
 
-		selectPointToCenterPos.x += (cellSize.x * tileCountXY.x) / 2.f;
-		selectPointToCenterPos.y += (cellSize.y * tileCountXY.y) / 2.f;
+		selectPointToCenterPos.x += (cellSize.x * tileCount.x) / 2.f;
+		selectPointToCenterPos.y += (cellSize.y * tileCount.y) / 2.f;
 
 		int x = static_cast<int>(selectPointToCenterPos.x / cellSize.x);
 		int y = static_cast<int>(selectPointToCenterPos.y / cellSize.y);
@@ -67,12 +67,12 @@ namespace helper
 	}
 
 	Vector3 GridIndexToWorldPosition(const XMINT2& gridIndex,
-		const Vector2& cellSize, const XMUINT2& tileCountXY)
+		const Vector2& cellSize, const XMUINT2& tileCount)
 	{
 		Vector3 rectPos = Vector3::Zero;
 
-		rectPos.x -= (cellSize.x * tileCountXY.x) / 2;
-		rectPos.y += (cellSize.y * tileCountXY.y) / 2;
+		rectPos.x -= (cellSize.x * tileCount.x) / 2;
+		rectPos.y += (cellSize.y * tileCount.y) / 2;
 
 		rectPos.x += (gridIndex.x * cellSize.x) + (cellSize.x / 2);
 		rectPos.y -= (gridIndex.y * cellSize.y) + (cellSize.y / 2);
@@ -80,12 +80,12 @@ namespace helper
 		return rectPos;
 	}
 
-	bool IsInGrid(const XMINT2& gridIndex, const XMUINT2& tileCountXY)
+	bool IsInGrid(const XMINT2& gridIndex, const XMUINT2& tileCount)
 	{
 		XMINT2 countXY = {};
 
-		countXY.x = static_cast<int>(tileCountXY.x);
-		countXY.y = static_cast<int>(tileCountXY.y);
+		countXY.x = static_cast<int>(tileCount.x);
+		countXY.y = static_cast<int>(tileCount.y);
 
 		return 0 <= gridIndex.x && gridIndex.x < countXY.x &&
 			0 <= gridIndex.y && gridIndex.y < countXY.y;

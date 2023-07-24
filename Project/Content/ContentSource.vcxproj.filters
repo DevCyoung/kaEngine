@@ -10,21 +10,6 @@
     <Filter Include="Source\00. Content">
       <UniqueIdentifier>{696114eb-0954-476b-85b0-ef47c3412d7f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resources">
-      <UniqueIdentifier>{df7c758c-f2a8-43fd-9b81-4685458a5dcf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ShaderCode">
-      <UniqueIdentifier>{2c32228f-6400-4c12-ba3a-80bcc9e68287}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ShaderCode\Header">
-      <UniqueIdentifier>{abd7499d-ca04-4dfd-b4d0-94b1bb510403}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ShaderCode\Debug">
-      <UniqueIdentifier>{e40c434b-8c6d-410e-abaa-cb5f10dd81d0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ShaderCode\Sprite2D">
-      <UniqueIdentifier>{c87d12e4-e329-4c8d-b9d2-4a66d513ed5b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Windows\diff">
       <UniqueIdentifier>{a3755df9-006f-44d9-9b02-2f1ca79c02bc}</UniqueIdentifier>
     </Filter>
@@ -39,15 +24,6 @@
     </Filter>
     <Filter Include="Source\Helper\UI">
       <UniqueIdentifier>{f941533d-3a3d-44f6-830e-e9959d0a18dc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ShaderCode\Debug\Fill">
-      <UniqueIdentifier>{56924750-d941-47f0-9ad0-d5751dc777bd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ShaderCode\Debug\Line">
-      <UniqueIdentifier>{42f24343-9c0a-4f7f-b0df-4c6daf0472e0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ShaderCode\Debug\Grid">
-      <UniqueIdentifier>{86fb1d1f-6799-44f0-9fbe-64c00bcfe0dc}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source\01. ScriptComponent">
       <UniqueIdentifier>{de857324-cd4d-4a4d-80a7-707699222472}</UniqueIdentifier>
@@ -75,9 +51,6 @@
     </Filter>
     <Filter Include="Source\01. ScriptComponent\Scene">
       <UniqueIdentifier>{cc7e087a-78df-4419-bf59-204d1219fdb7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ShaderCode\Animation2D">
-      <UniqueIdentifier>{0aa6e45d-3d83-43a5-8f60-4cbc676cca7f}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source\01. ScriptComponent\Controller">
       <UniqueIdentifier>{cf4bab5e-0fe1-4d3f-afb9-7f1f0515b5a9}</UniqueIdentifier>
@@ -124,6 +97,36 @@
     <Filter Include="Source\FSM\FSM\State">
       <UniqueIdentifier>{206682db-1b1a-4a7d-b997-d2530a1890d3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\01. ScriptComponent\Painter">
+      <UniqueIdentifier>{a2c84493-1cd2-4ce6-9a07-185f34f86f27}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\ShaderCode">
+      <UniqueIdentifier>{2c32228f-6400-4c12-ba3a-80bcc9e68287}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\ShaderCode\Header">
+      <UniqueIdentifier>{abd7499d-ca04-4dfd-b4d0-94b1bb510403}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\ShaderCode\Debug">
+      <UniqueIdentifier>{e40c434b-8c6d-410e-abaa-cb5f10dd81d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\ShaderCode\Debug\Fill">
+      <UniqueIdentifier>{56924750-d941-47f0-9ad0-d5751dc777bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\ShaderCode\Debug\Line">
+      <UniqueIdentifier>{42f24343-9c0a-4f7f-b0df-4c6daf0472e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\ShaderCode\Debug\Grid">
+      <UniqueIdentifier>{86fb1d1f-6799-44f0-9fbe-64c00bcfe0dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\ShaderCode\Sprite2D">
+      <UniqueIdentifier>{c87d12e4-e329-4c8d-b9d2-4a66d513ed5b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\ShaderCode\Animation2D">
+      <UniqueIdentifier>{0aa6e45d-3d83-43a5-8f60-4cbc676cca7f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Resources">
+      <UniqueIdentifier>{df7c758c-f2a8-43fd-9b81-4685458a5dcf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -136,28 +139,28 @@
       <Filter>Source\00. Content</Filter>
     </ClInclude>
     <ClInclude Include="EnumResourceTypeAnimation.h">
-      <Filter>Resources</Filter>
+      <Filter>Source\Resources</Filter>
     </ClInclude>
     <ClInclude Include="EnumResourceTypeFont.h">
-      <Filter>Resources</Filter>
+      <Filter>Source\Resources</Filter>
     </ClInclude>
     <ClInclude Include="EnumResourceTypeMaterial.h">
-      <Filter>Resources</Filter>
+      <Filter>Source\Resources</Filter>
     </ClInclude>
     <ClInclude Include="EnumResourceTypeMesh.h">
-      <Filter>Resources</Filter>
+      <Filter>Source\Resources</Filter>
     </ClInclude>
     <ClInclude Include="EnumResourceTypeShader.h">
-      <Filter>Resources</Filter>
+      <Filter>Source\Resources</Filter>
     </ClInclude>
     <ClInclude Include="EnumResourceTypeSound.h">
-      <Filter>Resources</Filter>
+      <Filter>Source\Resources</Filter>
     </ClInclude>
     <ClInclude Include="EnumResourceTypeTexture.h">
-      <Filter>Resources</Filter>
+      <Filter>Source\Resources</Filter>
     </ClInclude>
     <ClInclude Include="EnumResourceTypeScene.h">
-      <Filter>Resources</Filter>
+      <Filter>Source\Resources</Filter>
     </ClInclude>
     <ClInclude Include="GameObjectBuilder.h">
       <Filter>Source\Helper\Builder</Filter>
@@ -270,10 +273,21 @@
     <ClInclude Include="PlayerFallState.h">
       <Filter>Source\FSM\Player\State</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerFlipState.h" />
-    <ClInclude Include="PlayerWallSlideState.h" />
-    <ClInclude Include="PlayerDoorState.h" />
-    <ClInclude Include="PlayerDoorBreakFullState.h" />
+    <ClInclude Include="GridPainter.h">
+      <Filter>Source\01. ScriptComponent\Painter</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerDoorBreakFullState.h">
+      <Filter>Source\FSM\Player\State</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerDoorState.h">
+      <Filter>Source\FSM\Player\State</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerFlipState.h">
+      <Filter>Source\FSM\Player\State</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerWallSlideState.h">
+      <Filter>Source\FSM\Player\State</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -283,28 +297,28 @@
       <Filter>Source\00. Content</Filter>
     </ClCompile>
     <ClCompile Include="EnumResourceTypeAnimation.cpp">
-      <Filter>Resources</Filter>
+      <Filter>Source\Resources</Filter>
     </ClCompile>
     <ClCompile Include="EnumResourceTypeFont.cpp">
-      <Filter>Resources</Filter>
+      <Filter>Source\Resources</Filter>
     </ClCompile>
     <ClCompile Include="EnumResourceTypeMaterial.cpp">
-      <Filter>Resources</Filter>
+      <Filter>Source\Resources</Filter>
     </ClCompile>
     <ClCompile Include="EnumResourceTypeMesh.cpp">
-      <Filter>Resources</Filter>
+      <Filter>Source\Resources</Filter>
     </ClCompile>
     <ClCompile Include="EnumResourceTypeShader.cpp">
-      <Filter>Resources</Filter>
+      <Filter>Source\Resources</Filter>
     </ClCompile>
     <ClCompile Include="EnumResourceTypeSound.cpp">
-      <Filter>Resources</Filter>
+      <Filter>Source\Resources</Filter>
     </ClCompile>
     <ClCompile Include="EnumResourceTypeTexture.cpp">
-      <Filter>Resources</Filter>
+      <Filter>Source\Resources</Filter>
     </ClCompile>
     <ClCompile Include="EnumResourceTypeScene.cpp">
-      <Filter>Resources</Filter>
+      <Filter>Source\Resources</Filter>
     </ClCompile>
     <ClCompile Include="GameObjectBuilder.cpp">
       <Filter>Source\Helper\Builder</Filter>
@@ -414,32 +428,43 @@
     <ClCompile Include="PlayerJumpState.cpp">
       <Filter>Source\FSM\Player\State</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerFlipState.cpp" />
-    <ClCompile Include="PlayerWallSlideState.cpp" />
-    <ClCompile Include="PlayerDoorState.cpp" />
-    <ClCompile Include="PlayerDoorBreakFullState.cpp" />
+    <ClCompile Include="GridPainter.cpp">
+      <Filter>Source\01. ScriptComponent\Painter</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerDoorBreakFullState.cpp">
+      <Filter>Source\FSM\Player\State</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerDoorState.cpp">
+      <Filter>Source\FSM\Player\State</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerFlipState.cpp">
+      <Filter>Source\FSM\Player\State</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerWallSlideState.cpp">
+      <Filter>Source\FSM\Player\State</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Output\bin\Resources\Shader\Header\TestShaderHeader.fxh">
-      <Filter>ShaderCode\Header</Filter>
+      <Filter>Source\ShaderCode\Header</Filter>
     </None>
     <None Include="..\..\Output\bin\Resources\Shader\Header\Struct.fxh">
-      <Filter>ShaderCode\Header</Filter>
+      <Filter>Source\ShaderCode\Header</Filter>
     </None>
     <None Include="..\..\Output\bin\Resources\Shader\Header\ConstantBuffer.fxh">
-      <Filter>ShaderCode\Header</Filter>
+      <Filter>Source\ShaderCode\Header</Filter>
     </None>
     <None Include="..\..\Output\bin\Resources\Shader\Header\Sampler.fxh">
-      <Filter>ShaderCode\Header</Filter>
+      <Filter>Source\ShaderCode\Header</Filter>
     </None>
     <None Include="..\..\Output\bin\Resources\Shader\Header\Texture.fxh">
-      <Filter>ShaderCode\Header</Filter>
+      <Filter>Source\ShaderCode\Header</Filter>
     </None>
     <None Include="..\..\Output\bin\Resources\Shader\PSSprite.hlsl">
-      <Filter>ShaderCode\Sprite2D</Filter>
+      <Filter>Source\ShaderCode\Sprite2D</Filter>
     </None>
     <None Include="..\..\Output\bin\Resources\Shader\VSSprite.hlsl">
-      <Filter>ShaderCode\Sprite2D</Filter>
+      <Filter>Source\ShaderCode\Sprite2D</Filter>
     </None>
     <None Include="Material_Res_dpend.diff">
       <Filter>Windows\diff</Filter>
@@ -469,25 +494,25 @@
       <Filter>Windows\diff</Filter>
     </None>
     <None Include="..\..\Output\bin\Resources\Shader\PSFillDebug2D.hlsl">
-      <Filter>ShaderCode\Debug\Fill</Filter>
+      <Filter>Source\ShaderCode\Debug\Fill</Filter>
     </None>
     <None Include="..\..\Output\bin\Resources\Shader\VSLineDebug2D.hlsl">
-      <Filter>ShaderCode\Debug\Line</Filter>
+      <Filter>Source\ShaderCode\Debug\Line</Filter>
     </None>
     <None Include="..\..\Output\bin\Resources\Shader\PSGrid2D.hlsl">
-      <Filter>ShaderCode\Debug\Grid</Filter>
+      <Filter>Source\ShaderCode\Debug\Grid</Filter>
     </None>
     <None Include="..\..\Output\bin\Resources\Shader\VSGrid2D.hlsl">
-      <Filter>ShaderCode\Debug\Grid</Filter>
+      <Filter>Source\ShaderCode\Debug\Grid</Filter>
     </None>
     <None Include="..\..\Output\bin\Resources\Shader\PSLineDebug2D.hlsl">
-      <Filter>ShaderCode\Debug\Line</Filter>
+      <Filter>Source\ShaderCode\Debug\Line</Filter>
     </None>
     <None Include="..\..\Output\bin\Resources\Shader\VSFillDebug2D.hlsl">
-      <Filter>ShaderCode\Debug\Fill</Filter>
+      <Filter>Source\ShaderCode\Debug\Fill</Filter>
     </None>
     <None Include="..\..\Output\bin\Resources\Shader\PSAnimation2D.hlsl">
-      <Filter>ShaderCode\Animation2D</Filter>
+      <Filter>Source\ShaderCode\Animation2D</Filter>
     </None>
   </ItemGroup>
 </Project>

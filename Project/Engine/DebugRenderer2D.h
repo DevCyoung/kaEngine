@@ -104,7 +104,7 @@ private:
 	};
 
 	void renderFill2D(const tDebugDrawInfo& debugDrawInfo) const;
-	void renderGrid2D(const tDebugDrawInfo& debugDrawInfo) const;
+	void renderGrid2D(const tDebugDrawInfo& debugDrawInfo, const Camera* const camera) const;
 	void renderLine2D(const tDebugDrawInfo& debugDrawInfo) const;
 	void render(const Camera* const camera) const;
 	void flush();

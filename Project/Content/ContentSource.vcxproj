@@ -224,6 +224,10 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
       </SubType>
     </ClInclude>
     <ClInclude Include="MaterialBuilder.h" />
+    <ClInclude Include="GridPainter.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="NoiseTest.h">
       <SubType>
       </SubType>
@@ -325,6 +329,10 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
       </SubType>
     </ClCompile>
     <ClCompile Include="MaterialBuilder.cpp" />
+    <ClCompile Include="GridPainter.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="NoiseTest.cpp">
       <SubType>
       </SubType>

@@ -52,7 +52,7 @@ Animation2D::Animation2D(const std::wstring& animName,
 
 		cursorPos.x += frameSize.x + framePad.x;
 
-		if (i != 0 && (i + 1) % MAX_FRAME_COUNT_X == 0)
+		if ((i + 1) % MAX_FRAME_COUNT_X == 0)
 		{
 			cursorPos.x  = startLeft.x;
 			cursorPos.y += frameSize.y + framePad.y;

@@ -325,7 +325,7 @@ void DebugRenderer2D::render(const Camera* const camera) const
 			break;
 
 		case eDebugDrawType::Grid2D:			
-			renderGrid2D(DRAW_INFO);
+			renderGrid2D(DRAW_INFO, camera);
 			break;
 
 		default:
@@ -369,7 +369,7 @@ void DebugRenderer2D::flush()
 		}), mDebugDrawInfos.end());
 }
 
-void DebugRenderer2D::renderGrid2D(const tDebugDrawInfo& debugDrawInfo) const
+void DebugRenderer2D::renderGrid2D(const tDebugDrawInfo& debugDrawInfo, const Camera* const camera) const
 {
 	tCBDebugInfo CBGridInfo = {};
 	{
@@ -380,6 +380,8 @@ void DebugRenderer2D::renderGrid2D(const tDebugDrawInfo& debugDrawInfo) const
 
 		CBGridInfo.Color_0 = debugDrawInfo.OutLineColor;
 		CBGridInfo.Color_1 = debugDrawInfo.FillColor;
+
+		CBGridInfo.Vector4_0 = Vector4(camera->GetCameraSize());
 
 		gGraphicDevice->PassCB(eCBType::DebugInfo, sizeof(CBGridInfo), &CBGridInfo);
 		gGraphicDevice->BindCB(eCBType::DebugInfo, eShaderBindType::PS);

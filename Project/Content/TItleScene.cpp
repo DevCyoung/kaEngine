@@ -117,7 +117,24 @@ TItleScene::TItleScene()
 		}
 
 		{
-			GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"TitlePlant");
+			GameObject* const obj = new GameObject();
+			//gResourceManager->LoadByEnum<Texture>(eResTexture::Atlas_Title_Plants);
+
+			Texture* const atlas = gResourceManager->FindByEnum<Texture>(eResTexture::Atlas_Title_Plants);
+
+
+			obj->AddComponent<Animator2D>();
+
+			Animator2D* const animator = obj->GetComponent< Animator2D>();
+
+			animator->CreateAnimation(L"TitlePlant", atlas, 12, XMUINT2(5, 34),
+				XMUINT2(640, 360), XMUINT2(10, 10), XMINT2(0,0), 0.08f);
+
+			animator->SetMaterial(gResourceManager->FindOrNull<Material>(L"Animator2D"));
+			animator->SetMesh(gResourceManager->FindOrNull<Mesh>(L"FillRect2D"));
+
+			animator->SetBackSize(XMUINT2(3000, 3000));
+			animator->Play(L"TitlePlant", true);
 
 			obj->GetComponent<Transform>()->SetPosition(0.f, -230.f, 29.f);
 			obj->SetParent(backgroundParent);
