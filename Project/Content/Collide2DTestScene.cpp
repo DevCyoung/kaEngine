@@ -31,7 +31,7 @@ Collide2DTestScene::Collide2DTestScene()
 	mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Mouse, eLayerType::Satellite);
 	
 	{
-		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UICursor");
+		GameObject* const obj = GameObjectBuilder::Default2D(L"UICursor");
 		
 		obj->AddComponent<RectCollider2D>();
 		obj->AddComponent<PlayerMovementTest>();
@@ -43,7 +43,7 @@ Collide2DTestScene::Collide2DTestScene()
 		AddGameObject(obj, eLayerType::Default);
 	
 		{
-			GameObject* const child = GameObjectBuilder::BuildDefault2DGameObject(L"UICursor");
+			GameObject* const child = GameObjectBuilder::Default2D(L"UICursor");
 		
 			child->AddComponent<RectCollider2D>();
 			child->AddComponent<PlayerMovementTest>();
@@ -56,7 +56,7 @@ Collide2DTestScene::Collide2DTestScene()
 			AddGameObject(child, eLayerType::Default);
 		
 			{
-				GameObject* const child2 = GameObjectBuilder::BuildDefault2DGameObject(L"UICursor");
+				GameObject* const child2 = GameObjectBuilder::Default2D(L"UICursor");
 		
 				child2->AddComponent<RectCollider2D>();
 				child2->AddComponent<PlayerMovementTest>();
@@ -69,7 +69,7 @@ Collide2DTestScene::Collide2DTestScene()
 				AddGameObject(child2, eLayerType::Default);
 		
 				{
-					GameObject* const child3 = GameObjectBuilder::BuildDefault2DGameObject(L"UICursor");
+					GameObject* const child3 = GameObjectBuilder::Default2D(L"UICursor");
 		
 					child3->AddComponent<CircleCollider2D>();
 					child3->AddComponent<PlayerMovementTest>();
@@ -83,7 +83,7 @@ Collide2DTestScene::Collide2DTestScene()
 				}
 		
 				{
-					GameObject* const child3 = GameObjectBuilder::BuildDefault2DGameObject(L"UICursor");
+					GameObject* const child3 = GameObjectBuilder::Default2D(L"UICursor");
 		
 					child3->AddComponent<CircleCollider2D>();
 					child3->AddComponent<PlayerMovementTest>();
@@ -97,7 +97,7 @@ Collide2DTestScene::Collide2DTestScene()
 				}
 		
 				{
-					GameObject* const child3 = GameObjectBuilder::BuildDefault2DGameObject(L"UICursor");
+					GameObject* const child3 = GameObjectBuilder::Default2D(L"UICursor");
 		
 					child3->AddComponent<CircleCollider2D>();
 					child3->AddComponent<PlayerMovementTest>();
@@ -111,7 +111,7 @@ Collide2DTestScene::Collide2DTestScene()
 				}
 		
 				{
-					GameObject* const child3 = GameObjectBuilder::BuildDefault2DGameObject(L"UICursor");
+					GameObject* const child3 = GameObjectBuilder::Default2D(L"UICursor");
 		
 					child3->AddComponent<CircleCollider2D>();
 					child3->AddComponent<PlayerMovementTest>();
@@ -125,7 +125,7 @@ Collide2DTestScene::Collide2DTestScene()
 					AddGameObject(child3, eLayerType::Satellite);
 		
 					{
-						GameObject* const child4 = GameObjectBuilder::BuildDefault2DGameObject(L"UICursor");
+						GameObject* const child4 = GameObjectBuilder::Default2D(L"UICursor");
 		
 						child4->AddComponent<CircleCollider2D>();
 						child4->AddComponent<ChildTest>();
@@ -145,7 +145,7 @@ Collide2DTestScene::Collide2DTestScene()
 	}
 	
 	{
-		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UICursor");
+		GameObject* const obj = GameObjectBuilder::Default2D(L"UICursor");
 	
 		obj->AddComponent<RectCollider2D>();
 		obj->AddComponent<PlayerMovementTest>();
@@ -158,7 +158,7 @@ Collide2DTestScene::Collide2DTestScene()
 	}
 	
 	{
-		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UICursor");
+		GameObject* const obj = GameObjectBuilder::Default2D(L"UICursor");
 	
 		obj->AddComponent<RectCollider2D>();
 		obj->AddComponent<PlayerMovementTest>();
@@ -171,7 +171,7 @@ Collide2DTestScene::Collide2DTestScene()
 	}
 	
 	{
-		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UICursor");
+		GameObject* const obj = GameObjectBuilder::Default2D(L"UICursor");
 	
 		obj->AddComponent<RectCollider2D>();
 		obj->AddComponent<PlayerMovementTest>();
@@ -183,7 +183,7 @@ Collide2DTestScene::Collide2DTestScene()
 	}
 	
 	{
-		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UICursor");
+		GameObject* const obj = GameObjectBuilder::Default2D(L"UICursor");
 	
 		obj->AddComponent<RectCollider2D>();
 		obj->AddComponent<PlayerMovementTest>();
@@ -196,7 +196,7 @@ Collide2DTestScene::Collide2DTestScene()
 		AddGameObject(obj, eLayerType::Default);
 	
 		{
-			GameObject* const child = GameObjectBuilder::BuildDefault2DGameObject(L"UICursor");
+			GameObject* const child = GameObjectBuilder::Default2D(L"UICursor");
 	
 			child->AddComponent<RectCollider2D>();
 	
@@ -215,7 +215,7 @@ Collide2DTestScene::Collide2DTestScene()
 	
 	
 	{
-		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UICursor");
+		GameObject* const obj = GameObjectBuilder::Default2D(L"UICursor");
 	
 		obj->AddComponent<CircleCollider2D>();
 		obj->AddComponent<PlayerMovementTest>();
@@ -230,7 +230,7 @@ Collide2DTestScene::Collide2DTestScene()
 	}
 	
 	{
-		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UICursor");
+		GameObject* const obj = GameObjectBuilder::Default2D(L"UICursor");
 	
 		obj->AddComponent<CircleCollider2D>();		
 	
@@ -242,7 +242,7 @@ Collide2DTestScene::Collide2DTestScene()
 	}
 	
 	{
-		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UICursor");
+		GameObject* const obj = GameObjectBuilder::Default2D(L"UICursor");
 	
 		obj->AddComponent<CircleCollider2D>();
 		obj->AddComponent<InputMovementTest>();
@@ -255,7 +255,7 @@ Collide2DTestScene::Collide2DTestScene()
 	}
 
 	{
-		GameObject* const parent = GameObjectBuilder::BuildDefault2DGameObject(L"UICursor");
+		GameObject* const parent = GameObjectBuilder::Default2D(L"UICursor");
 
 		parent->AddComponent<RectCollider2D>();
 		parent->AddComponent<ParentTest>();
@@ -266,7 +266,7 @@ Collide2DTestScene::Collide2DTestScene()
 	}
 
 	{
-		GameObject* const parent = GameObjectBuilder::BuildDefault2DGameObject(L"UICursor");
+		GameObject* const parent = GameObjectBuilder::Default2D(L"UICursor");
 
 		parent->AddComponent<CircleCollider2D>();
 		parent->AddComponent<ParentTest>();
@@ -278,7 +278,7 @@ Collide2DTestScene::Collide2DTestScene()
 	
 	
 	{
-		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UICursor");
+		GameObject* const obj = GameObjectBuilder::Default2D(L"UICursor");
 	
 		obj->AddComponent<RectCollider2D>();		
 	
@@ -290,7 +290,7 @@ Collide2DTestScene::Collide2DTestScene()
 	}
 	
 	{
-		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UICursor");
+		GameObject* const obj = GameObjectBuilder::Default2D(L"UICursor");
 	
 		obj->AddComponent<RectCollider2D>();
 	
@@ -308,7 +308,7 @@ Collide2DTestScene::Collide2DTestScene()
 
 	//UI UP Hud
 	{
-		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UIHud");
+		GameObject* const obj = GameObjectBuilder::Default2D(L"UIHud");
 	
 		const Vector2 pos = helper::RenderTargetToWorldUI(Vector2(screenSize.x / 2.f, 23.f), screenSize);
 	
@@ -322,7 +322,7 @@ Collide2DTestScene::Collide2DTestScene()
 	
 	//UI HudTimer
 	{
-		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UIHudTimer");
+		GameObject* const obj = GameObjectBuilder::Default2D(L"UIHudTimer");
 	
 		obj->GetComponent<Transform>()->SetPosition(timerPosX, hudPosY + 2.f, -10.f);
 		obj->GetComponent<Transform>()->SetScale(2.f, 2.f, 1.f);
@@ -333,7 +333,7 @@ Collide2DTestScene::Collide2DTestScene()
 	//UI Timer
 	{
 	
-		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UITimer");
+		GameObject* const obj = GameObjectBuilder::Default2D(L"UITimer");
 	
 		obj->AddComponent<UIEffect>();
 	
@@ -345,7 +345,7 @@ Collide2DTestScene::Collide2DTestScene()
 	
 	//UIShift
 	{
-		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UIShift00");
+		GameObject* const obj = GameObjectBuilder::Default2D(L"UIShift00");
 	
 		obj->AddComponent<ShiftController>();
 	
@@ -357,7 +357,7 @@ Collide2DTestScene::Collide2DTestScene()
 	
 	//UI Battery
 	{
-		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UIBattery");
+		GameObject* const obj = GameObjectBuilder::Default2D(L"UIBattery");
 	
 		obj->GetComponent<Transform>()->SetPosition(-561.f, hudPosY - 1.f, -10.f);
 		obj->GetComponent<Transform>()->SetScale(2.f, 2.f, 1.f);
@@ -367,7 +367,7 @@ Collide2DTestScene::Collide2DTestScene()
 	
 	//UI Hud Item
 	{
-		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UIHudItem");
+		GameObject* const obj = GameObjectBuilder::Default2D(L"UIHudItem");
 	
 		obj->GetComponent<Transform>()->SetPosition(+560.f, hudPosY + 1.f, -10.f);
 		obj->GetComponent<Transform>()->SetScale(2.f, 2.f, 1.f);
@@ -377,7 +377,7 @@ Collide2DTestScene::Collide2DTestScene()
 	
 	//UI Left Item
 	{
-		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UILeftItem");
+		GameObject* const obj = GameObjectBuilder::Default2D(L"UILeftItem");
 	
 		obj->GetComponent<Transform>()->SetPosition(528.f, hudPosY + 1.f, -10.f);
 		obj->GetComponent<Transform>()->SetScale(2.f, 2.f, 1.f);
@@ -387,7 +387,7 @@ Collide2DTestScene::Collide2DTestScene()
 	
 	//UI Right Item
 	{
-		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UIRightItem");
+		GameObject* const obj = GameObjectBuilder::Default2D(L"UIRightItem");
 	
 		obj->GetComponent<Transform>()->SetPosition(592.f, hudPosY + 1.f, -10.f);
 		obj->GetComponent<Transform>()->SetScale(2.f, 2.f, 1.f);
@@ -397,7 +397,7 @@ Collide2DTestScene::Collide2DTestScene()
 	
 	//UI Left Click
 	{
-		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UILeftClick");
+		GameObject* const obj = GameObjectBuilder::Default2D(L"UILeftClick");
 	
 		obj->GetComponent<Transform>()->SetPosition(550.f, hudPosY - 24.f, -10.f);
 		obj->GetComponent<Transform>()->SetScale(2.f, 2.f, 1.f);
@@ -407,7 +407,7 @@ Collide2DTestScene::Collide2DTestScene()
 	
 	//UI Right Click
 	{
-		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UIRightClick");
+		GameObject* const obj = GameObjectBuilder::Default2D(L"UIRightClick");
 	
 		obj->GetComponent<Transform>()->SetPosition(610.f, hudPosY - 24.f, -10.f);
 		obj->GetComponent<Transform>()->SetScale(2.f, 2.f, 1.f);
@@ -420,7 +420,7 @@ Collide2DTestScene::Collide2DTestScene()
 #pragma region CursurAndCameraGameObject
 	//Cursur
 	{
-		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"UICursor");
+		GameObject* const obj = GameObjectBuilder::Default2D(L"UICursor");
 	
 		obj->AddComponent<CircleCollider2D>();
 		obj->AddComponent<CursorMovement>();

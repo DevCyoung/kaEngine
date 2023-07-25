@@ -2,7 +2,7 @@
 #include "MaterialBuilder.h"
 #include "ResourceManager.h"
 
-Material* MaterialBuilder::BuildDefault2DMaterial(const eRenderPriorityType renderPriorityType, 
+Material* MaterialBuilder::Default2D(const eRenderPriorityType renderPriorityType, 
 	const std::wstring& shaderKey, const eResTexture textureType)
 {
 		Material* const material = new Material(renderPriorityType);
@@ -13,4 +13,23 @@ Material* MaterialBuilder::BuildDefault2DMaterial(const eRenderPriorityType rend
 			->FindOrNullByEnum<Texture>(textureType));
 
 	return material;
+}
+
+Material* MaterialBuilder::Sprite2D(const eRenderPriorityType renderPriorityType, 
+	const eResTexture textureType)
+{
+
+	return Default2D(renderPriorityType, L"Sprite2D", textureType);
+}
+
+Material* MaterialBuilder::UI2D(const eRenderPriorityType renderPriorityType, 
+	const eResTexture textureType)
+{
+	return Default2D(renderPriorityType, L"UI2D", textureType);;
+}
+
+Material* MaterialBuilder::Animation2D(const eRenderPriorityType renderPriorityType, 
+const eResTexture textureType)
+{
+	return Default2D(renderPriorityType, L"Animation2D", textureType);
 }

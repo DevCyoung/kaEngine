@@ -23,19 +23,19 @@ void EngineResourceLoader::loadMesh()
 		//|   |
 		//3---2
 		vertexArray[0].pos = Vector3(-0.5f, 0.5f, 0.0f);
-		vertexArray[0].color = Vector4(1.0f, 0.0f, 1.0f, 1.0f);
+		vertexArray[0].color = Vector4(1.0f, 0.4f, 1.0f, 1.0f);
 		vertexArray[0].uv = Vector2(0.0f, 0.0f);
 
 		vertexArray[1].pos = Vector3(0.5f, 0.5f, 0.0f);
-		vertexArray[1].color = Vector4(1.0f, 0.0f, 1.0f, 1.0f);
+		vertexArray[1].color = Vector4(0.0f, 0.3f, 1.0f, 1.0f);
 		vertexArray[1].uv = Vector2(1.0f, 0.0f);
 
 		vertexArray[2].pos = Vector3(+0.5f, -0.5f, 0.0f);
-		vertexArray[2].color = Vector4(1.0f, 0.0f, 1.0f, 1.0f);
+		vertexArray[2].color = Vector4(0.0f, 0.0f, 0.4f, 1.0f);
 		vertexArray[2].uv = Vector2(1.0f, 1.0f);
 
 		vertexArray[3].pos = Vector3(-0.5f, -0.5f, 0.0f);
-		vertexArray[3].color = Vector4(1.0f, 0.0f, 1.0f, 1.0f);
+		vertexArray[3].color = Vector4(1.0f, 1.0f, 1.0f, 1.0f);
 		vertexArray[3].uv = Vector2(0.0f, 1.0f);
 
 		std::vector<UINT> indexes;
@@ -217,6 +217,19 @@ void EngineResourceLoader::loadMesh()
 
 void EngineResourceLoader::loadShader()
 {
+	{
+		//Animation2D
+		Shader* const animationShader =
+			new Shader(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST,
+				L"\\Shader\\VSAnimation2D.hlsl", L"main",
+				L"\\Shader\\PSAnimation2D.hlsl", L"main",
+				eSMType::Default,
+				eRSType::CullNone,
+				eDSType::LessEqual,
+				eBSType::AlphaBlend);
+		gResourceManager->Insert(L"Animation2D", animationShader);
+	}
+
 	//Fill2D Debug
 	{
 		Shader* const debugShader =
@@ -228,6 +241,19 @@ void EngineResourceLoader::loadShader()
 				eDSType::None,
 				eBSType::AlphaBlend);
 		gResourceManager->Insert(L"FillDebug2D", debugShader);
+	}
+
+	//Grid2D Debug
+	{
+		Shader* const debugGridShader =
+			new Shader(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST,
+				L"\\Shader\\VSGrid2D.hlsl", L"main",
+				L"\\Shader\\PSGrid2D.hlsl", L"main",
+				eSMType::Default,
+				eRSType::CullNone,
+				eDSType::None,
+				eBSType::AlphaBlend);
+		gResourceManager->Insert(L"DebugGrid2D", debugGridShader);
 	}
 
 	//Line2D Debug
@@ -243,16 +269,29 @@ void EngineResourceLoader::loadShader()
 		gResourceManager->Insert(L"LineDebug2D", debugShader);
 	}
 
-	//Grid2D Debug
+	//Sprite 
 	{
-		Shader* const debugShader =
+		Shader* const sprite2DShader =
 			new Shader(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST,
-				L"\\Shader\\VSGrid2D.hlsl", L"main",
-				L"\\Shader\\PSGrid2D.hlsl", L"main",
+				L"\\Shader\\VSSprite2D.hlsl", L"main",
+				L"\\Shader\\PSSprite2D.hlsl", L"main",
+				eSMType::Default,
+				eRSType::CullNone,
+				eDSType::LessEqual,
+				eBSType::AlphaBlend);
+		gResourceManager->Insert(L"Sprite2D", sprite2DShader);
+	}
+
+	//UI
+	{
+		Shader* const UIShader =
+			new Shader(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST,
+				L"\\Shader\\VSUI2D.hlsl", L"main",
+				L"\\Shader\\PSUI2D.hlsl", L"main",
 				eSMType::Default,
 				eRSType::CullNone,
 				eDSType::None,
 				eBSType::AlphaBlend);
-		gResourceManager->Insert(L"DebugGrid2D", debugShader);
+		gResourceManager->Insert(L"UI2D", UIShader);
 	}
 }

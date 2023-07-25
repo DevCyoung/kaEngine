@@ -11,11 +11,14 @@ enum class eResShader
 	PSFillDebug2D,
 	PSGrid2D,
 	PSLineDebug2D,
-	PSSprite,
+	PSSprite2D,
+	PSUI2D,
+	VSAnimation2D,
 	VSFillDebug2D,
 	VSGrid2D,
 	VSLineDebug2D,
-	VSSprite,
+	VSSprite2D,
+	VSUI2D,
 	End
 };
 

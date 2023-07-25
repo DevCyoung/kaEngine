@@ -127,6 +127,9 @@
     <Filter Include="Source\Resources">
       <UniqueIdentifier>{df7c758c-f2a8-43fd-9b81-4685458a5dcf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\ShaderCode\UI2D">
+      <UniqueIdentifier>{aee2bc8d-d011-4783-9a74-cbcb67812661}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -466,10 +469,10 @@
     <None Include="..\..\Output\bin\Resources\Shader\Header\Texture.fxh">
       <Filter>Source\ShaderCode\Header</Filter>
     </None>
-    <None Include="..\..\Output\bin\Resources\Shader\PSSprite.hlsl">
+    <None Include="..\..\Output\bin\Resources\Shader\PSSprite2D.hlsl">
       <Filter>Source\ShaderCode\Sprite2D</Filter>
     </None>
-    <None Include="..\..\Output\bin\Resources\Shader\VSSprite.hlsl">
+    <None Include="..\..\Output\bin\Resources\Shader\VSSprite2D.hlsl">
       <Filter>Source\ShaderCode\Sprite2D</Filter>
     </None>
     <None Include="Material_Res_dpend.diff">
@@ -520,5 +523,16 @@
     <None Include="..\..\Output\bin\Resources\Shader\PSAnimation2D.hlsl">
       <Filter>Source\ShaderCode\Animation2D</Filter>
     </None>
+    <None Include="..\..\Output\bin\Resources\Shader\PSUI2D.hlsl">
+      <Filter>Source\ShaderCode\UI2D</Filter>
+    </None>
+    <None Include="..\..\Output\bin\Resources\Shader\VSUI2D.hlsl">
+      <Filter>Source\ShaderCode\UI2D</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="..\..\Output\bin\Resources\Shader\VSAnimation2D.hlsl">
+      <Filter>Source\ShaderCode\Animation2D</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

@@ -458,14 +458,14 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
       </ObjectFileOutput>
       <FileType>Document</FileType>
     </None>
-    <None Include="..\..\Output\bin\Resources\Shader\PSSprite.hlsl">
+    <None Include="..\..\Output\bin\Resources\Shader\PSSprite2D.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
       <FileType>Document</FileType>
     </None>
-    <None Include="..\..\Output\bin\Resources\Shader\VSSprite.hlsl">
+    <None Include="..\..\Output\bin\Resources\Shader\VSSprite2D.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
@@ -511,6 +511,15 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Output\bin\Resources\Shader\PSAnimation2D.hlsl">
+      <FileType>Document</FileType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\Output\bin\Resources\Shader\PSUI2D.hlsl">
+      <FileType>Document</FileType>
+    </None>
+    <FxCompile Include="..\..\Output\bin\Resources\Shader\VSAnimation2D.hlsl" />
+    <None Include="..\..\Output\bin\Resources\Shader\VSUI2D.hlsl">
       <FileType>Document</FileType>
     </None>
   </ItemGroup>

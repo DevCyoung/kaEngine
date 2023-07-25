@@ -13,6 +13,10 @@
 #include "Transform.h"
 #include "Animation2D.h"
 
+#include "ResourceManager.h"
+#include "Mesh.h"
+#include "Material.h"
+
 Animator2D::Animator2D()
 	: RenderComponent(eComponentType::Animator2D)
 	, mAnimationMap()
@@ -21,6 +25,8 @@ Animator2D::Animator2D()
 	, bRepeat(false)
 	, backSize(XMUINT2(300, 300))
 {
+	SetMaterial(gResourceManager->FindOrNull<Material>(L"Animation2D"));
+	SetMesh(gResourceManager->FindOrNull<Mesh>(L"FillRect2D"));
 }
 
 Animator2D::~Animator2D()

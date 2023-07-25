@@ -14,7 +14,11 @@ private:
 	MaterialBuilder& operator=(const MaterialBuilder&) = delete;
 
 public:
-	static Material* BuildDefault2DMaterial(const eRenderPriorityType renderPriorityType, 
+	static Material* Default2D(const eRenderPriorityType renderPriorityType, 
 		const std::wstring& shaderKey, const eResTexture textureType);
+
+	static Material* Sprite2D(const eRenderPriorityType renderPriorityType, const eResTexture textureType);
+	static Material* UI2D(const eRenderPriorityType renderPriorityType, const eResTexture textureType);
+	static Material* Animation2D(const eRenderPriorityType renderPriorityType, const eResTexture textureType);
 };
 
