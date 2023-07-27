@@ -217,8 +217,8 @@ void EngineResourceLoader::loadMesh()
 
 void EngineResourceLoader::loadShader()
 {
-	{
-		//Animation2D
+	//Animation2D
+	{		
 		Shader* const animationShader =
 			new Shader(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST,
 				L"\\Shader\\VSAnimation2D.hlsl", L"main",
@@ -293,5 +293,33 @@ void EngineResourceLoader::loadShader()
 				eDSType::None,
 				eBSType::AlphaBlend);
 		gResourceManager->Insert(L"UI2D", UIShader);
+	}
+
+	//Light
+
+	//Light Sprite
+	{
+		Shader* const sprite2DShader =
+			new Shader(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST,
+				L"\\Shader\\VSLightSprite2D.hlsl", L"main",
+				L"\\Shader\\PSLightSprite2D.hlsl", L"main",
+				eSMType::Default,
+				eRSType::CullNone,
+				eDSType::LessEqual,
+				eBSType::AlphaBlend);
+		gResourceManager->Insert(L"LightSprite2D", sprite2DShader);
+	}
+
+	//Light Animation2D
+	{
+		Shader* const animationShader =
+			new Shader(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST,
+				L"\\Shader\\VSLightAnimation2D.hlsl", L"main",
+				L"\\Shader\\PSLightAnimation2D.hlsl", L"main",
+				eSMType::Default,
+				eRSType::CullNone,
+				eDSType::LessEqual,
+				eBSType::AlphaBlend);
+		gResourceManager->Insert(L"LightAnimation2D", animationShader);
 	}
 }

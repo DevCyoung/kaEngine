@@ -10,6 +10,7 @@ CBCollection::CBCollection(ID3D11Device* const device)
 		ConstantBuffer(eCBType::ColorInfo, sizeof(tCBColorInfo), device),
 		ConstantBuffer(eCBType::DebugInfo, sizeof(tCBDebugInfo), device),
 		ConstantBuffer(eCBType::Animation2DInfo, sizeof(tCBAnimationInfo), device),
+		ConstantBuffer(eCBType::GlobalInfo, sizeof(tGlobalInfo), device),
 	}
 {
 }

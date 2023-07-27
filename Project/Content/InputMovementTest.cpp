@@ -24,43 +24,43 @@ void InputMovementTest::initialize()
 
 void InputMovementTest::update()
 {
-	GameSystem* const gameSystem = GetOwner()->GetGameSystem();
-	DebugRenderer2D* const debugRenderer2D = gameSystem->GetRenderTargetRenderer()->GetDebugRenderer();
-	Physics2D* const physcis2D = gameSystem->GetPhysics2D();
+	//GameSystem* const gameSystem = GetOwner()->GetGameSystem();
+	//DebugRenderer2D* const debugRenderer2D = gameSystem->GetRenderTargetRenderer()->GetDebugRenderer();
+	//Physics2D* const physcis2D = gameSystem->GetPhysics2D();
 	Transform* const transform = GetOwner()->GetComponent<Transform>();
 
-	const Vector3& POS = transform->GetPosition();
+	//const Vector3& POS = transform->GetPosition();
 	RayCast2DHitInfo hitInfo = {};
 
 	static float angle = 30.f;
 
 	Vector2 direction = Deg2Vec2Dir(angle);
-	float distance = 500.f;
+	//float distance = 500.f;
 
-	if (physcis2D->RayCastHit2D(Vector2(POS.x, POS.y), direction, distance, eLayerType::Default, &hitInfo))
-	{
-		debugRenderer2D->DrawLine2D2(POS, direction, distance, 0.f, Vector4(1.f, 0.f, 1.f, 1.f));
-		Vector3 intersection = Vector3(hitInfo.hitPos.x, hitInfo.hitPos.y, 0.f);
-		debugRenderer2D->DrawFillCircle2D(intersection, 5.f, 0.f, Vector4(1.f, 0.f, 0.f, 1.f));
-	}
-	else
-	{
-		debugRenderer2D->DrawLine2D2(POS, direction, distance, 0.f, Vector4(1.f, 1.f, 1.f, 1.f));
-	}
+	//if (physcis2D->RayCastHit2D(Vector2(POS.x, POS.y), direction, distance, eLayerType::Default, &hitInfo))
+	//{
+//		debugRenderer2D->DrawLine2D2(POS, direction, distance, 0.f, Vector4(1.f, 0.f, 1.f, 1.f));
+//		Vector3 intersection = Vector3(hitInfo.hitPos.x, hitInfo.hitPos.y, 0.f);
+//		debugRenderer2D->DrawFillCircle2D(intersection, 5.f, 0.f, Vector4(1.f, 0.f, 0.f, 1.f));
+	//}
+	//else
+	//{
+//		debugRenderer2D->DrawLine2D2(POS, direction, distance, 0.f, Vector4(1.f, 1.f, 1.f, 1.f));
+	//}
 
 
 	direction = Deg2Vec2Dir(-angle);
 
-	if (physcis2D->RayCastHit2D(Vector2(POS.x, POS.y), direction, distance, eLayerType::Default, &hitInfo))
-	{
-		debugRenderer2D->DrawLine2D2(POS, direction, distance, 0.f, Vector4(1.f, 0.f, 1.f, 1.f));
-		Vector3 intersection = Vector3(hitInfo.hitPos.x, hitInfo.hitPos.y, 0.f);
-		debugRenderer2D->DrawFillCircle2D(intersection, 5.f, 0.f, Vector4(1.f, 0.f, 0.f, 1.f));
-	}
-	else
-	{
-		debugRenderer2D->DrawLine2D2(POS, direction, distance, 0.f, Vector4(1.f, 1.f, 1.f, 1.f));
-	}
+	//if (physcis2D->RayCastHit2D(Vector2(POS.x, POS.y), direction, distance, eLayerType::Default, &hitInfo))
+	//{
+	//	debugRenderer2D->DrawLine2D2(POS, direction, distance, 0.f, Vector4(1.f, 0.f, 1.f, 1.f));
+	//	Vector3 intersection = Vector3(hitInfo.hitPos.x, hitInfo.hitPos.y, 0.f);
+	//	debugRenderer2D->DrawFillCircle2D(intersection, 5.f, 0.f, Vector4(1.f, 0.f, 0.f, 1.f));
+	//}
+	//else
+	//{
+	//	debugRenderer2D->DrawLine2D2(POS, direction, distance, 0.f, Vector4(1.f, 1.f, 1.f, 1.f));
+	//}
 
 
 

@@ -20,5 +20,7 @@ public:
 	static Material* Sprite2D(const eRenderPriorityType renderPriorityType, const eResTexture textureType);
 	static Material* UI2D(const eRenderPriorityType renderPriorityType, const eResTexture textureType);
 	static Material* Animation2D(const eRenderPriorityType renderPriorityType, const eResTexture textureType);
+
+	static Material* LightSprite2D(const eRenderPriorityType renderPriorityType, const eResTexture textureType);
 };
 

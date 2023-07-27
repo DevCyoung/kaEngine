@@ -33,3 +33,19 @@ const eResTexture textureType)
 {
 	return Default2D(renderPriorityType, L"Animation2D", textureType);
 }
+
+
+Material* MaterialBuilder::LightSprite2D(const eRenderPriorityType renderPriorityType,
+	const eResTexture textureType)
+{
+	Material* const material = new Material(renderPriorityType);
+
+	material->SetShader(gResourceManager
+		->FindOrNull<Shader>(L"LightSprite2D"));
+
+	material->SetTexture(gResourceManager
+		->FindOrNullByEnum<Texture>(textureType));
+
+	return material;
+	
+}

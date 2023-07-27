@@ -8,6 +8,7 @@ enum class eCBType
 	ColorInfo,
 	DebugInfo,
 	Animation2DInfo,
+	GlobalInfo,
 	End,
 };
 

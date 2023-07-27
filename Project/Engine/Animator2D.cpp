@@ -17,6 +17,8 @@
 #include "Mesh.h"
 #include "Material.h"
 
+#include "EnumSRV.h"
+
 Animator2D::Animator2D()
 	: RenderComponent(eComponentType::Animator2D)
 	, mAnimationMap()
@@ -202,7 +204,7 @@ void Animator2D::render(const Camera* const camera)
 		gGraphicDevice->BindCB(eCBType::Animation2DInfo, eShaderBindType::PS);
 	}
 
-	gGraphicDevice->BindTexture(eShaderBindType::PS, 11, P_ATLAS);
+	gGraphicDevice->BindTexture(eShaderBindType::PS, static_cast<UINT>(eSRVTpye::AtlasAnimation2D), P_ATLAS);
 
 	gGraphicDevice->Draw(mMesh);
 }

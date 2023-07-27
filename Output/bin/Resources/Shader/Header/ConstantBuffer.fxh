@@ -45,4 +45,15 @@ cbuffer Animation2DInfo : register(b3)
 	float2 B3_Dummy;
 }
 
+cbuffer GLOBAL : register(b4)
+{
+	float2 B4_Resolution;
+	float B4_DT;
+	float B4_GlobalTime;
+	float B4_AccTime;
+	uint B4_Light2DCount;
+	uint B4_Light3DCount;
+	int B4_globalpadding;
+}
+
 #endif

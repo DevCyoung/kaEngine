@@ -8,6 +8,7 @@
 #include "BSCollection.h"
 #include "DSCollection.h"
 #include "SMCollection.h"
+#include "SBCollection.h"
 
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "d3dcompiler.lib")
@@ -36,13 +37,14 @@
 #pragma endregion
 
 #pragma region Constructor
-GraphicDeviceDX11::GraphicDeviceDX11(const HWND hWnd, 
+GraphicDeviceDX11::GraphicDeviceDX11(const HWND hWnd,
 	const UINT renderTargetWidth, const UINT renderTargetHeight)
 	: mCBCollection(nullptr)
 	, mRSCollection(nullptr)
 	, mBSCollection(nullptr)
 	, mDSCollection(nullptr)
 	, mSMCollection(nullptr)
+	, mSBCollection(nullptr)
 {
 	Assert(hWnd, WCHAR_IS_NULLPTR);
 
@@ -192,6 +194,7 @@ GraphicDeviceDX11::GraphicDeviceDX11(const HWND hWnd,
 	mBSCollection = new BSCollection(mDevice.Get());
 	mDSCollection = new DSCollection(mDevice.Get());
 	mSMCollection = new SMCollection();
+	mSBCollection = new SBCollection(mDevice.Get());
 #pragma endregion
 
 }
@@ -199,6 +202,7 @@ GraphicDeviceDX11::GraphicDeviceDX11(const HWND hWnd,
 
 GraphicDeviceDX11::~GraphicDeviceDX11()
 {
+	SAFE_DELETE_POINTER(mSBCollection);
 	SAFE_DELETE_POINTER(mSMCollection);
 	SAFE_DELETE_POINTER(mDSCollection);
 	SAFE_DELETE_POINTER(mBSCollection);
@@ -313,6 +317,69 @@ void GraphicDeviceDX11::PassCB(const eCBType CBType, const UINT dataSize, const 
 	mContext->Unmap(CB.mBuffer.Get(), 0);
 }
 
+void GraphicDeviceDX11::BindSB(const eSBType SBType, const eShaderBindType stageType) const
+{
+	Assert(eSBType::End != SBType, WCHAR_IS_INVALID_TYPE);
+
+	Assert(eShaderBindType::End != stageType, WCHAR_IS_INVALID_TYPE);
+
+	const StructuredBuffer* SB = mSBCollection->GetStructuredBuffer(SBType);
+	const UINT START_SLOT = static_cast<UINT>(SB->mSRVType);
+
+	switch (stageType)
+	{
+	case eShaderBindType::VS:
+		mContext->VSSetShaderResources(START_SLOT, 1, SB->mSRV.GetAddressOf());
+		break;
+	case eShaderBindType::HS:
+		mContext->HSSetShaderResources(START_SLOT, 1, SB->mSRV.GetAddressOf());
+		break;
+	case eShaderBindType::DS:
+		mContext->DSSetShaderResources(START_SLOT, 1, SB->mSRV.GetAddressOf());
+		break;
+	case eShaderBindType::GS:
+		mContext->GSSetShaderResources(START_SLOT, 1, SB->mSRV.GetAddressOf());
+		break;
+	case eShaderBindType::PS:
+		mContext->PSSetShaderResources(START_SLOT, 1, SB->mSRV.GetAddressOf());
+		break;
+	case eShaderBindType::CS:
+		mContext->CSSetShaderResources(START_SLOT, 1, SB->mSRV.GetAddressOf());
+		break;
+	default:
+		Assert(false, WCHAR_SWITCH_DEFAULT);
+		break;
+	}
+
+}
+
+void GraphicDeviceDX11::PassSB(const eSBType SBType, 
+	const UINT dataSize, 
+	const UINT stride, 
+	const void* const data) const
+{
+	Assert(eSBType::End != SBType, WCHAR_IS_INVALID_TYPE);
+	//Assert(data, WCHAR_IS_NULLPTR);
+
+	StructuredBuffer* SB = mSBCollection->GetStructuredBuffer(SBType);
+	//Assert(SB.mSize == dataSize, L"data size not ali 16");
+
+	if (SB->mSize * SB->mStride < dataSize * stride)
+	{
+		mSBCollection->ReSizeStructuredBuffer(SBType, SB->mSRVType, dataSize, stride, data, mDevice.Get());
+		SB = mSBCollection->GetStructuredBuffer(SBType);		
+	}
+
+	D3D11_MAPPED_SUBRESOURCE subResource = {};
+
+	mContext->Map(SB->mBuffer.Get(), 0, D3D11_MAP::D3D11_MAP_WRITE_DISCARD, 0, &subResource);
+	{
+		memcpy_s(subResource.pData, SB->mDesc.ByteWidth, data, SB->mDesc.ByteWidth);
+	}
+
+	mContext->Unmap(SB->mBuffer.Get(), 0);
+}
+
 void GraphicDeviceDX11::BindVS(const Shader* const shader) const
 {
 	Assert(shader, WCHAR_IS_NULLPTR);
@@ -368,11 +435,11 @@ void GraphicDeviceDX11::ClearRenderTarget(ID3D11RenderTargetView* const* const p
 	mContext->ClearDepthStencilView(depthStencilView, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
 }
 
-void GraphicDeviceDX11::BindRenderTarget(const UINT renderTargetWidth, 
+void GraphicDeviceDX11::BindRenderTarget(const UINT renderTargetWidth,
 	const UINT renderTargetHeight,
 	ID3D11RenderTargetView* const* const ppRnderTargetView,
 	ID3D11DepthStencilView* const depthStencilView) const
-{	            		
+{
 	const D3D11_VIEWPORT VIEW_PORT =
 	{
 		0.0f, 0.0f,
