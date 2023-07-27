@@ -2,15 +2,18 @@
 #include <d3d11.h>
 #include "Singleton.h"
 #include "EnumRenderType.h"
+#include "StructConstantBuffer.h"
 
 class Camera;
 class RenderComponent;
 class DebugRenderer2D;
+class Light2D;
 
 class RenderTargetRenderer
 {
 	friend class Camera;
 	friend class RenderComponent;
+	friend class Light2D;
 	friend class Scene;
 
 public:
@@ -56,6 +59,8 @@ public:
 private:
 	void registerRenderCamera(Camera* const camera);
 	void registerRenderComponent(RenderComponent* const renderComponent);
+	void registerLightInfo(const tLightInfo& light2DInfo);
+
 	void zSortRenderObjectArray(const eRenderPriorityType priorityType);
 	void flush();
 
@@ -63,6 +68,7 @@ private:
 	DebugRenderer2D* mDebugRenderer;
 	Camera* mCameras[static_cast<UINT>(eCameraPriorityType::End)];
 	std::vector<RenderComponent*> mRenderComponentsArray[static_cast<UINT>(eRenderPriorityType::End)];
+	std::vector<tLightInfo> mLight2DInfos;
 	bool mbDebugRender;
 	UINT mCameraMask;
 };

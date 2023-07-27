@@ -202,6 +202,12 @@ call ScriptGen.exe Component $(SolutionDir)Project\Engine $(SolutionDir)Project\
     <ClInclude Include="EnumLayer.h" />
     <ClInclude Include="EnumRenderType.h" />
     <ClInclude Include="EnumResource.h" />
+    <ClInclude Include="EnumShaderBindStage.h" />
+    <ClInclude Include="EnumSRV.h" />
+    <ClInclude Include="Light2D.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Physics2D.h" />
     <ClInclude Include="RectCollider2D.h">
       <SubType>
@@ -249,6 +255,8 @@ call ScriptGen.exe Component $(SolutionDir)Project\Engine $(SolutionDir)Project\
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="String.h" />
     <ClInclude Include="StructConstantBuffer.h" />
+    <ClInclude Include="SBCollection.h" />
+    <ClInclude Include="StructuredBuffer.h" />
     <ClInclude Include="StructVertex.h" />
     <ClInclude Include="TestScene.h" />
     <ClInclude Include="Textrue.h" />
@@ -290,6 +298,10 @@ call ScriptGen.exe Component $(SolutionDir)Project\Engine $(SolutionDir)Project\
     <ClCompile Include="EnumComponent.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GraphicDeviceDX11.cpp" />
+    <ClCompile Include="Light2D.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Physics2D.cpp" />
     <ClCompile Include="RectCollider2D.cpp">
       <SubType>
@@ -333,6 +345,8 @@ call ScriptGen.exe Component $(SolutionDir)Project\Engine $(SolutionDir)Project\
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="String.cpp" />
     <ClCompile Include="StructConstantBuffer.cpp" />
+    <ClCompile Include="SBCollection.cpp" />
+    <ClCompile Include="StructuredBuffer.cpp" />
     <ClCompile Include="StructVertex.cpp" />
     <ClCompile Include="TestScene.cpp" />
     <ClCompile Include="Textrue.cpp" />

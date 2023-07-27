@@ -4,18 +4,27 @@
 #include "Transform.h"
 #include "Camera.h"
 #include "RenderComponent.h"
+#include "Light2D.h"
+#include "StructuredBuffer.h"
 #include "Material.h"
 #include "Engine.h"
 #include "GraphicDeviceDx11.h"
 #include "Transform.h"
 
+#include "EnumShaderBindStage.h"
+
+#include "CBCollection.h"
+#include "StructConstantBuffer.h"
+#include "TimeManager.h"
+
 RenderTargetRenderer::RenderTargetRenderer()
 	: mDebugRenderer(new DebugRenderer2D())
 	, mCameras{ 0, }
-	, mRenderComponentsArray()
+	, mRenderComponentsArray{}
+	, mLight2DInfos()
 	, mbDebugRender(true)
 	, mCameraMask(0XFFFFFFFF)
-{	
+{
 	for (auto& renderObjectArray : mRenderComponentsArray)
 	{
 		renderObjectArray.reserve(100);
@@ -46,6 +55,11 @@ void RenderTargetRenderer::registerRenderComponent(RenderComponent* const render
 	mRenderComponentsArray[static_cast<UINT>(RENDER_PRIORITY_TYPE)].push_back(renderComponent);
 }
 
+void RenderTargetRenderer::registerLightInfo(const tLightInfo& light2DInfo)
+{
+	mLight2DInfos.push_back(light2DInfo);
+}
+
 void RenderTargetRenderer::zSortRenderObjectArray(const eRenderPriorityType renderPriorityType)
 {
 	auto& renderObjects = mRenderComponentsArray[static_cast<UINT>(renderPriorityType)];
@@ -63,10 +77,31 @@ void RenderTargetRenderer::Render(const UINT renderTargetWidth,
 	ID3D11RenderTargetView** const ppRenderTargetView,
 	ID3D11DepthStencilView* const depthStencilView) const
 {
-	gGraphicDevice->BindRenderTarget(renderTargetWidth, 
+	//렌더 준비단계 
+	gGraphicDevice->BindRenderTarget(renderTargetWidth,
 		renderTargetHeight,
 		ppRenderTargetView,
-		depthStencilView);	
+		depthStencilView);
+
+	const void* const P_LIGHT_DATA = mLight2DInfos.data();
+	if (nullptr != P_LIGHT_DATA)
+	{
+		gGraphicDevice->PassSB(eSBType::Light2D, sizeof(tLightInfo),
+			static_cast<UINT>(mLight2DInfos.size()), P_LIGHT_DATA);
+
+		gGraphicDevice->BindSB(eSBType::Light2D, eShaderBindType::PS);
+	}
+
+	tGlobalInfo globalInfo = {};
+
+	globalInfo.Deltatime = gDeltaTime;
+	globalInfo.Light2DCount = static_cast<UINT>(mLight2DInfos.size());
+	globalInfo.GlobalTime = gGlobalTime;
+		
+	gGraphicDevice->PassCB(eCBType::GlobalInfo, sizeof(globalInfo), &globalInfo);
+	gGraphicDevice->BindCB(eCBType::GlobalInfo, eShaderBindType::VS);
+	gGraphicDevice->BindCB(eCBType::GlobalInfo, eShaderBindType::PS);
+
 
 	//TODO: 알파블렌딩 Z솔트가 필요할떄 적용한다.
 	//zSortRenderObjectArray(eRenderType::Transparent);
@@ -77,7 +112,7 @@ void RenderTargetRenderer::Render(const UINT renderTargetWidth,
 		{
 			continue;
 		}
-		
+
 		const UINT CAMERA_PRIORITY = static_cast<UINT>(P_CAMERA->GetPriorityType());
 
 		if (!(mCameraMask & (1 << CAMERA_PRIORITY)))
@@ -106,13 +141,13 @@ void RenderTargetRenderer::Render(const UINT renderTargetWidth,
 	if (mbDebugRender)
 	{
 		mDebugRenderer->render(P_MAIN_CAMERA);
-	}	
+	}
 }
 
 void RenderTargetRenderer::flush()
 {
 	mDebugRenderer->flush();
-	
+
 	//TODO: 추후에 다시확인
 	//for (auto& camera : mCameras)
 	//{
@@ -123,4 +158,6 @@ void RenderTargetRenderer::flush()
 	{
 		renderComponents.clear();
 	}
+
+	mLight2DInfos.clear();
 }

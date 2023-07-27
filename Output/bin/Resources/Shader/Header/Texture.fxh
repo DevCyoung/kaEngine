@@ -2,24 +2,29 @@
 #define TEXTURE_FXHH
 
 Texture2D MeshRenderer00 : register(t0);
-Texture2D MeshRenderer01 : register(t1);
-Texture2D MeshRenderer02 : register(t2);
-Texture2D MeshRenderer03 : register(t3);
-Texture2D MeshRenderer04 : register(t4);
-Texture2D MeshRenderer05 : register(t5);
-Texture2D MeshRenderer06 : register(t6);
-Texture2D MeshRenderer07 : register(t7);
-Texture2D MeshRenderer08 : register(t8);
-Texture2D MeshRenderer09 : register(t9);
-Texture2D MeshRenderer10 : register(t10);
 
 Texture2D AtlasAnimation2D : register(t11);
 
-Texture2D MeshRenderer12 : register(t12);
-Texture2D MeshRenderer13 : register(t13);
-Texture2D MeshRenderer14 : register(t14);
-Texture2D MeshRenderer15 : register(t15);
+struct tLightColor
+{
+	float4 vDiffuse; // 빛의 색상
+	float4 vAmbient; // 주변 광(환경 광)
+	float4 vSpecular; // 반사광 세기
+};
 
+struct tLightInfo
+{
+	tLightColor Color; // 빛의 색상
+    
+	float4 vWorldPos; // 광원의 월드 스페이스 위치
+	float4 vWorldDir; // 빛을 보내는 방향
+    
+	uint LightType; // 빛의 타입(방향성, 점, 스포트)
+	float Radius; // 빛의 반경(사거리)
+	float Angle; // 빛의 각도    
+	int Padding;
+};
+StructuredBuffer<tLightInfo> g_Light2DBuffer : register(t13);
 
 
 #endif

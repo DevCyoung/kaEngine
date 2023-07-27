@@ -4,100 +4,70 @@
 #include "ResourceManager.h"
 #include "GameObjectBuilder.h"
 #include "MaterialBuilder.h"
-#include "CameraInputMoveMent.h"
-#include "CursorMovement.h"
-#include "UIEffect.h"
-#include "Bugiman.h"
-#include "PlayerMovementTest.h"
-#include "ShiftController.h"
-#include <Engine/Engine.h>
-#include <Engine/SceneManager.h>
-#include <Engine/EngineMath.h>
-#include "LerpTest.h"
 #include <Engine/CollisionManagement2D.h>
-#include "InputMovementTest.h"	
-#include "ChildTest.h"
-#include "ParentTest.h"
+#include <Engine/Engine.h>
 #include <Engine/Color.h>
+
 TItleScene::TItleScene()
 {
-
 	SetBackgroundColor(helper::Color::BLACK);
-
-	mCollisionManagement2D->TurnOffAllCollisionLayer();
-
-	mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Default, eLayerType::Bullet);
-	mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Default, eLayerType::Default);
-	mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Default, eLayerType::Mouse);
-	mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Default, eLayerType::Satellite);
-
-	mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Mouse, eLayerType::Satellite);
-
-	//Title
 	
 #pragma region Material
 	{
-		Material* const material =
-			MaterialBuilder::BuildDefault2DMaterial(
-				eRenderPriorityType::Opqaue, L"Default", eResTexture::Title_spr_title_background);
+		Material* const material = MaterialBuilder::Sprite2D(eRenderPriorityType::Opqaue,
+			eResTexture::Title_spr_title_background);
 		gResourceManager->Insert(L"TitleBackGround", material);
 	}
 
 	{
-		Material* const material =
-			MaterialBuilder::BuildDefault2DMaterial(
-				eRenderPriorityType::Opqaue, L"Default", eResTexture::Title_spr_title_fence);
+		Material* const material = MaterialBuilder::Sprite2D(eRenderPriorityType::Opqaue,
+			eResTexture::Title_spr_title_fence);
 		gResourceManager->Insert(L"TitleFence", material);
 	}
 
 	{
 		Material* const material =
-			MaterialBuilder::BuildDefault2DMaterial(
-				eRenderPriorityType::Opqaue, L"Default", eResTexture::Title_spr_titlegraphic_big2);
+			MaterialBuilder::Sprite2D(eRenderPriorityType::Opqaue,				eResTexture::Title_spr_titlegraphic_big2);
 		gResourceManager->Insert(L"TitleGraphic", material);
 	}
 
-
 	{
 		Material* const material =
-			MaterialBuilder::BuildDefault2DMaterial(
-				eRenderPriorityType::Opqaue, L"Default", eResTexture::Title_spr_titlegraphic_big_1);
+			MaterialBuilder::Sprite2D(eRenderPriorityType::Opqaue, eResTexture::Title_spr_titlegraphic_big_1);	
 		gResourceManager->Insert(L"TitleGraphic1", material);
 	}
 
 	{
 		Material* const material =
-			MaterialBuilder::BuildDefault2DMaterial(
-				eRenderPriorityType::Opqaue, L"Default", eResTexture::Title_spr_titlegraphic_big_2);
+			MaterialBuilder::Sprite2D(eRenderPriorityType::Opqaue, eResTexture::Title_spr_titlegraphic_big_2);		
 		gResourceManager->Insert(L"TitleGraphic2", material);
 	}
 
 	{
 		Material* const material =
-			MaterialBuilder::BuildDefault2DMaterial(
-				eRenderPriorityType::Opqaue, L"Default", eResTexture::Title_spr_title_grass);
+			MaterialBuilder::Sprite2D(eRenderPriorityType::Opqaue, eResTexture::Title_spr_title_grass);	
 		gResourceManager->Insert(L"TitleGrass", material);
 	}
 
 	{
 		Material* const material =
-			MaterialBuilder::BuildDefault2DMaterial(
-				eRenderPriorityType::Opqaue, L"Default", eResTexture::Title_spr_title_plants_0);
+			MaterialBuilder::Sprite2D(eRenderPriorityType::Opqaue, eResTexture::Title_spr_title_plants_0);
 		gResourceManager->Insert(L"TitlePlant", material);
 	}
 
 #pragma endregion
 
-#pragma region GameObject
+#pragma region UI
 
 	const Vector2& SCREEN_SIZE = gEngine->GetRenderTargetSize();
 
 	GameObject* const backgroundParent = new GameObject();
+
 	backgroundParent->GetComponent<Transform>()->SetPosition(0.f, 350.f, 0.f);
 	backgroundParent->GetComponent<Transform>()->SetScale(2.0f, 2.0f, 1.f);
 	{
 		{
-			GameObject* const background = GameObjectBuilder::BuildDefault2DGameObject(L"TitleBackGround");
+			GameObject* const background = GameObjectBuilder::Default2D(L"TitleBackGround");
 
 			background->GetComponent<Transform>()->SetPosition(0.f, 0.f, 32.f);
 			background->SetParent(backgroundParent);
@@ -105,7 +75,7 @@ TItleScene::TItleScene()
 		}
 
 		{
-			GameObject* const fence = GameObjectBuilder::BuildDefault2DGameObject(L"TitleFence");
+			GameObject* const fence = GameObjectBuilder::Default2D(L"TitleFence");
 
 			fence->GetComponent<Transform>()->SetPosition(0.f, 0.f, 30.f);
 			fence->SetParent(backgroundParent);
@@ -113,7 +83,7 @@ TItleScene::TItleScene()
 		}
 
 		{
-			GameObject* const grass = GameObjectBuilder::BuildDefault2DGameObject(L"TitleGrass");
+			GameObject* const grass = GameObjectBuilder::Default2D(L"TitleGrass");
 
 			grass->GetComponent<Transform>()->SetPosition(0.f, -320.f, 30.f);
 			grass->SetParent(backgroundParent);
@@ -128,16 +98,12 @@ TItleScene::TItleScene()
 
 			Texture* const atlas = gResourceManager->FindByEnum<Texture>(eResTexture::Atlas_Title_Plants);
 
-
 			plants->AddComponent<Animator2D>();
 
 			Animator2D* const animator = plants->GetComponent< Animator2D>();
 
 			animator->CreateAnimation(L"TitlePlant", atlas, 12, XMUINT2(5, 34),
-				XMUINT2(640, 360), XMUINT2(10, 10), XMINT2(0, 0), 0.08f);
-
-			animator->SetMaterial(gResourceManager->FindOrNull<Material>(L"Animator2D"));
-			animator->SetMesh(gResourceManager->FindOrNull<Mesh>(L"FillRect2D"));
+				XMUINT2(640, 360), XMUINT2(10, 10), XMINT2(0, 0), 0.08f);			
 
 			animator->SetBackSize(XMUINT2(3000, 3000));
 			animator->Play(L"TitlePlant", true);
@@ -155,7 +121,7 @@ TItleScene::TItleScene()
 	graphicParent->GetComponent<Transform>()->SetPosition(0.f, -10.f, 0.f);
 
 	{
-		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"TitleGraphic1");
+		GameObject* const obj = GameObjectBuilder::Default2D(L"TitleGraphic1");
 
 		obj->GetComponent<Transform>()->SetPosition(0.f, 50.f, 31.f);
 		obj->SetParent(graphicParent);
@@ -163,7 +129,7 @@ TItleScene::TItleScene()
 	}
 
 	{
-		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"TitleGraphic2");
+		GameObject* const obj = GameObjectBuilder::Default2D(L"TitleGraphic2");
 
 		obj->GetComponent<Transform>()->SetPosition(0.f, 50.f, 31.f);
 		obj->SetParent(graphicParent);
@@ -171,21 +137,21 @@ TItleScene::TItleScene()
 	}
 
 	{
-		GameObject* const obj = GameObjectBuilder::BuildDefault2DGameObject(L"TitleGraphic");
+		GameObject* const obj = GameObjectBuilder::Default2D(L"TitleGraphic");
 
 		obj->GetComponent<Transform>()->SetPosition(0.f, 100.f, 31.f);
 		obj->SetParent(graphicParent);
 		AddGameObject(obj, eLayerType::Default);
 	}
 	AddGameObject(graphicParent, eLayerType::Default);
+#pragma endregion
 
-
+#pragma region Camera
 	//Main Camera
 	{
 		GameObject* const mainCamera = new GameObject();
 
 		mainCamera->AddComponent<Camera>();
-		mainCamera->AddComponent<CameraInputMoveMent>();
 
 		mainCamera->GetComponent<Transform>()->SetPosition(0.f, 0.f, -10.f);
 		mainCamera->GetComponent<Camera>()->SetPriorityType(eCameraPriorityType::Main);

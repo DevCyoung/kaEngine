@@ -15,4 +15,13 @@ struct tVSOut
 	float2 UV : TEXCOORD;	
 };
 
+struct tVSLightOut
+{
+
+	float4 vPosition : SV_Position;
+	float2 vUV : TEXCOORD;
+	float4 Color : COLOR;
+	float3 vWorldPos : POSITION;
+};
+
 #endif

@@ -8,6 +8,8 @@ class RSCollection;
 class BSCollection;
 class DSCollection;
 class SMCollection;
+class SBCollection;
+
 class Shader;
 class Mesh;
 class Texture;
@@ -15,6 +17,7 @@ class Texture;
 struct ID3D11Device;
 
 enum class eCBType;
+enum class eSBType;
 enum class eRSType;
 enum class eBSType;
 enum class eDSType;
@@ -37,6 +40,8 @@ public:
 	void BindTexture(const eShaderBindType stageType, const UINT startSlot, const Texture* const texture) const;
 	void BindCB(const eCBType CBType, const eShaderBindType stageType) const;
 	void PassCB(const eCBType CBType, const UINT dataSize, const void* const data) const;
+	void BindSB(const eSBType SBType, const eShaderBindType stageType) const;
+	void PassSB(const eSBType SBType, const UINT dataSize, const UINT stride, const void* const data) const;
 	void BindVS(const Shader* const shader) const;
 	void BindPS(const Shader* const shader) const;
 	void BindBS(const eBSType BSType) const;
@@ -91,5 +96,6 @@ private:
 	BSCollection* mBSCollection;
 	DSCollection* mDSCollection;
 	SMCollection* mSMCollection;
+	SBCollection* mSBCollection;
 };
 

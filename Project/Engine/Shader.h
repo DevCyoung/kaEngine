@@ -6,13 +6,11 @@
 #include "RSCollection.h"
 #include "BSCollection.h"
 #include "SMCollection.h"
+#include "EnumShaderBindStage.h"
 
 enum class eResShader;
 
-enum class eShaderBindType
-{
-	VS, HS, DS, GS, PS, CS, End
-};
+
 
 class	Shader : public Resource
 {

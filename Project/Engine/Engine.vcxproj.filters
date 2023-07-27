@@ -115,9 +115,6 @@
     <Filter Include="Source\00. Engine\01. Graphics\Collection\03. SM">
       <UniqueIdentifier>{0089d8e1-bc20-46bf-adb8-c8eb1969fa8c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\00. Engine\01. Graphics\StructCB">
-      <UniqueIdentifier>{75d05b67-be0b-4438-b5be-231eb5b0122a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\05. Scene\TestScene">
       <UniqueIdentifier>{1bdced3a-2ec9-4e93-a046-e10250202f05}</UniqueIdentifier>
     </Filter>
@@ -183,6 +180,15 @@
     </Filter>
     <Filter Include="Windows\diff">
       <UniqueIdentifier>{21b12c7c-f83e-496c-a646-ca9e8834ddc3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\03. Component\Light2D">
+      <UniqueIdentifier>{848f0b93-c3af-42b5-bca4-fcbabad542f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\00. Engine\01. Graphics\Struct">
+      <UniqueIdentifier>{75d05b67-be0b-4438-b5be-231eb5b0122a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\00. Engine\01. Graphics\Collection\05. SB">
+      <UniqueIdentifier>{5c5eee3a-7799-4f94-b260-d881ea2643e5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -265,7 +271,7 @@
       <Filter>Source\03. Component\00. Component</Filter>
     </ClInclude>
     <ClInclude Include="StructConstantBuffer.h">
-      <Filter>Source\00. Engine\01. Graphics\StructCB</Filter>
+      <Filter>Source\00. Engine\01. Graphics\Struct</Filter>
     </ClInclude>
     <ClInclude Include="ResourceTypeTrait.h">
       <Filter>Source\06. Resource</Filter>
@@ -381,6 +387,21 @@
     <ClInclude Include="Rigidbody2D.h">
       <Filter>Source\03. Component</Filter>
     </ClInclude>
+    <ClInclude Include="Light2D.h">
+      <Filter>Source\03. Component\Light2D</Filter>
+    </ClInclude>
+    <ClInclude Include="SBCollection.h">
+      <Filter>Source\00. Engine\01. Graphics\Collection\05. SB</Filter>
+    </ClInclude>
+    <ClInclude Include="EnumSRV.h">
+      <Filter>Source\00. Engine\01. Graphics\Collection</Filter>
+    </ClInclude>
+    <ClInclude Include="StructuredBuffer.h">
+      <Filter>Source\00. Engine\01. Graphics\Collection\05. SB</Filter>
+    </ClInclude>
+    <ClInclude Include="EnumShaderBindStage.h">
+      <Filter>Source\00. Engine\01. Graphics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Entity.cpp">
@@ -450,7 +471,7 @@
       <Filter>Source\03. Component\00. Component</Filter>
     </ClCompile>
     <ClCompile Include="StructConstantBuffer.cpp">
-      <Filter>Source\00. Engine\01. Graphics\StructCB</Filter>
+      <Filter>Source\00. Engine\01. Graphics\Struct</Filter>
     </ClCompile>
     <ClCompile Include="DXMath.cpp">
       <Filter>Windows\Extern\MicrosoftMath</Filter>
@@ -538,6 +559,15 @@
     </ClCompile>
     <ClCompile Include="Rigidbody2D.cpp">
       <Filter>Source\03. Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Light2D.cpp">
+      <Filter>Source\03. Component\Light2D</Filter>
+    </ClCompile>
+    <ClCompile Include="SBCollection.cpp">
+      <Filter>Source\00. Engine\01. Graphics\Collection\05. SB</Filter>
+    </ClCompile>
+    <ClCompile Include="StructuredBuffer.cpp">
+      <Filter>Source\00. Engine\01. Graphics\Collection\05. SB</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
