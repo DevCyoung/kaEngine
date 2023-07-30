@@ -17,7 +17,7 @@ namespace helper
 		return Vector2(renderTargetMousePos.x - renderTargetSize.x / 2, -renderTargetMousePos.y + renderTargetSize.y / 2);
 	}
 
-	Vector3 ScreenMouseToWorld3D(const Vector3& screenMousePos, 
+	Vector3 ScreenMouseToWorld3D(const Vector3& screenMousePos,
 		const Vector2& screenSize, const Camera* const camera)
 	{
 		Viewport viewport = {};
@@ -106,6 +106,18 @@ namespace helper::math
 		outMax->y = max(a.y, b.y);
 	}
 
+	void Vector2MinAndMax(const Vector2& a, const Vector2& b, Vector2* const outMin, Vector2* const outMax)
+	{
+		Assert(outMin, WCHAR_IS_NULLPTR);
+		Assert(outMax, WCHAR_IS_NULLPTR);
+
+		outMin->x = min(a.x, b.x);
+		outMin->y = min(a.y, b.y);
+
+		outMax->x = max(a.x, b.x);
+		outMax->y = max(a.y, b.y);
+	}
+
 	float LerpCosBtwZeroAndOne(const float x)
 	{
 		return (cos(x) + 1.f) / 2.f;
@@ -114,6 +126,31 @@ namespace helper::math
 	float LerpSinBtwZeroAndOne(const float x)
 	{
 		return (sin(x) + 1.f) / 2.f;
+	}
+
+	bool LineAndLineCollision(float x1, float y1,
+		float x2, float y2,
+		float x3, float y3,
+		float x4, float y4,
+		float* outInterX, float* outInterY)
+	{
+		// calculate the distance to intersection point
+		float uA = ((x4 - x3) * (y1 - y3) - (y4 - y3) * (x1 - x3)) / ((y4 - y3) * (x2 - x1) - (x4 - x3) * (y2 - y1));
+		float uB = ((x2 - x1) * (y1 - y3) - (y2 - y1) * (x1 - x3)) / ((y4 - y3) * (x2 - x1) - (x4 - x3) * (y2 - y1));
+
+		// if uA and uB are between 0-1, lines are colliding
+		if (uA >= 0 && uA <= 1 && uB >= 0 && uB <= 1) {
+
+			// optionally, draw a circle where the lines meet
+			float intersectionX = x1 + (uA * (x2 - x1));
+			float intersectionY = y1 + (uA * (y2 - y1));
+
+			*outInterX = intersectionX;
+			*outInterY = intersectionY;
+
+			return true;
+		}
+		return false;
 	}
 }
 
@@ -128,7 +165,7 @@ namespace helper::rand
 	int RandInt(const int a, const int b)
 	{
 		std::uniform_int_distribution<int> dis(a, b);
-	
+
 		return dis(gen);
 	}
 }

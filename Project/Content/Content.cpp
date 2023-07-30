@@ -14,7 +14,7 @@
 #include <Engine/Engine.h>
 #include <Engine/SceneManager.h>
 #include <Engine/EngineMath.h>
-
+#include <Engine/TimeManager.h>
 
 Content::Content()
 {
@@ -29,10 +29,13 @@ Content::Content()
 	Scene* testScene = new HeadHunterScene();
 
 	SceneManager::GetInstance()->LoadScene(testScene);
+
+	TimeManager::initialize();
 }
 
 Content::~Content()
 {
+	TimeManager::deleteInstance();
 }
 
 void Content::resourceInitialize()

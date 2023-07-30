@@ -12,7 +12,9 @@
 HeadHunterScene::HeadHunterScene()
 {
 	mCollisionManagement2D->TurnOffAllCollisionLayer();
-	mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Default, eLayerType::Default);
+
+	mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Player, eLayerType::Wall);
+	mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Player, eLayerType::Slope);
 
 	{
 		Material* const material =
@@ -46,41 +48,6 @@ HeadHunterScene::HeadHunterScene()
 		AddGameObject(obj, eLayerType::Default);
 	}
 
-	//{
-	//	GameObject* const light = new GameObject();		
-	//	light->AddComponent<Light2D>();
-	//	light->AddComponent<InputMovementTest>();
-	//	
-	//	
-	//	light->GetComponent<Light2D>()->SetLightType(Light2D::LIGHT_TYPE::POINT);
-	//	light->GetComponent<Light2D>()->SetRadius(300.f);		
-	//	light->GetComponent<Light2D>()->SetLightAmbient(Vector3(1.f, 1.f, 1.f));
-	//	light->GetComponent<Light2D>()->SetLightDiffuse(Vector3(1.f, 1.f, 1.f));
-	//
-	//	light->GetComponent<Transform>()->SetScale(2.0f, 2.0f, 1.f);
-	//	light->GetComponent<Transform>()->SetPosition(0, 0.f, 0.f);
-	//
-	//
-	//	AddGameObject(light, eLayerType::Default);
-	//}
-
-
-	//{
-	//	GameObject* const light = new GameObject();
-	//	light->AddComponent<Light2D>();		
-	//
-	//
-	//	light->GetComponent<Light2D>()->SetLightType(Light2D::LIGHT_TYPE::POINT);
-	//	light->GetComponent<Light2D>()->SetRadius(300.f);
-	//	light->GetComponent<Light2D>()->SetLightAmbient(Vector3(1.f, 1.f, 1.f));
-	//	light->GetComponent<Light2D>()->SetLightDiffuse(Vector3(1.f, 1.f, 1.f));
-	//	
-	//	light->GetComponent<Transform>()->SetPosition(-300, 0.f, 0.f);
-	//
-	//	AddGameObject(light, eLayerType::Default);
-	//}
-
-	
 	{
 		GameObject* const light = new GameObject();
 		light->AddComponent<Light2D>();
@@ -96,89 +63,79 @@ HeadHunterScene::HeadHunterScene()
 		AddGameObject(light, eLayerType::Default);
 	}
 
-	//{
-	//	GameObject* const light = new GameObject();
-	//	light->AddComponent<Light2D>();
-	//
-	//
-	//	light->GetComponent<Light2D>()->SetLightType(Light2D::LIGHT_TYPE::POINT);
-	//	light->GetComponent<Light2D>()->SetRadius(300.f);
-	//	//light->GetComponent<Light2D>()->SetLightAmbient(Vector3(1.f, 1.f, 1.f));
-	//	light->GetComponent<Light2D>()->SetLightDiffuse(Vector3(0.f, 1.f, 0.f));
-	//
-	//	light->GetComponent<Transform>()->SetPosition(100, 0.f, 0.f);
-	//
-	//	AddGameObject(light, eLayerType::Default);
-	//}
-	//
-	//{
-	//	GameObject* const light = new GameObject();
-	//	light->AddComponent<Light2D>();
-	//
-	//
-	//	light->GetComponent<Light2D>()->SetLightType(Light2D::LIGHT_TYPE::POINT);
-	//	light->GetComponent<Light2D>()->SetRadius(300.f);
-	//	//light->GetComponent<Light2D>()->SetLightAmbient(Vector3(1.f, 1.f, 1.f));
-	//	light->GetComponent<Light2D>()->SetLightDiffuse(Vector3(0.f, 0.f, 1.f));
-	//
-	//	light->GetComponent<Transform>()->SetPosition(-100.f, 0.f, 0.f);
-	//
-	//	AddGameObject(light, eLayerType::Default);
-	//}
-	//
-	//
-
-	{
-		GameObject* const light = new GameObject();
-		light->AddComponent<Light2D>();
-		light->AddComponent<InputMovementTest>();
-	
-		light->GetComponent<Light2D>()->SetLightType(Light2D::LIGHT_TYPE::SPOT);
-		light->GetComponent<Light2D>()->SetRadius(300.f);
-		light->GetComponent<Light2D>()->SetAngle(80.f);
-		//light->GetComponent<Light2D>()->SetLightAmbient(Vector3(1.f, 1.f, 1.f));
-		light->GetComponent<Light2D>()->SetLightDiffuse(Vector3(5.f, 5.f, 5.f));
-	
-		light->GetComponent<Transform>()->SetPosition(-100.f, 0.f, 0.f);
-		light->GetComponent<Transform>()->SetRotation(0.f, 0.f, -90.f);
-	
-		AddGameObject(light, eLayerType::Default);
-	}
-
-
-	//for (int i = 0; i < 100; ++i)
-	//{
-	//	{
-	//		GameObject* const light = new GameObject();
-	//		light->AddComponent<Light2D>();
-	//
-	//		light->AddComponent<InputMovementTest>();
-	//
-	//
-	//		light->GetComponent<Light2D>()->SetLightType(Light2D::LIGHT_TYPE::POINT);
-	//		light->GetComponent<Light2D>()->SetRadius(150.f);
-	//		//light->GetComponent<Light2D>()->SetLightAmbient(Vector3(1.f, 1.f, 1.f));
-	//		light->GetComponent<Light2D>()->SetLightDiffuse(Vector3(1.f, 1.f, 1.f));
-	//		//light->GetComponent<Light2D>()->SetLightAmbient(Vector3(0.f, 1.f, 1.f) * 10.f);	
-	//
-	//		int len = 500;
-	//		float angle = (360.f / 100.f) * i;
-	//		Vector3 pos = Vector3(cosf(angle) * len, sinf(angle) * len, 0.f);			
-	//		light->GetComponent<Transform>()->SetPosition(pos);
-	//		AddGameObject(light, eLayerType::Default);
-	//	}
-	//}	
 
 	{
 		GameObject* const player = GameObjectBuilder::Player();
 	
-		player->GetComponent<Rigidbody2D>()->TurnOffGravity();
+		//player->GetComponent<Rigidbody2D>()->SetGravityAccel();
 
 		player->GetComponent<Animator2D>()->GetMaterial()->SetShader(
 			gResourceManager->FindOrNull<Shader>(L"LightAnimation2D"));
 	
-		AddGameObject(player, eLayerType::Default);
+		AddGameObject(player, eLayerType::Player);
 	}
+
+
+	//Wall
+	{
+		GameObject* const obj = new GameObject();
+
+		obj->AddComponent<RectCollider2D>();
+
+		obj->GetComponent<RectCollider2D>()->SetSize(800.f,50.f);
+		obj->GetComponent<Transform>()->SetPosition(0.f, -300.f, 1.f);
+
+		AddGameObject(obj, eLayerType::Wall);
+	}
+
+	{
+		GameObject* const obj = new GameObject();
+
+		obj->AddComponent<RectCollider2D>();
+
+		obj->GetComponent<RectCollider2D>()->SetSize(700.f, 50.f);
+		obj->GetComponent<Transform>()->SetPosition(-450.f, -50.f, 1.f);
+		obj->GetComponent<Transform>()->SetRotation(0.f, 0.f, -45.f);
+
+		AddGameObject(obj, eLayerType::Slope);
+	}
+
+	{
+		GameObject* const obj = new GameObject();
+
+		obj->AddComponent<RectCollider2D>();
+
+		obj->GetComponent<RectCollider2D>()->SetSize(700.f, 50.f);
+		obj->GetComponent<Transform>()->SetPosition(-1605.f, -50.f, 1.f);
+		obj->GetComponent<Transform>()->SetRotation(0.f, 0.f, 45.f);
+
+		AddGameObject(obj, eLayerType::Slope);
+	}
+
+	{
+		GameObject* const obj = new GameObject();
+
+		obj->AddComponent<RectCollider2D>();
+
+		obj->GetComponent<RectCollider2D>()->SetSize(700.f, 50.f);
+		obj->GetComponent<Transform>()->SetPosition(-1030.f, 190.f, 1.f);
+		obj->GetComponent<Transform>()->SetRotation(0.f, 0.f, 0.f);
+
+		AddGameObject(obj, eLayerType::Wall);
+	}
+
+
+	{
+		GameObject* const obj = new GameObject();
+
+		obj->AddComponent<RectCollider2D>();
+
+		obj->GetComponent<RectCollider2D>()->SetSize(50.f, 700.f);
+		obj->GetComponent<Transform>()->SetPosition(350.f, 0.f, 1.f);
+
+		AddGameObject(obj, eLayerType::Wall);
+	}
+
 
 	{
 		GameObjectBuilder::AddUI(this);

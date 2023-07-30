@@ -18,24 +18,22 @@ void PlayerAttackState::InputUpdate()
 
 void PlayerAttackState::Update()
 {
-	Animator2D* const animator = mGameObject->GetComponent<Animator2D>();
-
-	if (gInput->GetKey(eKeyCode::LEFT) || gInput->GetKey(eKeyCode::RIGHT))
+	if (gInput->GetKey(eKeyCode::A) || gInput->GetKey(eKeyCode::D))
 	{
 		Vector3 dir = Vector3::Zero;
 
-		if (gInput->GetKey(eKeyCode::LEFT))
+		if (gInput->GetKey(eKeyCode::A))
 		{
 			dir.x -= 1.f;
 		}
-		if (gInput->GetKey(eKeyCode::RIGHT))
+		if (gInput->GetKey(eKeyCode::D))
 		{
 			dir.x += 1.f;
 		}
 
 		if (dir.Length() > 0.1f)
 		{
-			animator->Play(L"IdleToRun", false);
+			mAnimator->Play(L"IdleToRun", false);
 			mOwner->ChangeState(mOwner->mPlayerRunState);
 			return;
 		}
@@ -44,9 +42,7 @@ void PlayerAttackState::Update()
 
 void PlayerAttackState::Enter()
 {
-	Animator2D* const animator = mGameObject->GetComponent<Animator2D>();
-
-	animator->Play(L"Attack", false);	
+	mAnimator->Play(L"Attack", false);
 }
 
 void PlayerAttackState::Exit()

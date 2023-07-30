@@ -25,8 +25,12 @@ namespace helper
 namespace helper::math
 {
 	void INT2MinAndMax(const XMINT2& a, const XMINT2& b, XMINT2* const outMin, XMINT2* const outMax);
+	void Vector2MinAndMax(const Vector2& a, const Vector2& b, Vector2* const outMin, Vector2* const outMax);
 	float LerpCosBtwZeroAndOne(const float x);
 	float LerpSinBtwZeroAndOne(const float x);
+
+	bool LineAndLineCollision(float x1, float y1, float x2, float y2, 
+		float x3, float y3, float x4, float y4, float* outInterX, float* outInterY);
 }
 
 namespace helper::rand

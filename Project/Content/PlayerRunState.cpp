@@ -2,6 +2,8 @@
 #include "PlayerRunState.h"
 #include "PlayerFSM.h"
 #include "Components.h"
+#include "Rect2DInterpolation.h"
+#include <Engine/EngineMath.h>
 
 PlayerRunState::PlayerRunState(GameObject* const gameObject, PlayerFSM* const owner)
 	: PlayerState(gameObject, owner)
@@ -14,84 +16,44 @@ PlayerRunState::~PlayerRunState()
 
 void PlayerRunState::InputUpdate()
 {
-
 }
 
 void PlayerRunState::Update()
 {
-	Animator2D* const animator = mGameObject->GetComponent<Animator2D>();
-	Rigidbody2D* const rigidbody = mGameObject->GetComponent<Rigidbody2D>();	
+	const Vector2 dir = mOwner->mPlayerGlobalState->GetInputDirectionX();
 
+	Vector2 right = Vector2::Right;
 
-	if (gInput->GetKey(eKeyCode::LEFT) == false &&
-		gInput->GetKey(eKeyCode::RIGHT) == false)
+	mOwner->mPlayerGlobalState->InputFlip();
+
+	if (mInter->IsCollisionSlop())
 	{
-		animator->Play(L"RunToIdle", false);
-		mOwner->ChangeState(mOwner->mPlayerIdleState);
-		return;
+		right.x = Deg2Rad(45.f);
 	}
 
-	Vector3 dir = Vector3::Zero;
-
-	if (gInput->GetKey(eKeyCode::LEFT))
+	if (abs(mRigidbody->GetVelocity().x) < 400.f)
 	{
-		dir.x -= 1.f;
+		mRigidbody->AddForce(right * dir.x * 4000.f);
 	}
-	if (gInput->GetKey(eKeyCode::RIGHT))
+	else if (gInput->GetKeyDown(eKeyCode::A) || gInput->GetKeyDown(eKeyCode::D))
 	{
-		dir.x += 1.f;
+		mRigidbody->SetVelocity(right * dir.x * 400.f);
 	}
 
-	if (dir.Length() < 0.1f)
-	{
-		animator->Play(L"RunToIdle", false);
-		mOwner->ChangeState(mOwner->mPlayerIdleState);
-		return;
-	}
-
-	if (gInput->GetKeyDown(eKeyCode::DOWN))
+	if (mOwner->mPlayerGlobalState->IsRollInput())
 	{
 		mOwner->ChangeState(mOwner->mPlayerRollState);
-		return;
 	}
-
-	if (gInput->GetKeyDown(eKeyCode::LEFT))
+	else if (!mOwner->mPlayerGlobalState->IsInputMoveKey() || dir.x == 0.f)
 	{
-		rigidbody->SetVelocity(Vector2::Right * dir.x * 8188.f);
+		mOwner->mPlayerGlobalState->RunToIdle();
 	}
-
-	if (gInput->GetKeyDown(eKeyCode::RIGHT))
-	{
-		rigidbody->SetVelocity(Vector2::Right * dir.x * 6818.f);
-	}
-
-	rigidbody->AddForce(Vector2::Right * dir.x * 3888.f);
-	
-
-	(void)rigidbody;
-
-	Transform* const transform = mGameObject->GetComponent<Transform>();
-
-	//float speed = 388.f;
-	//
-	//Vector3 pos = dir * speed * gDeltaTime + transform->GetPosition();
-	//
-	//transform->SetPosition(pos);
-
-	if (dir.x < 0)
-	{
-		transform->SetRotation(0.f, 180.f, 0.f);
-	}
-	else if (dir.x > 0)
-	{
-		transform->SetRotation(0.f, 0.f, 0.f);
-	}
-
 }
 
 void PlayerRunState::Enter()
 {
 	Animator2D* const animator = mGameObject->GetComponent<Animator2D>();
+
 	animator->Play(L"IdleToRun", false);
 }
 

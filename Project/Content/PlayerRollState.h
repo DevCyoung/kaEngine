@@ -13,5 +13,8 @@ public:
 
 	virtual void Enter() override;
 	virtual void Exit()  override;
+
+	float time;
+	float prevDirX;
 };
 

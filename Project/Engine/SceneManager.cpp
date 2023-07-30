@@ -5,7 +5,7 @@
 
 SceneManager::SceneManager()
 	: mCurrentScene(nullptr)
-{
+{	
 }
 
 SceneManager::~SceneManager()
@@ -15,8 +15,8 @@ SceneManager::~SceneManager()
 
 void SceneManager::LoadScene(Scene* const scene)
 {
-	Assert(scene, WCHAR_IS_NULLPTR);
-	DELETE_ARRAY(sInstance->mCurrentScene);
+	//Assert(scene, WCHAR_IS_NULLPTR);
+	DELETE_POINTER(sInstance->mCurrentScene);
 
 	mCurrentScene = scene;
 	scene->initialize();

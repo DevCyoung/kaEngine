@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "PlayerFSM.h"
 #include "Components.h"
+#include "Rect2DInterpolation.h"
 
 PlayerFSM::PlayerFSM(GameObject* const owner)
 	: mOwner(owner)
@@ -16,6 +17,7 @@ PlayerFSM::PlayerFSM(GameObject* const owner)
 	, mPlayerDoorState(new PlayerDoorState(owner, this))
 	, mPlayerFlipState(new PlayerFlipState(owner, this))
 	, mPlayerWallSlideState(new PlayerWallSlideState(owner, this))
+	, mPlayerGlobalState(new PlayerGlobalState(owner, this))
 {
 	mCurState = mPlayerIdleState;	
 }
@@ -33,59 +35,86 @@ PlayerFSM::~PlayerFSM()
 	SAFE_DELETE_POINTER(mPlayerDoorState);
 	SAFE_DELETE_POINTER(mPlayerFlipState);
 	SAFE_DELETE_POINTER(mPlayerWallSlideState);
+	SAFE_DELETE_POINTER(mPlayerGlobalState);
 
 }
 
 //FIXME: 모든 state Initialize 추가해줘야함
 void PlayerFSM::Initialize(PlayerState* const startState)
 {
+	mPlayerIdleState->Initialize();
+	mPlayerRunState->Initialize();
+	mPlayerAttackState->Initialize();
+	mPlayerRollState->Initialize();
+	mPlayerCrouchState->Initialize();
+	mPlayerJumpState->Initialize();
+	mPlayerFallState->Initialize();
+	mPlayerDoorBreakFullState->Initialize();
+	mPlayerDoorState->Initialize();
+	mPlayerFlipState->Initialize();
+	mPlayerWallSlideState->Initialize();
+	mPlayerGlobalState->Initialize();
+
 	mCurState = startState;	
 	mCurState->Enter();
 }
 
 void PlayerFSM::GlobalUpdate()
 {	
-	if (gInput->GetKeyDown(eKeyCode::LBTN))
-	{
-		ChangeState(mPlayerAttackState);		
-	}
-	else if (gInput->GetKeyDown(eKeyCode::I))
-	{
-		ChangeState(mPlayerFallState);
-	}
-	else if (gInput->GetKeyDown(eKeyCode::O))
-	{
-		ChangeState(mPlayerJumpState);
-	}
-	else if (gInput->GetKeyDown(eKeyCode::P))
-	{
-		ChangeState(mPlayerFlipState);
-	}
-	else if (gInput->GetKeyDown(eKeyCode::Q))
-	{
-		ChangeState(mPlayerDoorBreakFullState);
-	}
-	else if (gInput->GetKeyDown(eKeyCode::U))
-	{
-		ChangeState(mPlayerWallSlideState);
-	}
-	else if (gInput->GetKeyDown(eKeyCode::Y))
-	{
-		ChangeState(mPlayerDoorBreakFullState);
-	}
-	else if (gInput->GetKeyDown(eKeyCode::T))
-	{
-		mOwner->GetComponent<Animator2D>()->Play(L"Run", true);		
-	}
+	//if (gInput->GetKeyDown(eKeyCode::LBTN))
+	//{
+	//	ChangeState(mPlayerAttackState);		
+	//}
+	//else if (gInput->GetKeyDown(eKeyCode::I))
+	//{
+	//	ChangeState(mPlayerFallState);
+	//}
+	//else if (gInput->GetKeyDown(eKeyCode::O))
+	//{
+	//	ChangeState(mPlayerJumpState);
+	//}
+	//else if (gInput->GetKeyDown(eKeyCode::P))
+	//{
+	//	ChangeState(mPlayerFlipState);
+	//}
+	//else if (gInput->GetKeyDown(eKeyCode::Q))
+	//{
+	//	ChangeState(mPlayerDoorBreakFullState);
+	//}
+	//else if (gInput->GetKeyDown(eKeyCode::U))
+	//{
+	//	ChangeState(mPlayerWallSlideState);
+	//}
+	//else if (gInput->GetKeyDown(eKeyCode::Y))
+	//{
+	//	ChangeState(mPlayerDoorBreakFullState);
+	//}
+	//else if (gInput->GetKeyDown(eKeyCode::T))
+	//{
+	//	mOwner->GetComponent<Animator2D>()->Play(L"Run", true);		
+	//}
+	//
 
 	Rigidbody2D* const rigidbody = mOwner->GetComponent<Rigidbody2D>();
 
-	if (gInput->GetKeyDown(eKeyCode::X))
+	Rect2DInterpolation* const inter = mOwner->GetComponent<Rect2DInterpolation>();
+
+	//Animator2D* animator = mOwner->GetComponent<Animator2D>();	
+	
+	if (gInput->GetKeyDown(eKeyCode::W) && inter->IsCollisionWallDown())
 	{
-		rigidbody->SetVelocity(Vector2::Up * 300.f);
+		Vector2 velocity =  rigidbody->GetVelocity();
+		velocity.y = Vector2::Up.y * 450.f;
+		rigidbody->SetVelocity(velocity);
+		ChangeState(mPlayerJumpState);
 	}
-
-
+	else if (rigidbody->GetVelocity().y < 0.f && 
+		mCurState != mPlayerFallState &&
+		mCurState != mPlayerWallSlideState)
+	{
+		ChangeState(mPlayerFallState);
+	}
+	
 }
 
 void PlayerFSM::InputUpdate()

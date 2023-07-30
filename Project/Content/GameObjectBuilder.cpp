@@ -98,10 +98,10 @@ GameObject* GameObjectBuilder::Player()
 	player->GetComponent<Animator2D>()->Play(L"Idle", true);
 
 	player->GetComponent<Rigidbody2D>()->TurnOnGravity();
-	player->GetComponent<Rigidbody2D>()->SetGravityAccel(300.f);
+	player->GetComponent<Rigidbody2D>()->SetGravityAccel(800.f);
 
 
-	player->GetComponent<RectCollider2D>()->SetSize(28.f, 42.f);
+	player->GetComponent<RectCollider2D>()->SetSize(18.f, 42.f);
 	player->GetComponent<RectCollider2D>()->SetOffset(Vector2(0.f, 4.f));
 
 

@@ -46,19 +46,19 @@ void CameraInputMoveMent::update()
 		Vector3 pos = transform->GetPosition();
 		Vector3 dir = Vector3::Zero;
 
-		if (gInput->GetKey(eKeyCode::W))
+		if (gInput->GetKey(eKeyCode::UP))
 		{
 			dir.y += 1.f;
 		}
-		if (gInput->GetKey(eKeyCode::S))
+		if (gInput->GetKey(eKeyCode::DOWN))
 		{
 			dir.y += -1.f;
 		}
-		if (gInput->GetKey(eKeyCode::A))
+		if (gInput->GetKey(eKeyCode::LEFT))
 		{
 			dir.x -= 1.f;
 		}
-		if (gInput->GetKey(eKeyCode::D))
+		if (gInput->GetKey(eKeyCode::RIGHT))
 		{
 			dir.x += 1.f;
 		}

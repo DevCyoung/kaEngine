@@ -20,7 +20,7 @@ Engine::Engine(const HWND hWnd, const UINT renderTargetWidth, const UINT renderT
 {
 	setWindowSize(mRenderTargetWidth, mRenderTargetHeight);
 
-	TimeManager::initialize();
+	//TimeManager::initialize();
 	MessageManager::initialize();
 	PathManager::initialize();
 	InputManager::initialize();
@@ -35,7 +35,7 @@ Engine::~Engine()
 	InputManager::deleteInstance();
 	PathManager::deleteInstance();
 	MessageManager::deleteInstance();
-	TimeManager::deleteInstance();
+	//TimeManager::deleteInstance();
 	
 	SAFE_DELETE_POINTER(mGraphicDevice);
 }
