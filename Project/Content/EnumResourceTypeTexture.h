@@ -2,6 +2,7 @@
 
 enum class eResTexture
 {
+	Atlas_Player_slash,
 	Atlas_Player_zero,
 	Atlas_Title_Plants,
 	charactor_atlas_zero_black,

@@ -61,10 +61,11 @@ void PlayerFSM::Initialize(PlayerState* const startState)
 
 void PlayerFSM::GlobalUpdate()
 {	
-	//if (gInput->GetKeyDown(eKeyCode::LBTN))
-	//{
-	//	ChangeState(mPlayerAttackState);		
-	//}
+	if (gInput->GetKeyDown(eKeyCode::LBTN))
+	{
+		ChangeState(mPlayerAttackState);		
+	}
+
 	//else if (gInput->GetKeyDown(eKeyCode::I))
 	//{
 	//	ChangeState(mPlayerFallState);
@@ -110,7 +111,8 @@ void PlayerFSM::GlobalUpdate()
 	}
 	else if (rigidbody->GetVelocity().y < 0.f && 
 		mCurState != mPlayerFallState &&
-		mCurState != mPlayerWallSlideState)
+		mCurState != mPlayerWallSlideState && 
+		mCurState != mPlayerAttackState)
 	{
 		ChangeState(mPlayerFallState);
 	}

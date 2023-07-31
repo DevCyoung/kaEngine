@@ -3,9 +3,11 @@
 #include "Components.h"
 #include "PlayerFSM.h"
 
+
 PlayerController::PlayerController()
 	: ScriptComponent(eScriptComponentType::PlayerController)
 	, mPlayerFSM(nullptr)
+	, mSlash(nullptr)
 {
 }
 
