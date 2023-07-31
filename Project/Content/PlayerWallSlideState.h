@@ -12,5 +12,14 @@ public:
 
 	virtual void Enter() override;
 	virtual void Exit()  override;
-};
 
+	virtual void Initialize() override;
+
+
+private:
+	float gravityScale;
+
+	float oriGravityScale;
+	float oriGravityLimit;
+
+};

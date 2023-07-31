@@ -49,9 +49,6 @@
     <Filter Include="Source\01. ScriptComponent\Test">
       <UniqueIdentifier>{71fc1149-d8c0-4313-a60e-2304d41cfd1c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\01. ScriptComponent\Scene">
-      <UniqueIdentifier>{cc7e087a-78df-4419-bf59-204d1219fdb7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\01. ScriptComponent\Controller">
       <UniqueIdentifier>{cf4bab5e-0fe1-4d3f-afb9-7f1f0515b5a9}</UniqueIdentifier>
     </Filter>
@@ -144,6 +141,45 @@
     </Filter>
     <Filter Include="ShaderCode\Light">
       <UniqueIdentifier>{4bd83d62-b18b-4315-9551-1e88dc02a6c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scene\Scene">
+      <UniqueIdentifier>{cc7e087a-78df-4419-bf59-204d1219fdb7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\FSM\Player\State\Global">
+      <UniqueIdentifier>{d1103c1c-2f4a-41a0-96d3-0ffbad04b644}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\FSM\Player\State\Attack">
+      <UniqueIdentifier>{61b52298-f13f-48f1-83be-996192c64b14}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\FSM\Player\State\Crouch">
+      <UniqueIdentifier>{13d7c632-10a6-4acd-8466-6f08d85520d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\FSM\Player\State\Door">
+      <UniqueIdentifier>{2d28dd69-8f6b-4427-9be8-a71239a3216a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\FSM\Player\State\Fall">
+      <UniqueIdentifier>{24228ce0-afec-4db7-920f-22100996a1d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\FSM\Player\State\Flip">
+      <UniqueIdentifier>{c3bf0f49-871c-4ce4-a627-0a3b24079934}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\FSM\Player\State\Idle">
+      <UniqueIdentifier>{683210c4-220e-4b18-b70d-721370c4d910}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\FSM\Player\State\Jump">
+      <UniqueIdentifier>{fd1fe958-b913-402f-84d0-7f72851df129}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\FSM\Player\State\Roll">
+      <UniqueIdentifier>{5890842c-539b-4190-9c21-2deb63c2758e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\FSM\Player\State\Run">
+      <UniqueIdentifier>{1a2bb23a-2c3c-48b3-80d9-e9ea3f7dbbac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\FSM\Player\State\BaseState">
+      <UniqueIdentifier>{fd59b941-2690-4f0d-9ee2-0a6ddc84008a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\FSM\Player\State\WallSlide">
+      <UniqueIdentifier>{33c5125e-4f82-4620-8594-385476bbc988}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -244,7 +280,7 @@
       <Filter>Source\Scene\Chinatown04</Filter>
     </ClInclude>
     <ClInclude Include="Chinatown04Controller.h">
-      <Filter>Source\01. ScriptComponent\Scene</Filter>
+      <Filter>Source\Scene\Scene</Filter>
     </ClInclude>
     <ClInclude Include="Chinatown05Scene.h">
       <Filter>Source\Scene\Chinatown05</Filter>
@@ -258,15 +294,6 @@
     <ClInclude Include="PlayerController.h">
       <Filter>Source\01. ScriptComponent\Controller</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerIdleState.h">
-      <Filter>Source\FSM\Player\State</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerRunState.h">
-      <Filter>Source\FSM\Player\State</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerState.h">
-      <Filter>Source\FSM\Player\State</Filter>
-    </ClInclude>
     <ClInclude Include="PlayerFSM.h">
       <Filter>Source\FSM\Player\FSM</Filter>
     </ClInclude>
@@ -276,38 +303,50 @@
     <ClInclude Include="FSMState.h">
       <Filter>Source\FSM\FSM\State</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerAttackState.h">
-      <Filter>Source\FSM\Player\State</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerRollState.h">
-      <Filter>Source\FSM\Player\State</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerCrouchState.h">
-      <Filter>Source\FSM\Player\State</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerJumpState.h">
-      <Filter>Source\FSM\Player\State</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerFallState.h">
-      <Filter>Source\FSM\Player\State</Filter>
-    </ClInclude>
     <ClInclude Include="GridPainter.h">
       <Filter>Source\01. ScriptComponent\Painter</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerDoorBreakFullState.h">
-      <Filter>Source\FSM\Player\State</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerDoorState.h">
-      <Filter>Source\FSM\Player\State</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerFlipState.h">
-      <Filter>Source\FSM\Player\State</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerWallSlideState.h">
-      <Filter>Source\FSM\Player\State</Filter>
-    </ClInclude>
     <ClInclude Include="Rect2DInterpolation.h">
       <Filter>Source\01. ScriptComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerAttackState.h">
+      <Filter>Source\FSM\Player\State\Attack</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerCrouchState.h">
+      <Filter>Source\FSM\Player\State\Crouch</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerDoorBreakFullState.h">
+      <Filter>Source\FSM\Player\State\Door</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerDoorState.h">
+      <Filter>Source\FSM\Player\State\Door</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerGlobalState.h">
+      <Filter>Source\FSM\Player\State\Global</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerFallState.h">
+      <Filter>Source\FSM\Player\State\Fall</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerFlipState.h">
+      <Filter>Source\FSM\Player\State\Flip</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerIdleState.h">
+      <Filter>Source\FSM\Player\State\Idle</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerJumpState.h">
+      <Filter>Source\FSM\Player\State\Jump</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerRollState.h">
+      <Filter>Source\FSM\Player\State\Roll</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerRunState.h">
+      <Filter>Source\FSM\Player\State\Run</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerState.h">
+      <Filter>Source\FSM\Player\State\BaseState</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerWallSlideState.h">
+      <Filter>Source\FSM\Player\State\WallSlide</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -402,7 +441,7 @@
       <Filter>Source\Scene\Chinatown04</Filter>
     </ClCompile>
     <ClCompile Include="Chinatown04Controller.cpp">
-      <Filter>Source\01. ScriptComponent\Scene</Filter>
+      <Filter>Source\Scene\Scene</Filter>
     </ClCompile>
     <ClCompile Include="Chinatown05Scene.cpp">
       <Filter>Source\Scene\Chinatown05</Filter>
@@ -416,15 +455,6 @@
     <ClCompile Include="PlayerController.cpp">
       <Filter>Source\01. ScriptComponent\Controller</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerIdleState.cpp">
-      <Filter>Source\FSM\Player\State</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerRunState.cpp">
-      <Filter>Source\FSM\Player\State</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerState.cpp">
-      <Filter>Source\FSM\Player\State</Filter>
-    </ClCompile>
     <ClCompile Include="PlayerFSM.cpp">
       <Filter>Source\FSM\Player\FSM</Filter>
     </ClCompile>
@@ -434,38 +464,50 @@
     <ClCompile Include="FSMState.cpp">
       <Filter>Source\FSM\FSM\State</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerAttackState.cpp">
-      <Filter>Source\FSM\Player\State</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerRollState.cpp">
-      <Filter>Source\FSM\Player\State</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerCrouchState.cpp">
-      <Filter>Source\FSM\Player\State</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerFallState.cpp">
-      <Filter>Source\FSM\Player\State</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerJumpState.cpp">
-      <Filter>Source\FSM\Player\State</Filter>
-    </ClCompile>
     <ClCompile Include="GridPainter.cpp">
       <Filter>Source\01. ScriptComponent\Painter</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerDoorBreakFullState.cpp">
-      <Filter>Source\FSM\Player\State</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerDoorState.cpp">
-      <Filter>Source\FSM\Player\State</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerFlipState.cpp">
-      <Filter>Source\FSM\Player\State</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerWallSlideState.cpp">
-      <Filter>Source\FSM\Player\State</Filter>
-    </ClCompile>
     <ClCompile Include="Rect2DInterpolation.cpp">
       <Filter>Source\01. ScriptComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerAttackState.cpp">
+      <Filter>Source\FSM\Player\State\Attack</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerCrouchState.cpp">
+      <Filter>Source\FSM\Player\State\Crouch</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerDoorBreakFullState.cpp">
+      <Filter>Source\FSM\Player\State\Door</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerDoorState.cpp">
+      <Filter>Source\FSM\Player\State\Door</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerGlobalState.cpp">
+      <Filter>Source\FSM\Player\State\Global</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerFallState.cpp">
+      <Filter>Source\FSM\Player\State\Fall</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerFlipState.cpp">
+      <Filter>Source\FSM\Player\State\Flip</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerIdleState.cpp">
+      <Filter>Source\FSM\Player\State\Idle</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerJumpState.cpp">
+      <Filter>Source\FSM\Player\State\Jump</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerRollState.cpp">
+      <Filter>Source\FSM\Player\State\Roll</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerRunState.cpp">
+      <Filter>Source\FSM\Player\State\Run</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerState.cpp">
+      <Filter>Source\FSM\Player\State\BaseState</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerWallSlideState.cpp">
+      <Filter>Source\FSM\Player\State\WallSlide</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

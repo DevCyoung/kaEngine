@@ -13,6 +13,7 @@
 #include "PlayerDoorState.h"
 #include "PlayerFlipState.h"
 #include "PlayerWallSlideState.h"
+#include "PlayerGlobalState.h"
 
 class GameObject;
 
@@ -50,4 +51,5 @@ public:
 	PlayerDoorState* mPlayerDoorState;
 	PlayerFlipState* mPlayerFlipState;
 	PlayerWallSlideState* mPlayerWallSlideState;
+	PlayerGlobalState* mPlayerGlobalState;
 };

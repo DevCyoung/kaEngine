@@ -4,6 +4,7 @@
 class TimeManager
 {
 	friend class Engine;	
+	friend class Content;
 	SINGLETON_DECLARE(TimeManager);
 
 private:

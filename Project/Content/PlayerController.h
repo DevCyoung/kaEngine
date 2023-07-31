@@ -5,6 +5,7 @@
 REGISTER_SCRIPTCOMPONENT_TYPE(PlayerController);
 
 class PlayerFSM;
+class GameObject;
 
 class PlayerController : public ScriptComponent
 {
@@ -14,6 +15,10 @@ public:
 	PlayerController(const PlayerController&) = delete;
 	PlayerController& operator=(const PlayerController&) = delete;
 	void SetFSM(PlayerFSM* const playerFSM) { mPlayerFSM = playerFSM; }
+	void SetSlash(GameObject* const slash) { mSlash = slash; }
+
+	GameObject* GetSlash() const { return mSlash; }
+
 
 private:
 	virtual void initialize() override final;
@@ -24,4 +29,5 @@ private:
 	void runToIdle();
 
 	PlayerFSM* mPlayerFSM;
+	GameObject* mSlash;
 };

@@ -12,5 +12,10 @@ public:
 
 	virtual void Enter() override;
 	virtual void Exit()  override;
+
+
+public:
+	int prevDir = 0;
+	float time = 0.f;
 };
 

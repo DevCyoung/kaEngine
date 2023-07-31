@@ -15,10 +15,14 @@ public:
     void AddForce(Vector2 force) { mForce += force; }
     void SetVelocityLimit(float velocityLimit) { mVelocityLimit = velocityLimit; }
     void SetGravityVelocityLimit(float gravityVelocityLimit) { mGravityLimit = gravityVelocityLimit; }
+
     float GetGravityScale() { return mGravityAccel; }
+    float GetGravityVelocityLimit() const { return mGravityLimit; }
 
     void SetVelocity(Vector2 velocity) { mVelocity = velocity; }
     Vector2 GetVelocity() { return mVelocity; }
+
+    bool IsGround() const { return mbGround; }
 
     void AddVelocity(Vector2 velocity) { mVelocity += velocity; }
 

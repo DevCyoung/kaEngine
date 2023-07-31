@@ -21,11 +21,19 @@ void PlayerCrouchState::Update()
 {
 	Animator2D* const animator = mGameObject->GetComponent<Animator2D>();
 
-	if (gInput->GetKey(eKeyCode::DOWN) == false)
+	if (gInput->GetKey(eKeyCode::S) == false)
 	{
 		animator->Play(L"PostCrouch", false);
 		mOwner->ChangeState(mOwner->mPlayerIdleState);
+		return;
 	}
+
+
+	if (mOwner->mPlayerGlobalState->IsRollInput())
+	{
+		mOwner->ChangeState(mOwner->mPlayerRollState);
+	}
+
 }
 
 void PlayerCrouchState::Enter()

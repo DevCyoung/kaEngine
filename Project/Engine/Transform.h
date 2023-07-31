@@ -38,7 +38,7 @@ public:
 
 	static Matrix CreateWorldMatrix(const Vector3& position, const Vector3& rotation, const Vector3& scale);
 
-
+	void SetWorldMatrix(const Matrix& world) { mWorld = world; }
 
 private:
 	virtual void initialize() override final;

@@ -6,6 +6,8 @@ enum class eLayerType
 	TileMap,		
 	Object,
 	Forground,
+	Wall,
+	Slope,
 	Item,
 	Enemy,
 	Bullet,

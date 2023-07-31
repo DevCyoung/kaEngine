@@ -3,6 +3,14 @@
 #include "Components.h"
 #include "PlayerFSM.h"
 
+#include <Engine/GameObject.h>
+#include <Engine/EngineMath.h>
+#include <Engine/GameSystem.h>
+#include <Engine/RenderTargetRenderer.h>
+#include <Engine/DebugRenderer2D.h>
+#include "Rect2DInterpolation.h"
+#include "PlayerController.h"
+
 PlayerAttackState::PlayerAttackState(GameObject* const gameObject, PlayerFSM* const owner)
 	: PlayerState(gameObject, owner)
 {
@@ -18,35 +26,57 @@ void PlayerAttackState::InputUpdate()
 
 void PlayerAttackState::Update()
 {
-	Animator2D* const animator = mGameObject->GetComponent<Animator2D>();
-
-	if (gInput->GetKey(eKeyCode::LEFT) || gInput->GetKey(eKeyCode::RIGHT))
+	if (mOwner->mPlayerGlobalState->IsStop())
 	{
-		Vector3 dir = Vector3::Zero;
-
-		if (gInput->GetKey(eKeyCode::LEFT))
-		{
-			dir.x -= 1.f;
-		}
-		if (gInput->GetKey(eKeyCode::RIGHT))
-		{
-			dir.x += 1.f;
-		}
-
-		if (dir.Length() > 0.1f)
-		{
-			animator->Play(L"IdleToRun", false);
-			mOwner->ChangeState(mOwner->mPlayerRunState);
-			return;
-		}
+		mOwner->mPlayerGlobalState->RunToIdle();
 	}
 }
 
 void PlayerAttackState::Enter()
 {
-	Animator2D* const animator = mGameObject->GetComponent<Animator2D>();
+	mAnimator->Play(L"Attack", false);	
 
-	animator->Play(L"Attack", false);	
+	RenderTargetRenderer* render = mGameObject->GetGameSystem()->GetRenderTargetRenderer();
+	Camera* const  camera = render->GetRegisteredRenderCamera(eCameraPriorityType::Main);
+
+	Vector3 pos = helper::WindowScreenMouseToWorld3D(camera);
+
+	Vector3 dir = pos - mGameObject->GetComponent<Transform>()->GetPosition();
+
+	dir.z = 0.f;
+	dir.Normalize();
+	dir.x *= 0.3f;
+
+	Vector2 dir2 = Vector2(dir.x, dir.y);
+
+	mRigidbody->SetVelocity(dir2 * 550.f);
+
+	if (dir2.x < 0)
+	{
+		mTransform->SetRotation(0.f, 180.f, 0.f);
+	}
+	else if (dir2.x > 0)
+	{
+		mTransform->SetRotation(0.f, 0.f, 0.f);
+	}
+
+	GameObject* slash =  mGameObject->GetComponent<PlayerController>()->GetSlash();
+
+	slash->GetComponent<Animator2D>()->Play(L"Slash", false);
+
+	//dir -> Right
+
+	dir = pos - mGameObject->GetComponent<Transform>()->GetPosition();
+
+	float deg = Rad2Deg(atan2(dir.y, dir.x));
+
+	if (dir.x < 0.f)
+	{
+		deg = 180 - deg;
+	}
+
+	slash->GetComponent<Transform>()->SetRotation(0.f, 0.f, deg);
+
 }
 
 void PlayerAttackState::Exit()
