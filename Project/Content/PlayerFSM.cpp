@@ -112,7 +112,8 @@ void PlayerFSM::GlobalUpdate()
 	else if (rigidbody->GetVelocity().y < 0.f && 
 		mCurState != mPlayerFallState &&
 		mCurState != mPlayerWallSlideState && 
-		mCurState != mPlayerAttackState)
+		mCurState != mPlayerAttackState &&
+		!rigidbody->IsGround())
 	{
 		ChangeState(mPlayerFallState);
 	}

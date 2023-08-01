@@ -19,10 +19,11 @@ void PlayerFallState::InputUpdate()
 
 void PlayerFallState::Update()
 {
-	Vector2 dir = mOwner->mPlayerGlobalState->GetInputDirectionX();
-	Vector2 velocity = mRigidbody->GetVelocity();
-
-	velocity.x = 250.f * dir.x;
+	//Vector2 dir = mOwner->mPlayerGlobalState->GetInputDirectionX();
+	//Vector2 velocity = mRigidbody->GetVelocity();
+	//
+	//velocity.x = 250.f * dir.x;
+	//
 
 	if (mInter->IsCollisionWallDown())
 	{
@@ -30,20 +31,21 @@ void PlayerFallState::Update()
 		mOwner->ChangeState(mOwner->mPlayerIdleState);
 		return;
 	}
-	else if (mInter->IsCollisionSlop())
-	{
-		velocity.x /= 10.f;
-		dir.x = 0.f;
-	}
-	else if (abs(velocity.x) >= 250.f)
-	{
-		
-	}
 
-	
-
-	//mRigidbody->AddForce(Vector2::Right * dir.x * 3888.f);
-	mRigidbody->SetVelocity(velocity);
+	//else if (mInter->IsCollisionSlop())
+	//{
+	//	velocity.x /= 10.f;
+	//	dir.x = 0.f;
+	//}
+	//else if (abs(velocity.x) >= 250.f)
+	//{
+	//	
+	//}
+	//
+	//
+	//
+	////mRigidbody->AddForce(Vector2::Right * dir.x * 3888.f);
+	//mRigidbody->SetVelocity(velocity);
 
 }
 

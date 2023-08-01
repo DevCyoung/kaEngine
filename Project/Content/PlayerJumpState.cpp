@@ -74,6 +74,7 @@ void PlayerJumpState::Enter()
 	mAnimator->Play(L"Jump", true);	
 
 	Vector2 velocity = mRigidbody->GetVelocity();
+
 	if (mInter->IsCollisionSlop())
 	{
 		velocity.x = 0.f;

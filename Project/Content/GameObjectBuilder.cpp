@@ -43,7 +43,7 @@ GameObject* GameObjectBuilder::Player()
 		Texture* atlas = gResourceManager->FindByEnum<Texture>(eResTexture::Atlas_Player_zero);
 
 		anim->CreateAnimation(L"Attack", atlas, 7,
-			XMUINT2(5, 34), XMUINT2(62, 42), XMUINT2(10, 10), XMINT2(0, 0), 0.059f);
+			XMUINT2(5, 34), XMUINT2(62, 42), XMUINT2(10, 10), XMINT2(0, 0), 0.0325f);
 
 		anim->CreateAnimation(L"Roll", atlas, 7,
 			XMUINT2(5, 1718), XMUINT2(48, 33), XMUINT2(10, 10), XMINT2(0, 0), 0.06f);
@@ -98,7 +98,7 @@ GameObject* GameObjectBuilder::Player()
 	player->GetComponent<Animator2D>()->Play(L"Idle", true);
 
 	player->GetComponent<Rigidbody2D>()->TurnOnGravity();
-	player->GetComponent<Rigidbody2D>()->SetGravityAccel(800.f);
+	player->GetComponent<Rigidbody2D>()->SetGravityAccel(1800.f);
 
 
 	player->GetComponent<RectCollider2D>()->SetSize(18.f, 42.f);

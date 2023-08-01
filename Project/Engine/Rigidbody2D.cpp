@@ -63,6 +63,49 @@ void Rigidbody2D::fixedUpdate()
 		}
 	}
 
+	//공기저항 X
+	if (mbGravityUse && !mbGround)
+	{		
+		// 마찰 가속도
+		Vector2 vFriction = -mVelocity;
+
+		vFriction.y = 0.f;
+		vFriction.Normalize();
+
+		//공기저항계수
+		vFriction *= 300.f * gDeltaTime;
+
+		if (mVelocity.Length() <= vFriction.Length())
+		{
+			mVelocity.x = 0.f;
+		}
+		else
+		{
+			mVelocity += vFriction;
+		}
+
+
+		
+
+
+		//if (vFriction != Vector2::Zero)
+		//{
+		//	vFriction.Normalize();
+		//	vFriction *= (mFriction * mFrictionScale * mMass * gDeltaTime);
+		//}
+
+		//// 속도 감소량(마찰력에 의한) 이 기존 속도를 넘어 설 경우, 완전 제로로 만든다.
+		//if (mVelocity.Length() <= vFriction.Length())
+		//{
+		//	mVelocity = Vector2::Zero;
+		//}
+		//else
+		//{
+		//	// 현재 속도 반대방향으로 마찰의 의한 속도 감소
+		//	mVelocity += vFriction;
+		//}
+	}
+
 	// 중력 적용 + 공중 상태 ==> 중력
 	if (mbGravityUse && mbGround == false)
 	{
@@ -113,3 +156,4 @@ void Rigidbody2D::lateUpdate()
 {
 
 }
+

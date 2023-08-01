@@ -2,7 +2,7 @@
 #include "PlayerController.h"
 #include "Components.h"
 #include "PlayerFSM.h"
-
+#include "Rect2DInterpolation.h"
 
 PlayerController::PlayerController()
 	: ScriptComponent(eScriptComponentType::PlayerController)
@@ -24,16 +24,27 @@ void PlayerController::initialize()
 
 	{
 		Animation2D* animation = animator->FindAnimationOrNull(L"IdleToRun");
-		std::function<void()> func = std::bind(&PlayerController::idleToRun, this);
 
-		animation->SetLastFrameEndEvent(func);
+		{
+			std::function<void()> func = std::bind(&PlayerController::idleToRun, this);
+			animation->SetLastFrameEndEvent(func);
+		}
 	}
 
 	{
 		Animation2D* animation = animator->FindAnimationOrNull(L"RunToIdle");
-		std::function<void()> func = std::bind(&PlayerController::runToIdle, this);
 
-		animation->SetLastFrameEndEvent(func);
+
+		{
+			std::function<void()> func = std::bind(&PlayerController::runToIdleVeloZero, this);
+			animation->SetFrameEndEvent(3, func);
+		}
+
+		{
+			std::function<void()> func = std::bind(&PlayerController::runToIdle, this);
+			animation->SetLastFrameEndEvent(func);
+		}			
+
 	}
 
 	{
@@ -56,7 +67,30 @@ void PlayerController::initialize()
 		animation->SetLastFrameEndEvent(func);
 	}
 
-	
+	{
+		std::function<void()> func = [this]() {
+
+			//Animator2D* const animator = GetOwner()->GetComponent<Animator2D>();
+
+			if (GetOwner()->GetComponent<Rect2DInterpolation>()->IsCollisionWallDown() || GetOwner()->GetComponent<Rect2DInterpolation>()->IsCollisionSlop())
+			{
+				mPlayerFSM->mPlayerGlobalState->RunToIdle();
+			}
+			else
+			{
+				//animator->Play(L"Fall", true);
+				mPlayerFSM->ChangeState(mPlayerFSM->mPlayerFallState);
+			}
+
+
+		};
+
+		Animation2D* animation = animator->FindAnimationOrNull(L"Attack");
+
+		animation->SetLastFrameEndEvent(func);
+	}
+
+
 }
 
 void PlayerController::update()
@@ -142,7 +176,7 @@ void PlayerController::update()
 }
 
 void PlayerController::lateUpdate()
-{	
+{
 }
 
 void PlayerController::idleToRun()
@@ -155,6 +189,21 @@ void PlayerController::idleToRun()
 void PlayerController::runToIdle()
 {
 	Animator2D* const animator = GetOwner()->GetComponent<Animator2D>();
+	//Rigidbody2D* const rigidbody = GetOwner()->GetComponent<Rigidbody2D>();
 
 	animator->Play(L"Idle", true);
+	//rigidbody->SetVelocity(Vector2(0.f, 0.f));
+}
+
+void PlayerController::runToIdleVeloZero()
+{
+	Rigidbody2D* const rigidbody = GetOwner()->GetComponent<Rigidbody2D>();
+	rigidbody->SetVelocity(Vector2::Zero);
+}
+
+void PlayerController::toFall()
+{
+	Animator2D* const animator = GetOwner()->GetComponent<Animator2D>();
+
+	animator->Play(L"Fall", true);
 }
