@@ -2,7 +2,7 @@
 #include <d3d11.h>
 #include "Singleton.h"
 #include "EnumRenderType.h"
-#include "StructConstantBuffer.h"
+#include "StructBuffer.h"
 
 class Camera;
 class RenderComponent;

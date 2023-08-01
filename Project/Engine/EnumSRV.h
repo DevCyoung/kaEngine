@@ -1,6 +1,6 @@
 enum class eSRVTpye 
 {
-	Register0,
+	Sprite2D,
 	Register1,
 	Register2,
 	Register3,
@@ -15,7 +15,7 @@ enum class eSRVTpye
 	Register12,
 	Light2DBuffer,
 	Register13,
-	Register14,
+	Particle2D,
 	Register16,
 	Register17,
 	Register18,

@@ -50,9 +50,9 @@ void PlayerAttackState::Enter()
 
 	if (mInter->IsCollisionWallDown() || mInter->IsCollisionSlop())
 	{
-		if (dir.y <= 0.15f)
+		if (dir.y <= 0.2f)
 		{
-			dir.y = 0.15f;
+			dir.y = 0.2f;
 			//dir.x *= 0.6f;
 		}
 	}

@@ -14,7 +14,7 @@
 #include "EnumShaderBindStage.h"
 
 #include "CBCollection.h"
-#include "StructConstantBuffer.h"
+#include "StructBuffer.h"
 #include "TimeManager.h"
 
 RenderTargetRenderer::RenderTargetRenderer()

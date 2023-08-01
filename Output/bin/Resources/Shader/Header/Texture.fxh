@@ -24,7 +24,8 @@ struct tLightInfo
 	float Angle; // ºûÀÇ °¢µµ    
 	int Padding;
 };
-StructuredBuffer<tLightInfo> g_Light2DBuffer : register(t13);
 
+StructuredBuffer<tLightInfo> g_Light2DBuffer : register(t13);
+StructuredBuffer<tLightInfo> g_ParticleBuffer : register(t15);
 
 #endif

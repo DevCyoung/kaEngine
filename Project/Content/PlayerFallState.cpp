@@ -3,6 +3,7 @@
 #include "Components.h"
 #include "PlayerFSM.h"
 #include "Rect2DInterpolation.h"
+#include <Engine/EngineMath.h>
 
 PlayerFallState::PlayerFallState(GameObject* const gameObject, PlayerFSM* const owner)
 	: PlayerState(gameObject, owner)
@@ -24,6 +25,22 @@ void PlayerFallState::Update()
 	//
 	//velocity.x = 250.f * dir.x;
 	//
+
+	const Vector2 dir = mOwner->mPlayerGlobalState->GetInputDirectionX();
+
+	Vector2 right = Vector2::Right;
+
+	mOwner->mPlayerGlobalState->InputFlip();
+
+	if (mInter->IsCollisionSlop())
+	{
+		right.x = Deg2Rad(45.f);
+	}
+
+	if (abs(mRigidbody->GetVelocity().x) < 400.f)
+	{
+		mRigidbody->AddForce(right * dir.x * 700.f);
+	}
 
 	if (mInter->IsCollisionWallDown())
 	{

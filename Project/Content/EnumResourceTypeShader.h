@@ -16,6 +16,7 @@ enum class eResShader
 	PSLineDebug2D,
 	PSSprite2D,
 	PSUI2D,
+	stdCS,
 	VSAnimation2D,
 	VSFillDebug2D,
 	VSGrid2D,

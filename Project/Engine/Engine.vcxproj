@@ -183,6 +183,7 @@ call ScriptGen.exe Component $(SolutionDir)Project\Engine $(SolutionDir)Project\
     <ClInclude Include="Color.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="ComponentTrait.h" />
+    <ClInclude Include="ComputeShader.h" />
     <ClInclude Include="DebugRenderer2D.h">
       <SubType>
       </SubType>
@@ -208,6 +209,7 @@ call ScriptGen.exe Component $(SolutionDir)Project\Engine $(SolutionDir)Project\
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="ParticleSystem.h" />
     <ClInclude Include="Physics2D.h" />
     <ClInclude Include="RectCollider2D.h">
       <SubType>
@@ -254,7 +256,7 @@ call ScriptGen.exe Component $(SolutionDir)Project\Engine $(SolutionDir)Project\
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="String.h" />
-    <ClInclude Include="StructConstantBuffer.h" />
+    <ClInclude Include="StructBuffer.h" />
     <ClInclude Include="SBCollection.h" />
     <ClInclude Include="StructuredBuffer.h" />
     <ClInclude Include="StructVertex.h" />
@@ -284,6 +286,7 @@ call ScriptGen.exe Component $(SolutionDir)Project\Engine $(SolutionDir)Project\
     <ClCompile Include="CollisionManagement2D.cpp" />
     <ClCompile Include="Color.cpp" />
     <ClCompile Include="Component.cpp" />
+    <ClCompile Include="ComputeShader.cpp" />
     <ClCompile Include="ConstantBuffer.cpp" />
     <ClCompile Include="DebugRenderer2D.cpp">
       <SubType>
@@ -302,6 +305,7 @@ call ScriptGen.exe Component $(SolutionDir)Project\Engine $(SolutionDir)Project\
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="ParticleSystem.cpp" />
     <ClCompile Include="Physics2D.cpp" />
     <ClCompile Include="RectCollider2D.cpp">
       <SubType>
@@ -344,7 +348,7 @@ call ScriptGen.exe Component $(SolutionDir)Project\Engine $(SolutionDir)Project\
     <ClCompile Include="ScriptComponent.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="String.cpp" />
-    <ClCompile Include="StructConstantBuffer.cpp" />
+    <ClCompile Include="StructBuffer.cpp" />
     <ClCompile Include="SBCollection.cpp" />
     <ClCompile Include="StructuredBuffer.cpp" />
     <ClCompile Include="StructVertex.cpp" />

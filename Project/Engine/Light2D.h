@@ -1,6 +1,6 @@
 #pragma once
 #include "Component.h"
-#include "StructConstantBuffer.h"
+#include "StructBuffer.h"
 
 REGISTER_COMPONENT_TYPE(Light2D);
 

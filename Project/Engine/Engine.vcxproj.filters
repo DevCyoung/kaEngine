@@ -43,9 +43,6 @@
     <Filter Include="Source\04. Layer">
       <UniqueIdentifier>{6de68158-2bc2-412a-9dc5-372c1ab6e096}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\00. Engine\00. Entity">
-      <UniqueIdentifier>{0febf985-2089-4d69-9d73-46a0d133a463}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\00. Engine\01. Graphics">
       <UniqueIdentifier>{8231d530-7a53-4699-a9cc-a474fbba78b9}</UniqueIdentifier>
     </Filter>
@@ -190,10 +187,25 @@
     <Filter Include="Source\00. Engine\01. Graphics\Collection\05. SB">
       <UniqueIdentifier>{5c5eee3a-7799-4f94-b260-d881ea2643e5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\06. Resource\03. Shader\ComputeShader">
+      <UniqueIdentifier>{fb23344b-20f2-483c-a0b7-0daaa2dfa502}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\00. Engine\01. Graphics\Device">
+      <UniqueIdentifier>{b64f2779-7eac-4c5d-815e-21b8721540e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\00. Engine\00. Engine">
+      <UniqueIdentifier>{4298a701-1ebc-4ce0-9134-a7d8987dc167}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\00. Engine\04. Entity">
+      <UniqueIdentifier>{0febf985-2089-4d69-9d73-46a0d133a463}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\03. Component\03. Render\02. ParticleSystem">
+      <UniqueIdentifier>{99ba6f25-8b75-42cd-8db9-dd2aa21a3758}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Entity.h">
-      <Filter>Source\00. Engine\00. Entity</Filter>
+      <Filter>Source\00. Engine\04. Entity</Filter>
     </ClInclude>
     <ClInclude Include="TimeManager.h">
       <Filter>Source\01. Manager\00. Time</Filter>
@@ -203,9 +215,6 @@
     </ClInclude>
     <ClInclude Include="pch.h">
       <Filter>Windows</Filter>
-    </ClInclude>
-    <ClInclude Include="GraphicDeviceDX11.h">
-      <Filter>Source\00. Engine\01. Graphics</Filter>
     </ClInclude>
     <ClInclude Include="InputManager.h">
       <Filter>Source\01. Manager\01. Input</Filter>
@@ -255,9 +264,6 @@
     <ClInclude Include="SafeDelete.h">
       <Filter>Source\Helper\SafeDelete</Filter>
     </ClInclude>
-    <ClInclude Include="Engine.h">
-      <Filter>Source\00. Engine</Filter>
-    </ClInclude>
     <ClInclude Include="ResourceManager.h">
       <Filter>Source\01. Manager\05. Resource</Filter>
     </ClInclude>
@@ -270,7 +276,7 @@
     <ClInclude Include="Component.h">
       <Filter>Source\03. Component\00. Component</Filter>
     </ClInclude>
-    <ClInclude Include="StructConstantBuffer.h">
+    <ClInclude Include="StructBuffer.h">
       <Filter>Source\00. Engine\01. Graphics\Struct</Filter>
     </ClInclude>
     <ClInclude Include="ResourceTypeTrait.h">
@@ -393,25 +399,34 @@
     <ClInclude Include="SBCollection.h">
       <Filter>Source\00. Engine\01. Graphics\Collection\05. SB</Filter>
     </ClInclude>
-    <ClInclude Include="EnumSRV.h">
-      <Filter>Source\00. Engine\01. Graphics\Collection</Filter>
-    </ClInclude>
     <ClInclude Include="StructuredBuffer.h">
       <Filter>Source\00. Engine\01. Graphics\Collection\05. SB</Filter>
     </ClInclude>
     <ClInclude Include="EnumShaderBindStage.h">
       <Filter>Source\00. Engine\01. Graphics</Filter>
     </ClInclude>
+    <ClInclude Include="ComputeShader.h">
+      <Filter>Source\06. Resource\03. Shader\ComputeShader</Filter>
+    </ClInclude>
+    <ClInclude Include="EnumSRV.h">
+      <Filter>Source\00. Engine\01. Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicDeviceDX11.h">
+      <Filter>Source\00. Engine\01. Graphics\Device</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine.h">
+      <Filter>Source\00. Engine\00. Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleSystem.h">
+      <Filter>Source\03. Component\03. Render\02. ParticleSystem</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Entity.cpp">
-      <Filter>Source\00. Engine\00. Entity</Filter>
+      <Filter>Source\00. Engine\04. Entity</Filter>
     </ClCompile>
     <ClCompile Include="TimeManager.cpp">
       <Filter>Source\01. Manager\00. Time</Filter>
-    </ClCompile>
-    <ClCompile Include="GraphicDeviceDX11.cpp">
-      <Filter>Source\00. Engine\01. Graphics</Filter>
     </ClCompile>
     <ClCompile Include="InputManager.cpp">
       <Filter>Source\01. Manager\01. Input</Filter>
@@ -464,13 +479,10 @@
     <ClCompile Include="Material.cpp">
       <Filter>Source\06. Resource\02. Material</Filter>
     </ClCompile>
-    <ClCompile Include="Engine.cpp">
-      <Filter>Source\00. Engine</Filter>
-    </ClCompile>
     <ClCompile Include="Component.cpp">
       <Filter>Source\03. Component\00. Component</Filter>
     </ClCompile>
-    <ClCompile Include="StructConstantBuffer.cpp">
+    <ClCompile Include="StructBuffer.cpp">
       <Filter>Source\00. Engine\01. Graphics\Struct</Filter>
     </ClCompile>
     <ClCompile Include="DXMath.cpp">
@@ -568,6 +580,18 @@
     </ClCompile>
     <ClCompile Include="StructuredBuffer.cpp">
       <Filter>Source\00. Engine\01. Graphics\Collection\05. SB</Filter>
+    </ClCompile>
+    <ClCompile Include="ComputeShader.cpp">
+      <Filter>Source\06. Resource\03. Shader\ComputeShader</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphicDeviceDX11.cpp">
+      <Filter>Source\00. Engine\01. Graphics\Device</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine.cpp">
+      <Filter>Source\00. Engine\00. Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleSystem.cpp">
+      <Filter>Source\03. Component\03. Render\02. ParticleSystem</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

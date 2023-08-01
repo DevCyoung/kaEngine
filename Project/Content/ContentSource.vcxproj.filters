@@ -4,101 +4,8 @@
     <Filter Include="Windows">
       <UniqueIdentifier>{35ed6a03-5dfe-4232-83f2-fdc3b0a60e3b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source">
-      <UniqueIdentifier>{979c0109-8357-4852-b535-29e01dc23a1e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\00. Content">
-      <UniqueIdentifier>{696114eb-0954-476b-85b0-ef47c3412d7f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Windows\diff">
       <UniqueIdentifier>{a3755df9-006f-44d9-9b02-2f1ca79c02bc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Helper">
-      <UniqueIdentifier>{62501ae3-1002-480d-bc13-d492a198f2ec}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Helper\Builder">
-      <UniqueIdentifier>{459c7f76-89f1-41a4-a31e-c85b091c460f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Helper\ResourceManager">
-      <UniqueIdentifier>{b5760e71-803f-4f22-9af7-d44435ab071e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Helper\UI">
-      <UniqueIdentifier>{f941533d-3a3d-44f6-830e-e9959d0a18dc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\01. ScriptComponent">
-      <UniqueIdentifier>{de857324-cd4d-4a4d-80a7-707699222472}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\01. ScriptComponent\Enum">
-      <UniqueIdentifier>{c34d8bbf-e30d-458e-8f53-43db7792fa6e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\01. ScriptComponent\Movement">
-      <UniqueIdentifier>{d9d4e410-c75a-4f94-b17b-90014d16b5bc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\01. ScriptComponent\Movement\Bullet">
-      <UniqueIdentifier>{58311b9c-d575-4f29-af48-66c9f6f89ad7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\01. ScriptComponent\Movement\Cursur">
-      <UniqueIdentifier>{f0c38e71-c5ab-4474-874a-981d4a959921}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\01. ScriptComponent\Movement\Camera">
-      <UniqueIdentifier>{f33adfa7-ae53-4c27-b2dc-1f5fa529591d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\01. ScriptComponent\Movement\Player">
-      <UniqueIdentifier>{4a8600b9-3ddd-42b4-826d-d1d3defbd9bd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\01. ScriptComponent\Test">
-      <UniqueIdentifier>{71fc1149-d8c0-4313-a60e-2304d41cfd1c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\01. ScriptComponent\Controller">
-      <UniqueIdentifier>{cf4bab5e-0fe1-4d3f-afb9-7f1f0515b5a9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\FSM">
-      <UniqueIdentifier>{3b3dedf0-265a-41e4-8441-2f709e68542b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\FSM\Player">
-      <UniqueIdentifier>{93ff9403-9d95-4578-8af6-73b327337cbf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Scene">
-      <UniqueIdentifier>{dc9dacee-4c8c-4f52-a1b7-a2548ff7810f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Scene\CollideTest">
-      <UniqueIdentifier>{429f4d90-ac74-41bc-989e-ed00f2f0aa4a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Scene\TitleScene">
-      <UniqueIdentifier>{96946f4c-9e4a-43d1-9bde-9ef81cae4896}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Scene\Chianatown01">
-      <UniqueIdentifier>{da98e5d6-9aba-4417-8f28-dcfa99b62c7b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Scene\Chinatown04">
-      <UniqueIdentifier>{e8cd688f-3ebd-4352-a0f3-3a059f04198c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Scene\Chinatown05">
-      <UniqueIdentifier>{20332b64-296c-4050-bb16-34cb7cddc831}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Scene\HeadHunter">
-      <UniqueIdentifier>{5bb296e2-92d1-45c0-b3c4-2d5be6c8f361}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\FSM\FSM">
-      <UniqueIdentifier>{dcc40d4d-ab21-4cf7-a907-f3d7474a44c5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\FSM\Player\State">
-      <UniqueIdentifier>{d8c2f1bf-d77c-44ae-808e-2d4c7d2eeb6f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\FSM\Player\FSM">
-      <UniqueIdentifier>{4796df72-b367-4664-b396-22777fb27ae0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\FSM\FSM\FSM">
-      <UniqueIdentifier>{81adf7ee-b7b9-4911-ac4f-2bae707e204e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\FSM\FSM\State">
-      <UniqueIdentifier>{206682db-1b1a-4a7d-b997-d2530a1890d3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\01. ScriptComponent\Painter">
-      <UniqueIdentifier>{a2c84493-1cd2-4ce6-9a07-185f34f86f27}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Resources">
-      <UniqueIdentifier>{df7c758c-f2a8-43fd-9b81-4685458a5dcf}</UniqueIdentifier>
     </Filter>
     <Filter Include="ShaderCode">
       <UniqueIdentifier>{2c32228f-6400-4c12-ba3a-80bcc9e68287}</UniqueIdentifier>
@@ -142,8 +49,65 @@
     <Filter Include="ShaderCode\Light">
       <UniqueIdentifier>{4bd83d62-b18b-4315-9551-1e88dc02a6c2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Scene\Scene">
-      <UniqueIdentifier>{cc7e087a-78df-4419-bf59-204d1219fdb7}</UniqueIdentifier>
+    <Filter Include="ShaderCode\CS">
+      <UniqueIdentifier>{79fab949-91ff-4944-bcfd-33db9e478b16}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{979c0109-8357-4852-b535-29e01dc23a1e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\00. Content">
+      <UniqueIdentifier>{696114eb-0954-476b-85b0-ef47c3412d7f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Helper">
+      <UniqueIdentifier>{62501ae3-1002-480d-bc13-d492a198f2ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Helper\Builder">
+      <UniqueIdentifier>{459c7f76-89f1-41a4-a31e-c85b091c460f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Helper\ResourceManager">
+      <UniqueIdentifier>{b5760e71-803f-4f22-9af7-d44435ab071e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Helper\UI">
+      <UniqueIdentifier>{f941533d-3a3d-44f6-830e-e9959d0a18dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\01. ScriptComponent">
+      <UniqueIdentifier>{de857324-cd4d-4a4d-80a7-707699222472}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\01. ScriptComponent\Enum">
+      <UniqueIdentifier>{c34d8bbf-e30d-458e-8f53-43db7792fa6e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\01. ScriptComponent\Movement">
+      <UniqueIdentifier>{d9d4e410-c75a-4f94-b17b-90014d16b5bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\01. ScriptComponent\Movement\Bullet">
+      <UniqueIdentifier>{58311b9c-d575-4f29-af48-66c9f6f89ad7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\01. ScriptComponent\Movement\Cursur">
+      <UniqueIdentifier>{f0c38e71-c5ab-4474-874a-981d4a959921}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\01. ScriptComponent\Movement\Camera">
+      <UniqueIdentifier>{f33adfa7-ae53-4c27-b2dc-1f5fa529591d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\01. ScriptComponent\Movement\Player">
+      <UniqueIdentifier>{4a8600b9-3ddd-42b4-826d-d1d3defbd9bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\01. ScriptComponent\Test">
+      <UniqueIdentifier>{71fc1149-d8c0-4313-a60e-2304d41cfd1c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\01. ScriptComponent\Controller">
+      <UniqueIdentifier>{cf4bab5e-0fe1-4d3f-afb9-7f1f0515b5a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\01. ScriptComponent\Painter">
+      <UniqueIdentifier>{a2c84493-1cd2-4ce6-9a07-185f34f86f27}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\FSM">
+      <UniqueIdentifier>{3b3dedf0-265a-41e4-8441-2f709e68542b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\FSM\Player">
+      <UniqueIdentifier>{93ff9403-9d95-4578-8af6-73b327337cbf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\FSM\Player\State">
+      <UniqueIdentifier>{d8c2f1bf-d77c-44ae-808e-2d4c7d2eeb6f}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source\FSM\Player\State\Global">
       <UniqueIdentifier>{d1103c1c-2f4a-41a0-96d3-0ffbad04b644}</UniqueIdentifier>
@@ -180,6 +144,48 @@
     </Filter>
     <Filter Include="Source\FSM\Player\State\WallSlide">
       <UniqueIdentifier>{33c5125e-4f82-4620-8594-385476bbc988}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\FSM\Player\FSM">
+      <UniqueIdentifier>{4796df72-b367-4664-b396-22777fb27ae0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\FSM\FSM">
+      <UniqueIdentifier>{dcc40d4d-ab21-4cf7-a907-f3d7474a44c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\FSM\FSM\FSM">
+      <UniqueIdentifier>{81adf7ee-b7b9-4911-ac4f-2bae707e204e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\FSM\FSM\State">
+      <UniqueIdentifier>{206682db-1b1a-4a7d-b997-d2530a1890d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scene">
+      <UniqueIdentifier>{dc9dacee-4c8c-4f52-a1b7-a2548ff7810f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scene\CollideTest">
+      <UniqueIdentifier>{429f4d90-ac74-41bc-989e-ed00f2f0aa4a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scene\TitleScene">
+      <UniqueIdentifier>{96946f4c-9e4a-43d1-9bde-9ef81cae4896}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scene\Chianatown01">
+      <UniqueIdentifier>{da98e5d6-9aba-4417-8f28-dcfa99b62c7b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scene\Chinatown04">
+      <UniqueIdentifier>{e8cd688f-3ebd-4352-a0f3-3a059f04198c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scene\Chinatown05">
+      <UniqueIdentifier>{20332b64-296c-4050-bb16-34cb7cddc831}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scene\HeadHunter">
+      <UniqueIdentifier>{5bb296e2-92d1-45c0-b3c4-2d5be6c8f361}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scene\Scene">
+      <UniqueIdentifier>{cc7e087a-78df-4419-bf59-204d1219fdb7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Resources">
+      <UniqueIdentifier>{df7c758c-f2a8-43fd-9b81-4685458a5dcf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scene\TestScene">
+      <UniqueIdentifier>{b4cc37bf-4262-411a-a8c1-6ad544b0e563}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -348,6 +354,9 @@
     <ClInclude Include="PlayerWallSlideState.h">
       <Filter>Source\FSM\Player\State\WallSlide</Filter>
     </ClInclude>
+    <ClInclude Include="TestScene.h">
+      <Filter>Source\Scene\TestScene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -509,6 +518,9 @@
     <ClCompile Include="PlayerWallSlideState.cpp">
       <Filter>Source\FSM\Player\State\WallSlide</Filter>
     </ClCompile>
+    <ClCompile Include="TestScene.cpp">
+      <Filter>Source\Scene\TestScene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Output\bin\Resources\Shader\Header\Struct.fxh">
@@ -597,6 +609,9 @@
     </None>
     <None Include="..\..\Output\bin\Resources\Shader\Light2D.hlsl">
       <Filter>ShaderCode\Light</Filter>
+    </None>
+    <None Include="..\..\Output\bin\Resources\Shader\stdCS.hlsl">
+      <Filter>ShaderCode\CS</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

@@ -33,6 +33,7 @@ HeadHunterScene::HeadHunterScene()
 		gResourceManager->Insert(L"HeadHunterMapDoor", material);
 	}
 
+	
 	{
 		GameObject* const obj = GameObjectBuilder::Default2D(L"HeadHunterMap");
 
@@ -49,6 +50,9 @@ HeadHunterScene::HeadHunterScene()
 
 		AddGameObject(obj, eLayerType::Default);
 	}
+
+
+
 
 	{
 		GameObject* const light = new GameObject();
@@ -162,6 +166,8 @@ HeadHunterScene::HeadHunterScene()
 
 		AddGameObject(obj, eLayerType::Wall);
 	}
+
+
 
 
 	{

@@ -16,6 +16,7 @@ class	Shader : public Resource
 {
 	friend class GraphicDeviceDX11;
 	friend class ResourceManager;
+
 private:
 	Shader() = default;
 public:
@@ -54,12 +55,12 @@ private:
 
 private:
 	D3D11_PRIMITIVE_TOPOLOGY mTopology;
-	Microsoft::WRL::ComPtr<ID3D11InputLayout> mInputLayout;
-	Microsoft::WRL::ComPtr<ID3D11VertexShader> mVS;
-	Microsoft::WRL::ComPtr<ID3D11HullShader> mHS;
-	Microsoft::WRL::ComPtr<ID3D11DomainShader> mDS;
-	Microsoft::WRL::ComPtr<ID3D11GeometryShader> mGS;
-	Microsoft::WRL::ComPtr<ID3D11PixelShader> mPS;
+	Microsoft::WRL::ComPtr<ID3D11InputLayout>		mInputLayout;
+	Microsoft::WRL::ComPtr<ID3D11VertexShader>		mVS;
+	Microsoft::WRL::ComPtr<ID3D11HullShader>		mHS;
+	Microsoft::WRL::ComPtr<ID3D11DomainShader>		mDS;
+	Microsoft::WRL::ComPtr<ID3D11GeometryShader>	mGS;
+	Microsoft::WRL::ComPtr<ID3D11PixelShader>		mPS;
 
 	eRSType mRSType;
 	eDSType mDSType;

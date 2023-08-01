@@ -13,6 +13,8 @@ private:
 	static void loadResource();
 
 	static void loadShader();
+	static void loadComputeShader();
 	static void loadMesh();
+	static void loadTexture();
 };
 

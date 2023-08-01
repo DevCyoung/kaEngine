@@ -7,7 +7,7 @@
 #include "Material.h"
 #include "Shader.h"
 #include "CBCollection.h"
-#include "StructConstantBuffer.h"
+#include "StructBuffer.h"
 #include "Textrue.h"
 #include "Camera.h"
 #include "Transform.h"
@@ -204,7 +204,7 @@ void Animator2D::render(const Camera* const camera)
 		gGraphicDevice->BindCB(eCBType::Animation2DInfo, eShaderBindType::PS);
 	}
 
-	gGraphicDevice->BindTexture(eShaderBindType::PS, static_cast<UINT>(eSRVTpye::AtlasAnimation2D), P_ATLAS);
+	gGraphicDevice->BindSRV(eShaderBindType::PS, static_cast<UINT>(eSRVTpye::AtlasAnimation2D), P_ATLAS);
 
 	gGraphicDevice->Draw(mMesh);
 }

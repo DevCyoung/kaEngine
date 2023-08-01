@@ -80,3 +80,15 @@ struct alignas(16) tGlobalInfo // b5
 	UINT	Light3DCount;
 	int		globalpadding;
 };
+
+
+struct alignas(16) tParticleInfo // 
+{
+	Vector2	Resolution;
+	float	Deltatime;
+	float   GlobalTime;
+	float	AccTime;
+	UINT	Light2DCount;
+	UINT	Light3DCount;
+	int		globalpadding;
+};

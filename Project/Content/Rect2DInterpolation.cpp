@@ -481,10 +481,10 @@ void Rect2DInterpolation::onCollisionUpWall(Collider2D* other, Vector2 width)
 
 	if (mbCollisionDir[static_cast<UINT>(Dir::Up)])
 	{
-		mat._42 -= width.y - 1.f;
+		mat._42 -= width.y + 1.f;
 		GetOwner()->GetComponent<Transform>()->SetWorldMatrix(mat);
 
-		Pos.y -= width.y - 1.f;
+		Pos.y -= width.y + 1.f;
 		GetOwner()->GetComponent<Transform>()->SetPosition(Pos);
 
 		Vector2 velocity = rigidbody->GetVelocity();
