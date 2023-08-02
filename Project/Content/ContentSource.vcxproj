@@ -479,6 +479,7 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
       <FileType>Document</FileType>
     </None>
     <None Include="Animation_Res_dpend.diff" />
+    <None Include="component.priority" />
     <None Include="dpend.diff" />
     <None Include="Font_Res_dpend.diff" />
     <None Include="Material_Res_dpend.diff" />

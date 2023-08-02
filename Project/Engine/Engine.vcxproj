@@ -359,6 +359,7 @@ call ScriptGen.exe Component $(SolutionDir)Project\Engine $(SolutionDir)Project\
     <ClCompile Include="Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="component.priority" />
     <None Include="DirectXTex.inl" />
     <None Include="dpend.diff" />
     <None Include="DXMath.inl" />

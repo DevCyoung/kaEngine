@@ -29,8 +29,8 @@ Content::Content()
 	//Scene* testScene = new Chinatown01Scene();
 	//Scene* testScene = new Chinatown04Scene();
 	//Scene* testScene = new Chinatown05Scene();
-	//Scene* testScene = new HeadHunterScene();
-	Scene* testScene = new TestScene();
+	Scene* testScene = new HeadHunterScene();
+	//Scene* testScene = new TestScene();
 
 	SceneManager::GetInstance()->LoadScene(testScene);
 
@@ -44,13 +44,13 @@ Content::~Content()
 
 void Content::resourceInitialize()
 {
-	Texture* const tex = gResourceManager->Find<Texture>(L"TextureCS");
-	ComputeShader* const cs = gResourceManager->Find<ComputeShader>(L"StdCS");
-
-	gGraphicDevice->BindCS(cs);
-	gGraphicDevice->BindUAV(0, tex);
-	gGraphicDevice->Distpatch(cs);
-	gGraphicDevice->UnBindUAV(0);
+	//Texture* const tex = gResourceManager->Find<Texture>(L"TextureCS");
+	//ComputeShader* const cs = gResourceManager->Find<ComputeShader>(L"StdCS");
+	//
+	//gGraphicDevice->BindCS(cs);
+	//gGraphicDevice->BindUAV(0, tex);
+	//gGraphicDevice->Distpatch(cs);
+	//gGraphicDevice->UnBindUAV(0);
 
 
 	loadTexture();

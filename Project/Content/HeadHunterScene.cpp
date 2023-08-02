@@ -51,9 +51,6 @@ HeadHunterScene::HeadHunterScene()
 		AddGameObject(obj, eLayerType::Default);
 	}
 
-
-
-
 	{
 		GameObject* const light = new GameObject();
 		light->AddComponent<Light2D>();

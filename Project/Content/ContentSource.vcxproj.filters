@@ -613,6 +613,9 @@
     <None Include="..\..\Output\bin\Resources\Shader\stdCS.hlsl">
       <Filter>ShaderCode\CS</Filter>
     </None>
+    <None Include="component.priority">
+      <Filter>Windows</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="..\..\Output\bin\Resources\Shader\VSAnimation2D.hlsl">

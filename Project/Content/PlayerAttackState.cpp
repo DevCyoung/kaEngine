@@ -29,8 +29,8 @@ void PlayerAttackState::Update()
 	//if (mOwner->mPlayerGlobalState->IsStop())
 	//{
 	//	mOwner->mPlayerGlobalState->RunToIdle();
-	//}
 }
+	//}
 
 void PlayerAttackState::Enter()
 {

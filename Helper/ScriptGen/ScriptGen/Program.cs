@@ -22,7 +22,6 @@ public class MyProgram
 
     static void WriteWarningLine(string str)
     {
-
         Console.WriteLine($"ScriptGen: Warning: {str}");
     }
 
@@ -32,8 +31,26 @@ public class MyProgram
         Console.WriteLine($"ScriptGen: Error: {str}");
     }
 
+    static string RemoveWhiteSpace(string str)
+    {
+        StringBuilder sb = new StringBuilder(str.Length);
+        foreach (char c in str)
+        {
+            if (!char.IsWhiteSpace(c))
+            {
+                sb.Append(c);
+            }
+        }
+
+        return sb.ToString();
+    }
+
     public static void Main(string[] args)
     {
+        //WriteErrorLine("ScriptGen Start");
+        //WriteErrorLine("ScriptGen Start");
+
+
         const string DEPENDENCY_FILE_NAME = "dpend.diff";
         const string RETURN_VALUE = "const wchar_t*";
         const string CONST = "const";
@@ -66,9 +83,6 @@ public class MyProgram
             IS_IGNORE = true;
         }
 
-
-        
-
         string LOWER_ENUM_NAME = ENUM_NAME.ToLower();
         string UPER_ENUM_NAME = ENUM_NAME.ToUpper();
         string E_ENUM_NAME_Type = $"e{ENUM_NAME}Type";
@@ -82,6 +96,8 @@ public class MyProgram
         //get all .cppfile path
 
         List<string> enumClassNames = new List<string>();
+
+
 
         //Check Script Files
         string[] cppFilePths = Directory.GetFiles(PATH_TARGET_DIRECTION, "*.h", System.IO.SearchOption.AllDirectories);
@@ -118,7 +134,49 @@ public class MyProgram
             scriptCppReader.Close();
         }
 
-        //의존성 검사
+        //순서대로
+        List<string> NewClassNames = new List<string>();
+        {
+            string configPath = Path.Combine(PATH_TARGET_DIRECTION, "component.priority");            
+
+            StreamReader config = new StreamReader(new FileStream(configPath, FileMode.OpenOrCreate), Encoding.UTF8);            
+            string configText = config.ReadToEnd();            
+
+            string[] configTexts = configText.Split("\r\n", StringSplitOptions.RemoveEmptyEntries);
+
+            foreach(string cn in configTexts)
+            {                
+                //cn 의 화이트 스페이스 제거                
+                string name = cn.Replace("\r", "").Replace("\n", "").Replace("\t", "").Replace(" ", "");
+
+                if (name.Length == 0)
+                    continue;
+                
+                
+
+                if (enumClassNames.Contains(name))
+                {                    
+                    NewClassNames.Add(name);
+                    enumClassNames.Remove(name);
+                }
+                else
+                {
+                    WriteErrorLine($"check: component.prioriey Not found Component {name}$");
+                }
+            }
+
+
+            foreach(string className in enumClassNames)
+            {
+                NewClassNames.Add(className);
+            }
+
+            enumClassNames = NewClassNames;
+        }
+
+
+
+        //의존성 검사 return 
         {
             string depentdPath = Path.Combine(PATH_TARGET_DIRECTION, DEPENDENCY_FILE_NAME);
             WriteLine("check dependency");
@@ -145,12 +203,6 @@ public class MyProgram
 
             depenWirter.Close();
         }
-
-
-
-
-
-
 
         //Header
         {

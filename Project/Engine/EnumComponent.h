@@ -5,6 +5,7 @@ class Component;
 
 enum class eComponentType 
 {
+	Transform,
 	Animator2D,
 	Camera,
 	CircleCollider2D,
@@ -13,7 +14,6 @@ enum class eComponentType
 	RectCollider2D,
 	Rigidbody2D,
 	SpriteRenderer,
-	Transform,
 	End,
 	ScriptComponent
 };
