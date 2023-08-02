@@ -165,7 +165,16 @@ HeadHunterScene::HeadHunterScene()
 	}
 
 
+	{
+		GameObject* const obj = new GameObject();
 
+		obj->AddComponent<RectCollider2D>();
+
+		obj->GetComponent<RectCollider2D>()->SetSize(50.f, 700.f);
+		obj->GetComponent<Transform>()->SetPosition(100.f, 200.f, 1.f);
+
+		AddGameObject(obj, eLayerType::Wall);
+	}
 
 	{
 		GameObjectBuilder::AddUI(this);

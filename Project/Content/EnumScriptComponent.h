@@ -5,7 +5,6 @@ class ScriptComponent;
 
 enum class eScriptComponentType 
 {
-	NoiseTest,
 	Bugiman,
 	BulletMovement,
 	CameraInputMoveMent,
@@ -15,6 +14,7 @@ enum class eScriptComponentType
 	GridPainter,
 	InputMovementTest,
 	LerpTest,
+	NoiseTest,
 	ParentTest,
 	PickPixelTest,
 	PlayerController,
@@ -29,3 +29,4 @@ enum class eScriptComponentType
 const wchar_t* GetScriptComponentName(const eScriptComponentType type);
 ScriptComponent* CreateScriptComponentByName(const std::wstring& scriptcomponentName);
 ScriptComponent * CreateScriptComponentByEnum(const eScriptComponentType type);
+
