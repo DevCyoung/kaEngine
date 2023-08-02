@@ -1,25 +1,27 @@
 ﻿#include "pch.h"
 #include "EnumComponent.h"
 
+#include "Transform.h"
 #include "Animator2D.h"
 #include "Camera.h"
 #include "CircleCollider2D.h"
 #include "Light2D.h"
+#include "ParticleSystem.h"
 #include "RectCollider2D.h"
 #include "Rigidbody2D.h"
 #include "SpriteRenderer.h"
-#include "Transform.h"
 
 static constexpr const wchar_t* const ComponentNames[static_cast<UINT>(eComponentType::End)]
 {
+	L"Transform",
 	L"Animator2D",
 	L"Camera",
 	L"CircleCollider2D",
 	L"Light2D",
+	L"ParticleSystem",
 	L"RectCollider2D",
 	L"Rigidbody2D",
 	L"SpriteRenderer",
-	L"Transform",
 };
 
 const wchar_t* GetComponentName(const eComponentType type)
@@ -32,7 +34,9 @@ Component* CreateComponentByName(const std::wstring& componentName)
 {
 	Component* component = nullptr;
 
-	if (L"Animator2D" == componentName)
+	if (L"Transform" == componentName)
+		component = new Transform;
+	else if (L"Animator2D" == componentName)
 		component = new Animator2D;
 	else if (L"Camera" == componentName)
 		component = new Camera;
@@ -40,14 +44,14 @@ Component* CreateComponentByName(const std::wstring& componentName)
 		component = new CircleCollider2D;
 	else if (L"Light2D" == componentName)
 		component = new Light2D;
+	else if (L"ParticleSystem" == componentName)
+		component = new ParticleSystem;
 	else if (L"RectCollider2D" == componentName)
 		component = new RectCollider2D;
 	else if (L"Rigidbody2D" == componentName)
 		component = new Rigidbody2D;
 	else if (L"SpriteRenderer" == componentName)
 		component = new SpriteRenderer;
-	else if (L"Transform" == componentName)
-		component = new Transform;
 	else
 		assert(false);
 	return component;
@@ -59,6 +63,9 @@ Component* CreateComponentByEnum(const eComponentType type)
 
 	switch (type)
 	{
+	case eComponentType::Transform:
+		component = new Transform;
+		break;
 	case eComponentType::Animator2D:
 		component = new Animator2D;
 		break;
@@ -71,6 +78,9 @@ Component* CreateComponentByEnum(const eComponentType type)
 	case eComponentType::Light2D:
 		component = new Light2D;
 		break;
+	case eComponentType::ParticleSystem:
+		component = new ParticleSystem;
+		break;
 	case eComponentType::RectCollider2D:
 		component = new RectCollider2D;
 		break;
@@ -79,9 +89,6 @@ Component* CreateComponentByEnum(const eComponentType type)
 		break;
 	case eComponentType::SpriteRenderer:
 		component = new SpriteRenderer;
-		break;
-	case eComponentType::Transform:
-		component = new Transform;
 		break;
 	default:
 		assert(false);

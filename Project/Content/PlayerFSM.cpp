@@ -5,6 +5,9 @@
 
 PlayerFSM::PlayerFSM(GameObject* const owner)
 	: mOwner(owner)
+	, mRect2DInterpolation(nullptr)
+	, mRigidbody2D(nullptr)
+	, mAnimator2D(nullptr)
 	, mVelocity(Vector3::Zero)
 	, mPlayerIdleState(new PlayerIdleState(owner, this))
 	, mPlayerRunState(new PlayerRunState(owner, this))
@@ -19,7 +22,7 @@ PlayerFSM::PlayerFSM(GameObject* const owner)
 	, mPlayerWallSlideState(new PlayerWallSlideState(owner, this))
 	, mPlayerGlobalState(new PlayerGlobalState(owner, this))
 {
-	mCurState = mPlayerIdleState;	
+	mCurState = mPlayerIdleState;
 }
 
 PlayerFSM::~PlayerFSM()
@@ -42,6 +45,10 @@ PlayerFSM::~PlayerFSM()
 //FIXME: 모든 state Initialize 추가해줘야함
 void PlayerFSM::Initialize(PlayerState* const startState)
 {
+	mRect2DInterpolation = mOwner->GetComponent<Rect2DInterpolation>();
+	mRigidbody2D = mOwner->GetComponent<Rigidbody2D>();
+	mAnimator2D = mOwner->GetComponent<Animator2D>();
+
 	mPlayerIdleState->Initialize();
 	mPlayerRunState->Initialize();
 	mPlayerAttackState->Initialize();
@@ -55,68 +62,35 @@ void PlayerFSM::Initialize(PlayerState* const startState)
 	mPlayerWallSlideState->Initialize();
 	mPlayerGlobalState->Initialize();
 
-	mCurState = startState;	
+	mCurState = startState;
 	mCurState->Enter();
 }
 
 void PlayerFSM::GlobalUpdate()
 {	
-	if (gInput->GetKeyDown(eKeyCode::LBTN))
+	if (CanChagneToAttackState())
 	{
-		ChangeState(mPlayerAttackState);		
+		ChangeState(mPlayerAttackState);
 	}
-
-	//else if (gInput->GetKeyDown(eKeyCode::I))
-	//{
-	//	ChangeState(mPlayerFallState);
-	//}
-	//else if (gInput->GetKeyDown(eKeyCode::O))
-	//{
-	//	ChangeState(mPlayerJumpState);
-	//}
-	//else if (gInput->GetKeyDown(eKeyCode::P))
-	//{
-	//	ChangeState(mPlayerFlipState);
-	//}
-	//else if (gInput->GetKeyDown(eKeyCode::Q))
-	//{
-	//	ChangeState(mPlayerDoorBreakFullState);
-	//}
-	//else if (gInput->GetKeyDown(eKeyCode::U))
-	//{
-	//	ChangeState(mPlayerWallSlideState);
-	//}
-	//else if (gInput->GetKeyDown(eKeyCode::Y))
-	//{
-	//	ChangeState(mPlayerDoorBreakFullState);
-	//}
-	//else if (gInput->GetKeyDown(eKeyCode::T))
-	//{
-	//	mOwner->GetComponent<Animator2D>()->Play(L"Run", true);		
-	//}
-	//
-
-	Rigidbody2D* const rigidbody = mOwner->GetComponent<Rigidbody2D>();
-
-	Rect2DInterpolation* const inter = mOwner->GetComponent<Rect2DInterpolation>();
-
-	//Animator2D* animator = mOwner->GetComponent<Animator2D>();	
-	
-	if (gInput->GetKeyDown(eKeyCode::W) && inter->IsCollisionWallDown())
+	else if (CanChagneToJumpState())
 	{
-		Vector2 velocity =  rigidbody->GetVelocity();
-		velocity.y = Vector2::Up.y * 450.f;
-		rigidbody->SetVelocity(velocity);
 		ChangeState(mPlayerJumpState);
 	}
-	else if (rigidbody->GetVelocity().y < 0.f && 
-		mCurState != mPlayerFallState &&
-		mCurState != mPlayerWallSlideState && 
-		mCurState != mPlayerAttackState)
+	else if (CanChagneToRunState())
+	{
+		mAnimator2D->Play(L"IdleToRun", false);
+		ChangeState(mPlayerRunState);
+	}
+	else if (CanChagneToWallSlideState())
+	{
+		ChangeState(mPlayerWallSlideState);
+	}
+	else if (CanChagneToFallState())
 	{
 		ChangeState(mPlayerFallState);
 	}
-	
+
+
 }
 
 void PlayerFSM::InputUpdate()
@@ -127,15 +101,117 @@ void PlayerFSM::InputUpdate()
 void PlayerFSM::Update()
 {
 	mCurState->Update();
+}
 
-	//Transform* const transform = mOwner->GetComponent<Transform>();
+bool PlayerFSM::CanChagneToAttackState() const
+{
+	return gInput->GetKeyDown(eKeyCode::LBTN) && mCurState != mPlayerAttackState;
+}
 
-	//if (mVelocity.x < 0)
-	//{
-	//	transform->SetRotation(0.f, 180.f, 0.f);
-	//}
-	//else
-	//{
-	//	transform->SetRotation(0.f, 0.f, 0.f);
-	//}
+bool PlayerFSM::CanChagneToFallState() const
+{
+	if (mCurState == mPlayerFallState || 
+		mCurState == mPlayerWallSlideState || 
+		mCurState == mPlayerAttackState || 
+		mCurState == mPlayerFlipState)
+	{
+		return false;
+	}
+
+	if (mRigidbody2D->GetVelocity().y >= 0.f || mRigidbody2D->IsGround())
+	{
+		return false;
+	}
+
+	return true;
+}
+
+bool PlayerFSM::CanChagneToJumpState() const
+{
+	return gInput->GetKeyDown(eKeyCode::W) && mRect2DInterpolation->IsCollisionWallDown();
+}
+
+bool PlayerFSM::CanChagneToRunState() const
+{
+	if (mPlayerRunState == mCurState)
+	{
+		return false;
+	}
+
+	if (mPlayerIdleState != mCurState)
+	{
+		return false;
+	}
+
+	if (gInput->GetKey(eKeyCode::A) == false && gInput->GetKey(eKeyCode::D) == false)
+	{		
+		return false;
+	}
+
+	if (gInput->GetKey(eKeyCode::A) && gInput->GetKey(eKeyCode::D))
+	{
+		return false;
+	}
+
+	if (mRect2DInterpolation->IsCollisionWallRight() &&  gInput->GetKey(eKeyCode::D))
+	{
+		return false;
+	}
+
+	if (mRect2DInterpolation->IsCollisionWallLeft() && gInput->GetKey(eKeyCode::A))
+	{
+		return false;
+	}
+
+	if (mRect2DInterpolation->IsCollisionWallDown() == false)
+	{
+		return false;
+	}
+
+	return true;
+}
+
+bool PlayerFSM::CanChagneToWallSlideState() const
+{	
+	if (mCurState == mPlayerWallSlideState)
+	{
+		return false;
+	}
+
+	if (mRect2DInterpolation->IsCollisionWallDown())
+	{
+		return false;
+	}
+
+	Vector2 velocity = mRigidbody2D->GetVelocity();
+
+	if (0.f < velocity.x || gInput->GetKey(eKeyCode::D))
+	{
+		if (mRect2DInterpolation->IsCollisionWallRight())
+		{
+			return true;
+		}		
+	}
+
+	if (0.f > velocity.x || gInput->GetKey(eKeyCode::A))
+	{
+		if (mRect2DInterpolation->IsCollisionWallLeft())
+		{
+			return true;
+		}
+	}
+
+	if (mCurState == mPlayerFlipState)
+	{
+		if (mRect2DInterpolation->IsCollisionWallRight())
+		{
+			return true;
+		}
+		if (mRect2DInterpolation->IsCollisionWallLeft())
+		{
+			return true;
+		}
+	}
+
+	return false;
 }

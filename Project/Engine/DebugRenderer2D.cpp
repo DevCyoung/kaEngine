@@ -3,7 +3,7 @@
 #include "Engine.h"
 #include "GraphicDeviceDx11.h"
 #include "CBCollection.h"
-#include "StructConstantBuffer.h"
+#include "StructBuffer.h"
 #include "TimeManager.h"
 #include "InputManager.h"
 #include "Transform.h"

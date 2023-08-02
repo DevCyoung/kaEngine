@@ -1,16 +1,25 @@
 #include "pch.h"
 #include "SBCollection.h"
-#include "StructConstantBuffer.h"
+#include "StructBuffer.h"
 
 SBCollection::SBCollection(ID3D11Device* const device)
 	: mStructuredBuffers{}
 {
 	{
 		const eSBType SBType = eSBType::Light2D;
+
 		const UINT slot = static_cast<UINT>(SBType);
 		mStructuredBuffers[slot] = 
 			new StructuredBuffer(SBType, eSRVTpye::Light2DBuffer, sizeof(tLightInfo), 1, nullptr, device);
 	}	
+
+	{
+		const eSBType SBType = eSBType::Particle2D;
+
+		const UINT slot = static_cast<UINT>(SBType);
+		mStructuredBuffers[slot] =
+			new StructuredBuffer(SBType, eSRVTpye::Particle2D, sizeof(tParticleInfo), 1000, nullptr, device);
+	}
 }
 
 SBCollection::~SBCollection()

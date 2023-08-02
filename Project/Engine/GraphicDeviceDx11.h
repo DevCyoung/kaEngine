@@ -11,6 +11,7 @@ class SMCollection;
 class SBCollection;
 
 class Shader;
+class ComputeShader;
 class Mesh;
 class Texture;
 
@@ -37,13 +38,17 @@ public:
 
 	void BindIA(const Shader* const shader) const;
 	void BindMesh(const Mesh* const mesh) const;
-	void BindTexture(const eShaderBindType stageType, const UINT startSlot, const Texture* const texture) const;
+	void BindSRV(const eShaderBindType stageType, const UINT startSlot, const Texture* const texture) const;
+	void BindUAV(const UINT startSlot, const Texture* const texture) const;
+	void UnBindUAV(const UINT startSlot) const;
+
 	void BindCB(const eCBType CBType, const eShaderBindType stageType) const;
 	void PassCB(const eCBType CBType, const UINT dataSize, const void* const data) const;
 	void BindSB(const eSBType SBType, const eShaderBindType stageType) const;
 	void PassSB(const eSBType SBType, const UINT dataSize, const UINT stride, const void* const data) const;
 	void BindVS(const Shader* const shader) const;
 	void BindPS(const Shader* const shader) const;
+	void BindCS(const ComputeShader* const shader) const;
 	void BindBS(const eBSType BSType) const;
 	void BindDS(const eDSType DSType) const;
 	void BindRS(const eRSType RSType) const;
@@ -53,13 +58,15 @@ public:
 		ID3D11DepthStencilView* const depthStencilView) const;
 
 	void Draw(const Mesh* const mesh) const;
+	//void DrawIndexedInstanced(const Mesh* const mesh) const;
+	void Distpatch(const ComputeShader* const computeShader) const;
 
 	void ClearRenderTarget(ID3D11RenderTargetView* const* const ppRnderTargetView,
 		ID3D11DepthStencilView* const depthStencilView,
 		const FLOAT backgroundColor[4]) const;
 
-	const SMCollection* GetIEDCollection() const 
-	{ 
+	const SMCollection* GetIEDCollection() const
+	{
 		Assert(mSMCollection, WCHAR_IS_NULLPTR);
 		return mSMCollection;
 	}
@@ -68,7 +75,7 @@ private:
 	void present();
 
 	ID3D11RenderTargetView** GetRenderTargetViewAddressOf()
-	{		
+	{
 		Assert(mRenderTargetView, WCHAR_IS_NULLPTR);
 
 		return mRenderTargetView.GetAddressOf();

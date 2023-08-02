@@ -2,6 +2,7 @@
 #include "GraphicDeviceDX11.h"
 #include "Textrue.h"
 #include "Shader.h"
+#include "ComputeShader.h"
 #include "Mesh.h"
 #include "CBCollection.h"
 #include "RSCollection.h"
@@ -222,6 +223,7 @@ void GraphicDeviceDX11::BindIA(const Shader* const shader) const
 void GraphicDeviceDX11::BindMesh(const Mesh* const mesh) const
 {
 	Assert(mesh, WCHAR_IS_NULLPTR);
+	Assert(mesh->mVertexBuffer, WCHAR_IS_NULLPTR);
 
 	const UINT OFFSET = 0;
 	const UINT STRIDE = static_cast<UINT>(mesh->mVertexSize);
@@ -230,12 +232,13 @@ void GraphicDeviceDX11::BindMesh(const Mesh* const mesh) const
 	mContext->IASetIndexBuffer(mesh->mIndexBuffer.Get(), DXGI_FORMAT_R32_UINT, 0);
 }
 
-void GraphicDeviceDX11::BindTexture(const eShaderBindType stageType,
+void GraphicDeviceDX11::BindSRV(const eShaderBindType stageType,
 	const UINT startSlot,
 	const Texture* const texture) const
 {
 	Assert(eShaderBindType::End != stageType, WCHAR_IS_INVALID_TYPE);
 	Assert(texture, WCHAR_IS_NULLPTR);
+	Assert(texture->mSRV, WCHAR_IS_NULLPTR);
 
 	switch (stageType)
 	{
@@ -261,6 +264,23 @@ void GraphicDeviceDX11::BindTexture(const eShaderBindType stageType,
 		Assert(false, WCHAR_SWITCH_DEFAULT);
 		break;
 	}
+}
+
+void GraphicDeviceDX11::BindUAV(const UINT startSlot, const Texture* const texture) const
+{	
+	Assert(texture, WCHAR_IS_NULLPTR);
+	Assert(texture->mUAV, WCHAR_IS_NULLPTR);
+
+	UINT i = static_cast<UINT>(-1);	
+	mContext->CSSetUnorderedAccessViews(startSlot, 1, texture->mUAV.GetAddressOf(), &i);	
+}
+
+void GraphicDeviceDX11::UnBindUAV(const UINT startSlot) const
+{
+	ID3D11UnorderedAccessView* const pUAV = nullptr;	
+
+	UINT i = static_cast<UINT>(-1);
+	mContext->CSSetUnorderedAccessViews(startSlot, 1, &pUAV, &i);
 }
 
 void GraphicDeviceDX11::BindCB(const eCBType CBType, const eShaderBindType stageType) const
@@ -320,11 +340,10 @@ void GraphicDeviceDX11::PassCB(const eCBType CBType, const UINT dataSize, const 
 void GraphicDeviceDX11::BindSB(const eSBType SBType, const eShaderBindType stageType) const
 {
 	Assert(eSBType::End != SBType, WCHAR_IS_INVALID_TYPE);
-
 	Assert(eShaderBindType::End != stageType, WCHAR_IS_INVALID_TYPE);
 
-	const StructuredBuffer* SB = mSBCollection->GetStructuredBuffer(SBType);
-	const UINT START_SLOT = static_cast<UINT>(SB->mSRVType);
+	const StructuredBuffer* SB = mSBCollection->GetStructuredBuffer(SBType);	
+	const UINT START_SLOT = static_cast<UINT>(SB->mSRVType);	
 
 	switch (stageType)
 	{
@@ -349,8 +368,7 @@ void GraphicDeviceDX11::BindSB(const eSBType SBType, const eShaderBindType stage
 	default:
 		Assert(false, WCHAR_SWITCH_DEFAULT);
 		break;
-	}
-
+	}	
 }
 
 void GraphicDeviceDX11::PassSB(const eSBType SBType, 
@@ -362,7 +380,8 @@ void GraphicDeviceDX11::PassSB(const eSBType SBType,
 	//Assert(data, WCHAR_IS_NULLPTR);
 
 	StructuredBuffer* SB = mSBCollection->GetStructuredBuffer(SBType);
-	//Assert(SB.mSize == dataSize, L"data size not ali 16");
+
+	Assert(SB, WCHAR_IS_NULLPTR);
 
 	if (SB->mSize * SB->mStride < dataSize * stride)
 	{
@@ -396,6 +415,14 @@ void GraphicDeviceDX11::BindPS(const Shader* const shader) const
 	mContext->PSSetShader(shader->mPS.Get(), nullptr, 0);
 }
 
+void GraphicDeviceDX11::BindCS(const ComputeShader* const computShader) const
+{
+	Assert(computShader, WCHAR_IS_NULLPTR);
+	Assert(computShader->mCS.Get(), WCHAR_IS_NULLPTR);
+
+	mContext->CSSetShader(computShader->mCS.Get(), nullptr, 0);	
+}
+
 void GraphicDeviceDX11::BindBS(const eBSType BSType) const
 {
 	Assert(eBSType::End != BSType, WCHAR_IS_INVALID_TYPE);
@@ -425,6 +452,11 @@ void GraphicDeviceDX11::Draw(const Mesh* const mesh) const
 	const UINT START_VERTEX_LOCATION = 0;
 
 	mContext->DrawIndexed(INDEX_COUNT, START_VERTEX_LOCATION, 0);
+}
+
+void GraphicDeviceDX11::Distpatch(const ComputeShader* const computeShader) const
+{
+	mContext->Dispatch(computeShader->mGroupX, computeShader->mGroupY, computeShader->mGroupZ);
 }
 
 void GraphicDeviceDX11::ClearRenderTarget(ID3D11RenderTargetView* const* const ppRnderTargetView,

@@ -26,3 +26,8 @@ void Component::fixedUpdate()
 void Component::lateUpdate()
 {
 }
+
+
+
+
+

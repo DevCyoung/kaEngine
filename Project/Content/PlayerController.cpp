@@ -2,7 +2,7 @@
 #include "PlayerController.h"
 #include "Components.h"
 #include "PlayerFSM.h"
-
+#include "Rect2DInterpolation.h"
 
 PlayerController::PlayerController()
 	: ScriptComponent(eScriptComponentType::PlayerController)
@@ -24,16 +24,27 @@ void PlayerController::initialize()
 
 	{
 		Animation2D* animation = animator->FindAnimationOrNull(L"IdleToRun");
-		std::function<void()> func = std::bind(&PlayerController::idleToRun, this);
 
-		animation->SetLastFrameEndEvent(func);
+		{
+			std::function<void()> func = std::bind(&PlayerController::idleToRun, this);
+			animation->SetLastFrameEndEvent(func);
+		}
 	}
 
 	{
 		Animation2D* animation = animator->FindAnimationOrNull(L"RunToIdle");
-		std::function<void()> func = std::bind(&PlayerController::runToIdle, this);
 
-		animation->SetLastFrameEndEvent(func);
+
+		{
+			std::function<void()> func = std::bind(&PlayerController::runToIdleVeloZero, this);
+			animation->SetFrameEndEvent(3, func);
+		}
+
+		{
+			std::function<void()> func = std::bind(&PlayerController::runToIdle, this);
+			animation->SetLastFrameEndEvent(func);
+		}			
+
 	}
 
 	{
@@ -56,7 +67,30 @@ void PlayerController::initialize()
 		animation->SetLastFrameEndEvent(func);
 	}
 
-	
+	{
+		std::function<void()> func = [this]() {
+
+			//Animator2D* const animator = GetOwner()->GetComponent<Animator2D>();
+
+			if (GetOwner()->GetComponent<Rect2DInterpolation>()->IsCollisionWallDown() || GetOwner()->GetComponent<Rect2DInterpolation>()->IsCollisionSlop())
+			{
+				mPlayerFSM->mPlayerGlobalState->RunToIdle();
+			}
+			else
+			{
+				//animator->Play(L"Fall", true);
+				mPlayerFSM->ChangeState(mPlayerFSM->mPlayerFallState);
+			}
+
+
+		};
+
+		Animation2D* animation = animator->FindAnimationOrNull(L"Attack");
+
+		animation->SetLastFrameEndEvent(func);
+	}
+
+
 }
 
 void PlayerController::update()
@@ -64,85 +98,15 @@ void PlayerController::update()
 	Assert(mPlayerFSM, WCHAR_IS_NULLPTR);
 
 	mPlayerFSM->GlobalUpdate();
-	mPlayerFSM->InputUpdate();
-	mPlayerFSM->Update();
 
-	//const float MOVE_SPEED = 300.f;
-	//
-	//Transform* const transform = GetOwner()->GetComponent<Transform>();
-	//Animator2D* const animator = GetOwner()->GetComponent<Animator2D>();
-	//
-	//Vector3 pos = transform->GetPosition();
-	//Vector3 dir = Vector3::Zero;
-	//
-	//if (gInput->GetKey(eKeyCode::LEFT))
-	//{
-	//	dir.x -= 1.f;
-	//}
-	//if (gInput->GetKey(eKeyCode::RIGHT))
-	//{
-	//	dir.x += 1.f;
-	//}
-	//
-	//if (gInput->GetKey(eKeyCode::UP))
-	//{
-	//	dir.y += 1.f;
-	//}
-	//if (gInput->GetKey(eKeyCode::DOWN))
-	//{
-	//	dir.y -= 1.f;
-	//}
-	//
-	//
-	//
-	//
-	//dir.Normalize();
-	//pos += dir * gDeltaTime * MOVE_SPEED;
-	//
-	//if (dir.x > 0)
-	//{
-	//	transform->SetRotation(0.f, 0, 0.f);
-	//}
-	//else if (dir.x < 0)
-	//{
-	//	transform->SetRotation(0.f, 180.f, 0.f);
-	//}
-	//
-	//
-	//if (gInput->GetKeyDown(eKeyCode::LEFT) ||
-	//	gInput->GetKeyDown(eKeyCode::RIGHT) ||
-	//	gInput->GetKeyDown(eKeyCode::UP) ||
-	//	gInput->GetKeyDown(eKeyCode::DOWN))
-	//{
-	//
-	//	if (dir.Length() > 0.1f)
-	//	{
-	//		animator->Play(L"Run", true);
-	//	}
-	//	else
-	//	{
-	//		animator->Play(L"Idle", true);
-	//	}
-	//}
-	//
-	//
-	//
-	//if (gInput->GetKeyDown(eKeyCode::LBTN))
-	//{
-	//	animator->Play(L"Attack", false);
-	//}
-	//
-	//if (gInput->GetKeyDown(eKeyCode::P))
-	//{
-	//	animator->Play(L"Roll", false);
-	//}
-	//
-	//
-	//transform->SetPosition(pos);
+	mPlayerFSM->InputUpdate();
+
+	mPlayerFSM->Update();
 }
 
 void PlayerController::lateUpdate()
-{	
+{
+
 }
 
 void PlayerController::idleToRun()
@@ -155,6 +119,21 @@ void PlayerController::idleToRun()
 void PlayerController::runToIdle()
 {
 	Animator2D* const animator = GetOwner()->GetComponent<Animator2D>();
+	//Rigidbody2D* const rigidbody = GetOwner()->GetComponent<Rigidbody2D>();
 
 	animator->Play(L"Idle", true);
+	//rigidbody->SetVelocity(Vector2(0.f, 0.f));
+}
+
+void PlayerController::runToIdleVeloZero()
+{
+	Rigidbody2D* const rigidbody = GetOwner()->GetComponent<Rigidbody2D>();
+	rigidbody->SetVelocity(Vector2::Zero);
+}
+
+void PlayerController::toFall()
+{
+	Animator2D* const animator = GetOwner()->GetComponent<Animator2D>();
+
+	animator->Play(L"Fall", true);
 }

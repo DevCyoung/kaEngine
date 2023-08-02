@@ -27,6 +27,8 @@ private:
 
 	void idleToRun();
 	void runToIdle();
+	void runToIdleVeloZero();
+	void toFall();
 
 	PlayerFSM* mPlayerFSM;
 	GameObject* mSlash;

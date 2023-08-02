@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "CBCollection.h"
-#include "StructConstantBuffer.h"
+#include "StructBuffer.h"
 
 
 CBCollection::CBCollection(ID3D11Device* const device)

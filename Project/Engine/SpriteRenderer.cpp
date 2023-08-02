@@ -5,10 +5,11 @@
 #include "Textrue.h"
 #include "Shader.h"
 #include "CBCollection.h"
-#include "StructConstantBuffer.h"
+#include "StructBuffer.h"
 #include "Engine.h"
 #include "GraphicDeviceDx11.h"
 #include "Transform.h"
+#include "EnumSRV.h"
 
 SpriteRenderer::SpriteRenderer()
 	: RenderComponent(eComponentType::SpriteRenderer)	
@@ -71,7 +72,7 @@ void SpriteRenderer::render(const Camera* const camera)
 	gGraphicDevice->BindVS(mMaterial->GetShader());
 	gGraphicDevice->BindBS(mMaterial->GetShader()->GetBSType());
 	gGraphicDevice->BindDS(mMaterial->GetShader()->GetDSType());
-	gGraphicDevice->BindRS(mMaterial->GetShader()->GetRSType());
-	gGraphicDevice->BindTexture(eShaderBindType::PS, 0, mMaterial->GetTexture());
+	gGraphicDevice->BindRS(mMaterial->GetShader()->GetRSType());	
+	gGraphicDevice->BindSRV(eShaderBindType::PS, static_cast<UINT>(eSRVTpye::Sprite2D), mMaterial->GetTexture());
 	gGraphicDevice->Draw(mMesh);
 }

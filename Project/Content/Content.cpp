@@ -6,6 +6,7 @@
 #include "Chinatown04Scene.h"
 #include "Chinatown05Scene.h"
 #include "HeadHunterScene.h"
+#include "TestScene.h"
 
 #include "GameObjectBuilder.h"
 #include "MaterialBuilder.h"
@@ -16,6 +17,9 @@
 #include <Engine/EngineMath.h>
 #include <Engine/TimeManager.h>
 
+#include <Engine/Engine.h>
+#include <Engine/GraphicDeviceDx11.h>
+
 Content::Content()
 {
 	resourceInitialize();
@@ -25,8 +29,8 @@ Content::Content()
 	//Scene* testScene = new Chinatown01Scene();
 	//Scene* testScene = new Chinatown04Scene();
 	//Scene* testScene = new Chinatown05Scene();
-
 	Scene* testScene = new HeadHunterScene();
+	//Scene* testScene = new TestScene();
 
 	SceneManager::GetInstance()->LoadScene(testScene);
 
@@ -40,6 +44,15 @@ Content::~Content()
 
 void Content::resourceInitialize()
 {
+	//Texture* const tex = gResourceManager->Find<Texture>(L"TextureCS");
+	//ComputeShader* const cs = gResourceManager->Find<ComputeShader>(L"StdCS");
+	//
+	//gGraphicDevice->BindCS(cs);
+	//gGraphicDevice->BindUAV(0, tex);
+	//gGraphicDevice->Distpatch(cs);
+	//gGraphicDevice->UnBindUAV(0);
+
+
 	loadTexture();
 	loadShader();
 	loadMaterial();	

@@ -10,10 +10,92 @@
 #pragma comment(lib, "DirectXTex/Release/DirectXTex.lib")
 #endif
 
-Texture::Texture()	
+Texture::Texture(UINT _Width, UINT _Height, 
+	DXGI_FORMAT _pixelformat, 
+	UINT _BindFlag, D3D11_USAGE _Usage)
+	: Texture()	
+{
+	mWidth = _Width;
+	mHeight = _Height;
+
+	D3D11_TEXTURE2D_DESC                m_Desc = {};
+
+	// ID3D11Texture2D 생성
+	m_Desc.Format = _pixelformat;
+
+	// 반드시 렌더타겟과 같은 해상도로 설정해야 함
+	m_Desc.Width = _Width;
+	m_Desc.Height = _Height;
+	m_Desc.ArraySize = 1;
+
+	m_Desc.BindFlags = _BindFlag;
+	m_Desc.Usage = _Usage;
+
+	//if (D3D11_USAGE::D3D11_USAGE_DYNAMIC == _Usage)
+	//{
+	//	m_Desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+	//}		
+	//else if (D3D11_USAGE::D3D11_USAGE_STAGING == _Usage)
+	//{
+	//	m_Desc.CPUAccessFlags = D3D11_CPU_ACCESS_READ;
+	//}
+		
+	m_Desc.MipLevels = 1;    // 원본만 생성
+	m_Desc.SampleDesc.Count = 1;
+	m_Desc.SampleDesc.Quality = 0;
+
+	ID3D11Device* const device = gGraphicDevice->UnSafe_GetDevice();
+
+	if (FAILED(device->CreateTexture2D(&m_Desc, nullptr, mTexture.GetAddressOf())))
+	{
+		Assert(false, WCHAR_IS_INVALID_TYPE);
+	}
+
+	// 바인드 플래그에 맞는 View 를 생성해준다.
+	if (m_Desc.BindFlags & D3D11_BIND_FLAG::D3D11_BIND_DEPTH_STENCIL)
+	{
+		if (FAILED(device->CreateDepthStencilView(mTexture.Get(), nullptr, mDSV.GetAddressOf())))
+		{
+			Assert(false, WCHAR_IS_INVALID_TYPE);
+		}
+	}
+	else
+	{
+		if (m_Desc.BindFlags & D3D11_BIND_FLAG::D3D11_BIND_RENDER_TARGET)
+		{
+			if (FAILED(device->CreateRenderTargetView(mTexture.Get(), nullptr, mRTV.GetAddressOf())))
+			{
+				Assert(false, WCHAR_IS_INVALID_TYPE);
+			}
+		}
+
+		if (m_Desc.BindFlags & D3D11_BIND_FLAG::D3D11_BIND_SHADER_RESOURCE)
+		{
+			if (FAILED(device->CreateShaderResourceView(mTexture.Get(), nullptr, mSRV.GetAddressOf())))
+			{
+				Assert(false, WCHAR_IS_INVALID_TYPE);
+			}
+		}
+
+		if (m_Desc.BindFlags & D3D11_BIND_FLAG::D3D11_BIND_UNORDERED_ACCESS)
+		{
+			if (FAILED(device->CreateUnorderedAccessView(mTexture.Get(), nullptr, mUAV.GetAddressOf())))
+			{
+				Assert(false, WCHAR_IS_INVALID_TYPE);
+			}
+		}
+	}
+}
+
+Texture::Texture()
 	: mImage()
+	, mWidth(0)
+	, mHeight(0)
 	, mTexture(nullptr)
 	, mSRV(nullptr)
+	, mRTV(nullptr)
+	, mDSV(nullptr)
+	, mUAV(nullptr)
 {
 }
 
@@ -65,5 +147,9 @@ HRESULT Texture::Load(const std::wstring& filePath)
 	Assert(mSRV, WCHAR_IS_NULLPTR);
 
 	mSRV->GetResource(reinterpret_cast<ID3D11Resource**>(mTexture.GetAddressOf()));
+
+	mWidth  = static_cast<UINT>(mImage.GetMetadata().width);
+	mHeight = static_cast<UINT>(mImage.GetMetadata().height);
+
 	return S_OK;
 }

@@ -26,15 +26,15 @@ void PlayerAttackState::InputUpdate()
 
 void PlayerAttackState::Update()
 {
-	if (mOwner->mPlayerGlobalState->IsStop())
-	{
-		mOwner->mPlayerGlobalState->RunToIdle();
-	}
+	//if (mOwner->mPlayerGlobalState->IsStop())
+	//{
+	//	mOwner->mPlayerGlobalState->RunToIdle();
 }
+	//}
 
 void PlayerAttackState::Enter()
 {
-	mAnimator->Play(L"Attack", false);	
+	mAnimator->Play(L"Attack", false);
 
 	RenderTargetRenderer* render = mGameObject->GetGameSystem()->GetRenderTargetRenderer();
 	Camera* const  camera = render->GetRegisteredRenderCamera(eCameraPriorityType::Main);
@@ -45,11 +45,24 @@ void PlayerAttackState::Enter()
 
 	dir.z = 0.f;
 	dir.Normalize();
-	dir.x *= 0.3f;
+	dir.x *= 0.6f;
+	
+
+	if (mInter->IsCollisionWallDown() || mInter->IsCollisionSlop())
+	{
+		if (dir.y <= 0.2f)
+		{
+			dir.y = 0.2f;
+			//dir.x *= 0.6f;
+		}
+	}
 
 	Vector2 dir2 = Vector2(dir.x, dir.y);
 
-	mRigidbody->SetVelocity(dir2 * 550.f);
+	mRigidbody->SetVelocity(dir2 * 750.f);
+
+
+
 
 	if (dir2.x < 0)
 	{

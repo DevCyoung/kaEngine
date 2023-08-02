@@ -34,9 +34,21 @@ public:
 	const Vector3& GetVelocity() const { return mVelocity; };
 	Vector3 SetVelocity(const Vector3& velocity) { mVelocity = velocity; };
 
+public:
+	bool CanChagneToAttackState() const;
+	bool CanChagneToFallState() const;
+	bool CanChagneToJumpState() const;
+	bool CanChagneToRunState() const;
+	bool CanChagneToWallSlideState() const;
+
 
 private:
 	GameObject* mOwner;
+
+	Rect2DInterpolation* mRect2DInterpolation;
+	Rigidbody2D* mRigidbody2D;
+	Animator2D* mAnimator2D;
+
 	Vector3 mVelocity;
 
 public:

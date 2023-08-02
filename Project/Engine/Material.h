@@ -9,6 +9,7 @@ class Material : public Resource
 {	
 	friend class GraphicDeviceDX11;
 public:
+	Material() = default;
 	Material(const eRenderPriorityType renderPriorityType);
 	virtual ~Material();
 	Material(const Material&) = delete;

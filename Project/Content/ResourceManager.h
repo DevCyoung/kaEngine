@@ -4,6 +4,7 @@
 #include <Engine/Textrue.h>
 #include <Engine/Material.h>
 #include <Engine/Shader.h>
+#include <Engine/ComputeShader.h>
 #include <Engine/Prefab.h>
 #include <Engine/ResourceManager.h>
 

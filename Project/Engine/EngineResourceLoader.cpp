@@ -4,6 +4,8 @@
 #include "Engine.h"
 #include "Mesh.h"
 #include "Shader.h"
+#include "Textrue.h"
+#include "ComputeShader.h"
 #include "StructVertex.h"
 #include "EngineMath.h"
 
@@ -11,6 +13,8 @@ void EngineResourceLoader::loadResource()
 {
 	loadMesh();
 	loadShader();
+	loadComputeShader();
+	loadTexture();
 }
 
 void EngineResourceLoader::loadMesh()
@@ -214,6 +218,15 @@ void EngineResourceLoader::loadMesh()
 	}
 }
 
+void EngineResourceLoader::loadTexture()
+{
+	Texture * const defaultTexture = new Texture(1024, 1024, 
+		DXGI_FORMAT::DXGI_FORMAT_R8G8B8A8_UNORM,
+		D3D11_BIND_FLAG::D3D11_BIND_UNORDERED_ACCESS | D3D11_BIND_FLAG::D3D11_BIND_SHADER_RESOURCE,
+		D3D11_USAGE::D3D11_USAGE_DEFAULT);
+
+	gResourceManager->Insert(L"TextureCS", defaultTexture);
+}
 
 void EngineResourceLoader::loadShader()
 {
@@ -320,6 +333,18 @@ void EngineResourceLoader::loadShader()
 				eRSType::CullNone,
 				eDSType::LessEqual,
 				eBSType::AlphaBlend);
+
 		gResourceManager->Insert(L"LightAnimation2D", animationShader);
+	}
+}
+
+void EngineResourceLoader::loadComputeShader()
+{
+	//stdCS
+	{
+		ComputeShader* const stdCS =
+			new ComputeShader(L"\\Shader\\stdCS.hlsl", L"main");
+
+		gResourceManager->Insert(L"StdCS", stdCS);
 	}
 }

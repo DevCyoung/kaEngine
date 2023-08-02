@@ -45,9 +45,23 @@ void PlayerFlipState::Update()
 
 void PlayerFlipState::Enter()
 {
+	Vector2 right = Vector2::Right;
 
-	Vector3 right = mTransform->GetRight();
-	Vector2 dir = Vector2( -right.x * 1.5f, 1.f );
+	if (mInter->IsCollisionWallRight())
+	{
+		right = Vector2::Left;
+	}
+
+	if (right.x < 0)
+	{
+		mTransform->SetRotation(0.f, 180.f, 0.f);
+	}
+	else if (right.x > 0)
+	{
+		mTransform->SetRotation(0.f, 0.f, 0.f);
+	}
+
+	Vector2 dir = Vector2( right.x * 1.7f, 1.7f );
 
 	mRigidbody->SetVelocity(dir * 338.f);
 

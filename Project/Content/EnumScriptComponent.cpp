@@ -1,6 +1,7 @@
 ﻿#include "pch.h"
 #include "EnumScriptComponent.h"
 
+#include "NoiseTest.h"
 #include "Bugiman.h"
 #include "BulletMovement.h"
 #include "CameraInputMoveMent.h"
@@ -10,7 +11,6 @@
 #include "GridPainter.h"
 #include "InputMovementTest.h"
 #include "LerpTest.h"
-#include "NoiseTest.h"
 #include "ParentTest.h"
 #include "PickPixelTest.h"
 #include "PlayerController.h"
@@ -22,6 +22,7 @@
 
 static constexpr const wchar_t* const ScriptComponentNames[static_cast<UINT>(eScriptComponentType::End)]
 {
+	L"NoiseTest",
 	L"Bugiman",
 	L"BulletMovement",
 	L"CameraInputMoveMent",
@@ -31,7 +32,6 @@ static constexpr const wchar_t* const ScriptComponentNames[static_cast<UINT>(eSc
 	L"GridPainter",
 	L"InputMovementTest",
 	L"LerpTest",
-	L"NoiseTest",
 	L"ParentTest",
 	L"PickPixelTest",
 	L"PlayerController",
@@ -52,7 +52,9 @@ ScriptComponent* CreateScriptComponentByName(const std::wstring& scriptcomponent
 {
 	ScriptComponent* scriptcomponent = nullptr;
 
-	if (L"Bugiman" == scriptcomponentName)
+	if (L"NoiseTest" == scriptcomponentName)
+		scriptcomponent = new NoiseTest;
+	else if (L"Bugiman" == scriptcomponentName)
 		scriptcomponent = new Bugiman;
 	else if (L"BulletMovement" == scriptcomponentName)
 		scriptcomponent = new BulletMovement;
@@ -70,8 +72,6 @@ ScriptComponent* CreateScriptComponentByName(const std::wstring& scriptcomponent
 		scriptcomponent = new InputMovementTest;
 	else if (L"LerpTest" == scriptcomponentName)
 		scriptcomponent = new LerpTest;
-	else if (L"NoiseTest" == scriptcomponentName)
-		scriptcomponent = new NoiseTest;
 	else if (L"ParentTest" == scriptcomponentName)
 		scriptcomponent = new ParentTest;
 	else if (L"PickPixelTest" == scriptcomponentName)
@@ -99,6 +99,9 @@ ScriptComponent* CreateScriptComponentByEnum(const eScriptComponentType type)
 
 	switch (type)
 	{
+	case eScriptComponentType::NoiseTest:
+		scriptcomponent = new NoiseTest;
+		break;
 	case eScriptComponentType::Bugiman:
 		scriptcomponent = new Bugiman;
 		break;
@@ -125,9 +128,6 @@ ScriptComponent* CreateScriptComponentByEnum(const eScriptComponentType type)
 		break;
 	case eScriptComponentType::LerpTest:
 		scriptcomponent = new LerpTest;
-		break;
-	case eScriptComponentType::NoiseTest:
-		scriptcomponent = new NoiseTest;
 		break;
 	case eScriptComponentType::ParentTest:
 		scriptcomponent = new ParentTest;
