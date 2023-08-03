@@ -79,9 +79,9 @@ void CameraInputMoveMent::update()
 			cameraSize -= gDeltaTime * 10.f;
 		}
 
-		if (cameraSize < 0.1f)
+		if (cameraSize < 0.01f)
 		{
-			cameraSize = 0.1f;
+			cameraSize = 0.01f;
 		}
 		else if (cameraSize >= 5.f)
 		{

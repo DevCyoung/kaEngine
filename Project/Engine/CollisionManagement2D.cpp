@@ -118,8 +118,8 @@ void CollisionManagement2D::phisicsUpdate(const Scene* const scene)
 void CollisionManagement2D::collide2DGameObject(const GameObject* const left,
 	const GameObject* const right)
 {
-	Collider2D* const leftCollider = left->GetComponentOrNull<Collider2D>();
-	Collider2D* const rightCollider = right->GetComponentOrNull<Collider2D>();
+	Collider2D*  const leftCollider = left->GetComponentOrNull<Collider2D>();
+	Collider2D*  const rightCollider = right->GetComponentOrNull<Collider2D>();
 
 	if (leftCollider == nullptr || rightCollider == nullptr)
 	{
@@ -164,6 +164,10 @@ void CollisionManagement2D::collide2DGameObject(const GameObject* const left,
 		{
 			bCollision = checkCollision2DCircleAndCircle(leftCollider, rightCollider);
 		}
+		else if (LEFT_COLLIDER_TYPE == eCollider2DType::Line)
+		{
+			bCollision = checkCollision2DLineAndLine(leftCollider, rightCollider);
+		}
 		else
 		{
 			Assert(false, WCHAR_IS_INVALID_TYPE);
@@ -171,6 +175,8 @@ void CollisionManagement2D::collide2DGameObject(const GameObject* const left,
 	}
 	else
 	{
+
+		
 		if (eCollider2DType::Box == LEFT_COLLIDER_TYPE && eCollider2DType::Circle == RIGHT_COLLIDER_TYPE)
 		{
 			bCollision = checkCollision2DBoxAndCircle(leftCollider, rightCollider);
@@ -179,10 +185,21 @@ void CollisionManagement2D::collide2DGameObject(const GameObject* const left,
 		{
 			bCollision = checkCollision2DBoxAndCircle(rightCollider, leftCollider);
 		}
+		else if (eCollider2DType::Box == RIGHT_COLLIDER_TYPE && LEFT_COLLIDER_TYPE == eCollider2DType::Line)
+		{
+			bCollision = checkCollision2DBoxAndLine(rightCollider, leftCollider);
+		}
+		else if (eCollider2DType::Box == LEFT_COLLIDER_TYPE && RIGHT_COLLIDER_TYPE == eCollider2DType::Line)
+		{
+			bCollision = checkCollision2DBoxAndLine(leftCollider, rightCollider);
+		}
 		else
 		{
-			Assert(false, WCHAR_IS_INVALID_TYPE);
+			//Assert(false, WCHAR_IS_INVALID_TYPE);
 		}
+
+
+
 	}
 
 	if (bCollision)
@@ -276,6 +293,60 @@ bool CollisionManagement2D::checkCollision2DCircleAndCircle(const Collider2D* co
 		right->GetColliderWorldMatrix().Translation();
 
 	return DIST.x * DIST.x + DIST.y * DIST.y < RADIUS_SUM * RADIUS_SUM;
+}
+
+bool CollisionManagement2D::checkCollision2DLineAndLine(const Collider2D* const left,
+	const Collider2D* const right)
+{
+	Vector3 tp1 = left->GetColliderWorldMatrix().Translation();
+	Vector3 tp2 = right->GetColliderWorldMatrix().Translation();
+
+	Vector3 start = left->GetStartPos() + tp1;
+	Vector3 end = left->GetEndPos() + tp1;
+
+	Vector3 start2 = right->GetStartPos() + tp2;
+	Vector3 end2 = right->GetEndPos() + tp2;
+
+	Vector2 out = Vector2::Zero;
+
+	return helper::math::LineAndLineCollision(start, end, start2, end2, &out);
+}
+
+bool CollisionManagement2D::checkCollision2DBoxAndLine(const Collider2D* const box, const Collider2D* const line)
+{
+	Vector3 vertexPosArray[4] =
+	{
+		Vector3(-0.5f, 0.5f, 0.f),
+		Vector3(0.5f, 0.5f, 0.f),
+		Vector3(0.5f, -0.5f, 0.f),
+		Vector3(-0.5f, -0.5f, 0.f),
+	};
+
+	Vector3 tp = line->GetColliderWorldMatrix().Translation();
+	Vector3 sideDistArray[4] = {};
+	Matrix boxWorldMatrix = box->GetColliderWorldMatrix();	
+
+	bool result = false;
+
+	for (UINT i = 0; i < 4; i++)
+	{
+		//box 0 ---- 1
+		Vector3 s1 = XMVector3TransformCoord(vertexPosArray[i], boxWorldMatrix);
+		Vector3 e1 = XMVector3TransformCoord(vertexPosArray[(i + 1) % 4], boxWorldMatrix);
+
+		Vector3 s2 = line->GetStartPos() + tp;
+		Vector3 e2 = line->GetEndPos() + tp;
+
+		Vector2 out = Vector2::Zero;
+
+		if (helper::math::LineAndLineCollision(s1, e1, s2, e2, &out))
+		{
+			result = true;
+			break;
+		}
+	}
+
+	return result;
 }
 
 bool CollisionManagement2D::checkCollision2DBoxAndCircle(const Collider2D* const box, 

@@ -14,6 +14,8 @@ Collider2D::Collider2D(const eComponentType componentType,
 	, mOffset{}
 	, mCollisionCount(0)
 	, mRadius(50.f)
+	, mStartPos(Vector3(-100.f, 100.f, 0.f))
+	, mEndPos(Vector3(100.f, -100.f, 0.f ))
 {
 
 }

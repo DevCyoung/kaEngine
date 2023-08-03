@@ -202,6 +202,9 @@
     <Filter Include="Source\03. Component\03. Render\02. ParticleSystem">
       <UniqueIdentifier>{99ba6f25-8b75-42cd-8db9-dd2aa21a3758}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\03. Component\04. Collision\Line">
+      <UniqueIdentifier>{f9946281-c64b-4401-ba89-ae241e29ada3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Entity.h">
@@ -420,6 +423,12 @@
     <ClInclude Include="ParticleSystem.h">
       <Filter>Source\03. Component\03. Render\02. ParticleSystem</Filter>
     </ClInclude>
+    <ClInclude Include="LineCollider2D.h">
+      <Filter>Source\03. Component\04. Collision\Line</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineFile.h">
+      <Filter>Source\Helper\File</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Entity.cpp">
@@ -592,6 +601,12 @@
     </ClCompile>
     <ClCompile Include="ParticleSystem.cpp">
       <Filter>Source\03. Component\03. Render\02. ParticleSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="LineCollider2D.cpp">
+      <Filter>Source\03. Component\04. Collision\Line</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineFile.cpp">
+      <Filter>Source\Helper\File</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

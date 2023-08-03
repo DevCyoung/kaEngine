@@ -101,11 +101,88 @@ GameObject* GameObjectBuilder::Player()
 	player->GetComponent<Rigidbody2D>()->SetGravityAccel(1800.f);
 
 
-	player->GetComponent<RectCollider2D>()->SetSize(18.f, 42.f);
+	player->GetComponent<RectCollider2D>()->SetSize(20.f, 44.f);
 	player->GetComponent<RectCollider2D>()->SetOffset(Vector2(0.f, 4.f));
 
 
 	return player;
+}
+
+GameObject* GameObjectBuilder::Slash()
+{
+	GameObject* const Slash = new GameObject();
+
+	Slash->AddComponent<Animator2D>();
+	Slash->AddComponent<CircleCollider2D>();
+
+	Slash->GetComponent<CircleCollider2D>()->SetRadius(50.f);
+
+	Animator2D* const animator = Slash->GetComponent<Animator2D>();
+
+	animator->GetMaterial()->SetShader(
+		gResourceManager->FindOrNull<Shader>(L"LightAnimation2D"));
+
+	Texture* atlas = gResourceManager->FindByEnum<Texture>(eResTexture::Atlas_Player_slash);
+
+	animator->CreateAnimation(L"Slash", atlas, 6, XMUINT2(5, 34), XMUINT2(106, 32), XMUINT2(10, 10), XMINT2(0, 0), 0.04f);
+
+	//Slash->SetParent(player);
+	//player->GetComponent<PlayerController>()->SetSlash(Slash);
+
+	Slash->GetComponent<Transform>()->SetPosition(0.f, 0.f, 0.f);
+
+	return Slash;
+}
+
+GameObject* GameObjectBuilder::InstantiatePlayer(Scene* const scene)
+{
+	GameObject* const player = GameObjectBuilder::Player();
+	
+	player->GetComponent<Transform>()->SetPosition(0.f, 0.f, -10.f);
+	player->GetComponent<Animator2D>()->GetMaterial()->SetShader(
+		gResourceManager->FindOrNull<Shader>(L"LightAnimation2D"));
+
+	scene->AddGameObject(player, eLayerType::Player);
+
+	//Slash
+	{
+		GameObject* const Slash = new GameObject();
+
+		Slash->AddComponent<Animator2D>();
+		Slash->AddComponent<CircleCollider2D>();
+
+		Slash->GetComponent<Transform>()->SetPosition(0.f, 0.f, 0.f);
+		Slash->GetComponent<CircleCollider2D>()->SetRadius(50.f);
+
+		Animator2D* const animator = Slash->GetComponent<Animator2D>();
+		animator->GetMaterial()->SetShader(
+			gResourceManager->FindOrNull<Shader>(L"LightAnimation2D"));
+		Texture* atlas = gResourceManager->FindByEnum<Texture>(eResTexture::Atlas_Player_slash);
+		animator->CreateAnimation(L"Slash", atlas, 6, XMUINT2(5, 34), XMUINT2(106, 32), XMUINT2(10, 10), XMINT2(0, 0), 0.04f);
+
+		Slash->SetParent(player);
+		player->GetComponent<PlayerController>()->SetSlash(Slash);	
+		scene->AddGameObject(Slash, eLayerType::Default);
+	}	
+
+	return player;
+
+}
+
+void GameObjectBuilder::InstantiateGlobalLight2D(Scene* const scene, const eLayerType type)
+{
+	GameObject* const light = new GameObject();
+	light->AddComponent<Light2D>();
+
+
+	light->GetComponent<Light2D>()->SetLightType(Light2D::LIGHT_TYPE::DIRECTIONAL);
+	light->GetComponent<Light2D>()->SetRadius(300.f);	
+	light->GetComponent<Light2D>()->SetLightDiffuse(Vector3(1.f, 1.f, 1.f));
+
+	light->GetComponent<Transform>()->SetPosition(100, 0.f, 0.f);
+
+	scene->AddGameObject(light, type);
+
 }
 
 void GameObjectBuilder::AddUI(Scene* const scene)

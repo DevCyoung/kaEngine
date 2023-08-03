@@ -3,6 +3,7 @@
 #include <Windows.h>
 #include <string>
 #include <vector> 
+#include <stack>
 #include <list> 
 #include <map> 
 #include <unordered_map> 
@@ -15,6 +16,7 @@
 #include <memory> 
 #include <filesystem> 
 #include <wrl.h>
+#include <commdlg.h>
 
 #include "DXMath.h"
 #include "EnumFlag.h"

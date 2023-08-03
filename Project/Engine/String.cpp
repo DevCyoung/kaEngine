@@ -41,4 +41,18 @@ namespace helper
 
 		return szExtension;
 	}
+
+	std::wstring String::SWPrintf(const wchar_t* const format, ...)
+	{
+		constexpr UINT STRING_MAX_LEN = 512;
+
+		wchar_t szBuffer[STRING_MAX_LEN] = { 0, };
+
+		va_list args;
+		va_start(args, format);
+		swprintf_s(szBuffer, STRING_MAX_LEN, format, args);
+		va_end(args);
+
+		return szBuffer;
+	}
 }

@@ -273,6 +273,10 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
       </SubType>
     </ClInclude>
     <ClInclude Include="FiniteStateMachine.h" />
+    <ClInclude Include="SimpleEditorCollider2D.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="TestScene.h" />
     <ClInclude Include="TestScript.h">
       <SubType>
@@ -390,6 +394,10 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
       </SubType>
     </ClCompile>
     <ClCompile Include="FiniteStateMachine.cpp" />
+    <ClCompile Include="SimpleEditorCollider2D.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="TestScene.cpp" />
     <ClCompile Include="TestScript.cpp">
       <SubType>

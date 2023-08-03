@@ -42,7 +42,9 @@ private:
 	void onCollisionLeftWall(Collider2D* other, Vector2 width);
 	void onCollisionRightWall(Collider2D* other, Vector2 width);
 	void onCollisionDownWall(Collider2D* other, Vector2 width);
-	void onCollisionUpWall(Collider2D* other, Vector2 width);	
+	void onCollisionUpWall(Collider2D* other, Vector2 width);
+
+	void onCollisionInterpolation(Collider2D* other);
 
 
 	bool mbCollisionDir[5];

@@ -6,6 +6,7 @@
 #include "Camera.h"
 #include "CircleCollider2D.h"
 #include "Light2D.h"
+#include "LineCollider2D.h"
 #include "ParticleSystem.h"
 #include "RectCollider2D.h"
 #include "Rigidbody2D.h"
@@ -18,6 +19,7 @@ static constexpr const wchar_t* const ComponentNames[static_cast<UINT>(eComponen
 	L"Camera",
 	L"CircleCollider2D",
 	L"Light2D",
+	L"LineCollider2D",
 	L"ParticleSystem",
 	L"RectCollider2D",
 	L"Rigidbody2D",
@@ -44,6 +46,8 @@ Component* CreateComponentByName(const std::wstring& componentName)
 		component = new CircleCollider2D;
 	else if (L"Light2D" == componentName)
 		component = new Light2D;
+	else if (L"LineCollider2D" == componentName)
+		component = new LineCollider2D;
 	else if (L"ParticleSystem" == componentName)
 		component = new ParticleSystem;
 	else if (L"RectCollider2D" == componentName)
@@ -77,6 +81,9 @@ Component* CreateComponentByEnum(const eComponentType type)
 		break;
 	case eComponentType::Light2D:
 		component = new Light2D;
+		break;
+	case eComponentType::LineCollider2D:
+		component = new LineCollider2D;
 		break;
 	case eComponentType::ParticleSystem:
 		component = new ParticleSystem;

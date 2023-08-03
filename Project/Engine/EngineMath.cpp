@@ -80,6 +80,8 @@ namespace helper
 		return rectPos;
 	}
 
+
+
 	bool IsInGrid(const XMINT2& gridIndex, const XMUINT2& tileCount)
 	{
 		XMINT2 countXY = {};
@@ -128,7 +130,25 @@ namespace helper::math
 		return (sin(x) + 1.f) / 2.f;
 	}
 
-	bool LineAndLineCollision(float x1, float y1,
+	bool LineAndLineCollision(const Vector3& s1, const Vector3& e1,
+		const Vector3& s2, const Vector3& e2, Vector2* const outInter)
+	{
+		Assert(outInter, WCHAR_IS_NULLPTR);
+
+		return _LineAndLineCollision(s1.x, s1.y, e1.x, e1.y, s2.x, s2.y, e2.x, e2.y, &outInter->x, &outInter->y);
+	}
+
+
+	bool LineAndLineCollision(const Vector2& s1, const Vector2& e1,
+		const Vector2& s2, const Vector2& e2,
+		Vector2* const outInter)
+	{
+		Assert(outInter, WCHAR_IS_NULLPTR);
+
+		return _LineAndLineCollision(s1.x, s1.y, e1.x, e1.y, s2.x, s2.y, e2.x, e2.y, &outInter->x, &outInter->y);
+	}
+
+	bool _LineAndLineCollision(float x1, float y1,
 		float x2, float y2,
 		float x3, float y3,
 		float x4, float y4,
@@ -153,10 +173,6 @@ namespace helper::math
 		return false;
 	}
 }
-
-
-
-
 
 namespace helper::rand
 {

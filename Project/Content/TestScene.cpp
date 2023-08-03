@@ -7,29 +7,46 @@
 #include <Engine/CollisionManagement2D.h>
 #include <Engine/Engine.h>
 #include <Engine/Color.h>
+
+#include "CameraInputMoveMent.h"
+#include "InputMovementTest.h"
+
 TestScene::TestScene()
 {
 	const Vector2& SCREEN_SIZE = gEngine->GetRenderTargetSize();
 
+	//{
+	//	Material* const material =
+	//		MaterialBuilder::Sprite2D(
+	//			eRenderPriorityType::Opqaue, eResTexture::Map_HeadHunter_spr_vaultdoor_open_spr_vaultdoor_open_0);
+	//	
+	//	material->SetTexture(gResourceManager->Find<Texture>(L"TextureCS"));
+	//	gResourceManager->Insert(L"TextureCS", material);
+	//}
+
 	{
-		Material* const material =
-			MaterialBuilder::Sprite2D(
-				eRenderPriorityType::Opqaue, eResTexture::Map_HeadHunter_spr_vaultdoor_open_spr_vaultdoor_open_0);
-		
-		material->SetTexture(gResourceManager->Find<Texture>(L"TextureCS"));
-		gResourceManager->Insert(L"TextureCS", material);
+		GameObject* const obj = new GameObject;
+
+		obj->AddComponent<RectCollider2D>();		
+
+		obj->GetComponent<Transform>()->SetScale(1.0f, 1.0f, 1.f);
+		//obj->GetComponent<Transform>()->SetRotation(0.f, 0.f, 45.f);
+		obj->GetComponent<Transform>()->SetPosition(0.f, 0.f, 0.f);
+
+		obj->GetComponent<RectCollider2D>()->SetSize(100.f, 100.f);
+
+		AddGameObject(obj, eLayerType::Default);
 	}
 
 	{
 		GameObject* const obj = new GameObject;
 
-		obj->GetComponent<Transform>()->SetScale(1.0f, 1.0f, 1.f);
-		obj->AddComponent<RectCollider2D>();
+		obj->AddComponent<LineCollider2D>();
+		obj->AddComponent<InputMovementTest>();
 
-		obj->AddComponent<SpriteRenderer>();
-		obj->GetComponent<SpriteRenderer>()->SetMesh(gResourceManager->Find<Mesh>(L"FillRect2D"));		
-		obj->GetComponent<SpriteRenderer>()->SetMaterial(gResourceManager->Find<Material>(L"TextureCS"));
-		
+		obj->GetComponent<Transform>()->SetScale(1.0f, 1.0f, 1.f);
+		obj->GetComponent<LineCollider2D>()->SetPoints(50.f, 50.f, 100.f, 50.f);
+
 
 		AddGameObject(obj, eLayerType::Default);
 	}
@@ -49,6 +66,7 @@ TestScene::TestScene()
 		GameObject* const mainCamera = new GameObject();
 
 		mainCamera->AddComponent<Camera>();
+		mainCamera->AddComponent<CameraInputMoveMent>();
 
 		mainCamera->GetComponent<Transform>()->SetPosition(0.f, 0.f, -10.f);
 		mainCamera->GetComponent<Camera>()->SetPriorityType(eCameraPriorityType::Main);

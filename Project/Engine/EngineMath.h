@@ -18,7 +18,8 @@ namespace helper
 	XMINT2 GridIndex(const Vector3& selectWorldPos,
 		const Vector2& cellSize, const XMUINT2& tileCountXY);
 	Vector3 GridIndexToWorldPosition(const XMINT2& gridIndex, 
-		const Vector2& cellSize, const XMUINT2& tileCountXY);
+		const Vector2& cellSize, const XMUINT2& tileCountXY);	
+
 	bool IsInGrid(const XMINT2& gridIndex, const XMUINT2& tileCountXY);
 }
 
@@ -29,8 +30,20 @@ namespace helper::math
 	float LerpCosBtwZeroAndOne(const float x);
 	float LerpSinBtwZeroAndOne(const float x);
 
-	bool LineAndLineCollision(float x1, float y1, float x2, float y2, 
+
+
+#pragma region LineCollision
+	bool LineAndLineCollision(const Vector3& s1, const Vector3& e1,
+				const Vector3& s2, const Vector3& e2, Vector2* const outInter);
+
+	bool LineAndLineCollision(const Vector2& s1, const Vector2& e1,
+		const Vector2& s2, const Vector2& e2, Vector2* const outInter);
+
+	bool _LineAndLineCollision(float x1, float y1, float x2, float y2,
 		float x3, float y3, float x4, float y4, float* outInterX, float* outInterY);
+#pragma endregion
+
+	
 }
 
 namespace helper::rand

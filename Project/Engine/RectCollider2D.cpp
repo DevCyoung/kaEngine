@@ -29,7 +29,7 @@ void RectCollider2D::lateUpdate()
 	mColliderWorldMat *= XMMatrixTranslation(mOffset.x, mOffset.y, mOffset.z);
 	mColliderWorldMat *= P_TRANSFORM->GetWorldMatrix();
 
-	DebugRenderer2D* debugRenderer = GetOwner()->GetGameSystem()->GetRenderTargetRenderer()->GetDebugRenderer();
+	DebugRenderer2D* debugRenderer = GetOwner()->GetGameSystem()->GetRenderTargetRenderer()->GetDebugRenderer2D();
 
 	Vector4 color = Vector4(0.f, 1.f, 0.f, 1.f);
 

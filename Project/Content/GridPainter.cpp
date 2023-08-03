@@ -39,7 +39,7 @@ void GridPainter::update()
     const Vector2& CELL_SIZE  = Vector2(static_cast<float>(mCellSize), static_cast<float>(mCellSize));    
     const Vector3 POS = P_TRANSFORM->GetPosition();
 
-    DebugRenderer2D* const debugRenderer = P_RENDERER->GetDebugRenderer();
+    DebugRenderer2D* const debugRenderer = P_RENDERER->GetDebugRenderer2D();
 
     debugRenderer->DrawGrid2D(POS, CELL_SIZE, mCellCount, 0.f, mColor);    
 }
