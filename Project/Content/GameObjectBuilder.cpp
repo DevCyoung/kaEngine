@@ -30,6 +30,10 @@ GameObject* GameObjectBuilder::Player()
 	GameObject* const player = new GameObject();
 	player->SetName(L"Player");
 
+	player->AddComponent<Rigidbody2D>();
+	player->AddComponent<Rect2DInterpolation>();
+	player->AddComponent<RectCollider2D>();
+
 	//Animation
 	{
 		player->GetComponent<Transform>()->SetPosition(0.f, 160.f, -1.f);
@@ -89,19 +93,14 @@ GameObject* GameObjectBuilder::Player()
 
 		player->GetComponent<Transform>()->SetScale(2.0f, 2.0f, 1.f);
 	}
-
-	player->AddComponent<Rigidbody2D>();
-	player->AddComponent<Rect2DInterpolation>();
-	player->AddComponent<RectCollider2D>();
-
-
 	player->GetComponent<Animator2D>()->Play(L"Idle", true);
 
+	//Rigidbody
 	player->GetComponent<Rigidbody2D>()->TurnOnGravity();
 	player->GetComponent<Rigidbody2D>()->SetGravityAccel(1800.f);
 
-
-	player->GetComponent<RectCollider2D>()->SetSize(20.f, 44.f);
+	//Collider
+	player->GetComponent<RectCollider2D>()->SetSize(22.f, 44.f);
 	player->GetComponent<RectCollider2D>()->SetOffset(Vector2(0.f, 4.f));
 
 

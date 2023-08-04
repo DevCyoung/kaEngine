@@ -73,8 +73,15 @@ void Scene::lateUpdate()
 		MessageManager::GetInstance()->AddTitleMessage(buff);
 	}
 
+	//面倒贸府
 	mCollisionManagement2D->phisicsUpdate(this);
 	
+	//面倒焊埃
+	for (Layer& layer : mLayers)
+	{
+		layer.lastUpdate();
+	}
+
 	//if exist garbage, remove it, No rendering
 	if (false == mGarbages.empty())
 	{

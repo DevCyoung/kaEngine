@@ -32,7 +32,7 @@ void PlayerFallState::Update()
 
 	mOwner->mPlayerGlobalState->InputFlip();
 
-	if (mInter->IsCollisionSlop())
+	if (mInter->IsCollisionWallSlop())
 	{
 		right.x = Deg2Rad(45.f);
 	}
@@ -42,7 +42,7 @@ void PlayerFallState::Update()
 		mRigidbody->AddForce(right * dir.x * 700.f);
 	}
 
-	if (mInter->IsCollisionWallDown())
+	if (mInter->IsCollisionWallFloor() || mInter->IsCollisionWallSlop())
 	{
 		mAnimator->Play(L"RunToIdle", false);
 		mOwner->ChangeState(mOwner->mPlayerIdleState);

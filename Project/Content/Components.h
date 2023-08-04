@@ -24,3 +24,5 @@
 #include "EnumScriptComponent.h"
 
 #include <Engine/GameSystem.h>
+#include <Engine/RenderTargetRenderer.h>
+#include <Engine/DebugRenderer2D.h>

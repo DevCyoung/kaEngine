@@ -33,7 +33,7 @@ Chinatown01Scene::Chinatown01Scene()
 
 	mCollisionManagement2D->TurnOffAllCollisionLayer();
 	mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Player, eLayerType::Wall);
-	mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Player, eLayerType::Slope);
+	mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Player, eLayerType::LeftSlope);
 
 #pragma region Material
 	{
@@ -288,7 +288,7 @@ Chinatown01Scene::Chinatown01Scene()
 		wall->AddComponent<LineCollider2D>();
 		wall->GetComponent<Transform>()->SetPosition(0.f, 0.f, 0.f);
 		wall->GetComponent<LineCollider2D>()->SetPoints(-1504.000000, 416.000000, -1216.000000, 128.000000);
-		AddGameObject(wall, eLayerType::Slope);
+		AddGameObject(wall, eLayerType::LeftSlope);
 	}
 #pragma endregion
 
@@ -312,7 +312,6 @@ Chinatown01Scene::Chinatown01Scene()
 
 	{
 		GameObject* player =  GameObjectBuilder::InstantiatePlayer(this);
-
 		player->GetComponent<Transform>()->SetPosition(-2000, 464, 0);
 	}
 

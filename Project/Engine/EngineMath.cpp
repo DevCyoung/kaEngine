@@ -108,6 +108,15 @@ namespace helper::math
 		outMax->y = max(a.y, b.y);
 	}
 
+	void floatMinAndMax(const float a, const float b, float* const outMin, float* const outMax)
+	{
+		Assert(outMin, WCHAR_IS_NULLPTR);
+		Assert(outMax, WCHAR_IS_NULLPTR);
+
+		*outMin = min(a, b);
+		*outMax = max(a, b);
+	}
+
 	void Vector2MinAndMax(const Vector2& a, const Vector2& b, Vector2* const outMin, Vector2* const outMax)
 	{
 		Assert(outMin, WCHAR_IS_NULLPTR);
@@ -118,6 +127,20 @@ namespace helper::math
 
 		outMax->x = max(a.x, b.x);
 		outMax->y = max(a.y, b.y);
+	}
+
+	void Vector3MinAndMax(const Vector3& a, const Vector3& b, Vector3* const outMin, Vector3* const outMax)
+	{
+		Assert(outMin, WCHAR_IS_NULLPTR);
+		Assert(outMax, WCHAR_IS_NULLPTR);
+
+		outMin->x = min(a.x, b.x);
+		outMin->y = min(a.y, b.y);
+		outMin->z = min(a.z, b.z);
+
+		outMax->x = max(a.x, b.x);
+		outMax->y = max(a.y, b.y);
+		outMax->z = max(a.z, b.z);
 	}
 
 	float LerpCosBtwZeroAndOne(const float x)
@@ -172,6 +195,50 @@ namespace helper::math
 		}
 		return false;
 	}
+
+
+	Vector2 GetBoxAndBoxInterBoxSize(const Matrix& box1, const Matrix& box2)
+	{
+		Matrix mat1 = box1;
+		Matrix mat2 = box2;
+
+		//90도 회전되있을시 다시 바꾼다.
+		if (mat1._11 < 0.f)
+		{
+			mat1._11 *= -1.f;
+		}
+
+		if (mat2._11 < 0.f)
+		{
+			mat1._11 *= -1.f;
+		}
+		
+		Vector3 leftTop = Vector3(-0.5f, 0.5f, 0.f);
+		Vector3 rightBottom = Vector3(0.5f, -0.5f, 0.f);
+
+		Vector3 lt1 = XMVector3TransformCoord(leftTop, mat1);
+		Vector3 rb1 = XMVector3TransformCoord(rightBottom, mat1);
+
+		Vector3 lt2 = XMVector3TransformCoord(leftTop, mat2);
+		Vector3 rb2 = XMVector3TransformCoord(rightBottom, mat2);
+
+		Vector3 ltInter = Vector3::Zero;
+		Vector3 rbInter = Vector3::Zero;
+
+		ltInter.x = max(lt1.x, lt2.x);
+		ltInter.y = min(lt1.y, lt2.y);
+
+		rbInter.x = min(rb1.x, rb2.x);
+		rbInter.y = max(rb1.y, rb2.y);
+
+		Vector2 size = Vector2::Zero;
+
+		size.x = abs(rbInter.x - ltInter.x);
+		size.y = abs(ltInter.y - rbInter.y);
+
+		return size;
+	}
+
 }
 
 namespace helper::rand
@@ -185,3 +252,4 @@ namespace helper::rand
 		return dis(gen);
 	}
 }
+

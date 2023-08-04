@@ -33,6 +33,12 @@ void PlayerWallSlideState::Update()
 {
 	Vector2 velocity = mRigidbody->GetVelocity();
 
+	if (mInter->IsCollisionWallRight() == false &&
+		mInter->IsCollisionWallLeft() == false)
+	{
+		mOwner->ChangeState(mOwner->mPlayerIdleState);
+		return;
+	}
 
 	
 
@@ -82,7 +88,7 @@ void PlayerWallSlideState::Update()
 		}
 	}
 
-	if (mInter->IsCollisionWallDown())
+	if (mInter->IsCollisionWallFloor())
 	{
 		mAnimator->Play(L"RunToIdle", false);
 		mOwner->ChangeState(mOwner->mPlayerIdleState);

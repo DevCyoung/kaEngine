@@ -29,6 +29,7 @@ public:
 		scene->lateUpdate();
 	}
 
+
 	void Render(Scene* const scene,
 		const UINT renderTargetWidth,
 		const UINT renderTargetHeight,
@@ -56,6 +57,8 @@ public:
 private:
 	void update();
 	void lateUpdate();
+	void lastUpdate();
+
 	void eventUpdate();
 	void render(const UINT renderTargetWidth,
 		const UINT renderTargetHeight,

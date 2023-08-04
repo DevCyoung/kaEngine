@@ -23,6 +23,10 @@ void ScriptComponent::lateUpdate()
 {
 }
 
+void ScriptComponent::lastUpdate()
+{
+}
+
 void ScriptComponent::onCollisionEnter(Collider2D* other)
 {
 	(void)other;

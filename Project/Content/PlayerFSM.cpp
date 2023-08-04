@@ -2,6 +2,8 @@
 #include "PlayerFSM.h"
 #include "Components.h"
 #include "Rect2DInterpolation.h"
+#include <Engine/Physics2D.h>
+#include <Engine/EngineMath.h>
 
 PlayerFSM::PlayerFSM(GameObject* const owner)
 	: mOwner(owner)
@@ -67,7 +69,7 @@ void PlayerFSM::Initialize(PlayerState* const startState)
 }
 
 void PlayerFSM::GlobalUpdate()
-{	
+{
 	if (CanChagneToAttackState())
 	{
 		ChangeState(mPlayerAttackState);
@@ -83,6 +85,7 @@ void PlayerFSM::GlobalUpdate()
 	}
 	else if (CanChagneToWallSlideState())
 	{
+		//nChagneToWallSlideState();
 		ChangeState(mPlayerWallSlideState);
 	}
 	else if (CanChagneToFallState())
@@ -101,6 +104,80 @@ void PlayerFSM::InputUpdate()
 void PlayerFSM::Update()
 {
 	mCurState->Update();
+
+	{
+		Transform* const transform = mOwner->GetComponent<Transform>();
+		//RenderTargetRenderer* const renderer = mOwner->GetGameSystem()->GetRenderTargetRenderer();
+		//DebugRenderer2D* const debugRenderer = renderer->GetDebugRenderer2D();
+
+		Vector3 pos = transform->GetPosition();
+		Matrix mat = transform->GetComponent<RectCollider2D>()->GetColliderWorldMatrix();
+
+		Vector3 lp = Vector3(-0.5f, -0.5f, 0.f);
+		lp = XMVector3TransformCoord(lp, mat);
+
+		pos = lp;
+
+		pos.y += 10.f;
+
+		//
+
+		RayCast2DHitInfo info = {};
+
+		//Physics2D* const physics2D = mOwner->GetGameSystem()->GetPhysics2D();
+		Vector2 lp2 = Vector2(pos.x, pos.y);
+		Vector2 direction = Vector2::Down;
+
+		//bool rs = physics2D->RayCastHit2D(lp2, Vector2::Down, 100.f, eLayerType::Slope, &info);
+		//
+		//if (rs)
+		//{
+		//	debugRenderer->DrawLine2D2(pos, Vector2::Down, 100.f, 0.f, Vector4(1.f, 0.f, 0.f, 1.f));
+		//}
+		//else
+		//{
+		//	debugRenderer->DrawLine2D2(pos, Vector2::Down, 100.f, 0.f, Vector4(1.f, 1.f, 1.f, 1.f));
+		//}
+
+		Rigidbody2D* const rigidbody2D = mOwner->GetComponent<Rigidbody2D>();
+		const Vector2 dir = mPlayerGlobalState->GetInputDirectionX();
+		Vector2 right = Vector2::Right;
+
+
+		if (mRect2DInterpolation->IsCollisionWallSlop())
+		{
+			right = Vector2(cos(Deg2Rad(45)), sin(Deg2Rad(45)));
+
+			if (rigidbody2D->GetVelocity().x > 0.f)
+			{
+				right.y = -right.y;
+			}			
+
+		}
+		if (abs(rigidbody2D->GetVelocity().x) < right.x * 400.f)
+		{
+			rigidbody2D->AddForce(right * dir.x * 4000.f);
+		}
+		else if (gInput->GetKeyDown(eKeyCode::A) || gInput->GetKeyDown(eKeyCode::D))
+		{
+			rigidbody2D->SetVelocity(right * dir.x * 400.f);
+		}
+
+
+	}
+
+
+
+	if (gInput->GetKey(eKeyCode::S) || mCurState == mPlayerAttackState)
+	{
+		mRect2DInterpolation->TurnOffPlatform();
+	}
+	else
+	{
+		mRect2DInterpolation->TurnOnPlatform();
+	}
+
+
 }
 
 bool PlayerFSM::CanChagneToAttackState() const
@@ -110,9 +187,9 @@ bool PlayerFSM::CanChagneToAttackState() const
 
 bool PlayerFSM::CanChagneToFallState() const
 {
-	if (mCurState == mPlayerFallState || 
-		mCurState == mPlayerWallSlideState || 
-		mCurState == mPlayerAttackState || 
+	if (mCurState == mPlayerFallState ||
+		mCurState == mPlayerWallSlideState ||
+		mCurState == mPlayerAttackState ||
 		mCurState == mPlayerFlipState)
 	{
 		return false;
@@ -128,7 +205,16 @@ bool PlayerFSM::CanChagneToFallState() const
 
 bool PlayerFSM::CanChagneToJumpState() const
 {
-	return gInput->GetKeyDown(eKeyCode::W) && mRect2DInterpolation->IsCollisionWallDown();
+	if (gInput->GetKeyDown(eKeyCode::W))
+	{
+		if (mRect2DInterpolation->IsCollisionWallFloor() ||
+			mRect2DInterpolation->IsCollisionWallSlop())
+		{
+			return true;
+		}
+	}
+
+	return false;
 }
 
 bool PlayerFSM::CanChagneToRunState() const
@@ -144,7 +230,7 @@ bool PlayerFSM::CanChagneToRunState() const
 	}
 
 	if (gInput->GetKey(eKeyCode::A) == false && gInput->GetKey(eKeyCode::D) == false)
-	{		
+	{
 		return false;
 	}
 
@@ -153,7 +239,7 @@ bool PlayerFSM::CanChagneToRunState() const
 		return false;
 	}
 
-	if (mRect2DInterpolation->IsCollisionWallRight() &&  gInput->GetKey(eKeyCode::D))
+	if (mRect2DInterpolation->IsCollisionWallRight() && gInput->GetKey(eKeyCode::D))
 	{
 		return false;
 	}
@@ -163,7 +249,8 @@ bool PlayerFSM::CanChagneToRunState() const
 		return false;
 	}
 
-	if (mRect2DInterpolation->IsCollisionWallDown() == false)
+	if (mRect2DInterpolation->IsCollisionWallFloor() == false &&
+		mRect2DInterpolation->IsCollisionWallSlop()  == false)
 	{
 		return false;
 	}
@@ -172,16 +259,16 @@ bool PlayerFSM::CanChagneToRunState() const
 }
 
 bool PlayerFSM::CanChagneToWallSlideState() const
-{	
+{
 	if (mCurState == mPlayerWallSlideState)
 	{
 		return false;
 	}
 
-	if (mRect2DInterpolation->IsCollisionWallDown())
+	if (mRect2DInterpolation->IsCollisionWallFloor() || mRect2DInterpolation->IsCollisionWallSlop())
 	{
 		return false;
-	}
+	}	
 
 	Vector2 velocity = mRigidbody2D->GetVelocity();
 
@@ -190,7 +277,7 @@ bool PlayerFSM::CanChagneToWallSlideState() const
 		if (mRect2DInterpolation->IsCollisionWallRight())
 		{
 			return true;
-		}		
+		}
 	}
 
 	if (0.f > velocity.x || gInput->GetKey(eKeyCode::A))

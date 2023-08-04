@@ -16,7 +16,7 @@ HeadHunterScene::HeadHunterScene()
 	mCollisionManagement2D->TurnOffAllCollisionLayer();
 
 	mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Player, eLayerType::Wall);
-	mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Player, eLayerType::Slope);
+	mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Player, eLayerType::LeftSlope);
 
 	{
 		Material* const material =
@@ -125,7 +125,7 @@ HeadHunterScene::HeadHunterScene()
 		obj->GetComponent<Transform>()->SetPosition(-450.f, -50.f, 1.f);
 		obj->GetComponent<Transform>()->SetRotation(0.f, 0.f, -45.f);
 
-		AddGameObject(obj, eLayerType::Slope);
+		AddGameObject(obj, eLayerType::LeftSlope);
 	}
 
 	{
@@ -137,7 +137,7 @@ HeadHunterScene::HeadHunterScene()
 		obj->GetComponent<Transform>()->SetPosition(-1605.f, -50.f, 1.f);
 		obj->GetComponent<Transform>()->SetRotation(0.f, 0.f, 45.f);
 
-		AddGameObject(obj, eLayerType::Slope);
+		AddGameObject(obj, eLayerType::LeftSlope);
 	}
 
 	{

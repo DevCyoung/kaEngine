@@ -97,6 +97,9 @@ void SimpleEditorCollider2D::update()
 			{
 				writer.WriteLine(L"//[LineCollider]");
 
+				//platform->AddComponent<LineCollider2D>();
+				writer.WriteLine(L"wall->AddComponent<LineCollider2D>();");
+
 				Vector3 sp = editCollider.startPos;
 				Vector3 ep = editCollider.endPos;
 

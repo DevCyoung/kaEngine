@@ -22,6 +22,7 @@ private:
 	virtual void update();
 	virtual void fixedUpdate();
 	virtual void lateUpdate();
+	virtual void lastUpdate();
 
 private:
 	eComponentType mType;

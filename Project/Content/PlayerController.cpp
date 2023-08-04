@@ -72,7 +72,7 @@ void PlayerController::initialize()
 
 			//Animator2D* const animator = GetOwner()->GetComponent<Animator2D>();
 
-			if (GetOwner()->GetComponent<Rect2DInterpolation>()->IsCollisionWallDown() || GetOwner()->GetComponent<Rect2DInterpolation>()->IsCollisionSlop())
+			if (GetOwner()->GetComponent<Rect2DInterpolation>()->IsCollisionWallFloor() || GetOwner()->GetComponent<Rect2DInterpolation>()->IsCollisionWallSlop())
 			{
 				mPlayerFSM->mPlayerGlobalState->RunToIdle();
 			}
