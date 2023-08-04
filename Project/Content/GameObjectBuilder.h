@@ -20,7 +20,7 @@ public:
 	static GameObject* Slash();
 
 	static GameObject* InstantiatePlayer(Scene* const scene);
-	static void InstantiateGlobalLight2D(Scene* const scene, const eLayerType type);
+	static GameObject* InstantiateGlobalLight2D(Scene* const scene, const eLayerType type);
 
 	static void AddUI(Scene* const scene);
 	static void AddCamera(Scene* const scene);

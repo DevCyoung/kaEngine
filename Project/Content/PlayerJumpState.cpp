@@ -75,7 +75,7 @@ void PlayerJumpState::Enter()
 	mRigidbody->SetVelocity(velocity);
 
 	Vector3 pos = mTransform->GetPosition();
-	pos.y += 8.f;
+	pos.y += 1.f;
 	mTransform->SetPosition(pos);
 
 	mAnimator->Play(L"Jump", true);

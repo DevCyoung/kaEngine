@@ -47,25 +47,29 @@ GameObject* GameObjectBuilder::Player()
 		Texture* atlas = gResourceManager->FindByEnum<Texture>(eResTexture::Atlas_Player_zero);
 
 		anim->CreateAnimation(L"Attack", atlas, 7,
-			XMUINT2(5, 34), XMUINT2(62, 42), XMUINT2(10, 10), XMINT2(0, 0), 0.0325f);
+			XMUINT2(5, 34), XMUINT2(62, 42), XMUINT2(10, 10), XMINT2(0, 3), 0.0325f);
 
 		anim->CreateAnimation(L"Roll", atlas, 7,
-			XMUINT2(5, 1718), XMUINT2(48, 33), XMUINT2(10, 10), XMINT2(0, 0), 0.06f);
+			XMUINT2(5, 1718), XMUINT2(48, 33), XMUINT2(10, 10), XMINT2(0, -1), 0.06f);
 
 		anim->CreateAnimation(L"DoorBreakFull", atlas, 10,
 			XMUINT2(5, 198), XMUINT2(50, 44), XMUINT2(10, 10), XMINT2(0, 0), 0.06f);
 
 		anim->CreateAnimation(L"Fall", atlas, 4,
-			XMUINT2(5, 281), XMUINT2(42, 48), XMUINT2(10, 10), XMINT2(0, 0), 0.06f);
+			XMUINT2(5, 281), XMUINT2(42, 48), XMUINT2(10, 10), XMINT2(-3, 6), 0.06f);
+
+		anim->CreateAnimation(L"Jump", atlas, 4,
+			XMUINT2(5, 826), XMUINT2(32, 42), XMUINT2(10, 10), XMINT2(-3, 3), 0.08f);
 
 		anim->CreateAnimation(L"Idle", atlas, 11,
 			XMUINT2(5, 681), XMUINT2(36, 35), XMUINT2(10, 10), XMINT2(0, 0), 0.1f);
 
-		anim->CreateAnimation(L"Jump", atlas, 4,
-			XMUINT2(5, 826), XMUINT2(32, 42), XMUINT2(10, 10), XMINT2(0, 0), 0.08f);
 
 		anim->CreateAnimation(L"IdleToRun", atlas, 4,
-			XMUINT2(5, 755), XMUINT2(44, 32), XMUINT2(10, 10), XMINT2(0, 0), 0.08f);
+			XMUINT2(5, 755), XMUINT2(44, 32), XMUINT2(10, 10), XMINT2(0, -2), 0.08f);
+
+		anim->CreateAnimation(L"Run", atlas, 10,
+			XMUINT2(5, 1790), XMUINT2(44, 32), XMUINT2(10, 10), XMINT2(0, -2), 0.07f);
 
 		anim->CreateAnimation(L"RunToIdle", atlas, 5,
 			XMUINT2(5, 1861), XMUINT2(52, 36), XMUINT2(10, 10), XMINT2(0, 0), 0.085f);
@@ -77,19 +81,16 @@ GameObject* GameObjectBuilder::Player()
 			XMUINT2(5, 1221), XMUINT2(36, 39), XMUINT2(10, 10), XMINT2(0, 0), 0.09f);
 
 		anim->CreateAnimation(L"PostCrouch", atlas, 2,
-			XMUINT2(5, 1560), XMUINT2(36, 40), XMUINT2(10, 10), XMINT2(0, 0), 0.09f);
+			XMUINT2(5, 1560), XMUINT2(36, 40), XMUINT2(10, 10), XMINT2(0, 2), 0.09f);
 
 		anim->CreateAnimation(L"PreCrouch", atlas, 2,
-			XMUINT2(5, 1639), XMUINT2(36, 40), XMUINT2(10, 10), XMINT2(0, 0), 0.09f);
-
-		anim->CreateAnimation(L"Run", atlas, 10,
-			XMUINT2(5, 1790), XMUINT2(44, 32), XMUINT2(10, 10), XMINT2(0, 0), 0.07f);
+			XMUINT2(5, 1639), XMUINT2(36, 40), XMUINT2(10, 10), XMINT2(0, 2), 0.09f);
 
 		anim->CreateAnimation(L"Crouch", atlas, 1,
-			XMUINT2(5, 2005), XMUINT2(36, 40), XMUINT2(10, 10), XMINT2(0, 0), 0.09f);
+			XMUINT2(5, 2005), XMUINT2(36, 40), XMUINT2(10, 10), XMINT2(0, 5800), 0.09f);
 
 		anim->CreateAnimation(L"WallSlide", atlas, 1,
-			XMUINT2(5, 2250), XMUINT2(46, 42), XMUINT2(10, 10), XMINT2(0, 0), 0.09f);
+			XMUINT2(5, 2250), XMUINT2(46, 42), XMUINT2(10, 10), XMINT2(3, 0), 0.09f);
 
 		player->GetComponent<Transform>()->SetScale(2.0f, 2.0f, 1.f);
 	}
@@ -168,11 +169,11 @@ GameObject* GameObjectBuilder::InstantiatePlayer(Scene* const scene)
 
 }
 
-void GameObjectBuilder::InstantiateGlobalLight2D(Scene* const scene, const eLayerType type)
+GameObject* GameObjectBuilder::InstantiateGlobalLight2D(Scene* const scene, const eLayerType type)
 {
 	GameObject* const light = new GameObject();
+	light->SetName(L"GlobalLight2D");
 	light->AddComponent<Light2D>();
-
 
 	light->GetComponent<Light2D>()->SetLightType(Light2D::LIGHT_TYPE::DIRECTIONAL);
 	light->GetComponent<Light2D>()->SetRadius(300.f);	
@@ -182,6 +183,7 @@ void GameObjectBuilder::InstantiateGlobalLight2D(Scene* const scene, const eLaye
 
 	scene->AddGameObject(light, type);
 
+	return light;
 }
 
 void GameObjectBuilder::AddUI(Scene* const scene)

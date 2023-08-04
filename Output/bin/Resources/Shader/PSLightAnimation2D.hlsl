@@ -10,6 +10,9 @@ float4 main(tVSLightOut In) : SV_TARGET
 	
 	float2 UV = B3_UVBackLeftTop + In.vUV * B3_UVBackSIze;
 	
+	UV.x -= B3_UVOffset.x;
+	UV.y += B3_UVOffset.y;
+	
 	if (B3_UVLeftTop.x <= UV.x && UV.x <= B3_UVLeftTop.x + B3_UVSize.x &&
 		B3_UVLeftTop.y <= UV.y && UV.y <= B3_UVLeftTop.y + B3_UVSize.y)
 	{

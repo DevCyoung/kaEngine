@@ -18,5 +18,5 @@ enum class eLayerType
 	Default,	
 	Mouse,
 	UI,
-	End = 32
+	End
 };

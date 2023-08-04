@@ -277,7 +277,7 @@ Chinatown04Scene::Chinatown04Scene()
 	}
 
 	{
-		//GameObjectBuilder::AddUI(this);
+		GameObjectBuilder::AddUI(this);
 		GameObjectBuilder::AddCamera(this);
 	}
 }

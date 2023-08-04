@@ -205,6 +205,9 @@
     <Filter Include="Source\03. Component\04. Collision\Line">
       <UniqueIdentifier>{f9946281-c64b-4401-ba89-ae241e29ada3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\03. Component\Rigidbody2D">
+      <UniqueIdentifier>{e0fb13e6-d5c3-43e9-9aff-744c3fe9c3f4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Entity.h">
@@ -393,9 +396,6 @@
     <ClInclude Include="Color.h">
       <Filter>Source\Helper\Color</Filter>
     </ClInclude>
-    <ClInclude Include="Rigidbody2D.h">
-      <Filter>Source\03. Component</Filter>
-    </ClInclude>
     <ClInclude Include="Light2D.h">
       <Filter>Source\03. Component\Light2D</Filter>
     </ClInclude>
@@ -428,6 +428,9 @@
     </ClInclude>
     <ClInclude Include="EngineFile.h">
       <Filter>Source\Helper\File</Filter>
+    </ClInclude>
+    <ClInclude Include="Rigidbody2D.h">
+      <Filter>Source\03. Component\Rigidbody2D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -578,9 +581,6 @@
     <ClCompile Include="Color.cpp">
       <Filter>Source\Helper\Color</Filter>
     </ClCompile>
-    <ClCompile Include="Rigidbody2D.cpp">
-      <Filter>Source\03. Component</Filter>
-    </ClCompile>
     <ClCompile Include="Light2D.cpp">
       <Filter>Source\03. Component\Light2D</Filter>
     </ClCompile>
@@ -607,6 +607,9 @@
     </ClCompile>
     <ClCompile Include="EngineFile.cpp">
       <Filter>Source\Helper\File</Filter>
+    </ClCompile>
+    <ClCompile Include="Rigidbody2D.cpp">
+      <Filter>Source\03. Component\Rigidbody2D</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
