@@ -144,7 +144,7 @@ void PlayerFSM::Update()
 		Vector2 right = Vector2::Right;
 
 
-		if (mRect2DInterpolation->IsCollisionWallSlop())
+		if (mRect2DInterpolation->IsCollisionWallSlop() && mRect2DInterpolation->IsCollisionWallFloor() == false)
 		{
 			right = Vector2(cos(Deg2Rad(45)), sin(Deg2Rad(45)));
 

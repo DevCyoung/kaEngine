@@ -143,6 +143,21 @@ void DebugRenderer2D::DrawFillRect2D2(const Vector3& wolrdLeftUpPos,
 	DrawFillRect2D(WORLD_POS, Vector2(RECT_SCALE_3D.x, RECT_SCALE_3D.y), drawTime, fillColor);
 }
 
+void DebugRenderer2D::DrawFillRect2D3(const Matrix& worldMatrix,
+	const float drawTime, const
+	Vector4& outLineColor)
+{
+	tDebugDrawInfo drawInfo = {};
+
+	drawInfo.DebugDrawType = eDebugDrawType::FillRect2D;
+
+	drawInfo.WorldMatrix = worldMatrix;
+	drawInfo.DrawTime = drawTime;
+	drawInfo.FillColor = outLineColor;
+
+	mDebugDrawInfos.push_back(drawInfo);
+}
+
 void DebugRenderer2D::DrawCircle2D(const Vector3& worldPos,
 	float raduis,
 	const float drawTime, const Vector4& outLineColor)

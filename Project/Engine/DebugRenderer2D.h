@@ -40,6 +40,11 @@ public:
 		const float drawTime,
 		const Vector4& fillColor);
 
+	void DrawFillRect2D3(const Matrix& worldMatrix,
+		const float drawTime, const
+		Vector4& outLineColor);
+	
+
 	void DrawCircle2D(const Vector3& worldPos, 
 		float raduis,
 		const float drawTime, 

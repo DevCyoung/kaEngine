@@ -38,5 +38,14 @@ void RectCollider2D::lateUpdate()
 		color = Vector4(1.f, 0.f, 0.f, 1.f);
 	}
 
-	debugRenderer->DrawRect2D3(mColliderWorldMat, 0.f, color);
+	if (eLayerType::CamearaWall == GetOwner()->GetLayer())
+	{
+		debugRenderer->DrawFillRect2D3(mColliderWorldMat, 0.f, Vector4(0.0f, 1.0f, 0.5f, 0.8f));
+	}
+	else
+	{
+		debugRenderer->DrawRect2D3(mColliderWorldMat, 0.f, color);
+	}
+
+	
 }

@@ -314,39 +314,14 @@ bool CollisionManagement2D::checkCollision2DLineAndLine(const Collider2D* const 
 
 bool CollisionManagement2D::checkCollision2DBoxAndLine(const Collider2D* const box, const Collider2D* const line)
 {
-	Vector3 vertexPosArray[4] =
-	{
-		Vector3(-0.5f, 0.5f, 0.f),
-		Vector3(0.5f, 0.5f, 0.f),
-		Vector3(0.5f, -0.5f, 0.f),
-		Vector3(-0.5f, -0.5f, 0.f),
-	};
+	const Matrix& BOX_MAT = box->GetColliderWorldMatrix();
+	const Matrix& LINE_MAT = line->GetColliderWorldMatrix();
+	const Vector3& S = line->GetStartPos();
+	const Vector3& E = line->GetEndPos();
 
-	Vector3 tp = line->GetColliderWorldMatrix().Translation();
-	Vector3 sideDistArray[4] = {};
-	Matrix boxWorldMatrix = box->GetColliderWorldMatrix();	
+	Vector2 out = Vector2::Zero;
 
-	bool result = false;
-
-	for (UINT i = 0; i < 4; i++)
-	{
-		//box 0 ---- 1
-		Vector3 s1 = XMVector3TransformCoord(vertexPosArray[i], boxWorldMatrix);
-		Vector3 e1 = XMVector3TransformCoord(vertexPosArray[(i + 1) % 4], boxWorldMatrix);
-
-		Vector3 s2 = line->GetStartPos() + tp;
-		Vector3 e2 = line->GetEndPos() + tp;
-
-		Vector2 out = Vector2::Zero;
-
-		if (helper::math::LineAndLineCollision(s1, e1, s2, e2, &out))
-		{
-			result = true;
-			break;
-		}
-	}
-
-	return result;
+	return helper::math::BoxAndLineCollision(BOX_MAT, LINE_MAT.Translation(), S, E, &out);
 }
 
 bool CollisionManagement2D::checkCollision2DBoxAndCircle(const Collider2D* const box, 

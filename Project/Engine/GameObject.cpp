@@ -55,6 +55,23 @@ void GameObject::update()
 	}
 }
 
+void GameObject::fixedUpdate()
+{
+	for (Component* const component : mEngineComponents)
+	{
+		if (component)
+		{
+			component->fixedUpdate();
+		}
+	}
+
+	for (ScriptComponent* const script : mUserComponents)
+	{
+		script->fixedUpdate();
+	}
+}
+
+
 void GameObject::lateUpdate()
 {
 	for (Component* const component : mEngineComponents)
@@ -71,16 +88,6 @@ void GameObject::lateUpdate()
 	}
 }
 
-void GameObject::fixedUpdate()
-{
-	for (Component* const component : mEngineComponents)
-	{
-		if (component)
-		{
-			component->fixedUpdate();
-		}
-	}
-}
 
 void GameObject::lastUpdate()
 {

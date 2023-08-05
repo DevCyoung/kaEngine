@@ -305,6 +305,45 @@ Chinatown04Scene::Chinatown04Scene()
 
 
 
+	//CameraWall
+	{
+		GameObject* const wall = new GameObject();
+		//[RectCollider]
+		wall->AddComponent<RectCollider2D>();
+		wall->GetComponent<Transform>()->SetPosition(-1072, 224, 0);
+		wall->GetComponent<RectCollider2D>()->SetSize(Vector2(224, 1664));
+		AddGameObject(wall, eLayerType::CamearaWall);
+	}
+
+	{
+		GameObject* const wall = new GameObject();
+		//[RectCollider]
+		wall->AddComponent<RectCollider2D>();
+		wall->GetComponent<Transform>()->SetPosition(-16, 848, 0);
+		wall->GetComponent<RectCollider2D>()->SetSize(Vector2(2336, 416));
+		AddGameObject(wall, eLayerType::CamearaWall);
+	}
+
+	{
+		GameObject* const wall = new GameObject();
+		//[RectCollider]
+		wall->AddComponent<RectCollider2D>();
+		wall->GetComponent<Transform>()->SetPosition(1072, 224, 0);
+		wall->GetComponent<RectCollider2D>()->SetSize(Vector2(160, 1664));
+		AddGameObject(wall, eLayerType::CamearaWall);
+	}
+
+	{
+		GameObject* const wall = new GameObject();
+		//[RectCollider]
+		wall->AddComponent<RectCollider2D>();
+		wall->GetComponent<Transform>()->SetPosition(-16, -416, 0);
+		wall->GetComponent<RectCollider2D>()->SetSize(Vector2(2336, 384));
+		AddGameObject(wall, eLayerType::CamearaWall);
+	}
+
+
+
 
 
 #pragma endregion

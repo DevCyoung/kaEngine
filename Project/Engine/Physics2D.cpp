@@ -156,6 +156,13 @@ bool Physics2D::RayCastHit2D(const Vector2& origin,
 		}
 		else if (collider->GetCollideType() == eCollider2DType::Box)
 		{
+			//const Matrix& BOX_MAT = collider->GetColliderWorldMatrix();
+			//
+			//Vector2 out = Vector2::Zero;
+			//Vector3 pos = Vector3(origin.x, origin.y, 0.f);
+			//
+			//bColliison = helper::math::BoxAndLineCollision(BOX_MAT, pos, Vector3(s1.x, s1.y, 0.f), 
+			//	Vector3(e1.x, e1.y, 0.f), &outHitInfo->hitPos);
 
 		}
 

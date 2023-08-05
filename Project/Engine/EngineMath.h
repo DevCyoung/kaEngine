@@ -39,6 +39,10 @@ namespace helper::math
 	bool LineAndLineCollision(const Vector2& s1, const Vector2& e1,
 		const Vector2& s2, const Vector2& e2, Vector2* const outInter);
 
+	bool BoxAndLineCollision(const Matrix& box, const Vector3& linePos,
+		const Vector3& lineS, const Vector3& lineE, Vector2* const outInter);
+
+
 	bool _LineAndLineCollision(float x1, float y1, float x2, float y2,
 		float x3, float y3, float x4, float y4, float* outInterX, float* outInterY);
 

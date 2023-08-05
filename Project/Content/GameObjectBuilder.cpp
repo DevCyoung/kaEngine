@@ -12,7 +12,7 @@
 #include "UIEffect.h"
 #include <Engine/Scene.h>
 #include <Engine/EngineMath.h>
-
+#include "FolowPlayer.h"
 GameObject* GameObjectBuilder::Default2D(const std::wstring& materialName)
 {
 	GameObject* const obj = new GameObject();
@@ -345,6 +345,7 @@ void GameObjectBuilder::AddCamera(Scene* const scene)
 
 		mainCamera->AddComponent<Camera>();
 		mainCamera->AddComponent<CameraInputMoveMent>();
+		mainCamera->AddComponent<FolowPlayer>();
 
 		mainCamera->GetComponent<Transform>()->SetPosition(0.f, 0.f, -10.f);
 		mainCamera->GetComponent<Camera>()->SetPriorityType(eCameraPriorityType::Main);

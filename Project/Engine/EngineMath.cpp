@@ -171,6 +171,42 @@ namespace helper::math
 		return _LineAndLineCollision(s1.x, s1.y, e1.x, e1.y, s2.x, s2.y, e2.x, e2.y, &outInter->x, &outInter->y);
 	}
 
+	bool BoxAndLineCollision(const Matrix& box, const Vector3& linePos, 
+		const Vector3& lineS, const Vector3& lineE, Vector2* const outInter)
+	{
+		Vector3 vertexPosArray[4] =
+		{
+			Vector3(-0.5f, 0.5f, 0.f),
+			Vector3(0.5f, 0.5f, 0.f),
+			Vector3(0.5f, -0.5f, 0.f),
+			Vector3(-0.5f, -0.5f, 0.f),
+		};
+
+		Vector3 tp = linePos;
+		Vector3 sideDistArray[4] = {};
+		Matrix boxWorldMatrix = box;
+
+		bool result = false;
+
+		for (UINT i = 0; i < 4; i++)
+		{
+			//box 0 ---- 1
+			Vector3 s1 = XMVector3TransformCoord(vertexPosArray[i], boxWorldMatrix);
+			Vector3 e1 = XMVector3TransformCoord(vertexPosArray[(i + 1) % 4], boxWorldMatrix);
+
+			Vector3 s2 = lineS + tp;
+			Vector3 e2 = lineE + tp;			
+
+			if (helper::math::LineAndLineCollision(s1, e1, s2, e2, outInter))
+			{
+				result = true;
+				break;
+			}
+		}
+
+		return result;
+	}
+
 	bool _LineAndLineCollision(float x1, float y1,
 		float x2, float y2,
 		float x3, float y3,

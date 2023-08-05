@@ -190,6 +190,9 @@
     <Filter Include="Source\01. ScriptComponent\SimpleEditor">
       <UniqueIdentifier>{dc9908f6-6253-49b2-963f-ff9c695470ed}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\01. ScriptComponent\Camera">
+      <UniqueIdentifier>{b39585e2-de8f-4609-a019-8700bab21ccf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -363,6 +366,9 @@
     <ClInclude Include="SimpleEditorCollider2D.h">
       <Filter>Source\01. ScriptComponent\SimpleEditor</Filter>
     </ClInclude>
+    <ClInclude Include="FolowPlayer.h">
+      <Filter>Source\01. ScriptComponent\Camera</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -529,6 +535,9 @@
     </ClCompile>
     <ClCompile Include="SimpleEditorCollider2D.cpp">
       <Filter>Source\01. ScriptComponent\SimpleEditor</Filter>
+    </ClCompile>
+    <ClCompile Include="FolowPlayer.cpp">
+      <Filter>Source\01. ScriptComponent\Camera</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

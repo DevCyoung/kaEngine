@@ -12,6 +12,7 @@ enum class eScriptComponentType
 	ChildTest,
 	Chinatown04Controller,
 	CursorMovement,
+	FolowPlayer,
 	GridPainter,
 	InputMovementTest,
 	LerpTest,
