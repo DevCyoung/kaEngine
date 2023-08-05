@@ -261,7 +261,7 @@ void Rect2DInterpolation::onCollisionInterpolation(Collider2D* const other)
 			}
 		}
 	}
-	else if (OTHER_LAYER_TYPE == eLayerType::LeftSlope)
+	else if (OTHER_LAYER_TYPE == eLayerType::LeftSlope || OTHER_LAYER_TYPE == eLayerType::RightSlope)
 	{
 		if (mbCollisionDir[static_cast<UINT>(eWallType::Slope)])
 		{
@@ -269,16 +269,7 @@ void Rect2DInterpolation::onCollisionInterpolation(Collider2D* const other)
 		}
 
 		mbCollisionDir[static_cast<UINT>(eWallType::Slope)] = true;		
-	}
-	else if (OTHER_LAYER_TYPE == eLayerType::RightSlope)
-	{
-		if (mbCollisionDir[static_cast<UINT>(eWallType::Slope)])
-		{
-			return;
-		}
-
-		mbCollisionDir[static_cast<UINT>(eWallType::Slope)] = true;
-	}
+	}	
 	else if (OTHER_LAYER_TYPE == eLayerType::Platform)
 	{
 		if (mbCollisionDir[static_cast<UINT>(eWallType::Platform)])

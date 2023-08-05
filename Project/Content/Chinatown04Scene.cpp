@@ -264,6 +264,49 @@ Chinatown04Scene::Chinatown04Scene()
 		AddGameObject(platform, eLayerType::Platform);
 	}
 
+	//Small Triangle
+	{
+		//4pixel interpolate
+		GameObject* const wall = new GameObject();
+		//[LineCollider]
+		wall->AddComponent<LineCollider2D>();
+		wall->GetComponent<Transform>()->SetPosition(0.f, 0.f, 0.f);
+		//wall->GetComponent<LineCollider2D>()->SetPoints(-224, 64, -160, 128); original
+		wall->GetComponent<LineCollider2D>()->SetPoints(-220, 68, -160, 128);
+		AddGameObject(wall, eLayerType::RightSlope);
+	}
+	{
+		GameObject* const wall = new GameObject();
+		//[RectCollider]
+		wall->AddComponent<RectCollider2D>();
+		wall->GetComponent<Transform>()->SetPosition(-192, 66.5, 0);
+		wall->GetComponent<RectCollider2D>()->SetSize(Vector2(64, 5));
+		AddGameObject(wall, eLayerType::Wall);
+	}
+
+
+	{
+		GameObject* const wall = new GameObject();
+		//[LineCollider]
+		wall->AddComponent<LineCollider2D>();
+		wall->GetComponent<Transform>()->SetPosition(0.f, 0.f, 0.f);
+		//wall->GetComponent<LineCollider2D>()->SetPoints(480, 416, 544, 352); original
+		wall->GetComponent<LineCollider2D>()->SetPoints(480, 416, 540, 356);
+		AddGameObject(wall, eLayerType::LeftSlope);
+	}
+	{
+		GameObject* const wall = new GameObject();
+		//[RectCollider]
+		wall->AddComponent<RectCollider2D>();
+		wall->GetComponent<Transform>()->SetPosition(512, 354.5, 0);
+		wall->GetComponent<RectCollider2D>()->SetSize(Vector2(64, 5));
+		AddGameObject(wall, eLayerType::Wall);
+	}
+
+
+
+
+
 #pragma endregion
 
 	{
