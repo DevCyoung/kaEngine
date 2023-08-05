@@ -144,13 +144,16 @@ void PlayerFSM::Update()
 		Vector2 right = Vector2::Right;
 
 
-		if (mRect2DInterpolation->IsCollisionWallSlop() && mRect2DInterpolation->IsCollisionWallFloor() == false)
+		//LeftWall, RightWall 구분해야함
+		if (mRect2DInterpolation->IsCollisionWallSlop() && 
+			mRect2DInterpolation->IsCollisionWallFloor() == false)
 		{
-			right = Vector2(cos(Deg2Rad(45)), sin(Deg2Rad(45)));
+			right = Vector2(cos(Deg2Rad(45)), 0.f);
+
 
 			if (rigidbody2D->GetVelocity().x > 0.f)
 			{
-				right.y = -right.y;
+				right.y = -sin(Deg2Rad(45));
 			}			
 
 		}
