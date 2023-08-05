@@ -6,6 +6,7 @@ class ScriptComponent;
 enum class eScriptComponentType 
 {
 	NoiseTest,
+	AfterImage,
 	Bugiman,
 	BulletMovement,
 	CameraInputMoveMent,

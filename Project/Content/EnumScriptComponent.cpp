@@ -2,6 +2,7 @@
 #include "EnumScriptComponent.h"
 
 #include "NoiseTest.h"
+#include "AfterImage.h"
 #include "Bugiman.h"
 #include "BulletMovement.h"
 #include "CameraInputMoveMent.h"
@@ -25,6 +26,7 @@
 static constexpr const wchar_t* const ScriptComponentNames[static_cast<UINT>(eScriptComponentType::End)]
 {
 	L"NoiseTest",
+	L"AfterImage",
 	L"Bugiman",
 	L"BulletMovement",
 	L"CameraInputMoveMent",
@@ -58,6 +60,8 @@ ScriptComponent* CreateScriptComponentByName(const std::wstring& scriptcomponent
 
 	if (L"NoiseTest" == scriptcomponentName)
 		scriptcomponent = new NoiseTest;
+	else if (L"AfterImage" == scriptcomponentName)
+		scriptcomponent = new AfterImage;
 	else if (L"Bugiman" == scriptcomponentName)
 		scriptcomponent = new Bugiman;
 	else if (L"BulletMovement" == scriptcomponentName)
@@ -109,6 +113,9 @@ ScriptComponent* CreateScriptComponentByEnum(const eScriptComponentType type)
 	{
 	case eScriptComponentType::NoiseTest:
 		scriptcomponent = new NoiseTest;
+		break;
+	case eScriptComponentType::AfterImage:
+		scriptcomponent = new AfterImage;
 		break;
 	case eScriptComponentType::Bugiman:
 		scriptcomponent = new Bugiman;

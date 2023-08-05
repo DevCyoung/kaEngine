@@ -36,7 +36,19 @@ float4 main(tVSLightOut In) : SV_TARGET
 	//outColor.b = 0.f;
 	//outColor.g = 0.f;
 	
-	outColor.a = 0.7f;
+	if (B1_bUseColor == 1)
+	{
+		float src = 0.7f;
+		float dst = 1.f - src;
+		
+		outColor.r = 0.0f;
+		outColor.g = outColor.g + outColor.g * src + 1.f * dst;		
+		outColor.b = outColor.b + outColor.b * src + 1.f * dst;
+		outColor.a = B1_cbColor.a;
+		
+		
+	}
+	
 	
 	//outColor.rgb *= (float3(1.f, 1.f, 1.f) * 5.f);
 	
@@ -45,6 +57,6 @@ float4 main(tVSLightOut In) : SV_TARGET
     
 	CalcLight2D(In.vWorldPos, LightColor);
         
-	outColor.rgb *= (LightColor.vDiffuse.rgb + LightColor.vAmbient.rgb);	
+	outColor.rgb *= (LightColor.vDiffuse.rgb + LightColor.vAmbient.rgb);
 	return outColor;
 }

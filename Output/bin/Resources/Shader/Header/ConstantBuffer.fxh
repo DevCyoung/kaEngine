@@ -11,7 +11,8 @@ cbuffer Transform : register(b0)
 cbuffer ColorInfo : register(b1)
 {
 	int B1_bUseColor;
-	float3 B1_dummy;
+	int B1_ColorType;
+	float2 B1_dummy;	
 	float4 B1_cbColor;
 }
 

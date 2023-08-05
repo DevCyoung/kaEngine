@@ -178,9 +178,6 @@
     <Filter Include="Windows\diff">
       <UniqueIdentifier>{21b12c7c-f83e-496c-a646-ca9e8834ddc3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\03. Component\Light2D">
-      <UniqueIdentifier>{848f0b93-c3af-42b5-bca4-fcbabad542f6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\00. Engine\01. Graphics\Struct">
       <UniqueIdentifier>{75d05b67-be0b-4438-b5be-231eb5b0122a}</UniqueIdentifier>
     </Filter>
@@ -205,8 +202,14 @@
     <Filter Include="Source\03. Component\04. Collision\Line">
       <UniqueIdentifier>{f9946281-c64b-4401-ba89-ae241e29ada3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\03. Component\Rigidbody2D">
+    <Filter Include="Source\03. Component\05. Light2D">
+      <UniqueIdentifier>{848f0b93-c3af-42b5-bca4-fcbabad542f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\03. Component\06. Rigidbody2D">
       <UniqueIdentifier>{e0fb13e6-d5c3-43e9-9aff-744c3fe9c3f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\03. Component\03. Render\03. AfterImage">
+      <UniqueIdentifier>{c862b4f1-45ec-4e04-a4ed-31923ef3e6d1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -397,7 +400,7 @@
       <Filter>Source\Helper\Color</Filter>
     </ClInclude>
     <ClInclude Include="Light2D.h">
-      <Filter>Source\03. Component\Light2D</Filter>
+      <Filter>Source\03. Component\05. Light2D</Filter>
     </ClInclude>
     <ClInclude Include="SBCollection.h">
       <Filter>Source\00. Engine\01. Graphics\Collection\05. SB</Filter>
@@ -430,7 +433,10 @@
       <Filter>Source\Helper\File</Filter>
     </ClInclude>
     <ClInclude Include="Rigidbody2D.h">
-      <Filter>Source\03. Component\Rigidbody2D</Filter>
+      <Filter>Source\03. Component\06. Rigidbody2D</Filter>
+    </ClInclude>
+    <ClInclude Include="AfterImage.h">
+      <Filter>Source\03. Component\03. Render\03. AfterImage</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -582,7 +588,7 @@
       <Filter>Source\Helper\Color</Filter>
     </ClCompile>
     <ClCompile Include="Light2D.cpp">
-      <Filter>Source\03. Component\Light2D</Filter>
+      <Filter>Source\03. Component\05. Light2D</Filter>
     </ClCompile>
     <ClCompile Include="SBCollection.cpp">
       <Filter>Source\00. Engine\01. Graphics\Collection\05. SB</Filter>
@@ -609,7 +615,10 @@
       <Filter>Source\Helper\File</Filter>
     </ClCompile>
     <ClCompile Include="Rigidbody2D.cpp">
-      <Filter>Source\03. Component\Rigidbody2D</Filter>
+      <Filter>Source\03. Component\06. Rigidbody2D</Filter>
+    </ClCompile>
+    <ClCompile Include="AfterImage.cpp">
+      <Filter>Source\03. Component\03. Render\03. AfterImage</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

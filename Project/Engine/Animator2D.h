@@ -7,6 +7,8 @@ REGISTER_COMPONENT_TYPE(Animator2D);
 class Texture;
 class Animation2D;
 
+struct tCBTransform;
+struct tCBAnimationInfo;
 
 class Animator2D : public RenderComponent
 {
@@ -50,7 +52,11 @@ public:
 		const XMINT2 frameoffset = XMINT2(0, 0),
 		const float duration = 0.f);
 
+	tCBTransform GetCBTransform() const;
+	tCBAnimationInfo GetCBAnimationInfo() const;
+
 	Animation2D* FindAnimationOrNull(const std::wstring& animName) const;	
+	Animation2D* GetCurAnimation() const { return mCurAnimation; }
 
 	void SetBackSize(const XMUINT2& size) { backSize = size; }
 

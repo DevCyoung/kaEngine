@@ -6,8 +6,9 @@ class Component;
 enum class eComponentType 
 {
 	Transform,
-	Animator2D,
 	Camera,
+	AfterImage,
+	Animator2D,
 	CircleCollider2D,
 	Light2D,
 	LineCollider2D,

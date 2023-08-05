@@ -13,6 +13,8 @@
 #include <Engine/Scene.h>
 #include <Engine/EngineMath.h>
 #include "FolowPlayer.h"
+#include <Engine/AfterImage.h>
+
 GameObject* GameObjectBuilder::Default2D(const std::wstring& materialName)
 {
 	GameObject* const obj = new GameObject();
@@ -30,7 +32,9 @@ GameObject* GameObjectBuilder::Player()
 	GameObject* const player = new GameObject();
 	player->SetName(L"Player");
 
+	
 	player->AddComponent<Rigidbody2D>();
+	player->AddComponent<AfterImage>();
 	player->AddComponent<Rect2DInterpolation>();
 	player->AddComponent<RectCollider2D>();
 
