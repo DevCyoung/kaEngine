@@ -91,21 +91,24 @@ void Rect2DInterpolation::lastUpdate()
 	{		
 		mbCollisionDir[static_cast<UINT>(eWallType::Floor)] = true;
 
-
 		velocity.y = 0.f;
 
 		position.y += platFormInterSizeY;
 		transMat._42 += platFormInterSizeY;
 	}
-	else if (physics->RayCastHit2D(LRP, Vector2::Down, RAY_DIST, eLayerType::LeftSlope, &info)) 
-	{					
+	else if (physics->RayCastHit2D(LRP, Vector2::Down, RAY_DIST, eLayerType::LeftSlope, &info))
+	{
+		mbCollisionDir[static_cast<UINT>(eWallType::Slope)] = true;
+
 		float interSizeY = abs(info.hitPos.y - (LRP.y - RAY_DIST));
 		position.y   += interSizeY - 1.0f;
 		transMat._42 += interSizeY - 1.0f;
 		LEFT_RAY_COLOR = Vector4(1.f, 0.f, 1.f, 1.f);
 	}
 	else if (physics->RayCastHit2D(RRP, Vector2::Down, RAY_DIST, eLayerType::RightSlope, &info))
-	{		
+	{	
+		mbCollisionDir[static_cast<UINT>(eWallType::Slope)] = true;
+
 		float interSizeY = abs(info.hitPos.y - (RRP.y - RAY_DIST));
 		position.y += interSizeY - 1.0f;
 		transMat._42 += interSizeY - 1.0f;
@@ -261,15 +264,6 @@ void Rect2DInterpolation::onCollisionInterpolation(Collider2D* const other)
 			}
 		}
 	}
-	else if (OTHER_LAYER_TYPE == eLayerType::LeftSlope || OTHER_LAYER_TYPE == eLayerType::RightSlope)
-	{
-		if (mbCollisionDir[static_cast<UINT>(eWallType::Slope)])
-		{
-			return;
-		}
-
-		mbCollisionDir[static_cast<UINT>(eWallType::Slope)] = true;		
-	}	
 	else if (OTHER_LAYER_TYPE == eLayerType::Platform)
 	{
 		if (mbCollisionDir[static_cast<UINT>(eWallType::Platform)])

@@ -12,8 +12,8 @@ Chinatown04Scene::Chinatown04Scene()
 {
 	mCollisionManagement2D->TurnOffAllCollisionLayer();
 	mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Player, eLayerType::Wall);
-	mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Player, eLayerType::LeftSlope);
-	mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Player, eLayerType::RightSlope);
+	//mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Player, eLayerType::LeftSlope);
+	//mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Player, eLayerType::RightSlope);
 	mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Player, eLayerType::Platform);
 
 #pragma region Material
@@ -29,9 +29,11 @@ Chinatown04Scene::Chinatown04Scene()
 
 	{
 		GameObject* const tile = GameObjectBuilder::Default2D(L"Chanatown04TileMap");
+
+		tile->GetComponent<Transform>()->SetPosition(0, 0, 100);
 		//tile->AddComponent<Chinatown04Controller>();
 
-		AddGameObject(tile, eLayerType::Default);
+		AddGameObject(tile, eLayerType::TileMap);
 	}
 #pragma endregion
 

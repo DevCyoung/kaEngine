@@ -139,33 +139,41 @@ void PlayerFSM::Update()
 		//	debugRenderer->DrawLine2D2(pos, Vector2::Down, 100.f, 0.f, Vector4(1.f, 1.f, 1.f, 1.f));
 		//}
 
+
 		Rigidbody2D* const rigidbody2D = mOwner->GetComponent<Rigidbody2D>();
 		const Vector2 dir = mPlayerGlobalState->GetInputDirectionX();
 		Vector2 right = Vector2::Right;
 
 
-		//LeftWall, RightWall 구분해야함
-		if (mRect2DInterpolation->IsCollisionWallSlop() && 
-			mRect2DInterpolation->IsCollisionWallFloor() == false)
+
+
+		if (mCurState != mPlayerRollState)
 		{
-			right = Vector2(cos(Deg2Rad(45)), 0.f);
-
-
-			if (rigidbody2D->GetVelocity().x > 0.f)
+			//LeftWall, RightWall 구분해야함
+			if (mRect2DInterpolation->IsCollisionWallSlop() &&
+				mRect2DInterpolation->IsCollisionWallFloor() == false)
 			{
-				right.y = -sin(Deg2Rad(45));
-			}			
+				right = Vector2(cos(Deg2Rad(45)), 0.f);
+
+
+				if (rigidbody2D->GetVelocity().x > 0.f)
+				{
+					right.y = -sin(Deg2Rad(45));
+				}
+
+			}
+			if (abs(rigidbody2D->GetVelocity().x) < right.x * 370.f)
+			{
+				rigidbody2D->AddForce(right * dir.x * 4000.f);
+			}
+			else if (gInput->GetKeyDown(eKeyCode::A) || gInput->GetKeyDown(eKeyCode::D))
+			{
+				rigidbody2D->SetVelocity(right * dir.x * 370.f);
+			}
 
 		}
-		if (abs(rigidbody2D->GetVelocity().x) < right.x * 400.f)
-		{
-			rigidbody2D->AddForce(right * dir.x * 4000.f);
-		}
-		else if (gInput->GetKeyDown(eKeyCode::A) || gInput->GetKeyDown(eKeyCode::D))
-		{
-			rigidbody2D->SetVelocity(right * dir.x * 400.f);
-		}
 
+		
 
 	}
 
@@ -173,7 +181,11 @@ void PlayerFSM::Update()
 
 	if (gInput->GetKey(eKeyCode::S) || mCurState == mPlayerAttackState)
 	{
-		mRect2DInterpolation->TurnOffPlatform();
+		if (mCurState != mPlayerRollState)
+		{
+			mRect2DInterpolation->TurnOffPlatform();
+		}
+
 	}
 	else
 	{
@@ -193,7 +205,8 @@ bool PlayerFSM::CanChagneToFallState() const
 	if (mCurState == mPlayerFallState ||
 		mCurState == mPlayerWallSlideState ||
 		mCurState == mPlayerAttackState ||
-		mCurState == mPlayerFlipState)
+		mCurState == mPlayerFlipState || 
+		mCurState == mPlayerRollState)
 	{
 		return false;
 	}

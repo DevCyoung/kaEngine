@@ -32,6 +32,14 @@ float4 main(tVSLightOut In) : SV_TARGET
 		discard;
 	}
 	
+	//outColor.r = 0.f;
+	//outColor.b = 0.f;
+	//outColor.g = 0.f;
+	
+	outColor.a = 0.7f;
+	
+	//outColor.rgb *= (float3(1.f, 1.f, 1.f) * 5.f);
+	
 	// Lighting Ã³¸®
 	tLightColor LightColor = (tLightColor) 0.f;
     

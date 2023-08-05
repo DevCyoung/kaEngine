@@ -65,6 +65,8 @@ GameObject* GameObjectBuilder::Player()
 			XMUINT2(5, 681), XMUINT2(36, 35), XMUINT2(10, 10), XMINT2(0, 0), 0.1f);
 
 
+
+
 		anim->CreateAnimation(L"IdleToRun", atlas, 4,
 			XMUINT2(5, 755), XMUINT2(44, 32), XMUINT2(10, 10), XMINT2(0, -2), 0.08f);
 

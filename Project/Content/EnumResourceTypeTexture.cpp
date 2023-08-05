@@ -3,6 +3,7 @@
 
 static constexpr const wchar_t* eResTexturePath[static_cast<UINT>(eResTexture::End)]
 {
+	L"\\Texture\\Atlas\\Player\\ori.png",
 	L"\\Texture\\Atlas\\Player\\slash.png",
 	L"\\Texture\\Atlas\\Player\\zero.png",
 	L"\\Texture\\Atlas\\Title\\Plants.png",
