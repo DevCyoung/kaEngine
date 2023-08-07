@@ -135,13 +135,13 @@ void RenderTargetRenderer::Render(const UINT renderTargetWidth,
 			}
 		}
 	}
-
-	//const Camera* const P_MAIN_CAMERA = mCameras[static_cast<UINT>(eCameraPriorityType::Main)];
 	//
-	//if (mbDebugRender)
-	//{
-	//	mDebugRenderer->render(P_MAIN_CAMERA);
-	//}
+	const Camera* const P_MAIN_CAMERA = mCameras[static_cast<UINT>(eCameraPriorityType::Main)];
+	
+	if (mbDebugRender)
+	{
+		mDebugRenderer->render(P_MAIN_CAMERA);
+	}
 }
 
 void RenderTargetRenderer::flush()

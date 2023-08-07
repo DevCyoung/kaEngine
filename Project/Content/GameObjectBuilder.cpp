@@ -100,6 +100,13 @@ GameObject* GameObjectBuilder::Player()
 
 		player->GetComponent<Transform>()->SetScale(2.0f, 2.0f, 1.f);
 	}
+
+	//Collider
+	{
+		player->GetComponent<RectCollider2D>()->SetSize(22.f, 44.f);
+		player->GetComponent<RectCollider2D>()->SetOffset(Vector2(0.f, 4.f));
+	}
+
 	player->GetComponent<Animator2D>()->Play(L"Idle", true);
 
 	//Rigidbody
@@ -107,8 +114,8 @@ GameObject* GameObjectBuilder::Player()
 	player->GetComponent<Rigidbody2D>()->SetGravityAccel(1800.f);
 
 	//Collider
-	player->GetComponent<RectCollider2D>()->SetSize(22.f, 44.f);
-	player->GetComponent<RectCollider2D>()->SetOffset(Vector2(0.f, 4.f));
+	//player->GetComponent<RectCollider2D>()->SetSize(22.f, 44.f);
+	//player->GetComponent<RectCollider2D>()->SetOffset(Vector2(0.f, 4.f));
 
 
 	return player;

@@ -44,9 +44,7 @@ float4 main(tVSLightOut In) : SV_TARGET
 		outColor.r = 0.0f;
 		outColor.g = outColor.g + outColor.g * src + 1.f * dst;		
 		outColor.b = outColor.b + outColor.b * src + 1.f * dst;
-		outColor.a = B1_cbColor.a;
-		
-		
+		outColor.a = B1_cbColor.a;		
 	}
 	
 	
