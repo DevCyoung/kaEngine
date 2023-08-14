@@ -18,9 +18,7 @@ Scene::Scene()
 	mEventMessages.reserve(100);
 	mGarbages.reserve(100);
 
-	mCollisionManagement2D->TurnOnAllCollisionLayer();	
-	mCollisionManagement2D->TurnOffCollisionLayer(eLayerType::Bullet, eLayerType::Bullet);
-	mCollisionManagement2D->TurnOffCollisionLayer(eLayerType::Bullet, eLayerType::Mouse);
+	mCollisionManagement2D->TurnOnAllCollisionLayer();
 }
 
 Scene::~Scene()
