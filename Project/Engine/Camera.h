@@ -26,12 +26,13 @@ public:
 	eCameraPriorityType GetPriorityType () const { return mCameraType; }
 	UINT GetLayerMask() const { return mLayerMask; }
 	eCameraProjectionType GetProjectionType() const { return mProjectionType; }
+	Vector2 GetRenderTargetSize() const { return mRenderTargetSize; }
 
 	void Set3DFOV(const float fov) { mFOV = fov; }
 	void SetNear(const float cameraNear) { mNear = cameraNear; }
 	void SetFar(const float cameraFar) { mFar = cameraFar; }
 	void Set2DSize(const float camera2DSize) { mSize = camera2DSize; }
-	void SetRenderTargetSize(const Vector2& renderTargetSize) { mRenderTargetSize = renderTargetSize; };
+	void SetRenderTargetSize(const Vector2& renderTargetSize) { mRenderTargetSize = renderTargetSize; };	
 	void SetPriorityType(const eCameraPriorityType cameraPriorityType) { mCameraType = cameraPriorityType; }
 	void SetProjectionType(const eCameraProjectionType projectionType) { mProjectionType = projectionType; }
 

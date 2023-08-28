@@ -70,6 +70,56 @@ void Animator2D::CreateAnimation(const std::wstring& animName,
 	mAnimationMap.insert(std::make_pair(animation2D->mKey, animation2D));
 }
 
+tCBTransform Animator2D::GetCBTransform() const
+{
+	tCBTransform CBTransform = {};
+	{
+		const Vector3& SCALE
+			= Vector3(static_cast<float>(backSize.x), static_cast<float>(backSize.y), 1.f);
+		const Matrix& SCALE_MATRIX = Matrix::CreateScale(SCALE);
+
+
+		CBTransform.World = SCALE_MATRIX * GetOwner()->GetComponent<Transform>()->GetWorldMatrix();
+	}
+
+	return CBTransform;
+}
+
+tCBAnimationInfo Animator2D::GetCBAnimationInfo() const
+{
+	const Texture* const P_ATLAS = mCurAnimation->GetAtlas();
+
+	Assert(P_ATLAS, WCHAR_IS_NULLPTR);
+
+	const Animation2D::tFrame& CUR_FRAME = mCurAnimation->GetCurFrame();
+
+	Vector2 atlasUVPerPixel = {};
+	atlasUVPerPixel.x = 1.f / static_cast<float>(P_ATLAS->GetWidth());
+	atlasUVPerPixel.y = 1.f / static_cast<float>(P_ATLAS->GetHeight());
+
+	//중앙점구하기
+	XMINT2 backleftTop = {};
+
+	backleftTop.x = CUR_FRAME.center.x - (backSize.x / 2);
+	backleftTop.y = CUR_FRAME.center.y - (backSize.x / 2);
+
+	tCBAnimationInfo CBAnimationInfo = {};
+	{
+		CBAnimationInfo.UVBackLeftTop.x = static_cast<float>(backleftTop.x) * atlasUVPerPixel.x;
+		CBAnimationInfo.UVBackLeftTop.y = static_cast<float>(backleftTop.y) * atlasUVPerPixel.y;
+
+		CBAnimationInfo.UVBackSIze.x = static_cast<float>(backSize.x) * atlasUVPerPixel.x;
+		CBAnimationInfo.UVBackSIze.y = static_cast<float>(backSize.y) * atlasUVPerPixel.y;
+
+		CBAnimationInfo.UVLeftTop = CUR_FRAME.UVLeftTop;
+		CBAnimationInfo.UVSize = CUR_FRAME.UVSize;
+
+		CBAnimationInfo.UVOffset = CUR_FRAME.UVOffset;
+	}
+
+	return CBAnimationInfo;
+}
+
 Animation2D* Animator2D::FindAnimationOrNull(const std::wstring& animName) const
 {
 	auto iter = mAnimationMap.find(animName);
@@ -172,37 +222,11 @@ void Animator2D::render(const Camera* const camera)
 
 
 	const Texture* const P_ATLAS = mCurAnimation->GetAtlas();
-
 	Assert(P_ATLAS, WCHAR_IS_NULLPTR);
 
-	const Animation2D::tFrame& CUR_FRAME = mCurAnimation->GetCurFrame();
-
-	Vector2 atlasUVPerPixel = {};
-	atlasUVPerPixel.x = 1.f / static_cast<float>(P_ATLAS->GetWidth());
-	atlasUVPerPixel.y = 1.f / static_cast<float>(P_ATLAS->GetHeight());
-
-	//중앙점구하기
-	XMINT2 backleftTop = {};
-
-	backleftTop.x = CUR_FRAME.center.x - (backSize.x / 2);
-	backleftTop.y = CUR_FRAME.center.y - (backSize.x / 2);
-
-	tCBAnimationInfo CBAnimationInfo = {};
-	{
-		CBAnimationInfo.UVBackLeftTop.x = static_cast<float>(backleftTop.x) * atlasUVPerPixel.x;
-		CBAnimationInfo.UVBackLeftTop.y = static_cast<float>(backleftTop.y) * atlasUVPerPixel.y;
-
-		CBAnimationInfo.UVBackSIze.x = static_cast<float>(backSize.x) * atlasUVPerPixel.x;
-		CBAnimationInfo.UVBackSIze.y = static_cast<float>(backSize.y) * atlasUVPerPixel.y;
-
-		CBAnimationInfo.UVLeftTop = CUR_FRAME.UVLeftTop;
-		CBAnimationInfo.UVSize = CUR_FRAME.UVSize;
-
-		CBAnimationInfo.UVOffset = CUR_FRAME.UVOffset;
-
-		gGraphicDevice->PassCB(eCBType::Animation2DInfo, sizeof(CBAnimationInfo), &CBAnimationInfo);
-		gGraphicDevice->BindCB(eCBType::Animation2DInfo, eShaderBindType::PS);
-	}
+	tCBAnimationInfo CBAnimationInfo = GetCBAnimationInfo();			
+	gGraphicDevice->PassCB(eCBType::Animation2DInfo, sizeof(CBAnimationInfo), &CBAnimationInfo);
+	gGraphicDevice->BindCB(eCBType::Animation2DInfo, eShaderBindType::PS);
 
 	gGraphicDevice->BindSRV(eShaderBindType::PS, static_cast<UINT>(eSRVTpye::AtlasAnimation2D), P_ATLAS);
 

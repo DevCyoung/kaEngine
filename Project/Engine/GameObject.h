@@ -70,6 +70,7 @@ private:
 	void update();	
 	void fixedUpdate();
 	void lateUpdate();
+	void lastUpdate();
 
 private:
 	Component* mEngineComponents[static_cast<UINT>(eComponentType::End)];

@@ -5,17 +5,21 @@
 #include <Engine/GameSystem.h>
 #include <Engine/RenderTargetRenderer.h>
 #include <Engine/DebugRenderer2D.h>
-
+#include <Engine/Physics2D.h>
+#include <Engine/Color.h>
 
 Rect2DInterpolation::Rect2DInterpolation()
 	: ScriptComponent(eScriptComponentType::Rect2DInterpolation)
+	, mbPlatform(true)
 	, mbCollisionDir{}
+	, mInterpolationPos{}
 {
 }
 
 Rect2DInterpolation::~Rect2DInterpolation()
 {
 }
+
 
 void Rect2DInterpolation::initialize()
 {
@@ -25,7 +29,8 @@ void Rect2DInterpolation::update()
 {
 	Rigidbody2D* const rigidbody = GetOwner()->GetComponent<Rigidbody2D>();
 
-	if (mbCollisionDir[static_cast<UINT>(Dir::Down)])
+	if (mbCollisionDir[static_cast<UINT>(eWallType::Floor)] ||
+		mbCollisionDir[static_cast<UINT>(eWallType::Slope)])
 	{
 		rigidbody->TurnOnGround();
 	}
@@ -37,461 +42,238 @@ void Rect2DInterpolation::update()
 
 void Rect2DInterpolation::lateUpdate()
 {
-	memset(mbCollisionDir, false, 5);
+	ZeroMemory(mbCollisionDir, sizeof(bool) * static_cast<UINT>(eWallType::End));
+	ZeroMemory(mInterpolationPos, sizeof(Vector2) * static_cast<UINT>(eWallType::End));
+}
+
+void Rect2DInterpolation::lastUpdate()
+{
+	RenderTargetRenderer* const renderer = GetOwner()->GetGameSystem()->GetRenderTargetRenderer();
+	DebugRenderer2D* const debugRenderer = renderer->GetDebugRenderer2D();
+
+	Rigidbody2D* const rigidbody = GetOwner()->GetComponent<Rigidbody2D>();
+	Transform* const transform = GetOwner()->GetComponent<Transform>();
+	Matrix transMat = transform->GetWorldMatrix();
+
+	Vector2 velocity = rigidbody->GetVelocity();
+	Vector3 position = transform->GetPosition();
+
+	const Vector3& WORLD_POS = transMat.Translation();
+
+	////check Slope	
+	Physics2D* const physics = GetOwner()->GetGameSystem()->GetPhysics2D();
+
+	const Matrix& COL_MAT = GetOwner()->GetComponent<RectCollider2D>()->GetColliderWorldMatrix();
+	
+	Vector3 colHalfSize = XMVector3TransformNormal(Vector3(0.5f, 0.0f, 0.0f), COL_MAT);
+	Vector3 COL_POS = COL_MAT.Translation();
+
+	Vector2 LRP  = Vector2(COL_POS.x - abs(colHalfSize.x) + 1.f, WORLD_POS.y);
+	Vector2 RRP  = Vector2(COL_POS.x + abs(colHalfSize.x) - 1.f, WORLD_POS.y);
+
+	Vector4 LEFT_RAY_COLOR = helper::Color::WHITE;
+	Vector4 RIGHT_RAY_COLOR = helper::Color::WHITE;
+
+	const float RAY_DIST = 37.f;
+
+	RayCast2DHitInfo info = {};
+
+	float platFormInterSizeY = 0.f;
+
+	if (IsCollisionWalPlatform())
+	{		
+		Vector3 down = XMVector3TransformCoord(Vector3(0.0f, -0.5f, 0.0f), COL_MAT);
+		const Vector2 startPos = mInterpolationPos[static_cast<UINT>(eWallType::Platform)];
+		platFormInterSizeY = abs(abs(startPos.y) - abs(down.y));
+	}
+
+	if (IsCollisionWalPlatform() && mbPlatform && velocity.y <= 0.f && platFormInterSizeY <= 1.f)
+	{		
+		mbCollisionDir[static_cast<UINT>(eWallType::Floor)] = true;
+
+		velocity.y = 0.f;
+
+		position.y += platFormInterSizeY;
+		transMat._42 += platFormInterSizeY;
+	}
+	else if (physics->RayCastHit2D(LRP, Vector2::Down, RAY_DIST, eLayerType::LeftSlope, &info))
+	{
+		mbCollisionDir[static_cast<UINT>(eWallType::Slope)] = true;
+
+		float interSizeY = abs(info.hitPos.y - (LRP.y - RAY_DIST));
+		position.y   += interSizeY - 1.0f;
+		transMat._42 += interSizeY - 1.0f;
+		LEFT_RAY_COLOR = Vector4(1.f, 0.f, 1.f, 1.f);
+	}
+	else if (physics->RayCastHit2D(RRP, Vector2::Down, RAY_DIST, eLayerType::RightSlope, &info))
+	{	
+		mbCollisionDir[static_cast<UINT>(eWallType::Slope)] = true;
+
+		float interSizeY = abs(info.hitPos.y - (RRP.y - RAY_DIST));
+		position.y += interSizeY - 1.0f;
+		transMat._42 += interSizeY - 1.0f;
+		RIGHT_RAY_COLOR = Vector4(1.f, 0.f, 1.f, 1.f);
+	}
+	else
+	{
+		if (IsCollisionWallFloor())
+		{
+			const Vector2 interSize = mInterpolationPos[static_cast<UINT>(eWallType::Floor)];
+
+			velocity.y = 0.f;
+			position.y += interSize.y;
+			transMat._42 += interSize.y;
+		}		
+
+
+		if (IsCollisionWallLeft())
+		{
+			const Vector2 interSize = mInterpolationPos[static_cast<UINT>(eWallType::Left)];
+
+			velocity.x = 0.f;
+			position.x += interSize.x;
+			transMat._41 += interSize.x;
+		}
+		if (IsCollisionWallRight())
+		{
+			const Vector2 interSize = mInterpolationPos[static_cast<UINT>(eWallType::Right)];
+
+			velocity.x = 0.f;
+			position.x -= interSize.x;
+			transMat._41 -= interSize.x;
+		}
+
+		if (IsCollisionWallCeiling())
+		{
+			const Vector2 interSize = mInterpolationPos[static_cast<UINT>(eWallType::Ceiling)];
+
+			velocity.y = 0.f;
+			position.y -= interSize.y + 1.f;
+			transMat._42 -= interSize.y + 1.f;
+		}
+	}
+
+
+	debugRenderer->DrawLine2D2(Vector3(LRP.x, LRP.y, 0.f), Vector2::Down, RAY_DIST, 0.f, LEFT_RAY_COLOR);
+	debugRenderer->DrawLine2D2(Vector3(RRP.x, RRP.y, 0.f), Vector2::Down, RAY_DIST, 0.f, RIGHT_RAY_COLOR);
+
+	rigidbody->SetVelocity(velocity);
+	transform->SetPosition(position);
+	transform->SetWorldMatrix(transMat);
 }
 
 void Rect2DInterpolation::onCollisionEnter(Collider2D* other)
 {
-	if (other->GetOwner()->GetLayer() != eLayerType::Wall)
-	{
-		return;
-	}
-
-	RectCollider2D* const collider = GetOwner()->GetComponent<RectCollider2D>();
-
-	const Matrix& mat = collider->GetColliderWorldMatrix();
-	const Matrix& WallMat = other->GetColliderWorldMatrix();
-
-	const Vector3& POS = mat.Translation();
-	const Vector3& WALL_POS = WallMat.Translation();
-
-	Vector3 SCALE = XMVector3TransformNormal(Vector3::One, mat);
-	SCALE.x = abs(SCALE.x);
-	SCALE.y = abs(SCALE.y);
-
-	const Vector3& WALL_SCALE = XMVector3TransformNormal(Vector3::One, WallMat);
-
-	const Vector3& LT1 = POS - SCALE / 2;
-	const Vector3& LT2 = WALL_POS - WALL_SCALE / 2;
-
-	const Vector3& RB1 = POS + SCALE / 2;
-	const Vector3& RB2 = WALL_POS + WALL_SCALE / 2;
-
-	const float MAX_LEFT_UP_X = max(LT1.x, LT2.x);
-	const float MAX_LEFT_UP_Y = max(LT1.y, LT2.y);
-
-	const float MAX_RIGHT_DOWN_X = min(RB1.x, RB2.x);
-	const float MAX_RIGHT_DOWN_Y = min(RB1.y, RB2.y);
-
-
-
-	const float WIDTH = abs(MAX_RIGHT_DOWN_X - MAX_LEFT_UP_X);
-	const float HEIGHT = abs(MAX_RIGHT_DOWN_Y - MAX_LEFT_UP_Y);
-
-
-	const Vector2 width = Vector2(WIDTH, HEIGHT);
-
-	RenderTargetRenderer* renderer = GetOwner()->GetGameSystem()->GetRenderTargetRenderer();
-	DebugRenderer2D* debugRenderer = renderer->GetDebugRenderer();
-
-	debugRenderer->DrawFillRect2D2(Vector3(MAX_LEFT_UP_X, MAX_LEFT_UP_Y, 1.f),
-		Vector3(MAX_RIGHT_DOWN_X, MAX_RIGHT_DOWN_Y, 1.f),
-		0.f,
-		Vector4(1.f, 1.f, 1.f, 1.f));
-
-	(void)WIDTH;
-	(void)HEIGHT;
-
-
-	//천장이거나 바닥
-	if (WIDTH >= HEIGHT)
-	{
-		//내가더위에있다면 (y가더큼)
-		if (POS.y >= WALL_POS.y)
-		{
-			//이전 프레임 충돌 확인
-			/*iter->second = COLLIDE_DIR::DOWN;
-			++m_curWallDir[(UINT)COLLIDE_DIR::DOWN];
-			this->GetOwner()->OnTriggerEnterDown(_pOther);*/
-			mbCollisionDir[static_cast<UINT>(Dir::Down)] = true;
-			onCollisionDownWall(collider, width);
-
-		}
-		//천장
-		else
-		{
-			/*iter->second = COLLIDE_DIR::UP;
-			++m_curWallDir[(UINT)COLLIDE_DIR::UP];
-			this->GetOwner()->OnTriggerEnterUp(_pOther);*/
-			mbCollisionDir[static_cast<UINT>(Dir::Up)] = true;
-			onCollisionUpWall(collider, width);
-		}
-
-	}
-	//왼쪽 혹은 오른쪽
-	else
-	{
-		//오른쪽벽
-		if (POS.x <= WALL_POS.x)
-		{
-			//if (lineCol != nullptr)
-			//{
-			//	iter->second = COLLIDE_DIR::DOWN;
-			//	++m_curWallDir[(UINT)COLLIDE_DIR::DOWN];
-			//	this->GetOwner()->OnTriggerEnterDown(_pOther);
-			//}
-			//else
-			//{
-			//	iter->second = COLLIDE_DIR::RIGHT;
-			//	++m_curWallDir[(UINT)COLLIDE_DIR::RIGHT];
-			//	this->GetOwner()->OnTriggerEnterRight(_pOther);
-			//}
-			mbCollisionDir[static_cast<UINT>(Dir::Right)] = true;
-			onCollisionRightWall(collider, width);
-
-		}
-		//왼쪽벽
-		else
-		{
-			/*if (lineCol != nullptr)
-			{
-				iter->second = COLLIDE_DIR::DOWN;
-				++m_curWallDir[(UINT)COLLIDE_DIR::DOWN];
-				this->GetOwner()->OnTriggerEnterDown(_pOther);
-			}
-			else
-			{
-				iter->second = COLLIDE_DIR::LEFT;
-				++m_curWallDir[(UINT)COLLIDE_DIR::LEFT];
-				this->GetOwner()->OnTriggerEnterLeft(_pOther);
-			}*/
-			mbCollisionDir[static_cast<UINT>(Dir::Left)] = true;
-			onCollisionLeftWall(collider, width);
-		}
-	}
-
-
-
-	//Rigidbody2D* const rigidbody = GetOwner()->GetComponent<Rigidbody2D>();
-	//
-	//rigidbody->TurnOnGround();
-	//rigidbody->TurnOffGravity();
-	//rigidbody->SetVelocity(Vector2::Zero);
-
-
-	(void)other;
+	onCollisionInterpolation(other);
 }
 
-#include <Engine/EngineMath.h>
-#include <Engine/RenderTargetRenderer.h>
-#include <Engine/DebugRenderer2D.h>
-#include <Engine/GameSystem.h>
 void Rect2DInterpolation::onCollisionStay(Collider2D* other)
 {
-	
-
-	RectCollider2D* const collider = GetOwner()->GetComponent<RectCollider2D>();
-
-	const Matrix& mat = collider->GetColliderWorldMatrix();
-	const Matrix& WallMat = other->GetColliderWorldMatrix();
-
-	const Vector3& POS = mat.Translation();
-	const Vector3& WALL_POS = WallMat.Translation();
-
-	const Vector3& WALL_SCALE = XMVector3TransformNormal(Vector3::One, WallMat);
-
-	Vector3 SCALE = XMVector3TransformNormal(Vector3::One, mat);
-	SCALE.x = abs(SCALE.x);
-	SCALE.y = abs(SCALE.y);
-
-	const Vector3& LT1 = POS - SCALE / 2;
-	const Vector3& LT2 = WALL_POS - WALL_SCALE / 2;
-
-	const Vector3& RB1 = POS + SCALE / 2;
-	const Vector3& RB2 = WALL_POS + WALL_SCALE / 2;
-
-	Vector3 vertexPosArray[2] =
-	{
-		Vector3(-0.5f, 0.5f, 0.f), Vector3(0.5f, 0.5f, 0.f),
-	};
-
-	Vector3 l = XMVector3TransformCoord(vertexPosArray[0], WallMat);
-	Vector3 r = XMVector3TransformCoord(vertexPosArray[1], WallMat);
-
-
-	// lr s
-	float x1 = LT1.x;
-	float y1 = LT1.y;
-	float x2 = LT1.x;
-	float y2 = RB1.y;
-
-	
-
-	float x3 = l.x;
-	float y3 = l.y;
-	float x4 = r.x;
-	float y4 = r.y;
-
-
-	if (y3 < y4)
-	{
-		x1 = RB1.x;
-		y1 = LT1.y;
-		x2 = RB1.x;
-		y2 = RB1.y;
-	}
-
-	float inX = 0.f;
-	float inY = 0.f;
-
-	GetOwner()->GetGameSystem()->GetRenderTargetRenderer()->GetDebugRenderer()->DrawLine2D(
-		Vector3(x3, y3, 1.f), Vector3(x4, y4, 1.f), 0.f, Vector4(1.f, 1.f, 1.f, 1.f));
-
-	if (other->GetOwner()->GetLayer() == eLayerType::Slope)
-	{
-		Rigidbody2D* const rigidbody = GetOwner()->GetComponent<Rigidbody2D>();
-
-		mbCollisionDir[static_cast<UINT>(Dir::Down)] = true;
-		mbCollisionDir[static_cast<UINT>(Dir::Slop)] = true;
-
-		Vector2 velocity = rigidbody->GetVelocity();
-		velocity.y = 0.f;
-		rigidbody->SetVelocity(velocity);
-
-		helper::math::LineAndLineCollision(x1, y1, x2, y2, x3, y3, x4, y4, &inX, &inY);
-
-		GetOwner()->GetGameSystem()->GetRenderTargetRenderer()->GetDebugRenderer()->DrawFillCircle2D(
-			Vector3(inX, inY, 0.f), 4.f, 0.f, Vector4(1.f, 0.f, 1.f, 1.f));
-
-		GetOwner()->GetGameSystem()->GetRenderTargetRenderer()->GetDebugRenderer()->DrawFillCircle2D(
-			Vector3(x1, y1, 0.f), 4.f, 0.f, Vector4(0.f, 0.f, 1.f, 1.f));
-
-		if (inY >= y1)
-		{
-			Matrix mat2 = GetOwner()->GetComponent<Transform>()->GetWorldMatrix();
-			mat2._42 += inY - y1 - 2;
-			GetOwner()->GetComponent<Transform>()->SetWorldMatrix(mat2);
-
-
-			Vector3 Pos = GetOwner()->GetComponent<Transform>()->GetPosition();
-			Pos.y += inY - y1 - 2;
-			GetOwner()->GetComponent<Transform>()->SetPosition(Pos);			
-		}
-
-		Vector2 velocity2 = rigidbody->GetVelocity();
-		velocity2.y = 0.f;
-		rigidbody->SetVelocity(velocity2);
-	}
-
-	if (other->GetOwner()->GetLayer() == eLayerType::Wall)
-	{
-		const float MAX_LEFT_UP_X = max(LT1.x, LT2.x);
-		const float MAX_LEFT_UP_Y = max(LT1.y, LT2.y);
-
-		const float MAX_RIGHT_DOWN_X = min(RB1.x, RB2.x);
-		const float MAX_RIGHT_DOWN_Y = min(RB1.y, RB2.y);
-
-
-
-		const float WIDTH = abs(MAX_RIGHT_DOWN_X - MAX_LEFT_UP_X);
-		const float HEIGHT = abs(MAX_RIGHT_DOWN_Y - MAX_LEFT_UP_Y);
-
-
-		const Vector2 width = Vector2(WIDTH, HEIGHT);
-
-		RenderTargetRenderer* renderer = GetOwner()->GetGameSystem()->GetRenderTargetRenderer();
-		DebugRenderer2D* debugRenderer = renderer->GetDebugRenderer();
-
-		debugRenderer->DrawFillRect2D2(Vector3(MAX_LEFT_UP_X, MAX_LEFT_UP_Y, 1.f),
-			Vector3(MAX_RIGHT_DOWN_X, MAX_RIGHT_DOWN_Y, 1.f),
-			0.f,
-			Vector4(1.f, 1.f, 1.f, 1.f));
-
-		(void)WIDTH;
-		(void)HEIGHT;
-
-
-		//천장이거나 바닥
-		if (WIDTH >= HEIGHT)
-		{
-			//내가더위에있다면 (y가더큼)
-			if (POS.y >= WALL_POS.y)
-			{
-				//이전 프레임 충돌 확인
-				/*iter->second = COLLIDE_DIR::DOWN;
-				++m_curWallDir[(UINT)COLLIDE_DIR::DOWN];
-				this->GetOwner()->OnTriggerEnterDown(_pOther);*/
-				mbCollisionDir[static_cast<UINT>(Dir::Down)] = true;
-				onCollisionDownWall(collider, width);
-
-			}
-			//천장
-			else
-			{
-				/*iter->second = COLLIDE_DIR::UP;
-				++m_curWallDir[(UINT)COLLIDE_DIR::UP];
-				this->GetOwner()->OnTriggerEnterUp(_pOther);*/
-				mbCollisionDir[static_cast<UINT>(Dir::Up)] = true;
-				onCollisionUpWall(collider, width);
-			}
-
-		}
-		//왼쪽 혹은 오른쪽
-		else
-		{
-			//오른쪽벽
-			if (POS.x <= WALL_POS.x)
-			{
-				//if (lineCol != nullptr)
-				//{
-				//	iter->second = COLLIDE_DIR::DOWN;
-				//	++m_curWallDir[(UINT)COLLIDE_DIR::DOWN];
-				//	this->GetOwner()->OnTriggerEnterDown(_pOther);
-				//}
-				//else
-				//{
-				//	iter->second = COLLIDE_DIR::RIGHT;
-				//	++m_curWallDir[(UINT)COLLIDE_DIR::RIGHT];
-				//	this->GetOwner()->OnTriggerEnterRight(_pOther);
-				//}
-				mbCollisionDir[static_cast<UINT>(Dir::Right)] = true;
-				onCollisionRightWall(collider, width);
-		
-
-			}
-			//왼쪽벽
-			else
-			{
-				/*if (lineCol != nullptr)
-				{
-					iter->second = COLLIDE_DIR::DOWN;
-					++m_curWallDir[(UINT)COLLIDE_DIR::DOWN];
-					this->GetOwner()->OnTriggerEnterDown(_pOther);
-				}
-				else
-				{
-					iter->second = COLLIDE_DIR::LEFT;
-					++m_curWallDir[(UINT)COLLIDE_DIR::LEFT];
-					this->GetOwner()->OnTriggerEnterLeft(_pOther);
-				}*/
-				mbCollisionDir[static_cast<UINT>(Dir::Left)] = true;
-				onCollisionLeftWall(collider, width);
-			}
-		}
-
-
-
-		//Rigidbody2D* const rigidbody = GetOwner()->GetComponent<Rigidbody2D>();
-		//
-		//rigidbody->TurnOnGround();
-		//rigidbody->TurnOffGravity();
-		//rigidbody->SetVelocity(Vector2::Zero);
-
-
-		(void)other;
-	}
-
-
+	onCollisionInterpolation(other);
 }
 
 void Rect2DInterpolation::onCollisionExit(Collider2D* other)
 {
-	//Rigidbody2D* const rigidbody = GetOwner()->GetComponent<Rigidbody2D>();
-	//
-	//
-	//rigidbody->TurnOffGround();
-	//rigidbody->TurnOnGravity();
-	//
-
-
 	(void)other;
 }
 
-
-
 void Rect2DInterpolation::onCollisionLeftWall(Collider2D* other, Vector2 width)
 {
-	Matrix mat = GetOwner()->GetComponent<Transform>()->GetWorldMatrix();
-
-	Vector3 Pos = GetOwner()->GetComponent<Transform>()->GetPosition();
-
-	Rigidbody2D* const rigidbody = GetOwner()->GetComponent<Rigidbody2D>();	
-
-	if (mbCollisionDir[static_cast<UINT>(Dir::Left)])
+	if (mbCollisionDir[static_cast<UINT>(eWallType::Left)])
 	{
-		mat._41 += width.x;
-		GetOwner()->GetComponent<Transform>()->SetWorldMatrix(mat);
-
-		Pos.x += width.x;
-		GetOwner()->GetComponent<Transform>()->SetPosition(Pos);
-
-		Vector2 velocity = rigidbody->GetVelocity();
-		velocity.x = 0.f;
-		rigidbody->SetVelocity(velocity);
+		return;
 	}
 
+	mbCollisionDir[static_cast<UINT>(eWallType::Left)] = true;
+	mInterpolationPos[static_cast<UINT>(eWallType::Left)] = width;
 	(void)other;
 }
 
 void Rect2DInterpolation::onCollisionRightWall(Collider2D* other, Vector2 width)
 {
-	Matrix mat = GetOwner()->GetComponent<Transform>()->GetWorldMatrix();
-
-	Vector3 Pos = GetOwner()->GetComponent<Transform>()->GetPosition();
-
-	Rigidbody2D* const rigidbody = GetOwner()->GetComponent<Rigidbody2D>();
-
-	if (mbCollisionDir[static_cast<UINT>(Dir::Right)])
+	if (mbCollisionDir[static_cast<UINT>(eWallType::Right)])
 	{
-		mat._41 -= width.x;
-		GetOwner()->GetComponent<Transform>()->SetWorldMatrix(mat);
-
-		Pos.x -= width.x;
-		GetOwner()->GetComponent<Transform>()->SetPosition(Pos);
-
-		Vector2 velocity = rigidbody->GetVelocity();
-		velocity.x = 0.f;
-		rigidbody->SetVelocity(velocity);
+		return;
 	}
 
+	mbCollisionDir[static_cast<UINT>(eWallType::Right)] = true;
+	mInterpolationPos[static_cast<UINT>(eWallType::Right)] = width;
 	(void)other;
 }
 
 void Rect2DInterpolation::onCollisionDownWall(Collider2D* other, Vector2 width)
 {
-	Matrix mat = GetOwner()->GetComponent<Transform>()->GetWorldMatrix();
-
-	Vector3 Pos = GetOwner()->GetComponent<Transform>()->GetPosition();
-
-	Rigidbody2D* const rigidbody = GetOwner()->GetComponent<Rigidbody2D>();
-
-	if (mbCollisionDir[static_cast<UINT>(Dir::Down)])
+	if (mbCollisionDir[static_cast<UINT>(eWallType::Floor)])
 	{
-		mat._42 += width.y;
-		GetOwner()->GetComponent<Transform>()->SetWorldMatrix(mat);
-
-		Pos.y += width.y;
-		GetOwner()->GetComponent<Transform>()->SetPosition(Pos);
-
-		Vector2 velocity = rigidbody->GetVelocity();
-		velocity.y = 0.f;
-		rigidbody->SetVelocity(velocity);
+		return;
 	}
 
+	mbCollisionDir[static_cast<UINT>(eWallType::Floor)] = true;
+	mInterpolationPos[static_cast<UINT>(eWallType::Floor)] = width;
 	(void)other;
 }
 
 void Rect2DInterpolation::onCollisionUpWall(Collider2D* other, Vector2 width)
 {
-	Matrix mat = GetOwner()->GetComponent<Transform>()->GetWorldMatrix();
-
-	Vector3 Pos = GetOwner()->GetComponent<Transform>()->GetPosition();
-
-	Rigidbody2D* const rigidbody = GetOwner()->GetComponent<Rigidbody2D>();
-
-	if (mbCollisionDir[static_cast<UINT>(Dir::Up)])
+	if (mbCollisionDir[static_cast<UINT>(eWallType::Ceiling)])
 	{
-		mat._42 -= width.y + 1.f;
-		GetOwner()->GetComponent<Transform>()->SetWorldMatrix(mat);
-
-		Pos.y -= width.y + 1.f;
-		GetOwner()->GetComponent<Transform>()->SetPosition(Pos);
-
-		Vector2 velocity = rigidbody->GetVelocity();
-		velocity.y = 0.f;
-		rigidbody->SetVelocity(velocity);
+		return;
 	}
+
+	mbCollisionDir[static_cast<UINT>(eWallType::Ceiling)] = true;
+	mInterpolationPos[static_cast<UINT>(eWallType::Ceiling)] = width;
 
 	(void)other;
 }
 
+void Rect2DInterpolation::onCollisionInterpolation(Collider2D* const other)
+{
+	const Matrix& MAT = GetOwner()->GetComponent<RectCollider2D>()->GetColliderWorldMatrix();
+	const Matrix& WALL_MAT = other->GetColliderWorldMatrix();
+
+	const Vector2& INTER_SIZE = helper::math::GetBoxAndBoxInterBoxSize(MAT, WALL_MAT);
+
+	const Vector3& POS = MAT.Translation();
+	const Vector3& WALL_POS = WALL_MAT.Translation();
+
+	const eLayerType OTHER_LAYER_TYPE = other->GetOwner()->GetLayer();
+
+	if (OTHER_LAYER_TYPE == eLayerType::Wall)
+	{
+		if (INTER_SIZE.x >= INTER_SIZE.y)
+		{
+			if (POS.y >= WALL_POS.y)
+			{
+				onCollisionDownWall(other, INTER_SIZE);
+			}
+			else
+			{
+				onCollisionUpWall(other, INTER_SIZE);
+			}
+
+		}
+		else
+		{
+			if (POS.x <= WALL_POS.x)
+			{
+				onCollisionRightWall(other, INTER_SIZE);
+			}
+			else
+			{
+				onCollisionLeftWall(other, INTER_SIZE);
+			}
+		}
+	}
+	else if (OTHER_LAYER_TYPE == eLayerType::Platform)
+	{
+		if (mbCollisionDir[static_cast<UINT>(eWallType::Platform)])
+		{
+			return;
+		}
+
+		const Vector3 startPos = other->GetStartPos();
+		mbCollisionDir[static_cast<UINT>(eWallType::Platform)] = true;
+		mInterpolationPos[static_cast<UINT>(eWallType::Platform)] = Vector2(startPos.x, startPos.y);
+	}
+
+}

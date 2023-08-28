@@ -48,7 +48,7 @@ void PlayerAttackState::Enter()
 	dir.x *= 0.6f;
 	
 
-	if (mInter->IsCollisionWallDown() || mInter->IsCollisionSlop())
+	if (mInter->IsCollisionWallFloor())
 	{
 		if (dir.y <= 0.2f)
 		{
@@ -60,9 +60,6 @@ void PlayerAttackState::Enter()
 	Vector2 dir2 = Vector2(dir.x, dir.y);
 
 	mRigidbody->SetVelocity(dir2 * 750.f);
-
-
-
 
 	if (dir2.x < 0)
 	{
@@ -90,8 +87,17 @@ void PlayerAttackState::Enter()
 
 	slash->GetComponent<Transform>()->SetRotation(0.f, 0.f, deg);
 
+
+	Vector3 mpos = mTransform->GetPosition();
+
+	mpos.y += 2.1f;
+	mTransform->SetPosition(mpos);
+
+
 }
 
 void PlayerAttackState::Exit()
 {
 }
+
+

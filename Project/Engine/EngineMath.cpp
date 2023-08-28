@@ -80,6 +80,8 @@ namespace helper
 		return rectPos;
 	}
 
+
+
 	bool IsInGrid(const XMINT2& gridIndex, const XMUINT2& tileCount)
 	{
 		XMINT2 countXY = {};
@@ -106,6 +108,15 @@ namespace helper::math
 		outMax->y = max(a.y, b.y);
 	}
 
+	void floatMinAndMax(const float a, const float b, float* const outMin, float* const outMax)
+	{
+		Assert(outMin, WCHAR_IS_NULLPTR);
+		Assert(outMax, WCHAR_IS_NULLPTR);
+
+		*outMin = min(a, b);
+		*outMax = max(a, b);
+	}
+
 	void Vector2MinAndMax(const Vector2& a, const Vector2& b, Vector2* const outMin, Vector2* const outMax)
 	{
 		Assert(outMin, WCHAR_IS_NULLPTR);
@@ -118,6 +129,20 @@ namespace helper::math
 		outMax->y = max(a.y, b.y);
 	}
 
+	void Vector3MinAndMax(const Vector3& a, const Vector3& b, Vector3* const outMin, Vector3* const outMax)
+	{
+		Assert(outMin, WCHAR_IS_NULLPTR);
+		Assert(outMax, WCHAR_IS_NULLPTR);
+
+		outMin->x = min(a.x, b.x);
+		outMin->y = min(a.y, b.y);
+		outMin->z = min(a.z, b.z);
+
+		outMax->x = max(a.x, b.x);
+		outMax->y = max(a.y, b.y);
+		outMax->z = max(a.z, b.z);
+	}
+
 	float LerpCosBtwZeroAndOne(const float x)
 	{
 		return (cos(x) + 1.f) / 2.f;
@@ -128,7 +153,61 @@ namespace helper::math
 		return (sin(x) + 1.f) / 2.f;
 	}
 
-	bool LineAndLineCollision(float x1, float y1,
+	bool LineAndLineCollision(const Vector3& s1, const Vector3& e1,
+		const Vector3& s2, const Vector3& e2, Vector2* const outInter)
+	{
+		Assert(outInter, WCHAR_IS_NULLPTR);
+
+		return _LineAndLineCollision(s1.x, s1.y, e1.x, e1.y, s2.x, s2.y, e2.x, e2.y, &outInter->x, &outInter->y);
+	}
+
+
+	bool LineAndLineCollision(const Vector2& s1, const Vector2& e1,
+		const Vector2& s2, const Vector2& e2,
+		Vector2* const outInter)
+	{
+		Assert(outInter, WCHAR_IS_NULLPTR);
+
+		return _LineAndLineCollision(s1.x, s1.y, e1.x, e1.y, s2.x, s2.y, e2.x, e2.y, &outInter->x, &outInter->y);
+	}
+
+	bool BoxAndLineCollision(const Matrix& box, const Vector3& linePos, 
+		const Vector3& lineS, const Vector3& lineE, Vector2* const outInter)
+	{
+		Vector3 vertexPosArray[4] =
+		{
+			Vector3(-0.5f, 0.5f, 0.f),
+			Vector3(0.5f, 0.5f, 0.f),
+			Vector3(0.5f, -0.5f, 0.f),
+			Vector3(-0.5f, -0.5f, 0.f),
+		};
+
+		Vector3 tp = linePos;
+		Vector3 sideDistArray[4] = {};
+		Matrix boxWorldMatrix = box;
+
+		bool result = false;
+
+		for (UINT i = 0; i < 4; i++)
+		{
+			//box 0 ---- 1
+			Vector3 s1 = XMVector3TransformCoord(vertexPosArray[i], boxWorldMatrix);
+			Vector3 e1 = XMVector3TransformCoord(vertexPosArray[(i + 1) % 4], boxWorldMatrix);
+
+			Vector3 s2 = lineS + tp;
+			Vector3 e2 = lineE + tp;			
+
+			if (helper::math::LineAndLineCollision(s1, e1, s2, e2, outInter))
+			{
+				result = true;
+				break;
+			}
+		}
+
+		return result;
+	}
+
+	bool _LineAndLineCollision(float x1, float y1,
 		float x2, float y2,
 		float x3, float y3,
 		float x4, float y4,
@@ -152,11 +231,51 @@ namespace helper::math
 		}
 		return false;
 	}
+
+
+	Vector2 GetBoxAndBoxInterBoxSize(const Matrix& box1, const Matrix& box2)
+	{
+		Matrix mat1 = box1;
+		Matrix mat2 = box2;
+
+		//90도 회전되있을시 다시 바꾼다.
+		if (mat1._11 < 0.f)
+		{
+			mat1._11 *= -1.f;
+		}
+
+		if (mat2._11 < 0.f)
+		{
+			mat1._11 *= -1.f;
+		}
+		
+		Vector3 leftTop = Vector3(-0.5f, 0.5f, 0.f);
+		Vector3 rightBottom = Vector3(0.5f, -0.5f, 0.f);
+
+		Vector3 lt1 = XMVector3TransformCoord(leftTop, mat1);
+		Vector3 rb1 = XMVector3TransformCoord(rightBottom, mat1);
+
+		Vector3 lt2 = XMVector3TransformCoord(leftTop, mat2);
+		Vector3 rb2 = XMVector3TransformCoord(rightBottom, mat2);
+
+		Vector3 ltInter = Vector3::Zero;
+		Vector3 rbInter = Vector3::Zero;
+
+		ltInter.x = max(lt1.x, lt2.x);
+		ltInter.y = min(lt1.y, lt2.y);
+
+		rbInter.x = min(rb1.x, rb2.x);
+		rbInter.y = max(rb1.y, rb2.y);
+
+		Vector2 size = Vector2::Zero;
+
+		size.x = abs(rbInter.x - ltInter.x);
+		size.y = abs(ltInter.y - rbInter.y);
+
+		return size;
+	}
+
 }
-
-
-
-
 
 namespace helper::rand
 {
@@ -169,3 +288,4 @@ namespace helper::rand
 		return dis(gen);
 	}
 }
+

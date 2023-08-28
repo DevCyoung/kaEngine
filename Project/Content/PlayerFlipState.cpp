@@ -20,7 +20,7 @@ void PlayerFlipState::InputUpdate()
 
 void PlayerFlipState::Update()
 {
-	if (mInter->IsCollisionWallDown())
+	if (mInter->IsCollisionWallFloor())
 	{
 		mAnimator->Play(L"RunToIdle", false);
 		mOwner->ChangeState(mOwner->mPlayerIdleState);

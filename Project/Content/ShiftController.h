@@ -2,6 +2,8 @@
 #include <Engine/ScriptComponent.h>
 #include "EnumScriptComponent.h"
 
+class Light2D;
+
 REGISTER_SCRIPTCOMPONENT_TYPE(ShiftController);
 
 class ShiftController : public ScriptComponent
@@ -16,4 +18,8 @@ private:
 	virtual void initialize() override final;
 	virtual void update() override final;
 	virtual void lateUpdate() override final;	
+
+	Light2D* mLight;
+	GameObject* mPlayer;
+	float mTimeScale;
 };

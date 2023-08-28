@@ -21,6 +21,7 @@ private:
 	void update();
 	void fixedUpdate();
 	void lateUpdate();
+	void lastUpdate();
 
 private:
 	std::vector<GameObject*> mGameObjects;

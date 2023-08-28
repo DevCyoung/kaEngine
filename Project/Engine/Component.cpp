@@ -27,6 +27,10 @@ void Component::lateUpdate()
 {
 }
 
+void Component::lastUpdate()
+{
+}
+
 
 
 

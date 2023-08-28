@@ -3,18 +3,22 @@
 enum class eLayerType
 {
 	BackGround,
-	TileMap,		
+	TileMap,
 	Object,
 	Forground,
+	LeftSlope,
+	RightSlope,
+	Platform,
 	Wall,
-	Slope,
+	CamearaWall,
 	Item,
 	Enemy,
 	Bullet,
 	Satellite,
 	Player,
-	Default,	
+	Default,
 	Mouse,
+	Light,
 	UI,
-	End = 32
+	End
 };

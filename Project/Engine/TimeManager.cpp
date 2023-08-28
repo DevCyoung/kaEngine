@@ -6,6 +6,7 @@ TimeManager::TimeManager()
 	: mDeltaTime(0.0f)
 	, mGlobalTime(0.0f)
 	, mSecond(0.0f)
+	, mTileScale(1.f)
 	, mCpuFrequency{}
 	, mPrevFrequency{}
 	, mCurFrequency{}
@@ -25,7 +26,7 @@ void TimeManager::update()
 	const float DIFERENCE_FREQUENCY = static_cast<float>(mCurFrequency.QuadPart - mPrevFrequency.QuadPart);
 
 	mDeltaTime = DIFERENCE_FREQUENCY / static_cast<float>(mCpuFrequency.QuadPart);
-	//mDeltaTime *= 0.2f;
+	mDeltaTime *= mTileScale;
 	mGlobalTime += mDeltaTime;
 	mPrevFrequency.QuadPart = mCurFrequency.QuadPart;
 

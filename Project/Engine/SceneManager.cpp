@@ -31,7 +31,7 @@ void SceneManager::lateUpdate()
 {
 	mCurrentScene->fixedUpdate();
 
-	mCurrentScene->lateUpdate();
+	mCurrentScene->lateUpdate();	
 }
 
 void SceneManager::eventUpdate()

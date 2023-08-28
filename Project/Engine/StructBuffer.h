@@ -11,7 +11,8 @@ struct alignas(16) tCBTransform // b0
 struct alignas(16) tCBColorInfo // b1
 {
 	int	bUseColor;
-	Vector3 Dummy;
+	int bColorType;
+	Vector2 Dummy;
 	Vector4 Color;
 }; // 32 bytes
 

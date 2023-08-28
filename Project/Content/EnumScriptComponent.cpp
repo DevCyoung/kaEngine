@@ -2,12 +2,14 @@
 #include "EnumScriptComponent.h"
 
 #include "NoiseTest.h"
+#include "AfterImage.h"
 #include "Bugiman.h"
 #include "BulletMovement.h"
 #include "CameraInputMoveMent.h"
 #include "ChildTest.h"
 #include "Chinatown04Controller.h"
 #include "CursorMovement.h"
+#include "FolowPlayer.h"
 #include "GridPainter.h"
 #include "InputMovementTest.h"
 #include "LerpTest.h"
@@ -17,18 +19,21 @@
 #include "PlayerMovementTest.h"
 #include "Rect2DInterpolation.h"
 #include "ShiftController.h"
+#include "SimpleEditorCollider2D.h"
 #include "TestScript.h"
 #include "UIEffect.h"
 
 static constexpr const wchar_t* const ScriptComponentNames[static_cast<UINT>(eScriptComponentType::End)]
 {
 	L"NoiseTest",
+	L"AfterImage",
 	L"Bugiman",
 	L"BulletMovement",
 	L"CameraInputMoveMent",
 	L"ChildTest",
 	L"Chinatown04Controller",
 	L"CursorMovement",
+	L"FolowPlayer",
 	L"GridPainter",
 	L"InputMovementTest",
 	L"LerpTest",
@@ -38,6 +43,7 @@ static constexpr const wchar_t* const ScriptComponentNames[static_cast<UINT>(eSc
 	L"PlayerMovementTest",
 	L"Rect2DInterpolation",
 	L"ShiftController",
+	L"SimpleEditorCollider2D",
 	L"TestScript",
 	L"UIEffect",
 };
@@ -54,6 +60,8 @@ ScriptComponent* CreateScriptComponentByName(const std::wstring& scriptcomponent
 
 	if (L"NoiseTest" == scriptcomponentName)
 		scriptcomponent = new NoiseTest;
+	else if (L"AfterImage" == scriptcomponentName)
+		scriptcomponent = new AfterImage;
 	else if (L"Bugiman" == scriptcomponentName)
 		scriptcomponent = new Bugiman;
 	else if (L"BulletMovement" == scriptcomponentName)
@@ -66,6 +74,8 @@ ScriptComponent* CreateScriptComponentByName(const std::wstring& scriptcomponent
 		scriptcomponent = new Chinatown04Controller;
 	else if (L"CursorMovement" == scriptcomponentName)
 		scriptcomponent = new CursorMovement;
+	else if (L"FolowPlayer" == scriptcomponentName)
+		scriptcomponent = new FolowPlayer;
 	else if (L"GridPainter" == scriptcomponentName)
 		scriptcomponent = new GridPainter;
 	else if (L"InputMovementTest" == scriptcomponentName)
@@ -84,6 +94,8 @@ ScriptComponent* CreateScriptComponentByName(const std::wstring& scriptcomponent
 		scriptcomponent = new Rect2DInterpolation;
 	else if (L"ShiftController" == scriptcomponentName)
 		scriptcomponent = new ShiftController;
+	else if (L"SimpleEditorCollider2D" == scriptcomponentName)
+		scriptcomponent = new SimpleEditorCollider2D;
 	else if (L"TestScript" == scriptcomponentName)
 		scriptcomponent = new TestScript;
 	else if (L"UIEffect" == scriptcomponentName)
@@ -102,6 +114,9 @@ ScriptComponent* CreateScriptComponentByEnum(const eScriptComponentType type)
 	case eScriptComponentType::NoiseTest:
 		scriptcomponent = new NoiseTest;
 		break;
+	case eScriptComponentType::AfterImage:
+		scriptcomponent = new AfterImage;
+		break;
 	case eScriptComponentType::Bugiman:
 		scriptcomponent = new Bugiman;
 		break;
@@ -119,6 +134,9 @@ ScriptComponent* CreateScriptComponentByEnum(const eScriptComponentType type)
 		break;
 	case eScriptComponentType::CursorMovement:
 		scriptcomponent = new CursorMovement;
+		break;
+	case eScriptComponentType::FolowPlayer:
+		scriptcomponent = new FolowPlayer;
 		break;
 	case eScriptComponentType::GridPainter:
 		scriptcomponent = new GridPainter;
@@ -146,6 +164,9 @@ ScriptComponent* CreateScriptComponentByEnum(const eScriptComponentType type)
 		break;
 	case eScriptComponentType::ShiftController:
 		scriptcomponent = new ShiftController;
+		break;
+	case eScriptComponentType::SimpleEditorCollider2D:
+		scriptcomponent = new SimpleEditorCollider2D;
 		break;
 	case eScriptComponentType::TestScript:
 		scriptcomponent = new TestScript;

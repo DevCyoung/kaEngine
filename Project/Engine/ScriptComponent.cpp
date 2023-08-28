@@ -19,7 +19,17 @@ void ScriptComponent::initialize()
 void ScriptComponent::update()
 {
 }
+
+void ScriptComponent::fixedUpdate()
+{
+
+}
+
 void ScriptComponent::lateUpdate()
+{
+}
+
+void ScriptComponent::lastUpdate()
 {
 }
 

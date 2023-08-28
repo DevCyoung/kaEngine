@@ -13,11 +13,17 @@
 #include <Engine/SpriteRenderer.h>
 #include <Engine/RectCollider2D.h>
 #include <Engine/CircleCollider2D.h>
+#include <Engine/LineCollider2D.h>
 #include <Engine/Animator2D.h>
 #include <Engine/Animation2D.h>
 #include <Engine/Rigidbody2D.h>
+#include <Engine/Light2D.h>
 
 //Script Component
 #include <Engine/ScriptComponent.h>
 #include "EnumScriptComponent.h"
 
+#include <Engine/GameSystem.h>
+#include <Engine/RenderTargetRenderer.h>
+#include <Engine/DebugRenderer2D.h>
+#include <Engine/Physics2D.h>

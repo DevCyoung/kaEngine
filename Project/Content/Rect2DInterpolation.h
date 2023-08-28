@@ -7,13 +7,14 @@ REGISTER_SCRIPTCOMPONENT_TYPE(Rect2DInterpolation);
 class Rect2DInterpolation : public ScriptComponent
 {
 private:
-	enum class Dir
+	enum class eWallType
 	{
 		Left,
 		Right,
-		Up,
-		Down,
-		Slop,
+		Ceiling,
+		Floor,
+		Slope,
+		Platform,
 		End,
 	};
 
@@ -24,16 +25,26 @@ public:
 	Rect2DInterpolation& operator=(const Rect2DInterpolation&) = delete;
 
 public:
-	bool IsCollisionWallLeft() { return mbCollisionDir[static_cast<UINT>(Dir::Left)]; }
-	bool IsCollisionWallRight() { return mbCollisionDir[static_cast<UINT>(Dir::Right)]; }
-	bool IsCollisionWallDown() { return mbCollisionDir[static_cast<UINT>(Dir::Down)]; }
-	bool IsCollisionWallUp() { return mbCollisionDir[static_cast<UINT>(Dir::Up)]; }
-	bool IsCollisionSlop() { return mbCollisionDir[static_cast<UINT>(Dir::Slop)]; }
+	bool IsCollisionWallFloor()   const { return mbCollisionDir[static_cast<UINT>(eWallType::Floor)]; }
+	bool IsCollisionWallLeft()    const { return mbCollisionDir[static_cast<UINT>(eWallType::Left)]; }
+	bool IsCollisionWallRight()   const { return mbCollisionDir[static_cast<UINT>(eWallType::Right)]; }
+	bool IsCollisionWallCeiling() const { return mbCollisionDir[static_cast<UINT>(eWallType::Ceiling)]; }
+	bool IsCollisionWallSlop()    const { return mbCollisionDir[static_cast<UINT>(eWallType::Slope)]; }
+	bool IsCollisionWalPlatform() const { return mbCollisionDir[static_cast<UINT>(eWallType::Platform)]; }
+
+	bool IsPlatform() const { return mbPlatform; }
+
+	void TurnOnPlatform()   { mbPlatform = true; }
+	void TurnOffPlatform()  { mbPlatform = false; }
+
+
+	
 
 private:
 	virtual void initialize() override final;
 	virtual void update() override final;
 	virtual void lateUpdate() override final;
+	virtual void lastUpdate() override final;
 
 	virtual void onCollisionEnter(Collider2D* other) override;
 	virtual void onCollisionStay(Collider2D* other) override;
@@ -42,8 +53,11 @@ private:
 	void onCollisionLeftWall(Collider2D* other, Vector2 width);
 	void onCollisionRightWall(Collider2D* other, Vector2 width);
 	void onCollisionDownWall(Collider2D* other, Vector2 width);
-	void onCollisionUpWall(Collider2D* other, Vector2 width);	
+	void onCollisionUpWall(Collider2D* other, Vector2 width);
 
+	void onCollisionInterpolation(Collider2D* const other);
 
-	bool mbCollisionDir[5];
+	bool mbPlatform;
+	bool mbCollisionDir[static_cast<UINT>(eWallType::End)];
+	Vector2 mInterpolationPos[static_cast<UINT>(eWallType::End)];
 };

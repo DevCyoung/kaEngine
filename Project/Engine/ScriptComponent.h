@@ -23,7 +23,9 @@ public:
 private:
 	virtual void initialize() override;
 	virtual void update() override;
+	virtual void fixedUpdate() override;
 	virtual void lateUpdate() override;
+	virtual void lastUpdate() override;
 
 	virtual void onCollisionEnter(Collider2D* other);
 	virtual void onCollisionStay(Collider2D* other);

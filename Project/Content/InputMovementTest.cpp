@@ -81,20 +81,20 @@ void InputMovementTest::update()
 	Vector3 pos = transform->GetPosition();
 	Vector3 dir = Vector3::Zero;
 
-	if (gInput->GetKey(eKeyCode::LEFT))
+	if (gInput->GetKey(eKeyCode::A))
 	{
 		dir.x -= 1.f;
 	}
-	else if (gInput->GetKey(eKeyCode::RIGHT))
+	else if (gInput->GetKey(eKeyCode::D))
 	{
 		dir.x += 1.f;
 	}
 
-	if (gInput->GetKey(eKeyCode::UP))
+	if (gInput->GetKey(eKeyCode::W))
 	{
 		dir.y += 1.f;
 	}
-	else if (gInput->GetKey(eKeyCode::DOWN))
+	else if (gInput->GetKey(eKeyCode::S))
 	{
 		dir.y -= 1.f;
 	}

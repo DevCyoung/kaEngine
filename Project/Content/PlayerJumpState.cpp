@@ -23,7 +23,7 @@ void PlayerJumpState::Update()
 	Vector2 velocity = mRigidbody->GetVelocity();
 	mOwner->mPlayerGlobalState->InputFlip();
 
-	if (mInter->IsCollisionSlop())
+	if (mInter->IsCollisionWallSlop())
 	{
 		velocity.x = 0.f;
 		dir.x = 0.f;
@@ -54,7 +54,7 @@ void PlayerJumpState::Update()
 	//}
 
 	//Enter
-	if (mInter->IsCollisionWallDown() && velocity.y <= 0.f)
+	if (mInter->IsCollisionWallFloor() && velocity.y <= 0.f)
 	{
 		mAnimator->Play(L"RunToIdle", false);
 		mOwner->ChangeState(mOwner->mPlayerIdleState);
@@ -68,14 +68,14 @@ void PlayerJumpState::Enter()
 	Vector2 velocity = mRigidbody->GetVelocity();
 	velocity.y = Vector2::Up.y * 550.f;
 
-	if (mInter->IsCollisionSlop())
+	if (mInter->IsCollisionWallSlop())
 	{
 		velocity.x = 0.f;		
 	}
 	mRigidbody->SetVelocity(velocity);
 
 	Vector3 pos = mTransform->GetPosition();
-	pos.y += 8.f;
+	pos.y += 1.f;
 	mTransform->SetPosition(pos);
 
 	mAnimator->Play(L"Jump", true);

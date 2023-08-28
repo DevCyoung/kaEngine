@@ -211,6 +211,10 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
     <ClInclude Include="EnumResourceTypeSound.h" />
     <ClInclude Include="EnumResourceTypeTexture.h" />
     <ClInclude Include="EnumScriptComponent.h" />
+    <ClInclude Include="FolowPlayer.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="framework.h" />
     <ClInclude Include="FSMState.h" />
     <ClInclude Include="GameObjectBuilder.h" />
@@ -273,6 +277,10 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
       </SubType>
     </ClInclude>
     <ClInclude Include="FiniteStateMachine.h" />
+    <ClInclude Include="SimpleEditorCollider2D.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="TestScene.h" />
     <ClInclude Include="TestScript.h">
       <SubType>
@@ -323,6 +331,10 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
     <ClCompile Include="EnumResourceTypeSound.cpp" />
     <ClCompile Include="EnumResourceTypeTexture.cpp" />
     <ClCompile Include="EnumScriptComponent.cpp" />
+    <ClCompile Include="FolowPlayer.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="FSMState.cpp" />
     <ClCompile Include="GameObjectBuilder.cpp" />
     <ClCompile Include="HeadHunterScene.cpp" />
@@ -390,6 +402,10 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
       </SubType>
     </ClCompile>
     <ClCompile Include="FiniteStateMachine.cpp" />
+    <ClCompile Include="SimpleEditorCollider2D.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="TestScene.cpp" />
     <ClCompile Include="TestScript.cpp">
       <SubType>

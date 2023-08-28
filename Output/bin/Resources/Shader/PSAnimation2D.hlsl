@@ -9,6 +9,9 @@ float4 main(tVSOut In) : SV_TARGET
 	
 	float2 UV = B3_UVBackLeftTop + In.UV * B3_UVBackSIze;
 	
+	UV.x -= B3_UVOffset.x;
+	UV.y += B3_UVOffset.y;
+	
 	if (B3_UVLeftTop.x <= UV.x && UV.x <= B3_UVLeftTop.x + B3_UVSize.x &&
 		B3_UVLeftTop.y <= UV.y && UV.y <= B3_UVLeftTop.y + B3_UVSize.y)
 	{
@@ -28,12 +31,19 @@ float4 main(tVSOut In) : SV_TARGET
 		discard;
 	}
 	
+	
+	//To Cyan		
+	float src = 0.5f;
+	float dst = 1.f - src;	
+	
+	outColor.r  = 0.f;
+	outColor.g = outColor.g + outColor.g * src + 1.f * dst;
+	outColor.b = outColor.b + outColor.b * src + 1.f * dst;
+	
 	return outColor;
 }
 
-	//To Cyan		
-	//float src = 0.25f;
-	//float dst = 1.f - src;	
+	
 	
 	//outColor.r  = 0.f;
 	//outColor.g = outColor.g + outColor.g * src + 1.f * dst;

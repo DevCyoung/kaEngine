@@ -18,9 +18,7 @@ Scene::Scene()
 	mEventMessages.reserve(100);
 	mGarbages.reserve(100);
 
-	mCollisionManagement2D->TurnOnAllCollisionLayer();	
-	mCollisionManagement2D->TurnOffCollisionLayer(eLayerType::Bullet, eLayerType::Bullet);
-	mCollisionManagement2D->TurnOffCollisionLayer(eLayerType::Bullet, eLayerType::Mouse);
+	mCollisionManagement2D->TurnOnAllCollisionLayer();
 }
 
 Scene::~Scene()
@@ -73,8 +71,15 @@ void Scene::lateUpdate()
 		MessageManager::GetInstance()->AddTitleMessage(buff);
 	}
 
+	//面倒贸府
 	mCollisionManagement2D->phisicsUpdate(this);
 	
+	//面倒焊埃
+	for (Layer& layer : mLayers)
+	{
+		layer.lastUpdate();
+	}
+
 	//if exist garbage, remove it, No rendering
 	if (false == mGarbages.empty())
 	{

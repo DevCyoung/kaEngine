@@ -29,7 +29,7 @@ void RectCollider2D::lateUpdate()
 	mColliderWorldMat *= XMMatrixTranslation(mOffset.x, mOffset.y, mOffset.z);
 	mColliderWorldMat *= P_TRANSFORM->GetWorldMatrix();
 
-	DebugRenderer2D* debugRenderer = GetOwner()->GetGameSystem()->GetRenderTargetRenderer()->GetDebugRenderer();
+	DebugRenderer2D* debugRenderer = GetOwner()->GetGameSystem()->GetRenderTargetRenderer()->GetDebugRenderer2D();
 
 	Vector4 color = Vector4(0.f, 1.f, 0.f, 1.f);
 
@@ -38,5 +38,14 @@ void RectCollider2D::lateUpdate()
 		color = Vector4(1.f, 0.f, 0.f, 1.f);
 	}
 
-	debugRenderer->DrawRect2D3(mColliderWorldMat, 0.f, color);
+	if (eLayerType::CamearaWall == GetOwner()->GetLayer())
+	{
+		debugRenderer->DrawFillRect2D3(mColliderWorldMat, 0.f, Vector4(0.0f, 1.0f, 0.5f, 0.8f));
+	}
+	else
+	{
+		debugRenderer->DrawRect2D3(mColliderWorldMat, 0.f, color);
+	}
+
+	
 }

@@ -18,19 +18,40 @@ namespace helper
 	XMINT2 GridIndex(const Vector3& selectWorldPos,
 		const Vector2& cellSize, const XMUINT2& tileCountXY);
 	Vector3 GridIndexToWorldPosition(const XMINT2& gridIndex, 
-		const Vector2& cellSize, const XMUINT2& tileCountXY);
+		const Vector2& cellSize, const XMUINT2& tileCountXY);	
+
 	bool IsInGrid(const XMINT2& gridIndex, const XMUINT2& tileCountXY);
 }
 
 namespace helper::math
 {
 	void INT2MinAndMax(const XMINT2& a, const XMINT2& b, XMINT2* const outMin, XMINT2* const outMax);
+	void floatMinAndMax(const float a, const float b, float* const outMin, float* const outMax);
 	void Vector2MinAndMax(const Vector2& a, const Vector2& b, Vector2* const outMin, Vector2* const outMax);
+	void Vector3MinAndMax(const Vector3& a, const Vector3& b, Vector3* const outMin, Vector3* const outMax);
 	float LerpCosBtwZeroAndOne(const float x);
 	float LerpSinBtwZeroAndOne(const float x);
 
-	bool LineAndLineCollision(float x1, float y1, float x2, float y2, 
+#pragma region LineCollision
+	bool LineAndLineCollision(const Vector3& s1, const Vector3& e1,
+				const Vector3& s2, const Vector3& e2, Vector2* const outInter);
+
+	bool LineAndLineCollision(const Vector2& s1, const Vector2& e1,
+		const Vector2& s2, const Vector2& e2, Vector2* const outInter);
+
+	bool BoxAndLineCollision(const Matrix& box, const Vector3& linePos,
+		const Vector3& lineS, const Vector3& lineE, Vector2* const outInter);
+
+
+	bool _LineAndLineCollision(float x1, float y1, float x2, float y2,
 		float x3, float y3, float x4, float y4, float* outInterX, float* outInterY);
+
+	Vector2 GetBoxAndBoxInterBoxSize(const Matrix& box1, const Matrix& box2);
+
+
+#pragma endregion
+
+	
 }
 
 namespace helper::rand

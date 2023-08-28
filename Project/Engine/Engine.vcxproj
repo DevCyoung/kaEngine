@@ -188,6 +188,10 @@ call ScriptGen.exe Component $(SolutionDir)Project\Engine $(SolutionDir)Project\
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="AfterImage.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="EngineComponentTrait.h" />
     <ClInclude Include="ConstantBuffer.h" />
     <ClInclude Include="DirectXTex.h" />
@@ -209,6 +213,11 @@ call ScriptGen.exe Component $(SolutionDir)Project\Engine $(SolutionDir)Project\
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="LineCollider2D.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="EngineFile.h" />
     <ClInclude Include="ParticleSystem.h" />
     <ClInclude Include="Physics2D.h" />
     <ClInclude Include="RectCollider2D.h">
@@ -295,6 +304,10 @@ call ScriptGen.exe Component $(SolutionDir)Project\Engine $(SolutionDir)Project\
     <ClCompile Include="DSCollection.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="DXMath.cpp" />
+    <ClCompile Include="AfterImage.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="EngineMath.cpp" />
     <ClCompile Include="EngineResourceLoader.cpp" />
     <ClCompile Include="Entity.cpp" />
@@ -305,6 +318,11 @@ call ScriptGen.exe Component $(SolutionDir)Project\Engine $(SolutionDir)Project\
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="LineCollider2D.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="EngineFile.cpp" />
     <ClCompile Include="ParticleSystem.cpp" />
     <ClCompile Include="Physics2D.cpp" />
     <ClCompile Include="RectCollider2D.cpp">

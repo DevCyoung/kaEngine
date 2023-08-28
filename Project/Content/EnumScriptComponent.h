@@ -5,22 +5,25 @@ class ScriptComponent;
 
 enum class eScriptComponentType 
 {
+	NoiseTest,
+	AfterImage,
 	Bugiman,
 	BulletMovement,
 	CameraInputMoveMent,
 	ChildTest,
 	Chinatown04Controller,
 	CursorMovement,
+	FolowPlayer,
 	GridPainter,
 	InputMovementTest,
 	LerpTest,
-	NoiseTest,
 	ParentTest,
 	PickPixelTest,
 	PlayerController,
 	PlayerMovementTest,
 	Rect2DInterpolation,
 	ShiftController,
+	SimpleEditorCollider2D,
 	TestScript,
 	UIEffect,
 	End

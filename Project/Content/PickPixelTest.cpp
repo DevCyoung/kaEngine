@@ -23,7 +23,7 @@ void PickPixelTest::initialize()
 void PickPixelTest::update()
 {
     RenderTargetRenderer* const renderer = GetOwner()->GetGameSystem()->GetRenderTargetRenderer();
-    DebugRenderer2D* const debugRenderer = renderer->GetDebugRenderer();
+    DebugRenderer2D* const debugRenderer = renderer->GetDebugRenderer2D();
 
     Camera* const main = renderer->GetRegisteredRenderCamera(eCameraPriorityType::Main);
     Vector3 mouseWorldPos = helper::WindowScreenMouseToWorld3D(main);

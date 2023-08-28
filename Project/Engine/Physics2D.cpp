@@ -5,6 +5,7 @@
 #include "GameObject.h"
 #include "RectCollider2D.h"
 #include "CircleCollider2D.h"
+#include "EngineMath.h"
 
 Physics2D::Physics2D(Scene* const scene)
 	: mScene(scene)
@@ -16,9 +17,9 @@ Physics2D::~Physics2D()
 }
 
 // POINT/CIRCLE
-static boolean pointCircle(Vector2 pointPos, Vector2 circlePos, float r) 
-{	
-	const Vector2& DIST = pointPos - circlePos;	
+static boolean pointCircle(Vector2 pointPos, Vector2 circlePos, float r)
+{
+	const Vector2& DIST = pointPos - circlePos;
 
 	return DIST.x * DIST.x + DIST.y * DIST.y <= r * r;
 }
@@ -48,7 +49,7 @@ static boolean linePoint(float x1, float y1, float x2, float y2, float px, float
 }
 
 // LINE/CIRCLE
-static boolean lineCircle(float x1, float y1, float x2, float y2, float cx, float cy, float r, 
+static boolean lineCircle(float x1, float y1, float x2, float y2, float cx, float cy, float r,
 	Collider2D* const collider, RayCast2DHitInfo* const outHitInfo)
 {
 
@@ -56,7 +57,7 @@ static boolean lineCircle(float x1, float y1, float x2, float y2, float cx, floa
 	// if so, return true immediately
 	boolean inside1 = pointCircle(Vector2(x1, y1), Vector2(cx, cy), r);
 	boolean inside2 = pointCircle(Vector2(x2, y2), Vector2(cx, cy), r);
-	
+
 	if (inside1)
 	{
 		outHitInfo->hitPos = Vector2(x1, y1);
@@ -133,17 +134,36 @@ bool Physics2D::RayCastHit2D(const Vector2& origin,
 		Vector2 normalDirection = direction;
 		normalDirection.Normalize();
 
-		const Vector2& a = origin;
-		const Vector2& b = origin + normalDirection * distance;
-		const Vector3& c = collider->GetColliderWorldMatrix().Translation();
+		const Vector2& s1 = origin;
+		const Vector2& e1 = origin + normalDirection * distance;
 
 
 		if (collider->GetCollideType() == eCollider2DType::Circle)
 		{
 			constexpr const Vector3 vertexPos = Vector3(0.5f, 0.0f, 0.f);
 			const Vector3& RADIUS = XMVector3TransformNormal(vertexPos, collider->GetColliderWorldMatrix());
+			const Vector3& c = collider->GetColliderWorldMatrix().Translation();
 
-			bColliison = lineCircle(a.x, a.y, b.x, b.y, c.x, c.y, RADIUS.Length(), collider, outHitInfo);
+			bColliison = lineCircle(s1.x, s1.y, e1.x, e1.y, c.x, c.y, RADIUS.Length(), collider, outHitInfo);
+		}
+		else if (collider->GetCollideType() == eCollider2DType::Line)
+		{
+			const Vector3& s2 = collider->GetStartPos() + collider->GetColliderWorldMatrix().Translation();
+			const Vector3& e2 = collider->GetEndPos() + collider->GetColliderWorldMatrix().Translation();
+
+			bColliison = helper::math::LineAndLineCollision(s1, e1,
+				Vector2(s2.x, s2.y), Vector2(e2.x, e2.y), &outHitInfo->hitPos);
+		}
+		else if (collider->GetCollideType() == eCollider2DType::Box)
+		{
+			//const Matrix& BOX_MAT = collider->GetColliderWorldMatrix();
+			//
+			//Vector2 out = Vector2::Zero;
+			//Vector3 pos = Vector3(origin.x, origin.y, 0.f);
+			//
+			//bColliison = helper::math::BoxAndLineCollision(BOX_MAT, pos, Vector3(s1.x, s1.y, 0.f), 
+			//	Vector3(e1.x, e1.y, 0.f), &outHitInfo->hitPos);
+
 		}
 
 		if (bColliison)

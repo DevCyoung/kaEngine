@@ -55,3 +55,14 @@ void Layer::lateUpdate()
 		}
 	}	
 }
+
+void Layer::lastUpdate()
+{
+	for (GameObject* const gameObject : mGameObjects)
+	{
+		if (gameObject->mState == GameObject::eState::Active)
+		{
+			gameObject->lastUpdate();
+		}
+	}
+}

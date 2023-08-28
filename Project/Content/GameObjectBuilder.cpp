@@ -12,6 +12,8 @@
 #include "UIEffect.h"
 #include <Engine/Scene.h>
 #include <Engine/EngineMath.h>
+#include "FolowPlayer.h"
+#include <Engine/AfterImage.h>
 
 GameObject* GameObjectBuilder::Default2D(const std::wstring& materialName)
 {
@@ -30,6 +32,12 @@ GameObject* GameObjectBuilder::Player()
 	GameObject* const player = new GameObject();
 	player->SetName(L"Player");
 
+	
+	player->AddComponent<Rigidbody2D>();
+	player->AddComponent<AfterImage>();
+	player->AddComponent<Rect2DInterpolation>();
+	player->AddComponent<RectCollider2D>();
+
 	//Animation
 	{
 		player->GetComponent<Transform>()->SetPosition(0.f, 160.f, -1.f);
@@ -43,25 +51,31 @@ GameObject* GameObjectBuilder::Player()
 		Texture* atlas = gResourceManager->FindByEnum<Texture>(eResTexture::Atlas_Player_zero);
 
 		anim->CreateAnimation(L"Attack", atlas, 7,
-			XMUINT2(5, 34), XMUINT2(62, 42), XMUINT2(10, 10), XMINT2(0, 0), 0.0325f);
+			XMUINT2(5, 34), XMUINT2(62, 42), XMUINT2(10, 10), XMINT2(0, 3), 0.0325f);
 
 		anim->CreateAnimation(L"Roll", atlas, 7,
-			XMUINT2(5, 1718), XMUINT2(48, 33), XMUINT2(10, 10), XMINT2(0, 0), 0.06f);
+			XMUINT2(5, 1718), XMUINT2(48, 33), XMUINT2(10, 10), XMINT2(0, -1), 0.06f);
 
 		anim->CreateAnimation(L"DoorBreakFull", atlas, 10,
 			XMUINT2(5, 198), XMUINT2(50, 44), XMUINT2(10, 10), XMINT2(0, 0), 0.06f);
 
 		anim->CreateAnimation(L"Fall", atlas, 4,
-			XMUINT2(5, 281), XMUINT2(42, 48), XMUINT2(10, 10), XMINT2(0, 0), 0.06f);
+			XMUINT2(5, 281), XMUINT2(42, 48), XMUINT2(10, 10), XMINT2(-3, 6), 0.06f);
+
+		anim->CreateAnimation(L"Jump", atlas, 4,
+			XMUINT2(5, 826), XMUINT2(32, 42), XMUINT2(10, 10), XMINT2(-3, 3), 0.08f);
 
 		anim->CreateAnimation(L"Idle", atlas, 11,
 			XMUINT2(5, 681), XMUINT2(36, 35), XMUINT2(10, 10), XMINT2(0, 0), 0.1f);
 
-		anim->CreateAnimation(L"Jump", atlas, 4,
-			XMUINT2(5, 826), XMUINT2(32, 42), XMUINT2(10, 10), XMINT2(0, 0), 0.08f);
+
+
 
 		anim->CreateAnimation(L"IdleToRun", atlas, 4,
-			XMUINT2(5, 755), XMUINT2(44, 32), XMUINT2(10, 10), XMINT2(0, 0), 0.08f);
+			XMUINT2(5, 755), XMUINT2(44, 32), XMUINT2(10, 10), XMINT2(0, -2), 0.08f);
+
+		anim->CreateAnimation(L"Run", atlas, 10,
+			XMUINT2(5, 1790), XMUINT2(44, 32), XMUINT2(10, 10), XMINT2(0, -2), 0.07f);
 
 		anim->CreateAnimation(L"RunToIdle", atlas, 5,
 			XMUINT2(5, 1861), XMUINT2(52, 36), XMUINT2(10, 10), XMINT2(0, 0), 0.085f);
@@ -73,39 +87,116 @@ GameObject* GameObjectBuilder::Player()
 			XMUINT2(5, 1221), XMUINT2(36, 39), XMUINT2(10, 10), XMINT2(0, 0), 0.09f);
 
 		anim->CreateAnimation(L"PostCrouch", atlas, 2,
-			XMUINT2(5, 1560), XMUINT2(36, 40), XMUINT2(10, 10), XMINT2(0, 0), 0.09f);
+			XMUINT2(5, 1560), XMUINT2(36, 40), XMUINT2(10, 10), XMINT2(0, 2), 0.09f);
 
 		anim->CreateAnimation(L"PreCrouch", atlas, 2,
-			XMUINT2(5, 1639), XMUINT2(36, 40), XMUINT2(10, 10), XMINT2(0, 0), 0.09f);
-
-		anim->CreateAnimation(L"Run", atlas, 10,
-			XMUINT2(5, 1790), XMUINT2(44, 32), XMUINT2(10, 10), XMINT2(0, 0), 0.07f);
+			XMUINT2(5, 1639), XMUINT2(36, 40), XMUINT2(10, 10), XMINT2(0, 2), 0.09f);
 
 		anim->CreateAnimation(L"Crouch", atlas, 1,
-			XMUINT2(5, 2005), XMUINT2(36, 40), XMUINT2(10, 10), XMINT2(0, 0), 0.09f);
+			XMUINT2(5, 2005), XMUINT2(36, 40), XMUINT2(10, 10), XMINT2(0, 5800), 0.09f);
 
 		anim->CreateAnimation(L"WallSlide", atlas, 1,
-			XMUINT2(5, 2250), XMUINT2(46, 42), XMUINT2(10, 10), XMINT2(0, 0), 0.09f);
+			XMUINT2(5, 2250), XMUINT2(46, 42), XMUINT2(10, 10), XMINT2(3, 0), 0.09f);
 
 		player->GetComponent<Transform>()->SetScale(2.0f, 2.0f, 1.f);
 	}
 
-	player->AddComponent<Rigidbody2D>();
-	player->AddComponent<Rect2DInterpolation>();
-	player->AddComponent<RectCollider2D>();
-
+	//Collider
+	{
+		player->GetComponent<RectCollider2D>()->SetSize(22.f, 44.f);
+		player->GetComponent<RectCollider2D>()->SetOffset(Vector2(0.f, 4.f));
+	}
 
 	player->GetComponent<Animator2D>()->Play(L"Idle", true);
 
+	//Rigidbody
 	player->GetComponent<Rigidbody2D>()->TurnOnGravity();
 	player->GetComponent<Rigidbody2D>()->SetGravityAccel(1800.f);
 
-
-	player->GetComponent<RectCollider2D>()->SetSize(18.f, 42.f);
-	player->GetComponent<RectCollider2D>()->SetOffset(Vector2(0.f, 4.f));
+	//Collider
+	//player->GetComponent<RectCollider2D>()->SetSize(22.f, 44.f);
+	//player->GetComponent<RectCollider2D>()->SetOffset(Vector2(0.f, 4.f));
 
 
 	return player;
+}
+
+GameObject* GameObjectBuilder::Slash()
+{
+	GameObject* const Slash = new GameObject();
+
+	Slash->AddComponent<Animator2D>();
+	Slash->AddComponent<CircleCollider2D>();
+
+	Slash->GetComponent<CircleCollider2D>()->SetRadius(50.f);
+
+	Animator2D* const animator = Slash->GetComponent<Animator2D>();
+
+	animator->GetMaterial()->SetShader(
+		gResourceManager->FindOrNull<Shader>(L"LightAnimation2D"));
+
+	Texture* atlas = gResourceManager->FindByEnum<Texture>(eResTexture::Atlas_Player_slash);
+
+	animator->CreateAnimation(L"Slash", atlas, 6, XMUINT2(5, 34), XMUINT2(106, 32), XMUINT2(10, 10), XMINT2(0, 0), 0.04f);
+
+	//Slash->SetParent(player);
+	//player->GetComponent<PlayerController>()->SetSlash(Slash);
+
+	Slash->GetComponent<Transform>()->SetPosition(0.f, 0.f, 0.f);
+
+	return Slash;
+}
+
+GameObject* GameObjectBuilder::InstantiatePlayer(Scene* const scene)
+{
+	GameObject* const player = GameObjectBuilder::Player();
+	
+	player->GetComponent<Transform>()->SetPosition(0.f, 0.f, -10.f);
+	player->GetComponent<Animator2D>()->GetMaterial()->SetShader(
+		gResourceManager->FindOrNull<Shader>(L"LightAnimation2D"));
+
+	scene->AddGameObject(player, eLayerType::Player);
+
+	//Slash
+	{
+		GameObject* const Slash = new GameObject();
+
+		Slash->AddComponent<Animator2D>();
+		Slash->AddComponent<CircleCollider2D>();
+
+		Slash->GetComponent<Transform>()->SetPosition(0.f, 0.f, 0.f);
+		Slash->GetComponent<CircleCollider2D>()->SetRadius(50.f);
+
+		Animator2D* const animator = Slash->GetComponent<Animator2D>();
+		animator->GetMaterial()->SetShader(
+			gResourceManager->FindOrNull<Shader>(L"LightAnimation2D"));
+		Texture* atlas = gResourceManager->FindByEnum<Texture>(eResTexture::Atlas_Player_slash);
+		animator->CreateAnimation(L"Slash", atlas, 6, XMUINT2(5, 34), XMUINT2(106, 32), XMUINT2(10, 10), XMINT2(0, 0), 0.04f);
+
+		Slash->SetParent(player);
+		player->GetComponent<PlayerController>()->SetSlash(Slash);	
+		scene->AddGameObject(Slash, eLayerType::Default);
+	}	
+
+	return player;
+
+}
+
+GameObject* GameObjectBuilder::InstantiateGlobalLight2D(Scene* const scene, const eLayerType type)
+{
+	GameObject* const light = new GameObject();
+	light->SetName(L"GlobalLight2D");
+	light->AddComponent<Light2D>();
+
+	light->GetComponent<Light2D>()->SetLightType(Light2D::LIGHT_TYPE::DIRECTIONAL);
+	light->GetComponent<Light2D>()->SetRadius(300.f);	
+	light->GetComponent<Light2D>()->SetLightDiffuse(Vector3(1.f, 1.f, 1.f));
+
+	light->GetComponent<Transform>()->SetPosition(100, 0.f, 0.f);
+
+	scene->AddGameObject(light, type);
+
+	return light;
 }
 
 void GameObjectBuilder::AddUI(Scene* const scene)
@@ -267,6 +358,7 @@ void GameObjectBuilder::AddCamera(Scene* const scene)
 
 		mainCamera->AddComponent<Camera>();
 		mainCamera->AddComponent<CameraInputMoveMent>();
+		mainCamera->AddComponent<FolowPlayer>();
 
 		mainCamera->GetComponent<Transform>()->SetPosition(0.f, 0.f, -10.f);
 		mainCamera->GetComponent<Camera>()->SetPriorityType(eCameraPriorityType::Main);
