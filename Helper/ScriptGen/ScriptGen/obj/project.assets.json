@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\tkdlq\\Desktop\\assort\\DirectX2D_Engine\\Helper\\ScriptGen\\ScriptGen\\ScriptGen.csproj",
+      "projectUniqueName": "C:\\Users\\tkdlq\\Desktop\\DirectX2D_Engine\\Helper\\ScriptGen\\ScriptGen\\ScriptGen.csproj",
       "projectName": "ScriptGen",
-      "projectPath": "C:\\Users\\tkdlq\\Desktop\\assort\\DirectX2D_Engine\\Helper\\ScriptGen\\ScriptGen\\ScriptGen.csproj",
+      "projectPath": "C:\\Users\\tkdlq\\Desktop\\DirectX2D_Engine\\Helper\\ScriptGen\\ScriptGen\\ScriptGen.csproj",
       "packagesPath": "C:\\Users\\tkdlq\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\tkdlq\\Desktop\\assort\\DirectX2D_Engine\\Helper\\ScriptGen\\ScriptGen\\obj\\",
+      "outputPath": "C:\\Users\\tkdlq\\Desktop\\DirectX2D_Engine\\Helper\\ScriptGen\\ScriptGen\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

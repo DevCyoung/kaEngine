@@ -7,14 +7,20 @@
 #include "MaterialBuilder.h"
 #include <Engine/CollisionManagement2D.h>
 #include "SimpleEditorCollider2D.h"
+#include "GameManager.h"
 
 Chinatown04Scene::Chinatown04Scene()
 {
 	mCollisionManagement2D->TurnOffAllCollisionLayer();
 	mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Player, eLayerType::Wall);
+	mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Monster, eLayerType::Wall);
+
 	//mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Player, eLayerType::LeftSlope);
 	//mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Player, eLayerType::RightSlope);
 	mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Player, eLayerType::Platform);
+	mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Monster, eLayerType::Platform);
+	
+	GameManager::initialize();
 
 #pragma region Material
 	{
@@ -647,10 +653,36 @@ Chinatown04Scene::Chinatown04Scene()
 		lgiht->GetComponent<Light2D>()->SetLightDiffuse(Vector3::One);
 	}
 
+#pragma region Monster
+
 	{
-		GameObject* player = GameObjectBuilder::InstantiatePlayer(this);
+		GameObject* monster = GameObjectBuilder::InstantiateMonster(eMonsterType::Ganster, this);
+		monster->GetComponent<Transform>()->SetPosition(-80, 150, -30);		
+	}
+
+	{
+		GameObject* monster = GameObjectBuilder::InstantiateMonster(eMonsterType::Ganster, this);
+		monster->GetComponent<Transform>()->SetPosition(-460, 250, -30);
+	}
+
+	{
+		GameObject* monster = GameObjectBuilder::InstantiateMonster(eMonsterType::Ganster, this);
+		monster->GetComponent<Transform>()->SetPosition(600, 450, -30);
+	}
+
+	{
+		GameObject* monster = GameObjectBuilder::InstantiateMonster(eMonsterType::Ganster, this);
+		monster->GetComponent<Transform>()->SetPosition(-80, 0, -30);
+	}
 	
+#pragma endregion
+
+
+	{
+		GameObject* player = GameObjectBuilder::InstantiatePlayer(this);	
 		player->GetComponent<Transform>()->SetPosition(0, 0, -30);
+
+		GameManager::GetInstance()->SetPlayer(player);
 	}
 
 	{
@@ -661,4 +693,5 @@ Chinatown04Scene::Chinatown04Scene()
 
 Chinatown04Scene::~Chinatown04Scene()
 {
+	GameManager::deleteInstance();
 }

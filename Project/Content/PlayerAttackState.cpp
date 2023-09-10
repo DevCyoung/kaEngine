@@ -79,7 +79,6 @@ void PlayerAttackState::Enter()
 	dir = pos - mGameObject->GetComponent<Transform>()->GetPosition();
 
 	float deg = Rad2Deg(atan2(dir.y, dir.x));
-
 	if (dir.x < 0.f)
 	{
 		deg = 180 - deg;

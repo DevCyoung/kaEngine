@@ -23,6 +23,7 @@ enum class eScriptComponentType
 	PlayerMovementTest,
 	Rect2DInterpolation,
 	ShiftController,
+	SimpleDrawPoint,
 	SimpleEditorCollider2D,
 	TestScript,
 	UIEffect,

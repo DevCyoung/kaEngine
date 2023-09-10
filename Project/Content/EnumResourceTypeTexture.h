@@ -2,6 +2,7 @@
 
 enum class eResTexture
 {
+	Atlas_Gangster_gangster,
 	Atlas_Player_ori,
 	Atlas_Player_slash,
 	Atlas_Player_zero,

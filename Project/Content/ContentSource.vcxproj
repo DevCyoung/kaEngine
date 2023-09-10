@@ -217,6 +217,10 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
     </ClInclude>
     <ClInclude Include="framework.h" />
     <ClInclude Include="FSMState.h" />
+    <ClInclude Include="GameManager.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="GameObjectBuilder.h" />
     <ClInclude Include="HeadHunterScene.h" />
     <ClInclude Include="InputMovementTest.h">
@@ -277,6 +281,10 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
       </SubType>
     </ClInclude>
     <ClInclude Include="FiniteStateMachine.h" />
+    <ClInclude Include="SimpleDrawPoint.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="SimpleEditorCollider2D.h">
       <SubType>
       </SubType>
@@ -336,6 +344,10 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
       </SubType>
     </ClCompile>
     <ClCompile Include="FSMState.cpp" />
+    <ClCompile Include="GameManager.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="GameObjectBuilder.cpp" />
     <ClCompile Include="HeadHunterScene.cpp" />
     <ClCompile Include="InputMovementTest.cpp">
@@ -402,6 +414,10 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
       </SubType>
     </ClCompile>
     <ClCompile Include="FiniteStateMachine.cpp" />
+    <ClCompile Include="SimpleDrawPoint.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="SimpleEditorCollider2D.cpp">
       <SubType>
       </SubType>

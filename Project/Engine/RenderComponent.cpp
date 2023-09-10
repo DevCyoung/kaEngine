@@ -21,8 +21,11 @@ void RenderComponent::initialize()
 }
 
 void RenderComponent::update()
-{	
-	GetOwner()->GetGameSystem()->GetRenderTargetRenderer()->registerRenderComponent(this);
+{
+	if (GetOwner()->GetState() == GameObject::eState::Active)
+	{
+		GetOwner()->GetGameSystem()->GetRenderTargetRenderer()->registerRenderComponent(this);
+	}	
 }
 
 void RenderComponent::lateUpdate()

@@ -193,6 +193,12 @@
     <Filter Include="Source\01. ScriptComponent\Camera">
       <UniqueIdentifier>{b39585e2-de8f-4609-a019-8700bab21ccf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\01. ScriptComponent\DrawPoint">
+      <UniqueIdentifier>{ddb57e3c-7a62-4907-87ca-5c9768ba5b66}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Manager">
+      <UniqueIdentifier>{c40f4645-f0d2-44e3-bef5-55aa4a96612c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -369,6 +375,12 @@
     <ClInclude Include="FolowPlayer.h">
       <Filter>Source\01. ScriptComponent\Camera</Filter>
     </ClInclude>
+    <ClInclude Include="SimpleDrawPoint.h">
+      <Filter>Source\01. ScriptComponent\DrawPoint</Filter>
+    </ClInclude>
+    <ClInclude Include="GameManager.h">
+      <Filter>Source\Manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -538,6 +550,12 @@
     </ClCompile>
     <ClCompile Include="FolowPlayer.cpp">
       <Filter>Source\01. ScriptComponent\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="SimpleDrawPoint.cpp">
+      <Filter>Source\01. ScriptComponent\DrawPoint</Filter>
+    </ClCompile>
+    <ClCompile Include="GameManager.cpp">
+      <Filter>Source\Manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
