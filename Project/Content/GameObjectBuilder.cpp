@@ -15,6 +15,8 @@
 #include "FolowPlayer.h"
 #include <Engine/AfterImage.h>
 #include "SimpleDrawPoint.h"
+#include "GangsterAI.h"
+#include "PlayerPath.h"
 
 GameObject* GameObjectBuilder::Default2D(const std::wstring& materialName)
 {
@@ -38,6 +40,7 @@ GameObject* GameObjectBuilder::Player()
 	player->AddComponent<AfterImage>();
 	player->AddComponent<Rect2DInterpolation>();
 	player->AddComponent<RectCollider2D>();
+	player->AddComponent<PlayerPath>();
 
 	//Animation
 	{
@@ -133,6 +136,8 @@ GameObject* GameObjectBuilder::InstantiateMonster(const eMonsterType type, Scene
 	monster->AddComponent<Rect2DInterpolation>();
 	monster->AddComponent<RectCollider2D>();
 	monster->AddComponent<Animator2D>();
+	monster->AddComponent<GangsterAI>();
+	monster->AddComponent<PlayerPath>();
 
 	//Collider
 	{
@@ -164,7 +169,7 @@ GameObject* GameObjectBuilder::InstantiateMonster(const eMonsterType type, Scene
 
 		anim->CreateAnimation(L"Idle", atlas, 8, XMUINT2(5, 304), XMUINT2(49, 50), XMUINT2(10, 10), XMINT2(0, 7), 0.125f);
 
-		anim->CreateAnimation(L"Run", atlas, 10, XMUINT2(5, 393), XMUINT2(45, 40), XMUINT2(10, 10), XMINT2(0, 2), 0.1f);
+		anim->CreateAnimation(L"Run", atlas, 10, XMUINT2(5, 393), XMUINT2(45, 40), XMUINT2(10, 10), XMINT2(0, 2), 0.07f);
 
 		anim->CreateAnimation(L"Trun", atlas, 6, XMUINT2(5, 472), XMUINT2(48, 42), XMUINT2(10, 10), XMINT2(0, 0), 0.125f);
 
@@ -175,7 +180,7 @@ GameObject* GameObjectBuilder::InstantiateMonster(const eMonsterType type, Scene
 		anim->CreateAnimation(L"Aim", atlas, 1, XMUINT2(5, 754), XMUINT2(42, 50), XMUINT2(10, 10), XMINT2(0, 7), 0.125f);
 
 		//objs		
-		{
+		/*{
 			GameObject* const hand = new GameObject();			
 			hand->GetComponent<Transform>()->SetPosition(-4.f, 3.f, 0.f);
 			hand->AddComponent<SimpleDrawPoint>();
@@ -200,10 +205,10 @@ GameObject* GameObjectBuilder::InstantiateMonster(const eMonsterType type, Scene
 
 				scene->AddGameObject(gun, eLayerType::Monster);
 			}
-		}
+		}*/
 
 
-		anim->Play(L"Aim", true);
+		anim->Play(L"Run", true);
 	}
 
 #pragma endregion

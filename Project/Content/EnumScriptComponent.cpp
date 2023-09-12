@@ -2,6 +2,8 @@
 #include "EnumScriptComponent.h"
 
 #include "NoiseTest.h"
+#include "PlayerPath.h"
+#include "GangsterAI.h"
 #include "AfterImage.h"
 #include "Bugiman.h"
 #include "BulletMovement.h"
@@ -14,6 +16,7 @@
 #include "InputMovementTest.h"
 #include "LerpTest.h"
 #include "ParentTest.h"
+#include "PathNode.h"
 #include "PickPixelTest.h"
 #include "PlayerController.h"
 #include "PlayerMovementTest.h"
@@ -27,6 +30,8 @@
 static constexpr const wchar_t* const ScriptComponentNames[static_cast<UINT>(eScriptComponentType::End)]
 {
 	L"NoiseTest",
+	L"PlayerPath",
+	L"GangsterAI",
 	L"AfterImage",
 	L"Bugiman",
 	L"BulletMovement",
@@ -39,6 +44,7 @@ static constexpr const wchar_t* const ScriptComponentNames[static_cast<UINT>(eSc
 	L"InputMovementTest",
 	L"LerpTest",
 	L"ParentTest",
+	L"PathNode",
 	L"PickPixelTest",
 	L"PlayerController",
 	L"PlayerMovementTest",
@@ -62,6 +68,10 @@ ScriptComponent* CreateScriptComponentByName(const std::wstring& scriptcomponent
 
 	if (L"NoiseTest" == scriptcomponentName)
 		scriptcomponent = new NoiseTest;
+	else if (L"PlayerPath" == scriptcomponentName)
+		scriptcomponent = new PlayerPath;
+	else if (L"GangsterAI" == scriptcomponentName)
+		scriptcomponent = new GangsterAI;
 	else if (L"AfterImage" == scriptcomponentName)
 		scriptcomponent = new AfterImage;
 	else if (L"Bugiman" == scriptcomponentName)
@@ -86,6 +96,8 @@ ScriptComponent* CreateScriptComponentByName(const std::wstring& scriptcomponent
 		scriptcomponent = new LerpTest;
 	else if (L"ParentTest" == scriptcomponentName)
 		scriptcomponent = new ParentTest;
+	else if (L"PathNode" == scriptcomponentName)
+		scriptcomponent = new PathNode;
 	else if (L"PickPixelTest" == scriptcomponentName)
 		scriptcomponent = new PickPixelTest;
 	else if (L"PlayerController" == scriptcomponentName)
@@ -117,6 +129,12 @@ ScriptComponent* CreateScriptComponentByEnum(const eScriptComponentType type)
 	{
 	case eScriptComponentType::NoiseTest:
 		scriptcomponent = new NoiseTest;
+		break;
+	case eScriptComponentType::PlayerPath:
+		scriptcomponent = new PlayerPath;
+		break;
+	case eScriptComponentType::GangsterAI:
+		scriptcomponent = new GangsterAI;
 		break;
 	case eScriptComponentType::AfterImage:
 		scriptcomponent = new AfterImage;
@@ -153,6 +171,9 @@ ScriptComponent* CreateScriptComponentByEnum(const eScriptComponentType type)
 		break;
 	case eScriptComponentType::ParentTest:
 		scriptcomponent = new ParentTest;
+		break;
+	case eScriptComponentType::PathNode:
+		scriptcomponent = new PathNode;
 		break;
 	case eScriptComponentType::PickPixelTest:
 		scriptcomponent = new PickPixelTest;

@@ -199,6 +199,18 @@
     <Filter Include="Source\Manager">
       <UniqueIdentifier>{c40f4645-f0d2-44e3-bef5-55aa4a96612c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\PathInfo">
+      <UniqueIdentifier>{5965c590-ce0e-4b11-9085-f0d65e1a1f9e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\PathNode">
+      <UniqueIdentifier>{6536535c-c17c-4074-aaeb-fa920f5ad003}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\FSM\Monster">
+      <UniqueIdentifier>{edfc66bc-1933-448d-b349-9c174e736569}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\PlayerPath">
+      <UniqueIdentifier>{b96618cf-3dc6-4e1b-b53c-503e07065bf0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -381,6 +393,18 @@
     <ClInclude Include="GameManager.h">
       <Filter>Source\Manager</Filter>
     </ClInclude>
+    <ClInclude Include="PathInfo.h">
+      <Filter>Source\PathInfo</Filter>
+    </ClInclude>
+    <ClInclude Include="PathNode.h">
+      <Filter>Source\PathNode</Filter>
+    </ClInclude>
+    <ClInclude Include="GangsterAI.h">
+      <Filter>Source\FSM\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerPath.h">
+      <Filter>Source\PlayerPath</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -556,6 +580,18 @@
     </ClCompile>
     <ClCompile Include="GameManager.cpp">
       <Filter>Source\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="PathInfo.cpp">
+      <Filter>Source\PathInfo</Filter>
+    </ClCompile>
+    <ClCompile Include="PathNode.cpp">
+      <Filter>Source\PathNode</Filter>
+    </ClCompile>
+    <ClCompile Include="GangsterAI.cpp">
+      <Filter>Source\FSM\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerPath.cpp">
+      <Filter>Source\PlayerPath</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

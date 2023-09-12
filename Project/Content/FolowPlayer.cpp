@@ -14,11 +14,15 @@ FolowPlayer::~FolowPlayer()
 
 void FolowPlayer::initialize()
 {
-	mPlayerTransform = GetOwner()->GetGameSystem()->FindGameObject(L"Player")->GetComponent<Transform>();
+	//mPlayerTransform = GetOwner()->GetGameSystem()->FindGameObject(L"Player")->GetComponent<Transform>();
 }
 
 void FolowPlayer::update()
 {
+	if (nullptr == mPlayerTransform)
+	{
+		return;
+	}
 	//RenderTargetRenderer* const renderer = GetOwner()->GetGameSystem()->GetRenderTargetRenderer();
 	//DebugRenderer2D* const debugRenderer = renderer->GetDebugRenderer2D();
 

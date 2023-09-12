@@ -6,6 +6,8 @@ class ScriptComponent;
 enum class eScriptComponentType 
 {
 	NoiseTest,
+	PlayerPath,
+	GangsterAI,
 	AfterImage,
 	Bugiman,
 	BulletMovement,
@@ -18,6 +20,7 @@ enum class eScriptComponentType
 	InputMovementTest,
 	LerpTest,
 	ParentTest,
+	PathNode,
 	PickPixelTest,
 	PlayerController,
 	PlayerMovementTest,

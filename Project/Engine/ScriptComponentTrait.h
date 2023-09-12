@@ -15,3 +15,4 @@ struct script_component_type<SCRIPT_TYPE>														\
 	static constexpr eScriptComponentType type = eScriptComponentType::##SCRIPT_TYPE;			\
 	static constexpr const wchar_t* const name = L#SCRIPT_TYPE;									\
 }																								\
+

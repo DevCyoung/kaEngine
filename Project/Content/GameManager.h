@@ -1,7 +1,9 @@
 #pragma once
 #include <Engine/Singleton.h>
+#include "PathInfo.h"
 
 class GameObject;
+class PathInfo;
 
 class GameManager
 {
@@ -32,9 +34,13 @@ public:
 
 public:
 	void SetPlayer(GameObject* const player) { this->mPlayer = player; }
+	//void SetPathInfo(PathInfo* const pathInfo) { this->mPathInfo = pathInfo; }
+
 	GameObject* const GetPlayer() const { return mPlayer; }
+	PathInfo* const GetPathInfo() const { return mPathInfo; }
 
 private:
 	inline static GameManager* sInstance = nullptr;
 	GameObject* mPlayer;
+	PathInfo* mPathInfo;
 };

@@ -33,29 +33,35 @@ void LineCollider2D::lateUpdate()
 	Vector3 endPos   = mEndPos + mColliderWorldMat.Translation();
 	endPos.z = 0.f;
 
-
-	DebugRenderer2D* debugRenderer = GetOwner()->GetGameSystem()->GetRenderTargetRenderer()->GetDebugRenderer2D();
-
-	Vector4 color = Vector4(0.f, 1.f, 0.f, 1.f);
-
-	if (GetOwner()->GetLayer() == eLayerType::LeftSlope)
+	if (mbVisible)
 	{
-		color = Vector4(1.f, 1.f, 0.f, 1.f);
-	}
-	if (GetOwner()->GetLayer() == eLayerType::RightSlope)
-	{
-		color = Vector4(1.f, 0.5f, 0.5f, 1.f);
-	}
-	else if (GetOwner()->GetLayer() == eLayerType::Platform)
-	{
-		color = Vector4(1.f, 0.f, 1.f, 1.f);
-	}
-	
+		DebugRenderer2D* debugRenderer = GetOwner()->GetGameSystem()->GetRenderTargetRenderer()->GetDebugRenderer2D();
 
-	if (mCollisionCount > 0)
-	{
-		color = Vector4(1.f, 0.f, 0.f, 1.f);
-	}
+		Vector4 color = Vector4(0.f, 1.f, 0.f, 1.f);
 
-	debugRenderer->DrawLine2D(startPos, endPos, 0.f, color);
+		if (GetOwner()->GetLayer() == eLayerType::LeftSlope)
+		{
+			color = Vector4(1.f, 1.f, 0.f, 1.f);
+		}
+		if (GetOwner()->GetLayer() == eLayerType::RightSlope)
+		{
+			color = Vector4(1.f, 0.5f, 0.5f, 1.f);
+		}
+		else if (GetOwner()->GetLayer() == eLayerType::Platform)
+		{
+			color = Vector4(1.f, 0.f, 1.f, 1.f);
+		}
+		else
+		{
+			color = mColor;
+		}
+
+
+		if (mCollisionCount > 0)
+		{
+			color = Vector4(1.f, 0.f, 0.f, 1.f);
+		}
+
+		debugRenderer->DrawLine2D(startPos, endPos, 0.f, color);
+	}	
 }

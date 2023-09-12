@@ -22,7 +22,7 @@ RenderTargetRenderer::RenderTargetRenderer()
 	, mCameras{ 0, }
 	, mRenderComponentsArray{}
 	, mLight2DInfos()
-	, mbDebugRender(false)
+	, mbDebugRender(true)
 	, mCameraMask(0XFFFFFFFF)
 {
 	for (auto& renderObjectArray : mRenderComponentsArray)

@@ -10,6 +10,8 @@ enum class eLayerType
 	RightSlope,
 	Platform,
 	Wall,
+	Elevator,
+	PathNode,
 	CamearaWall,
 	Item,
 	Enemy,
