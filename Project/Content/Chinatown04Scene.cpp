@@ -928,10 +928,10 @@ Chinatown04Scene::Chinatown04Scene()
 		monster->GetComponent<Transform>()->SetPosition(600, 450, -30);
 	}*/
 
-	{
+	/*{
 		GameObject* monster = GameObjectBuilder::InstantiateMonster(eMonsterType::Ganster, this);
 		monster->GetComponent<Transform>()->SetPosition(-100, -150, -30);
-	}
+	}*/
 
 #pragma endregion
 

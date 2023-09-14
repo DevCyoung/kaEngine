@@ -31,7 +31,7 @@ void PlayerPath::lateUpdate()
 
     Vector2 pos2D = Vector2(pos.x, pos.y);
 
-    float distance = 1000.f;
+    float distance = 2000.f;
 
     if (physics2D->RayCastHit2D(pos2D, Vector2::Down, distance, eLayerType::PathNode, &hitInfo))
     {

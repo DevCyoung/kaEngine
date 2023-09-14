@@ -211,6 +211,12 @@
     <Filter Include="Source\PlayerPath">
       <UniqueIdentifier>{b96618cf-3dc6-4e1b-b53c-503e07065bf0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\FSM\Player\State\Recover">
+      <UniqueIdentifier>{a6c80dec-83f3-4a97-afd0-0a92118aec78}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\FSM\Player\State\HurtGroudn">
+      <UniqueIdentifier>{81fe54c4-5f9f-4372-87ba-dfbc3286e4b3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -405,6 +411,12 @@
     <ClInclude Include="PlayerPath.h">
       <Filter>Source\PlayerPath</Filter>
     </ClInclude>
+    <ClInclude Include="PlayerRecoverState.h">
+      <Filter>Source\FSM\Player\State\Recover</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerHurtGroundState.h">
+      <Filter>Source\FSM\Player\State\HurtGroudn</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -592,6 +604,12 @@
     </ClCompile>
     <ClCompile Include="PlayerPath.cpp">
       <Filter>Source\PlayerPath</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerRecoverState.cpp">
+      <Filter>Source\FSM\Player\State\Recover</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerHurtGroundState.cpp">
+      <Filter>Source\FSM\Player\State\HurtGroudn</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

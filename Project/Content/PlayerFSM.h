@@ -14,6 +14,8 @@
 #include "PlayerFlipState.h"
 #include "PlayerWallSlideState.h"
 #include "PlayerGlobalState.h"
+#include "PlayerRecoverState.h"
+#include "PlayerHurtGroundState.h"
 
 class GameObject;
 
@@ -64,4 +66,6 @@ public:
 	PlayerFlipState* mPlayerFlipState;
 	PlayerWallSlideState* mPlayerWallSlideState;
 	PlayerGlobalState* mPlayerGlobalState;
+	PlayerRecoverState* mPlayerRecoverState;
+	PlayerHurtGroundState* mPlayerHurtGroundState;
 };

@@ -270,6 +270,7 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
     <ClInclude Include="PlayerFlipState.h" />
     <ClInclude Include="PlayerFSM.h" />
     <ClInclude Include="PlayerGlobalState.h" />
+    <ClInclude Include="PlayerHurtGroundState.h" />
     <ClInclude Include="PlayerIdleState.h" />
     <ClInclude Include="PlayerJumpState.h" />
     <ClInclude Include="PlayerMovementTest.h">
@@ -280,6 +281,7 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="PlayerRecoverState.h" />
     <ClInclude Include="PlayerRollState.h" />
     <ClInclude Include="PlayerRunState.h" />
     <ClInclude Include="PlayerState.h" />
@@ -417,6 +419,7 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
     <ClCompile Include="PlayerFlipState.cpp" />
     <ClCompile Include="PlayerFSM.cpp" />
     <ClCompile Include="PlayerGlobalState.cpp" />
+    <ClCompile Include="PlayerHurtGroundState.cpp" />
     <ClCompile Include="PlayerIdleState.cpp" />
     <ClCompile Include="PlayerJumpState.cpp" />
     <ClCompile Include="PlayerMovementTest.cpp">
@@ -427,6 +430,7 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="PlayerRecoverState.cpp" />
     <ClCompile Include="PlayerRollState.cpp" />
     <ClCompile Include="PlayerRunState.cpp" />
     <ClCompile Include="PlayerState.cpp" />

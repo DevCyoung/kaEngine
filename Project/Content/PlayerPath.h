@@ -13,7 +13,7 @@ public:
 	PlayerPath(const PlayerPath&) = delete;
 	PlayerPath& operator=(const PlayerPath&) = delete;
 
-	PathNode* const GetCurPathNode() const { return mCurPathNode; }
+	PathNode* const GetCurPathNodeOrNull() const { return mCurPathNode; }
 
 private:
 	virtual void initialize() override final;

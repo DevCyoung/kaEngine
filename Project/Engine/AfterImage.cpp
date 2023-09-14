@@ -109,6 +109,15 @@ void AfterImage::lateUpdate()
 
 void AfterImage::render(const Camera* const camera)
 {
+	Rigidbody2D* const rigidbody2D = GetOwner()->GetComponent<Rigidbody2D>();
+
+	if (rigidbody2D->GetVelocity().Length() == 0.f)
+	{
+		return;
+	}
+
+
+
 	for (auto& info : afters)
 	{
 		tCBTransform CBTransform = info.CBTransform;

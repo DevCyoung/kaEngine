@@ -312,6 +312,18 @@ namespace helper::math
 		return Vector3::Distance(pos1, pos2);
 	}
 
+	/*float GetAngle3D(const GameObject* const origin, const GameObject* const dest)
+	{
+		Vector3 direction = GetDirection3D(origin, dest);
+
+		return 0.0f;
+	}
+
+	float GetAngle2D(const GameObject* const origin, const GameObject* const dest)
+	{
+		return 0.0f;
+	}*/
+
 
 }
 

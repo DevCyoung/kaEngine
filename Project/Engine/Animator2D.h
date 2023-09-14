@@ -53,12 +53,12 @@ public:
 		const float duration = 0.f);
 
 	tCBTransform GetCBTransform() const;
-	tCBAnimationInfo GetCBAnimationInfo() const;
+	tCBAnimationInfo GetCBAnimationInfo() const;	
 
 	Animation2D* FindAnimationOrNull(const std::wstring& animName) const;	
 	Animation2D* GetCurAnimation() const { return mCurAnimation; }
 
-	void SetBackSize(const XMUINT2& size) { backSize = size; }
+	void SetBackSize(const XMUINT2& size) { backSize = size; }	
 
 	Events* FindEvents(const std::wstring animName) const;
 	const std::function<void()>& FindStartEvent(const std::wstring animName);

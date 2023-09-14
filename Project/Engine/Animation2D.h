@@ -57,6 +57,8 @@ public:
 	const tFrame& GetCurFrame() const { return mFrames[mCurFrameIdx]; }
 	Texture* GetAtlas() const { Assert(mAtlas, WCHAR_IS_NULLPTR); return mAtlas; }
 
+	bool IsFinished() const { return mbFinished; }
+
 	void SetFrameEndEvent(UINT frameIDX, std::function<void()> func)
 	{
 		Assert(frameIDX < mFrames.size(), WCHAR_IS_INVALID_TYPE);

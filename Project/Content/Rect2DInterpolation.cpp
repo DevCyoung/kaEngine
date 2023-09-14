@@ -48,8 +48,8 @@ void Rect2DInterpolation::lateUpdate()
 
 void Rect2DInterpolation::lastUpdate()
 {
-	RenderTargetRenderer* const renderer = GetOwner()->GetGameSystem()->GetRenderTargetRenderer();
-	DebugRenderer2D* const debugRenderer = renderer->GetDebugRenderer2D();
+	//RenderTargetRenderer* const renderer = GetOwner()->GetGameSystem()->GetRenderTargetRenderer();
+	//DebugRenderer2D* const debugRenderer = renderer->GetDebugRenderer2D();
 
 	Rigidbody2D* const rigidbody = GetOwner()->GetComponent<Rigidbody2D>();
 	Transform* const transform = GetOwner()->GetComponent<Transform>();
@@ -154,8 +154,8 @@ void Rect2DInterpolation::lastUpdate()
 	}
 
 
-	debugRenderer->DrawLine2D2(Vector3(LRP.x, LRP.y, 0.f), Vector2::Down, RAY_DIST, 0.f, LEFT_RAY_COLOR);
-	debugRenderer->DrawLine2D2(Vector3(RRP.x, RRP.y, 0.f), Vector2::Down, RAY_DIST, 0.f, RIGHT_RAY_COLOR);
+	/*debugRenderer->DrawLine2D2(Vector3(LRP.x, LRP.y, 0.f), Vector2::Down, RAY_DIST, 0.f, LEFT_RAY_COLOR);
+	debugRenderer->DrawLine2D2(Vector3(RRP.x, RRP.y, 0.f), Vector2::Down, RAY_DIST, 0.f, RIGHT_RAY_COLOR);*/
 
 	rigidbody->SetVelocity(velocity);
 	transform->SetPosition(position);

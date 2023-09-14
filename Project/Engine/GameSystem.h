@@ -30,10 +30,10 @@ public:
 	std::vector<GameObject*> FindGameObjects(const std::wstring& name, const eLayerType type) const;
 	std::vector<GameObject*> FindGameObjects(const std::wstring& name) const;
 
+	Scene* GetScene() const { return mScene; }
 
 private:
 	Scene* mScene;
 	Physics2D* mPhysics2D;
 	RenderTargetRenderer* mRenderTargetRenderer;
 };
-

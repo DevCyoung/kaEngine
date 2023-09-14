@@ -10,6 +10,7 @@ enum class eLayerType
 	RightSlope,
 	Platform,
 	Wall,
+	Door,
 	Elevator,
 	PathNode,
 	CamearaWall,
