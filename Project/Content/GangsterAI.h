@@ -76,6 +76,8 @@ private:
 	float mCurIdleTime;
 	float mCurWalkTime;
 
+	float mElevatorTime;
+
 	float mShotDelayTime;
 	
 	std::queue<PathNode*> mPath;

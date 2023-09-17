@@ -17,9 +17,6 @@ Chinatown04Scene::Chinatown04Scene()
 	mCollisionManagement2D->TurnOffAllCollisionLayer();
 	mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Player, eLayerType::Wall);
 	mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Monster, eLayerType::Wall);
-
-	//mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Player, eLayerType::LeftSlope);
-	//mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Player, eLayerType::RightSlope);
 	mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Player, eLayerType::Platform);
 	mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Monster, eLayerType::Platform);
 

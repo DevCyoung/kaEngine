@@ -32,7 +32,7 @@ public:
 	static GameObject* InstantiateGlobalLight2D(Scene* const scene, const eLayerType type);
 
 	static void AddUI(Scene* const scene);
-	static void AddCamera(Scene* const scene);
+	static GameObject* AddCamera(Scene* const scene);
 
 
 private:

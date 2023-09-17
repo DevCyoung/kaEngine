@@ -463,15 +463,16 @@ void GameObjectBuilder::AddUI(Scene* const scene)
 
 }
 
-void GameObjectBuilder::AddCamera(Scene* const scene)
+GameObject* GameObjectBuilder::AddCamera(Scene* const scene)
 {
 	//UI
 	const Vector2 screenSize = gEngine->GetRenderTargetSize();	
+	GameObject* result = nullptr;
 
 	//Main Camera
 	{
 		GameObject* const mainCamera = new GameObject();
-
+		result = mainCamera;
 		mainCamera->AddComponent<Camera>();
 		mainCamera->AddComponent<CameraInputMoveMent>();
 		mainCamera->AddComponent<FolowPlayer>();
@@ -491,6 +492,8 @@ void GameObjectBuilder::AddCamera(Scene* const scene)
 			GameObject* const backgroundCamera = new GameObject();
 
 			backgroundCamera->AddComponent<Camera>();			
+			backgroundCamera->AddComponent<RewindComponent>();
+
 
 			backgroundCamera->GetComponent<Transform>()->SetPosition(0.f, 0.f, -110.f);
 			backgroundCamera->GetComponent<Camera>()->SetPriorityType(eCameraPriorityType::BackGround);
@@ -519,4 +522,6 @@ void GameObjectBuilder::AddCamera(Scene* const scene)
 
 		scene->AddGameObject(uiCamera, eLayerType::Default);
 	}	
+
+	return result;
 }

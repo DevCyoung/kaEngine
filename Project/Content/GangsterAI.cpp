@@ -20,6 +20,7 @@ GangsterAI::GangsterAI()
 	, mCurIdleTime(0.f)
 	, mCurWalkTime(0.f)
 	, mShotDelayTime(0.f)
+	, mElevatorTime(0.f)
 	, mState(eGangsterState::Idle)
 {
 }
@@ -97,7 +98,7 @@ void GangsterAI::trace()
 		break;
 
 		case eLayerType::Elevator: //elevator
-		{
+		{			
 			rect2DInterpolation->TurnOnPlatform();
 
 			Vector3 elevatorPos = Vector3(nextNode->GetPosition().x, nextNode->GetPosition().y, 0.);
@@ -105,17 +106,24 @@ void GangsterAI::trace()
 			Vector3 pos = transform->GetPosition();
 			pos.z = 0.f;
 
-			if (Vector3::Distance(elevatorPos, pos) < 30.f)
+			if (Vector3::Distance(elevatorPos, pos) < 40.f)
 			{
-				mPath.pop();
-				nextNode = mPath.front();
+				mElevatorTime += gDeltaTime;
 
-				if (!mPath.empty() && nextNode->GetType() == eLayerType::Elevator)
+				if (mElevatorTime >= 1.5f)
 				{
-					nextNodePos = nextNode->GetPosition();
-					transform->SetPosition(Vector3(nextNodePos.x, nextNodePos.y - 25.f, transform->GetPosition().z));
+					mElevatorTime = 0.f;
 					mPath.pop();
+					nextNode = mPath.front();
+
+					if (!mPath.empty() && nextNode->GetType() == eLayerType::Elevator)
+					{
+						nextNodePos = nextNode->GetPosition();
+						transform->SetPosition(Vector3(nextNodePos.x, nextNodePos.y - 25.f, transform->GetPosition().z));						
+					}
 				}
+
+				return;
 			}
 
 		}

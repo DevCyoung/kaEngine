@@ -7,5 +7,7 @@ public:
 	virtual ~Chinatown01Scene();
 	Chinatown01Scene(const Chinatown01Scene&) = delete;
 	Chinatown01Scene& operator=(const Chinatown01Scene&) = delete;
+
+	virtual void lateUpdate() override;
 };
 
