@@ -119,7 +119,7 @@ void GangsterAI::trace()
 					if (!mPath.empty() && nextNode->GetType() == eLayerType::Elevator)
 					{
 						nextNodePos = nextNode->GetPosition();
-						transform->SetPosition(Vector3(nextNodePos.x, nextNodePos.y - 25.f, transform->GetPosition().z));						
+						transform->SetPosition(Vector3(nextNodePos.x, nextNodePos.y - 10.f, transform->GetPosition().z));						
 					}
 				}
 

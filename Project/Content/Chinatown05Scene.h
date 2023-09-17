@@ -1,7 +1,7 @@
 #pragma once
-#include <Engine/Scene.h>
+#include "KatanaScene.h"
 
-class Chinatown05Scene : public Scene
+class Chinatown05Scene : public KatanaScene
 {
 public:
 	Chinatown05Scene();

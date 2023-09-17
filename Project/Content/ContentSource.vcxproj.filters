@@ -163,21 +163,6 @@
     <Filter Include="Source\Scene\CollideTest">
       <UniqueIdentifier>{429f4d90-ac74-41bc-989e-ed00f2f0aa4a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Scene\TitleScene">
-      <UniqueIdentifier>{96946f4c-9e4a-43d1-9bde-9ef81cae4896}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Scene\Chianatown01">
-      <UniqueIdentifier>{da98e5d6-9aba-4417-8f28-dcfa99b62c7b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Scene\Chinatown04">
-      <UniqueIdentifier>{e8cd688f-3ebd-4352-a0f3-3a059f04198c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Scene\Chinatown05">
-      <UniqueIdentifier>{20332b64-296c-4050-bb16-34cb7cddc831}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Scene\HeadHunter">
-      <UniqueIdentifier>{5bb296e2-92d1-45c0-b3c4-2d5be6c8f361}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\Scene\Scene">
       <UniqueIdentifier>{cc7e087a-78df-4419-bf59-204d1219fdb7}</UniqueIdentifier>
     </Filter>
@@ -219,6 +204,24 @@
     </Filter>
     <Filter Include="Source\Rewinde">
       <UniqueIdentifier>{d1ae7589-6668-489c-8d74-f07e20bee401}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scene\KatanaScene">
+      <UniqueIdentifier>{d36bb7c3-ff5b-4762-84ae-c8c39b76cd9a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scene\KatanaScene\HeadHunter">
+      <UniqueIdentifier>{5bb296e2-92d1-45c0-b3c4-2d5be6c8f361}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scene\KatanaScene\Chinatown05">
+      <UniqueIdentifier>{20332b64-296c-4050-bb16-34cb7cddc831}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scene\KatanaScene\Chinatown04">
+      <UniqueIdentifier>{e8cd688f-3ebd-4352-a0f3-3a059f04198c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scene\KatanaScene\Chianatown01">
+      <UniqueIdentifier>{da98e5d6-9aba-4417-8f28-dcfa99b62c7b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scene\KatanaScene\TitleScene">
+      <UniqueIdentifier>{96946f4c-9e4a-43d1-9bde-9ef81cae4896}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -307,25 +310,25 @@
       <Filter>Source\01. ScriptComponent\Test</Filter>
     </ClInclude>
     <ClInclude Include="TItleScene.h">
-      <Filter>Source\Scene\TitleScene</Filter>
+      <Filter>Source\Scene\KatanaScene\TitleScene</Filter>
     </ClInclude>
     <ClInclude Include="Chinatown01Scene.h">
-      <Filter>Source\Scene\Chianatown01</Filter>
+      <Filter>Source\Scene\KatanaScene\Chianatown01</Filter>
     </ClInclude>
     <ClInclude Include="NoiseTest.h">
       <Filter>Source\01. ScriptComponent\Test</Filter>
     </ClInclude>
     <ClInclude Include="Chinatown04Scene.h">
-      <Filter>Source\Scene\Chinatown04</Filter>
+      <Filter>Source\Scene\KatanaScene\Chinatown04</Filter>
     </ClInclude>
     <ClInclude Include="Chinatown04Controller.h">
       <Filter>Source\Scene\Scene</Filter>
     </ClInclude>
     <ClInclude Include="Chinatown05Scene.h">
-      <Filter>Source\Scene\Chinatown05</Filter>
+      <Filter>Source\Scene\KatanaScene\Chinatown05</Filter>
     </ClInclude>
     <ClInclude Include="HeadHunterScene.h">
-      <Filter>Source\Scene\HeadHunter</Filter>
+      <Filter>Source\Scene\KatanaScene\HeadHunter</Filter>
     </ClInclude>
     <ClInclude Include="PickPixelTest.h">
       <Filter>Source\01. ScriptComponent\Test</Filter>
@@ -426,6 +429,9 @@
     <ClInclude Include="RewindComponent.h">
       <Filter>Source\Rewinde</Filter>
     </ClInclude>
+    <ClInclude Include="KatanaScene.h">
+      <Filter>Source\Scene\KatanaScene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -507,25 +513,25 @@
       <Filter>Source\01. ScriptComponent\Test</Filter>
     </ClCompile>
     <ClCompile Include="TItleScene.cpp">
-      <Filter>Source\Scene\TitleScene</Filter>
+      <Filter>Source\Scene\KatanaScene\TitleScene</Filter>
     </ClCompile>
     <ClCompile Include="Chinatown01Scene.cpp">
-      <Filter>Source\Scene\Chianatown01</Filter>
+      <Filter>Source\Scene\KatanaScene\Chianatown01</Filter>
     </ClCompile>
     <ClCompile Include="NoiseTest.cpp">
       <Filter>Source\01. ScriptComponent\Test</Filter>
     </ClCompile>
     <ClCompile Include="Chinatown04Scene.cpp">
-      <Filter>Source\Scene\Chinatown04</Filter>
+      <Filter>Source\Scene\KatanaScene\Chinatown04</Filter>
     </ClCompile>
     <ClCompile Include="Chinatown04Controller.cpp">
       <Filter>Source\Scene\Scene</Filter>
     </ClCompile>
     <ClCompile Include="Chinatown05Scene.cpp">
-      <Filter>Source\Scene\Chinatown05</Filter>
+      <Filter>Source\Scene\KatanaScene\Chinatown05</Filter>
     </ClCompile>
     <ClCompile Include="HeadHunterScene.cpp">
-      <Filter>Source\Scene\HeadHunter</Filter>
+      <Filter>Source\Scene\KatanaScene\HeadHunter</Filter>
     </ClCompile>
     <ClCompile Include="PickPixelTest.cpp">
       <Filter>Source\01. ScriptComponent\Test</Filter>
@@ -625,6 +631,9 @@
     </ClCompile>
     <ClCompile Include="RewindComponent.cpp">
       <Filter>Source\Rewinde</Filter>
+    </ClCompile>
+    <ClCompile Include="KatanaScene.cpp">
+      <Filter>Source\Scene\KatanaScene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

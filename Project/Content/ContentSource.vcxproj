@@ -231,6 +231,7 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="KatanaScene.h" />
     <ClInclude Include="LerpTest.h">
       <SubType>
       </SubType>
@@ -378,6 +379,7 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="KatanaScene.cpp" />
     <ClCompile Include="LerpTest.cpp">
       <SubType>
       </SubType>
