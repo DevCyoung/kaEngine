@@ -25,6 +25,7 @@ enum class eScriptComponentType
 	PlayerController,
 	PlayerMovementTest,
 	Rect2DInterpolation,
+	RewindComponent,
 	ShiftController,
 	SimpleDrawPoint,
 	SimpleEditorCollider2D,

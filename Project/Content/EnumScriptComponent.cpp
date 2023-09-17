@@ -21,6 +21,7 @@
 #include "PlayerController.h"
 #include "PlayerMovementTest.h"
 #include "Rect2DInterpolation.h"
+#include "RewindComponent.h"
 #include "ShiftController.h"
 #include "SimpleDrawPoint.h"
 #include "SimpleEditorCollider2D.h"
@@ -49,6 +50,7 @@ static constexpr const wchar_t* const ScriptComponentNames[static_cast<UINT>(eSc
 	L"PlayerController",
 	L"PlayerMovementTest",
 	L"Rect2DInterpolation",
+	L"RewindComponent",
 	L"ShiftController",
 	L"SimpleDrawPoint",
 	L"SimpleEditorCollider2D",
@@ -106,6 +108,8 @@ ScriptComponent* CreateScriptComponentByName(const std::wstring& scriptcomponent
 		scriptcomponent = new PlayerMovementTest;
 	else if (L"Rect2DInterpolation" == scriptcomponentName)
 		scriptcomponent = new Rect2DInterpolation;
+	else if (L"RewindComponent" == scriptcomponentName)
+		scriptcomponent = new RewindComponent;
 	else if (L"ShiftController" == scriptcomponentName)
 		scriptcomponent = new ShiftController;
 	else if (L"SimpleDrawPoint" == scriptcomponentName)
@@ -186,6 +190,9 @@ ScriptComponent* CreateScriptComponentByEnum(const eScriptComponentType type)
 		break;
 	case eScriptComponentType::Rect2DInterpolation:
 		scriptcomponent = new Rect2DInterpolation;
+		break;
+	case eScriptComponentType::RewindComponent:
+		scriptcomponent = new RewindComponent;
 		break;
 	case eScriptComponentType::ShiftController:
 		scriptcomponent = new ShiftController;

@@ -7,6 +7,7 @@
 #include <Engine/DebugRenderer2D.h>
 #include <Engine/Physics2D.h>
 #include <Engine/Color.h>
+#include "GameManager.h"
 
 Rect2DInterpolation::Rect2DInterpolation()
 	: ScriptComponent(eScriptComponentType::Rect2DInterpolation)
@@ -48,6 +49,11 @@ void Rect2DInterpolation::lateUpdate()
 
 void Rect2DInterpolation::lastUpdate()
 {
+	if (GameManager::GetInstance()->GetRewindManager()->GetRewindState() == eRewindState::Rewind)
+	{
+		return;
+	}
+
 	//RenderTargetRenderer* const renderer = GetOwner()->GetGameSystem()->GetRenderTargetRenderer();
 	//DebugRenderer2D* const debugRenderer = renderer->GetDebugRenderer2D();
 

@@ -291,6 +291,11 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
       </SubType>
     </ClInclude>
     <ClInclude Include="ResourceManager.h" />
+    <ClInclude Include="RewindComponent.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="RewindManager.h" />
     <ClInclude Include="ShiftController.h">
       <SubType>
       </SubType>
@@ -439,6 +444,11 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="RewindComponent.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="RewindManager.cpp" />
     <ClCompile Include="ShiftController.cpp">
       <SubType>
       </SubType>

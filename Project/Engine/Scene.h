@@ -57,11 +57,11 @@ private:
 		std::source_location ErrorHint;
 	};
 
-private:
+protected:
 	virtual void initialize();
 	virtual void update();
 	virtual void fixedUpdate();
-	virtual void lateUpdate();	
+	virtual void lateUpdate();
 
 	//virtual void physicsUpdate
 	virtual void render(const UINT renderTargetWidth,

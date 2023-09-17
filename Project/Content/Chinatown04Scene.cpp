@@ -10,6 +10,7 @@
 #include "GameManager.h"
 #include "PathNode.h"
 #include <Engine/Color.h>
+#include "GameManager.h"
 
 Chinatown04Scene::Chinatown04Scene()
 {
@@ -25,6 +26,8 @@ Chinatown04Scene::Chinatown04Scene()
 	//PathNode
 
 	GameManager::initialize();
+
+	GameManager::GetInstance()->GetRewindManager()->SetRewindState(eRewindState::Record);
 
 #pragma region Material
 	{
@@ -918,7 +921,7 @@ Chinatown04Scene::Chinatown04Scene()
 		monster->GetComponent<Transform>()->SetPosition(-80, 150, -30);
 	}
 
-	/*{
+	{
 		GameObject* monster = GameObjectBuilder::InstantiateMonster(eMonsterType::Ganster, this);
 		monster->GetComponent<Transform>()->SetPosition(-460, 250, -30);
 	}
@@ -926,12 +929,12 @@ Chinatown04Scene::Chinatown04Scene()
 	{
 		GameObject* monster = GameObjectBuilder::InstantiateMonster(eMonsterType::Ganster, this);
 		monster->GetComponent<Transform>()->SetPosition(600, 450, -30);
-	}*/
+	}
 
-	/*{
+	{
 		GameObject* monster = GameObjectBuilder::InstantiateMonster(eMonsterType::Ganster, this);
 		monster->GetComponent<Transform>()->SetPosition(-100, -150, -30);
-	}*/
+	}
 
 #pragma endregion
 
@@ -952,4 +955,11 @@ Chinatown04Scene::Chinatown04Scene()
 Chinatown04Scene::~Chinatown04Scene()
 {
 	GameManager::deleteInstance();
+}
+
+void Chinatown04Scene::lateUpdate()
+{
+	Scene::lateUpdate();
+
+	GameManager::GetInstance()->GetRewindManager()->LateUpdate();
 }

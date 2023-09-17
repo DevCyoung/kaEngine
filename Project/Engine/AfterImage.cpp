@@ -85,7 +85,7 @@ void AfterImage::lateUpdate()
 		info.CurTime = mAlphaTime;
 		info.MaxTime = mAlphaMaxTime;
 		info.CBAnimationInfo = mAnimator->GetCBAnimationInfo();
-		info.texture = mAnimator->GetCurAnimation()->GetAtlas();
+		info.texture = mAnimator->GetCurAnimationOrNull()->GetAtlas();
 		info.colorType = colorType;		
 
 		mCurTime = 0.f;

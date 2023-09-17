@@ -17,6 +17,7 @@
 #include "SimpleDrawPoint.h"
 #include "GangsterAI.h"
 #include "PlayerPath.h"
+#include "RewindComponent.h"
 
 GameObject* GameObjectBuilder::Default2D(const std::wstring& materialName)
 {
@@ -41,6 +42,7 @@ GameObject* GameObjectBuilder::Player()
 	player->AddComponent<Rect2DInterpolation>();
 	player->AddComponent<RectCollider2D>();
 	player->AddComponent<PlayerPath>();
+	player->AddComponent<RewindComponent>();
 
 	//Animation
 	{
@@ -142,6 +144,8 @@ GameObject* GameObjectBuilder::InstantiateMonster(const eMonsterType type, Scene
 	monster->AddComponent<Animator2D>();
 	monster->AddComponent<GangsterAI>();
 	monster->AddComponent<PlayerPath>();
+	monster->AddComponent <RewindComponent>();
+
 
 	//Collider
 	{
@@ -187,6 +191,7 @@ GameObject* GameObjectBuilder::InstantiateMonster(const eMonsterType type, Scene
 		{
 			GameObject* const hand = new GameObject();			
 			hand->GetComponent<Transform>()->SetPosition(-4.f, 3.f, 0.f);
+			hand->AddComponent<RewindComponent>();
 			//hand->AddComponent<SimpleDrawPoint>();
 			//hand->GetComponent<SimpleDrawPoint>()->origin = monster;
 
@@ -200,6 +205,8 @@ GameObject* GameObjectBuilder::InstantiateMonster(const eMonsterType type, Scene
 			{
 				GameObject* const gun = new GameObject();
 				gun->GetComponent<Transform>()->SetPosition(13.f, 0.f, 0.f);
+				gun->AddComponent<RewindComponent>();
+
 				gun->AddComponent<Animator2D>();
 				gun->SetName(L"gun");
 				gun->SetParent(hand);
@@ -209,6 +216,7 @@ GameObject* GameObjectBuilder::InstantiateMonster(const eMonsterType type, Scene
 				gunAnim->Play(L"Gun", true);
 
 				monster->GetComponent<GangsterAI>()->SetGunObject(gun);
+				
 
 				scene->AddGameObject(gun, eLayerType::Monster);
 			}
@@ -232,6 +240,7 @@ GameObject* GameObjectBuilder::Slash()
 
 	Slash->AddComponent<Animator2D>();
 	Slash->AddComponent<CircleCollider2D>();
+	//Slash->AddComponent<RewindComponent>();
 
 	Slash->GetComponent<CircleCollider2D>()->SetRadius(50.f);
 
@@ -269,15 +278,16 @@ GameObject* GameObjectBuilder::InstantiatePlayer(Scene* const scene)
 
 		Slash->AddComponent<Animator2D>();
 		Slash->AddComponent<CircleCollider2D>();
+		Slash->AddComponent<RewindComponent>();
 
 		Slash->GetComponent<Transform>()->SetPosition(0.f, 0.f, 0.f);
 		Slash->GetComponent<CircleCollider2D>()->SetRadius(50.f);
 
 		Animator2D* const animator = Slash->GetComponent<Animator2D>();
-		animator->GetMaterial()->SetShader(
-			gResourceManager->FindOrNull<Shader>(L"LightAnimation2D"));
+		animator->GetMaterial()->SetShader(gResourceManager->FindOrNull<Shader>(L"LightAnimation2D"));
 		Texture* atlas = gResourceManager->FindByEnum<Texture>(eResTexture::Atlas_Player_slash);
-		animator->CreateAnimation(L"Slash", atlas, 6, XMUINT2(5, 34), XMUINT2(106, 32), XMUINT2(10, 10), XMINT2(0, 0), 0.04f);
+		animator->CreateAnimation(L"Slash", atlas, 6, 
+			XMUINT2(5, 34), XMUINT2(106, 32), XMUINT2(10, 10), XMINT2(0, 0), 0.04f);
 
 		Slash->SetParent(player);
 		player->GetComponent<PlayerController>()->SetSlash(Slash);	
@@ -465,6 +475,7 @@ void GameObjectBuilder::AddCamera(Scene* const scene)
 		mainCamera->AddComponent<Camera>();
 		mainCamera->AddComponent<CameraInputMoveMent>();
 		mainCamera->AddComponent<FolowPlayer>();
+		mainCamera->AddComponent<RewindComponent>();
 
 		mainCamera->GetComponent<Transform>()->SetPosition(0.f, 0.f, -10.f);
 		mainCamera->GetComponent<Camera>()->SetPriorityType(eCameraPriorityType::Main);

@@ -42,6 +42,7 @@ public:
 	Animator2D& operator=(const Animator2D&) = delete;
 
 	void Play(const std::wstring& animKey, const bool bLoop);
+	void PlayFrame(const std::wstring& animKey, const UINT frame, const bool bLoop);
 
 	void CreateAnimation(const std::wstring& animName,
 		Texture* const atlas,	
@@ -56,7 +57,7 @@ public:
 	tCBAnimationInfo GetCBAnimationInfo() const;	
 
 	Animation2D* FindAnimationOrNull(const std::wstring& animName) const;	
-	Animation2D* GetCurAnimation() const { return mCurAnimation; }
+	Animation2D* GetCurAnimationOrNull() const { return mCurAnimation; }
 
 	void SetBackSize(const XMUINT2& size) { backSize = size; }	
 

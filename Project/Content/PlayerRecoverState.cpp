@@ -19,7 +19,7 @@ void PlayerRecoverState::InputUpdate()
 
 void PlayerRecoverState::Update()
 {
-	if (mAnimator->GetCurAnimation()->IsFinished())
+	if (mAnimator->GetCurAnimationOrNull()->IsFinished())
 	{
 		//mAnimator->Play(L"Recover", false);
 	}

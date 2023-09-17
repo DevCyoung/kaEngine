@@ -217,6 +217,9 @@
     <Filter Include="Source\FSM\Player\State\HurtGroudn">
       <UniqueIdentifier>{81fe54c4-5f9f-4372-87ba-dfbc3286e4b3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Rewinde">
+      <UniqueIdentifier>{d1ae7589-6668-489c-8d74-f07e20bee401}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -417,6 +420,12 @@
     <ClInclude Include="PlayerHurtGroundState.h">
       <Filter>Source\FSM\Player\State\HurtGroudn</Filter>
     </ClInclude>
+    <ClInclude Include="RewindManager.h">
+      <Filter>Source\Rewinde</Filter>
+    </ClInclude>
+    <ClInclude Include="RewindComponent.h">
+      <Filter>Source\Rewinde</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -610,6 +619,12 @@
     </ClCompile>
     <ClCompile Include="PlayerHurtGroundState.cpp">
       <Filter>Source\FSM\Player\State\HurtGroudn</Filter>
+    </ClCompile>
+    <ClCompile Include="RewindManager.cpp">
+      <Filter>Source\Rewinde</Filter>
+    </ClCompile>
+    <ClCompile Include="RewindComponent.cpp">
+      <Filter>Source\Rewinde</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

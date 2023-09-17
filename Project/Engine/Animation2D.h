@@ -59,12 +59,12 @@ public:
 
 	bool IsFinished() const { return mbFinished; }
 
-	void SetFrameEndEvent(UINT frameIDX, std::function<void()> func)
+	void SetFrameEndEvent(UINT frameIdx, std::function<void()> func)
 	{
-		Assert(frameIDX < mFrames.size(), WCHAR_IS_INVALID_TYPE);
+		Assert(frameIdx < mFrames.size(), WCHAR_IS_INVALID_TYPE);
 
-		mFrames[frameIDX].endEvent = std::move(func);
-		mFrames[frameIDX].bEvent = true;
+		mFrames[frameIdx].endEvent = std::move(func);
+		mFrames[frameIdx].bEvent = true;
 	}
 
 	void SetFirstFrameEndEvent(std::function<void()> func)
@@ -81,9 +81,13 @@ public:
 		SetFrameEndEvent(static_cast<int>(mFrames.size()) - 1, std::move(func));
 	}
 
+	const std::wstring& GetKey() const { return mKey; }
+	UINT GetFrameIdx() const { return static_cast<UINT>(mCurFrameIdx); }
+
 private:
 	void lateUpdate();
 	void reset();
+	void reset(const UINT frameIdx);
 
 private:
 	std::wstring mKey;

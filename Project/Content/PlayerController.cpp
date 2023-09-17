@@ -3,6 +3,7 @@
 #include "Components.h"
 #include "PlayerFSM.h"
 #include "Rect2DInterpolation.h"
+#include "GameManager.h"
 
 PlayerController::PlayerController()
 	: ScriptComponent(eScriptComponentType::PlayerController)
@@ -91,6 +92,8 @@ void PlayerController::initialize()
 	}
 
 
+
+	//GameManager::GetInstance()->GetRewindManager()->RegisterRewindObject(GetOwner());
 }
 
 void PlayerController::update()

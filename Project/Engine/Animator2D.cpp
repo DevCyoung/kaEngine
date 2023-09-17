@@ -47,6 +47,17 @@ void Animator2D::Play(const std::wstring& animKey, const bool bLoop)
 	mCurAnimation->reset();
 }
 
+void Animator2D::PlayFrame(const std::wstring& animKey, const UINT frameIdx, const bool bLoop)
+{
+	Animation2D* animation = FindAnimationOrNull(animKey);
+
+	Assert(animation, WCHAR_IS_NULLPTR);
+
+	mCurAnimation = animation;
+	bRepeat = bLoop;
+	mCurAnimation->reset(frameIdx);
+}
+
 void Animator2D::CreateAnimation(const std::wstring& animName,
 	Texture* const atlas,
 	const UINT frameCount,

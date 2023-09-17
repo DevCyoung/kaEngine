@@ -182,10 +182,18 @@ void GangsterAI::initialize()
 	mGunObject->GetComponent<Animator2D>()->TurnOffVisiblelity();
 
 	mAnimator2D->Play(L"Idle", true);
+
+	//GameManager::GetInstance()->GetRewindManager()->RegisterRewindObject(GetOwner());
 }
 
 void GangsterAI::update()
 {
+
+	if (GameManager::GetInstance()->GetRewindManager()->GetRewindState() != eRewindState::Record)
+	{
+		return;
+	}
+
 	mShotDelayTime += gDeltaTime;
 
 	if (mState == eGangsterState::Aim)
@@ -342,7 +350,7 @@ void GangsterAI::turn()
 	velocity.x = 0.f;
 	mRigidbody2D->SetVelocity(velocity);
 
-	if (mAnimator2D->GetCurAnimation()->IsFinished())
+	if (mAnimator2D->GetCurAnimationOrNull()->IsFinished())
 	{
 		mAnimator2D->Play(L"Walk", true);
 		mState = eGangsterState::Walk;
@@ -418,7 +426,7 @@ void GangsterAI::whip()
 {
 	mRigidbody2D->SetVelocity(Vector2::Zero);
 
-	if (mAnimator2D->GetCurAnimation()->IsFinished())
+	if (mAnimator2D->GetCurAnimationOrNull()->IsFinished())
 	{		
 		mAnimator2D->Play(L"Run", true);
 		mState = eGangsterState::Trace;

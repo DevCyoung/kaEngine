@@ -3,7 +3,6 @@
 #include "Transform.h"
 #include "TimeManager.h"
 
-
 Rigidbody2D::Rigidbody2D()
 	: Component(eComponentType::Rigidbody2D)
 	, mForce(0.f)
@@ -14,7 +13,7 @@ Rigidbody2D::Rigidbody2D()
 	, mGravityAccel(50000.f)
 	, mbGravityUse(false)
 	, mbGround(false)
-	, mMass(1.f)
+	, mMass(1.f)	
 {
 }
 

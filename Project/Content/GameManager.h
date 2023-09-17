@@ -1,6 +1,7 @@
 #pragma once
 #include <Engine/Singleton.h>
 #include "PathInfo.h"
+#include "RewindManager.h"
 
 class GameObject;
 class PathInfo;
@@ -38,9 +39,11 @@ public:
 
 	GameObject* const GetPlayer() const { return mPlayer; }
 	PathInfo* const GetPathInfo() const { return mPathInfo; }
+	RewindManager* const GetRewindManager() const { return mRewindManager; }
 
 private:
 	inline static GameManager* sInstance = nullptr;
 	GameObject* mPlayer;
 	PathInfo* mPathInfo;
+	RewindManager* mRewindManager;
 };
