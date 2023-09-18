@@ -53,13 +53,13 @@ void BulletMovement::update()
 
 	
 	
-	if (mDelay > 18.f)
-	{
-		if (GetOwner()->GetState() != GameObject::eState::Destroy)
-		{
-			gCurrentScene->RegisterEventSetDestroy(GetOwner());
-		}		
-	}
+	//if (mDelay > 18.f)
+	//{
+	//	if (GetOwner()->GetState() != GameObject::eState::Destroy)
+	//	{
+	//		gCurrentScene->RegisterEventSetDestroy(GetOwner());
+	//	}		
+	//}
 
 	float deg = Rad2Deg(atan2(mDir.y, mDir.x));
 	if (mDir.x < 0.f)

@@ -8,5 +8,9 @@ public:
 	virtual ~TItleScene();
 	TItleScene(const TItleScene&) = delete;
 	TItleScene& operator=(const TItleScene&) = delete;
+
+public:
+	virtual void update();
+
 };
 

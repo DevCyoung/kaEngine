@@ -8,6 +8,7 @@ public:
 	KatanaScene(const KatanaScene&) = delete;
 	KatanaScene& operator=(const KatanaScene&) = delete;
 
+	virtual void initialize() override;
 	virtual void lateUpdate() override;
 };
 

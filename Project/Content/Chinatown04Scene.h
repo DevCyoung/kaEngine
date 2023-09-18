@@ -9,6 +9,8 @@ public:
 	Chinatown04Scene(const Chinatown04Scene&) = delete;
 	Chinatown04Scene& operator=(const Chinatown04Scene&) = delete;
 
+	virtual void initialize() override;
+	virtual void update() override;
 	virtual void lateUpdate() override;
 
 };

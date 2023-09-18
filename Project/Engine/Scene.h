@@ -42,16 +42,17 @@ public:
 
 
 private:
-	enum class eEventOfScene
+	enum class eEvent
 	{
 		AddGameObject,
 		DestroyGameObject,
+		LoadScene,
 		End,
 	};
 
 	struct tEventMessageScene
 	{
-		eEventOfScene EventOfSceneType;
+		eEvent EventOfSceneType;
 		GameObject* EventGameObject;
 		eLayerType LayerType;
 		std::source_location ErrorHint;

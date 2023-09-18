@@ -11,7 +11,8 @@
 #include "PathNode.h"
 #include <Engine/Color.h>
 #include "GameManager.h"
-
+#include <Engine/SceneManager.h>
+#include "Chinatown05Scene.h"
 Chinatown04Scene::Chinatown04Scene()
 {
 	mCollisionManagement2D->TurnOffAllCollisionLayer();
@@ -22,9 +23,7 @@ Chinatown04Scene::Chinatown04Scene()
 
 	//PathNode
 
-	GameManager::initialize();
-
-	GameManager::GetInstance()->GetRewindManager()->SetRewindState(eRewindState::Record);
+	
 
 #pragma region Material
 	{
@@ -359,259 +358,7 @@ Chinatown04Scene::Chinatown04Scene()
 
 #pragma endregion
 
-#pragma region PathNode
 
-	PathInfo* const pathInfo =  GameManager::GetInstance()->GetPathInfo();
-
-	{
-		GameObject* const wall = new GameObject();
-		//[LineCollider]
-		wall->AddComponent<LineCollider2D>();
-		wall->AddComponent<PathNode>();
-
-		pathInfo->AddPathNode(wall->GetComponent<PathNode>());
-
-		wall->GetComponent<Transform>()->SetPosition(0.f, 0.f, 0.f);
-		
-		wall->GetComponent<LineCollider2D>()->SetPoints(-960, 416, 864, 416);
-
-		wall->GetComponent<LineCollider2D>()->TurnOnVisible();
-		wall->GetComponent<LineCollider2D>()->SetColor(helper::Color::BLUE);
-		wall->GetComponent<PathNode>()->SetType(eLayerType::Wall);
-
-		AddGameObject(wall, eLayerType::PathNode);
-	}
-
-	{
-		GameObject* const wall = new GameObject();
-		//[LineCollider]
-		wall->AddComponent<LineCollider2D>();
-		wall->AddComponent<PathNode>();
-
-		pathInfo->AddPathNode(wall->GetComponent<PathNode>());
-
-		wall->GetComponent<Transform>()->SetPosition(0.f, 0.f, 0.f);
-		wall->GetComponent<LineCollider2D>()->SetPoints(864, 416, 960, 416);
-
-		wall->GetComponent<LineCollider2D>()->TurnOnVisible();
-		wall->GetComponent<LineCollider2D>()->SetColor(helper::Color::MAGENTA);
-		wall->GetComponent<PathNode>()->SetType(eLayerType::Wall);
-
-		AddGameObject(wall, eLayerType::PathNode);
-	}
-
-
-	{
-		GameObject* const wall = new GameObject();
-		//[LineCollider]
-		wall->AddComponent<LineCollider2D>();
-		wall->AddComponent<PathNode>();
-
-		pathInfo->AddPathNode(wall->GetComponent<PathNode>());
-
-		wall->GetComponent<Transform>()->SetPosition(0.f, 0.f, 0.f);
-		wall->GetComponent<LineCollider2D>()->SetPoints(864, 416, 576, 128);
-
-		wall->GetComponent<LineCollider2D>()->TurnOnVisible();
-		wall->GetComponent<LineCollider2D>()->SetColor(helper::Color::YELLOW);
-		wall->GetComponent<PathNode>()->SetType(eLayerType::RightSlope);
-
-		AddGameObject(wall, eLayerType::PathNode);
-	}
-
-	{
-		GameObject* const wall = new GameObject();
-		//[LineCollider]
-		wall->AddComponent<LineCollider2D>();
-		wall->AddComponent<PathNode>();
-
-		pathInfo->AddPathNode(wall->GetComponent<PathNode>());
-
-		wall->GetComponent<Transform>()->SetPosition(0.f, 0.f, 0.f);
-		wall->GetComponent<LineCollider2D>()->SetPoints(64, 128, 576, 128);
-
-		wall->GetComponent<LineCollider2D>()->TurnOnVisible();
-		wall->GetComponent<LineCollider2D>()->SetColor(helper::Color::BLUE);
-		wall->GetComponent<PathNode>()->SetType(eLayerType::Wall);
-
-		AddGameObject(wall, eLayerType::PathNode);
-	}
-
-	{
-		GameObject* const wall = new GameObject();
-		//[LineCollider]
-		wall->AddComponent<LineCollider2D>();
-		wall->AddComponent<PathNode>();
-
-		pathInfo->AddPathNode(wall->GetComponent<PathNode>());
-
-		wall->GetComponent<Transform>()->SetPosition(0.f, 0.f, 0.f);
-		wall->GetComponent<LineCollider2D>()->SetPoints(64, 128, 64, 256);
-
-		wall->GetComponent<LineCollider2D>()->TurnOnVisible();
-		wall->GetComponent<LineCollider2D>()->SetColor(helper::Color::WHITE);
-		wall->GetComponent<PathNode>()->SetType(eLayerType::Elevator);
-
-		AddGameObject(wall, eLayerType::PathNode);
-	}
-
-	{
-		GameObject* const wall = new GameObject();
-		//[LineCollider]
-		wall->AddComponent<LineCollider2D>();
-		wall->AddComponent<PathNode>();
-
-		pathInfo->AddPathNode(wall->GetComponent<PathNode>());
-
-		wall->GetComponent<Transform>()->SetPosition(0.f, 0.f, 0.f);
-		wall->GetComponent<LineCollider2D>()->SetPoints(-544, 128, 64, 128);
-
-		wall->GetComponent<LineCollider2D>()->TurnOnVisible();
-		wall->GetComponent<LineCollider2D>()->SetColor(helper::Color::MAGENTA);
-		wall->GetComponent<PathNode>()->SetType(eLayerType::Wall);
-
-		AddGameObject(wall, eLayerType::PathNode);
-	}
-
-	{
-		GameObject* const wall = new GameObject();
-		//[LineCollider]
-		wall->AddComponent<LineCollider2D>();
-		wall->AddComponent<PathNode>();
-
-		pathInfo->AddPathNode(wall->GetComponent<PathNode>());
-
-		wall->GetComponent<Transform>()->SetPosition(0.f, 0.f, 0.f);
-		wall->GetComponent<LineCollider2D>()->SetPoints(-768, 128, -544, 128);
-
-		wall->GetComponent<LineCollider2D>()->TurnOnVisible();
-		wall->GetComponent<LineCollider2D>()->SetColor(helper::Color::BLUE);
-		wall->GetComponent<PathNode>()->SetType(eLayerType::Wall);
-
-		AddGameObject(wall, eLayerType::PathNode);
-	}
-
-	{
-		GameObject* const wall = new GameObject();
-		//[LineCollider]
-		wall->AddComponent<LineCollider2D>();
-		wall->AddComponent<PathNode>();
-
-		pathInfo->AddPathNode(wall->GetComponent<PathNode>());
-
-		wall->GetComponent<Transform>()->SetPosition(0.f, 0.f, 0.f);
-		wall->GetComponent<LineCollider2D>()->SetPoints(-544, 128, -256, -160);
-
-		wall->GetComponent<LineCollider2D>()->TurnOnVisible();
-		wall->GetComponent<LineCollider2D>()->SetColor(helper::Color::WHITE);
-		wall->GetComponent<PathNode>()->SetType(eLayerType::LeftSlope);
-
-		AddGameObject(wall, eLayerType::PathNode);
-	}
-
-	{
-		GameObject* const wall = new GameObject();
-		//[LineCollider]
-		wall->AddComponent<LineCollider2D>();
-		wall->AddComponent<PathNode>();
-
-		pathInfo->AddPathNode(wall->GetComponent<PathNode>());
-
-		wall->GetComponent<Transform>()->SetPosition(0.f, 0.f, 0.f);
-		wall->GetComponent<LineCollider2D>()->SetPoints(-256, -160, 64, -160);
-
-		wall->GetComponent<LineCollider2D>()->TurnOnVisible();
-		wall->GetComponent<LineCollider2D>()->SetColor(helper::Color::BLUE);
-		wall->GetComponent<PathNode>()->SetType(eLayerType::Wall);
-
-		AddGameObject(wall, eLayerType::PathNode);
-	}
-
-	{
-		GameObject* const wall = new GameObject();
-		//[LineCollider]
-		wall->AddComponent<LineCollider2D>();
-		wall->AddComponent<PathNode>();
-
-		pathInfo->AddPathNode(wall->GetComponent<PathNode>());
-
-		wall->GetComponent<Transform>()->SetPosition(0.f, 0.f, 0.f);
-		wall->GetComponent<LineCollider2D>()->SetPoints(64, -160, 64, -32);
-
-		wall->GetComponent<LineCollider2D>()->TurnOnVisible();
-		wall->GetComponent<LineCollider2D>()->SetColor(helper::Color::WHITE);
-		wall->GetComponent<PathNode>()->SetType(eLayerType::Elevator);
-
-		AddGameObject(wall, eLayerType::PathNode);
-	}
-
-	{
-		GameObject* const wall = new GameObject();
-		//[LineCollider]
-		wall->AddComponent<LineCollider2D>();
-		wall->AddComponent<PathNode>();
-
-		pathInfo->AddPathNode(wall->GetComponent<PathNode>());
-
-		wall->GetComponent<Transform>()->SetPosition(0.f, 0.f, 0.f);
-		wall->GetComponent<LineCollider2D>()->SetPoints(64, -160, 1024, -160);
-
-		wall->GetComponent<LineCollider2D>()->TurnOnVisible();
-		wall->GetComponent<LineCollider2D>()->SetColor(helper::Color::MAGENTA);
-		wall->GetComponent<PathNode>()->SetType(eLayerType::Wall);
-
-		AddGameObject(wall, eLayerType::PathNode);
-	}
-
-	//connect edge
-
-	//0
-	pathInfo->InsertEdge(0, 1, 1);
-
-	//1
-	pathInfo->InsertEdge(1, 0, 1);
-	pathInfo->InsertEdge(1, 2, 1);
-
-	//2 right slope
-	pathInfo->InsertEdge(2, 1, 1);
-	pathInfo->InsertEdge(2, 3, 1);
-
-	//3
-	pathInfo->InsertEdge(3, 2, 1);
-	pathInfo->InsertEdge(3, 4, 1);
-
-	//4 elevator
-	pathInfo->InsertEdge(4, 3, 1);
-	pathInfo->InsertEdge(4, 5, 1);
-	pathInfo->InsertEdge(4, 9, 0);
-
-	//5
-	pathInfo->InsertEdge(5, 4, 1);
-	pathInfo->InsertEdge(5, 6, 1);
-
-	//6
-	pathInfo->InsertEdge(6, 5, 1);
-	pathInfo->InsertEdge(6, 7, 1);
-
-	//7 left slope
-	pathInfo->InsertEdge(7, 6, 1);
-	pathInfo->InsertEdge(7, 8, 1);
-
-	//8
-	pathInfo->InsertEdge(8, 7, 1);
-	pathInfo->InsertEdge(8, 9, 1);
-
-	//9 elevator
-	pathInfo->InsertEdge(9, 8, 1);
-	pathInfo->InsertEdge(9, 10, 1);	
-	pathInfo->InsertEdge(9, 4, 0);
-
-	//10
-	pathInfo->InsertEdge(10, 9, 1);		
-
-	pathInfo->Dijikstra(1, 10);
-
-#pragma endregion
 
 
 #pragma region Light
@@ -923,7 +670,7 @@ Chinatown04Scene::Chinatown04Scene()
 		monster->GetComponent<Transform>()->SetPosition(-460, 250, -30);
 	}
 
-	{
+	/*{
 		GameObject* monster = GameObjectBuilder::InstantiateMonster(eMonsterType::Ganster, this);
 		monster->GetComponent<Transform>()->SetPosition(600, 450, -30);
 	}
@@ -931,17 +678,12 @@ Chinatown04Scene::Chinatown04Scene()
 	{
 		GameObject* monster = GameObjectBuilder::InstantiateMonster(eMonsterType::Ganster, this);
 		monster->GetComponent<Transform>()->SetPosition(-100, -150, -30);
-	}
+	}*/
 
 #pragma endregion
 
 
-	{
-		GameObject* player = GameObjectBuilder::InstantiatePlayer(this);
-		player->GetComponent<Transform>()->SetPosition(0, 0, -30);
 
-		GameManager::GetInstance()->SetPlayer(player);
-	}
 
 	{
 		GameObjectBuilder::AddUI(this);
@@ -952,6 +694,285 @@ Chinatown04Scene::Chinatown04Scene()
 Chinatown04Scene::~Chinatown04Scene()
 {
 	GameManager::deleteInstance();
+}
+
+void Chinatown04Scene::initialize()
+{
+	GameManager::initialize();
+	GameManager::GetInstance()->GetRewindManager()->SetRewindState(eRewindState::Record);
+
+	{
+		GameObject* player = GameObjectBuilder::InstantiatePlayer(this);
+		player->GetComponent<Transform>()->SetPosition(0, 0, -30);
+
+		GameManager::GetInstance()->SetPlayer(player);
+	}
+#pragma region PathNode
+
+	PathInfo* const pathInfo = GameManager::GetInstance()->GetPathInfo();
+
+	{
+		GameObject* const wall = new GameObject();
+		//[LineCollider]
+		wall->AddComponent<LineCollider2D>();
+		wall->AddComponent<PathNode>();
+
+		pathInfo->AddPathNode(wall->GetComponent<PathNode>());
+
+		wall->GetComponent<Transform>()->SetPosition(0.f, 0.f, 0.f);
+
+		wall->GetComponent<LineCollider2D>()->SetPoints(-960, 416, 864, 416);
+
+		wall->GetComponent<LineCollider2D>()->TurnOnVisible();
+		wall->GetComponent<LineCollider2D>()->SetColor(helper::Color::BLUE);
+		wall->GetComponent<PathNode>()->SetType(eLayerType::Wall);
+
+		AddGameObject(wall, eLayerType::PathNode);
+	}
+
+	{
+		GameObject* const wall = new GameObject();
+		//[LineCollider]
+		wall->AddComponent<LineCollider2D>();
+		wall->AddComponent<PathNode>();
+
+		pathInfo->AddPathNode(wall->GetComponent<PathNode>());
+
+		wall->GetComponent<Transform>()->SetPosition(0.f, 0.f, 0.f);
+		wall->GetComponent<LineCollider2D>()->SetPoints(864, 416, 960, 416);
+
+		wall->GetComponent<LineCollider2D>()->TurnOnVisible();
+		wall->GetComponent<LineCollider2D>()->SetColor(helper::Color::MAGENTA);
+		wall->GetComponent<PathNode>()->SetType(eLayerType::Wall);
+
+		AddGameObject(wall, eLayerType::PathNode);
+	}
+
+
+	{
+		GameObject* const wall = new GameObject();
+		//[LineCollider]
+		wall->AddComponent<LineCollider2D>();
+		wall->AddComponent<PathNode>();
+
+		pathInfo->AddPathNode(wall->GetComponent<PathNode>());
+
+		wall->GetComponent<Transform>()->SetPosition(0.f, 0.f, 0.f);
+		wall->GetComponent<LineCollider2D>()->SetPoints(864, 416, 576, 128);
+
+		wall->GetComponent<LineCollider2D>()->TurnOnVisible();
+		wall->GetComponent<LineCollider2D>()->SetColor(helper::Color::YELLOW);
+		wall->GetComponent<PathNode>()->SetType(eLayerType::RightSlope);
+
+		AddGameObject(wall, eLayerType::PathNode);
+	}
+
+	{
+		GameObject* const wall = new GameObject();
+		//[LineCollider]
+		wall->AddComponent<LineCollider2D>();
+		wall->AddComponent<PathNode>();
+
+		pathInfo->AddPathNode(wall->GetComponent<PathNode>());
+
+		wall->GetComponent<Transform>()->SetPosition(0.f, 0.f, 0.f);
+		wall->GetComponent<LineCollider2D>()->SetPoints(64, 128, 576, 128);
+
+		wall->GetComponent<LineCollider2D>()->TurnOnVisible();
+		wall->GetComponent<LineCollider2D>()->SetColor(helper::Color::BLUE);
+		wall->GetComponent<PathNode>()->SetType(eLayerType::Wall);
+
+		AddGameObject(wall, eLayerType::PathNode);
+	}
+
+	{
+		GameObject* const wall = new GameObject();
+		//[LineCollider]
+		wall->AddComponent<LineCollider2D>();
+		wall->AddComponent<PathNode>();
+
+		pathInfo->AddPathNode(wall->GetComponent<PathNode>());
+
+		wall->GetComponent<Transform>()->SetPosition(0.f, 0.f, 0.f);
+		wall->GetComponent<LineCollider2D>()->SetPoints(64, 128, 64, 224);
+
+		wall->GetComponent<LineCollider2D>()->TurnOnVisible();
+		wall->GetComponent<LineCollider2D>()->SetColor(helper::Color::WHITE);
+		wall->GetComponent<PathNode>()->SetType(eLayerType::Elevator);
+
+		AddGameObject(wall, eLayerType::PathNode);
+	}
+
+	{
+		GameObject* const wall = new GameObject();
+		//[LineCollider]
+		wall->AddComponent<LineCollider2D>();
+		wall->AddComponent<PathNode>();
+
+		pathInfo->AddPathNode(wall->GetComponent<PathNode>());
+
+		wall->GetComponent<Transform>()->SetPosition(0.f, 0.f, 0.f);
+		wall->GetComponent<LineCollider2D>()->SetPoints(-544, 128, 64, 128);
+
+		wall->GetComponent<LineCollider2D>()->TurnOnVisible();
+		wall->GetComponent<LineCollider2D>()->SetColor(helper::Color::MAGENTA);
+		wall->GetComponent<PathNode>()->SetType(eLayerType::Wall);
+
+		AddGameObject(wall, eLayerType::PathNode);
+	}
+
+	{
+		GameObject* const wall = new GameObject();
+		//[LineCollider]
+		wall->AddComponent<LineCollider2D>();
+		wall->AddComponent<PathNode>();
+
+		pathInfo->AddPathNode(wall->GetComponent<PathNode>());
+
+		wall->GetComponent<Transform>()->SetPosition(0.f, 0.f, 0.f);
+		wall->GetComponent<LineCollider2D>()->SetPoints(-768, 128, -544, 128);
+
+		wall->GetComponent<LineCollider2D>()->TurnOnVisible();
+		wall->GetComponent<LineCollider2D>()->SetColor(helper::Color::BLUE);
+		wall->GetComponent<PathNode>()->SetType(eLayerType::Wall);
+
+		AddGameObject(wall, eLayerType::PathNode);
+	}
+
+	{
+		GameObject* const wall = new GameObject();
+		//[LineCollider]
+		wall->AddComponent<LineCollider2D>();
+		wall->AddComponent<PathNode>();
+
+		pathInfo->AddPathNode(wall->GetComponent<PathNode>());
+
+		wall->GetComponent<Transform>()->SetPosition(0.f, 0.f, 0.f);
+		wall->GetComponent<LineCollider2D>()->SetPoints(-544, 128, -256, -160);
+
+		wall->GetComponent<LineCollider2D>()->TurnOnVisible();
+		wall->GetComponent<LineCollider2D>()->SetColor(helper::Color::WHITE);
+		wall->GetComponent<PathNode>()->SetType(eLayerType::LeftSlope);
+
+		AddGameObject(wall, eLayerType::PathNode);
+	}
+
+	{
+		GameObject* const wall = new GameObject();
+		//[LineCollider]
+		wall->AddComponent<LineCollider2D>();
+		wall->AddComponent<PathNode>();
+
+		pathInfo->AddPathNode(wall->GetComponent<PathNode>());
+
+		wall->GetComponent<Transform>()->SetPosition(0.f, 0.f, 0.f);
+		wall->GetComponent<LineCollider2D>()->SetPoints(-256, -160, 64, -160);
+
+		wall->GetComponent<LineCollider2D>()->TurnOnVisible();
+		wall->GetComponent<LineCollider2D>()->SetColor(helper::Color::BLUE);
+		wall->GetComponent<PathNode>()->SetType(eLayerType::Wall);
+
+		AddGameObject(wall, eLayerType::PathNode);
+	}
+
+	{
+		GameObject* const wall = new GameObject();
+		//[LineCollider]
+		wall->AddComponent<LineCollider2D>();
+		wall->AddComponent<PathNode>();
+
+		pathInfo->AddPathNode(wall->GetComponent<PathNode>());
+
+		wall->GetComponent<Transform>()->SetPosition(0.f, 0.f, 0.f);
+		wall->GetComponent<LineCollider2D>()->SetPoints(64, -160, 64, -64);
+
+		wall->GetComponent<LineCollider2D>()->TurnOnVisible();
+		wall->GetComponent<LineCollider2D>()->SetColor(helper::Color::WHITE);
+		wall->GetComponent<PathNode>()->SetType(eLayerType::Elevator);
+
+		AddGameObject(wall, eLayerType::PathNode);
+	}
+
+	{
+		GameObject* const wall = new GameObject();
+		//[LineCollider]
+		wall->AddComponent<LineCollider2D>();
+		wall->AddComponent<PathNode>();
+
+		pathInfo->AddPathNode(wall->GetComponent<PathNode>());
+
+		wall->GetComponent<Transform>()->SetPosition(0.f, 0.f, 0.f);
+		wall->GetComponent<LineCollider2D>()->SetPoints(64, -160, 1024, -160);
+
+		wall->GetComponent<LineCollider2D>()->TurnOnVisible();
+		wall->GetComponent<LineCollider2D>()->SetColor(helper::Color::MAGENTA);
+		wall->GetComponent<PathNode>()->SetType(eLayerType::Wall);
+
+		AddGameObject(wall, eLayerType::PathNode);
+	}
+
+	//connect edge
+
+	//0
+	pathInfo->InsertEdge(0, 1, 1);
+
+	//1
+	pathInfo->InsertEdge(1, 0, 1);
+	pathInfo->InsertEdge(1, 2, 1);
+
+	//2 right slope
+	pathInfo->InsertEdge(2, 1, 1);
+	pathInfo->InsertEdge(2, 3, 1);
+
+	//3
+	pathInfo->InsertEdge(3, 2, 1);
+	pathInfo->InsertEdge(3, 4, 1);
+
+	//4 elevator
+	pathInfo->InsertEdge(4, 3, 1);
+	pathInfo->InsertEdge(4, 5, 1);
+	pathInfo->InsertEdge(4, 9, 0);
+
+	//5
+	pathInfo->InsertEdge(5, 4, 1);
+	pathInfo->InsertEdge(5, 6, 1);
+
+	//6
+	pathInfo->InsertEdge(6, 5, 1);
+	pathInfo->InsertEdge(6, 7, 1);
+
+	//7 left slope
+	pathInfo->InsertEdge(7, 6, 1);
+	pathInfo->InsertEdge(7, 8, 1);
+
+	//8
+	pathInfo->InsertEdge(8, 7, 1);
+	pathInfo->InsertEdge(8, 9, 1);
+
+	//9 elevator
+	pathInfo->InsertEdge(9, 8, 1);
+	pathInfo->InsertEdge(9, 10, 1);
+	pathInfo->InsertEdge(9, 4, 0);
+
+	//10
+	pathInfo->InsertEdge(10, 9, 1);
+
+	pathInfo->Dijikstra(1, 10);
+
+#pragma endregion
+
+	Scene::initialize();
+
+}
+
+void Chinatown04Scene::update()
+{
+	Scene::update();
+
+	if (gInput->GetKeyDown(eKeyCode::P))
+	{
+		SceneManager::GetInstance()->RegisterLoadScene(new Chinatown05Scene);
+	}
 }
 
 void Chinatown04Scene::lateUpdate()

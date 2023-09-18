@@ -36,18 +36,17 @@ KatanaScene::KatanaScene()
 	mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Player, eLayerType::Wall);
 	mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Monster, eLayerType::Wall);
 	mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Player, eLayerType::Platform);
-	mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Monster, eLayerType::Platform);
-
-	//PathNode
-
-	GameManager::initialize();
-
-	GameManager::GetInstance()->GetRewindManager()->SetRewindState(eRewindState::Record);
+	mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Monster, eLayerType::Platform);	
 }
 
 KatanaScene::~KatanaScene()
 {
 	GameManager::deleteInstance();
+}
+
+void KatanaScene::initialize()
+{
+	Scene::initialize();	
 }
 
 void KatanaScene::lateUpdate()

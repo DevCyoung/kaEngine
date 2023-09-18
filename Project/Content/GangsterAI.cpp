@@ -7,6 +7,8 @@
 #include "BulletMovement.h"
 #include <Engine/SceneManager.h>
 #include "ResourceManager.h"
+#include "RewindComponent.h"
+
 GangsterAI::GangsterAI()
 	: ScriptComponent(eScriptComponentType::GangsterAI)
 	, mPrePlayerPathNode(nullptr)
@@ -110,7 +112,7 @@ void GangsterAI::trace()
 			{
 				mElevatorTime += gDeltaTime;
 
-				if (mElevatorTime >= 1.5f)
+				if (mElevatorTime >= 0.5f)
 				{
 					mElevatorTime = 0.f;
 					mPath.pop();
@@ -404,7 +406,7 @@ void GangsterAI::aim()
 	}
 	else
 	{		
-		if (mShotDelayTime > 3.f)
+		if (mShotDelayTime > 0.5f)
 		{
 			mShotDelayTime = 0.f;
 
@@ -413,13 +415,15 @@ void GangsterAI::aim()
 			GameObject* bullet = new GameObject();
 
 			bullet->AddComponent<BulletMovement>();
-			bullet->AddComponent <SpriteRenderer>();
+			bullet->AddComponent<SpriteRenderer>();
+			bullet->AddComponent<RewindComponent>();
 
 			bullet->GetComponent<Transform>()->SetScale(Vector3(0.5f, 0.3f, 1.f));
 			
 			bullet->GetComponent<SpriteRenderer>()->SetMaterial(gResourceManager->FindOrNull<Material>(L"UITimer"));
 			bullet->GetComponent<SpriteRenderer>()->SetMesh(gResourceManager->FindOrNull<Mesh>(L"FillRect2D"));
 			bullet->GetComponent<BulletMovement>()->mDir = Vector3(direction.x, direction.y, 0.f);
+			
 
 			bullet->GetComponent<Transform>()->SetPosition(mHandObject->GetComponent<Transform>()->GetWorldMatrix().Translation());
 

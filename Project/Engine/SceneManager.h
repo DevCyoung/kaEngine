@@ -53,6 +53,8 @@ public:
 		scene->renderFlush();
 	}
 
+	void RegisterLoadScene(Scene* const scene);
+
 
 private:
 	void update();
@@ -66,7 +68,8 @@ private:
 		ID3D11DepthStencilView* const depthStencilView);
 
 private:
-	Scene* mCurrentScene;	
+	Scene* mCurrentScene;
+	Scene* mNextScene;
 };
 
 #define gCurrentScene SceneManager::GetInstance()->GetCurrentScene()

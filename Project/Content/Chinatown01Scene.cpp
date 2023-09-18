@@ -29,6 +29,7 @@
 #include "SimpleEditorCollider2D.h"
 #include "GameManager.h"
 #include "PathNode.h"
+#include "Chinatown04Scene.h"
 
 Chinatown01Scene::Chinatown01Scene()
 {
@@ -40,8 +41,7 @@ Chinatown01Scene::Chinatown01Scene()
 	mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Player, eLayerType::Platform);
 	mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Monster, eLayerType::Platform);
 
-	GameManager::initialize();
-	GameManager::GetInstance()->GetRewindManager()->SetRewindState(eRewindState::Record);
+
 
 #pragma region Material
 	{
@@ -408,6 +408,23 @@ Chinatown01Scene::Chinatown01Scene()
 	}
 #pragma endregion
 
+#pragma region UI
+	{
+		GameObjectBuilder::AddUI(this);
+	}
+#pragma endregion	
+}
+
+Chinatown01Scene::~Chinatown01Scene()
+{
+	GameManager::deleteInstance();
+}
+
+void Chinatown01Scene::initialize()
+{
+	GameManager::initialize();
+	GameManager::GetInstance()->GetRewindManager()->SetRewindState(eRewindState::Record);
+
 #pragma region Player
 	{
 		GameObject* player = GameObjectBuilder::InstantiatePlayer(this);
@@ -417,15 +434,9 @@ Chinatown01Scene::Chinatown01Scene()
 	}
 #pragma endregion
 
-#pragma region UI
-	{
-		GameObjectBuilder::AddUI(this);
-	}
-#pragma endregion	
-
 #pragma region PathNode
 	PathInfo* const pathInfo = GameManager::GetInstance()->GetPathInfo();
-	
+
 	{
 		GameObject* const wall = new GameObject();
 		//[LineCollider]
@@ -483,11 +494,11 @@ Chinatown01Scene::Chinatown01Scene()
 		AddGameObject(wall, eLayerType::PathNode);
 	}
 
-	
+
 
 	{
 		GameObject* const wall = new GameObject();
-		
+
 		//[LineCollider]
 		wall->AddComponent<LineCollider2D>();
 		wall->AddComponent<PathNode>();
@@ -513,7 +524,7 @@ Chinatown01Scene::Chinatown01Scene()
 		wall->AddComponent<PathNode>();
 
 		pathInfo->AddPathNode(wall->GetComponent<PathNode>());
-		
+
 		wall->GetComponent<Transform>()->SetPosition(0.f, 0.f, 0.f);
 		wall->GetComponent<LineCollider2D>()->SetPoints(96, 128, 96, 224);
 
@@ -566,7 +577,7 @@ Chinatown01Scene::Chinatown01Scene()
 
 	{
 		GameObject* const wall = new GameObject();
-		
+
 		//[LineCollider]
 		wall->AddComponent<LineCollider2D>();
 		wall->AddComponent<PathNode>();
@@ -625,7 +636,7 @@ Chinatown01Scene::Chinatown01Scene()
 
 	{
 		GameObject* const wall = new GameObject();
-		
+
 		//[LineCollider]
 		wall->AddComponent<LineCollider2D>();
 		wall->AddComponent<PathNode>();
@@ -644,13 +655,13 @@ Chinatown01Scene::Chinatown01Scene()
 
 	{
 		GameObject* const wall = new GameObject();
-		
+
 		//[LineCollider]
 		wall->AddComponent<LineCollider2D>();
 		wall->AddComponent<PathNode>();
 
 		pathInfo->AddPathNode(wall->GetComponent<PathNode>());
-		
+
 		wall->GetComponent<Transform>()->SetPosition(0.f, 0.f, 0.f);
 		wall->GetComponent<LineCollider2D>()->SetPoints(96, 672, 480, 672);
 
@@ -671,7 +682,7 @@ Chinatown01Scene::Chinatown01Scene()
 	pathInfo->InsertEdge(0, 2, 1);
 
 	//1
-	pathInfo->InsertEdge(1, 0, 1);	
+	pathInfo->InsertEdge(1, 0, 1);
 
 	//2
 	pathInfo->InsertEdge(2, 0, 1);
@@ -712,16 +723,21 @@ Chinatown01Scene::Chinatown01Scene()
 	//11 
 	pathInfo->InsertEdge(11, 10, 1);
 
-	
+
 
 #pragma endregion
 
-
+	Scene::initialize();
 }
 
-Chinatown01Scene::~Chinatown01Scene()
+void Chinatown01Scene::update()
 {
-	GameManager::deleteInstance();
+	Scene::update();
+
+	if (gInput->GetKeyDown(eKeyCode::P))
+	{
+		SceneManager::GetInstance()->RegisterLoadScene(new Chinatown04Scene);
+	}
 }
 
 void Chinatown01Scene::lateUpdate()
