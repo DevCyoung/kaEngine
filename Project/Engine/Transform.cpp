@@ -68,3 +68,27 @@ Matrix Transform::CreateWorldMatrix(const Vector3& position, const Vector3& rota
 
 	return world;
 }
+
+void Transform::SetFlipx(const bool bFlipx)
+{
+	if (bFlipx)
+	{
+		mRotation.y = 180.f;
+	}
+	else
+	{
+		mRotation.y = 0.f;
+	}
+}
+
+bool Transform::GetFlipX() const
+{
+	bool bFlipx = false;
+
+	if (mRotation.y != 0.f)
+	{
+		bFlipx = true;
+	}
+
+	return bFlipx;
+}

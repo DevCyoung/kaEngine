@@ -37,9 +37,12 @@ public:
 	{
 		mStartPos = Vector3(sx, sy, 0.f);
 		mEndPos = Vector3(ex, ey, 0.f);
-	}
+	}	
 
+	void TurnOnVisible() { mbVisible = true; }
+	void TurnOffVisible() { mbVisible = false; }
 
+	void SetColor(const Vector4& color) { mColor = color; }	
 
 private:
 	virtual void initialize() override;
@@ -49,6 +52,8 @@ private:
 	void onCollisionEnter(Collider2D* other);
 	void onCollisionStay(Collider2D* other);
 	void onCollisionExit(Collider2D* other);
+
+
 
 protected:
 	eCollider2DType mColllider2DType;
@@ -66,4 +71,8 @@ protected:
 	//Line
 	Vector3 mStartPos;
 	Vector3 mEndPos;
+
+	Vector4 mColor;
+
+	bool mbVisible;
 };

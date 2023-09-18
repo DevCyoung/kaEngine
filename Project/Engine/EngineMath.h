@@ -7,7 +7,7 @@
 #include <random>
 
 class Camera;
-
+class GameObject;
 namespace helper
 {	
 	Vector2 RenderTargetToWorldUI(const Vector2& renderTargetMousePos, const Vector2& renderTargetSize);
@@ -47,6 +47,17 @@ namespace helper::math
 		float x3, float y3, float x4, float y4, float* outInterX, float* outInterY);
 
 	Vector2 GetBoxAndBoxInterBoxSize(const Matrix& box1, const Matrix& box2);
+
+	Vector3 GetDirection3D(const GameObject* const origin, const GameObject* const dest);
+	Vector2 GetDirection2D(const GameObject* const origin, const GameObject* const dest);
+
+	float GetDistance3D(const GameObject* const a, const GameObject* const b);
+	float GetDistance2D(const GameObject* const a, const GameObject* const b);
+
+	float GetAngle3D(const GameObject* const origin, const GameObject* const dest);
+	float GetAngle2D(const GameObject* const origin, const GameObject* const dest);
+
+
 
 
 #pragma endregion

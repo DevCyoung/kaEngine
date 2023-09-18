@@ -18,11 +18,16 @@ ShiftController::~ShiftController()
 void ShiftController::initialize()
 {
     mLight = GetOwner()->GetGameSystem()->FindGameObject(L"GlobalLight2D")->GetComponent<Light2D>();
-    mPlayer = GetOwner()->GetGameSystem()->FindGameObject(L"Player");
+    //mPlayer = GetOwner()->GetGameSystem()->FindGameObject(L"Player");
 }
 
 void ShiftController::update()
-{        
+{     
+    if (nullptr == mPlayer)
+    {
+        return;
+    }
+
     Material* const material = mPlayer->GetComponent<Animator2D>()->GetMaterial();
     
     if (gInput->GetKey(eKeyCode::LSHIFT))

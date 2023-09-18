@@ -15,6 +15,7 @@ class GameObject : public Entity
 public:
 	enum class eState
 	{
+		InActive,
 		Active,
 		Destroy,
 	};

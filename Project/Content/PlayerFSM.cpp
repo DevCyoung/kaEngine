@@ -23,6 +23,8 @@ PlayerFSM::PlayerFSM(GameObject* const owner)
 	, mPlayerFlipState(new PlayerFlipState(owner, this))
 	, mPlayerWallSlideState(new PlayerWallSlideState(owner, this))
 	, mPlayerGlobalState(new PlayerGlobalState(owner, this))
+	, mPlayerRecoverState(new PlayerRecoverState(owner, this))
+	, mPlayerHurtGroundState(new PlayerHurtGroundState(owner, this))
 {
 	mCurState = mPlayerIdleState;
 }
@@ -41,6 +43,8 @@ PlayerFSM::~PlayerFSM()
 	SAFE_DELETE_POINTER(mPlayerFlipState);
 	SAFE_DELETE_POINTER(mPlayerWallSlideState);
 	SAFE_DELETE_POINTER(mPlayerGlobalState);
+	SAFE_DELETE_POINTER(mPlayerRecoverState);
+	SAFE_DELETE_POINTER(mPlayerHurtGroundState);
 
 }
 
@@ -63,6 +67,9 @@ void PlayerFSM::Initialize(PlayerState* const startState)
 	mPlayerFlipState->Initialize();
 	mPlayerWallSlideState->Initialize();
 	mPlayerGlobalState->Initialize();
+	mPlayerRecoverState->Initialize();
+	mPlayerHurtGroundState->Initialize();
+
 
 	mCurState = startState;
 	mCurState->Enter();
@@ -70,7 +77,19 @@ void PlayerFSM::Initialize(PlayerState* const startState)
 
 void PlayerFSM::GlobalUpdate()
 {
-	if (CanChagneToAttackState())
+	if (gInput->GetKeyDown(eKeyCode::RBTN))
+	{
+		if (mCurState == mPlayerHurtGroundState)
+		{
+			ChangeState(mPlayerRecoverState);
+		}
+		else
+		{
+			ChangeState(mPlayerHurtGroundState);
+		}
+		
+	}
+	else if (CanChagneToAttackState())
 	{
 		ChangeState(mPlayerAttackState);
 	}

@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\tkdlq\\Desktop\\assort\\DirectX2D_Engine\\Helper\\SpritesToAtlas\\SpritesToAtlas\\SpritesToAtlas.csproj",
+      "projectUniqueName": "C:\\Users\\tkdlq\\Desktop\\DirectX2D_Engine\\Helper\\SpritesToAtlas\\SpritesToAtlas\\SpritesToAtlas.csproj",
       "projectName": "SpritesToAtlas",
-      "projectPath": "C:\\Users\\tkdlq\\Desktop\\assort\\DirectX2D_Engine\\Helper\\SpritesToAtlas\\SpritesToAtlas\\SpritesToAtlas.csproj",
+      "projectPath": "C:\\Users\\tkdlq\\Desktop\\DirectX2D_Engine\\Helper\\SpritesToAtlas\\SpritesToAtlas\\SpritesToAtlas.csproj",
       "packagesPath": "C:\\Users\\tkdlq\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\tkdlq\\Desktop\\assort\\DirectX2D_Engine\\Helper\\SpritesToAtlas\\SpritesToAtlas\\obj\\",
+      "outputPath": "C:\\Users\\tkdlq\\Desktop\\DirectX2D_Engine\\Helper\\SpritesToAtlas\\SpritesToAtlas\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

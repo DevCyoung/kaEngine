@@ -18,9 +18,14 @@ protected:
 public:
 	Mesh* GetMesh() const { Assert(mMesh, WCHAR_IS_NULLPTR); return mMesh; }
 	Material* GetMaterial() const { Assert(mMaterial, WCHAR_IS_NULLPTR); return mMaterial; }
+	bool IsVisible() const { return mbVisible; }
 
 	void SetMesh(Mesh* const mesh) { Assert(mesh, WCHAR_IS_NULLPTR); mMesh = mesh; }
 	void SetMaterial(Material* const material) { Assert(material, WCHAR_IS_NULLPTR); mMaterial = material; }
+	//void SetVisible(const bool visible) { mbVisible = visible; }
+
+	void TurnOnVisiblelity() { mbVisible = true; }
+	void TurnOffVisiblelity() { mbVisible = false; }
 
 protected:
 	virtual void update() override;
@@ -31,6 +36,7 @@ private:
 	virtual void render(const Camera* const camera) = 0;
 
 protected:	
+	bool mbVisible;
 	Mesh* mMesh; 
 	Material* mMaterial;
 };

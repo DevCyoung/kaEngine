@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "3WOLG9XdVEyVZp+DsGJoip8eEz92HYnIGDTGjJkOh+gd1wqlKh1RHsDDnHonGCK7P+hDRAenoMTBc8LclAksQw==",
+  "dgSpecHash": "XtBzG8pLNm0jsZ2AoKgP1ak78qdb4+OLKZssjQC5b10RV4pspO1DVlq+vgNQis2r80S7RcbgZi3il7j2CGtCOQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\tkdlq\\Desktop\\assort\\DirectX2D_Engine\\Helper\\SpritesToAtlas\\SpritesToAtlas\\SpritesToAtlas.csproj",
+  "projectFilePath": "C:\\Users\\tkdlq\\Desktop\\DirectX2D_Engine\\Helper\\SpritesToAtlas\\SpritesToAtlas\\SpritesToAtlas.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

@@ -117,6 +117,8 @@ bool Physics2D::RayCastHit2D(const Vector2& origin,
 	Assert(mScene, WCHAR_IS_NULLPTR);
 	Assert(outHitInfo, WCHAR_IS_NULLPTR);
 
+	ZeroMemory(outHitInfo, sizeof(RayCast2DHitInfo));
+
 	const Layer& layer = mScene->GetLayer(layerType);
 	const std::vector<GameObject*>& gameObjects = layer.GetGameObjects();
 
@@ -134,9 +136,13 @@ bool Physics2D::RayCastHit2D(const Vector2& origin,
 		Vector2 normalDirection = direction;
 		normalDirection.Normalize();
 
-		const Vector2& s1 = origin;
-		const Vector2& e1 = origin + normalDirection * distance;
+		const Vector2& rayStartPos = origin;
+		const Vector2& rayEndPos = origin + normalDirection * distance;
 
+		RayCast2DHitInfo tempHitInfo;
+		bool bTempCollision = false;
+
+		ZeroMemory(&tempHitInfo, sizeof(RayCast2DHitInfo));
 
 		if (collider->GetCollideType() == eCollider2DType::Circle)
 		{
@@ -144,34 +150,54 @@ bool Physics2D::RayCastHit2D(const Vector2& origin,
 			const Vector3& RADIUS = XMVector3TransformNormal(vertexPos, collider->GetColliderWorldMatrix());
 			const Vector3& c = collider->GetColliderWorldMatrix().Translation();
 
-			bColliison = lineCircle(s1.x, s1.y, e1.x, e1.y, c.x, c.y, RADIUS.Length(), collider, outHitInfo);
+			bTempCollision = lineCircle(rayStartPos.x, rayStartPos.y, rayEndPos.x, rayEndPos.y, c.x, c.y, RADIUS.Length(), collider, &tempHitInfo);
 		}
 		else if (collider->GetCollideType() == eCollider2DType::Line)
 		{
 			const Vector3& s2 = collider->GetStartPos() + collider->GetColliderWorldMatrix().Translation();
 			const Vector3& e2 = collider->GetEndPos() + collider->GetColliderWorldMatrix().Translation();
 
-			bColliison = helper::math::LineAndLineCollision(s1, e1,
-				Vector2(s2.x, s2.y), Vector2(e2.x, e2.y), &outHitInfo->hitPos);
+			bTempCollision = helper::math::LineAndLineCollision(rayStartPos, rayEndPos, Vector2(s2.x, s2.y), Vector2(e2.x, e2.y), &tempHitInfo.hitPos);
 		}
 		else if (collider->GetCollideType() == eCollider2DType::Box)
-		{
-			//const Matrix& BOX_MAT = collider->GetColliderWorldMatrix();
-			//
-			//Vector2 out = Vector2::Zero;
-			//Vector3 pos = Vector3(origin.x, origin.y, 0.f);
-			//
-			//bColliison = helper::math::BoxAndLineCollision(BOX_MAT, pos, Vector3(s1.x, s1.y, 0.f), 
-			//	Vector3(e1.x, e1.y, 0.f), &outHitInfo->hitPos);
+		{			
+			Vector3 vertexPosArray[4] =
+			{
+				Vector3(-0.5f, 0.5f, 0.f), Vector3(0.5f, 0.5f, 0.f),
+				Vector3(0.5f, -0.5f, 0.f), Vector3(-0.5f, -0.5f, 0.f),
+			};
 
+			// 0 1, 1 2, 2 3, 3 0
+
+			for (int i = 0; i < 4; ++i)
+			{
+				const Vector3& s2 = XMVector3TransformCoord(vertexPosArray[i], collider->GetColliderWorldMatrix());
+				const Vector3& e2 = XMVector3TransformCoord(vertexPosArray[(i + 1) % 4], collider->GetColliderWorldMatrix());
+
+				bTempCollision = helper::math::LineAndLineCollision(rayStartPos, rayEndPos, Vector2(s2.x, s2.y), Vector2(e2.x, e2.y), &tempHitInfo.hitPos);
+
+				//4면중 하나라도 충돌하면	충돌로 판정
+				if (bTempCollision)
+				{
+					break;
+				}
+			}
 		}
 
-		if (bColliison)
+		//충돌이 여러개있을때 가장 짧은 길이를 가진 충돌체정보로 수정
+		if (bTempCollision)
 		{
-			break;
+			const float& prevDistance = Vector2::Distance(rayStartPos, outHitInfo->hitPos);
+			const float& tempDistance = Vector2::Distance(rayStartPos, tempHitInfo.hitPos);
+
+			if (prevDistance >= tempDistance || false == bColliison)
+			{
+				*outHitInfo = tempHitInfo;
+				outHitInfo->collider = collider;
+				bColliison = true;
+			}
 		}
 	}
 
 	return bColliison;
 }
-

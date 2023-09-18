@@ -2,6 +2,8 @@
 #include "BulletMovement.h"
 #include "Components.h"
 #include <Engine/SceneManager.h>
+#include <Engine/Color.h>
+#include <Engine/EngineMath.h>
 BulletMovement::BulletMovement()
     : ScriptComponent(eScriptComponentType::BulletMovement)
 	, mDelay(0.f)
@@ -44,19 +46,29 @@ void BulletMovement::update()
 	Transform* transform = GetOwner()->GetComponent<Transform>();
 	Vector3 pos = transform->GetPosition();
 	
-	pos += mDir * 30.f * gDeltaTime;
+	pos += mDir * 800.f * gDeltaTime;
 	transform->SetPosition(pos);
 	//
 	mDelay += gDeltaTime;
+
 	
-	if (mDelay > 18.f)
+	
+	//if (mDelay > 18.f)
+	//{
+	//	if (GetOwner()->GetState() != GameObject::eState::Destroy)
+	//	{
+	//		gCurrentScene->RegisterEventSetDestroy(GetOwner());
+	//	}		
+	//}
+
+	float deg = Rad2Deg(atan2(mDir.y, mDir.x));
+	if (mDir.x < 0.f)
 	{
-		if (GetOwner()->GetState() != GameObject::eState::Destroy)
-		{
-			gCurrentScene->RegisterEventSetDestroy(GetOwner());
-		}
-		
+		//deg = 180 - deg;
 	}
+
+	GetOwner()->GetComponent<Transform>()->SetRotation(0.f, 0.f, deg);
+
 }
 
 void BulletMovement::lateUpdate()

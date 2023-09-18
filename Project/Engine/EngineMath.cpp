@@ -4,6 +4,7 @@
 #include "Camera.h"
 #include "Transform.h"
 #include "InputManager.h"
+#include "GameObject.h"
 
 /*
 * 게임 에서 사용하는 UI 좌표계는 윈도우 좌표계와 동일하게 사용합니다.
@@ -274,6 +275,55 @@ namespace helper::math
 
 		return size;
 	}
+
+	Vector3 GetDirection3D(const GameObject* const origin, const GameObject* const dest)
+	{
+		Vector3 pos1 =  origin->GetComponent<Transform>()->GetWorldMatrix().Translation();
+		Vector3 pos2 =  dest->GetComponent<Transform>()->GetWorldMatrix().Translation();
+
+		Vector3 dir = pos2 - pos1;
+		dir.Normalize();
+
+		return dir;
+	}
+
+	Vector2 GetDirection2D(const GameObject* const origin, const GameObject* const dest)
+	{
+		Vector3 dir = GetDirection3D(origin, dest);
+		return Vector2(dir.x, dir.y);
+	}
+
+	float GetDistance3D(const GameObject* const a, const GameObject* const b)
+	{
+		Vector3 pos1 = a->GetComponent<Transform>()->GetWorldMatrix().Translation();
+		Vector3 pos2 = b->GetComponent<Transform>()->GetWorldMatrix().Translation();
+		
+		return Vector3::Distance(pos1, pos2);
+	}
+
+	float GetDistance2D(const GameObject* const a, const GameObject* const b)
+	{
+		Vector3 pos1 = a->GetComponent<Transform>()->GetWorldMatrix().Translation();
+		Vector3 pos2 = b->GetComponent<Transform>()->GetWorldMatrix().Translation();
+
+		pos1.z = 0.f;
+		pos2.z = 0.f;
+
+		return Vector3::Distance(pos1, pos2);
+	}
+
+	/*float GetAngle3D(const GameObject* const origin, const GameObject* const dest)
+	{
+		Vector3 direction = GetDirection3D(origin, dest);
+
+		return 0.0f;
+	}
+
+	float GetAngle2D(const GameObject* const origin, const GameObject* const dest)
+	{
+		return 0.0f;
+	}*/
+
 
 }
 

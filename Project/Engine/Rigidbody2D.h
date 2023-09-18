@@ -55,5 +55,5 @@ private:
 
     float   mGravityAccel;      // 중력 가속도 설정
     bool    mbGravityUse;       // 중력 사용여부
-    bool    mbGround;           // 땅 체크 
+    bool    mbGround;           // 땅 체크    
 };

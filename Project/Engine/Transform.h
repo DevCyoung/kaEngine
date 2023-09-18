@@ -28,17 +28,20 @@ public:
 		requires (is_component_type<T>::value)
 	T* GetComponent() const;
 
+	bool GetFlipX() const;
+
 	void SetPosition(const Vector3& position) { mPosition = position; }
 	void SetRotation(const Vector3& rotation) { mRotation = rotation; }
 	void SetScale(const Vector3& scale) { mScale = scale; }
 
 	void SetPosition(const float x, const float y, const float z) { mPosition = Vector3(x, y, z); }
 	void SetRotation(const float x, const float y, const float z) { mRotation = Vector3(x, y, z); }
-	void SetScale(const float x, const float y, const float z) { mScale = Vector3(x, y, z); }
+	void SetScale(const float x, const float y, const float z) { mScale = Vector3(x, y, z); }		
 
 	static Matrix CreateWorldMatrix(const Vector3& position, const Vector3& rotation, const Vector3& scale);
 
 	void SetWorldMatrix(const Matrix& world) { mWorld = world; }
+	void SetFlipx(const bool bFlipx);
 
 private:
 	virtual void initialize() override final;

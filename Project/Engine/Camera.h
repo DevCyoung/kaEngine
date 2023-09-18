@@ -42,6 +42,8 @@ public:
 	void TurnOnAllLayer()  { mLayerMask = 0XFFFFFFFF; }
 	void TurnOffAllLayer() { mLayerMask = 0; }
 
+	void CalculateCamera();
+
 private:
 	virtual void initialize() override final;
 	virtual void update() override final;

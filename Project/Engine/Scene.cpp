@@ -117,12 +117,12 @@ void Scene::eventUpdate()
 
 	for (auto& message : mEventMessages)
 	{
-		const eEventOfScene EVENT_TYPE = message.EventOfSceneType;
+		const eEvent EVENT_TYPE = message.EventOfSceneType;
 		Assert(message.EventGameObject, WCHAR_IS_NULLPTR);
 
 		switch (EVENT_TYPE)
 		{
-		case eEventOfScene::DestroyGameObject:			
+		case eEvent::DestroyGameObject:			
 			//Assert(message.EventGameObject->mState != GameObject::eState::Destroy, WCHAR_IS_INVALID_TYPE);
 
 			if (message.EventGameObject->mState != GameObject::eState::Destroy)
@@ -133,13 +133,12 @@ void Scene::eventUpdate()
 
 			break;
 
-		case eEventOfScene::AddGameObject:
+		case eEvent::AddGameObject:
 			Assert(message.LayerType != eLayerType::End, WCHAR_IS_INVALID_TYPE);
 
 			AddGameObject(message.EventGameObject, message.LayerType);
 			message.EventGameObject->initialize();
-			break;
-
+			break;		
 		default:
 			Assert(false, WCHAR_IS_INVALID_TYPE);
 			break;
@@ -157,7 +156,7 @@ void Scene::RegisterEventAddGameObject(GameObject* const gameObject,
 
 	tEventMessageScene message = {};
 
-	message.EventOfSceneType = eEventOfScene::AddGameObject;
+	message.EventOfSceneType = eEvent::AddGameObject;
 	message.EventGameObject = gameObject;
 	message.LayerType = layerType;
 	message.ErrorHint = location;
@@ -177,7 +176,7 @@ void Scene::RegisterEventSetDestroy(GameObject* const gameObject
 	Assert(gameObject->mState != GameObject::eState::Destroy, WCHAR_IS_INVALID_TYPE);
 
 	tEventMessageScene message = {};
-	message.EventOfSceneType = eEventOfScene::DestroyGameObject;
+	message.EventOfSceneType = eEvent::DestroyGameObject;
 	message.EventGameObject = gameObject;
 	message.ErrorHint = location;
 

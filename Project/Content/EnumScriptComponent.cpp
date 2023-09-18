@@ -2,6 +2,8 @@
 #include "EnumScriptComponent.h"
 
 #include "NoiseTest.h"
+#include "PlayerPath.h"
+#include "GangsterAI.h"
 #include "AfterImage.h"
 #include "Bugiman.h"
 #include "BulletMovement.h"
@@ -14,11 +16,14 @@
 #include "InputMovementTest.h"
 #include "LerpTest.h"
 #include "ParentTest.h"
+#include "PathNode.h"
 #include "PickPixelTest.h"
 #include "PlayerController.h"
 #include "PlayerMovementTest.h"
 #include "Rect2DInterpolation.h"
+#include "RewindComponent.h"
 #include "ShiftController.h"
+#include "SimpleDrawPoint.h"
 #include "SimpleEditorCollider2D.h"
 #include "TestScript.h"
 #include "UIEffect.h"
@@ -26,6 +31,8 @@
 static constexpr const wchar_t* const ScriptComponentNames[static_cast<UINT>(eScriptComponentType::End)]
 {
 	L"NoiseTest",
+	L"PlayerPath",
+	L"GangsterAI",
 	L"AfterImage",
 	L"Bugiman",
 	L"BulletMovement",
@@ -38,11 +45,14 @@ static constexpr const wchar_t* const ScriptComponentNames[static_cast<UINT>(eSc
 	L"InputMovementTest",
 	L"LerpTest",
 	L"ParentTest",
+	L"PathNode",
 	L"PickPixelTest",
 	L"PlayerController",
 	L"PlayerMovementTest",
 	L"Rect2DInterpolation",
+	L"RewindComponent",
 	L"ShiftController",
+	L"SimpleDrawPoint",
 	L"SimpleEditorCollider2D",
 	L"TestScript",
 	L"UIEffect",
@@ -60,6 +70,10 @@ ScriptComponent* CreateScriptComponentByName(const std::wstring& scriptcomponent
 
 	if (L"NoiseTest" == scriptcomponentName)
 		scriptcomponent = new NoiseTest;
+	else if (L"PlayerPath" == scriptcomponentName)
+		scriptcomponent = new PlayerPath;
+	else if (L"GangsterAI" == scriptcomponentName)
+		scriptcomponent = new GangsterAI;
 	else if (L"AfterImage" == scriptcomponentName)
 		scriptcomponent = new AfterImage;
 	else if (L"Bugiman" == scriptcomponentName)
@@ -84,6 +98,8 @@ ScriptComponent* CreateScriptComponentByName(const std::wstring& scriptcomponent
 		scriptcomponent = new LerpTest;
 	else if (L"ParentTest" == scriptcomponentName)
 		scriptcomponent = new ParentTest;
+	else if (L"PathNode" == scriptcomponentName)
+		scriptcomponent = new PathNode;
 	else if (L"PickPixelTest" == scriptcomponentName)
 		scriptcomponent = new PickPixelTest;
 	else if (L"PlayerController" == scriptcomponentName)
@@ -92,8 +108,12 @@ ScriptComponent* CreateScriptComponentByName(const std::wstring& scriptcomponent
 		scriptcomponent = new PlayerMovementTest;
 	else if (L"Rect2DInterpolation" == scriptcomponentName)
 		scriptcomponent = new Rect2DInterpolation;
+	else if (L"RewindComponent" == scriptcomponentName)
+		scriptcomponent = new RewindComponent;
 	else if (L"ShiftController" == scriptcomponentName)
 		scriptcomponent = new ShiftController;
+	else if (L"SimpleDrawPoint" == scriptcomponentName)
+		scriptcomponent = new SimpleDrawPoint;
 	else if (L"SimpleEditorCollider2D" == scriptcomponentName)
 		scriptcomponent = new SimpleEditorCollider2D;
 	else if (L"TestScript" == scriptcomponentName)
@@ -113,6 +133,12 @@ ScriptComponent* CreateScriptComponentByEnum(const eScriptComponentType type)
 	{
 	case eScriptComponentType::NoiseTest:
 		scriptcomponent = new NoiseTest;
+		break;
+	case eScriptComponentType::PlayerPath:
+		scriptcomponent = new PlayerPath;
+		break;
+	case eScriptComponentType::GangsterAI:
+		scriptcomponent = new GangsterAI;
 		break;
 	case eScriptComponentType::AfterImage:
 		scriptcomponent = new AfterImage;
@@ -150,6 +176,9 @@ ScriptComponent* CreateScriptComponentByEnum(const eScriptComponentType type)
 	case eScriptComponentType::ParentTest:
 		scriptcomponent = new ParentTest;
 		break;
+	case eScriptComponentType::PathNode:
+		scriptcomponent = new PathNode;
+		break;
 	case eScriptComponentType::PickPixelTest:
 		scriptcomponent = new PickPixelTest;
 		break;
@@ -162,8 +191,14 @@ ScriptComponent* CreateScriptComponentByEnum(const eScriptComponentType type)
 	case eScriptComponentType::Rect2DInterpolation:
 		scriptcomponent = new Rect2DInterpolation;
 		break;
+	case eScriptComponentType::RewindComponent:
+		scriptcomponent = new RewindComponent;
+		break;
 	case eScriptComponentType::ShiftController:
 		scriptcomponent = new ShiftController;
+		break;
+	case eScriptComponentType::SimpleDrawPoint:
+		scriptcomponent = new SimpleDrawPoint;
 		break;
 	case eScriptComponentType::SimpleEditorCollider2D:
 		scriptcomponent = new SimpleEditorCollider2D;

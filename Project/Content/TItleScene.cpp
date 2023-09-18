@@ -7,6 +7,8 @@
 #include <Engine/CollisionManagement2D.h>
 #include <Engine/Engine.h>
 #include <Engine/Color.h>
+#include <Engine/SceneManager.h>
+#include "Chinatown01Scene.h"
 
 TItleScene::TItleScene()
 {
@@ -183,5 +185,15 @@ TItleScene::TItleScene()
 TItleScene::~TItleScene()
 {
 
+}
+
+void TItleScene::update()
+{
+	Scene::update();
+
+	if (gInput->GetKeyDown(eKeyCode::P))
+	{
+		SceneManager::GetInstance()->RegisterLoadScene(new Chinatown01Scene);
+	}
 }
 

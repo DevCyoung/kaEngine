@@ -8,7 +8,6 @@
 #include <Engine/Color.h>
 #include <Engine/EngineMath.h>
 
-
 GridPainter::GridPainter()
     : ScriptComponent(eScriptComponentType::GridPainter)
     , mCellSize(1)

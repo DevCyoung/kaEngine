@@ -99,3 +99,12 @@ void Animation2D::reset()
 	mCurFramePlayTime = 0.f;
 	mbFinished = false;
 }
+
+void Animation2D::reset(const UINT frameIdx)
+{
+	Assert(mFrames.size() > mCurFrameIdx, WCHAR_IS_INVALID_TYPE);
+
+	mCurFrameIdx = frameIdx;
+	mCurFramePlayTime = 0.f;
+	mbFinished = false;
+}

@@ -163,21 +163,6 @@
     <Filter Include="Source\Scene\CollideTest">
       <UniqueIdentifier>{429f4d90-ac74-41bc-989e-ed00f2f0aa4a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Scene\TitleScene">
-      <UniqueIdentifier>{96946f4c-9e4a-43d1-9bde-9ef81cae4896}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Scene\Chianatown01">
-      <UniqueIdentifier>{da98e5d6-9aba-4417-8f28-dcfa99b62c7b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Scene\Chinatown04">
-      <UniqueIdentifier>{e8cd688f-3ebd-4352-a0f3-3a059f04198c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Scene\Chinatown05">
-      <UniqueIdentifier>{20332b64-296c-4050-bb16-34cb7cddc831}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Scene\HeadHunter">
-      <UniqueIdentifier>{5bb296e2-92d1-45c0-b3c4-2d5be6c8f361}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\Scene\Scene">
       <UniqueIdentifier>{cc7e087a-78df-4419-bf59-204d1219fdb7}</UniqueIdentifier>
     </Filter>
@@ -192,6 +177,51 @@
     </Filter>
     <Filter Include="Source\01. ScriptComponent\Camera">
       <UniqueIdentifier>{b39585e2-de8f-4609-a019-8700bab21ccf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\01. ScriptComponent\DrawPoint">
+      <UniqueIdentifier>{ddb57e3c-7a62-4907-87ca-5c9768ba5b66}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Manager">
+      <UniqueIdentifier>{c40f4645-f0d2-44e3-bef5-55aa4a96612c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\PathInfo">
+      <UniqueIdentifier>{5965c590-ce0e-4b11-9085-f0d65e1a1f9e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\PathNode">
+      <UniqueIdentifier>{6536535c-c17c-4074-aaeb-fa920f5ad003}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\FSM\Monster">
+      <UniqueIdentifier>{edfc66bc-1933-448d-b349-9c174e736569}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\PlayerPath">
+      <UniqueIdentifier>{b96618cf-3dc6-4e1b-b53c-503e07065bf0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\FSM\Player\State\Recover">
+      <UniqueIdentifier>{a6c80dec-83f3-4a97-afd0-0a92118aec78}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\FSM\Player\State\HurtGroudn">
+      <UniqueIdentifier>{81fe54c4-5f9f-4372-87ba-dfbc3286e4b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Rewinde">
+      <UniqueIdentifier>{d1ae7589-6668-489c-8d74-f07e20bee401}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scene\KatanaScene">
+      <UniqueIdentifier>{d36bb7c3-ff5b-4762-84ae-c8c39b76cd9a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scene\KatanaScene\HeadHunter">
+      <UniqueIdentifier>{5bb296e2-92d1-45c0-b3c4-2d5be6c8f361}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scene\KatanaScene\Chinatown05">
+      <UniqueIdentifier>{20332b64-296c-4050-bb16-34cb7cddc831}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scene\KatanaScene\Chinatown04">
+      <UniqueIdentifier>{e8cd688f-3ebd-4352-a0f3-3a059f04198c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scene\KatanaScene\Chianatown01">
+      <UniqueIdentifier>{da98e5d6-9aba-4417-8f28-dcfa99b62c7b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scene\KatanaScene\TitleScene">
+      <UniqueIdentifier>{96946f4c-9e4a-43d1-9bde-9ef81cae4896}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -280,25 +310,25 @@
       <Filter>Source\01. ScriptComponent\Test</Filter>
     </ClInclude>
     <ClInclude Include="TItleScene.h">
-      <Filter>Source\Scene\TitleScene</Filter>
+      <Filter>Source\Scene\KatanaScene\TitleScene</Filter>
     </ClInclude>
     <ClInclude Include="Chinatown01Scene.h">
-      <Filter>Source\Scene\Chianatown01</Filter>
+      <Filter>Source\Scene\KatanaScene\Chianatown01</Filter>
     </ClInclude>
     <ClInclude Include="NoiseTest.h">
       <Filter>Source\01. ScriptComponent\Test</Filter>
     </ClInclude>
     <ClInclude Include="Chinatown04Scene.h">
-      <Filter>Source\Scene\Chinatown04</Filter>
+      <Filter>Source\Scene\KatanaScene\Chinatown04</Filter>
     </ClInclude>
     <ClInclude Include="Chinatown04Controller.h">
       <Filter>Source\Scene\Scene</Filter>
     </ClInclude>
     <ClInclude Include="Chinatown05Scene.h">
-      <Filter>Source\Scene\Chinatown05</Filter>
+      <Filter>Source\Scene\KatanaScene\Chinatown05</Filter>
     </ClInclude>
     <ClInclude Include="HeadHunterScene.h">
-      <Filter>Source\Scene\HeadHunter</Filter>
+      <Filter>Source\Scene\KatanaScene\HeadHunter</Filter>
     </ClInclude>
     <ClInclude Include="PickPixelTest.h">
       <Filter>Source\01. ScriptComponent\Test</Filter>
@@ -368,6 +398,39 @@
     </ClInclude>
     <ClInclude Include="FolowPlayer.h">
       <Filter>Source\01. ScriptComponent\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="SimpleDrawPoint.h">
+      <Filter>Source\01. ScriptComponent\DrawPoint</Filter>
+    </ClInclude>
+    <ClInclude Include="GameManager.h">
+      <Filter>Source\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="PathInfo.h">
+      <Filter>Source\PathInfo</Filter>
+    </ClInclude>
+    <ClInclude Include="PathNode.h">
+      <Filter>Source\PathNode</Filter>
+    </ClInclude>
+    <ClInclude Include="GangsterAI.h">
+      <Filter>Source\FSM\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerPath.h">
+      <Filter>Source\PlayerPath</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerRecoverState.h">
+      <Filter>Source\FSM\Player\State\Recover</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerHurtGroundState.h">
+      <Filter>Source\FSM\Player\State\HurtGroudn</Filter>
+    </ClInclude>
+    <ClInclude Include="RewindManager.h">
+      <Filter>Source\Rewinde</Filter>
+    </ClInclude>
+    <ClInclude Include="RewindComponent.h">
+      <Filter>Source\Rewinde</Filter>
+    </ClInclude>
+    <ClInclude Include="KatanaScene.h">
+      <Filter>Source\Scene\KatanaScene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -450,25 +513,25 @@
       <Filter>Source\01. ScriptComponent\Test</Filter>
     </ClCompile>
     <ClCompile Include="TItleScene.cpp">
-      <Filter>Source\Scene\TitleScene</Filter>
+      <Filter>Source\Scene\KatanaScene\TitleScene</Filter>
     </ClCompile>
     <ClCompile Include="Chinatown01Scene.cpp">
-      <Filter>Source\Scene\Chianatown01</Filter>
+      <Filter>Source\Scene\KatanaScene\Chianatown01</Filter>
     </ClCompile>
     <ClCompile Include="NoiseTest.cpp">
       <Filter>Source\01. ScriptComponent\Test</Filter>
     </ClCompile>
     <ClCompile Include="Chinatown04Scene.cpp">
-      <Filter>Source\Scene\Chinatown04</Filter>
+      <Filter>Source\Scene\KatanaScene\Chinatown04</Filter>
     </ClCompile>
     <ClCompile Include="Chinatown04Controller.cpp">
       <Filter>Source\Scene\Scene</Filter>
     </ClCompile>
     <ClCompile Include="Chinatown05Scene.cpp">
-      <Filter>Source\Scene\Chinatown05</Filter>
+      <Filter>Source\Scene\KatanaScene\Chinatown05</Filter>
     </ClCompile>
     <ClCompile Include="HeadHunterScene.cpp">
-      <Filter>Source\Scene\HeadHunter</Filter>
+      <Filter>Source\Scene\KatanaScene\HeadHunter</Filter>
     </ClCompile>
     <ClCompile Include="PickPixelTest.cpp">
       <Filter>Source\01. ScriptComponent\Test</Filter>
@@ -538,6 +601,39 @@
     </ClCompile>
     <ClCompile Include="FolowPlayer.cpp">
       <Filter>Source\01. ScriptComponent\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="SimpleDrawPoint.cpp">
+      <Filter>Source\01. ScriptComponent\DrawPoint</Filter>
+    </ClCompile>
+    <ClCompile Include="GameManager.cpp">
+      <Filter>Source\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="PathInfo.cpp">
+      <Filter>Source\PathInfo</Filter>
+    </ClCompile>
+    <ClCompile Include="PathNode.cpp">
+      <Filter>Source\PathNode</Filter>
+    </ClCompile>
+    <ClCompile Include="GangsterAI.cpp">
+      <Filter>Source\FSM\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerPath.cpp">
+      <Filter>Source\PlayerPath</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerRecoverState.cpp">
+      <Filter>Source\FSM\Player\State\Recover</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerHurtGroundState.cpp">
+      <Filter>Source\FSM\Player\State\HurtGroudn</Filter>
+    </ClCompile>
+    <ClCompile Include="RewindManager.cpp">
+      <Filter>Source\Rewinde</Filter>
+    </ClCompile>
+    <ClCompile Include="RewindComponent.cpp">
+      <Filter>Source\Rewinde</Filter>
+    </ClCompile>
+    <ClCompile Include="KatanaScene.cpp">
+      <Filter>Source\Scene\KatanaScene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

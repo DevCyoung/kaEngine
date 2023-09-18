@@ -217,12 +217,21 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
     </ClInclude>
     <ClInclude Include="framework.h" />
     <ClInclude Include="FSMState.h" />
+    <ClInclude Include="GameManager.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="GameObjectBuilder.h" />
+    <ClInclude Include="GangsterAI.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="HeadHunterScene.h" />
     <ClInclude Include="InputMovementTest.h">
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="KatanaScene.h" />
     <ClInclude Include="LerpTest.h">
       <SubType>
       </SubType>
@@ -237,6 +246,11 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
       </SubType>
     </ClInclude>
     <ClInclude Include="ParentTest.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="PathInfo.h" />
+    <ClInclude Include="PathNode.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -257,12 +271,18 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
     <ClInclude Include="PlayerFlipState.h" />
     <ClInclude Include="PlayerFSM.h" />
     <ClInclude Include="PlayerGlobalState.h" />
+    <ClInclude Include="PlayerHurtGroundState.h" />
     <ClInclude Include="PlayerIdleState.h" />
     <ClInclude Include="PlayerJumpState.h" />
     <ClInclude Include="PlayerMovementTest.h">
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="PlayerPath.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="PlayerRecoverState.h" />
     <ClInclude Include="PlayerRollState.h" />
     <ClInclude Include="PlayerRunState.h" />
     <ClInclude Include="PlayerState.h" />
@@ -272,11 +292,20 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
       </SubType>
     </ClInclude>
     <ClInclude Include="ResourceManager.h" />
+    <ClInclude Include="RewindComponent.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="RewindManager.h" />
     <ClInclude Include="ShiftController.h">
       <SubType>
       </SubType>
     </ClInclude>
     <ClInclude Include="FiniteStateMachine.h" />
+    <ClInclude Include="SimpleDrawPoint.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="SimpleEditorCollider2D.h">
       <SubType>
       </SubType>
@@ -336,12 +365,21 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
       </SubType>
     </ClCompile>
     <ClCompile Include="FSMState.cpp" />
+    <ClCompile Include="GameManager.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="GameObjectBuilder.cpp" />
+    <ClCompile Include="GangsterAI.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="HeadHunterScene.cpp" />
     <ClCompile Include="InputMovementTest.cpp">
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="KatanaScene.cpp" />
     <ClCompile Include="LerpTest.cpp">
       <SubType>
       </SubType>
@@ -356,6 +394,11 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
       </SubType>
     </ClCompile>
     <ClCompile Include="ParentTest.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="PathInfo.cpp" />
+    <ClCompile Include="PathNode.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -383,12 +426,18 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
     <ClCompile Include="PlayerFlipState.cpp" />
     <ClCompile Include="PlayerFSM.cpp" />
     <ClCompile Include="PlayerGlobalState.cpp" />
+    <ClCompile Include="PlayerHurtGroundState.cpp" />
     <ClCompile Include="PlayerIdleState.cpp" />
     <ClCompile Include="PlayerJumpState.cpp" />
     <ClCompile Include="PlayerMovementTest.cpp">
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="PlayerPath.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="PlayerRecoverState.cpp" />
     <ClCompile Include="PlayerRollState.cpp" />
     <ClCompile Include="PlayerRunState.cpp" />
     <ClCompile Include="PlayerState.cpp" />
@@ -397,11 +446,20 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="RewindComponent.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="RewindManager.cpp" />
     <ClCompile Include="ShiftController.cpp">
       <SubType>
       </SubType>
     </ClCompile>
     <ClCompile Include="FiniteStateMachine.cpp" />
+    <ClCompile Include="SimpleDrawPoint.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="SimpleEditorCollider2D.cpp">
       <SubType>
       </SubType>

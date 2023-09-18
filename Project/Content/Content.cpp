@@ -25,9 +25,9 @@ Content::Content()
 	resourceInitialize();
 
 	//Scene* testScene = new Collide2DTestScene;
-	//Scene* testScene = new TItleScene();	
+	Scene* testScene = new TItleScene();	
 	//Scene* testScene = new Chinatown01Scene();
-	Scene* testScene = new Chinatown04Scene();
+	//Scene* testScene = new Chinatown04Scene();
 	//Scene* testScene = new Chinatown05Scene();
 	//Scene* testScene = new HeadHunterScene();
 	//Scene* testScene = new TestScene();

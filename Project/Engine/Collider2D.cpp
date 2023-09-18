@@ -15,7 +15,9 @@ Collider2D::Collider2D(const eComponentType componentType,
 	, mCollisionCount(0)
 	, mRadius(50.f)
 	, mStartPos(Vector3(-100.f, 100.f, 0.f))
-	, mEndPos(Vector3(100.f, -100.f, 0.f ))
+	, mEndPos(Vector3(100.f, -100.f, 0.f))
+	, mbVisible(false)
+	, mColor(0.f, 1.f, 0.f, 1.f)
 {
 
 }

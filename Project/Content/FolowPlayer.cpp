@@ -19,6 +19,10 @@ void FolowPlayer::initialize()
 
 void FolowPlayer::update()
 {
+	if (nullptr == mPlayerTransform)
+	{
+		return;
+	}
 	//RenderTargetRenderer* const renderer = GetOwner()->GetGameSystem()->GetRenderTargetRenderer();
 	//DebugRenderer2D* const debugRenderer = renderer->GetDebugRenderer2D();
 

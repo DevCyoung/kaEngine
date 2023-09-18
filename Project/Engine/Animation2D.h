@@ -57,12 +57,14 @@ public:
 	const tFrame& GetCurFrame() const { return mFrames[mCurFrameIdx]; }
 	Texture* GetAtlas() const { Assert(mAtlas, WCHAR_IS_NULLPTR); return mAtlas; }
 
-	void SetFrameEndEvent(UINT frameIDX, std::function<void()> func)
-	{
-		Assert(frameIDX < mFrames.size(), WCHAR_IS_INVALID_TYPE);
+	bool IsFinished() const { return mbFinished; }
 
-		mFrames[frameIDX].endEvent = std::move(func);
-		mFrames[frameIDX].bEvent = true;
+	void SetFrameEndEvent(UINT frameIdx, std::function<void()> func)
+	{
+		Assert(frameIdx < mFrames.size(), WCHAR_IS_INVALID_TYPE);
+
+		mFrames[frameIdx].endEvent = std::move(func);
+		mFrames[frameIdx].bEvent = true;
 	}
 
 	void SetFirstFrameEndEvent(std::function<void()> func)
@@ -79,9 +81,13 @@ public:
 		SetFrameEndEvent(static_cast<int>(mFrames.size()) - 1, std::move(func));
 	}
 
+	const std::wstring& GetKey() const { return mKey; }
+	UINT GetFrameIdx() const { return static_cast<UINT>(mCurFrameIdx); }
+
 private:
 	void lateUpdate();
 	void reset();
+	void reset(const UINT frameIdx);
 
 private:
 	std::wstring mKey;

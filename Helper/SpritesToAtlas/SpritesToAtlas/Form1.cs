@@ -19,6 +19,7 @@ namespace SpritesToAtlas
         SaveFileDialog mSFD;
 
         Stack<Point> mPrevPosStack;
+        string animationCodeGen = "";
 
         Pen mMagentaPen;
 
@@ -35,7 +36,7 @@ namespace SpritesToAtlas
             mPad = new Size(10, 10);
             mAtlasImage = new Bitmap(AtlasView.Width, AtlasView.Height);
             mFont = new Font("Arial", 12);
-            mFBD = new FolderBrowserDialog();            
+            mFBD = new FolderBrowserDialog();
             mSFD = new SaveFileDialog();
             mSFD.Filter = "Image Files (*.png, *.jpg, *.bmp)|*.png;*.jpg;*.bmp";
             mPrevPosStack = new Stack<Point>();
@@ -75,14 +76,15 @@ namespace SpritesToAtlas
             }
 
             Size SpriteSize = new Size(sprties[0].Width, sprties[0].Height);
-                                  
-            Point captionLT = new Point(mCursurPos.X, mCursurPos.Y);
 
+            Point captionLT = new Point(mCursurPos.X, mCursurPos.Y);
 
             string caption = $"{spritesName}  " +
                 $"LT: {mCursurPos.X}, {mCursurPos.Y + mFont.Height + mPad.Height},  " +
                 $"BackSize: {SpriteSize.Width}, {SpriteSize.Height}  " +
-                $"Pad: {mPad.Width} {mPad.Height} Cnt: {filePaths.Length}";
+                $"Pad: {mPad.Width} {mPad.Height} Cnt: {filePaths.Length}";         
+            animationCodeGen += $"anim->CreateAnimation(L\"{spritesName}\", atlas, {filePaths.Length}, XMUINT2({mCursurPos.X}, {mCursurPos.Y + mFont.Height + mPad.Height}), XMUINT2({SpriteSize.Width}, {SpriteSize.Height}), XMUINT2({mPad.Width}, {mPad.Height}), XMINT2(0, 0), 0.125f);\n\n";
+
             MoveAddCursurY(mFont.Height);
             LF();
             CR();
@@ -112,7 +114,7 @@ namespace SpritesToAtlas
 
                 atalsGraphics.DrawRectangle(mMagentaPen, mCursurPos.X - 1, mCursurPos.Y - 1, sprties[i].Width + 1, sprties[i].Height + 1);
                 atalsGraphics.DrawImage(sprties[i], mCursurPos.X, mCursurPos.Y);
-                
+
                 MoveAddCursurX(sprties[i].Width + mPad.Width);
             }
 
@@ -128,17 +130,17 @@ namespace SpritesToAtlas
         }
 
         private void button1_Click(object sender, EventArgs e)
-        {            
+        {
             if (DialogResult.OK != mFBD.ShowDialog())
             {
                 return;
             }
 
-            string[] directoryPaths = Directory.GetDirectories(mFBD.SelectedPath);            
+            string[] directoryPaths = Directory.GetDirectories(mFBD.SelectedPath);
 
             foreach (string path in directoryPaths)
             {
-                string[] Dirfilepaths = Directory.GetFiles(path);                
+                string[] Dirfilepaths = Directory.GetFiles(path);
 
                 if (Dirfilepaths.Length == 0)
                 {
@@ -153,7 +155,7 @@ namespace SpritesToAtlas
                 DrawSprite(Path.GetFileNameWithoutExtension(path), Dirfilepaths);
             }
 
-            string[] filePaths = Directory.GetFiles(mFBD.SelectedPath);            
+            string[] filePaths = Directory.GetFiles(mFBD.SelectedPath);
 
             foreach (string path in filePaths)
             {
@@ -168,53 +170,57 @@ namespace SpritesToAtlas
             }
         }
 
-            private void ButtonExport_Click(object sender, EventArgs e)
+        private void ButtonExport_Click(object sender, EventArgs e)
+        {
+            if (mPrevPosStack.Count <= 0)
             {
-                if (mPrevPosStack.Count <= 0)
-                {
-                    MessageBox.Show("Empty Sprites");
-                    return;
-                }
-
-                mSFD.ShowDialog();
-
-                if (mSFD.FileName != "")
-                {
-                    Bitmap copyBitmap = new Bitmap(mAtlasImage.Width, mCursurPos.Y);
-                    Graphics copyGraphics = Graphics.FromImage(copyBitmap);
-
-                    Rectangle rect = new Rectangle(0, 0, mAtlasImage.Width, mCursurPos.Y);
-                    copyGraphics.DrawImageUnscaledAndClipped(mAtlasImage, rect);
-
-                    copyBitmap.Save(mSFD.FileName, ImageFormat.Png);
-                }
-                else
-                {
-                    MessageBox.Show("Please enter a file name.");
-                }
+                MessageBox.Show("Empty Sprites");
+                return;
             }
 
-            private void PrevAtlasButton_Click(object sender, EventArgs e)
+            mSFD.ShowDialog();
+
+            if (mSFD.FileName != "")
             {
-                if (mPrevPosStack.Count <= 0)
-                {
-                    MessageBox.Show("Empty Sprites");
-
-                    return;
-                }
-
-                Point prevPos = mPrevPosStack.Pop();
-
-                Bitmap copyBitmap = new Bitmap(mAtlasImage.Width, mAtlasImage.Height);
+                Bitmap copyBitmap = new Bitmap(mAtlasImage.Width, mCursurPos.Y);
                 Graphics copyGraphics = Graphics.FromImage(copyBitmap);
 
-                Rectangle rect = new Rectangle(0, 0, mAtlasImage.Width, prevPos.Y);
-
+                Rectangle rect = new Rectangle(0, 0, mAtlasImage.Width, mCursurPos.Y);
                 copyGraphics.DrawImageUnscaledAndClipped(mAtlasImage, rect);
 
-                mAtlasImage = copyBitmap;
-                AtlasView.Image = mAtlasImage;
-                mCursurPos = prevPos;
+                copyBitmap.Save(mSFD.FileName, ImageFormat.Png);
+
+                //animationCodeGen를 txt파일로저장 mSFD.FileName 경로 디렉터리에
+                string txtPath = Path.GetDirectoryName(mSFD.FileName) + "\\animationCodeGen.txt";
+                File.WriteAllText(txtPath, animationCodeGen);
+            }
+            else
+            {
+                MessageBox.Show("Please enter a file name.");
             }
         }
+
+        private void PrevAtlasButton_Click(object sender, EventArgs e)
+        {
+            if (mPrevPosStack.Count <= 0)
+            {
+                MessageBox.Show("Empty Sprites");
+
+                return;
+            }
+
+            Point prevPos = mPrevPosStack.Pop();
+
+            Bitmap copyBitmap = new Bitmap(mAtlasImage.Width, mAtlasImage.Height);
+            Graphics copyGraphics = Graphics.FromImage(copyBitmap);
+
+            Rectangle rect = new Rectangle(0, 0, mAtlasImage.Width, prevPos.Y);
+
+            copyGraphics.DrawImageUnscaledAndClipped(mAtlasImage, rect);
+
+            mAtlasImage = copyBitmap;
+            AtlasView.Image = mAtlasImage;
+            mCursurPos = prevPos;
+        }
     }
+}

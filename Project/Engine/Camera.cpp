@@ -26,18 +26,7 @@ Camera::~Camera()
 {
 }
 
-void Camera::initialize()
-{
-	Assert(mRenderTargetSize != Vector2::Zero, WCHAR_IS_NULLPTR);
-
-	GetOwner()->GetGameSystem()->GetRenderTargetRenderer()->registerRenderCamera(this);
-}
-
-void Camera::update()
-{
-}
-
-void Camera::lateUpdate()
+void Camera::CalculateCamera()
 {
 	const Transform* const P_TRANSFORM = GetOwner()->GetComponent<Transform>();
 	const Vector3& POSITION = P_TRANSFORM->GetWorldMatrix().Translation();
@@ -58,7 +47,7 @@ void Camera::lateUpdate()
 	viewRotate._31 = RIGHT.z;	viewRotate._32 = UP.z;	viewRotate._33 = FORWARD.z;
 
 	mView *= viewRotate;
-	
+
 	mAspectRatio = mRenderTargetSize.x / mRenderTargetSize.y;
 
 	switch (mProjectionType)
@@ -79,4 +68,20 @@ void Camera::lateUpdate()
 		Assert(false, WCHAR_IS_INVALID_TYPE);
 		break;
 	}
+}
+
+void Camera::initialize()
+{
+	Assert(mRenderTargetSize != Vector2::Zero, WCHAR_IS_NULLPTR);
+
+	GetOwner()->GetGameSystem()->GetRenderTargetRenderer()->registerRenderCamera(this);
+}
+
+void Camera::update()
+{
+}
+
+void Camera::lateUpdate()
+{
+	CalculateCamera();
 }

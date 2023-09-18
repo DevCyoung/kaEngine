@@ -42,26 +42,27 @@ public:
 
 
 private:
-	enum class eEventOfScene
+	enum class eEvent
 	{
 		AddGameObject,
 		DestroyGameObject,
+		LoadScene,
 		End,
 	};
 
 	struct tEventMessageScene
 	{
-		eEventOfScene EventOfSceneType;
+		eEvent EventOfSceneType;
 		GameObject* EventGameObject;
 		eLayerType LayerType;
 		std::source_location ErrorHint;
 	};
 
-private:
+protected:
 	virtual void initialize();
 	virtual void update();
 	virtual void fixedUpdate();
-	virtual void lateUpdate();	
+	virtual void lateUpdate();
 
 	//virtual void physicsUpdate
 	virtual void render(const UINT renderTargetWidth,

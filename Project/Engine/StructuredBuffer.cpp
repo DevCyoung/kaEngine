@@ -35,6 +35,7 @@ StructuredBuffer::StructuredBuffer(const eSBType SBType,
 	{
 		HRESULT hr = device->CreateBuffer(&mDesc, nullptr, mBuffer.GetAddressOf());
 		Assert(SUCCEEDED(hr), WCHAR_IS_INVALID_TYPE);
+		(void)hr;
 	}
 	else
 	{
@@ -43,6 +44,7 @@ StructuredBuffer::StructuredBuffer(const eSBType SBType,
 
 		HRESULT hr = device->CreateBuffer(&mDesc, &tSubData, mBuffer.GetAddressOf());
 		Assert(SUCCEEDED(hr), WCHAR_IS_INVALID_TYPE);
+		(void)hr;
 	}
 
 	D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc = {};
@@ -51,6 +53,7 @@ StructuredBuffer::StructuredBuffer(const eSBType SBType,
 
 	HRESULT hr  = device->CreateShaderResourceView(mBuffer.Get(), &srvDesc, mSRV.GetAddressOf());
 	Assert(SUCCEEDED(hr), WCHAR_IS_INVALID_TYPE);
+	(void)hr;
 }
 
 StructuredBuffer::~StructuredBuffer()

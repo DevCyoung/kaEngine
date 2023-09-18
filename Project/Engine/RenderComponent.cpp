@@ -7,6 +7,7 @@
 
 RenderComponent::RenderComponent(const eComponentType componentType)
 	: Component(componentType)
+	, mbVisible(true)
 	, mMesh(nullptr)
 	, mMaterial(nullptr)
 {
@@ -21,8 +22,11 @@ void RenderComponent::initialize()
 }
 
 void RenderComponent::update()
-{	
-	GetOwner()->GetGameSystem()->GetRenderTargetRenderer()->registerRenderComponent(this);
+{
+	if (GetOwner()->GetState() == GameObject::eState::Active && mbVisible)
+	{
+		GetOwner()->GetGameSystem()->GetRenderTargetRenderer()->registerRenderComponent(this);
+	}	
 }
 
 void RenderComponent::lateUpdate()
