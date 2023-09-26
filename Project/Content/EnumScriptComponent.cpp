@@ -5,6 +5,7 @@
 #include "PlayerPath.h"
 #include "GangsterAI.h"
 #include "AfterImage.h"
+#include "AxeMovement.h"
 #include "Bugiman.h"
 #include "BulletMovement.h"
 #include "CameraInputMoveMent.h"
@@ -14,6 +15,7 @@
 #include "FolowPlayer.h"
 #include "GridPainter.h"
 #include "InputMovementTest.h"
+#include "KissyfaceAI.h"
 #include "LerpTest.h"
 #include "ParentTest.h"
 #include "PathNode.h"
@@ -34,6 +36,7 @@ static constexpr const wchar_t* const ScriptComponentNames[static_cast<UINT>(eSc
 	L"PlayerPath",
 	L"GangsterAI",
 	L"AfterImage",
+	L"AxeMovement",
 	L"Bugiman",
 	L"BulletMovement",
 	L"CameraInputMoveMent",
@@ -43,6 +46,7 @@ static constexpr const wchar_t* const ScriptComponentNames[static_cast<UINT>(eSc
 	L"FolowPlayer",
 	L"GridPainter",
 	L"InputMovementTest",
+	L"KissyfaceAI",
 	L"LerpTest",
 	L"ParentTest",
 	L"PathNode",
@@ -76,6 +80,8 @@ ScriptComponent* CreateScriptComponentByName(const std::wstring& scriptcomponent
 		scriptcomponent = new GangsterAI;
 	else if (L"AfterImage" == scriptcomponentName)
 		scriptcomponent = new AfterImage;
+	else if (L"AxeMovement" == scriptcomponentName)
+		scriptcomponent = new AxeMovement;
 	else if (L"Bugiman" == scriptcomponentName)
 		scriptcomponent = new Bugiman;
 	else if (L"BulletMovement" == scriptcomponentName)
@@ -94,6 +100,8 @@ ScriptComponent* CreateScriptComponentByName(const std::wstring& scriptcomponent
 		scriptcomponent = new GridPainter;
 	else if (L"InputMovementTest" == scriptcomponentName)
 		scriptcomponent = new InputMovementTest;
+	else if (L"KissyfaceAI" == scriptcomponentName)
+		scriptcomponent = new KissyfaceAI;
 	else if (L"LerpTest" == scriptcomponentName)
 		scriptcomponent = new LerpTest;
 	else if (L"ParentTest" == scriptcomponentName)
@@ -143,6 +151,9 @@ ScriptComponent* CreateScriptComponentByEnum(const eScriptComponentType type)
 	case eScriptComponentType::AfterImage:
 		scriptcomponent = new AfterImage;
 		break;
+	case eScriptComponentType::AxeMovement:
+		scriptcomponent = new AxeMovement;
+		break;
 	case eScriptComponentType::Bugiman:
 		scriptcomponent = new Bugiman;
 		break;
@@ -169,6 +180,9 @@ ScriptComponent* CreateScriptComponentByEnum(const eScriptComponentType type)
 		break;
 	case eScriptComponentType::InputMovementTest:
 		scriptcomponent = new InputMovementTest;
+		break;
+	case eScriptComponentType::KissyfaceAI:
+		scriptcomponent = new KissyfaceAI;
 		break;
 	case eScriptComponentType::LerpTest:
 		scriptcomponent = new LerpTest;

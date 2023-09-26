@@ -25,6 +25,7 @@ public:
 	static GameObject* Default2D(const std::wstring& materialName);	
 	static GameObject* Player();
 	static GameObject* InstantiateMonster(const eMonsterType type, Scene* const scene);
+	static GameObject* InstantiateKissyface(Scene* const scene);
 	static GameObject* Slash();
 	
 

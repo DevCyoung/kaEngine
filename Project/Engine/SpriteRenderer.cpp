@@ -2,7 +2,7 @@
 #include "SpriteRenderer.h"
 #include "Camera.h"
 #include "Material.h"
-#include "Textrue.h"
+#include "Texture.h"
 #include "Shader.h"
 #include "CBCollection.h"
 #include "StructBuffer.h"
@@ -10,13 +10,16 @@
 #include "GraphicDeviceDx11.h"
 #include "Transform.h"
 #include "EnumSRV.h"
+#include "ResourceManager.h"
+#include "Mesh.h"
 
 SpriteRenderer::SpriteRenderer()
 	: RenderComponent(eComponentType::SpriteRenderer)	
 	, mTestColor(Vector4::One)
 	, testX(Vector4::One)
 	, bColorInfo(0)
-{
+{	
+	SetMesh(gResourceManager->FindOrNull<Mesh>(L"FillRect2D"));
 }
 
 SpriteRenderer::~SpriteRenderer()

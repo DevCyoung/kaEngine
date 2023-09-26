@@ -3,6 +3,7 @@
 enum class eResTexture
 {
 	Atlas_Gangster_gangster,
+	Atlas_Kissyface_kissyface,
 	Atlas_Player_ori,
 	Atlas_Player_slash,
 	Atlas_Player_zero,
@@ -58,10 +59,14 @@ enum class eResTexture
 	Map_HeadHunter_spr_vaultdoor_open_spr_vaultdoor_open_9,
 	Map_HeadHunter_map,
 	Map_HeadHunter_map_alpha,
+	Map_Kissyface_kissyface_map,
 	Noise_01,
 	Noise_02,
 	Noise_03,
 	Noise_04,
+	Noise_noise_01,
+	Noise_noise_02,
+	Noise_noise_03,
 	TileMap_bg_club_background,
 	TileMap_bg_haunted_background,
 	Title_spr_title_plants_spr_title_plants_0,

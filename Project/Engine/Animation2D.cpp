@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "Animation2D.h"
-#include "Textrue.h"
+#include "Texture.h"
 #include "TimeManager.h"
 
 Animation2D::Animation2D(const std::wstring& animName,

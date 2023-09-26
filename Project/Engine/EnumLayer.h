@@ -19,7 +19,7 @@ enum class eLayerType
 	Bullet,
 	Satellite,
 	Monster,
-	Player,	
+	Player,
 	Default,
 	Mouse,
 	Light,

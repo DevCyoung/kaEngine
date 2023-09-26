@@ -223,6 +223,21 @@
     <Filter Include="Source\Scene\KatanaScene\TitleScene">
       <UniqueIdentifier>{96946f4c-9e4a-43d1-9bde-9ef81cae4896}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ShaderCode\PostProcess">
+      <UniqueIdentifier>{c153dbaa-2d4f-402b-8399-f18f9cb1e231}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ShaderCode\PostProcess\Gray">
+      <UniqueIdentifier>{e7ce679c-7359-4d55-a696-6e5625880d65}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scene\KatanaScene\Kissyface">
+      <UniqueIdentifier>{ac7d4fa4-5d8b-402c-bf96-d058c3592e5f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Monster">
+      <UniqueIdentifier>{600d1667-160f-4bf2-af48-23cf36204ae5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Monster\Axe">
+      <UniqueIdentifier>{84be3502-5932-4a03-84f2-6a055c43bdad}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -432,6 +447,15 @@
     <ClInclude Include="KatanaScene.h">
       <Filter>Source\Scene\KatanaScene</Filter>
     </ClInclude>
+    <ClInclude Include="KissyfaceScene.h">
+      <Filter>Source\Scene\KatanaScene\Kissyface</Filter>
+    </ClInclude>
+    <ClInclude Include="KissyfaceAI.h">
+      <Filter>Source\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="AxeMovement.h">
+      <Filter>Source\Monster\Axe</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -635,6 +659,15 @@
     <ClCompile Include="KatanaScene.cpp">
       <Filter>Source\Scene\KatanaScene</Filter>
     </ClCompile>
+    <ClCompile Include="KissyfaceScene.cpp">
+      <Filter>Source\Scene\KatanaScene\Kissyface</Filter>
+    </ClCompile>
+    <ClCompile Include="KissyfaceAI.cpp">
+      <Filter>Source\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="AxeMovement.cpp">
+      <Filter>Source\Monster\Axe</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Output\bin\Resources\Shader\Header\Struct.fxh">
@@ -729,6 +762,12 @@
     </None>
     <None Include="component.priority">
       <Filter>Windows</Filter>
+    </None>
+    <None Include="..\..\Output\bin\Resources\Shader\PSGrayPostProcess.hlsl">
+      <Filter>ShaderCode\PostProcess\Gray</Filter>
+    </None>
+    <None Include="..\..\Output\bin\Resources\Shader\VSGrayPostProcess.hlsl">
+      <Filter>ShaderCode\PostProcess\Gray</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

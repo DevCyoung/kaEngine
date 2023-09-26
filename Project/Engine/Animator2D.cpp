@@ -8,7 +8,7 @@
 #include "Shader.h"
 #include "CBCollection.h"
 #include "StructBuffer.h"
-#include "Textrue.h"
+#include "Texture.h"
 #include "Camera.h"
 #include "Transform.h"
 #include "Animation2D.h"

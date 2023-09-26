@@ -56,14 +56,18 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	//constexpr UINT EDIT_SCREEN_WIDTH = 1600;
 	//constexpr UINT EDIT_SCREEN_HEIGHT = 900;	
 
+
 	constexpr UINT KATANA_SCREEN_WIDTH = 1280;
 	constexpr UINT KATANA_SCREEN_HEIGHT = 720;
 
 	Engine::initialize(gHwnd, KATANA_SCREEN_WIDTH, KATANA_SCREEN_HEIGHT);
-	Content::initialize();	
+	Content::initialize();
+
+	//Mose Cursor
+	ShowCursor(FALSE);
 
 	while (true)
-	{
+	{	
 		if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
 		{
 			if (WM_QUIT == msg.message)

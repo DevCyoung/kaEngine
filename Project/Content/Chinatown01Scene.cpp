@@ -367,13 +367,13 @@ Chinatown01Scene::Chinatown01Scene()
 	//monster
 	{
 		GameObject* monster = GameObjectBuilder::InstantiateMonster(eMonsterType::Ganster, this);
-		monster->GetComponent<Transform>()->SetPosition(0, 500, -30);
+		monster->GetComponent<Transform>()->SetPosition(0, 500, -1);
 	}
 
 	//monster
 	{
 		GameObject* monster = GameObjectBuilder::InstantiateMonster(eMonsterType::Ganster, this);
-		monster->GetComponent<Transform>()->SetPosition(-300, 200, -30);
+		monster->GetComponent<Transform>()->SetPosition(-300, 200, -1);
 	}
 #pragma endregion	
 
@@ -412,7 +412,20 @@ Chinatown01Scene::Chinatown01Scene()
 	{
 		GameObjectBuilder::AddUI(this);
 	}
-#pragma endregion	
+#pragma endregion
+
+#pragma region PostProcess
+	/*{
+		GameObject* const postProcess = new GameObject();
+
+		postProcess->AddComponent<SpriteRenderer>();
+		postProcess->GetComponent<SpriteRenderer>()->SetMaterial(
+			gResourceManager->FindOrNull<Material>(L"GrayPostProcess"));
+
+		AddGameObject(postProcess, eLayerType::Default);
+	}*/
+#pragma endregion
+
 }
 
 Chinatown01Scene::~Chinatown01Scene()

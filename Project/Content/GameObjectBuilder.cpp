@@ -19,6 +19,9 @@
 #include "PlayerPath.h"
 #include "RewindComponent.h"
 
+#include "KissyfaceAI.h"
+#include "AxeMovement.h"
+
 GameObject* GameObjectBuilder::Default2D(const std::wstring& materialName)
 {
 	GameObject* const obj = new GameObject();
@@ -43,6 +46,12 @@ GameObject* GameObjectBuilder::Player()
 	player->AddComponent<RectCollider2D>();
 	player->AddComponent<PlayerPath>();
 	player->AddComponent<RewindComponent>();
+
+
+	player->GetComponent<AfterImage>()->SetCreateDeltaTime(0.02f);
+	player->GetComponent<AfterImage>()->SetAlphaTime(1.2f);
+	player->GetComponent<AfterImage>()->SetAlphaMaxTime(2.0f);
+
 
 	//Animation
 	{
@@ -232,6 +241,150 @@ GameObject* GameObjectBuilder::InstantiateMonster(const eMonsterType type, Scene
 
 	
 	return monster;
+}
+
+GameObject* GameObjectBuilder::InstantiateKissyface(Scene* const scene)
+{	
+	GameObject* const kissyface = new GameObject();
+
+	kissyface->GetComponent<Transform>()->SetPosition(-200.f, 0.f, 0.f);
+	kissyface->GetComponent<Transform>()->SetScale(2.0f, 2.0f, 1.f);
+
+	kissyface->SetName(L"Monster");
+	kissyface->AddComponent<Rigidbody2D>();
+	kissyface->AddComponent<Rect2DInterpolation>();
+	kissyface->AddComponent<RectCollider2D>();
+	kissyface->AddComponent<Animator2D>();
+	kissyface->AddComponent<KissyfaceAI>();
+
+	//Collider
+	{
+		kissyface->GetComponent<RectCollider2D>()->SetSize(22.f, 58.f);
+		kissyface->GetComponent<RectCollider2D>()->SetOffset(Vector2(0.f, 4.f));
+	}
+
+	//Rigidbody
+	{
+		kissyface->GetComponent<Rigidbody2D>()->TurnOnGravity();
+		kissyface->GetComponent<Rigidbody2D>()->SetGravityAccel(1800.f);
+	}
+
+	//Animation
+	{
+		Animator2D* const anim = kissyface->GetComponent<Animator2D>();
+		Texture* atlas = gResourceManager->FindByEnum<Texture>(eResTexture::Atlas_Kissyface_kissyface);
+
+		anim->CreateAnimation(L"spr_kissyface_block", atlas, 5, XMUINT2(5, 34), XMUINT2(53, 48), XMUINT2(10, 10), XMINT2(0, 0), 0.125f);
+
+		anim->CreateAnimation(L"spr_kissyface_dead", atlas, 12, XMUINT2(5, 121), XMUINT2(49, 26), XMUINT2(10, 10), XMINT2(0, 0), 0.125f);
+
+		anim->CreateAnimation(L"spr_kissyface_die", atlas, 14, XMUINT2(5, 222), XMUINT2(106, 56), XMUINT2(10, 10), XMINT2(0, 0), 0.125f);
+
+		anim->CreateAnimation(L"spr_kissyface_headfly", atlas, 6, XMUINT2(5, 449), XMUINT2(17, 14), XMUINT2(10, 10), XMINT2(0, 0), 0.125f);
+
+		anim->CreateAnimation(L"spr_kissyface_headfly_loop", atlas, 6, XMUINT2(5, 502), XMUINT2(17, 12), XMUINT2(10, 10), XMINT2(0, 0), 0.125f);
+
+		anim->CreateAnimation(L"spr_kissyface_headland", atlas, 8, XMUINT2(5, 553), XMUINT2(46, 15), XMUINT2(10, 10), XMINT2(0, 0), 0.125f);
+
+		anim->CreateAnimation(L"spr_kissyface_hit_grenade", atlas, 6, XMUINT2(5, 607), XMUINT2(72, 50), XMUINT2(10, 10), XMINT2(0, 0), 0.125f);
+
+		anim->CreateAnimation(L"spr_kissyface_hurt", atlas, 6, XMUINT2(5, 696), XMUINT2(71, 58), XMUINT2(10, 10), XMINT2(0, 0), 0.125f);
+
+		anim->CreateAnimation(L"spr_kissyface_jump", atlas, 2, XMUINT2(5, 793), XMUINT2(38, 73), XMUINT2(10, 10), XMINT2(0, 0), 0.125f);
+
+		anim->CreateAnimation(L"spr_kissyface_jump_swing", atlas, 3, XMUINT2(5, 905), XMUINT2(31, 54), XMUINT2(10, 10), XMINT2(0, 0), 0.125f);
+
+		anim->CreateAnimation(L"spr_kissyface_landattack", atlas, 6, XMUINT2(5, 998), XMUINT2(44, 50), XMUINT2(10, 10), XMINT2(0, 0), 0.125f);
+
+		anim->CreateAnimation(L"spr_kissyface_lunge", atlas, 5, XMUINT2(5, 1087), XMUINT2(83, 68), XMUINT2(10, 10), XMINT2(20, 9), 0.08f);
+
+		anim->CreateAnimation(L"spr_kissyface_lungeattack", atlas, 9, XMUINT2(5, 1194), XMUINT2(104, 54), XMUINT2(10, 10), XMINT2(35, 2), 0.08f);
+
+		anim->CreateAnimation(L"spr_kissyface_prelunge", atlas, 4, XMUINT2(5, 1498), XMUINT2(41, 50), XMUINT2(10, 10), XMINT2(0, 0), 0.08f);
+
+		anim->CreateAnimation(L"spr_kissyface_nohead", atlas, 7, XMUINT2(5, 1351), XMUINT2(53, 20), XMUINT2(10, 10), XMINT2(0, 0), 0.125f);
+
+		anim->CreateAnimation(L"spr_kissyface_prejump", atlas, 4, XMUINT2(5, 1410), XMUINT2(44, 49), XMUINT2(10, 10), XMINT2(0, 0), 0.125f);
+
+		anim->CreateAnimation(L"spr_kissyface_recover", atlas, 7, XMUINT2(5, 1587), XMUINT2(69, 45), XMUINT2(10, 10), XMINT2(0, 0), 0.125f);
+
+		
+
+		anim->CreateAnimation(L"spr_kissyface_sharpenaxe", atlas, 16, XMUINT2(5, 1752), XMUINT2(31, 49), XMUINT2(10, 10), XMINT2(0, 0), 0.125f);
+
+		anim->CreateAnimation(L"spr_kissyface_slash", atlas, 12, XMUINT2(5, 1840), XMUINT2(122, 52), XMUINT2(10, 10), XMINT2(0, 2), 0.125f);
+
+		anim->CreateAnimation(L"spr_kissyface_struggle", atlas, 2, XMUINT2(5, 2055), XMUINT2(58, 36), XMUINT2(10, 10), XMINT2(0, -7), 0.125f);
+
+		anim->CreateAnimation(L"Throw", atlas, 9, XMUINT2(5, 2130), XMUINT2(106, 55), XMUINT2(10, 10), XMINT2(6, 3), 0.08f);
+		anim->CreateAnimation(L"spr_kissyface_returnaxe", atlas, 5, XMUINT2(5, 1671), XMUINT2(69, 42), XMUINT2(10, 10), XMINT2(0, -4), 0.08f);
+
+		anim->CreateAnimation(L"spr_kissyface_tug", atlas, 6, XMUINT2(5, 2391), XMUINT2(58, 41), XMUINT2(10, 10), XMINT2(5, -4), 0.125f);
+
+
+
+		anim->CreateAnimation(L"spr_kissyface_tobattle", atlas, 9, XMUINT2(5, 2289), XMUINT2(52, 63), XMUINT2(10, 10), XMINT2(0, 0), 0.125f);
+
+
+		anim->CreateAnimation(L"spr_kissyface_walk", atlas, 10, XMUINT2(5, 2471), XMUINT2(39, 49), XMUINT2(10, 10), XMINT2(0, 0), 0.125f);
+
+		anim->CreateAnimation(L"spr_kissyface_axe", atlas, 1, XMUINT2(5, 2559), XMUINT2(26, 80), XMUINT2(10, 10), XMINT2(0, 0), 0.125f);
+
+		anim->CreateAnimation(L"spr_kissyface_broken_axe", atlas, 1, XMUINT2(5, 2678), XMUINT2(106, 5), XMUINT2(10, 10), XMINT2(0, 0), 0.125f);
+
+		anim->CreateAnimation(L"spr_kissyface_casual_idle", atlas, 1, XMUINT2(5, 2722), XMUINT2(40, 49), XMUINT2(10, 10), XMINT2(0, 0), 0.125f);
+
+		anim->CreateAnimation(L"spr_kissyface_chain", atlas, 1, XMUINT2(5, 2810), XMUINT2(11, 4), XMUINT2(10, 10), XMINT2(0, 0), 0.125f);
+
+		anim->CreateAnimation(L"spr_kissyface_hitgrenade_idle", atlas, 1, XMUINT2(5, 2853), XMUINT2(37, 50), XMUINT2(10, 10), XMINT2(0, 0), 0.125f);
+
+		anim->CreateAnimation(L"spr_kissyface_idle", atlas, 1, XMUINT2(5, 2942), XMUINT2(37, 50), XMUINT2(10, 10), XMINT2(0, 0), 0.125f);
+	}
+
+	{
+		GameObject* const parent = new GameObject();
+		parent->GetComponent<Transform>()->SetScale(0.5f, 0.5f, 1.f);
+
+
+		parent->SetParent(kissyface);
+		scene->AddGameObject(parent, eLayerType::Monster);
+
+		{
+			GameObject* const axe = new GameObject();
+
+			axe->SetName(L"Axe");
+			axe->GetComponent<Transform>()->SetFlipx(true);
+			axe->AddComponent<Animator2D>();
+			axe->AddComponent<RectCollider2D>();
+			axe->AddComponent<AxeMovement>();
+			axe->AddComponent<AfterImage>();
+
+			//axe->AddComponent<Rigidbody2D>();
+
+			axe->GetComponent<RectCollider2D>()->SetSize(22.f, 58.f);
+			axe->GetComponent<Animator2D>()->TurnOffVisiblelity();
+			axe->GetComponent<AxeMovement>()->SetKissyfaace(kissyface);
+
+			Animator2D* const anim = axe->GetComponent<Animator2D>();
+			Texture* atlas = gResourceManager->FindByEnum<Texture>(eResTexture::Atlas_Kissyface_kissyface);
+
+			anim->CreateAnimation(L"spr_kissyface_axe", atlas, 1, XMUINT2(5, 2559), XMUINT2(26, 80), XMUINT2(10, 10), XMINT2(0, 0), 0.125f);
+
+			anim->Play(L"spr_kissyface_axe", true);
+
+
+			kissyface->GetComponent<KissyfaceAI>()->SetAxe(axe);
+			scene->AddGameObject(axe, eLayerType::Monster);
+			axe->SetParent(parent);
+		}		
+	}	
+
+
+
+
+	kissyface->GetComponent<Animator2D>()->Play(L"spr_kissyface_walk", true);
+	scene->AddGameObject(kissyface, eLayerType::Monster);
+	return kissyface;
 }
 
 GameObject* GameObjectBuilder::Slash()
@@ -482,8 +635,9 @@ GameObject* GameObjectBuilder::AddCamera(Scene* const scene)
 		mainCamera->GetComponent<Camera>()->SetPriorityType(eCameraPriorityType::Main);
 		mainCamera->GetComponent<Camera>()->SetRenderTargetSize(screenSize);
 		mainCamera->GetComponent<Camera>()->TurnOnAllLayer();
+
 		mainCamera->GetComponent<Camera>()->TurnOffLayer(eLayerType::UI);
-		mainCamera->GetComponent<Camera>()->TurnOffLayer(eLayerType::BackGround);
+		mainCamera->GetComponent<Camera>()->TurnOffLayer(eLayerType::BackGround);		
 
 		scene->AddGameObject(mainCamera, eLayerType::Default);
 
@@ -517,6 +671,7 @@ GameObject* GameObjectBuilder::AddCamera(Scene* const scene)
 		uiCamera->GetComponent<Transform>()->SetPosition(0.f, 0.f, -10.f);
 		uiCamera->GetComponent<Camera>()->SetPriorityType(eCameraPriorityType::UI);
 		uiCamera->GetComponent<Camera>()->SetRenderTargetSize(screenSize);
+
 		uiCamera->GetComponent<Camera>()->TurnOffAllLayer();
 		uiCamera->GetComponent<Camera>()->TurnOnLayer(eLayerType::UI);
 

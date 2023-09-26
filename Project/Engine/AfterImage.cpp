@@ -22,10 +22,10 @@
 AfterImage::AfterImage()
 	: RenderComponent(eComponentType::AfterImage)
 	, mAnimator(nullptr)
-	, mCreateDeltaTime(0.03f)
+	, mCreateDeltaTime(0.003f)
 	, mCurTime(0.f)
-	, mAlphaTime(1.2f)
-	, mAlphaMaxTime(2.f)
+	, mAlphaTime(0.5f)
+	, mAlphaMaxTime(1.3f)
 	, mAlphaSpeed(4.f)
 	, colorType(0)
 	, count(0)
@@ -70,6 +70,8 @@ void AfterImage::update()
 
 void AfterImage::lateUpdate()
 {
+	//Rigidbody2D* const rigidbody2D = GetOwner()->GetComponentOrNull<Rigidbody2D>();
+
 	mCurTime += gDeltaTime;
 
 	if (count >= 4)
@@ -109,12 +111,17 @@ void AfterImage::lateUpdate()
 
 void AfterImage::render(const Camera* const camera)
 {
-	Rigidbody2D* const rigidbody2D = GetOwner()->GetComponent<Rigidbody2D>();
+	//Rigidbody2D* const rigidbody2D = GetOwner()->GetComponentOrNull<Rigidbody2D>();
 
-	if (rigidbody2D->GetVelocity().Length() == 0.f)
-	{
-		return;
-	}
+	//if (rigidbody2D && rigidbody2D->GetVelocity().Length() == 0.f)
+	//{
+	//	return;
+	//}
+
+	//if (false == IsVisible())
+	//{
+	//	return;
+	//}
 
 
 

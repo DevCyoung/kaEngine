@@ -17,18 +17,24 @@
 #include "StructBuffer.h"
 #include "TimeManager.h"
 
+#include "ResourceManager.h"
+
+#include "Texture.h"
+
 RenderTargetRenderer::RenderTargetRenderer()
 	: mDebugRenderer(new DebugRenderer2D())
 	, mCameras{ 0, }
 	, mRenderComponentsArray{}
 	, mLight2DInfos()
-	, mbDebugRender(true)
+	, mbDebugRender(false)
 	, mCameraMask(0XFFFFFFFF)
 {
 	for (auto& renderObjectArray : mRenderComponentsArray)
 	{
 		renderObjectArray.reserve(100);
 	}
+
+	mPostProcessComponents.reserve(100);
 }
 
 RenderTargetRenderer::~RenderTargetRenderer()
@@ -52,7 +58,16 @@ void RenderTargetRenderer::registerRenderComponent(RenderComponent* const render
 	Assert(renderComponent, WCHAR_IS_NULLPTR);
 
 	const eRenderPriorityType RENDER_PRIORITY_TYPE = renderComponent->GetMaterial()->GetRenderType();
-	mRenderComponentsArray[static_cast<UINT>(RENDER_PRIORITY_TYPE)].push_back(renderComponent);
+
+	if (eRenderPriorityType::PostProcess == renderComponent->GetMaterial()->GetRenderType())
+	{
+		mPostProcessComponents.push_back(renderComponent);		
+	}
+	else
+	{		
+		mRenderComponentsArray[static_cast<UINT>(RENDER_PRIORITY_TYPE)].push_back(renderComponent);
+	}
+	
 }
 
 void RenderTargetRenderer::registerLightInfo(const tLightInfo& light2DInfo)
@@ -94,6 +109,7 @@ void RenderTargetRenderer::Render(const UINT renderTargetWidth,
 
 	tGlobalInfo globalInfo = {};
 
+	globalInfo.Resolution = Vector2(static_cast<float>(renderTargetWidth), static_cast<float>(renderTargetHeight));
 	globalInfo.Deltatime = gDeltaTime;
 	globalInfo.Light2DCount = static_cast<UINT>(mLight2DInfos.size());
 	globalInfo.GlobalTime = gGlobalTime;
@@ -135,8 +151,17 @@ void RenderTargetRenderer::Render(const UINT renderTargetWidth,
 			}
 		}
 	}
-	//
+	
 	const Camera* const P_MAIN_CAMERA = mCameras[static_cast<UINT>(eCameraPriorityType::Main)];
+
+	Texture* const copyTexture = gResourceManager->Find<Texture>(L"CopyRenderTargetTexture");	
+
+	for (RenderComponent* const postProcessComponent : mPostProcessComponents)
+	{				
+		gGraphicDevice->CopyResource(copyTexture->GetID3D11Texture2D(), gGraphicDevice->GetRenderTargetTexture());
+		gGraphicDevice->BindSRV(eShaderBindType::PS, 10, copyTexture);
+		postProcessComponent->render(P_MAIN_CAMERA);
+	}
 	
 	if (mbDebugRender)
 	{
@@ -158,6 +183,8 @@ void RenderTargetRenderer::flush()
 	{
 		renderComponents.clear();
 	}
+
+	mPostProcessComponents.clear();
 
 	mLight2DInfos.clear();
 }

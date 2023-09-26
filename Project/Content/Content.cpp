@@ -20,16 +20,19 @@
 #include <Engine/Engine.h>
 #include <Engine/GraphicDeviceDx11.h>
 
+#include "KissyfaceScene.h"
+
 Content::Content()
 {
 	resourceInitialize();
 
 	//Scene* testScene = new Collide2DTestScene;
-	Scene* testScene = new TItleScene();	
+	//Scene* testScene = new TItleScene();	
 	//Scene* testScene = new Chinatown01Scene();
 	//Scene* testScene = new Chinatown04Scene();
 	//Scene* testScene = new Chinatown05Scene();
 	//Scene* testScene = new HeadHunterScene();
+	Scene* testScene = new KissyfaceScene();
 	//Scene* testScene = new TestScene();
 
 	SceneManager::GetInstance()->LoadScene(testScene);
@@ -55,7 +58,12 @@ void Content::resourceInitialize()
 
 	loadTexture();
 	loadShader();
-	loadMaterial();	
+	loadMaterial();
+
+	//bind Noise
+	//Nose 01, 02, 03
+	Texture* const noiseTexture01 = gResourceManager->FindByEnum<Texture>(eResTexture::Noise_01);
+	gGraphicDevice->BindSRV(eShaderBindType::PS, 7, noiseTexture01);
 }
 
 void Content::loadTexture()
@@ -78,7 +86,17 @@ void Content::loadMaterial()
 		Material* const material =
 			MaterialBuilder::Default2D(
 				eRenderPriorityType::Opqaue, L"Animation2D", eResTexture::door);
+
 		gResourceManager->Insert(L"Animation2D", material);
+	}
+
+	//PostProcess
+	{
+		Material* const material =
+			MaterialBuilder::Default2D(
+				eRenderPriorityType::PostProcess, L"GrayPostProcess", eResTexture::door);
+
+		gResourceManager->Insert(L"GrayPostProcess", material);
 	}
 
 	loadUIMaterial();

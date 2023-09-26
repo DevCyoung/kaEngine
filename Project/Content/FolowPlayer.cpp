@@ -14,7 +14,7 @@ FolowPlayer::~FolowPlayer()
 
 void FolowPlayer::initialize()
 {
-	mPlayerTransform = GetOwner()->GetGameSystem()->FindGameObject(L"Player")->GetComponent<Transform>();
+	//mPlayerTransform = GetOwner()->GetGameSystem()->FindGameObject(L"Player")->GetComponent<Transform>();
 }
 
 void FolowPlayer::update()

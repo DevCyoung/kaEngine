@@ -4,6 +4,7 @@
 static constexpr const wchar_t* eResTexturePath[static_cast<UINT>(eResTexture::End)]
 {
 	L"\\Texture\\Atlas\\Gangster\\gangster.png",
+	L"\\Texture\\Atlas\\Kissyface\\kissyface.png",
 	L"\\Texture\\Atlas\\Player\\ori.png",
 	L"\\Texture\\Atlas\\Player\\slash.png",
 	L"\\Texture\\Atlas\\Player\\zero.png",
@@ -59,10 +60,14 @@ static constexpr const wchar_t* eResTexturePath[static_cast<UINT>(eResTexture::E
 	L"\\Texture\\Map\\HeadHunter\\spr_vaultdoor_open\\spr_vaultdoor_open_9.png",
 	L"\\Texture\\Map\\HeadHunter\\map.png",
 	L"\\Texture\\Map\\HeadHunter\\map_alpha.png",
+	L"\\Texture\\Map\\Kissyface\\kissyface_map.png",
 	L"\\Texture\\Noise\\01.png",
 	L"\\Texture\\Noise\\02.png",
 	L"\\Texture\\Noise\\03.png",
 	L"\\Texture\\Noise\\04.png",
+	L"\\Texture\\Noise\\noise_01.png",
+	L"\\Texture\\Noise\\noise_02.png",
+	L"\\Texture\\Noise\\noise_03.jpg",
 	L"\\Texture\\TileMap\\bg_club_background.png",
 	L"\\Texture\\TileMap\\bg_haunted_background.png",
 	L"\\Texture\\Title\\spr_title_plants\\spr_title_plants_0.png",

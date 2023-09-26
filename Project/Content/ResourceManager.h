@@ -1,7 +1,7 @@
 #pragma once
 #include <Engine/Mesh.h>
 #include <Engine/Material.h>
-#include <Engine/Textrue.h>
+#include <Engine/Texture.h>
 #include <Engine/Material.h>
 #include <Engine/Shader.h>
 #include <Engine/ComputeShader.h>

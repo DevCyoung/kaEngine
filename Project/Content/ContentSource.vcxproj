@@ -173,6 +173,10 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AxeMovement.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Bugiman.h">
       <SubType>
       </SubType>
@@ -232,6 +236,11 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
       </SubType>
     </ClInclude>
     <ClInclude Include="KatanaScene.h" />
+    <ClInclude Include="KissyfaceAI.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="KissyfaceScene.h" />
     <ClInclude Include="LerpTest.h">
       <SubType>
       </SubType>
@@ -322,6 +331,10 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AxeMovement.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Bugiman.cpp">
       <SubType>
       </SubType>
@@ -380,6 +393,11 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
       </SubType>
     </ClCompile>
     <ClCompile Include="KatanaScene.cpp" />
+    <ClCompile Include="KissyfaceAI.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="KissyfaceScene.cpp" />
     <ClCompile Include="LerpTest.cpp">
       <SubType>
       </SubType>
@@ -593,6 +611,9 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
     </None>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\Output\bin\Resources\Shader\VSGrayPostProcess.hlsl">
+      <FileType>Document</FileType>
+    </None>
     <None Include="..\..\Output\bin\Resources\Shader\VSLightSprite2D.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Geometry</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4.0</ShaderModel>
@@ -638,6 +659,9 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">4.0</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Compute</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">4.0</ShaderModel>
+      <FileType>Document</FileType>
+    </None>
+    <None Include="..\..\Output\bin\Resources\Shader\PSGrayPostProcess.hlsl">
       <FileType>Document</FileType>
     </None>
     <FxCompile Include="..\..\Output\bin\Resources\Shader\VSAnimation2D.hlsl" />

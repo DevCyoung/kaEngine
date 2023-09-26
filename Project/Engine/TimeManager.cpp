@@ -6,7 +6,7 @@ TimeManager::TimeManager()
 	: mDeltaTime(0.0f)
 	, mGlobalTime(0.0f)
 	, mSecond(0.0f)
-	, mTileScale(1.f)
+	, mTileScale(1.0f)
 	, mCpuFrequency{}
 	, mPrevFrequency{}
 	, mCurFrequency{}

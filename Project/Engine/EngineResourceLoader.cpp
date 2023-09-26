@@ -4,7 +4,7 @@
 #include "Engine.h"
 #include "Mesh.h"
 #include "Shader.h"
-#include "Textrue.h"
+#include "Texture.h"
 #include "ComputeShader.h"
 #include "StructVertex.h"
 #include "EngineMath.h"
@@ -52,7 +52,7 @@ void EngineResourceLoader::loadMesh()
 		indexes.push_back(0);
 		indexes.push_back(2);
 		indexes.push_back(3);
-		
+
 		gResourceManager->Insert(L"FillRect2D",
 			new Mesh(vertexArray, VERTEX_COUNT, sizeof(tVertex),
 				indexes.data(), indexes.size(), sizeof(UINT)));
@@ -220,18 +220,38 @@ void EngineResourceLoader::loadMesh()
 
 void EngineResourceLoader::loadTexture()
 {
-	Texture * const defaultTexture = new Texture(1024, 1024, 
-		DXGI_FORMAT::DXGI_FORMAT_R8G8B8A8_UNORM,
-		D3D11_BIND_FLAG::D3D11_BIND_UNORDERED_ACCESS | D3D11_BIND_FLAG::D3D11_BIND_SHADER_RESOURCE,
-		D3D11_USAGE::D3D11_USAGE_DEFAULT);
+	{
+		Texture* const defaultTexture = new Texture(1024, 1024,
+			DXGI_FORMAT::DXGI_FORMAT_R8G8B8A8_UNORM,
+			D3D11_BIND_FLAG::D3D11_BIND_UNORDERED_ACCESS | D3D11_BIND_FLAG::D3D11_BIND_SHADER_RESOURCE,
+			D3D11_USAGE::D3D11_USAGE_DEFAULT);
 
-	gResourceManager->Insert(L"TextureCS", defaultTexture);
+		gResourceManager->Insert(L"TextureCS", defaultTexture);
+	}
+
+	{
+		XMUINT2 size = { static_cast<UINT>(gEngine->GetRenderTargetSize().x),  
+						 static_cast<UINT>(gEngine->GetRenderTargetSize().y)};
+
+		Texture* const copyRenderTargetTexture = new Texture(size.x, size.y,
+			DXGI_FORMAT::DXGI_FORMAT_R8G8B8A8_UNORM,
+			D3D11_BIND_FLAG::D3D11_BIND_SHADER_RESOURCE,
+			D3D11_USAGE::D3D11_USAGE_DEFAULT);
+
+		gResourceManager->Insert(L"CopyRenderTargetTexture", copyRenderTargetTexture);
+	}
+
+	//Noise
+	{
+
+	}
+
 }
 
 void EngineResourceLoader::loadShader()
 {
 	//Animation2D
-	{		
+	{
 		Shader* const animationShader =
 			new Shader(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST,
 				L"\\Shader\\VSAnimation2D.hlsl", L"main",
@@ -335,6 +355,20 @@ void EngineResourceLoader::loadShader()
 				eBSType::AlphaBlend);
 
 		gResourceManager->Insert(L"LightAnimation2D", animationShader);
+	}
+
+	//Post Process
+	{
+		Shader* const grayPostProcess =
+			new Shader(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST,
+				L"\\Shader\\VSGrayPostProcess.hlsl", L"main",
+				L"\\Shader\\PSGrayPostProcess.hlsl", L"main",
+				eSMType::Default,
+				eRSType::CullNone,
+				eDSType::NoWrite,
+				eBSType::AlphaBlend);
+
+		gResourceManager->Insert(L"GrayPostProcess", grayPostProcess);
 	}
 }
 

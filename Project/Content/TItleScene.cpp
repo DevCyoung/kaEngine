@@ -180,6 +180,18 @@ TItleScene::TItleScene()
 	}
 #pragma endregion
 
+#pragma region PostProcess
+	{
+		GameObject* const postProcess = new GameObject();
+
+		postProcess->AddComponent<SpriteRenderer>();
+		postProcess->GetComponent<SpriteRenderer>()->SetMaterial(
+			gResourceManager->FindOrNull<Material>(L"GrayPostProcess"));
+
+		AddGameObject(postProcess, eLayerType::Default);
+	}
+#pragma endregion
+
 }
 
 TItleScene::~TItleScene()

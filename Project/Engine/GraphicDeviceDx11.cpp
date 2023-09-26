@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "GraphicDeviceDX11.h"
-#include "Textrue.h"
+#include "Texture.h"
 #include "Shader.h"
 #include "ComputeShader.h"
 #include "Mesh.h"
@@ -465,6 +465,14 @@ void GraphicDeviceDX11::ClearRenderTarget(ID3D11RenderTargetView* const* const p
 {
 	mContext->ClearRenderTargetView(*ppRnderTargetView, backgroundColor);
 	mContext->ClearDepthStencilView(depthStencilView, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
+}
+
+void GraphicDeviceDX11::CopyResource(ID3D11Resource* const dst, ID3D11Resource* const src)
+{
+	Assert(dst, WCHAR_IS_NULLPTR);
+	Assert(src, WCHAR_IS_NULLPTR);
+
+	mContext->CopyResource(dst, src);
 }
 
 void GraphicDeviceDX11::BindRenderTarget(const UINT renderTargetWidth,

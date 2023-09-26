@@ -1,7 +1,7 @@
 #pragma once
 #include "RenderComponent.h"
 #include "StructBuffer.h"
-#include "Textrue.h"
+#include "Texture.h"
 #include "Animator2D.h"
 
 REGISTER_COMPONENT_TYPE(AfterImage);
@@ -27,6 +27,10 @@ public:
 	AfterImage& operator=(const AfterImage&) = delete;
 
 	//void AddAfterImageByAnimation();
+
+	void SetCreateDeltaTime(const float deltaTime) { mCreateDeltaTime = deltaTime; }
+	void SetAlphaTime(const float alphaTime) { mAlphaTime = alphaTime; }
+	void SetAlphaMaxTime(const float alphaMaxTime) { mAlphaMaxTime = alphaMaxTime; }
 
 private:
 	virtual void initialize() override final;

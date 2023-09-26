@@ -65,10 +65,19 @@ public:
 		ID3D11DepthStencilView* const depthStencilView,
 		const FLOAT backgroundColor[4]) const;
 
+	void CopyResource(ID3D11Resource* const dst, ID3D11Resource* const src);
+
 	const SMCollection* GetIEDCollection() const
 	{
 		Assert(mSMCollection, WCHAR_IS_NULLPTR);
 		return mSMCollection;
+	}
+
+	ID3D11Texture2D* GetRenderTargetTexture() const
+	{
+		Assert(mRenderTargetTexture, WCHAR_IS_NULLPTR);
+
+		return mRenderTargetTexture.Get();
 	}
 
 private:
@@ -87,6 +96,8 @@ private:
 
 		return mDepthStencilView.Get();
 	}
+
+
 
 private:
 	Microsoft::WRL::ComPtr<ID3D11Device> mDevice;

@@ -237,7 +237,7 @@
     <ClInclude Include="EnumFlag.h">
       <Filter>Source\Helper\Include</Filter>
     </ClInclude>
-    <ClInclude Include="Textrue.h">
+    <ClInclude Include="Texture.h">
       <Filter>Source\06. Resource\00. Texture</Filter>
     </ClInclude>
     <ClInclude Include="Shader.h">
@@ -449,7 +449,7 @@
     <ClCompile Include="InputManager.cpp">
       <Filter>Source\01. Manager\01. Input</Filter>
     </ClCompile>
-    <ClCompile Include="Textrue.cpp">
+    <ClCompile Include="Texture.cpp">
       <Filter>Source\06. Resource\00. Texture</Filter>
     </ClCompile>
     <ClCompile Include="Shader.cpp">
