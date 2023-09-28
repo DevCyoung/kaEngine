@@ -2,11 +2,12 @@
 #include "TimeManager.h"
 #include "MessageManager.h"
 
+#include "InputManager.h"
 TimeManager::TimeManager()
 	: mDeltaTime(0.0f)
 	, mGlobalTime(0.0f)
 	, mSecond(0.0f)
-	, mTileScale(1.0f)
+	, mTimeScale(1.0f)
 	, mCpuFrequency{}
 	, mPrevFrequency{}
 	, mCurFrequency{}
@@ -21,12 +22,22 @@ TimeManager::~TimeManager()
 
 void TimeManager::update()
 {
+	//Test
+	if (gInput->GetKey(eKeyCode::LSHIFT))
+	{
+		mTimeScale = 0.1f;
+	}
+	else
+	{
+		mTimeScale = 1.f;
+	}
+
 	QueryPerformanceCounter(&mCurFrequency);
 
 	const float DIFERENCE_FREQUENCY = static_cast<float>(mCurFrequency.QuadPart - mPrevFrequency.QuadPart);
 
 	mDeltaTime = DIFERENCE_FREQUENCY / static_cast<float>(mCpuFrequency.QuadPart);
-	mDeltaTime *= mTileScale;
+	mDeltaTime *= mTimeScale;
 	mGlobalTime += mDeltaTime;
 	mPrevFrequency.QuadPart = mCurFrequency.QuadPart;
 

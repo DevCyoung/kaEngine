@@ -21,12 +21,13 @@
 
 #include "Texture.h"
 
+#include "InputManager.h"
 RenderTargetRenderer::RenderTargetRenderer()
 	: mDebugRenderer(new DebugRenderer2D())
 	, mCameras{ 0, }
 	, mRenderComponentsArray{}
 	, mLight2DInfos()
-	, mbDebugRender(false)
+	, mbDebugRender(true)
 	, mCameraMask(0XFFFFFFFF)
 {
 	for (auto& renderObjectArray : mRenderComponentsArray)
@@ -171,6 +172,22 @@ void RenderTargetRenderer::Render(const UINT renderTargetWidth,
 
 void RenderTargetRenderer::flush()
 {
+
+	//TEST CODE
+	if (gInput->GetKey(eKeyCode::LSHIFT) &&
+		gInput->GetKeyDown(eKeyCode::L))
+	{
+		if (IsVisibleDebugRenderer())
+		{
+			TurnOffDebugRenderer();
+		}
+		else
+		{
+			TurnOnDebugRenderer();
+		}
+	}
+
+
 	mDebugRenderer->flush();
 
 	//TODO: 추후에 다시확인

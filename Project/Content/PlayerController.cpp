@@ -92,7 +92,7 @@ void PlayerController::initialize()
 	}
 
 
-
+	mSlash->GetComponent<Transform>()->SetPosition(100000.f, 100000.f, 100000.f);
 	//GameManager::GetInstance()->GetRewindManager()->RegisterRewindObject(GetOwner());
 }
 

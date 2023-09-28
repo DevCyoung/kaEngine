@@ -415,7 +415,7 @@ Chinatown01Scene::Chinatown01Scene()
 #pragma endregion
 
 #pragma region PostProcess
-	/*{
+	{
 		GameObject* const postProcess = new GameObject();
 
 		postProcess->AddComponent<SpriteRenderer>();
@@ -423,7 +423,7 @@ Chinatown01Scene::Chinatown01Scene()
 			gResourceManager->FindOrNull<Material>(L"GrayPostProcess"));
 
 		AddGameObject(postProcess, eLayerType::Default);
-	}*/
+	}
 #pragma endregion
 
 }

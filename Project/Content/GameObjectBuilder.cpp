@@ -259,7 +259,7 @@ GameObject* GameObjectBuilder::InstantiateKissyface(Scene* const scene)
 
 	//Collider
 	{
-		kissyface->GetComponent<RectCollider2D>()->SetSize(22.f, 58.f);
+		kissyface->GetComponent<RectCollider2D>()->SetSize(28.f, 58.f);
 		kissyface->GetComponent<RectCollider2D>()->SetOffset(Vector2(0.f, 4.f));
 	}
 
@@ -274,7 +274,7 @@ GameObject* GameObjectBuilder::InstantiateKissyface(Scene* const scene)
 		Animator2D* const anim = kissyface->GetComponent<Animator2D>();
 		Texture* atlas = gResourceManager->FindByEnum<Texture>(eResTexture::Atlas_Kissyface_kissyface);
 
-		anim->CreateAnimation(L"spr_kissyface_block", atlas, 5, XMUINT2(5, 34), XMUINT2(53, 48), XMUINT2(10, 10), XMINT2(0, 0), 0.125f);
+		anim->CreateAnimation(L"Block", atlas, 5, XMUINT2(5, 34), XMUINT2(53, 48), XMUINT2(10, 10), XMINT2(7, 0), 0.09f);
 
 		anim->CreateAnimation(L"spr_kissyface_dead", atlas, 12, XMUINT2(5, 121), XMUINT2(49, 26), XMUINT2(10, 10), XMINT2(0, 0), 0.125f);
 
@@ -288,36 +288,39 @@ GameObject* GameObjectBuilder::InstantiateKissyface(Scene* const scene)
 
 		anim->CreateAnimation(L"spr_kissyface_hit_grenade", atlas, 6, XMUINT2(5, 607), XMUINT2(72, 50), XMUINT2(10, 10), XMINT2(0, 0), 0.125f);
 
-		anim->CreateAnimation(L"spr_kissyface_hurt", atlas, 6, XMUINT2(5, 696), XMUINT2(71, 58), XMUINT2(10, 10), XMINT2(0, 0), 0.125f);
+		anim->CreateAnimation(L"Hurt", atlas, 6, XMUINT2(5, 696), XMUINT2(71, 58), XMUINT2(10, 10), XMINT2(-14, 4), 0.125f);
 
-		anim->CreateAnimation(L"spr_kissyface_jump", atlas, 2, XMUINT2(5, 793), XMUINT2(38, 73), XMUINT2(10, 10), XMINT2(0, 0), 0.125f);
+		anim->CreateAnimation(L"Recover", atlas, 7, XMUINT2(5, 1587), XMUINT2(69, 45), XMUINT2(10, 10), XMINT2(-13, -2), 0.08f);
 
-		anim->CreateAnimation(L"spr_kissyface_jump_swing", atlas, 3, XMUINT2(5, 905), XMUINT2(31, 54), XMUINT2(10, 10), XMINT2(0, 0), 0.125f);
+		anim->CreateAnimation(L"PreJump", atlas, 4, XMUINT2(5, 1410), XMUINT2(44, 49), XMUINT2(10, 10), XMINT2(0, 0), 0.125f);
 
-		anim->CreateAnimation(L"spr_kissyface_landattack", atlas, 6, XMUINT2(5, 998), XMUINT2(44, 50), XMUINT2(10, 10), XMINT2(0, 0), 0.125f);
+		anim->CreateAnimation(L"Jump", atlas, 2, XMUINT2(5, 793), XMUINT2(38, 73), XMUINT2(10, 10), XMINT2(0, 0), 0.125f);
+
+		anim->CreateAnimation(L"JumpSwing", atlas, 3, XMUINT2(5, 905), XMUINT2(31, 54), XMUINT2(10, 10), XMINT2(0, 0), 0.125f);
+
+		anim->CreateAnimation(L"LandAttack", atlas, 6, XMUINT2(5, 998), XMUINT2(44, 50), XMUINT2(10, 10), XMINT2(0, 0), 0.125f);
 
 		anim->CreateAnimation(L"spr_kissyface_lunge", atlas, 5, XMUINT2(5, 1087), XMUINT2(83, 68), XMUINT2(10, 10), XMINT2(20, 9), 0.08f);
 
-		anim->CreateAnimation(L"spr_kissyface_lungeattack", atlas, 9, XMUINT2(5, 1194), XMUINT2(104, 54), XMUINT2(10, 10), XMINT2(35, 2), 0.08f);
+		anim->CreateAnimation(L"spr_kissyface_lungeattack", atlas, 8, XMUINT2(5, 1194), XMUINT2(104, 54), XMUINT2(10, 10), XMINT2(35, 2), 0.08f);
 
 		anim->CreateAnimation(L"spr_kissyface_prelunge", atlas, 4, XMUINT2(5, 1498), XMUINT2(41, 50), XMUINT2(10, 10), XMINT2(0, 0), 0.08f);
 
 		anim->CreateAnimation(L"spr_kissyface_nohead", atlas, 7, XMUINT2(5, 1351), XMUINT2(53, 20), XMUINT2(10, 10), XMINT2(0, 0), 0.125f);
 
-		anim->CreateAnimation(L"spr_kissyface_prejump", atlas, 4, XMUINT2(5, 1410), XMUINT2(44, 49), XMUINT2(10, 10), XMINT2(0, 0), 0.125f);
 
-		anim->CreateAnimation(L"spr_kissyface_recover", atlas, 7, XMUINT2(5, 1587), XMUINT2(69, 45), XMUINT2(10, 10), XMINT2(0, 0), 0.125f);
+
 
 		
 
 		anim->CreateAnimation(L"spr_kissyface_sharpenaxe", atlas, 16, XMUINT2(5, 1752), XMUINT2(31, 49), XMUINT2(10, 10), XMINT2(0, 0), 0.125f);
 
-		anim->CreateAnimation(L"spr_kissyface_slash", atlas, 12, XMUINT2(5, 1840), XMUINT2(122, 52), XMUINT2(10, 10), XMINT2(0, 2), 0.125f);
+		anim->CreateAnimation(L"Slash", atlas, 12, XMUINT2(5, 1840), XMUINT2(122, 52), XMUINT2(10, 10), XMINT2(24, 1), 0.08f);
 
 		anim->CreateAnimation(L"spr_kissyface_struggle", atlas, 2, XMUINT2(5, 2055), XMUINT2(58, 36), XMUINT2(10, 10), XMINT2(0, -7), 0.125f);
 
 		anim->CreateAnimation(L"Throw", atlas, 9, XMUINT2(5, 2130), XMUINT2(106, 55), XMUINT2(10, 10), XMINT2(6, 3), 0.08f);
-		anim->CreateAnimation(L"spr_kissyface_returnaxe", atlas, 5, XMUINT2(5, 1671), XMUINT2(69, 42), XMUINT2(10, 10), XMINT2(0, -4), 0.08f);
+		anim->CreateAnimation(L"spr_kissyface_returnaxe", atlas, 5, XMUINT2(5, 1671), XMUINT2(69, 42), XMUINT2(10, 10), XMINT2(-14, -4), 0.08f);
 
 		anim->CreateAnimation(L"spr_kissyface_tug", atlas, 6, XMUINT2(5, 2391), XMUINT2(58, 41), XMUINT2(10, 10), XMINT2(5, -4), 0.125f);
 
@@ -338,8 +341,11 @@ GameObject* GameObjectBuilder::InstantiateKissyface(Scene* const scene)
 
 		anim->CreateAnimation(L"spr_kissyface_hitgrenade_idle", atlas, 1, XMUINT2(5, 2853), XMUINT2(37, 50), XMUINT2(10, 10), XMINT2(0, 0), 0.125f);
 
-		anim->CreateAnimation(L"spr_kissyface_idle", atlas, 1, XMUINT2(5, 2942), XMUINT2(37, 50), XMUINT2(10, 10), XMINT2(0, 0), 0.125f);
+		anim->CreateAnimation(L"Idle", atlas, 1, XMUINT2(5, 2942), XMUINT2(37, 50), XMUINT2(10, 10), XMINT2(0, 0), 0.125f);
 	}
+
+	kissyface->GetComponent<Animator2D>()->Play(L"spr_kissyface_sharpenaxe", true);
+	scene->AddGameObject(kissyface, eLayerType::Monster);
 
 	{
 		GameObject* const parent = new GameObject();
@@ -379,11 +385,6 @@ GameObject* GameObjectBuilder::InstantiateKissyface(Scene* const scene)
 		}		
 	}	
 
-
-
-
-	kissyface->GetComponent<Animator2D>()->Play(L"spr_kissyface_walk", true);
-	scene->AddGameObject(kissyface, eLayerType::Monster);
 	return kissyface;
 }
 
@@ -395,7 +396,7 @@ GameObject* GameObjectBuilder::Slash()
 	Slash->AddComponent<CircleCollider2D>();
 	//Slash->AddComponent<RewindComponent>();
 
-	Slash->GetComponent<CircleCollider2D>()->SetRadius(50.f);
+	Slash->GetComponent<CircleCollider2D>()->SetRadius(40.f);
 
 	Animator2D* const animator = Slash->GetComponent<Animator2D>();
 
@@ -413,7 +414,6 @@ GameObject* GameObjectBuilder::Slash()
 
 	return Slash;
 }
-
 
 GameObject* GameObjectBuilder::InstantiatePlayer(Scene* const scene)
 {

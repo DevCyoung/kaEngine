@@ -120,15 +120,14 @@ float4 main(float4 fragCoord : SV_POSITION) : SV_TARGET
 	float comp = smoothstep(0.1, 0.9, sin(B4_GlobalTime.x));
  
     // Remove the next line to stop cross-fade between original and postprocess
-    //col = lerp(col, oricol, comp);
+    col = lerp(col, oricol, comp);
 	
 	//col += noise(uv * 2.f) / 2.f;
 	col += stripes(uv);
 	
 	float vigAmt = 3. + .3 * sin(B4_GlobalTime + 5. * cos(B4_GlobalTime * 5.));
-	float vignette = (1. - vigAmt * (uv.y - .5) * (uv.y - .5)) * (1. - vigAmt * (uv.x - .5) * (uv.x - .5));	
-	col *= vignette;	
-	
+	float vignette = (1. - vigAmt * (uv.y - .5) * (uv.y - .5)) * (1. - vigAmt * (uv.x - .5) * (uv.x - .5));
+	col *= vignette;
 	
 	//gray
 	float4 vColor = Rendertarget.Sample(pointSampler, uv);

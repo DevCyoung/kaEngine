@@ -37,6 +37,7 @@ private:
 
 
 	bool mbStoop;
+	int mRotationCount;
 	eAxeMovementState mState;
 	GameObject* mKissyface;
 	float mRotationDistance;

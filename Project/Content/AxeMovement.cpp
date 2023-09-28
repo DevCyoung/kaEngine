@@ -9,6 +9,7 @@ AxeMovement::AxeMovement()
     , mState(eAxeMovementState::None)
     , mKissyface(nullptr)
     , mRotationDistance(0.f)
+    , mRotationCount(1)
 {
 }
 
@@ -27,6 +28,8 @@ void AxeMovement::update()
     {
         return;
     }
+
+    
 
     
     switch (mState)
@@ -59,16 +62,20 @@ void AxeMovement::update()
         break;
     case eAxeMovementState::Rotation:
     {
+        float axeRotationSpeed = 2.f;
+
         Vector3 angle = GetOwner()->GetParentOrNull()->GetComponent<Transform>()->GetRotation();
-        angle.z += gDeltaTime * 360.f * 3.f;
+        angle.z += gDeltaTime * 360.f * axeRotationSpeed;
         GetOwner()->GetParentOrNull()->GetComponent<Transform>()->SetRotation(angle);
 
         Vector3 position = GetOwner()->GetComponent<Transform>()->GetPosition();
-        position.y -= gDeltaTime * 300.f;
-        if (position.y < 50.f)
-        {
+        //position.y -= gDeltaTime * 170.f;
+
+        if (angle.z >= 360 * mRotationCount)
+        {            
             mbStoop = true;
 		}
+
         GetOwner()->GetComponent<Transform>()->SetPosition(position);
     }
     default:

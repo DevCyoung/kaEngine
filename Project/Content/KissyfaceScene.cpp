@@ -24,6 +24,8 @@ KissyfaceScene::KissyfaceScene()
 	mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Player, eLayerType::Platform);
 	mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Monster, eLayerType::Platform);
 
+	mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Monster, eLayerType::Default);
+
 
 #pragma region Material
 	{

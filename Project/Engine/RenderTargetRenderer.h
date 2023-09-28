@@ -42,6 +42,7 @@ public:
 
 	void TurnOnAllCamera()  { mCameraMask = 0XFFFFFFFF; }
 	void TurnOffAllCamera() { mCameraMask = 0; }
+	bool IsVisibleDebugRenderer() const { return mbDebugRender; }
 
 	void TurnOnCamera(const eCameraPriorityType priorityType) 
 	{

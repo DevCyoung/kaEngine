@@ -17,15 +17,15 @@ public:
 	void StartTime(LARGE_INTEGER* const starTime);
 	float EndTime(LARGE_INTEGER* const starTime);
 
-	float GetTileScale() const { return mTileScale; }
-	void SetTileScale(const float tileScale) { mTileScale = tileScale; }
+	float GetTileScale() const { return mTimeScale; }
+	void SetTileScale(const float tileScale) { mTimeScale = tileScale; }
 
 
 private:
 	float mDeltaTime;
 	float mGlobalTime;
 	float mSecond;
-	float mTileScale;
+	float mTimeScale;
 
 	LARGE_INTEGER mCpuFrequency;
 	LARGE_INTEGER mPrevFrequency;

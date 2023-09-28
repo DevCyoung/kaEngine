@@ -34,6 +34,7 @@ void PlayerAttackState::Update()
 
 void PlayerAttackState::Enter()
 {
+
 	mAnimator->Play(L"Attack", false);
 
 	RenderTargetRenderer* render = mGameObject->GetGameSystem()->GetRenderTargetRenderer();
@@ -71,6 +72,7 @@ void PlayerAttackState::Enter()
 	}
 
 	GameObject* slash =  mGameObject->GetComponent<PlayerController>()->GetSlash();
+	slash->GetComponent<Transform>()->SetPosition(Vector3::Zero);
 
 	slash->GetComponent<Animator2D>()->Play(L"Slash", false);
 
@@ -97,6 +99,9 @@ void PlayerAttackState::Enter()
 
 void PlayerAttackState::Exit()
 {
+	GameObject* slash = mGameObject->GetComponent<PlayerController>()->GetSlash();
+
+	slash->GetComponent<Transform>()->SetPosition(100000.f, 100000.f, 100000.f);
 }
 
 

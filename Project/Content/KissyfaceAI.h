@@ -15,13 +15,17 @@ enum class eKissyfaceAIState
 	
 
 	Idle,
+	
+	Hurt,	
+
 	Block,
-	Hurt,
 
 	Slash, // 1
 
-	Jump, // 2
+	PreJump, //2
+	Jump, 
 	JumpSwing,
+	LandAttack,
 
 	PreLunge, // 3
 	Lunge,
@@ -51,6 +55,16 @@ private:
 	virtual void update() override final;
 	virtual void lateUpdate() override final;
 
+	void hurt();
+	void recover();
+
+	void block();
+
+	void preJump();
+	void jump();
+	void jumpSwing();
+	void landAttack();
+
 	void slash();
 	void Idle();
 
@@ -64,13 +78,22 @@ private:
 
 	void throwAxe();
 
-	
+	void turnOnVisibleAxe();
+	void turnOffVisibleAxe();	
+
+	virtual void onCollisionEnter(Collider2D* other) override;
+
+	bool isAxeInHand();
+	bool isAttackable();
 
 
 	Animator2D* mAnimator2D;
 	Rigidbody2D* mRigidbody2D;
 	Vector2 mDirection;
 	eKissyfaceAIState mState;
-
 	GameObject* mAxe;
+
+	int mLife;
+
+	float mHurtTime;
 };
