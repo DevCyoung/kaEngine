@@ -37,7 +37,7 @@ void FolowPlayer::update()
 
 
 	const Vector3& TARGET_POS = mPlayerTransform->GetPosition();
-	const Vector3& CAMERA_POS = GetOwner()->GetComponent<Transform>()->GetPosition();	
+	const Vector3& CAMERA_POS = GetOwner()->GetComponent<Transform>()->GetPosition();
 
 
 	Vector3 direction = TARGET_POS - CAMERA_POS;
@@ -74,7 +74,7 @@ void FolowPlayer::update()
 			direction.y = 0.f;
 		}
 	}
-	
+
 	Vector3 NextPos = CAMERA_POS;
 
 	if (DISTANCE > 50.f)
@@ -82,9 +82,9 @@ void FolowPlayer::update()
 		NextPos += direction * gDeltaTime * 1000.f;
 	}
 
-	
 
-	
+
+
 
 	//(void)rand;
 

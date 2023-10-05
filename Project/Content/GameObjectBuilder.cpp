@@ -627,7 +627,7 @@ void GameObjectBuilder::AddUI(Scene* const scene)
 
 		obj->AddComponent<CursorMovement>();
 
-		obj->GetComponent<Transform>()->SetPosition(610.f, hudPosY - 24.f, -10.f);
+		//obj->GetComponent<Transform>()->SetPosition(610.f, hudPosY - 24.f, -10.f);
 		obj->GetComponent<Transform>()->SetScale(2.f, 2.f, 1.f);
 
 		scene->AddGameObject(obj, eLayerType::Mouse);
@@ -789,6 +789,7 @@ GameObject* GameObjectBuilder::AddCamera(Scene* const scene)
 		mainCamera->GetComponent<Camera>()->TurnOnAllLayer();
 
 		mainCamera->GetComponent<Camera>()->TurnOffLayer(eLayerType::UI);
+		mainCamera->GetComponent<Camera>()->TurnOffLayer(eLayerType::Mouse);
 		mainCamera->GetComponent<Camera>()->TurnOffLayer(eLayerType::BackGround);
 
 		scene->AddGameObject(mainCamera, eLayerType::Camera);
@@ -826,6 +827,7 @@ GameObject* GameObjectBuilder::AddCamera(Scene* const scene)
 
 		uiCamera->GetComponent<Camera>()->TurnOffAllLayer();
 		uiCamera->GetComponent<Camera>()->TurnOnLayer(eLayerType::UI);
+		uiCamera->GetComponent<Camera>()->TurnOnLayer(eLayerType::Mouse);
 
 		scene->AddGameObject(uiCamera, eLayerType::Default);
 	}
