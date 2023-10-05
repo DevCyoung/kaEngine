@@ -211,6 +211,18 @@
     <Filter Include="Source\03. Component\03. Render\03. AfterImage">
       <UniqueIdentifier>{c862b4f1-45ec-4e04-a4ed-31923ef3e6d1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Audio">
+      <UniqueIdentifier>{84b1566b-cbf0-4271-a06b-5c2150a76802}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Audio\AudioClip">
+      <UniqueIdentifier>{b3537df1-108e-4d98-85aa-819b6858ab7b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Audio\Fmod">
+      <UniqueIdentifier>{078e7ef7-4628-403c-821a-b4f1e5b93a9d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\03. Component\Audio">
+      <UniqueIdentifier>{048f2cfa-7937-4795-927e-fed05134cbfd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Entity.h">
@@ -438,6 +450,18 @@
     <ClInclude Include="AfterImage.h">
       <Filter>Source\03. Component\03. Render\03. AfterImage</Filter>
     </ClInclude>
+    <ClInclude Include="AudioClip.h">
+      <Filter>Source\Audio\AudioClip</Filter>
+    </ClInclude>
+    <ClInclude Include="Fmod.h">
+      <Filter>Source\Audio\Fmod</Filter>
+    </ClInclude>
+    <ClInclude Include="AudioListener.h">
+      <Filter>Source\03. Component\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="AudioSource.h">
+      <Filter>Source\03. Component\Audio</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Entity.cpp">
@@ -619,6 +643,18 @@
     </ClCompile>
     <ClCompile Include="AfterImage.cpp">
       <Filter>Source\03. Component\03. Render\03. AfterImage</Filter>
+    </ClCompile>
+    <ClCompile Include="AudioClip.cpp">
+      <Filter>Source\Audio\AudioClip</Filter>
+    </ClCompile>
+    <ClCompile Include="Fmod.cpp">
+      <Filter>Source\Audio\Fmod</Filter>
+    </ClCompile>
+    <ClCompile Include="AudioListener.cpp">
+      <Filter>Source\03. Component\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="AudioSource.cpp">
+      <Filter>Source\03. Component\Audio</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -60,6 +60,7 @@ public:
 	Animation2D* GetCurAnimationOrNull() const { return mCurAnimation; }
 
 	void SetBackSize(const XMUINT2& size) { backSize = size; }	
+	void SetFlipX(const bool bFlip) { bFlipX = bFlip; }
 
 	Events* FindEvents(const std::wstring animName) const;
 	const std::function<void()>& FindStartEvent(const std::wstring animName);
@@ -76,5 +77,6 @@ private:
 	std::unordered_map<std::wstring, Events*> mEvents;
 	Animation2D* mCurAnimation;
 	bool bRepeat;
+	bool bFlipX;
 	XMUINT2 backSize;
 };

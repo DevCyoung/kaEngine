@@ -30,7 +30,7 @@ public:
 	bool IsCollisionWallRight()   const { return mbCollisionDir[static_cast<UINT>(eWallType::Right)]; }
 	bool IsCollisionWallCeiling() const { return mbCollisionDir[static_cast<UINT>(eWallType::Ceiling)]; }
 	bool IsCollisionWallSlop()    const { return mbCollisionDir[static_cast<UINT>(eWallType::Slope)]; }
-	bool IsCollisionWalPlatform() const { return mbCollisionDir[static_cast<UINT>(eWallType::Platform)]; }
+	bool IsCollisionWalPlatform() const { return mbCollisionDir[static_cast<UINT>(eWallType::Platform)]; }	
 
 	bool IsPlatform() const { return mbPlatform; }
 

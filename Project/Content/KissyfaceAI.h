@@ -35,8 +35,17 @@ enum class eKissyfaceAIState
 	Tug,
 	ReturnAxe,
 
+	
+
 	Recover,
+
+	Struggle,
+	
+	Slice,
+
 	Dead,
+
+	NoHead,
 };
 
 class KissyfaceAI : public ScriptComponent
@@ -49,6 +58,8 @@ public:
 
 
 	void SetAxe(GameObject* const axe) { Assert(axe, WCHAR_IS_NULLPTR); mAxe = axe; }
+	void SetBrokenAxe(GameObject* const brokenAxe) { Assert(brokenAxe, WCHAR_IS_NULLPTR); mBrokenAxe = brokenAxe; }
+	void SetHead(GameObject* const head) { Assert(head, WCHAR_IS_NULLPTR); mHead = head; }
 
 private:
 	virtual void initialize() override final;
@@ -76,16 +87,25 @@ private:
 	void tug();
 	void returnAxe();
 
+	void slice();
+	void struggle();
+
 	void throwAxe();
 
 	void turnOnVisibleAxe();
 	void turnOffVisibleAxe();	
+
+	void turnOnMonsterAttack();
+	void turnOffMonsterAttack();
 
 	virtual void onCollisionEnter(Collider2D* other) override;
 
 	bool isAxeInHand();
 	bool isAttackable();
 
+	GameObject* mMonsterAttack;
+	GameObject* mBrokenAxe;
+	GameObject* mHead;
 
 	Animator2D* mAnimator2D;
 	Rigidbody2D* mRigidbody2D;
@@ -96,4 +116,5 @@ private:
 	int mLife;
 
 	float mHurtTime;
+	float mStruggleTime;
 };

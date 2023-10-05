@@ -19,6 +19,8 @@ public:
 	
 	const Vector4& GetTestColor() const { return mTestColor; }
 
+	void SetUvOffsetX(float uvOffsetX) { mUvOffsetX = uvOffsetX; }
+
 private:
 	virtual void initialize() override final;
 	virtual void update() override final;
@@ -29,4 +31,7 @@ private:
 public:
 	Vector4 testX;
 	int bColorInfo;
+
+	//uv
+	float mUvOffsetX;
 };

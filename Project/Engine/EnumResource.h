@@ -12,5 +12,6 @@ enum class eResourceType
 	Scene,
 	Prefab,
 	ComputeShader,
+	AudioClip,
 	End
 };

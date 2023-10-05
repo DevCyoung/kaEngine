@@ -2,6 +2,9 @@
 
 enum class eResTexture
 {
+	Atlas_Door_dooratlas,
+	Atlas_Effect_effect1,
+	Atlas_Effect_effect111,
 	Atlas_Gangster_gangster,
 	Atlas_Kissyface_kissyface,
 	Atlas_Player_ori,

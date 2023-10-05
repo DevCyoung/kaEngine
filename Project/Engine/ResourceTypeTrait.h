@@ -28,6 +28,7 @@ ENGINE_RESOURCE_TYPE(Sound);
 ENGINE_RESOURCE_TYPE(Scene);
 ENGINE_RESOURCE_TYPE(Prefab);
 ENGINE_RESOURCE_TYPE(ComputeShader);
+ENGINE_RESOURCE_TYPE(AudioClip);
 
 template <typename T>
 struct is_engine_resource

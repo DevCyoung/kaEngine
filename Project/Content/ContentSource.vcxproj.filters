@@ -202,9 +202,6 @@
     <Filter Include="Source\FSM\Player\State\HurtGroudn">
       <UniqueIdentifier>{81fe54c4-5f9f-4372-87ba-dfbc3286e4b3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Rewinde">
-      <UniqueIdentifier>{d1ae7589-6668-489c-8d74-f07e20bee401}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\Scene\KatanaScene">
       <UniqueIdentifier>{d36bb7c3-ff5b-4762-84ae-c8c39b76cd9a}</UniqueIdentifier>
     </Filter>
@@ -237,6 +234,48 @@
     </Filter>
     <Filter Include="Source\Monster\Axe">
       <UniqueIdentifier>{84be3502-5932-4a03-84f2-6a055c43bdad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\01. ScriptComponent\MonsterAttack">
+      <UniqueIdentifier>{c9b7d216-58c6-47f4-9a8c-d65b79663168}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\FSM\Player\State\Hurt">
+      <UniqueIdentifier>{fc5fccb3-bc31-476b-b9d2-6e92361b3812}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\01. ScriptComponent\Movement\Head">
+      <UniqueIdentifier>{41f1b473-d3ff-4578-b067-76cb627f7fda}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Manager\Sound">
+      <UniqueIdentifier>{9dc54863-4ef6-4da2-a1ca-66faeadde459}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Slash">
+      <UniqueIdentifier>{3dc28996-3fd3-4727-a7e6-07ba64206727}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Door">
+      <UniqueIdentifier>{60c28fe2-5f39-429d-8151-916c09e4e024}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Manager\Effect">
+      <UniqueIdentifier>{b28c5fd4-583c-4a26-a2f6-05ba7ef87782}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Effect">
+      <UniqueIdentifier>{5ed3a29f-a158-4708-b1d6-9b82fdea2cb9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Manager\Camera">
+      <UniqueIdentifier>{a58ebbe2-24dc-41d4-91f1-7bb225f2ebb6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Manager\Event">
+      <UniqueIdentifier>{fa21994b-0f88-46a9-ad93-339efc045536}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Manager\Rewinde">
+      <UniqueIdentifier>{d1ae7589-6668-489c-8d74-f07e20bee401}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\CameraWall">
+      <UniqueIdentifier>{cd965ccd-c04f-4654-ba75-091be96bb144}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ShaderCode\PostProcess\Rewind">
+      <UniqueIdentifier>{43a7ba40-e780-42cb-b1ef-726a7fcd626b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ShaderCode\PostProcess\Wave">
+      <UniqueIdentifier>{7a53df83-11e2-4b51-a365-71eca2be745e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -439,10 +478,10 @@
       <Filter>Source\FSM\Player\State\HurtGroudn</Filter>
     </ClInclude>
     <ClInclude Include="RewindManager.h">
-      <Filter>Source\Rewinde</Filter>
+      <Filter>Source\Manager\Rewinde</Filter>
     </ClInclude>
     <ClInclude Include="RewindComponent.h">
-      <Filter>Source\Rewinde</Filter>
+      <Filter>Source\Manager\Rewinde</Filter>
     </ClInclude>
     <ClInclude Include="KatanaScene.h">
       <Filter>Source\Scene\KatanaScene</Filter>
@@ -455,6 +494,42 @@
     </ClInclude>
     <ClInclude Include="AxeMovement.h">
       <Filter>Source\Monster\Axe</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterAttack.h">
+      <Filter>Source\01. ScriptComponent\MonsterAttack</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerHurtState.h">
+      <Filter>Source\FSM\Player\State\Hurt</Filter>
+    </ClInclude>
+    <ClInclude Include="HeadMovement.h">
+      <Filter>Source\01. ScriptComponent\Movement\Head</Filter>
+    </ClInclude>
+    <ClInclude Include="EnumResourceTypeAudioClip.h">
+      <Filter>Source\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundManager.h">
+      <Filter>Source\Manager\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="SlashComponent.h">
+      <Filter>Source\Slash</Filter>
+    </ClInclude>
+    <ClInclude Include="DoorController.h">
+      <Filter>Source\Door</Filter>
+    </ClInclude>
+    <ClInclude Include="EffectManager.h">
+      <Filter>Source\Manager\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect2D.h">
+      <Filter>Source\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraManager.h">
+      <Filter>Source\Manager\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="EventManager.h">
+      <Filter>Source\Manager\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraWall.h">
+      <Filter>Source\CameraWall</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -651,10 +726,10 @@
       <Filter>Source\FSM\Player\State\HurtGroudn</Filter>
     </ClCompile>
     <ClCompile Include="RewindManager.cpp">
-      <Filter>Source\Rewinde</Filter>
+      <Filter>Source\Manager\Rewinde</Filter>
     </ClCompile>
     <ClCompile Include="RewindComponent.cpp">
-      <Filter>Source\Rewinde</Filter>
+      <Filter>Source\Manager\Rewinde</Filter>
     </ClCompile>
     <ClCompile Include="KatanaScene.cpp">
       <Filter>Source\Scene\KatanaScene</Filter>
@@ -667,6 +742,42 @@
     </ClCompile>
     <ClCompile Include="AxeMovement.cpp">
       <Filter>Source\Monster\Axe</Filter>
+    </ClCompile>
+    <ClCompile Include="MonsterAttack.cpp">
+      <Filter>Source\01. ScriptComponent\MonsterAttack</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerHurtState.cpp">
+      <Filter>Source\FSM\Player\State\Hurt</Filter>
+    </ClCompile>
+    <ClCompile Include="HeadMovement.cpp">
+      <Filter>Source\01. ScriptComponent\Movement\Head</Filter>
+    </ClCompile>
+    <ClCompile Include="EnumResourceTypeAudioClip.cpp">
+      <Filter>Source\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundManager.cpp">
+      <Filter>Source\Manager\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="SlashComponent.cpp">
+      <Filter>Source\Slash</Filter>
+    </ClCompile>
+    <ClCompile Include="DoorController.cpp">
+      <Filter>Source\Door</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectManager.cpp">
+      <Filter>Source\Manager\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect2D.cpp">
+      <Filter>Source\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraManager.cpp">
+      <Filter>Source\Manager\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="EventManager.cpp">
+      <Filter>Source\Manager\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraWall.cpp">
+      <Filter>Source\CameraWall</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -768,6 +879,12 @@
     </None>
     <None Include="..\..\Output\bin\Resources\Shader\VSGrayPostProcess.hlsl">
       <Filter>ShaderCode\PostProcess\Gray</Filter>
+    </None>
+    <None Include="..\..\Output\bin\Resources\Shader\PSWave.hlsl">
+      <Filter>ShaderCode\PostProcess\Wave</Filter>
+    </None>
+    <None Include="..\..\Output\bin\Resources\Shader\VSWave.hlsl">
+      <Filter>ShaderCode\PostProcess\Wave</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

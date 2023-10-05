@@ -22,7 +22,10 @@ public:
 	AxeMovement& operator=(const AxeMovement&) = delete;
 
 	void SetStoop(bool bStoop) { mbStoop = bStoop; }
-	void SetState(eAxeMovementState state) { mState = state; }
+	bool IsStoop() const { return mbStoop; }
+
+	void SetState(eAxeMovementState state) { mState = state; }	
+
 	void SetKissyfaace(GameObject* const kissyface) { Assert(kissyface, WCHAR_IS_NULLPTR); mKissyface = kissyface; }
 	void SetRotationDistance(float rotationDistance) { mRotationDistance = rotationDistance; }
 

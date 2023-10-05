@@ -9,14 +9,19 @@
 #include "Bugiman.h"
 #include "BulletMovement.h"
 #include "CameraInputMoveMent.h"
+#include "CameraWall.h"
 #include "ChildTest.h"
 #include "Chinatown04Controller.h"
 #include "CursorMovement.h"
+#include "DoorController.h"
+#include "Effect2D.h"
 #include "FolowPlayer.h"
 #include "GridPainter.h"
+#include "HeadMovement.h"
 #include "InputMovementTest.h"
 #include "KissyfaceAI.h"
 #include "LerpTest.h"
+#include "MonsterAttack.h"
 #include "ParentTest.h"
 #include "PathNode.h"
 #include "PickPixelTest.h"
@@ -27,6 +32,7 @@
 #include "ShiftController.h"
 #include "SimpleDrawPoint.h"
 #include "SimpleEditorCollider2D.h"
+#include "SlashComponent.h"
 #include "TestScript.h"
 #include "UIEffect.h"
 
@@ -40,14 +46,19 @@ static constexpr const wchar_t* const ScriptComponentNames[static_cast<UINT>(eSc
 	L"Bugiman",
 	L"BulletMovement",
 	L"CameraInputMoveMent",
+	L"CameraWall",
 	L"ChildTest",
 	L"Chinatown04Controller",
 	L"CursorMovement",
+	L"DoorController",
+	L"Effect2D",
 	L"FolowPlayer",
 	L"GridPainter",
+	L"HeadMovement",
 	L"InputMovementTest",
 	L"KissyfaceAI",
 	L"LerpTest",
+	L"MonsterAttack",
 	L"ParentTest",
 	L"PathNode",
 	L"PickPixelTest",
@@ -58,6 +69,7 @@ static constexpr const wchar_t* const ScriptComponentNames[static_cast<UINT>(eSc
 	L"ShiftController",
 	L"SimpleDrawPoint",
 	L"SimpleEditorCollider2D",
+	L"SlashComponent",
 	L"TestScript",
 	L"UIEffect",
 };
@@ -88,22 +100,32 @@ ScriptComponent* CreateScriptComponentByName(const std::wstring& scriptcomponent
 		scriptcomponent = new BulletMovement;
 	else if (L"CameraInputMoveMent" == scriptcomponentName)
 		scriptcomponent = new CameraInputMoveMent;
+	else if (L"CameraWall" == scriptcomponentName)
+		scriptcomponent = new CameraWall;
 	else if (L"ChildTest" == scriptcomponentName)
 		scriptcomponent = new ChildTest;
 	else if (L"Chinatown04Controller" == scriptcomponentName)
 		scriptcomponent = new Chinatown04Controller;
 	else if (L"CursorMovement" == scriptcomponentName)
 		scriptcomponent = new CursorMovement;
+	else if (L"DoorController" == scriptcomponentName)
+		scriptcomponent = new DoorController;
+	else if (L"Effect2D" == scriptcomponentName)
+		scriptcomponent = new Effect2D;
 	else if (L"FolowPlayer" == scriptcomponentName)
 		scriptcomponent = new FolowPlayer;
 	else if (L"GridPainter" == scriptcomponentName)
 		scriptcomponent = new GridPainter;
+	else if (L"HeadMovement" == scriptcomponentName)
+		scriptcomponent = new HeadMovement;
 	else if (L"InputMovementTest" == scriptcomponentName)
 		scriptcomponent = new InputMovementTest;
 	else if (L"KissyfaceAI" == scriptcomponentName)
 		scriptcomponent = new KissyfaceAI;
 	else if (L"LerpTest" == scriptcomponentName)
 		scriptcomponent = new LerpTest;
+	else if (L"MonsterAttack" == scriptcomponentName)
+		scriptcomponent = new MonsterAttack;
 	else if (L"ParentTest" == scriptcomponentName)
 		scriptcomponent = new ParentTest;
 	else if (L"PathNode" == scriptcomponentName)
@@ -124,6 +146,8 @@ ScriptComponent* CreateScriptComponentByName(const std::wstring& scriptcomponent
 		scriptcomponent = new SimpleDrawPoint;
 	else if (L"SimpleEditorCollider2D" == scriptcomponentName)
 		scriptcomponent = new SimpleEditorCollider2D;
+	else if (L"SlashComponent" == scriptcomponentName)
+		scriptcomponent = new SlashComponent;
 	else if (L"TestScript" == scriptcomponentName)
 		scriptcomponent = new TestScript;
 	else if (L"UIEffect" == scriptcomponentName)
@@ -163,6 +187,9 @@ ScriptComponent* CreateScriptComponentByEnum(const eScriptComponentType type)
 	case eScriptComponentType::CameraInputMoveMent:
 		scriptcomponent = new CameraInputMoveMent;
 		break;
+	case eScriptComponentType::CameraWall:
+		scriptcomponent = new CameraWall;
+		break;
 	case eScriptComponentType::ChildTest:
 		scriptcomponent = new ChildTest;
 		break;
@@ -172,11 +199,20 @@ ScriptComponent* CreateScriptComponentByEnum(const eScriptComponentType type)
 	case eScriptComponentType::CursorMovement:
 		scriptcomponent = new CursorMovement;
 		break;
+	case eScriptComponentType::DoorController:
+		scriptcomponent = new DoorController;
+		break;
+	case eScriptComponentType::Effect2D:
+		scriptcomponent = new Effect2D;
+		break;
 	case eScriptComponentType::FolowPlayer:
 		scriptcomponent = new FolowPlayer;
 		break;
 	case eScriptComponentType::GridPainter:
 		scriptcomponent = new GridPainter;
+		break;
+	case eScriptComponentType::HeadMovement:
+		scriptcomponent = new HeadMovement;
 		break;
 	case eScriptComponentType::InputMovementTest:
 		scriptcomponent = new InputMovementTest;
@@ -186,6 +222,9 @@ ScriptComponent* CreateScriptComponentByEnum(const eScriptComponentType type)
 		break;
 	case eScriptComponentType::LerpTest:
 		scriptcomponent = new LerpTest;
+		break;
+	case eScriptComponentType::MonsterAttack:
+		scriptcomponent = new MonsterAttack;
 		break;
 	case eScriptComponentType::ParentTest:
 		scriptcomponent = new ParentTest;
@@ -216,6 +255,9 @@ ScriptComponent* CreateScriptComponentByEnum(const eScriptComponentType type)
 		break;
 	case eScriptComponentType::SimpleEditorCollider2D:
 		scriptcomponent = new SimpleEditorCollider2D;
+		break;
+	case eScriptComponentType::SlashComponent:
+		scriptcomponent = new SlashComponent;
 		break;
 	case eScriptComponentType::TestScript:
 		scriptcomponent = new TestScript;

@@ -8,6 +8,7 @@
 #include <Engine/SceneManager.h>
 #include "ResourceManager.h"
 #include "RewindComponent.h"
+#include "FolowPlayer.h"
 
 GangsterAI::GangsterAI()
 	: ScriptComponent(eScriptComponentType::GangsterAI)
@@ -23,7 +24,9 @@ GangsterAI::GangsterAI()
 	, mCurWalkTime(0.f)
 	, mShotDelayTime(0.f)
 	, mElevatorTime(0.f)
+	, mEffectTime(0.f)
 	, mState(eGangsterState::Idle)
+	, mbDead(false)
 {
 }
 
@@ -204,6 +207,38 @@ void GangsterAI::update()
 		return;
 	}
 
+	mEffectTime += gDeltaTime;
+	
+	if (mbDead  && mEffectTime > 0.03f && mRigidbody2D->GetVelocity().x != 0.f)
+	{
+		mEffectTime = 0.f;
+
+		Vector3 position = mTransform->GetPosition();
+
+		position.y -= 25.f;
+
+		for (int i = 0; i < 4; i++)
+		{
+			int rand = helper::rand::RandInt(0, 10000) % 20;
+
+			position.x += rand - 10.f;
+			position.y += rand - 10.f;
+
+			//position.y
+			
+			if (mTransform->GetFlipX())
+			{
+				gEffectManager->Shot(L"Blood1", position, Vector2(0.7f, 0.3f), 350.f);
+			}
+			else
+			{
+				gEffectManager->Shot(L"Blood3", position, Vector2(-0.7f, 0.3f), 350.f);
+			}
+		}
+	}
+
+
+
 	mShotDelayTime += gDeltaTime;
 
 	if (mState == eGangsterState::Aim)
@@ -274,6 +309,56 @@ void GangsterAI::update()
 
 void GangsterAI::lateUpdate()
 {
+}
+
+void GangsterAI::onCollisionEnter(Collider2D* other)
+{	
+	if (false == mbDead && other->GetOwner()->GetLayer() == eLayerType::PlayerAttack)
+	{
+		//Vector2 direction = helper::math::GetDirection2D(other->GetOwner(), GetOwner());
+		Vector3 dir = other->GetOwner()->GetComponent<Transform>()->GetRight();
+
+		if (dir.y > 0.f)
+		{
+			mAnimator2D->Play(L"Fall", false);
+			mState = eGangsterState::HurtFly;
+		}
+		else
+		{
+			mAnimator2D->Play(L"HurtGround", false);
+			mState = eGangsterState::HurtGround;
+		}
+
+		dir.x *= 900.f;
+		dir.y *= 1000.f;
+
+		//Matrix mat = mTransform->GetWorldMatrix();
+		//mat._42 += 10.f;
+		//mTransform->SetWorldMatrix(mat);
+
+		//mTransform->SetPosition(position);
+
+		mRigidbody2D->SetVelocity(Vector2(dir.x, dir.y));
+		
+
+		Camera* const camera = GetOwner()->GetGameSystem()->GetRenderTargetRenderer()->GetRegisteredRenderCamera(eCameraPriorityType::Main);
+		camera->GetOwner()->GetComponent<FolowPlayer>()->ShakeCamera();
+
+
+		GameManager::GetInstance()->GetEventManager()->ShotTimeEffect(0.1f, 0.2f);
+
+		gSoundManager->Play(eResAudioClip::enemySlice, 1.f);
+
+		mbDead = true;
+	}	
+	else if (other->GetOwner()->GetLayer() == eLayerType::Wall)
+	{
+		if (mState == eGangsterState::HurtFly)
+		{
+			mAnimator2D->Play(L"HurtGround", false);
+			mState = eGangsterState::HurtGround;
+		}
+	}
 }
 
 bool GangsterAI::isAttackable(const float attackDistacne)
@@ -417,12 +502,16 @@ void GangsterAI::aim()
 			bullet->AddComponent<BulletMovement>();
 			bullet->AddComponent<SpriteRenderer>();
 			bullet->AddComponent<RewindComponent>();
+			bullet->AddComponent<RectCollider2D>();
+
+			bullet->GetComponent<RectCollider2D>()->SetSize(20.f, 20.f);
 
 			bullet->GetComponent<Transform>()->SetScale(Vector3(0.5f, 0.3f, 1.f));
 			
 			bullet->GetComponent<SpriteRenderer>()->SetMaterial(gResourceManager->FindOrNull<Material>(L"UITimer"));
 			bullet->GetComponent<SpriteRenderer>()->SetMesh(gResourceManager->FindOrNull<Mesh>(L"FillRect2D"));
 			bullet->GetComponent<BulletMovement>()->mDir = Vector3(direction.x, direction.y, 0.f);
+			
 			
 
 			bullet->GetComponent<Transform>()->SetPosition(mHandObject->GetComponent<Transform>()->GetWorldMatrix().Translation());

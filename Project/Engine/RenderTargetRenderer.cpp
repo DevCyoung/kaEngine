@@ -27,7 +27,7 @@ RenderTargetRenderer::RenderTargetRenderer()
 	, mCameras{ 0, }
 	, mRenderComponentsArray{}
 	, mLight2DInfos()
-	, mbDebugRender(true)
+	, mbDebugRender(false)
 	, mCameraMask(0XFFFFFFFF)
 {
 	for (auto& renderObjectArray : mRenderComponentsArray)
@@ -118,6 +118,15 @@ void RenderTargetRenderer::Render(const UINT renderTargetWidth,
 	gGraphicDevice->PassCB(eCBType::GlobalInfo, sizeof(globalInfo), &globalInfo);
 	gGraphicDevice->BindCB(eCBType::GlobalInfo, eShaderBindType::VS);
 	gGraphicDevice->BindCB(eCBType::GlobalInfo, eShaderBindType::PS);
+
+	//tWaveInfo waveInfo = {};
+
+	//waveInfo.WaveXPower = 20.f;
+	//waveInfo.WaveYPower = 0.f;
+	//waveInfo.WaveSpeed = 10.f;
+
+	//gGraphicDevice->PassCB(eCBType::Wave, sizeof(waveInfo), &waveInfo);	
+	//gGraphicDevice->BindCB(eCBType::Wave, eShaderBindType::PS);
 
 
 	//TODO: 알파블렌딩 Z솔트가 필요할떄 적용한다.

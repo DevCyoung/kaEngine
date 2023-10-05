@@ -9,6 +9,7 @@
 #include "SceneManager.h"
 #include "RenderTargetRenderer.h"
 #include "EngineResourceLoader.h"
+#include "Fmod.h"
 
 Engine::Engine(const HWND hWnd, const UINT renderTargetWidth, const UINT renderTargetHeight)
 	: mHwnd(hWnd)
@@ -19,7 +20,7 @@ Engine::Engine(const HWND hWnd, const UINT renderTargetWidth, const UINT renderT
 	, mGraphicDevice(new GraphicDeviceDX11(mHwnd, mRenderTargetWidth, mRenderTargetHeight))
 {
 	setWindowSize(mRenderTargetWidth, mRenderTargetHeight);
-
+	Fmod::Initialize();
 	//TimeManager::initialize();
 	MessageManager::initialize();
 	PathManager::initialize();
@@ -38,6 +39,7 @@ Engine::~Engine()
 	//TimeManager::deleteInstance();
 	
 	SAFE_DELETE_POINTER(mGraphicDevice);
+	Fmod::Release();
 }
 
 void Engine::initialize(const HWND hWnd, const UINT renderTargetWidth, const UINT renderTargetHeight)

@@ -8,5 +8,7 @@ public:
 	virtual ~KissyfaceScene();
 	KissyfaceScene(const KissyfaceScene&) = delete;
 	KissyfaceScene& operator=(const KissyfaceScene&) = delete;
+
+	virtual void lateUpdate() override final;
 };
 

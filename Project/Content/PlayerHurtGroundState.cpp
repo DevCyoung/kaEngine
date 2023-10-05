@@ -4,6 +4,8 @@
 #include "PlayerFSM.h"
 #include "Rect2DInterpolation.h"
 
+#include "PlayerFSM.h"
+#include "PlayerController.h"
 
 PlayerHurtGroundState::PlayerHurtGroundState(GameObject* const gameObject, PlayerFSM* const owner)
 	: PlayerState(gameObject, owner)
@@ -20,6 +22,10 @@ void PlayerHurtGroundState::InputUpdate()
 
 void PlayerHurtGroundState::Update()
 {
+	if (gInput->GetKeyDown(eKeyCode::LBTN))
+	{
+		mOwner->ChangeState(mOwner->mPlayerRecoverState);		
+	}
 }
 
 void PlayerHurtGroundState::Enter()

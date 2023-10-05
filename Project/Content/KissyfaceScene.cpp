@@ -24,7 +24,20 @@ KissyfaceScene::KissyfaceScene()
 	mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Player, eLayerType::Platform);
 	mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Monster, eLayerType::Platform);
 
-	mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Monster, eLayerType::Default);
+	mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Monster, eLayerType::Door);
+	mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Player, eLayerType::Door);
+
+	mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Door, eLayerType::PlayerAttack);
+
+	mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Monster, eLayerType::PlayerAttack);
+
+	mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Bullet, eLayerType::PlayerAttack);
+
+
+	mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Bullet, eLayerType::PlayerAttack);
+
+
+	mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Camera, eLayerType::CameraWall);
 
 
 #pragma region Material
@@ -37,7 +50,7 @@ KissyfaceScene::KissyfaceScene()
 #pragma endregion
 
 #pragma region Editor
-	/*{
+	/*{	
 		GameObject* const testObj = new GameObject();
 		testObj->AddComponent<SimpleEditorCollider2D>();
 		AddGameObject(testObj, eLayerType::Default);
@@ -68,7 +81,7 @@ KissyfaceScene::KissyfaceScene()
 		GameObject* const wall = new GameObject();
 		//[RectCollider]
 		wall->AddComponent<RectCollider2D>();
-		wall->GetComponent<Transform>()->SetPosition(-560, 64, 0);
+		wall->GetComponent<Transform>()->SetPosition(-528, 64, 0);
 		wall->GetComponent<RectCollider2D>()->SetSize(Vector2(224, 896));
 		AddGameObject(wall, eLayerType::Wall);
 	}
@@ -77,7 +90,7 @@ KissyfaceScene::KissyfaceScene()
 		GameObject* const wall = new GameObject();
 		//[RectCollider]
 		wall->AddComponent<RectCollider2D>();
-		wall->GetComponent<Transform>()->SetPosition(624, 128, 0);
+		wall->GetComponent<Transform>()->SetPosition(592, 128, 0);
 		wall->GetComponent<RectCollider2D>()->SetSize(Vector2(224, 1024));
 		AddGameObject(wall, eLayerType::Wall);
 	}
@@ -114,9 +127,19 @@ KissyfaceScene::KissyfaceScene()
 
 		GameManager::GetInstance()->SetPlayer(player);
 	}
+
+	GameManager::GetInstance()->GetEffectManager()->Initialize(this);
 }
 
 KissyfaceScene::~KissyfaceScene()
 {
 	GameManager::deleteInstance();
+}
+
+void KissyfaceScene::lateUpdate()
+{
+	Scene::lateUpdate();
+
+	GameManager::GetInstance()->GetRewindManager()->LateUpdate();
+	//GameManager::GetInstance()->GetEffectManager()->LateUpdate();
 }

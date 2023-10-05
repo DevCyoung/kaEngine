@@ -189,6 +189,11 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="CameraManager.h" />
+    <ClInclude Include="CameraWall.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="ChildTest.h">
       <SubType>
       </SubType>
@@ -206,7 +211,17 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="DoorController.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Effect2D.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="EffectManager.h" />
     <ClInclude Include="EnumResourceTypeAnimation.h" />
+    <ClInclude Include="EnumResourceTypeAudioClip.h" />
     <ClInclude Include="EnumResourceTypeFont.h" />
     <ClInclude Include="EnumResourceTypeMaterial.h" />
     <ClInclude Include="EnumResourceTypeMesh.h" />
@@ -215,6 +230,7 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
     <ClInclude Include="EnumResourceTypeSound.h" />
     <ClInclude Include="EnumResourceTypeTexture.h" />
     <ClInclude Include="EnumScriptComponent.h" />
+    <ClInclude Include="EventManager.h" />
     <ClInclude Include="FolowPlayer.h">
       <SubType>
       </SubType>
@@ -231,6 +247,10 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
       </SubType>
     </ClInclude>
     <ClInclude Include="HeadHunterScene.h" />
+    <ClInclude Include="HeadMovement.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="InputMovementTest.h">
       <SubType>
       </SubType>
@@ -247,6 +267,10 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
     </ClInclude>
     <ClInclude Include="MaterialBuilder.h" />
     <ClInclude Include="GridPainter.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="MonsterAttack.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -281,6 +305,7 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
     <ClInclude Include="PlayerFSM.h" />
     <ClInclude Include="PlayerGlobalState.h" />
     <ClInclude Include="PlayerHurtGroundState.h" />
+    <ClInclude Include="PlayerHurtState.h" />
     <ClInclude Include="PlayerIdleState.h" />
     <ClInclude Include="PlayerJumpState.h" />
     <ClInclude Include="PlayerMovementTest.h">
@@ -319,6 +344,11 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="SlashComponent.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="SoundManager.h" />
     <ClInclude Include="TestScene.h" />
     <ClInclude Include="TestScript.h">
       <SubType>
@@ -347,6 +377,11 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="CameraManager.cpp" />
+    <ClCompile Include="CameraWall.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="ChildTest.cpp">
       <SubType>
       </SubType>
@@ -364,7 +399,17 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="DoorController.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Effect2D.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="EffectManager.cpp" />
     <ClCompile Include="EnumResourceTypeAnimation.cpp" />
+    <ClCompile Include="EnumResourceTypeAudioClip.cpp" />
     <ClCompile Include="EnumResourceTypeFont.cpp" />
     <ClCompile Include="EnumResourceTypeMaterial.cpp" />
     <ClCompile Include="EnumResourceTypeMesh.cpp" />
@@ -373,6 +418,7 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
     <ClCompile Include="EnumResourceTypeSound.cpp" />
     <ClCompile Include="EnumResourceTypeTexture.cpp" />
     <ClCompile Include="EnumScriptComponent.cpp" />
+    <ClCompile Include="EventManager.cpp" />
     <ClCompile Include="FolowPlayer.cpp">
       <SubType>
       </SubType>
@@ -388,6 +434,10 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
       </SubType>
     </ClCompile>
     <ClCompile Include="HeadHunterScene.cpp" />
+    <ClCompile Include="HeadMovement.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="InputMovementTest.cpp">
       <SubType>
       </SubType>
@@ -404,6 +454,10 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
     </ClCompile>
     <ClCompile Include="MaterialBuilder.cpp" />
     <ClCompile Include="GridPainter.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="MonsterAttack.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -445,6 +499,7 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
     <ClCompile Include="PlayerFSM.cpp" />
     <ClCompile Include="PlayerGlobalState.cpp" />
     <ClCompile Include="PlayerHurtGroundState.cpp" />
+    <ClCompile Include="PlayerHurtState.cpp" />
     <ClCompile Include="PlayerIdleState.cpp" />
     <ClCompile Include="PlayerJumpState.cpp" />
     <ClCompile Include="PlayerMovementTest.cpp">
@@ -482,6 +537,11 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="SlashComponent.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="TestScene.cpp" />
     <ClCompile Include="TestScript.cpp">
       <SubType>
@@ -611,6 +671,9 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
     </None>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\Output\bin\Resources\Shader\VSWave.hlsl">
+      <FileType>Document</FileType>
+    </None>
     <None Include="..\..\Output\bin\Resources\Shader\VSGrayPostProcess.hlsl">
       <FileType>Document</FileType>
     </None>
@@ -662,6 +725,9 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
       <FileType>Document</FileType>
     </None>
     <None Include="..\..\Output\bin\Resources\Shader\PSGrayPostProcess.hlsl">
+      <FileType>Document</FileType>
+    </None>
+    <None Include="..\..\Output\bin\Resources\Shader\PSWave.hlsl">
       <FileType>Document</FileType>
     </None>
     <FxCompile Include="..\..\Output\bin\Resources\Shader\VSAnimation2D.hlsl" />

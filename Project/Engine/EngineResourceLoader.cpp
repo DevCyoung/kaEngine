@@ -370,6 +370,19 @@ void EngineResourceLoader::loadShader()
 
 		gResourceManager->Insert(L"GrayPostProcess", grayPostProcess);
 	}
+
+	{
+		Shader* const wavePostProcess =
+			new Shader(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST,
+				L"\\Shader\\VSWave.hlsl", L"main",
+				L"\\Shader\\PSWave.hlsl", L"main",
+				eSMType::Default,
+				eRSType::CullNone,
+				eDSType::NoWrite,
+				eBSType::AlphaBlend);
+
+		gResourceManager->Insert(L"WavePostProcess", wavePostProcess);
+	}
 }
 
 void EngineResourceLoader::loadComputeShader()

@@ -3,11 +3,13 @@
 #include "Components.h"
 #include "PlayerFSM.h"
 #include "Rect2DInterpolation.h"
-
+#include "GameManager.h"
+#include <Engine/EngineMath.h>
 PlayerWallSlideState::PlayerWallSlideState(GameObject* const gameObject, PlayerFSM* const owner)
 	: PlayerState(gameObject, owner)
 	, gravityScale(0.f)
 	, oriGravityScale(0.f)
+	, effectTime(0.f)
 {
 }
 
@@ -93,16 +95,53 @@ void PlayerWallSlideState::Update()
 		mAnimator->Play(L"RunToIdle", false);
 		mOwner->ChangeState(mOwner->mPlayerIdleState);
 	}
+
+
+
+	effectTime += gDeltaTime;
+
+	if (effectTime > 0.04f)
+	{
+		effectTime = 0.f;
+
+		Vector3 position = mTransform->GetPosition();
+
+		position.y -= 25.f;
+
+		for (int i = 0; i < 3; i++)
+		{
+			int rand = helper::rand::RandInt(0, 10000) % 20;
+
+			position.x += rand - 10.f;
+			position.y += rand - 10.f;
+
+			//position.y
+
+			if (mTransform->GetFlipX())
+			{
+				gEffectManager->Shot(L"DustCloud", position, Vector2(0.7f, 0.3f), 350.f);
+			}
+			else
+			{
+				gEffectManager->Shot(L"DustCloud", position, Vector2(-0.7f, 0.3f), 350.f);
+			}
+		}
+	}
+
 }
 
 void PlayerWallSlideState::Enter()
 {	
 	mAnimator->Play(L"WallSlide", false);	
 	mRigidbody->SetGravityAccel(oriGravityScale * 0.45f);	
+	effectTime = 0.f;
+	//gSoundManager->Play(eResAudioClip::playerWallSlide, 0.5f, true);
 }
 
 void PlayerWallSlideState::Exit()
 {	
 	mRigidbody->SetGravityAccel(oriGravityScale);	
+
+	//gSoundManager->Stop(eResAudioClip::playerWallSlide);
 }
 

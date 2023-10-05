@@ -26,4 +26,5 @@ private:
 	virtual void onCollisionExit(Collider2D* other) override;
 private:
 	float mDelay;
+	float mSpeed;
 };

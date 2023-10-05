@@ -9,6 +9,8 @@ enum class eCBType
 	DebugInfo,
 	Animation2DInfo,
 	GlobalInfo,
+	Sprite2D,
+	Wave,
 	End,
 };
 

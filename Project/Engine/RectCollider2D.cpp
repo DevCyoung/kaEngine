@@ -40,7 +40,7 @@ void RectCollider2D::lateUpdate()
 			color = Vector4(1.f, 0.f, 0.f, 1.f);
 		}
 
-		if (eLayerType::CamearaWall == GetOwner()->GetLayer())
+		if (eLayerType::CameraWall == GetOwner()->GetLayer())
 		{
 			debugRenderer->DrawFillRect2D3(mColliderWorldMat, 0.f, Vector4(0.0f, 1.0f, 0.5f, 0.8f));
 		}

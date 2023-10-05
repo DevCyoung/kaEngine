@@ -14,6 +14,8 @@ public:
 	FolowPlayer(const FolowPlayer&) = delete;
 	FolowPlayer& operator=(const FolowPlayer&) = delete;
 
+	void ShakeCamera();
+
 private:
 	virtual void initialize() override final;
 	virtual void update() override final;
@@ -21,6 +23,14 @@ private:
 	virtual void lateUpdate() override final;
 	virtual void lastUpdate() override final;
 
-	Transform* mPlayerTransform;
+	virtual void onCollisionEnter(Collider2D* other) override;	
+	virtual void onCollisionStay(Collider2D* other) override;
+	virtual void onCollisionExit(Collider2D* other) override;
+	
+	bool mbCollideWall[4];
 
+	Transform* mPlayerTransform;
+	float mShakeTime;
+	float mShakeInterverTime;
+	bool mbShake;
 };

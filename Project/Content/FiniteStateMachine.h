@@ -12,6 +12,8 @@ public:
 	virtual void Update() = 0;
 
 	void ChangeState(FSMState* const state);
+	FSMState* GetCurState() const { return mCurState; }
+
 
 protected:
 	FSMState* mCurState;

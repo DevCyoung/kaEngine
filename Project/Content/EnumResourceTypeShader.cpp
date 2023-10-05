@@ -18,6 +18,7 @@ static constexpr const wchar_t* eResShaderPath[static_cast<UINT>(eResShader::End
 	L"\\Shader\\PSLineDebug2D.hlsl",
 	L"\\Shader\\PSSprite2D.hlsl",
 	L"\\Shader\\PSUI2D.hlsl",
+	L"\\Shader\\PSWave.hlsl",
 	L"\\Shader\\stdCS.hlsl",
 	L"\\Shader\\VSAnimation2D.hlsl",
 	L"\\Shader\\VSFillDebug2D.hlsl",
@@ -28,6 +29,7 @@ static constexpr const wchar_t* eResShaderPath[static_cast<UINT>(eResShader::End
 	L"\\Shader\\VSLineDebug2D.hlsl",
 	L"\\Shader\\VSSprite2D.hlsl",
 	L"\\Shader\\VSUI2D.hlsl",
+	L"\\Shader\\VSWave.hlsl",
 };
 
 const wchar_t* EnumResourcePath(eResShader type)

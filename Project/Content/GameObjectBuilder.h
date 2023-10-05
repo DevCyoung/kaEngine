@@ -26,7 +26,9 @@ public:
 	static GameObject* Player();
 	static GameObject* InstantiateMonster(const eMonsterType type, Scene* const scene);
 	static GameObject* InstantiateKissyface(Scene* const scene);
-	static GameObject* Slash();
+	static GameObject* InstantiateDoor(Scene* const scene);
+	static GameObject* InstantiateClubDoor(Scene* const scene);
+	static GameObject* Slash();	
 	
 
 	static GameObject* InstantiatePlayer(Scene* const scene);

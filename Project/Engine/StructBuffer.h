@@ -93,3 +93,17 @@ struct alignas(16) tParticleInfo //
 	UINT	Light3DCount;
 	int		globalpadding;
 };
+
+struct alignas(16) tSprite2DInfo // b5
+{
+	Vector2 Dummy;
+	Vector2 UV;
+};
+
+struct alignas(16) tWaveInfo // b6
+{
+	float WaveXPower;
+	float WaveYPower;
+	float WaveSpeed;	
+	float dummy2;
+};

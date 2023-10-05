@@ -12,7 +12,7 @@
 #include "MaterialBuilder.h"
 #include "ResourceManager.h"
 
-#include <Engine/Engine.h>
+#include <Engine/Engine.h> 
 #include <Engine/SceneManager.h>
 #include <Engine/EngineMath.h>
 #include <Engine/TimeManager.h>
@@ -22,27 +22,34 @@
 
 #include "KissyfaceScene.h"
 
+
+#include "SoundManager.h"
 Content::Content()
 {
 	resourceInitialize();
 
 	//Scene* testScene = new Collide2DTestScene;
 	//Scene* testScene = new TItleScene();	
-	//Scene* testScene = new Chinatown01Scene();
+	Scene* testScene = new Chinatown01Scene();
 	//Scene* testScene = new Chinatown04Scene();
 	//Scene* testScene = new Chinatown05Scene();
 	//Scene* testScene = new HeadHunterScene();
-	Scene* testScene = new KissyfaceScene();
+	//Scene* testScene = new KissyfaceScene();
 	//Scene* testScene = new TestScene();
 
-	SceneManager::GetInstance()->LoadScene(testScene);
+	SoundManager::initialize();
+	SoundManager::GetInstance()->BackGround(eResAudioClip::song_chinatown, 0.2f);
 
 	TimeManager::initialize();
+	SceneManager::GetInstance()->LoadScene(testScene);	
+	//TimeManager::GetInstance()->ResetTime();	
+	
 }
 
 Content::~Content()
 {
 	TimeManager::deleteInstance();
+	SoundManager::deleteInstance();
 }
 
 void Content::resourceInitialize()
@@ -81,6 +88,36 @@ void Content::loadShader()
 
 void Content::loadMaterial()
 {
+
+#pragma region Chianatown01Material
+	{
+		Material* const material =
+			MaterialBuilder::Sprite2D(eRenderPriorityType::Opqaue, eResTexture::Map_Chinatown01_spr_chinatown_parallax_1);
+		gResourceManager->Insert(L"Chanatown05BackGround01", material);
+	}
+
+	{
+		Material* const material =
+			MaterialBuilder::Sprite2D(
+				eRenderPriorityType::Opqaue, eResTexture::Map_Chinatown01_spr_chinatown_parallax_2);
+		gResourceManager->Insert(L"Chanatown05BackGround02", material);
+	}
+
+	{
+		Material* const material =
+			MaterialBuilder::Sprite2D(
+				eRenderPriorityType::Opqaue, eResTexture::Map_Chinatown01_spr_chinatown_parallax_3);
+		gResourceManager->Insert(L"Chanatown05BackGround03", material);
+	}
+
+	{
+		Material* const material =
+			MaterialBuilder::Sprite2D(
+				eRenderPriorityType::Opqaue, eResTexture::Map_Chinatown01_Tilemap);
+		gResourceManager->Insert(L"Chanatown01TileMap", material);
+	}
+#pragma endregion
+
 	//Animation Material
 	{
 		Material* const material =
@@ -97,6 +134,14 @@ void Content::loadMaterial()
 				eRenderPriorityType::PostProcess, L"GrayPostProcess", eResTexture::door);
 
 		gResourceManager->Insert(L"GrayPostProcess", material);
+	}
+
+	{
+		Material* const material =
+			MaterialBuilder::Default2D(
+				eRenderPriorityType::PostProcess, L"WavePostProcess", eResTexture::door);
+
+		gResourceManager->Insert(L"WavePostProcess", material);
 	}
 
 	loadUIMaterial();

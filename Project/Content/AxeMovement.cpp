@@ -85,6 +85,7 @@ void AxeMovement::update()
 
 void AxeMovement::lateUpdate()
 {
+
 }
 
 void AxeMovement::onCollisionEnter(Collider2D* other)

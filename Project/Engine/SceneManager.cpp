@@ -2,7 +2,6 @@
 #include "SceneManager.h"
 #include "Engine.h"
 #include "GraphicDeviceDx11.h"
-
 SceneManager::SceneManager()
 	: mCurrentScene(nullptr)
 	, mNextScene(nullptr)

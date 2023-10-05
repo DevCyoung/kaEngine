@@ -57,4 +57,18 @@ cbuffer GLOBAL : register(b4)
 	int B4_globalpadding;
 }
 
+cbuffer Sprite2D : register(b5)
+{
+	float2 B5_Dummy;	
+	float2 B5_SpriteUV;
+}
+
+cbuffer Wave : register(b6)
+{
+	float B6_WaveXPower;	
+	float B6_WaveYPower;
+	float B6_WaveSpeed;
+	float B6_dummy1;
+}
+
 #endif

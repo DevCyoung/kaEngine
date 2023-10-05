@@ -15,7 +15,12 @@ float4 main(tVSOut In) : SV_TARGET
 	else if (color.a == 0.f)
 	{
 		discard;
-	}	
+	}
+	
+	if (In.UV.x > B5_SpriteUV.x)
+	{
+		discard;
+	}
 
 	return color;
 }

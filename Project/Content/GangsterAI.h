@@ -46,6 +46,8 @@ private:
 	virtual void update() override final;
 	virtual void lateUpdate() override final;
 
+	virtual void onCollisionEnter(Collider2D* other) override;
+
 	bool isAttackable(const float attackDistacne);
 
 	void idle();
@@ -79,7 +81,11 @@ private:
 	float mElevatorTime;
 
 	float mShotDelayTime;
+
+	float mEffectTime;
 	
 	std::queue<PathNode*> mPath;
 	eGangsterState mState;
+
+	bool mbDead;
 };

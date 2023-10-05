@@ -19,6 +19,8 @@
 
 #include "EnumSRV.h"
 
+#include "EngineMath.h"
+
 Animator2D::Animator2D()
 	: RenderComponent(eComponentType::Animator2D)
 	, mAnimationMap()
@@ -26,6 +28,7 @@ Animator2D::Animator2D()
 	, mCurAnimation(nullptr)
 	, bRepeat(false)
 	, backSize(XMUINT2(300, 300))
+	, bFlipX(false)
 {
 	SetMaterial(gResourceManager->FindOrNull<Material>(L"Animation2D"));
 	SetMesh(gResourceManager->FindOrNull<Mesh>(L"FillRect2D"));
@@ -215,7 +218,21 @@ void Animator2D::render(const Camera* const camera)
 			= Vector3(static_cast<float>(backSize.x), static_cast<float>(backSize.y), 1.f);
 		const Matrix& SCALE_MATRIX = Matrix::CreateScale(SCALE);
 
-		CBTransform.World = SCALE_MATRIX * GetOwner()->GetComponent<Transform>()->GetWorldMatrix();
+		if (bFlipX)
+		{
+			Matrix rotationMatrix = {};
+			rotationMatrix = Matrix::CreateRotationZ(Deg2Rad(0.f));
+			rotationMatrix *= Matrix::CreateRotationY(Deg2Rad(180));
+			rotationMatrix *= Matrix::CreateRotationX(Deg2Rad(0.f));
+
+			CBTransform.World = SCALE_MATRIX * rotationMatrix * GetOwner()->GetComponent<Transform>()->GetWorldMatrix();
+		}
+		else
+		{
+			CBTransform.World = SCALE_MATRIX * GetOwner()->GetComponent<Transform>()->GetWorldMatrix();
+		}
+
+		
 		CBTransform.View = camera->GetView();
 		CBTransform.Proj = camera->GetProjection();
 

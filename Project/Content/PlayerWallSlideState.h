@@ -21,5 +21,5 @@ private:
 
 	float oriGravityScale;
 	float oriGravityLimit;
-
+	float effectTime;
 };

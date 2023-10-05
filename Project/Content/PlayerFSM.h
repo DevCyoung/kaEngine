@@ -16,6 +16,7 @@
 #include "PlayerGlobalState.h"
 #include "PlayerRecoverState.h"
 #include "PlayerHurtGroundState.h"
+#include "PlayerHurtState.h"
 
 class GameObject;
 
@@ -68,4 +69,5 @@ public:
 	PlayerGlobalState* mPlayerGlobalState;
 	PlayerRecoverState* mPlayerRecoverState;
 	PlayerHurtGroundState* mPlayerHurtGroundState;
+	PlayerHurtState* mPlayerHurtState;
 };

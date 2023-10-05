@@ -8,6 +8,7 @@
 #include <Engine/Physics2D.h>
 #include <Engine/Color.h>
 #include "GameManager.h"
+#include "DoorController.h"
 
 Rect2DInterpolation::Rect2DInterpolation()
 	: ScriptComponent(eScriptComponentType::Rect2DInterpolation)
@@ -20,7 +21,6 @@ Rect2DInterpolation::Rect2DInterpolation()
 Rect2DInterpolation::~Rect2DInterpolation()
 {
 }
-
 
 void Rect2DInterpolation::initialize()
 {
@@ -126,17 +126,41 @@ void Rect2DInterpolation::lastUpdate()
 		{
 			const Vector2 interSize = mInterpolationPos[static_cast<UINT>(eWallType::Floor)];
 
-			velocity.y = 0.f;
+			if (velocity.y < 0.f)
+			{
+				velocity.y = 0.f;
+			}
+
+			//velocity.y = 0.f;
+
 			position.y += interSize.y;
 			transMat._42 += interSize.y;
 		}		
 
+		if (IsCollisionWallCeiling())
+		{
+			const Vector2 interSize = mInterpolationPos[static_cast<UINT>(eWallType::Ceiling)];
+
+			if (velocity.y > 0.f)
+			{
+				velocity.y = 0.f;
+			}
+
+			//velocity.y = 0.f;
+			position.y -= interSize.y + 1.f;
+			transMat._42 -= interSize.y + 1.f;
+		}
 
 		if (IsCollisionWallLeft())
 		{
 			const Vector2 interSize = mInterpolationPos[static_cast<UINT>(eWallType::Left)];
 
-			velocity.x = 0.f;
+			if (velocity.x < 0.f)
+			{
+				velocity.x = 0.f;
+			}
+			//velocity.x = 0.f;
+
 			position.x += interSize.x;
 			transMat._41 += interSize.x;
 		}
@@ -144,20 +168,46 @@ void Rect2DInterpolation::lastUpdate()
 		{
 			const Vector2 interSize = mInterpolationPos[static_cast<UINT>(eWallType::Right)];
 
-			velocity.x = 0.f;
+			if (velocity.x > 0.f)
+			{
+				velocity.x = 0.f;
+			}
+
+			//velocity.x = 0.f;
 			position.x -= interSize.x;
 			transMat._41 -= interSize.x;
 		}
 
-		if (IsCollisionWallCeiling())
-		{
-			const Vector2 interSize = mInterpolationPos[static_cast<UINT>(eWallType::Ceiling)];
-
-			velocity.y = 0.f;
-			position.y -= interSize.y + 1.f;
-			transMat._42 -= interSize.y + 1.f;
-		}
+		
 	}
+
+
+	//if (IsCollisionWallLeft())
+	//{
+	//	const Vector2 interSize = mInterpolationPos[static_cast<UINT>(eWallType::Left)];
+
+	//	if (velocity.x < 0.f)
+	//	{
+	//		velocity.x = 0.f;
+	//	}
+	//	//velocity.x = 0.f;
+
+	//	position.x += interSize.x;
+	//	transMat._41 += interSize.x;
+	//}
+	//if (IsCollisionWallRight())
+	//{
+	//	const Vector2 interSize = mInterpolationPos[static_cast<UINT>(eWallType::Right)];
+
+	//	if (velocity.x > 0.f)
+	//	{
+	//		velocity.x = 0.f;
+	//	}
+
+	//	//velocity.x = 0.f;
+	//	position.x -= interSize.x;
+	//	transMat._41 -= interSize.x;
+	//}
 
 
 	/*debugRenderer->DrawLine2D2(Vector3(LRP.x, LRP.y, 0.f), Vector2::Down, RAY_DIST, 0.f, LEFT_RAY_COLOR);
@@ -244,7 +294,8 @@ void Rect2DInterpolation::onCollisionInterpolation(Collider2D* const other)
 
 	const eLayerType OTHER_LAYER_TYPE = other->GetOwner()->GetLayer();
 
-	if (OTHER_LAYER_TYPE == eLayerType::Wall)
+	if (OTHER_LAYER_TYPE == eLayerType::Wall || 
+		(OTHER_LAYER_TYPE == eLayerType::Door && !other->GetOwner()->GetComponent<DoorController>()->IsOpen()) )
 	{
 		if (INTER_SIZE.x >= INTER_SIZE.y)
 		{

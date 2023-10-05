@@ -60,7 +60,10 @@ void PlayerAttackState::Enter()
 
 	Vector2 dir2 = Vector2(dir.x, dir.y);
 
-	mRigidbody->SetVelocity(dir2 * 750.f);
+	dir2.x *= 650.f;
+	dir2.y *= 750.f;
+
+	mRigidbody->SetVelocity(dir2);
 
 	if (dir2.x < 0)
 	{

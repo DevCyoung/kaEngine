@@ -123,8 +123,6 @@ void AfterImage::render(const Camera* const camera)
 	//	return;
 	//}
 
-
-
 	for (auto& info : afters)
 	{
 		tCBTransform CBTransform = info.CBTransform;

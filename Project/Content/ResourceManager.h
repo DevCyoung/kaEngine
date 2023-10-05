@@ -16,3 +16,4 @@
 #include "EnumResourceTypeShader.h"
 #include "EnumResourceTypeSound.h"
 #include "EnumResourceTypeTexture.h"
+#include "EnumResourceTypeAudioClip.h"

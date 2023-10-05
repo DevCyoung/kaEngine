@@ -25,6 +25,7 @@ PlayerFSM::PlayerFSM(GameObject* const owner)
 	, mPlayerGlobalState(new PlayerGlobalState(owner, this))
 	, mPlayerRecoverState(new PlayerRecoverState(owner, this))
 	, mPlayerHurtGroundState(new PlayerHurtGroundState(owner, this))
+	, mPlayerHurtState(new PlayerHurtState(owner, this))
 {
 	mCurState = mPlayerIdleState;
 }
@@ -45,6 +46,7 @@ PlayerFSM::~PlayerFSM()
 	SAFE_DELETE_POINTER(mPlayerGlobalState);
 	SAFE_DELETE_POINTER(mPlayerRecoverState);
 	SAFE_DELETE_POINTER(mPlayerHurtGroundState);
+	SAFE_DELETE_POINTER(mPlayerHurtState);
 
 }
 
@@ -69,6 +71,7 @@ void PlayerFSM::Initialize(PlayerState* const startState)
 	mPlayerGlobalState->Initialize();
 	mPlayerRecoverState->Initialize();
 	mPlayerHurtGroundState->Initialize();
+	mPlayerHurtState->Initialize();
 
 
 	mCurState = startState;
@@ -123,6 +126,12 @@ void PlayerFSM::InputUpdate()
 void PlayerFSM::Update()
 {
 	mCurState->Update();
+
+	//return
+	if (mOwner->GetComponent<PlayerController>()->IsControl() == false)
+	{
+		return;
+	}
 
 	{
 		Transform* const transform = mOwner->GetComponent<Transform>();

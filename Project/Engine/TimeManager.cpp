@@ -6,11 +6,13 @@
 TimeManager::TimeManager()
 	: mDeltaTime(0.0f)
 	, mGlobalTime(0.0f)
+	, mRealDeltaTime(0.0f)
 	, mSecond(0.0f)
 	, mTimeScale(1.0f)
 	, mCpuFrequency{}
 	, mPrevFrequency{}
 	, mCurFrequency{}
+	, mbReset(false)
 {
 	QueryPerformanceFrequency(&mCpuFrequency);
 	QueryPerformanceCounter(&mPrevFrequency);
@@ -23,13 +25,19 @@ TimeManager::~TimeManager()
 void TimeManager::update()
 {
 	//Test
-	if (gInput->GetKey(eKeyCode::LSHIFT))
+	/*if (gInput->GetKey(eKeyCode::LSHIFT))
 	{
 		mTimeScale = 0.1f;
 	}
 	else
 	{
 		mTimeScale = 1.f;
+	}*/
+
+	if (mbReset)
+	{
+		mbReset = false;
+		return;
 	}
 
 	QueryPerformanceCounter(&mCurFrequency);
@@ -37,6 +45,7 @@ void TimeManager::update()
 	const float DIFERENCE_FREQUENCY = static_cast<float>(mCurFrequency.QuadPart - mPrevFrequency.QuadPart);
 
 	mDeltaTime = DIFERENCE_FREQUENCY / static_cast<float>(mCpuFrequency.QuadPart);
+	mRealDeltaTime = mDeltaTime;
 	mDeltaTime *= mTimeScale;
 	mGlobalTime += mDeltaTime;
 	mPrevFrequency.QuadPart = mCurFrequency.QuadPart;
@@ -67,4 +76,15 @@ float TimeManager::EndTime(LARGE_INTEGER* const starTime)
 	const float DIFERENCE_FREQUENCY = static_cast<float>(endTime.QuadPart - starTime->QuadPart);
 
 	return DIFERENCE_FREQUENCY / static_cast<float>(mCpuFrequency.QuadPart);
+}
+
+void TimeManager::ResetTime()
+{
+	mbReset = true;	
+
+	mGlobalTime = 0.0f;
+	mDeltaTime = 0.0f;
+	mRealDeltaTime = 0.0f;
+	mSecond = 0.0f;
+	mTimeScale = 1.0f;
 }

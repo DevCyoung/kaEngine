@@ -4,17 +4,26 @@
 #include "PlayerFSM.h"
 #include "Rect2DInterpolation.h"
 #include "GameManager.h"
+#include "MonsterAttack.h"
+#include "ResourceManager.h"
 
 PlayerController::PlayerController()
 	: ScriptComponent(eScriptComponentType::PlayerController)
 	, mPlayerFSM(nullptr)
 	, mSlash(nullptr)
+	, mbControl(true)
+	, mbinvincibility(false)
 {
 }
 
 PlayerController::~PlayerController()
 {
 	SAFE_DELETE_POINTER(mPlayerFSM);
+}
+
+void PlayerController::ChangeHurtState()
+{
+	mPlayerFSM->ChangeState(mPlayerFSM->mPlayerHurtState);
 }
 
 void PlayerController::initialize()
@@ -50,6 +59,7 @@ void PlayerController::initialize()
 
 	{
 		Animation2D* animation = animator->FindAnimationOrNull(L"Roll");
+
 		std::function<void()> func = [this]() {
 			this->GetOwner()->GetComponent<Animator2D>()->Play(L"Idle", true);
 			this->mPlayerFSM->ChangeState(mPlayerFSM->mPlayerIdleState);
@@ -57,7 +67,7 @@ void PlayerController::initialize()
 
 		animation->SetLastFrameEndEvent(func);
 	}
-
+	
 	{
 		Animation2D* animation = animator->FindAnimationOrNull(L"PostCrouch");
 		std::function<void()> func = [this]() {
@@ -94,22 +104,125 @@ void PlayerController::initialize()
 
 	mSlash->GetComponent<Transform>()->SetPosition(100000.f, 100000.f, 100000.f);
 	//GameManager::GetInstance()->GetRewindManager()->RegisterRewindObject(GetOwner());
+
+
+	//Sound
+	{
+		Animation2D* animation = animator->FindAnimationOrNull(L"Roll");
+
+		std::function<void()> func = [this]() {
+			gSoundManager->Play(eResAudioClip::playerRoll, 0.2f);
+
+		};
+
+		animation->SetFrameStartEvent(0, func);
+
+	}
+
+	{
+		Animation2D* animation = animator->FindAnimationOrNull(L"Jump");
+
+		std::function<void()> func = [this]() {
+			gSoundManager->Play(eResAudioClip::playerJump, 0.4f);
+
+			Vector3 position = GetOwner()->GetComponent<Transform>()->GetPosition();
+			position.y += 15.f;
+			gEffectManager->Shot(L"JumpCloud", position);
+
+		};
+
+		animation->SetFrameStartEvent(0, func);
+	}
+
+	{
+		Animation2D* animation = animator->FindAnimationOrNull(L"Flip");
+
+		std::function<void()> func = [this]() {
+			gSoundManager->Play(eResAudioClip::playerRoll, 0.4f);
+
+		};
+
+		animation->SetFrameStartEvent(0, func);
+	}
+
+	/*{
+		Animation2D* animation = animator->FindAnimationOrNull(L"WallSlide");
+
+		std::function<void()> func = [this]() {
+			GameManager::GetInstance()->GetSoundManager()->Play(eResAudioClip::playerWallSlide, 0.4f);
+
+		};
+
+		animation->SetFrameStartEvent(0, func);
+	}*/
+	
+	{
+		Animation2D* animation = animator->FindAnimationOrNull(L"IdleToRun");
+
+		std::function<void()> func = [this]() {
+			gSoundManager->Play(eResAudioClip::playerPreRun, 0.25f);
+
+			Vector3 position = GetOwner()->GetComponent<Transform>()->GetPosition();
+
+			position.y -= 12.f;
+
+			if (GetOwner()->GetComponent<Transform>()->GetFlipX())
+			{
+				position.x += 25.f;
+				gEffectManager->Shot(L"StomperCloud", position, false);
+			}
+			else
+			{
+				position.x -= 25.f;
+				gEffectManager->Shot(L"StomperCloud", position, true);
+			}						
+		};
+
+		animation->SetFrameStartEvent(2, func);
+	}
 }
 
 void PlayerController::update()
 {
 	Assert(mPlayerFSM, WCHAR_IS_NULLPTR);
 
-	mPlayerFSM->GlobalUpdate();
+	if (mbControl)
+	{
+		mPlayerFSM->GlobalUpdate();
 
-	mPlayerFSM->InputUpdate();
+		mPlayerFSM->InputUpdate();
+	}
 
 	mPlayerFSM->Update();
+
+	if (mPlayerFSM->GetCurState() == mPlayerFSM->mPlayerRollState ||
+		mPlayerFSM->GetCurState() == mPlayerFSM->mPlayerFlipState)
+	{
+		mbinvincibility = true;
+	}
+	else
+	{
+		mbinvincibility = false;
+	}
 }
 
 void PlayerController::lateUpdate()
 {
 
+}
+
+void PlayerController::onCollisionEnter(Collider2D* other)
+{
+	//hit
+	if (other->GetOwner()->GetLayer() == eLayerType::MonsterAttack && false == mbinvincibility)
+	{
+		if (mbControl)
+		{
+			mbControl = false;
+			mPlayerFSM->mPlayerHurtState->mDirection = other->GetOwner()->GetComponent<MonsterAttack>()->GetAttackDirection();
+			mPlayerFSM->ChangeState(mPlayerFSM->mPlayerHurtState);
+		}		
+	}
 }
 
 void PlayerController::idleToRun()

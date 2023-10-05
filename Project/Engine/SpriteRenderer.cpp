@@ -18,6 +18,7 @@ SpriteRenderer::SpriteRenderer()
 	, mTestColor(Vector4::One)
 	, testX(Vector4::One)
 	, bColorInfo(0)
+	, mUvOffsetX(1.f)
 {	
 	SetMesh(gResourceManager->FindOrNull<Mesh>(L"FillRect2D"));
 }
@@ -68,6 +69,14 @@ void SpriteRenderer::render(const Camera* const camera)
 		gGraphicDevice->PassCB(eCBType::ColorInfo, sizeof(CBColorInfo), &CBColorInfo);
 		gGraphicDevice->BindCB(eCBType::ColorInfo, eShaderBindType::PS);
 	}
+
+	tSprite2DInfo sprite2DInfo = {};
+	{
+		sprite2DInfo.UV.x = mUvOffsetX;
+
+		gGraphicDevice->PassCB(eCBType::Sprite2D, sizeof(sprite2DInfo), &sprite2DInfo);
+		gGraphicDevice->BindCB(eCBType::Sprite2D, eShaderBindType::PS);
+	}	
 
 	gGraphicDevice->BindMesh(mMesh);
 	gGraphicDevice->BindIA(mMaterial->GetShader());

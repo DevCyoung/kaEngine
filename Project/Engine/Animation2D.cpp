@@ -16,6 +16,7 @@ Animation2D::Animation2D(const std::wstring& animName,
 	, mbFinished(false)
 	, mCurFramePlayTime(0.f)
 	, mCurFrameIdx(0)
+	, mbFrameStart(true)
 	, mFrames()
 {
 	mFrames.reserve(20);
@@ -71,24 +72,33 @@ void Animation2D::lateUpdate()
 		return;
 	}
 
-	//Animation Event;	
+	//Animation Event;
+	if (mFrames[mCurFrameIdx].bStartEvent && mbFrameStart)
+	{
+		mbFrameStart = false;
+		mFrames[mCurFrameIdx].startEvent();
+	}
 
 	mCurFramePlayTime += gDeltaTime;
 
 	if (mFrames[mCurFrameIdx].duration < mCurFramePlayTime)
 	{
+		mbFrameStart = true;
+
 		mCurFramePlayTime -= mFrames[mCurFrameIdx].duration;
+
+		//endEvent
+		if (mFrames[mCurFrameIdx].bEndEvent)
+		{
+			mFrames[mCurFrameIdx].endEvent();
+		}
+
 		++mCurFrameIdx;
 
 		if (mFrames.size() <= mCurFrameIdx)
 		{
 			mbFinished = true;
 			mCurFrameIdx = static_cast<int>(mFrames.size()) - 1;
-		}
-
-		if (mFrames[mCurFrameIdx].bEvent)
-		{
-			mFrames[mCurFrameIdx].endEvent();
 		}
 	}
 }
@@ -98,6 +108,7 @@ void Animation2D::reset()
 	mCurFrameIdx = 0;
 	mCurFramePlayTime = 0.f;
 	mbFinished = false;
+	mbFrameStart = true;
 }
 
 void Animation2D::reset(const UINT frameIdx)

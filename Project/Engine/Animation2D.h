@@ -36,7 +36,9 @@ public:
 		XMINT2	center;
 		float duration;
 		Event endEvent;
-		bool bEvent;
+		Event startEvent;
+		bool bEndEvent;
+		bool bStartEvent;
 	};
 
 
@@ -64,7 +66,15 @@ public:
 		Assert(frameIdx < mFrames.size(), WCHAR_IS_INVALID_TYPE);
 
 		mFrames[frameIdx].endEvent = std::move(func);
-		mFrames[frameIdx].bEvent = true;
+		mFrames[frameIdx].bEndEvent = true;
+	}
+
+	void SetFrameStartEvent(UINT frameIdx, std::function<void()> func)
+	{
+		Assert(frameIdx < mFrames.size(), WCHAR_IS_INVALID_TYPE);
+
+		mFrames[frameIdx].startEvent = std::move(func);
+		mFrames[frameIdx].bStartEvent = true;
 	}
 
 	void SetFirstFrameEndEvent(std::function<void()> func)
@@ -94,8 +104,8 @@ private:
 	Texture* mAtlas;
 	bool mbFinished;
 	float mCurFramePlayTime;
-	int mCurFrameIdx;
-
+	int mCurFrameIdx;	
+	bool mbFrameStart;
 	std::vector<tFrame> mFrames;	
 };
 

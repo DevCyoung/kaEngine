@@ -7,16 +7,27 @@
 #include "AxeMovement.h"
 #include <Engine/AfterImage.h>
 
+#include "MonsterAttack.h"
+
+#include <Engine/Scene.h>
+
+
+#include "HeadMovement.h"
+#include "SoundManager.h"
+
 KissyfaceAI::KissyfaceAI()
 	: ScriptComponent(eScriptComponentType::KissyfaceAI)
+	, mMonsterAttack(nullptr)
+	, mBrokenAxe(nullptr)
 	, mAnimator2D(nullptr)
 	, mRigidbody2D(nullptr)
 	, mState(eKissyfaceAIState::None)
 	, mDirection(Vector2::Zero)
 	, mAxe(nullptr)
-	, mLife(3)
+	, mLife(0)
 	, mHurtTime(0.f)
-{
+	, mStruggleTime(0.f)
+{	
 }
 
 KissyfaceAI::~KissyfaceAI()
@@ -24,7 +35,18 @@ KissyfaceAI::~KissyfaceAI()
 }
 
 void KissyfaceAI::initialize()
-{
+{	
+	mMonsterAttack = new GameObject();
+
+	mMonsterAttack->AddComponent<MonsterAttack>();
+	mMonsterAttack->AddComponent<RectCollider2D>();
+
+	mMonsterAttack->GetComponent<RectCollider2D>()->SetSize(Vector2(30.f, 50.f));
+
+	mMonsterAttack->SetParent(GetOwner());
+	GetOwner()->GetGameSystem()->GetScene()->AddGameObject(mMonsterAttack, eLayerType::MonsterAttack);
+
+
 	mAnimator2D = GetOwner()->GetComponent<Animator2D>();
 	mRigidbody2D = GetOwner()->GetComponent<Rigidbody2D>();
 
@@ -37,12 +59,41 @@ void KissyfaceAI::initialize()
 	mDirection.x = 1.f;
 
 	turnOffVisibleAxe();
-
-	Animation2D* animation = GetOwner()->GetComponent<Animator2D>()->FindAnimationOrNull(L"Throw");
+	turnOffMonsterAttack();
 
 	{
+		Animation2D* animation = GetOwner()->GetComponent<Animator2D>()->FindAnimationOrNull(L"Throw");
 		std::function<void()> func = std::bind(&KissyfaceAI::throwAxe, this);
 		animation->SetFrameEndEvent(6, func);
+	}
+
+	{
+		Animation2D* animation = GetOwner()->GetComponent<Animator2D>()->FindAnimationOrNull(L"Slash");
+
+		{
+			std::function<void()> func = std::bind(&KissyfaceAI::turnOnMonsterAttack, this);
+			animation->SetFrameEndEvent(6, func);
+		}		
+
+		{
+			std::function<void()> func = std::bind(&KissyfaceAI::turnOffMonsterAttack, this);
+			animation->SetFrameEndEvent(10, func);
+		}
+	}
+
+	{
+		//spr_kissyface_lungeattack
+		Animation2D* animation = GetOwner()->GetComponent<Animator2D>()->FindAnimationOrNull(L"spr_kissyface_lungeattack");
+
+		{
+			std::function<void()> func = std::bind(&KissyfaceAI::turnOnMonsterAttack, this);
+			animation->SetFrameEndEvent(1, func);
+		}
+
+		{
+			std::function<void()> func = std::bind(&KissyfaceAI::turnOffMonsterAttack, this);
+			animation->SetFrameEndEvent(6, func);
+		}
 	}
 }
 
@@ -69,6 +120,12 @@ void KissyfaceAI::update()
 
 	//Change state
 
+	if (mState != eKissyfaceAIState::Slash &&
+		mState != eKissyfaceAIState::LungeAttack &&
+		mState != eKissyfaceAIState::Struggle)
+	{
+		turnOffMonsterAttack();
+	}
 
 	switch (mState)
 	{
@@ -123,11 +180,19 @@ void KissyfaceAI::update()
 	case eKissyfaceAIState::ReturnAxe:
 		returnAxe();
 		break;	
+	case eKissyfaceAIState::Slice:
+		slice();
+		break;
+	case eKissyfaceAIState::Struggle:
+		struggle();
+		break;
 	case eKissyfaceAIState::Dead:
 		break;
 	default:
 		break;
 	}
+
+
 
 	if (gInput->GetKeyDown(eKeyCode::Y))
 	{
@@ -144,7 +209,7 @@ void KissyfaceAI::update()
 	else if (gInput->GetKeyDown(eKeyCode::NUM5))
 	{
 		mAnimator2D->Play(L"Slash", false);
-		mState = eKissyfaceAIState::Slash;
+		mState = eKissyfaceAIState::Slash;		
 	}
 	else if (gInput->GetKeyDown(eKeyCode::NUM6))
 	{
@@ -294,8 +359,9 @@ void KissyfaceAI::Idle()
 	mState = eKissyfaceAIState::Slash;*/
 
 	//Lunge
-	if (mAnimator2D->GetCurAnimationOrNull()->IsFinished())
+	if (false == mAnimator2D->GetCurAnimationOrNull()->IsFinished())
 	{
+		return;
 		/*mAnimator2D->Play(L"spr_kissyface_prelunge", true);
 		mState = eKissyfaceAIState::PreLunge;*/
 
@@ -315,6 +381,83 @@ void KissyfaceAI::Idle()
 		}*/
 	}
 
+	GameObject* player = GameManager::GetInstance()->GetPlayer();
+
+
+	Vector2 direction = helper::math::GetDirection2D(GetOwner(), player);
+
+	//const float LAND_DISTANCE = 750.f;
+
+	float distance = helper::math::GetDistance2D(GetOwner(), player);
+
+
+	if (direction.x < 0.f)
+	{
+		GetOwner()->GetComponent<Transform>()->SetFlipx(true);
+		mAxe->GetComponent<MonsterAttack>()->SetAttackDirection(Vector2::Left);
+	}
+	else
+	{
+		GetOwner()->GetComponent<Transform>()->SetFlipx(false);
+		mAxe->GetComponent<MonsterAttack>()->SetAttackDirection(Vector2::Right);
+	}
+
+	
+
+	if (distance >= 350.f)
+	{
+		
+		mAnimator2D->Play(L"spr_kissyface_prelunge", true);
+		mState = eKissyfaceAIState::PreLunge;
+
+		if (helper::rand::RandInt(0, 10000) % 2 == 0)
+		{
+			
+		}
+		else
+		{
+			/*turnOnVisibleAxe();
+
+			mAnimator2D->Play(L"Throw", false);
+			mState = eKissyfaceAIState::Throw;*/
+		}		
+	}
+	else if (distance >= 300.f)
+	{
+		turnOnVisibleAxe();
+
+		mAnimator2D->Play(L"Throw", false);
+		mState = eKissyfaceAIState::Throw;
+	}
+	else if (distance >= 200.f)
+	{
+		mAnimator2D->Play(L"PreJump", false);
+		mState = eKissyfaceAIState::PreJump;
+	}
+	else if (distance >= 150.f)
+	{
+		mAnimator2D->Play(L"Slash", false);
+		mState = eKissyfaceAIState::Slash;
+	}
+	else 
+	{
+		if (helper::rand::RandInt(0, 10000) % 2 == 0)
+		{
+			mAnimator2D->Play(L"Slash", false);
+			mState = eKissyfaceAIState::Slash;
+		}
+		else
+		{
+			/*mAnimator2D->Play(L"PreJump", false);
+			mState = eKissyfaceAIState::PreJump;*/
+		}
+	}
+
+
+	(void)distance;
+
+
+
 }
 
 void KissyfaceAI::preLunge()
@@ -324,17 +467,14 @@ void KissyfaceAI::preLunge()
 		mAnimator2D->Play(L"spr_kissyface_lunge", true);
 		mState = eKissyfaceAIState::Lunge;
 
-		if (mDirection.x > 0.f)
+		Vector2 velocity = Vector2(1100.f, 400.f);
+
+		if (GetOwner()->GetComponent<Transform>()->GetFlipX())
 		{
-			GetOwner()->GetComponent<Transform>()->SetFlipx(false);
-		}
-		else
-		{
-			GetOwner()->GetComponent<Transform>()->SetFlipx(true);
+			velocity = Vector2(-1100.f, 400.f);
 		}
 
-		mRigidbody2D->SetVelocity(Vector2(1100.f, 400.f) * mDirection);
-		mDirection.x *= -1.f;
+		mRigidbody2D->SetVelocity(velocity);
 	}
 }
 
@@ -369,6 +509,14 @@ void KissyfaceAI::_throw()
 	{
 		//mAnimator2D->Play(L"spr_kissyface_tug", true);
 		//mState = eKissyfaceAIState::Tug;
+		if (mAxe->GetComponent<AxeMovement>()->IsStoop())
+		{
+			mState = eKissyfaceAIState::Tug;
+			mAxe->GetComponent<AxeMovement>()->SetState(eAxeMovementState::Return);
+			mAxe->GetComponent<AxeMovement>()->SetStoop(false);
+		}
+		
+
 	}
 }
 
@@ -400,7 +548,114 @@ void KissyfaceAI::returnAxe()
 	{
 		mAnimator2D->Play(L"Idle", true);
 		mState = eKissyfaceAIState::Idle;
+	}
+}
 
+void KissyfaceAI::slice()
+{
+	if (mAnimator2D->GetCurAnimationOrNull()->IsFinished())
+	{	
+		mAnimator2D->Play(L"Dead", true);
+		mState = eKissyfaceAIState::Dead;
+
+		GameObject* player = GetOwner()->GetGameSystem()->FindGameObject(L"Player");
+
+		player->GetComponent<Animator2D>()->TurnOnVisiblelity();
+		//player->GetComponent<AfterImage>()->TurnOnVisiblelity();
+
+		Vector3 playerPosition = player->GetComponent<Transform>()->GetPosition();
+
+		if (GetOwner()->GetComponent<Transform>()->GetFlipX())
+		{			
+			playerPosition.x = GetOwner()->GetComponent<Transform>()->GetPosition().x - 40.f;
+			player->GetComponent<Transform>()->SetFlipx(false);
+		}
+		else
+		{			
+			playerPosition.x = GetOwner()->GetComponent<Transform>()->GetPosition().x + 40.f;
+			player->GetComponent<Transform>()->SetFlipx(true);
+		}
+
+		player->GetComponent<Transform>()->SetPosition(playerPosition);
+
+		mBrokenAxe->GetComponent<Animator2D>()->TurnOnVisiblelity();
+	}
+}
+
+void KissyfaceAI::struggle()
+{
+	mStruggleTime += gDeltaTime;	
+
+	if (gInput->GetKey(eKeyCode::LBTN) && mStruggleTime >= 2.f)
+	{
+		--mLife;
+
+		GameObject* player = GetOwner()->GetGameSystem()->FindGameObject(L"Player");
+
+		if (mLife < 0)
+		{
+			mAnimator2D->Play(L"Slice", false);
+			mState = eKissyfaceAIState::Slice;
+
+			player->GetComponent<Animator2D>()->TurnOffVisiblelity();
+			player->GetComponent<AfterImage>()->TurnOffVisiblelity();
+
+		}
+		else
+		{
+			mAnimator2D->Play(L"Recover", false);
+			mState = eKissyfaceAIState::Recover;
+
+			
+
+			player->GetComponent<Animator2D>()->TurnOnVisiblelity();
+			player->GetComponent<AfterImage>()->TurnOnVisiblelity();
+
+			Vector3 playerPosition = player->GetComponent<Transform>()->GetPosition();
+
+			if (GetOwner()->GetComponent<Transform>()->GetFlipX())
+			{
+				mAxe->GetComponent<MonsterAttack>()->SetAttackDirection(Vector2::Left);
+				playerPosition.x = GetOwner()->GetComponent<Transform>()->GetPosition().x - 50.f;
+			}
+			else
+			{
+				mAxe->GetComponent<MonsterAttack>()->SetAttackDirection(Vector2::Right);
+				playerPosition.x = GetOwner()->GetComponent<Transform>()->GetPosition().x + 50.f;
+			}
+
+			turnOnMonsterAttack();
+			player->GetComponent<Transform>()->SetPosition(playerPosition);
+		}
+
+		
+
+	}
+	else if (false == gInput->GetKey(eKeyCode::LBTN))
+	{
+		mAnimator2D->Play(L"Recover", false);
+		mState = eKissyfaceAIState::Recover;
+
+		GameObject* player = GetOwner()->GetGameSystem()->FindGameObject(L"Player");
+
+		player->GetComponent<Animator2D>()->TurnOnVisiblelity();
+		player->GetComponent<AfterImage>()->TurnOnVisiblelity();
+
+		Vector3 playerPosition = player->GetComponent<Transform>()->GetPosition();
+
+		if (GetOwner()->GetComponent<Transform>()->GetFlipX())
+		{
+			mAxe->GetComponent<MonsterAttack>()->SetAttackDirection(Vector2::Left);
+			playerPosition.x = GetOwner()->GetComponent<Transform>()->GetPosition().x - 50.f;
+		}
+		else
+		{
+			mAxe->GetComponent<MonsterAttack>()->SetAttackDirection(Vector2::Right);
+			playerPosition.x = GetOwner()->GetComponent<Transform>()->GetPosition().x + 50.f;
+		}
+
+		turnOnMonsterAttack();
+		player->GetComponent<Transform>()->SetPosition(playerPosition);
 	}
 }
 
@@ -435,19 +690,75 @@ void KissyfaceAI::turnOffVisibleAxe()
 	mAxe->GetComponent<Transform>()->SetPosition(position);
 }
 
+void KissyfaceAI::turnOnMonsterAttack()
+{
+	//(void)offset;
+	Vector3 position = Vector3::Right * 50.f;
+	mMonsterAttack->GetComponent<Transform>()->SetPosition(position);
+
+	if (GetOwner()->GetComponent<Transform>()->GetFlipX())
+	{
+		mMonsterAttack->GetComponent<MonsterAttack>()->SetAttackDirection(Vector2::Left);
+	}
+	else
+	{
+		mMonsterAttack->GetComponent<MonsterAttack>()->SetAttackDirection(Vector2::Right);
+	}
+}
+
+void KissyfaceAI::turnOffMonsterAttack()
+{
+	mMonsterAttack->GetComponent<Transform>()->SetPosition(100000.f, 100000.f, 100000.f);
+}
+
+
 void KissyfaceAI::onCollisionEnter(Collider2D* other)
 {
-	if (other->GetOwner()->GetLayer() == eLayerType::Default)
+	if (other->GetOwner()->GetLayer() == eLayerType::PlayerAttack)
 	{
 		GameObject* player = GetOwner()->GetGameSystem()->FindGameObject(L"Player");
 
-		if (isAttackable())
+		if (mState == eKissyfaceAIState::Hurt)
 		{
+			mAnimator2D->Play(L"Struggle", true);
+			mState = eKissyfaceAIState::Struggle;
+			mStruggleTime = 0.f;
+			player->GetComponent<Animator2D>()->TurnOffVisiblelity();
+			player->GetComponent<AfterImage>()->TurnOffVisiblelity();
+
+			Vector2 direction = helper::math::GetDirection2D(player, GetOwner());
+
+			if (direction.x < 0.f)
+			{
+				GetOwner()->GetComponent<Transform>()->SetFlipx(false);
+			}
+			else
+			{
+				GetOwner()->GetComponent<Transform>()->SetFlipx(true);
+			}
+
+		}
+		else if (mState == eKissyfaceAIState::Dead)
+		{
+			mAnimator2D->Play(L"NoHead", false);
+			mState = eKissyfaceAIState::NoHead;
+
+			Vector2 direction = helper::math::GetDirection2D(player, mHead);
+
+			mHead->GetComponent<HeadMovement>()->TurnOnHead(direction);
+		}
+		else if (mState == eKissyfaceAIState::NoHead)
+		{
+
+		}
+		else if (isAttackable())
+		{
+
 			mHurtTime = 0.f;
 			mAnimator2D->Play(L"Hurt", false);
 			mState = eKissyfaceAIState::Hurt;
 
-			Vector2 damagedScale = Vector2(550.f, 400.f);			
+			Vector2 damagedScale = Vector2(550.f, 400.f);
 
 			if (helper::math::GetDirection2D(player, GetOwner()).x > 0.f)
 			{
@@ -459,7 +770,9 @@ void KissyfaceAI::onCollisionEnter(Collider2D* other)
 				damagedScale.x *= -1.f;
 			}
 
-			mRigidbody2D->SetVelocity(damagedScale);
+			gSoundManager->Play(eResAudioClip::enemySlice, 1.f);
+
+			mRigidbody2D->SetVelocity(damagedScale);			
 		}
 		else
 		{			
@@ -474,6 +787,8 @@ void KissyfaceAI::onCollisionEnter(Collider2D* other)
 			mRigidbody2D->SetVelocity(blockDirection * blockSpeed);
 			mAnimator2D->Play(L"Block", true);
 			mState = eKissyfaceAIState::Block;
+
+			gSoundManager->Play(eResAudioClip::block, 1.f);
 
 			Vector2 playerBlockDirection = helper::math::GetDirection2D(GetOwner(), player);
 			Vector2 playerBlockSpeed = Vector2(300.f, 100.f);

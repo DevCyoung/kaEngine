@@ -9,6 +9,8 @@ enum class eComponentType
 	Camera,
 	AfterImage,
 	Animator2D,
+	AudioListener,
+	AudioSource,
 	CircleCollider2D,
 	Light2D,
 	LineCollider2D,

@@ -168,6 +168,15 @@ call ScriptGen.exe Component $(SolutionDir)Project\Engine $(SolutionDir)Project\
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="AudioClip.h" />
+    <ClInclude Include="AudioListener.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="AudioSource.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="BSCollection.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CBCollection.h" />
@@ -209,6 +218,7 @@ call ScriptGen.exe Component $(SolutionDir)Project\Engine $(SolutionDir)Project\
     <ClInclude Include="EnumResource.h" />
     <ClInclude Include="EnumShaderBindStage.h" />
     <ClInclude Include="EnumSRV.h" />
+    <ClInclude Include="Fmod.h" />
     <ClInclude Include="Light2D.h">
       <SubType>
       </SubType>
@@ -281,6 +291,15 @@ call ScriptGen.exe Component $(SolutionDir)Project\Engine $(SolutionDir)Project\
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="AudioClip.cpp" />
+    <ClCompile Include="AudioListener.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="AudioSource.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="BSCollection.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CBCollection.cpp" />
@@ -312,6 +331,7 @@ call ScriptGen.exe Component $(SolutionDir)Project\Engine $(SolutionDir)Project\
     <ClCompile Include="EngineResourceLoader.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="EnumComponent.cpp" />
+    <ClCompile Include="Fmod.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GraphicDeviceDX11.cpp" />
     <ClCompile Include="Light2D.cpp">

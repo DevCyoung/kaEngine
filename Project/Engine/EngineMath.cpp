@@ -172,7 +172,7 @@ namespace helper::math
 		return _LineAndLineCollision(s1.x, s1.y, e1.x, e1.y, s2.x, s2.y, e2.x, e2.y, &outInter->x, &outInter->y);
 	}
 
-	bool BoxAndLineCollision(const Matrix& box, const Vector3& linePos, 
+	bool BoxAndLineCollision(const Matrix& box, const Vector3& linePos,
 		const Vector3& lineS, const Vector3& lineE, Vector2* const outInter)
 	{
 		Vector3 vertexPosArray[4] =
@@ -196,7 +196,7 @@ namespace helper::math
 			Vector3 e1 = XMVector3TransformCoord(vertexPosArray[(i + 1) % 4], boxWorldMatrix);
 
 			Vector3 s2 = lineS + tp;
-			Vector3 e2 = lineE + tp;			
+			Vector3 e2 = lineE + tp;
 
 			if (helper::math::LineAndLineCollision(s1, e1, s2, e2, outInter))
 			{
@@ -249,7 +249,7 @@ namespace helper::math
 		{
 			mat1._11 *= -1.f;
 		}
-		
+
 		Vector3 leftTop = Vector3(-0.5f, 0.5f, 0.f);
 		Vector3 rightBottom = Vector3(0.5f, -0.5f, 0.f);
 
@@ -278,8 +278,8 @@ namespace helper::math
 
 	Vector3 GetDirection3D(const GameObject* const origin, const GameObject* const dest)
 	{
-		Vector3 pos1 =  origin->GetComponent<Transform>()->GetWorldMatrix().Translation();
-		Vector3 pos2 =  dest->GetComponent<Transform>()->GetWorldMatrix().Translation();
+		Vector3 pos1 = origin->GetComponent<Transform>()->GetWorldMatrix().Translation();
+		Vector3 pos2 = dest->GetComponent<Transform>()->GetWorldMatrix().Translation();
 
 		Vector3 dir = pos2 - pos1;
 		dir.Normalize();
@@ -289,7 +289,15 @@ namespace helper::math
 
 	Vector2 GetDirection2D(const GameObject* const origin, const GameObject* const dest)
 	{
-		Vector3 dir = GetDirection3D(origin, dest);
+		Vector3 pos1 = origin->GetComponent<Transform>()->GetWorldMatrix().Translation();
+		Vector3 pos2 = dest->GetComponent<Transform>()->GetWorldMatrix().Translation();
+
+		pos1.z = 0.f;
+		pos2.z = 0.f;
+
+		Vector3 dir = pos2 - pos1;
+		dir.Normalize();
+
 		return Vector2(dir.x, dir.y);
 	}
 
@@ -297,7 +305,7 @@ namespace helper::math
 	{
 		Vector3 pos1 = a->GetComponent<Transform>()->GetWorldMatrix().Translation();
 		Vector3 pos2 = b->GetComponent<Transform>()->GetWorldMatrix().Translation();
-		
+
 		return Vector3::Distance(pos1, pos2);
 	}
 
@@ -329,10 +337,10 @@ namespace helper::math
 
 namespace helper::rand
 {
-	static std::random_device rd;
-	static std::mt19937 gen(rd());
 	int RandInt(const int a, const int b)
 	{
+		std::random_device rd;
+		std::mt19937 gen(rd());
 		std::uniform_int_distribution<int> dis(a, b);
 
 		return dis(gen);

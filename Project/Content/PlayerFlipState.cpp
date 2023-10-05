@@ -3,6 +3,8 @@
 #include "Components.h"
 #include "PlayerFSM.h"
 #include "Rect2DInterpolation.h"
+#include "GameManager.h"
+#include <Engine/EngineMath.h>
 
 PlayerFlipState::PlayerFlipState(GameObject* const gameObject, PlayerFSM* const owner)
 	: PlayerState(gameObject, owner)
@@ -24,9 +26,8 @@ void PlayerFlipState::Update()
 	{
 		mAnimator->Play(L"RunToIdle", false);
 		mOwner->ChangeState(mOwner->mPlayerIdleState);
-		mOwner->ChangeState(mOwner->mPlayerIdleState);
-		
-	}
+		mOwner->ChangeState(mOwner->mPlayerIdleState);		
+	}	
 
 	if (time > 0.3f)
 	{
@@ -68,6 +69,21 @@ void PlayerFlipState::Enter()
 	mAnimator->Play(L"Flip", false);
 
 	time = 0.f;
+
+	int rand = helper::rand::RandInt(0, 10000) % 3;	
+
+	if (rand == 0)
+	{
+		gSoundManager->Play(eResAudioClip::playerWallKick1, 0.5f);
+	}
+	else if (rand == 1)
+	{
+		gSoundManager->Play(eResAudioClip::playerWallKick2, 0.5f);
+	}
+	else
+	{
+		gSoundManager->Play(eResAudioClip::playerWallKick3, 0.5f);
+	}
 }
 
 void PlayerFlipState::Exit()

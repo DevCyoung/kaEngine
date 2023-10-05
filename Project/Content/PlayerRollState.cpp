@@ -2,11 +2,14 @@
 #include "PlayerRollState.h"
 #include "PlayerFSM.h"
 #include "Components.h"
+#include "GameManager.h"
+#include <Engine/EngineMath.h>
 
 PlayerRollState::PlayerRollState(GameObject* const gameObject, PlayerFSM* const owner)
 	: PlayerState(gameObject, owner)
 	, time(0.f)
-	, prevDirX(0.f)
+	, effectTime(0.f)
+	, prevDirX(0.f)	
 {
 }
 
@@ -33,7 +36,39 @@ void PlayerRollState::Update()
 	//{
 	//	mRigidbody->AddForce(right * 8000.f);
 	//}
+
+	effectTime += gDeltaTime;
+
 	
+
+	
+	if (effectTime > 0.04f)
+	{
+		effectTime = 0.f;
+
+		Vector3 position = mTransform->GetPosition();
+
+		position.y -= 25.f;
+
+		for (int i = 0; i < 3; i++)
+		{
+			int rand = helper::rand::RandInt(0, 10000) % 20;
+
+			position.x += rand - 10.f;
+			position.y += rand - 10.f;
+
+			//position.y
+
+			if (mTransform->GetFlipX())
+			{
+				gEffectManager->Shot(L"DustCloud", position, Vector2(0.7f, 0.3f), 350.f);
+			}
+			else
+			{
+				gEffectManager->Shot(L"DustCloud", position, Vector2(-0.7f, 0.3f), 350.f);
+			}
+		}		
+	}
 	
 
 	if (time > 0.3f)

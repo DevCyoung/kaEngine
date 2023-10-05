@@ -16,9 +16,7 @@ float4 main(tVSOut In) : SV_TARGET
 	else if (color.a == 0.f)
 	{
 		discard;
-	}
-	
-	//color = float4(1.0f, 0.0f, 1.0f, 1.0f);
+	}		
 	
 	return color;
 }

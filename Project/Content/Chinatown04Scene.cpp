@@ -13,6 +13,7 @@
 #include "GameManager.h"
 #include <Engine/SceneManager.h>
 #include "Chinatown05Scene.h"
+#include "CameraWall.h"
 Chinatown04Scene::Chinatown04Scene()
 {
 	mCollisionManagement2D->TurnOffAllCollisionLayer();
@@ -21,9 +22,28 @@ Chinatown04Scene::Chinatown04Scene()
 	mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Player, eLayerType::Platform);
 	mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Monster, eLayerType::Platform);
 
+	mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Monster, eLayerType::Door);
+	mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Player, eLayerType::Door);
+
+	mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Door, eLayerType::PlayerAttack);
+
+	mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Monster, eLayerType::PlayerAttack);
+
+	mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Bullet, eLayerType::PlayerAttack);
+
+
+	mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Bullet, eLayerType::PlayerAttack);
+
+
+	mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Camera, eLayerType::CameraWall);
+
+
+
+
+
 	//PathNode
 
-	
+
 
 #pragma region Material
 	{
@@ -320,36 +340,48 @@ Chinatown04Scene::Chinatown04Scene()
 		GameObject* const wall = new GameObject();
 		//[RectCollider]
 		wall->AddComponent<RectCollider2D>();
+		wall->AddComponent<CameraWall>();
+
+		wall->GetComponent<CameraWall>()->SetCameraWallType(eCameraWallType::Left);
 		wall->GetComponent<Transform>()->SetPosition(-1072, 224, 0);
 		wall->GetComponent<RectCollider2D>()->SetSize(Vector2(224, 1664));
-		AddGameObject(wall, eLayerType::CamearaWall);
+		AddGameObject(wall, eLayerType::CameraWall);
 	}
 
 	{
 		GameObject* const wall = new GameObject();
 		//[RectCollider]
 		wall->AddComponent<RectCollider2D>();
+		wall->AddComponent<CameraWall>();
+
+		wall->GetComponent<CameraWall>()->SetCameraWallType(eCameraWallType::Up);
 		wall->GetComponent<Transform>()->SetPosition(-16, 848, 0);
 		wall->GetComponent<RectCollider2D>()->SetSize(Vector2(2336, 416));
-		AddGameObject(wall, eLayerType::CamearaWall);
+		AddGameObject(wall, eLayerType::CameraWall);
 	}
 
 	{
 		GameObject* const wall = new GameObject();
 		//[RectCollider]
 		wall->AddComponent<RectCollider2D>();
+		wall->AddComponent<CameraWall>();
+
+		wall->GetComponent<CameraWall>()->SetCameraWallType(eCameraWallType::Right);
 		wall->GetComponent<Transform>()->SetPosition(1072, 224, 0);
 		wall->GetComponent<RectCollider2D>()->SetSize(Vector2(160, 1664));
-		AddGameObject(wall, eLayerType::CamearaWall);
+		AddGameObject(wall, eLayerType::CameraWall);
 	}
 
 	{
 		GameObject* const wall = new GameObject();
 		//[RectCollider]
 		wall->AddComponent<RectCollider2D>();
+		wall->AddComponent<CameraWall>();
+
+		wall->GetComponent<CameraWall>()->SetCameraWallType(eCameraWallType::Down);
 		wall->GetComponent<Transform>()->SetPosition(-16, -416, 0);
 		wall->GetComponent<RectCollider2D>()->SetSize(Vector2(2336, 384));
-		AddGameObject(wall, eLayerType::CamearaWall);
+		AddGameObject(wall, eLayerType::CameraWall);
 	}
 
 
@@ -682,7 +714,27 @@ Chinatown04Scene::Chinatown04Scene()
 
 #pragma endregion
 
+#pragma region Door
+	{
+		GameObject* door = GameObjectBuilder::InstantiateClubDoor(this);
+		door->GetComponent<Transform>()->SetPosition(-508, 480, 0);
+	}
 
+	{
+		GameObject* door = GameObjectBuilder::InstantiateClubDoor(this);
+		door->GetComponent<Transform>()->SetPosition(196, 480, 0);
+	}
+
+	{
+		GameObject* door = GameObjectBuilder::InstantiateClubDoor(this);
+		door->GetComponent<Transform>()->SetPosition(-124, 192, 0);
+	}
+
+	{
+		GameObject* door = GameObjectBuilder::InstantiateClubDoor(this);
+		door->GetComponent<Transform>()->SetPosition(196, -96, 0);
+	}
+#pragma endregion
 
 
 	{
@@ -700,13 +752,16 @@ void Chinatown04Scene::initialize()
 {
 	GameManager::initialize();
 	GameManager::GetInstance()->GetRewindManager()->SetRewindState(eRewindState::Record);
+	GameManager::GetInstance()->GetEffectManager()->Initialize(this);
 
+#pragma region Player
 	{
 		GameObject* player = GameObjectBuilder::InstantiatePlayer(this);
 		player->GetComponent<Transform>()->SetPosition(0, 0, -30);
 
 		GameManager::GetInstance()->SetPlayer(player);
 	}
+#pragma endregion
 #pragma region PathNode
 
 	PathInfo* const pathInfo = GameManager::GetInstance()->GetPathInfo();
@@ -962,7 +1017,6 @@ void Chinatown04Scene::initialize()
 #pragma endregion
 
 	Scene::initialize();
-
 }
 
 void Chinatown04Scene::update()
@@ -980,4 +1034,6 @@ void Chinatown04Scene::lateUpdate()
 	Scene::lateUpdate();
 
 	GameManager::GetInstance()->GetRewindManager()->LateUpdate();
+	GameManager::GetInstance()->GetEventManager()->LateUpdate();
+
 }

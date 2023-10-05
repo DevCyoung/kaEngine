@@ -2,6 +2,9 @@
 #include <Engine/Singleton.h>
 #include "PathInfo.h"
 #include "RewindManager.h"
+#include "SoundManager.h"
+#include "EffectManager.h"
+#include "EventManager.h"
 
 class GameObject;
 class PathInfo;
@@ -35,15 +38,32 @@ public:
 
 public:
 	void SetPlayer(GameObject* const player) { this->mPlayer = player; }
+	void SetUITimer(GameObject* const uiTimer) { this->mUITimer = uiTimer; }
 	//void SetPathInfo(PathInfo* const pathInfo) { this->mPathInfo = pathInfo; }
 
+	GameObject* const GetUITimer() const { return mUITimer; }
+
 	GameObject* const GetPlayer() const { return mPlayer; }
+	
 	PathInfo* const GetPathInfo() const { return mPathInfo; }
+
 	RewindManager* const GetRewindManager() const { return mRewindManager; }
+	//SoundManager* const GetSoundManager() const { return mSoundManager; }
+	EffectManager* const GetEffectManager() const { return mEffectManager; }	
+	EventManager* const GetEventManager() const { return mEventManager; }
 
 private:
 	inline static GameManager* sInstance = nullptr;
 	GameObject* mPlayer;
+	GameObject* mUITimer;
 	PathInfo* mPathInfo;
+
 	RewindManager* mRewindManager;
+	//SoundManager* mSoundManager;
+	EffectManager* mEffectManager;
+	EventManager* mEventManager;
 };
+
+#define gSoundManager SoundManager::GetInstance()
+#define gRewindManager GameManager::GetInstance()->GetRewindManager()
+#define gEffectManager GameManager::GetInstance()->GetEffectManager()

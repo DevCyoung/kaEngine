@@ -2,6 +2,14 @@
 #include "RewindManager.h"
 #include "Components.h"
 #include <Engine/TimeManager.h>
+#include "GameManager.h"
+
+#include <Engine/ConstantBuffer.h>
+#include <Engine/Engine.h>
+#include <Engine/GraphicDeviceDx11.h>
+
+#include <Engine/SceneManager.h>
+#include "Chinatown01Scene.h"
 
 RewindManager::RewindManager()
 	: mState(eRewindState::None)
@@ -23,10 +31,20 @@ RewindManager::~RewindManager()
 
 void RewindManager::LateUpdate()
 {
+
+	//TEST	
+	mCurTime += gDeltaTime;
+
 	if (mCurFrameIdx >= MAX_REWIND_FRAME - 1 || mCurFrameIdx < 0)
 	{
 		return;
 	}
+
+	//float uvX = 1.f - ( (mCurTime * 60) / MAX_REWIND_FRAME );
+
+	//GameManager::GetInstance()->GetUITimer()->GetComponent<SpriteRenderer>()->SetUvOffsetX(uvX);
+
+
 
 	switch (mState)
 	{
@@ -71,6 +89,20 @@ void RewindManager::LateUpdate()
 	if (gInput->GetKeyDown(eKeyCode::NUM7))
 	{
 		SetRewindState(eRewindState::Rewind);
+
+		gSoundManager->TurnOffSound();
+
+		gSoundManager->PlayInForce(eResAudioClip::rewind, 1.f);
+
+		tWaveInfo waveInfo = {};
+
+		waveInfo.WaveXPower = 200.f;
+		waveInfo.WaveYPower = 0.f;
+		waveInfo.WaveSpeed = 50.f;
+
+		gGraphicDevice->PassCB(eCBType::Wave, sizeof(waveInfo), &waveInfo);
+		gGraphicDevice->BindCB(eCBType::Wave, eShaderBindType::PS);
+
 	}
 
 	if (gInput->GetKeyDown(eKeyCode::NUM8))
@@ -208,12 +240,40 @@ void RewindManager::Pause()
 
 void RewindManager::Rewind()
 {
-	mCurTime += gDeltaTime;
+	mCurTime += gDeltaTime * 10.f;
 
 	if (mCurTime >= REWIND_FRAME_TIME  * mTimeScale && mCurFrameIdx >= 1)
 	{
 		mCurTime = 0.f;
 		--mCurFrameIdx;
+
+		if (mCurFrameIdx == 300)
+		{
+			//gSoundManager->Play(eResAudioClip::tvThump, 1.f);
+			
+			tWaveInfo waveInfo = {};
+
+			
+
+			waveInfo.WaveXPower = 200.f;
+			waveInfo.WaveYPower = 200.f;
+			waveInfo.WaveSpeed = 50.f;
+
+			gGraphicDevice->PassCB(eCBType::Wave, sizeof(waveInfo), &waveInfo);
+			gGraphicDevice->BindCB(eCBType::Wave, eShaderBindType::PS);
+		}
+
+
+		if (mCurFrameIdx == 200)
+		{
+			gSoundManager->PlayInForce(eResAudioClip::tvThump, 1.f);
+			gSoundManager->TurnOnSound();
+
+		
+
+			SceneManager::GetInstance()->RegisterLoadScene(new Chinatown01Scene);
+		}
+
 	}
 
 	const std::vector<RewindObjectData>& datas = mRewindFrameDatasArray[mCurFrameIdx];
