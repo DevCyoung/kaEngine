@@ -8,7 +8,7 @@ struct alignas(16) tCBTransform // b0
 }; // 48 bytes
 
 
-struct alignas(16) tCBColorInfo // b1
+struct /*alignas(16)*/ tCBColorInfo // b1
 {
 	int	bUseColor;
 	int bColorType;
@@ -94,7 +94,7 @@ struct alignas(16) tParticleInfo //
 	int		globalpadding;
 };
 
-struct alignas(16) tSprite2DInfo // b5
+struct /*alignas(16)*/ tSprite2DInfo // b5
 {
 	Vector2 Dummy;
 	Vector2 UV;

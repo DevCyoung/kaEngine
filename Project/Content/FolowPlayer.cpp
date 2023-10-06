@@ -10,6 +10,7 @@ FolowPlayer::FolowPlayer()
 	, mShakeTime(0.f)
 	, mbShake(false)
 	, mbCollideWall{}
+	, mShakeCount(0)
 {
 }
 
@@ -100,9 +101,9 @@ void FolowPlayer::update()
 		mShakeTime += gDeltaTime;
 		mShakeInterverTime += gDeltaTime;
 
-		int power = 4;
-		float interval = 0.015f;
-		float shakeTime = 0.08f;
+		int power = 8;
+		float interval = 0.01f;
+		float shakeTime = 0.1f;
 
 		if (mShakeInterverTime > interval)
 		{
@@ -111,13 +112,22 @@ void FolowPlayer::update()
 
 			NextPos.x += offsetX;
 			NextPos.y += offsetY;
+			mShakeInterverTime = 0.f;
+			mShakeCount++;
 		}
 
+
+		/*if (mShakeTime > shakeTime)
+		{
+			mbShake = false;
+		}*/
 
 		if (mShakeTime > shakeTime)
 		{
+			mShakeCount = 0;
 			mbShake = false;
 		}
+
 	}
 
 

@@ -24,34 +24,19 @@ TimeManager::~TimeManager()
 
 void TimeManager::update()
 {
-	//Test
-	/*if (gInput->GetKey(eKeyCode::LSHIFT))
-	{
-		mTimeScale = 0.1f;
-	}
-	else
-	{
-		mTimeScale = 1.f;
-	}*/
-
-	if (mbReset)
-	{
-		mbReset = false;
-		return;
-	}
-
 	QueryPerformanceCounter(&mCurFrequency);
 
 	const float DIFERENCE_FREQUENCY = static_cast<float>(mCurFrequency.QuadPart - mPrevFrequency.QuadPart);
 
 	mDeltaTime = DIFERENCE_FREQUENCY / static_cast<float>(mCpuFrequency.QuadPart);
 
-	if (mDeltaTime >= 0.016f)
+	if (mDeltaTime >= 0.026f)
 	{
 		mDeltaTime = 0.016f;
 	}
 
 	mRealDeltaTime = mDeltaTime;
+
 	mDeltaTime *= mTimeScale;
 	mGlobalTime += mDeltaTime;
 	mPrevFrequency.QuadPart = mCurFrequency.QuadPart;

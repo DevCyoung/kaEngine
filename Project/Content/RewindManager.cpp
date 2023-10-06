@@ -220,8 +220,6 @@ void RewindManager::Pause()
 
 void RewindManager::Rewind()
 {
-
-
 	mFrameTime += gRealDeltaTime;
 
 	//1분짜리가있을때 5초안에 리와인드 되야한다면?	
@@ -238,35 +236,35 @@ void RewindManager::Rewind()
 		{
 			mRewindFrame += mMAXFrameIdx / (REWIND_TIME * 60);
 			mCurFrameIdx = mMAXFrameIdx - static_cast<int>(mRewindFrame);
-		}
-		if (mRewindEvent == eRewindEvent::RewindStart)
-		{
-			if (mCurFrameIdx <= 50)
-			{
-				mRewindEvent = eRewindEvent::RewindTVThumb;
-
-				tWaveInfo waveInfo = {};
-
-				waveInfo.WaveXPower = 450.f;
-				waveInfo.WaveYPower = 10.f;
-				waveInfo.WaveSpeed = 1.f;
-
-				gGraphicDevice->PassCB(eCBType::Wave, sizeof(waveInfo), &waveInfo);
-				gGraphicDevice->BindCB(eCBType::Wave, eShaderBindType::PS);
-			}
-		}
-		else if (mRewindEvent == eRewindEvent::RewindTVThumb)
-		{
-			mTVThumTime += gRealDeltaTime;
-
-			if (mTVThumTime > 0.05f)
-			{
-				mRewindEvent = eRewindEvent::RewindEnd;
-				gSoundManager->PlayInForce(eResAudioClip::tvThump, 1.f);
-				gSoundManager->TurnOnSound();
-				SceneManager::GetInstance()->RegisterLoadScene(new Chinatown01Scene);
-			}		
 		}				
+	}
+
+	if (mRewindEvent == eRewindEvent::RewindStart)
+	{
+		if (mCurFrameIdx <= 50)
+		{
+			mRewindEvent = eRewindEvent::RewindTVThumb;
+		}
+	}
+	else if (mRewindEvent == eRewindEvent::RewindTVThumb)
+	{
+		mTVThumTime += gRealDeltaTime;
+		tWaveInfo waveInfo = {};
+
+		waveInfo.WaveXPower = 450.f;
+		waveInfo.WaveYPower = 10.f;
+		waveInfo.WaveSpeed = 1.f;
+
+		gGraphicDevice->PassCB(eCBType::Wave, sizeof(waveInfo), &waveInfo);
+		gGraphicDevice->BindCB(eCBType::Wave, eShaderBindType::PS);
+
+		if (mTVThumTime > 0.25f)
+		{
+			mRewindEvent = eRewindEvent::RewindEnd;
+			gSoundManager->PlayInForce(eResAudioClip::tvThump, 1.f);
+			gSoundManager->TurnOnSound();
+			SceneManager::GetInstance()->RegisterLoadScene(new Chinatown01Scene);
+		}
 	}
 
 	if (mCurFrameIdx <= 1)

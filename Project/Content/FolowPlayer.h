@@ -32,5 +32,6 @@ private:
 	Transform* mPlayerTransform;
 	float mShakeTime;
 	float mShakeInterverTime;
+	int mShakeCount;
 	bool mbShake;
 };
