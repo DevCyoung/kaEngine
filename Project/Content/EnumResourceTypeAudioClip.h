@@ -14,6 +14,7 @@ enum class eResAudioClip
 	enemySlice,
 	enterGame,
 	getItem,
+	glassbreak,
 	headBloodSpurt,
 	headFloor,
 	headWall,

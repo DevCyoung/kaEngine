@@ -24,6 +24,10 @@
 #include "MonsterAttack.h"
 #include "HeadMovement.h"
 
+#include "CopAI.h"
+#include "ShieldCop.h"
+#include "ShotGunAI.h"
+
 //#include "Slash.h"
 #include "SlashComponent.h"
 
@@ -37,7 +41,6 @@ GameObject* GameObjectBuilder::Default2D(const std::wstring& materialName)
 	SpriteRenderer* const spriteRenderer = obj->GetComponent<SpriteRenderer>();
 	spriteRenderer->SetMesh(gResourceManager->FindOrNull<Mesh>(L"FillRect2D"));
 	spriteRenderer->SetMaterial(gResourceManager->FindOrNull<Material>(materialName));
-
 	return obj;
 }
 
@@ -69,7 +72,10 @@ GameObject* GameObjectBuilder::Player()
 
 		player->GetComponent<PlayerController>()->SetFSM(new PlayerFSM(player));
 
+
+
 		Animator2D* const anim = player->GetComponent<Animator2D>();
+		anim->SetMaterial(gResourceManager->FindOrNull<Material>(L"PlayerAnimation2D"));
 		Texture* atlas = gResourceManager->FindByEnum<Texture>(eResTexture::Atlas_Player_zero);
 
 		anim->CreateAnimation(L"Attack", atlas, 7,
@@ -161,94 +167,37 @@ GameObject* GameObjectBuilder::InstantiateMonster(const eMonsterType type, Scene
 	monster->AddComponent<Rect2DInterpolation>();
 	monster->AddComponent<RectCollider2D>();
 	monster->AddComponent<Animator2D>();
-	monster->AddComponent<GangsterAI>();
+	switch (type)
+	{
+	case eMonsterType::Ganster:
+		monster->AddComponent<GangsterAI>();
+		break;
+		case eMonsterType::Shield:
+		monster->AddComponent<ShieldCop>();
+		break;
+		case eMonsterType::Cop:
+		monster->AddComponent<CopAI>();
+		break;
+		case eMonsterType::Shotgun:
+		monster->AddComponent<ShotGunAI>();
+		break;
+	default:
+		assert(false);
+		break;
+	}	
 	monster->AddComponent<PlayerPath>();
 	monster->AddComponent<RewindComponent>();
 
+	monster->GetComponent<RectCollider2D>()->SetSize(22.f, 44.f);
+	monster->GetComponent<RectCollider2D>()->SetOffset(Vector2(0.f, 4.f));
 
-	//Collider
-	{
-		monster->GetComponent<RectCollider2D>()->SetSize(22.f, 44.f);
-		monster->GetComponent<RectCollider2D>()->SetOffset(Vector2(0.f, 4.f));
-	}
-
-	//Rigidbody
-	{
-		monster->GetComponent<Rigidbody2D>()->TurnOnGravity();
-		monster->GetComponent<Rigidbody2D>()->SetGravityAccel(1800.f);
-	}
-
+	monster->GetComponent<Rigidbody2D>()->TurnOnGravity();
+	monster->GetComponent<Rigidbody2D>()->SetGravityAccel(1800.f);
 
 	scene->AddGameObject(monster, eLayerType::Monster);
 
-#pragma region GansterAnimation
-
-	//Animation
-	{
-		Animator2D* const anim = monster->GetComponent<Animator2D>();
-		Texture* atlas = gResourceManager->FindByEnum<Texture>(eResTexture::Atlas_Gangster_gangster);
-
-		anim->CreateAnimation(L"Fall", atlas, 12, XMUINT2(5, 34), XMUINT2(42, 41), XMUINT2(10, 10), XMINT2(0, 0), 0.08f);
-
-		anim->CreateAnimation(L"HurtFly", atlas, 2, XMUINT2(5, 114), XMUINT2(38, 34), XMUINT2(10, 10), XMINT2(0, 0), 0.08f);
-
-		anim->CreateAnimation(L"HurtGround", atlas, 14, XMUINT2(5, 187), XMUINT2(44, 34), XMUINT2(10, 10), XMINT2(0, 0), 0.08f);
-
-		anim->CreateAnimation(L"Idle", atlas, 8, XMUINT2(5, 304), XMUINT2(49, 50), XMUINT2(10, 10), XMINT2(0, 7), 0.08f);
-
-		anim->CreateAnimation(L"Run", atlas, 10, XMUINT2(5, 393), XMUINT2(45, 40), XMUINT2(10, 10), XMINT2(0, 2), 0.08f);
-
-		anim->CreateAnimation(L"Turn", atlas, 6, XMUINT2(5, 472), XMUINT2(48, 42), XMUINT2(10, 10), XMINT2(0, 3), 0.08f);
-
-		anim->CreateAnimation(L"Walk", atlas, 8, XMUINT2(5, 553), XMUINT2(34, 40), XMUINT2(10, 10), XMINT2(0, 2), 0.08f);
-
-		anim->CreateAnimation(L"Whip", atlas, 6, XMUINT2(5, 632), XMUINT2(48, 35), XMUINT2(10, 10), XMINT2(2, 0), 0.08f);
-
-		anim->CreateAnimation(L"Aim", atlas, 1, XMUINT2(5, 754), XMUINT2(42, 50), XMUINT2(10, 10), XMINT2(0, 7), 0.08f);
-
-		//Gun objs		
-		{
-			GameObject* const hand = new GameObject();
-			hand->GetComponent<Transform>()->SetPosition(-4.f, 3.f, 0.f);
-			hand->AddComponent<RewindComponent>();
-			//hand->AddComponent<SimpleDrawPoint>();
-			//hand->GetComponent<SimpleDrawPoint>()->origin = monster;
-
-			hand->SetName(L"hand");
-			hand->SetParent(monster);
-
-			monster->GetComponent<GangsterAI>()->SetHandObject(hand);
-
-			scene->AddGameObject(hand, eLayerType::Monster);
-
-			{
-				GameObject* const gun = new GameObject();
-				gun->GetComponent<Transform>()->SetPosition(13.f, 0.f, 0.f);
-				gun->AddComponent<RewindComponent>();
-
-				gun->AddComponent<Animator2D>();
-				gun->SetName(L"gun");
-				gun->SetParent(hand);
-
-				Animator2D* const gunAnim = gun->GetComponent<Animator2D>();
-				gunAnim->CreateAnimation(L"Gun", atlas, 1, XMUINT2(5, 706), XMUINT2(33, 9), XMUINT2(10, 10), XMINT2(0, 0), 0.125f);
-				gunAnim->Play(L"Gun", true);
-
-				monster->GetComponent<GangsterAI>()->SetGunObject(gun);
-
-
-				scene->AddGameObject(gun, eLayerType::Monster);
-			}
-		}
-
-
-		anim->Play(L"HurtGround", true);
-	}
-
-#pragma endregion
-
-
-
+	monster->GetComponentOrNull<BasicMonsterAI>()->CreateAnimation(scene);
+	monster->GetComponentOrNull<BasicMonsterAI>()->CreateGun(scene);
 
 	return monster;
 }
@@ -476,11 +425,12 @@ GameObject* GameObjectBuilder::InstantiateDoor(Scene* const scene)
 
 
 	door->GetComponent<Transform>()->SetScale(2.f, 2.f, 1.f);
-	door->GetComponent<RectCollider2D>()->SetSize(25.f, 70.f);	
+	door->GetComponent<RectCollider2D>()->SetSize(25.f, 70.f);
 
 
 	{
-		Animator2D * const anim = door->GetComponent<Animator2D>();
+		Animator2D* const anim = door->GetComponent<Animator2D>();
+		anim->SetMaterial(gResourceManager->FindOrNull<Material>(L"LightAnimation2D"));
 		Texture* atlas = gResourceManager->FindByEnum<Texture>(eResTexture::Atlas_Door_dooratlas);
 
 		anim->CreateAnimation(L"Stand", atlas, 1, XMUINT2(5, 536), XMUINT2(80, 64), XMUINT2(10, 10), XMINT2(20, 0), 0.075f);
@@ -509,6 +459,7 @@ GameObject* GameObjectBuilder::InstantiateClubDoor(Scene* const scene)
 
 	{
 		Animator2D* const anim = clubDoor->GetComponent<Animator2D>();
+		anim->SetMaterial(gResourceManager->FindOrNull<Material>(L"LightAnimation2D"));
 		Texture* atlas = gResourceManager->FindByEnum<Texture>(eResTexture::Atlas_Door_dooratlas);
 
 		anim->CreateAnimation(L"Stand", atlas, 1, XMUINT2(5, 639), XMUINT2(80, 64), XMUINT2(10, 10), XMINT2(20, 0), 0.075f);
@@ -563,8 +514,7 @@ GameObject* GameObjectBuilder::InstantiatePlayer(Scene* const scene)
 	GameObject* const player = GameObjectBuilder::Player();
 
 	player->GetComponent<Transform>()->SetPosition(0.f, 0.f, -10.f);
-	player->GetComponent<Animator2D>()->GetMaterial()->SetShader(
-		gResourceManager->FindOrNull<Shader>(L"LightAnimation2D"));
+	player->GetComponent<Animator2D>()->SetMaterial(gResourceManager->FindOrNull<Material>(L"PlayerAnimation2D"));
 
 	scene->AddGameObject(player, eLayerType::Player);
 
@@ -582,7 +532,7 @@ GameObject* GameObjectBuilder::InstantiatePlayer(Scene* const scene)
 		Slash->GetComponent<RectCollider2D>()->SetOffset(Vector2(30.f, 0.f));
 
 		Animator2D* const animator = Slash->GetComponent<Animator2D>();
-		animator->GetMaterial()->SetShader(gResourceManager->FindOrNull<Shader>(L"LightAnimation2D"));
+		animator->SetMaterial(gResourceManager->FindOrNull<Material>(L"PlayerAnimation2D"));
 		Texture* atlas = gResourceManager->FindByEnum<Texture>(eResTexture::Atlas_Player_slash);
 		animator->CreateAnimation(L"Slash", atlas, 6,
 			XMUINT2(5, 34), XMUINT2(106, 32), XMUINT2(10, 10), XMINT2(0, 0), 0.04f);
@@ -661,7 +611,7 @@ void GameObjectBuilder::AddUI(Scene* const scene)
 	{
 
 		GameObject* const obj = GameObjectBuilder::Default2D(L"UITimer");
-
+		obj->SetName(L"UITimer");
 		obj->AddComponent<UIEffect>();
 
 		obj->GetComponent<Transform>()->SetPosition(timerPosX + 16.f, hudPosY + 6.f, -10.f);
@@ -700,6 +650,7 @@ void GameObjectBuilder::AddUI(Scene* const scene)
 			{
 				GameObject* const part = GameObjectBuilder::Default2D(L"UIBatteryPart");
 
+				part->SetName(L"UIBatteryPart" + std::to_wstring(i));
 				part->GetComponent<Transform>()->SetPosition(-25.5f + i * 5.f, 0.5f, 0.f);
 				part->SetParent(obj);
 				scene->AddGameObject(part, eLayerType::UI);

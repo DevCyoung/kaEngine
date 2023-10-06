@@ -101,6 +101,36 @@ void Rect2DInterpolation::lastUpdate()
 
 		position.y += platFormInterSizeY;
 		transMat._42 += platFormInterSizeY;
+
+		//if (IsCollisionWallLeft())
+		//{
+		//	const Vector2 interSize = mInterpolationPos[static_cast<UINT>(eWallType::Left)];
+
+		//	if (velocity.x < 0.f)
+		//	{]
+
+		//		velocity.x = 0.f;
+		//	}
+		//	//velocity.x = 0.f;
+
+		//	position.x += interSize.x;
+		//	transMat._41 += interSize.x;
+		//}
+
+		if (IsCollisionWallRight())
+		{
+			const Vector2 interSize = mInterpolationPos[static_cast<UINT>(eWallType::Right)];
+
+			if (velocity.x > 0.f)
+			{
+				velocity.x = 0.f;
+			}
+
+			//velocity.x = 0.f;
+			position.x -= interSize.x;
+			transMat._41 -= interSize.x;
+		}
+
 	}
 	else if (physics->RayCastHit2D(LRP, Vector2::Down, RAY_DIST, eLayerType::LeftSlope, &info))
 	{
@@ -164,6 +194,7 @@ void Rect2DInterpolation::lastUpdate()
 			position.x += interSize.x;
 			transMat._41 += interSize.x;
 		}
+
 		if (IsCollisionWallRight())
 		{
 			const Vector2 interSize = mInterpolationPos[static_cast<UINT>(eWallType::Right)];
@@ -182,32 +213,7 @@ void Rect2DInterpolation::lastUpdate()
 	}
 
 
-	//if (IsCollisionWallLeft())
-	//{
-	//	const Vector2 interSize = mInterpolationPos[static_cast<UINT>(eWallType::Left)];
-
-	//	if (velocity.x < 0.f)
-	//	{
-	//		velocity.x = 0.f;
-	//	}
-	//	//velocity.x = 0.f;
-
-	//	position.x += interSize.x;
-	//	transMat._41 += interSize.x;
-	//}
-	//if (IsCollisionWallRight())
-	//{
-	//	const Vector2 interSize = mInterpolationPos[static_cast<UINT>(eWallType::Right)];
-
-	//	if (velocity.x > 0.f)
-	//	{
-	//		velocity.x = 0.f;
-	//	}
-
-	//	//velocity.x = 0.f;
-	//	position.x -= interSize.x;
-	//	transMat._41 -= interSize.x;
-	//}
+	
 
 
 	/*debugRenderer->DrawLine2D2(Vector3(LRP.x, LRP.y, 0.f), Vector2::Down, RAY_DIST, 0.f, LEFT_RAY_COLOR);

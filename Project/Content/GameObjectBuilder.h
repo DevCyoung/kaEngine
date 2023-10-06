@@ -9,6 +9,9 @@ enum class eMonsterType
 {
 	Default,
 	Ganster,
+	Cop,
+	Shield,
+	Shotgun,
 	End,
 };
 
@@ -22,7 +25,7 @@ public:
 	GameObjectBuilder& operator=(const GameObjectBuilder&) = delete;
 
 public:
-	static GameObject* Default2D(const std::wstring& materialName);	
+	static GameObject* Default2D(const std::wstring& materialName);
 	static GameObject* Player();
 	static GameObject* InstantiateMonster(const eMonsterType type, Scene* const scene);
 	static GameObject* InstantiateKissyface(Scene* const scene);

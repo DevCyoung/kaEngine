@@ -177,6 +177,10 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="BasicMonsterAI.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Bugiman.h">
       <SubType>
       </SubType>
@@ -207,6 +211,10 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
     <ClInclude Include="Chinatown05Scene.h" />
     <ClInclude Include="Collide2DTestScene.h" />
     <ClInclude Include="Content.h" />
+    <ClInclude Include="CopAI.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="CursorMovement.h">
       <SubType>
       </SubType>
@@ -237,12 +245,20 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
     </ClInclude>
     <ClInclude Include="framework.h" />
     <ClInclude Include="FSMState.h" />
+    <ClInclude Include="GalssWindow.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="GameManager.h">
       <SubType>
       </SubType>
     </ClInclude>
     <ClInclude Include="GameObjectBuilder.h" />
     <ClInclude Include="GangsterAI.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="GlassParticle.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -331,11 +347,19 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
       </SubType>
     </ClInclude>
     <ClInclude Include="RewindManager.h" />
+    <ClInclude Include="ShieldCop.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="ShiftController.h">
       <SubType>
       </SubType>
     </ClInclude>
     <ClInclude Include="FiniteStateMachine.h" />
+    <ClInclude Include="ShotGunAI.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="SimpleDrawPoint.h">
       <SubType>
       </SubType>
@@ -354,6 +378,7 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="TimeController.h" />
     <ClInclude Include="TItleScene.h" />
     <ClInclude Include="UIEffect.h">
       <SubType>
@@ -362,6 +387,10 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AxeMovement.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="BasicMonsterAI.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -395,6 +424,10 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
     <ClCompile Include="Chinatown05Scene.cpp" />
     <ClCompile Include="Collide2DTestScene.cpp" />
     <ClCompile Include="Content.cpp" />
+    <ClCompile Include="CopAI.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="CursorMovement.cpp">
       <SubType>
       </SubType>
@@ -424,12 +457,20 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
       </SubType>
     </ClCompile>
     <ClCompile Include="FSMState.cpp" />
+    <ClCompile Include="GalssWindow.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="GameManager.cpp">
       <SubType>
       </SubType>
     </ClCompile>
     <ClCompile Include="GameObjectBuilder.cpp" />
     <ClCompile Include="GangsterAI.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="GlassParticle.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -524,11 +565,19 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
       </SubType>
     </ClCompile>
     <ClCompile Include="RewindManager.cpp" />
+    <ClCompile Include="ShieldCop.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="ShiftController.cpp">
       <SubType>
       </SubType>
     </ClCompile>
     <ClCompile Include="FiniteStateMachine.cpp" />
+    <ClCompile Include="ShotGunAI.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="SimpleDrawPoint.cpp">
       <SubType>
       </SubType>
@@ -547,6 +596,7 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="TimeController.cpp" />
     <ClCompile Include="TItleScene.cpp" />
     <ClCompile Include="UIEffect.cpp">
       <SubType>

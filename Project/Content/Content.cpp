@@ -92,27 +92,27 @@ void Content::loadMaterial()
 #pragma region Chianatown01Material
 	{
 		Material* const material =
-			MaterialBuilder::Sprite2D(eRenderPriorityType::Opqaue, eResTexture::Map_Chinatown01_spr_chinatown_parallax_1);
+			MaterialBuilder::LightSprite2D(eRenderPriorityType::Opqaue, eResTexture::Map_Chinatown01_spr_chinatown_parallax_1);
 		gResourceManager->Insert(L"Chanatown05BackGround01", material);
 	}
 
 	{
 		Material* const material =
-			MaterialBuilder::Sprite2D(
+			MaterialBuilder::LightSprite2D(
 				eRenderPriorityType::Opqaue, eResTexture::Map_Chinatown01_spr_chinatown_parallax_2);
 		gResourceManager->Insert(L"Chanatown05BackGround02", material);
 	}
 
 	{
 		Material* const material =
-			MaterialBuilder::Sprite2D(
+			MaterialBuilder::LightSprite2D(
 				eRenderPriorityType::Opqaue, eResTexture::Map_Chinatown01_spr_chinatown_parallax_3);
 		gResourceManager->Insert(L"Chanatown05BackGround03", material);
 	}
 
 	{
 		Material* const material =
-			MaterialBuilder::Sprite2D(
+			MaterialBuilder::LightSprite2D(
 				eRenderPriorityType::Opqaue, eResTexture::Map_Chinatown01_Tilemap);
 		gResourceManager->Insert(L"Chanatown01TileMap", material);
 	}
@@ -125,6 +125,26 @@ void Content::loadMaterial()
 				eRenderPriorityType::Opqaue, L"Animation2D", eResTexture::door);
 
 		gResourceManager->Insert(L"Animation2D", material);
+	}
+
+	//Animation Material
+	{
+		Material* const material =
+			MaterialBuilder::Default2D(
+				eRenderPriorityType::Opqaue, L"LightAnimation2D", eResTexture::door);
+
+		gResourceManager->Insert(L"LightAnimation2D", material);
+	}
+
+	//Player Animation Material
+	{
+		{
+			Material* const material =
+				MaterialBuilder::Default2D(
+					eRenderPriorityType::Opqaue, L"LightAnimation2D", eResTexture::door);
+
+			gResourceManager->Insert(L"PlayerAnimation2D", material);
+		}
 	}
 
 	//PostProcess
@@ -144,6 +164,7 @@ void Content::loadMaterial()
 		gResourceManager->Insert(L"WavePostProcess", material);
 	}
 
+	
 	loadUIMaterial();
 }
 

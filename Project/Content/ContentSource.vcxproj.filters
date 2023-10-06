@@ -232,9 +232,6 @@
     <Filter Include="Source\Monster">
       <UniqueIdentifier>{600d1667-160f-4bf2-af48-23cf36204ae5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Monster\Axe">
-      <UniqueIdentifier>{84be3502-5932-4a03-84f2-6a055c43bdad}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\01. ScriptComponent\MonsterAttack">
       <UniqueIdentifier>{c9b7d216-58c6-47f4-9a8c-d65b79663168}</UniqueIdentifier>
     </Filter>
@@ -276,6 +273,21 @@
     </Filter>
     <Filter Include="ShaderCode\PostProcess\Wave">
       <UniqueIdentifier>{7a53df83-11e2-4b51-a365-71eca2be745e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Manager\TimeController">
+      <UniqueIdentifier>{1bcc050a-6438-4d10-884f-2f6bbbf54afd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Monster\Basic">
+      <UniqueIdentifier>{4e0cd81e-9b66-4b75-9a18-720716927c97}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Monster\Kissyface">
+      <UniqueIdentifier>{f2910e30-2ca8-4d61-ae07-eaa20936041b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Monster\Kissyface\Axe">
+      <UniqueIdentifier>{84be3502-5932-4a03-84f2-6a055c43bdad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\GlassWindow">
+      <UniqueIdentifier>{1d25ce4d-bb4a-4ede-9ea9-ef5a9462ae11}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -465,9 +477,6 @@
     <ClInclude Include="PathNode.h">
       <Filter>Source\PathNode</Filter>
     </ClInclude>
-    <ClInclude Include="GangsterAI.h">
-      <Filter>Source\FSM\Monster</Filter>
-    </ClInclude>
     <ClInclude Include="PlayerPath.h">
       <Filter>Source\PlayerPath</Filter>
     </ClInclude>
@@ -489,11 +498,8 @@
     <ClInclude Include="KissyfaceScene.h">
       <Filter>Source\Scene\KatanaScene\Kissyface</Filter>
     </ClInclude>
-    <ClInclude Include="KissyfaceAI.h">
-      <Filter>Source\Monster</Filter>
-    </ClInclude>
     <ClInclude Include="AxeMovement.h">
-      <Filter>Source\Monster\Axe</Filter>
+      <Filter>Source\Monster\Kissyface\Axe</Filter>
     </ClInclude>
     <ClInclude Include="MonsterAttack.h">
       <Filter>Source\01. ScriptComponent\MonsterAttack</Filter>
@@ -530,6 +536,33 @@
     </ClInclude>
     <ClInclude Include="CameraWall.h">
       <Filter>Source\CameraWall</Filter>
+    </ClInclude>
+    <ClInclude Include="TimeController.h">
+      <Filter>Source\Manager\TimeController</Filter>
+    </ClInclude>
+    <ClInclude Include="BasicMonsterAI.h">
+      <Filter>Source\Monster\Basic</Filter>
+    </ClInclude>
+    <ClInclude Include="CopAI.h">
+      <Filter>Source\Monster\Basic</Filter>
+    </ClInclude>
+    <ClInclude Include="GangsterAI.h">
+      <Filter>Source\Monster\Basic</Filter>
+    </ClInclude>
+    <ClInclude Include="KissyfaceAI.h">
+      <Filter>Source\Monster\Kissyface</Filter>
+    </ClInclude>
+    <ClInclude Include="ShieldCop.h">
+      <Filter>Source\Monster\Basic</Filter>
+    </ClInclude>
+    <ClInclude Include="ShotGunAI.h">
+      <Filter>Source\Monster\Basic</Filter>
+    </ClInclude>
+    <ClInclude Include="GalssWindow.h">
+      <Filter>Source\GlassWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="GlassParticle.h">
+      <Filter>Source\GlassWindow</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -713,9 +746,6 @@
     <ClCompile Include="PathNode.cpp">
       <Filter>Source\PathNode</Filter>
     </ClCompile>
-    <ClCompile Include="GangsterAI.cpp">
-      <Filter>Source\FSM\Monster</Filter>
-    </ClCompile>
     <ClCompile Include="PlayerPath.cpp">
       <Filter>Source\PlayerPath</Filter>
     </ClCompile>
@@ -737,11 +767,8 @@
     <ClCompile Include="KissyfaceScene.cpp">
       <Filter>Source\Scene\KatanaScene\Kissyface</Filter>
     </ClCompile>
-    <ClCompile Include="KissyfaceAI.cpp">
-      <Filter>Source\Monster</Filter>
-    </ClCompile>
     <ClCompile Include="AxeMovement.cpp">
-      <Filter>Source\Monster\Axe</Filter>
+      <Filter>Source\Monster\Kissyface\Axe</Filter>
     </ClCompile>
     <ClCompile Include="MonsterAttack.cpp">
       <Filter>Source\01. ScriptComponent\MonsterAttack</Filter>
@@ -778,6 +805,33 @@
     </ClCompile>
     <ClCompile Include="CameraWall.cpp">
       <Filter>Source\CameraWall</Filter>
+    </ClCompile>
+    <ClCompile Include="TimeController.cpp">
+      <Filter>Source\Manager\TimeController</Filter>
+    </ClCompile>
+    <ClCompile Include="BasicMonsterAI.cpp">
+      <Filter>Source\Monster\Basic</Filter>
+    </ClCompile>
+    <ClCompile Include="CopAI.cpp">
+      <Filter>Source\Monster\Basic</Filter>
+    </ClCompile>
+    <ClCompile Include="GangsterAI.cpp">
+      <Filter>Source\Monster\Basic</Filter>
+    </ClCompile>
+    <ClCompile Include="KissyfaceAI.cpp">
+      <Filter>Source\Monster\Kissyface</Filter>
+    </ClCompile>
+    <ClCompile Include="ShieldCop.cpp">
+      <Filter>Source\Monster\Basic</Filter>
+    </ClCompile>
+    <ClCompile Include="ShotGunAI.cpp">
+      <Filter>Source\Monster\Basic</Filter>
+    </ClCompile>
+    <ClCompile Include="GalssWindow.cpp">
+      <Filter>Source\GlassWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="GlassParticle.cpp">
+      <Filter>Source\GlassWindow</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

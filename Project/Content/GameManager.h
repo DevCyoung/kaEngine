@@ -5,6 +5,7 @@
 #include "SoundManager.h"
 #include "EffectManager.h"
 #include "EventManager.h"
+#include "TimeController.h"
 
 class GameObject;
 class PathInfo;
@@ -47,10 +48,10 @@ public:
 	
 	PathInfo* const GetPathInfo() const { return mPathInfo; }
 
-	RewindManager* const GetRewindManager() const { return mRewindManager; }
-	//SoundManager* const GetSoundManager() const { return mSoundManager; }
+	RewindManager* const GetRewindManager() const { return mRewindManager; }	
 	EffectManager* const GetEffectManager() const { return mEffectManager; }	
 	EventManager* const GetEventManager() const { return mEventManager; }
+	TimeController* const GetTimeController() const { return mTimeController; }
 
 private:
 	inline static GameManager* sInstance = nullptr;
@@ -58,10 +59,10 @@ private:
 	GameObject* mUITimer;
 	PathInfo* mPathInfo;
 
-	RewindManager* mRewindManager;
-	//SoundManager* mSoundManager;
+	RewindManager* mRewindManager;	
 	EffectManager* mEffectManager;
 	EventManager* mEventManager;
+	TimeController* mTimeController;
 };
 
 #define gSoundManager SoundManager::GetInstance()

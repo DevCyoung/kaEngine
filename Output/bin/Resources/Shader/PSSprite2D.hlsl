@@ -18,5 +18,7 @@ float4 main(tVSOut In) : SV_TARGET
 		discard;
 	}		
 	
+	//discard;
+	
 	return color;
 }

@@ -61,6 +61,25 @@ cbuffer Sprite2D : register(b5)
 {
 	float2 B5_Dummy;	
 	float2 B5_SpriteUV;
+	
+	int B5_bSetColorR;
+	float B5_R;
+	int B5_bSetColorG;
+	float B5_G;
+	int B5_bSetColorB;
+	float B5_B;
+	int B5_bSetColorA;
+	float B5_A;
+	
+	
+	int B5_bMulColorR;
+	float B5_MulR;
+	int B5_bMulColorG;
+	float B5_MulG;
+	int B5_bMulColorB;
+	float B5_MulB;
+	int B5_bMulColorA;
+	float B5_MulA;
 }
 
 cbuffer Wave : register(b6)

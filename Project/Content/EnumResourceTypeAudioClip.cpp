@@ -15,6 +15,7 @@ static constexpr const wchar_t* eResAudioClipPath[static_cast<UINT>(eResAudioCli
 	L"\\AudioClip\\enemySlice.wav",
 	L"\\AudioClip\\enterGame.wav",
 	L"\\AudioClip\\getItem.wav",
+	L"\\AudioClip\\glassbreak.wav",
 	L"\\AudioClip\\headBloodSpurt.wav",
 	L"\\AudioClip\\headFloor.wav",
 	L"\\AudioClip\\headWall.wav",

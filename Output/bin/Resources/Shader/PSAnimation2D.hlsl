@@ -32,13 +32,17 @@ float4 main(tVSOut In) : SV_TARGET
 	}
 	
 	
-	//To Cyan		
-	//float src = 0.5f;
-	//float dst = 1.f - src;	
+	//To Cyan
+
+	if (1 == B1_bUseColor)
+	{
+		float src = 0.5f;
+		float dst = 1.f - src;
 	
-	//outColor.r  = 0.f;
-	//outColor.g = outColor.g + outColor.g * src + 1.f * dst;
-	//outColor.b = outColor.b + outColor.b * src + 1.f * dst;
+		outColor.r = 0.f;
+		outColor.g = outColor.g + outColor.g * src + 1.f * dst;
+		outColor.b = outColor.b + outColor.b * src + 1.f * dst;
+	}		
 	
 	return outColor;
 }

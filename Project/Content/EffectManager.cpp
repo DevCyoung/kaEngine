@@ -26,12 +26,15 @@ void EffectManager::Initialize(Scene* scene)
 
 		{
 			Texture* const atlas = gResourceManager->FindByEnum<Texture>(eResTexture::Atlas_Effect_effect1);
+			Material* const mat = gResourceManager->FindOrNull<Material>(L"LightAnimation2D");
+
 
 			effectObject->AddComponent<Animator2D>();
 			effectObject->AddComponent<Effect2D>();
 			effectObject->AddComponent<RewindComponent>();
 
 			Animator2D* const anim = effectObject->GetComponent<Animator2D>();
+			anim->SetMaterial(mat);
 			anim->TurnOffVisiblelity();
 
 			anim->CreateAnimation(L"Blood1", atlas, 6, XMUINT2(5, 34), XMUINT2(30, 30), XMUINT2(10, 10), XMINT2(0, 0), 0.08f);

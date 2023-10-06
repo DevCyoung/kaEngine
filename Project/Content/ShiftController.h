@@ -21,5 +21,6 @@ private:
 
 	Light2D* mLight;
 	GameObject* mPlayer;
+	GameObject* mBattery[11];
 	float mTimeScale;
 };

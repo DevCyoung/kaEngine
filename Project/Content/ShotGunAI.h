@@ -3,15 +3,15 @@
 #include "EnumScriptComponent.h"
 #include "BasicMonsterAI.h"
 
-REGISTER_SCRIPTCOMPONENT_TYPE(GangsterAI);
+REGISTER_SCRIPTCOMPONENT_TYPE(ShotGunAI);
 
-class GangsterAI : public BasicMonsterAI
+class ShotGunAI : public BasicMonsterAI
 {
 public:
-	GangsterAI();
-	virtual ~GangsterAI();
-	GangsterAI(const GangsterAI&) = delete;
-	GangsterAI& operator=(const GangsterAI&) = delete;
+	ShotGunAI();
+	virtual ~ShotGunAI();
+	ShotGunAI(const ShotGunAI&) = delete;
+	ShotGunAI& operator=(const ShotGunAI&) = delete;
 
 	// BasicMonsterAI을(를) 통해 상속됨
 	virtual void CreateAnimation(Scene* scene) override;

@@ -14,9 +14,14 @@
 RewindManager::RewindManager()
 	: mState(eRewindState::None)
 	, mCurTime(0.f)
+	, mFrameTime(0.f)
+	, mMAXFrameIdx(0)
 	, mCurFrameIdx(0)
+	, mTVThumTime(0.f)
 	, mTimeScale(1.f)
 	, mRewindFrameDatasArray{}
+	, mTimerUI(nullptr)
+	, mRewindEvent(eRewindEvent::None)
 {
 	for (auto& data : mRewindFrameDatasArray)
 	{
@@ -29,22 +34,20 @@ RewindManager::~RewindManager()
 {
 }
 
+void RewindManager::Initialize(Scene* Scene)
+{
+	mTimerUI = Scene->GetGameSystem()->FindGameObject(L"UITimer");
+}
+
+//PlayerDeath
+
 void RewindManager::LateUpdate()
 {
-
-	//TEST	
 	mCurTime += gDeltaTime;
+	float uvX = 1.f - (mCurTime / static_cast<float>(MAX_REWIND_SECOND));	
+	mTimerUI->GetComponent<SpriteRenderer>()->SetUvOffsetX(uvX);
 
-	if (mCurFrameIdx >= MAX_REWIND_FRAME - 1 || mCurFrameIdx < 0)
-	{
-		return;
-	}
-
-	//float uvX = 1.f - ( (mCurTime * 60) / MAX_REWIND_FRAME );
-
-	//GameManager::GetInstance()->GetUITimer()->GetComponent<SpriteRenderer>()->SetUvOffsetX(uvX);
-
-
+	//GameManager::GetInstance()->GetEventManager()->
 
 	switch (mState)
 	{
@@ -52,6 +55,9 @@ void RewindManager::LateUpdate()
 		break;
 	case eRewindState::Record:
 		Record();
+		break;
+	case eRewindState::PlayBack:
+		BackPlay();
 		break;
 	case eRewindState::Play:
 		Play();
@@ -85,17 +91,22 @@ void RewindManager::LateUpdate()
 		mTimeScale = 8.f;
 	}
 
-
-	if (gInput->GetKeyDown(eKeyCode::NUM7))
+	//button
+	if (gInput->GetKeyDown(eKeyCode::R))
 	{
-		SetRewindState(eRewindState::Rewind);
+		if (mCurFrameIdx <= 60)
+		{
+			return;
+		}		
+		RecordSave();
+
+		mRewindEvent = eRewindEvent::RewindStart;
+		SetRewindState(eRewindState::Rewind);		
 
 		gSoundManager->TurnOffSound();
 
 		gSoundManager->PlayInForce(eResAudioClip::rewind, 1.f);
-
 		tWaveInfo waveInfo = {};
-
 		waveInfo.WaveXPower = 200.f;
 		waveInfo.WaveYPower = 0.f;
 		waveInfo.WaveSpeed = 50.f;
@@ -105,28 +116,45 @@ void RewindManager::LateUpdate()
 
 	}
 
+	if (gInput->GetKeyDown(eKeyCode::T))
+	{
+		if (mCurFrameIdx <= 60)
+		{
+			return;
+		}
+
+		RecordSave();
+		mState = eRewindState::Pause;		
+	}
+
 	if (gInput->GetKeyDown(eKeyCode::NUM8))
 	{
-		SetRewindState(eRewindState::Play);
+		SetRewindState(eRewindState::PlayBack);
 	}
 
 	if (gInput->GetKeyDown(eKeyCode::NUM9))
 	{
-		SetRewindState(eRewindState::Pause);
+		SetRewindState(eRewindState::Play);
 	}
 }
 
 void RewindManager::Record()
 {
-	mCurTime += gDeltaTime;
-	if (mCurTime >= REWIND_FRAME_TIME)
+	mFrameTime += gDeltaTime;
+
+	if (mCurFrameIdx >= MAX_REWIND_FRAME - 1)
+	{
+		RecordSave();
+		return;
+	}
+
+	if (mFrameTime >= REWIND_FRAME_TIME)
 	{
 		for (GameObject* obj : mRewindObjects)
 		{
 			RewindObjectData data = {};
 
 			data.Obj = obj;
-
 			data.WorldMatrix = obj->GetComponent<Transform>()->GetWorldMatrix();	
 
 			Animator2D* const animator =  obj->GetComponentOrNull<Animator2D>();
@@ -143,68 +171,126 @@ void RewindManager::Record()
 					data.FrameIdx = anim->GetFrameIdx();					
 				}				
 			}
-		
+
 			mRewindFrameDatasArray[mCurFrameIdx].push_back(data);
 		}
 
-		mCurTime = 0.f;
+		mFrameTime = 0.f;		
 		++mCurFrameIdx;
 	}
+}
 
+void RewindManager::RecordSave()
+{
+	mMAXFrameIdx = mCurFrameIdx;
+	mState = eRewindState::RecordSave;
 
-	if (gInput->GetKeyDown(eKeyCode::SPACE))
-	{
-		
-	}
 }
 
 void RewindManager::Play()
 {
-	mCurTime += gDeltaTime;
+	mFrameTime += gDeltaTime;
 
-	if (mCurTime >= REWIND_FRAME_TIME * mTimeScale && mCurFrameIdx < MAX_REWIND_FRAME - 1)
+	if (mFrameTime >= REWIND_FRAME_TIME)
 	{
-		mCurTime = 0.f;
+		mFrameTime = 0.f;
 		++mCurFrameIdx;
 	}
 
-	const std::vector<RewindObjectData>& datas = mRewindFrameDatasArray[mCurFrameIdx];
-	std::vector<RewindObjectData>::const_iterator riter = datas.begin();
+	DrawFrame(mCurFrameIdx);
+}
 
-	for (; riter != datas.end(); ++riter)
+void RewindManager::BackPlay()
+{
+	mFrameTime += gDeltaTime;
+
+	if (mFrameTime >= REWIND_FRAME_TIME)
 	{
-		GameObject* const obj = riter->Obj;
-
-		obj->GetComponent<Transform>()->SetWorldMatrix(riter->WorldMatrix);
-
-		Animator2D* const anim = obj->GetComponentOrNull<Animator2D>();
-
-		if (anim && riter->AnimKey != L"")
-		{
-			anim->PlayFrame(riter->AnimKey, riter->FrameIdx, false);
-
-			if (riter->bVisible)
-			{
-				obj->GetComponent<Animator2D>()->TurnOnVisiblelity();
-			}
-			else
-			{
-				obj->GetComponent<Animator2D>()->TurnOffVisiblelity();
-			}
-
-		}
-
-		if (obj->GetComponentOrNull<Camera>())
-		{
-			obj->GetComponent<Camera>()->CalculateCamera();
-		}
-
+		mFrameTime = 0.f;
+		--mCurFrameIdx;
 	}
+
+	DrawFrame(mCurFrameIdx);
 }
 
 void RewindManager::Pause()
 {
-	const std::vector<RewindObjectData>& datas = mRewindFrameDatasArray[mCurFrameIdx];
+	DrawFrame(mCurFrameIdx - 1);	
+}
+
+void RewindManager::Rewind()
+{
+
+
+	mFrameTime += gRealDeltaTime;
+
+	//1분짜리가있을때 5초안에 리와인드 되야한다면?	
+	//300프레임만 사용가능함
+	if (mFrameTime >= REWIND_FRAME_TIME)
+	{	
+		mFrameTime = 0.f;		
+
+		if (mMAXFrameIdx <= REWIND_TIME * 60 + 1)
+		{
+			--mCurFrameIdx;
+		}
+		else
+		{
+			mRewindFrame += mMAXFrameIdx / (REWIND_TIME * 60);
+			mCurFrameIdx = mMAXFrameIdx - static_cast<int>(mRewindFrame);
+		}
+		if (mRewindEvent == eRewindEvent::RewindStart)
+		{
+			if (mCurFrameIdx <= 50)
+			{
+				mRewindEvent = eRewindEvent::RewindTVThumb;
+
+				tWaveInfo waveInfo = {};
+
+				waveInfo.WaveXPower = 450.f;
+				waveInfo.WaveYPower = 10.f;
+				waveInfo.WaveSpeed = 1.f;
+
+				gGraphicDevice->PassCB(eCBType::Wave, sizeof(waveInfo), &waveInfo);
+				gGraphicDevice->BindCB(eCBType::Wave, eShaderBindType::PS);
+			}
+		}
+		else if (mRewindEvent == eRewindEvent::RewindTVThumb)
+		{
+			mTVThumTime += gRealDeltaTime;
+
+			if (mTVThumTime > 0.05f)
+			{
+				mRewindEvent = eRewindEvent::RewindEnd;
+				gSoundManager->PlayInForce(eResAudioClip::tvThump, 1.f);
+				gSoundManager->TurnOnSound();
+				SceneManager::GetInstance()->RegisterLoadScene(new Chinatown01Scene);
+			}		
+		}				
+	}
+
+	if (mCurFrameIdx <= 1)
+	{
+		mCurFrameIdx = 1;
+	}
+
+	DrawFrame(mCurFrameIdx);
+}
+
+void RewindManager::DrawFrame(int frameIdx)
+{
+
+	if (frameIdx <= 1)
+	{
+		frameIdx = 1;
+	}
+	else if (frameIdx >= mMAXFrameIdx - 1)
+	{
+		frameIdx = mMAXFrameIdx - 1;
+	}
+		
+
+	const std::vector<RewindObjectData>& datas = mRewindFrameDatasArray[frameIdx];
 	std::vector<RewindObjectData>::const_iterator riter = datas.begin();
 
 	for (; riter != datas.end(); ++riter)
@@ -235,77 +321,5 @@ void RewindManager::Pause()
 			obj->GetComponent<Camera>()->CalculateCamera();
 		}
 
-	}
-}
-
-void RewindManager::Rewind()
-{
-	mCurTime += gDeltaTime * 10.f;
-
-	if (mCurTime >= REWIND_FRAME_TIME  * mTimeScale && mCurFrameIdx >= 1)
-	{
-		mCurTime = 0.f;
-		--mCurFrameIdx;
-
-		if (mCurFrameIdx == 300)
-		{
-			//gSoundManager->Play(eResAudioClip::tvThump, 1.f);
-			
-			tWaveInfo waveInfo = {};
-
-			
-
-			waveInfo.WaveXPower = 200.f;
-			waveInfo.WaveYPower = 200.f;
-			waveInfo.WaveSpeed = 50.f;
-
-			gGraphicDevice->PassCB(eCBType::Wave, sizeof(waveInfo), &waveInfo);
-			gGraphicDevice->BindCB(eCBType::Wave, eShaderBindType::PS);
-		}
-
-
-		if (mCurFrameIdx == 200)
-		{
-			gSoundManager->PlayInForce(eResAudioClip::tvThump, 1.f);
-			gSoundManager->TurnOnSound();
-
-		
-
-			SceneManager::GetInstance()->RegisterLoadScene(new Chinatown01Scene);
-		}
-
-	}
-
-	const std::vector<RewindObjectData>& datas = mRewindFrameDatasArray[mCurFrameIdx];
-	std::vector<RewindObjectData>::const_reverse_iterator riter = datas.rbegin();
-
-	for (; riter != datas.rend(); ++riter)
-	{
-		GameObject* const obj = riter->Obj;
-
-		obj->GetComponent<Transform>()->SetWorldMatrix(riter->WorldMatrix);
-		
-		Animator2D* const anim = obj->GetComponentOrNull<Animator2D>();
-
-		if (anim && riter->AnimKey != L"")
-		{
-			anim->PlayFrame(riter->AnimKey, riter->FrameIdx, false);
-
-			if (riter->bVisible)
-			{
-				obj->GetComponent<Animator2D>()->TurnOnVisiblelity();
-			}
-			else
-			{
-				obj->GetComponent<Animator2D>()->TurnOffVisiblelity();
-			}
-			
-		}
-
-		if (obj->GetComponentOrNull<Camera>())
-		{
-			obj->GetComponent<Camera>()->CalculateCamera();
-		}
-		
 	}
 }

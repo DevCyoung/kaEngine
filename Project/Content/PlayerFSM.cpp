@@ -82,14 +82,14 @@ void PlayerFSM::GlobalUpdate()
 {
 	if (gInput->GetKeyDown(eKeyCode::RBTN))
 	{
-		if (mCurState == mPlayerHurtGroundState)
+		/*if (mCurState == mPlayerHurtGroundState)
 		{
 			ChangeState(mPlayerRecoverState);
 		}
 		else
 		{
 			ChangeState(mPlayerHurtGroundState);
-		}
+		}*/
 		
 	}
 	else if (CanChagneToAttackState())

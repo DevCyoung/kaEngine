@@ -45,6 +45,12 @@ void TimeManager::update()
 	const float DIFERENCE_FREQUENCY = static_cast<float>(mCurFrequency.QuadPart - mPrevFrequency.QuadPart);
 
 	mDeltaTime = DIFERENCE_FREQUENCY / static_cast<float>(mCpuFrequency.QuadPart);
+
+	if (mDeltaTime >= 0.016f)
+	{
+		mDeltaTime = 0.016f;
+	}
+
 	mRealDeltaTime = mDeltaTime;
 	mDeltaTime *= mTimeScale;
 	mGlobalTime += mDeltaTime;

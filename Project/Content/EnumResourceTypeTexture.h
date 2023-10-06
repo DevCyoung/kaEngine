@@ -2,14 +2,18 @@
 
 enum class eResTexture
 {
+	Atlas_Cop_cop,
 	Atlas_Door_dooratlas,
 	Atlas_Effect_effect1,
 	Atlas_Effect_effect111,
 	Atlas_Gangster_gangster,
 	Atlas_Kissyface_kissyface,
+	Atlas_Particle_particle,
 	Atlas_Player_ori,
 	Atlas_Player_slash,
 	Atlas_Player_zero,
+	Atlas_ShieldCop_shieldcop,
+	Atlas_ShotgunMan_shotgun,
 	Atlas_Title_Plants,
 	charactor_atlas_zero_black,
 	charactor_atlas_zero_ori,

@@ -12,10 +12,13 @@
 #include "CameraWall.h"
 #include "ChildTest.h"
 #include "Chinatown04Controller.h"
+#include "CopAI.h"
 #include "CursorMovement.h"
 #include "DoorController.h"
 #include "Effect2D.h"
 #include "FolowPlayer.h"
+#include "GalssWindow.h"
+#include "GlassParticle.h"
 #include "GridPainter.h"
 #include "HeadMovement.h"
 #include "InputMovementTest.h"
@@ -29,7 +32,9 @@
 #include "PlayerMovementTest.h"
 #include "Rect2DInterpolation.h"
 #include "RewindComponent.h"
+#include "ShieldCop.h"
 #include "ShiftController.h"
+#include "ShotGunAI.h"
 #include "SimpleDrawPoint.h"
 #include "SimpleEditorCollider2D.h"
 #include "SlashComponent.h"
@@ -49,10 +54,13 @@ static constexpr const wchar_t* const ScriptComponentNames[static_cast<UINT>(eSc
 	L"CameraWall",
 	L"ChildTest",
 	L"Chinatown04Controller",
+	L"CopAI",
 	L"CursorMovement",
 	L"DoorController",
 	L"Effect2D",
 	L"FolowPlayer",
+	L"GalssWindow",
+	L"GlassParticle",
 	L"GridPainter",
 	L"HeadMovement",
 	L"InputMovementTest",
@@ -66,7 +74,9 @@ static constexpr const wchar_t* const ScriptComponentNames[static_cast<UINT>(eSc
 	L"PlayerMovementTest",
 	L"Rect2DInterpolation",
 	L"RewindComponent",
+	L"ShieldCop",
 	L"ShiftController",
+	L"ShotGunAI",
 	L"SimpleDrawPoint",
 	L"SimpleEditorCollider2D",
 	L"SlashComponent",
@@ -106,6 +116,8 @@ ScriptComponent* CreateScriptComponentByName(const std::wstring& scriptcomponent
 		scriptcomponent = new ChildTest;
 	else if (L"Chinatown04Controller" == scriptcomponentName)
 		scriptcomponent = new Chinatown04Controller;
+	else if (L"CopAI" == scriptcomponentName)
+		scriptcomponent = new CopAI;
 	else if (L"CursorMovement" == scriptcomponentName)
 		scriptcomponent = new CursorMovement;
 	else if (L"DoorController" == scriptcomponentName)
@@ -114,6 +126,10 @@ ScriptComponent* CreateScriptComponentByName(const std::wstring& scriptcomponent
 		scriptcomponent = new Effect2D;
 	else if (L"FolowPlayer" == scriptcomponentName)
 		scriptcomponent = new FolowPlayer;
+	else if (L"GalssWindow" == scriptcomponentName)
+		scriptcomponent = new GalssWindow;
+	else if (L"GlassParticle" == scriptcomponentName)
+		scriptcomponent = new GlassParticle;
 	else if (L"GridPainter" == scriptcomponentName)
 		scriptcomponent = new GridPainter;
 	else if (L"HeadMovement" == scriptcomponentName)
@@ -140,8 +156,12 @@ ScriptComponent* CreateScriptComponentByName(const std::wstring& scriptcomponent
 		scriptcomponent = new Rect2DInterpolation;
 	else if (L"RewindComponent" == scriptcomponentName)
 		scriptcomponent = new RewindComponent;
+	else if (L"ShieldCop" == scriptcomponentName)
+		scriptcomponent = new ShieldCop;
 	else if (L"ShiftController" == scriptcomponentName)
 		scriptcomponent = new ShiftController;
+	else if (L"ShotGunAI" == scriptcomponentName)
+		scriptcomponent = new ShotGunAI;
 	else if (L"SimpleDrawPoint" == scriptcomponentName)
 		scriptcomponent = new SimpleDrawPoint;
 	else if (L"SimpleEditorCollider2D" == scriptcomponentName)
@@ -196,6 +216,9 @@ ScriptComponent* CreateScriptComponentByEnum(const eScriptComponentType type)
 	case eScriptComponentType::Chinatown04Controller:
 		scriptcomponent = new Chinatown04Controller;
 		break;
+	case eScriptComponentType::CopAI:
+		scriptcomponent = new CopAI;
+		break;
 	case eScriptComponentType::CursorMovement:
 		scriptcomponent = new CursorMovement;
 		break;
@@ -207,6 +230,12 @@ ScriptComponent* CreateScriptComponentByEnum(const eScriptComponentType type)
 		break;
 	case eScriptComponentType::FolowPlayer:
 		scriptcomponent = new FolowPlayer;
+		break;
+	case eScriptComponentType::GalssWindow:
+		scriptcomponent = new GalssWindow;
+		break;
+	case eScriptComponentType::GlassParticle:
+		scriptcomponent = new GlassParticle;
 		break;
 	case eScriptComponentType::GridPainter:
 		scriptcomponent = new GridPainter;
@@ -247,8 +276,14 @@ ScriptComponent* CreateScriptComponentByEnum(const eScriptComponentType type)
 	case eScriptComponentType::RewindComponent:
 		scriptcomponent = new RewindComponent;
 		break;
+	case eScriptComponentType::ShieldCop:
+		scriptcomponent = new ShieldCop;
+		break;
 	case eScriptComponentType::ShiftController:
 		scriptcomponent = new ShiftController;
+		break;
+	case eScriptComponentType::ShotGunAI:
+		scriptcomponent = new ShotGunAI;
 		break;
 	case eScriptComponentType::SimpleDrawPoint:
 		scriptcomponent = new SimpleDrawPoint;

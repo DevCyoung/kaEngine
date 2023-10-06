@@ -31,12 +31,15 @@
 #include "PathNode.h"
 #include "Chinatown04Scene.h"
 #include "CameraWall.h"
+#include "RewindComponent.h"
 
 
 
 #include <Engine/ConstantBuffer.h>
 #include <Engine/Engine.h>
 #include <Engine/GraphicDeviceDx11.h>
+
+#include "GalssWindow.h"
 
 Chinatown01Scene::Chinatown01Scene()
 {
@@ -55,6 +58,9 @@ Chinatown01Scene::Chinatown01Scene()
 	mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Bullet, eLayerType::PlayerAttack);
 	mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Bullet, eLayerType::PlayerAttack);
 	mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Camera, eLayerType::CameraWall);
+
+
+	mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Wall, eLayerType::PlayerAttack);
 
 
 	{
@@ -393,62 +399,70 @@ Chinatown01Scene::Chinatown01Scene()
 	//1類
 	//monster
 	{
-		GameObject* monster = GameObjectBuilder::InstantiateMonster(eMonsterType::Ganster, this);
-		monster->GetComponent<Transform>()->SetPosition(-300, 150, 0);
-	}
-
-	{
-		GameObject* monster = GameObjectBuilder::InstantiateMonster(eMonsterType::Ganster, this);
-		monster->GetComponent<Transform>()->SetPosition(-400, 150, 0);
-	}
-
-	{
-		GameObject* monster = GameObjectBuilder::InstantiateMonster(eMonsterType::Ganster, this);
+		GameObject* monster = GameObjectBuilder::InstantiateMonster(eMonsterType::Cop, this);
 		monster->GetComponent<Transform>()->SetPosition(-500, 150, 0);
+		monster->GetComponent<Transform>()->SetFlipx(true);
 	}
 
 	{
-		GameObject* monster = GameObjectBuilder::InstantiateMonster(eMonsterType::Ganster, this);
-		monster->GetComponent<Transform>()->SetPosition(-650, 150, 0);
+		GameObject* monster = GameObjectBuilder::InstantiateMonster(eMonsterType::Shotgun, this);
+		monster->GetComponent<Transform>()->SetPosition(-600, 150, 0);
+		monster->GetComponent<Transform>()->SetFlipx(true);
+	}
+
+	{
+		GameObject* monster = GameObjectBuilder::InstantiateMonster(eMonsterType::Shotgun, this);
+		monster->GetComponent<Transform>()->SetPosition(-700, 150, 0);
+		monster->GetComponent<Transform>()->SetFlipx(true);
+	}
+
+	{
+		GameObject* monster = GameObjectBuilder::InstantiateMonster(eMonsterType::Shield, this);
+		monster->GetComponent<Transform>()->SetPosition(-850, 150, 0);
+		monster->GetComponent<Transform>()->SetFlipx(true);
 	}
 
 	//monster
 	{
-		GameObject* monster = GameObjectBuilder::InstantiateMonster(eMonsterType::Ganster, this);
+		GameObject* monster = GameObjectBuilder::InstantiateMonster(eMonsterType::Cop, this);
 		monster->GetComponent<Transform>()->SetPosition(100, 150, 0);
+		monster->GetComponent<Transform>()->SetFlipx(true);
 	}
 
 	//monster
 	{
-		GameObject* monster = GameObjectBuilder::InstantiateMonster(eMonsterType::Ganster, this);
+		GameObject* monster = GameObjectBuilder::InstantiateMonster(eMonsterType::Shield, this);
 		monster->GetComponent<Transform>()->SetPosition(550, 150, 0);
+		monster->GetComponent<Transform>()->SetFlipx(true);
 	}
 
 
 	//2類 豭薹
 	//monster
 	{
-		GameObject* monster = GameObjectBuilder::InstantiateMonster(eMonsterType::Ganster, this);
-		monster->GetComponent<Transform>()->SetPosition(-1600, 450, 0);
+		GameObject* monster = GameObjectBuilder::InstantiateMonster(eMonsterType::Shield, this);
+		monster->GetComponent<Transform>()->SetPosition(-1700, 450, 0);
+		monster->GetComponent<Transform>()->SetFlipx(true);
 	}
 
 	//2類 螃艇薹
 	//monster
 	{
-		GameObject* monster = GameObjectBuilder::InstantiateMonster(eMonsterType::Ganster, this);
+		GameObject* monster = GameObjectBuilder::InstantiateMonster(eMonsterType::Cop, this);
 		monster->GetComponent<Transform>()->SetPosition(0, 450, 0);
 	}
 
 	//monster
 	{
-		GameObject* monster = GameObjectBuilder::InstantiateMonster(eMonsterType::Ganster, this);
+		GameObject* monster = GameObjectBuilder::InstantiateMonster(eMonsterType::Shotgun, this);
 		monster->GetComponent<Transform>()->SetPosition(350, 450, 0);
+		monster->GetComponent<Transform>()->SetFlipx(true);
 	}
 
 	//3類
 	{
-		GameObject* monster = GameObjectBuilder::InstantiateMonster(eMonsterType::Ganster, this);
-		monster->GetComponent<Transform>()->SetPosition(100, 700, 0);
+		GameObject* monster = GameObjectBuilder::InstantiateMonster(eMonsterType::Cop, this);
+		monster->GetComponent<Transform>()->SetPosition(200, 700, 0);
 	}
 
 #pragma endregion	
@@ -472,7 +486,80 @@ Chinatown01Scene::Chinatown01Scene()
 	{
 		GameObjectBuilder::InstantiateGlobalLight2D(this, eLayerType::Default);
 	}
+	Vector3 difuse = Vector3(0.5f, 1.35f, 0.8f) * 1.4f;
+	//float radius = 120.f;
+	float radius = 140.f;
 
+	{
+		GameObject* const light = new GameObject();
+		light->AddComponent<Light2D>();
+
+		light->GetComponent<Light2D>()->SetLightType(Light2D::LIGHT_TYPE::POINT);
+		light->GetComponent<Light2D>()->SetRadius(radius);
+		light->GetComponent<Light2D>()->SetLightDiffuse(difuse);
+		light->GetComponent<Transform>()->SetPosition(-2000, 520, 0);
+		AddGameObject(light, eLayerType::Light);
+	}
+
+	{
+		GameObject* const light = new GameObject();
+		light->AddComponent<Light2D>();
+
+		light->GetComponent<Light2D>()->SetLightType(Light2D::LIGHT_TYPE::POINT);
+		light->GetComponent<Light2D>()->SetRadius(radius);
+		light->GetComponent<Light2D>()->SetLightDiffuse(difuse);
+		light->GetComponent<Transform>()->SetPosition(-1650, 520, 0);
+		AddGameObject(light, eLayerType::Light);
+	}
+
+	{
+		GameObject* const light = new GameObject();
+		light->AddComponent<Light2D>();
+
+		light->GetComponent<Light2D>()->SetLightType(Light2D::LIGHT_TYPE::POINT);
+		light->GetComponent<Light2D>()->SetRadius(radius);
+		light->GetComponent<Light2D>()->SetLightDiffuse(difuse);
+		light->GetComponent<Transform>()->SetPosition(-1400, 520, 0);
+		AddGameObject(light, eLayerType::Light);
+	}
+
+	{
+		GameObject* const light = new GameObject();
+		light->AddComponent<Light2D>();
+
+		light->GetComponent<Light2D>()->SetLightType(Light2D::LIGHT_TYPE::POINT);
+		light->GetComponent<Light2D>()->SetRadius(radius);
+		light->GetComponent<Light2D>()->SetLightDiffuse(difuse);
+		light->GetComponent<Transform>()->SetPosition(-1150, 520, 0);
+		AddGameObject(light, eLayerType::Light);
+	}
+
+	difuse = Vector3(1.5f, 1.15f, 0.4f) * 1.4f;
+	radius = 400.f;
+
+	{
+		GameObject* const light = new GameObject();
+		light->AddComponent<Light2D>();
+
+		light->GetComponent<Light2D>()->SetLightType(Light2D::LIGHT_TYPE::POINT);
+		light->GetComponent<Light2D>()->SetRadius(radius);
+		light->GetComponent<Light2D>()->SetLightDiffuse(difuse);
+		light->GetComponent<Transform>()->SetPosition(-550, 650, 0);
+		AddGameObject(light, eLayerType::Light);
+	}
+
+	difuse = Vector3(1.5f, 1.15f, 0.4f) * 1.4f;
+	radius = 240.f;
+	{
+		GameObject* const light = new GameObject();
+		light->AddComponent<Light2D>();
+
+		light->GetComponent<Light2D>()->SetLightType(Light2D::LIGHT_TYPE::POINT);
+		light->GetComponent<Light2D>()->SetRadius(radius);
+		light->GetComponent<Light2D>()->SetLightDiffuse(difuse);
+		light->GetComponent<Transform>()->SetPosition(100, 250, 0);
+		AddGameObject(light, eLayerType::Light);
+	}
 #pragma endregion
 
 #pragma region Camera
@@ -565,17 +652,42 @@ Chinatown01Scene::Chinatown01Scene()
 
 #pragma endregion
 
+#pragma region Glass
+
+	GameObject* glass = new GameObject();
+	glass->GetComponent<Transform>()->SetScale(2.f, 2.f, 1.f);
+	glass->GetComponent<Transform>()->SetPosition(-1000, 480, 0);
+	
+
+	glass->AddComponent<RectCollider2D>();
+	glass->AddComponent<Animator2D>();		
+	glass->AddComponent<GalssWindow>();
+	glass->AddComponent<RewindComponent>();
+
+	glass->GetComponent<RectCollider2D>()->SetSize(5.f, 70.f);
+
+	Animator2D* anim = glass->GetComponent<Animator2D>();
+	Texture* atlas = gResourceManager->FindOrNullByEnum<Texture>(eResTexture::Atlas_Particle_particle);
+	anim->CreateAnimation(L"GlassWindow", atlas, 1, XMUINT2(5, 793), XMUINT2(2, 64), XMUINT2(10, 10), XMINT2(0, 0), 0.125f);
+	anim->Play(L"GlassWindow", true);
+
+	AddGameObject(glass, eLayerType::Wall);
+#pragma endregion
+
 
 #pragma region PostProcess
-	/*{
+	{
 		GameObject* const postProcess = new GameObject();
 
 		postProcess->AddComponent<SpriteRenderer>();
+
 		postProcess->GetComponent<SpriteRenderer>()->SetMaterial(
 			gResourceManager->FindOrNull<Material>(L"GrayPostProcess"));
 
+		postProcess->GetComponent<SpriteRenderer>()->TurnOffVisiblelity();
+
 		AddGameObject(postProcess, eLayerType::Default);
-	}*/
+	}
 
 	{
 		GameObject* const postProcess = new GameObject();
@@ -598,7 +710,8 @@ Chinatown01Scene::~Chinatown01Scene()
 void Chinatown01Scene::initialize()
 {
 	GameManager::initialize();
-	GameManager::GetInstance()->GetRewindManager()->SetRewindState(eRewindState::Record);	
+	GameManager::GetInstance()->GetRewindManager()->SetRewindState(eRewindState::Record);
+	GameManager::GetInstance()->GetRewindManager()->Initialize(this);
 	GameManager::GetInstance()->GetEffectManager()->Initialize(this);
 
 #pragma region Player

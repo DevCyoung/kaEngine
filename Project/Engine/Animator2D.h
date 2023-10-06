@@ -1,14 +1,11 @@
 #pragma once
 #include "RenderComponent.h"
-
+#include "StructBuffer.h"
 
 REGISTER_COMPONENT_TYPE(Animator2D);
 
 class Texture;
 class Animation2D;
-
-struct tCBTransform;
-struct tCBAnimationInfo;
 
 class Animator2D : public RenderComponent
 {
@@ -61,6 +58,7 @@ public:
 
 	void SetBackSize(const XMUINT2& size) { backSize = size; }	
 	void SetFlipX(const bool bFlip) { bFlipX = bFlip; }
+	void SetColorInfo(const tCBColorInfo& colorInfo) { mColorInfo = colorInfo; }
 
 	Events* FindEvents(const std::wstring animName) const;
 	const std::function<void()>& FindStartEvent(const std::wstring animName);
@@ -73,10 +71,12 @@ private:
 	virtual void lateUpdate() override final;
 	virtual void render(const Camera* const camera) override final;
 	
+	tCBColorInfo mColorInfo;
+
 	std::unordered_map<std::wstring , Animation2D*>  mAnimationMap;
 	std::unordered_map<std::wstring, Events*> mEvents;
 	Animation2D* mCurAnimation;
 	bool bRepeat;
 	bool bFlipX;
-	XMUINT2 backSize;
+	XMUINT2 backSize;	
 };

@@ -29,6 +29,7 @@ Animator2D::Animator2D()
 	, bRepeat(false)
 	, backSize(XMUINT2(300, 300))
 	, bFlipX(false)
+	, mColorInfo{}
 {
 	SetMaterial(gResourceManager->FindOrNull<Material>(L"Animation2D"));
 	SetMesh(gResourceManager->FindOrNull<Mesh>(L"FillRect2D"));
@@ -238,6 +239,12 @@ void Animator2D::render(const Camera* const camera)
 
 		gGraphicDevice->PassCB(eCBType::Transform, sizeof(CBTransform), &CBTransform);
 		gGraphicDevice->BindCB(eCBType::Transform, eShaderBindType::VS);
+	}
+
+	tCBColorInfo CBColorInfo = mColorInfo;
+	{
+		gGraphicDevice->PassCB(eCBType::ColorInfo, sizeof(CBColorInfo), &CBColorInfo);
+		gGraphicDevice->BindCB(eCBType::ColorInfo, eShaderBindType::PS);
 	}
 
 	gGraphicDevice->BindMesh(mMesh);

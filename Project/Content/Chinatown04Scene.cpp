@@ -684,7 +684,7 @@ Chinatown04Scene::Chinatown04Scene()
 		AddGameObject(light, eLayerType::Light);
 	}
 #pragma endregion
-
+	 
 	{
 		GameObject* lgiht = GameObjectBuilder::InstantiateGlobalLight2D(this, eLayerType::Default);
 		lgiht->GetComponent<Light2D>()->SetLightDiffuse(Vector3::One);

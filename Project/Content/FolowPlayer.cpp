@@ -121,6 +121,16 @@ void FolowPlayer::update()
 	}
 
 
+	/*Camera* mainCamera = GetOwner()->GetGameSystem()->GetRenderTargetRenderer()->GetRegisteredRenderCamera(eCameraPriorityType::Main);
+
+	Vector3 mouseWorldPos = helper::WindowScreenMouseToWorld3D(mainCamera);	
+	Vector3 cameraPos = GetOwner()->GetComponent<Transform>()->GetPosition();
+
+	Vector3 direction2 = mouseWorldPos - cameraPos;	
+	NextPos.x += direction2.x  * gDeltaTime;
+	NextPos.y += direction2.y  * gDeltaTime;*/
+
+
 
 	GetOwner()->GetComponent<Transform>()->SetPosition(NextPos);
 }
