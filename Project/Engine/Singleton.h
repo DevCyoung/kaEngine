@@ -18,7 +18,7 @@ public:														\
 	static CLASSNAME* GetInstance()							\
 	{														\
 		Assert(sInstance, WCHAR_IS_NULLPTR);				\
-		return sInstance;										\
+		return sInstance;									\
 	}														\
 private:													\
 	CLASSNAME();											\

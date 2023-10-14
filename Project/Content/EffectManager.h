@@ -14,8 +14,11 @@ public:
 	EffectManager& operator=(const EffectManager&) = delete;
 
 	void Initialize(Scene* scene);
+	GameObject* GetShotEffect(const std::wstring& str);
 	void Shot(const std::wstring& str, Vector3 pos);
 	void Shot(const std::wstring& str, Vector3 pos, bool bFlip);
+	void Shot(const std::wstring& str, Vector3 pos, GameObject* parent);
+	void Shot(const std::wstring& str, Vector3 pos, Vector3 rotation, bool bFlip);
 	void Shot(const std::wstring& str, Vector3 pos, Vector2 direction, float speed);
 
 	GameObject* mEffects[MAX_EFFECT_COUNT];

@@ -16,5 +16,6 @@ public:
 
 public:
 	Vector2 mDirection;
+	float mEffectTime;
 };
 

@@ -26,6 +26,14 @@ void Effect2D::update()
     if (animation && animation->IsFinished())
     {
         animator->TurnOffVisiblelity();
+        GetOwner()->GetComponent<Transform>()->SetPosition(100000.f, 0.f, 0.f);
+
+        Transform* transform = GetOwner()->GetComponent<Transform>();
+
+        transform->SetPosition(10000000.f, 10000000.f, 1.f);
+        transform->SetRotation(Vector3::Zero);
+        transform->SetScale(2.f, 2.f, 1.f);
+        GetOwner()->SetParent(nullptr);
 	}
 
     Vector3 position = GetOwner()->GetComponent<Transform>()->GetPosition();

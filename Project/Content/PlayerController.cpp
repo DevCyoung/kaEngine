@@ -6,13 +6,15 @@
 #include "GameManager.h"
 #include "MonsterAttack.h"
 #include "ResourceManager.h"
-
+#include "FolowPlayer.h"
+#include "BulletMovement.h"
 PlayerController::PlayerController()
 	: ScriptComponent(eScriptComponentType::PlayerController)
 	, mPlayerFSM(nullptr)
 	, mSlash(nullptr)
 	, mbControl(true)
 	, mbinvincibility(false)
+	, mbDead(false)
 {
 }
 
@@ -53,7 +55,7 @@ void PlayerController::initialize()
 		{
 			std::function<void()> func = std::bind(&PlayerController::runToIdle, this);
 			animation->SetLastFrameEndEvent(func);
-		}			
+		}
 
 	}
 
@@ -67,7 +69,7 @@ void PlayerController::initialize()
 
 		animation->SetLastFrameEndEvent(func);
 	}
-	
+
 	{
 		Animation2D* animation = animator->FindAnimationOrNull(L"PostCrouch");
 		std::function<void()> func = [this]() {
@@ -155,7 +157,7 @@ void PlayerController::initialize()
 
 		animation->SetFrameStartEvent(0, func);
 	}*/
-	
+
 	{
 		Animation2D* animation = animator->FindAnimationOrNull(L"IdleToRun");
 
@@ -175,7 +177,7 @@ void PlayerController::initialize()
 			{
 				position.x -= 25.f;
 				gEffectManager->Shot(L"StomperCloud", position, true);
-			}						
+			}
 		};
 
 		animation->SetFrameStartEvent(2, func);
@@ -213,16 +215,56 @@ void PlayerController::lateUpdate()
 
 void PlayerController::onCollisionEnter(Collider2D* other)
 {
-	//hit
-	if (other->GetOwner()->GetLayer() == eLayerType::MonsterAttack && false == mbinvincibility)
+	if (other->GetOwner()->GetLayer() == eLayerType::Bullet && false == mbDead &&
+		mPlayerFSM->mPlayerRollState != mPlayerFSM->GetCurState() &&
+		mPlayerFSM->mPlayerFlipState != mPlayerFSM->GetCurState() &&
+		false == other->GetOwner()->GetComponent<BulletMovement>()->IsPlayerBullet())
 	{
 		if (mbControl)
 		{
 			mbControl = false;
-			mPlayerFSM->mPlayerHurtState->mDirection = other->GetOwner()->GetComponent<MonsterAttack>()->GetAttackDirection();
+			Vector3 dir = other->GetOwner()->GetComponent<BulletMovement>()->mDir;
+			mPlayerFSM->mPlayerHurtState->mDirection = Vector2(dir.x, dir.y);
 			mPlayerFSM->ChangeState(mPlayerFSM->mPlayerHurtState);
-		}		
+
+			gSoundManager->PlayInForce(eResAudioClip::PlayerDie, 1.f);
+
+			Camera* const mainCamera = GetOwner()->GetGameSystem()->GetRenderTargetRenderer()->GetRegisteredRenderCamera(eCameraPriorityType::Main);
+
+			mainCamera->GetOwner()->GetComponent<FolowPlayer>()->ShakeCamera();
+			GameManager::GetInstance()->GetEventManager()->ShotTimeEffect(0.1f, 0.2f);
+
+		}
 	}
+}
+
+void PlayerController::onCollisionStay(Collider2D* other)
+{
+
+	if (other->GetOwner()->GetLayer() == eLayerType::MonsterAttack && false == mbinvincibility)
+	{
+		if (mbControl)
+		{
+			if (other->GetOwner()->GetComponent<MonsterAttack>()->GetAttackAble())
+			{
+				mbControl = false;
+				//mPlayerFSM->mPlayerHurtState->mDirection = other->GetOwner()->GetComponent<MonsterAttack>()->GetAttackDirection();
+				Rigidbody2D* const rigidbody = GetOwner()->GetComponent<Rigidbody2D>();
+				Vector2 direction = rigidbody->GetDirection();
+				direction.x *= -1.f;
+				mPlayerFSM->mPlayerHurtState->mDirection = direction;
+				mPlayerFSM->ChangeState(mPlayerFSM->mPlayerHurtState);
+
+
+				gSoundManager->PlayInForce(eResAudioClip::PlayerDie, 1.f);
+
+				Camera* const mainCamera = GetOwner()->GetGameSystem()->GetRenderTargetRenderer()->GetRegisteredRenderCamera(eCameraPriorityType::Main);
+
+				mainCamera->GetOwner()->GetComponent<FolowPlayer>()->ShakeCamera();
+				GameManager::GetInstance()->GetEventManager()->ShotTimeEffect(0.1f, 0.2f);
+			}
+		}
+	}	
 }
 
 void PlayerController::idleToRun()

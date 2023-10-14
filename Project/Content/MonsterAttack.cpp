@@ -5,6 +5,7 @@
 MonsterAttack::MonsterAttack()
     : ScriptComponent(eScriptComponentType::MonsterAttack)
     , mAttackDirection(Vector2::Zero)
+    , mbAttackAble(true)
 {
 }
 

@@ -9,6 +9,8 @@ SoundManager::SoundManager()
 	: mMainCamera(nullptr)
 	, mScene(nullptr)
 	, mbSoundOn(true)
+	, mbFitch(false)
+	, mPitch(1.f)
 {
 }
 
@@ -37,6 +39,8 @@ void SoundManager::Play(eResAudioClip audioClip)
 	if (mbSoundOn)
 	{
 		clip->Play();
+
+		//clip->SetPitch(mPitch);
 	}	
 }
 
@@ -56,19 +60,23 @@ void SoundManager::Play(eResAudioClip audioClip, float volume)
 	{
 		clip->Play();
 		clip->SetVolume(volume);
+
+		//clip->SetPitch(mPitch);
 	}	
 }
 
 void SoundManager::Play(eResAudioClip audioClip, float volume, bool loop)
 {
-	AudioClip* clip = getClip(audioClip);
+	AudioClip* clip = getClip(audioClip);	
 
 	if (mbSoundOn)
 	{
 		clip->Play();
 		clip->SetVolume(volume);
 		clip->SetLoop(loop);
-	}	
+
+		//clip->SetPitch(mPitch);
+	}
 }
 
 void SoundManager::Stop(eResAudioClip audioClip)
@@ -117,5 +125,18 @@ void SoundManager::TurnOnSound()
 void SoundManager::TurnOffSound()
 {
 	mbSoundOn = false;
+}
+
+void SoundManager::SetSoundPitch(float fitch)
+{
+	mPitch = fitch;
+
+	for (int i = 0; i < static_cast<int>(eResAudioClip::End); i++)
+	{
+		eResAudioClip clipType = static_cast<eResAudioClip>(i);
+		AudioClip* clip = getClip(clipType);
+
+		clip->SetPitch(fitch);
+	}	
 }
 

@@ -34,11 +34,11 @@ void PathInfo::clear()
 	mIdx = 0;
 }
 
-std::queue<PathNode*> PathInfo::Dijikstra(const int start, const int end)
+std::vector<PathNode*> PathInfo::Dijikstra(const int start, const int end)
 {
     if (start == end)
     {
-        return std::queue<PathNode*>();
+        return std::vector<PathNode*>();
     }
 
     const int MAX_DISTANCE = 99999999;
@@ -103,14 +103,14 @@ std::queue<PathNode*> PathInfo::Dijikstra(const int start, const int end)
 		next = parent[next];
     }    
 
-    std::reverse(path.begin(), path.end());
+   /* std::reverse(path.begin(), path.end());
 
     std::queue<PathNode*> q;
     for (auto node : path)  
     {
 		q.push(node);
-	}
+	}*/
 
-	return q;
+	return path;
 }
 

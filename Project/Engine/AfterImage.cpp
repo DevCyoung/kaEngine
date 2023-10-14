@@ -30,7 +30,7 @@ AfterImage::AfterImage()
 	, colorType(0)
 	, count(0)
 {
-	SetMaterial(gResourceManager->FindOrNull<Material>(L"Animation2D"));
+	SetMaterial(gResourceManager->FindOrNull<Material>(L"AfterImage"));
 	SetMesh(gResourceManager->FindOrNull<Mesh>(L"FillRect2D"));
 }
 
@@ -46,31 +46,11 @@ void AfterImage::initialize()
 void AfterImage::update()
 {
 	RenderComponent::update();
-
-	//Rigidbody2D * rigidbody = GetOwner()->GetComponent<Rigidbody2D>();
-
-	
-
-	//if (rigidbody->GetVelocity().Length() > 400.f)
-	//{
-	//	mAlphaTime = 1.f;
-	//}
-	//else
-	//{
-	//	mAlphaTime = 1.4f;
-	//}
-	//
-	//if (rigidbody->GetVelocity().Length() == 0.f)
-	//{
-	//	mAlphaTime = 2.f;
-	//}
-
-
 }
 
 void AfterImage::lateUpdate()
 {
-	//Rigidbody2D* const rigidbody2D = GetOwner()->GetComponentOrNull<Rigidbody2D>();
+	Rigidbody2D* const rigidbody2D = GetOwner()->GetComponentOrNull<Rigidbody2D>();
 
 	mCurTime += gDeltaTime;
 
@@ -82,18 +62,19 @@ void AfterImage::lateUpdate()
 
 	if (mCurTime >= mCreateDeltaTime)
 	{
-		tAfterImageInfo info = {};
-		info.CBTransform = mAnimator->GetCBTransform();		
-		info.CurTime = mAlphaTime;
-		info.MaxTime = mAlphaMaxTime;
-		info.CBAnimationInfo = mAnimator->GetCBAnimationInfo();
-		info.texture = mAnimator->GetCurAnimationOrNull()->GetAtlas();
-		info.colorType = colorType;		
-
-		mCurTime = 0.f;
-		afters.push_back(info);
-
-		++count;
+		if (false == rigidbody2D->IsStop())
+		{
+			tAfterImageInfo info = {};
+			info.CBTransform = mAnimator->GetCBTransform();
+			info.CurTime = mAlphaTime;
+			info.MaxTime = mAlphaMaxTime;
+			info.CBAnimationInfo = mAnimator->GetCBAnimationInfo();
+			info.texture = mAnimator->GetCurAnimationOrNull()->GetAtlas();
+			info.colorType = colorType;
+			mCurTime = 0.f;
+			afters.push_back(info);
+			++count;
+		}		
 	}
 
 	for (auto& item : afters)
@@ -131,18 +112,16 @@ void AfterImage::render(const Camera* const camera)
 			CBTransform.Proj = camera->GetProjection();
 			gGraphicDevice->PassCB(eCBType::Transform, sizeof(CBTransform), &CBTransform);
 			gGraphicDevice->BindCB(eCBType::Transform, eShaderBindType::VS);
-		}
+		}		
+		
 
-		Mesh* mesh = mAnimator->GetMesh();
-		Material* material = mAnimator->GetMaterial();
-
-		gGraphicDevice->BindMesh(mesh);
-		gGraphicDevice->BindIA(material->GetShader());
-		gGraphicDevice->BindPS(material->GetShader());
-		gGraphicDevice->BindVS(material->GetShader());
-		gGraphicDevice->BindBS(material->GetShader()->GetBSType());
-		gGraphicDevice->BindDS(material->GetShader()->GetDSType());
-		gGraphicDevice->BindRS(material->GetShader()->GetRSType());
+		gGraphicDevice->BindMesh(mMesh);
+		gGraphicDevice->BindIA(mMaterial->GetShader());
+		gGraphicDevice->BindPS(mMaterial->GetShader());
+		gGraphicDevice->BindVS(mMaterial->GetShader());
+		gGraphicDevice->BindBS(mMaterial->GetShader()->GetBSType());
+		gGraphicDevice->BindDS(mMaterial->GetShader()->GetDSType());
+		gGraphicDevice->BindRS(mMaterial->GetShader()->GetRSType());
 
 		const Texture* const P_ATLAS = info.texture;
 		Assert(P_ATLAS, WCHAR_IS_NULLPTR);

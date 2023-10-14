@@ -1,4 +1,11 @@
 #pragma once
+
+struct tTimeEffect
+{
+	float TimeScale;
+	float Duration;
+};
+
 class EventManager
 {
 public:
@@ -14,5 +21,7 @@ public:
 	bool mbTimeEffect;
 	float mTimeEffectDuration;
 	float mTimeEffectTimeScale;
+
+	std::queue<tTimeEffect> mTimeEffects;
 };
 

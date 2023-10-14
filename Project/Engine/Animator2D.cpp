@@ -177,6 +177,78 @@ const std::function<void()>& Animator2D::FindEndEvent(const std::wstring animNam
 	return events->endEvent.mEvent;
 }
 
+void Animator2D::SetColorR(float r)
+{
+	mColorInfo.bSetColorR = 1;
+	mColorInfo.R = r;
+}
+
+void Animator2D::SetColorG(float g)
+{
+	mColorInfo.bSetColorG = 1;
+	mColorInfo.G = g;
+}
+
+void Animator2D::SetColorB(float b)
+{
+	mColorInfo.bSetColorB = 1;
+	mColorInfo.B = b;
+}
+
+void Animator2D::SetColorA(float a)
+{
+	mColorInfo.bSetColorA = 1;
+	mColorInfo.A = a;	
+}
+
+void Animator2D::SetColorReset()
+{
+	mColorInfo.bSetColorR = 0;
+	mColorInfo.bSetColorG = 0;
+	mColorInfo.bSetColorB = 0;
+	mColorInfo.bSetColorA = 0;
+}
+
+void Animator2D::MulColorR(float r)
+{
+	mColorInfo.bMulColorR = 1;
+	mColorInfo.MulR = r;
+}
+
+void Animator2D::MulColorG(float g)
+{
+	mColorInfo.bMulColorG = 1;
+	mColorInfo.MulG = g;
+}
+
+void Animator2D::MulColorB(float b)
+{
+	mColorInfo.bMulColorB = 1;
+	mColorInfo.MulB = b;
+}
+
+void Animator2D::MulColorA(float a)
+{
+	mColorInfo.bMulColorA = 1;
+	mColorInfo.MulA = a;
+}
+
+void Animator2D::MulColor(float r, float g, float b, float a)
+{
+	MulColorR(r);
+	MulColorG(g);
+	MulColorB(b);
+	MulColorA(a);
+}
+
+void Animator2D::MulColorReset()
+{
+	mColorInfo.bMulColorR = 0;
+	mColorInfo.bMulColorG = 0;
+	mColorInfo.bMulColorB = 0;
+	mColorInfo.bMulColorA = 0;
+}
+
 
 void Animator2D::initialize()
 {

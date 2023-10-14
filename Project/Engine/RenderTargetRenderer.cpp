@@ -119,19 +119,6 @@ void RenderTargetRenderer::Render(const UINT renderTargetWidth,
 	gGraphicDevice->BindCB(eCBType::GlobalInfo, eShaderBindType::VS);
 	gGraphicDevice->BindCB(eCBType::GlobalInfo, eShaderBindType::PS);
 
-	//tWaveInfo waveInfo = {};
-
-	//waveInfo.WaveXPower = 20.f;
-	//waveInfo.WaveYPower = 0.f;
-	//waveInfo.WaveSpeed = 10.f;
-
-	//gGraphicDevice->PassCB(eCBType::Wave, sizeof(waveInfo), &waveInfo);	
-	//gGraphicDevice->BindCB(eCBType::Wave, eShaderBindType::PS);
-
-
-	//TODO: 알파블렌딩 Z솔트가 필요할떄 적용한다.
-	//zSortRenderObjectArray(eRenderType::Transparent);
-
 	for (const Camera* const P_CAMERA : mCameras)
 	{
 		if (nullptr == P_CAMERA)
@@ -161,9 +148,10 @@ void RenderTargetRenderer::Render(const UINT renderTargetWidth,
 			}
 		}
 	}
+
+
 	
 	const Camera* const P_MAIN_CAMERA = mCameras[static_cast<UINT>(eCameraPriorityType::Main)];
-
 	Texture* const copyTexture = gResourceManager->Find<Texture>(L"CopyRenderTargetTexture");	
 
 	for (RenderComponent* const postProcessComponent : mPostProcessComponents)
@@ -183,8 +171,7 @@ void RenderTargetRenderer::flush()
 {
 
 	//TEST CODE
-	if (gInput->GetKey(eKeyCode::LSHIFT) &&
-		gInput->GetKeyDown(eKeyCode::L))
+	if (gInput->GetKeyDown(eKeyCode::L))
 	{
 		if (IsVisibleDebugRenderer())
 		{

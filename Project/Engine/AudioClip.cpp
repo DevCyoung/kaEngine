@@ -53,10 +53,11 @@ void AudioClip::Play()
 	//mChannel->setVolume(0.f);
 
 	//mChannel->play
-	//mChannel->setVolume(0.f);
+	//mChannel->setVolume(0.f);	
 
 	Fmod::SoundPlay(mSound, &mChannel);
-	mChannel->setVolume(1.f);
+
+	//mChannel->setVolume(1.f);
 }
 
 void AudioClip::SetVolume(float volume)
@@ -67,6 +68,13 @@ void AudioClip::SetVolume(float volume)
 void AudioClip::SetPitch(float pitch)
 {
 	mChannel->setPitch(pitch);
+}
+
+float AudioClip::GetPitch() const
+{
+	float pitch = 0.f;
+	mChannel->getPitch(&pitch);
+	return pitch;
 }
 
 void AudioClip::SetSpeed(float speed)

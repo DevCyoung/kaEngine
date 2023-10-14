@@ -1,146 +1,19 @@
 #include "pch.h"
 #include "Chinatown01Scene.h"
-#include "TItleScene.h"
-#include "Components.h"
-#include "ResourceManager.h"
-#include "GameObjectBuilder.h"
-#include "MaterialBuilder.h"
-#include "CameraInputMoveMent.h"
-#include "CursorMovement.h"
-#include "UIEffect.h"
-#include "Bugiman.h"
-#include "PlayerMovementTest.h"
-#include "ShiftController.h"
-#include <Engine/Engine.h>
-#include <Engine/SceneManager.h>
-#include <Engine/EngineMath.h>
-#include "LerpTest.h"
-#include <Engine/CollisionManagement2D.h>
-#include "InputMovementTest.h"
-#include "ChildTest.h"
-#include "ParentTest.h"
-#include "NoiseTest.h"
-#include "PlayerController.h"
-#include "PlayerFSM.h"
-#include "GridPainter.h"
-#include <Engine/Color.h>
-#include "PickPixelTest.h"
-#include "Rect2DInterpolation.h"
-#include "SimpleEditorCollider2D.h"
-#include "GameManager.h"
-#include "PathNode.h"
 #include "Chinatown04Scene.h"
-#include "CameraWall.h"
-#include "RewindComponent.h"
-
-
-
-#include <Engine/ConstantBuffer.h>
-#include <Engine/Engine.h>
-#include <Engine/GraphicDeviceDx11.h>
-
 #include "GalssWindow.h"
 
 Chinatown01Scene::Chinatown01Scene()
 {
 	SetBackgroundColor(Vector4(0.5294f, 0.5254f, 0.7843f, 1.f));
+}
 
-	mCollisionManagement2D->TurnOffAllCollisionLayer();
+Chinatown01Scene::~Chinatown01Scene()
+{
+}
 
-	mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Player, eLayerType::Wall);
-	mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Monster, eLayerType::Wall);
-	mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Player, eLayerType::Platform);
-	mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Monster, eLayerType::Platform);
-	mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Monster, eLayerType::Door);
-	mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Player, eLayerType::Door);
-	mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Door, eLayerType::PlayerAttack);
-	mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Monster, eLayerType::PlayerAttack);
-	mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Bullet, eLayerType::PlayerAttack);
-	mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Bullet, eLayerType::PlayerAttack);
-	mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Camera, eLayerType::CameraWall);
-
-
-	mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Wall, eLayerType::PlayerAttack);
-
-
-	{
-		tWaveInfo waveInfo = {};
-
-		waveInfo.WaveXPower = 0.f;
-		waveInfo.WaveYPower = 0.f;
-		waveInfo.WaveSpeed = 0.f;
-
-		gGraphicDevice->PassCB(eCBType::Wave, sizeof(waveInfo), &waveInfo);
-		gGraphicDevice->BindCB(eCBType::Wave, eShaderBindType::PS);
-	}
-
-//#pragma region Material
-//	{
-//		Material* const material =
-//			MaterialBuilder::Sprite2D(eRenderPriorityType::Opqaue, eResTexture::Map_Chinatown01_spr_chinatown_parallax_1);
-//		gResourceManager->Insert(L"Chanatown05BackGround01", material);
-//	}
-//
-//	{
-//		Material* const material =
-//			MaterialBuilder::Sprite2D(
-//				eRenderPriorityType::Opqaue, eResTexture::Map_Chinatown01_spr_chinatown_parallax_2);
-//		gResourceManager->Insert(L"Chanatown05BackGround02", material);
-//	}
-//
-//	{
-//		Material* const material =
-//			MaterialBuilder::Sprite2D(
-//				eRenderPriorityType::Opqaue, eResTexture::Map_Chinatown01_spr_chinatown_parallax_3);
-//		gResourceManager->Insert(L"Chanatown05BackGround03", material);
-//	}
-//
-//	{
-//		Material* const material =
-//			MaterialBuilder::Sprite2D(
-//				eRenderPriorityType::Opqaue, eResTexture::Map_Chinatown01_Tilemap);
-//		gResourceManager->Insert(L"Chanatown01TileMap", material);
-//	}
-//#pragma endregion
-
-#pragma region MapObj
-	{
-		GameObject* const obj = GameObjectBuilder::Default2D(L"Chanatown05BackGround01");
-		obj->GetComponent<Transform>()->SetScale(2.f, 2.f, 1.f);
-		obj->GetComponent<Transform>()->SetPosition(-580, 560.f, 500.f);
-
-		AddGameObject(obj, eLayerType::BackGround);
-	}
-
-	{
-		GameObject* const obj = GameObjectBuilder::Default2D(L"Chanatown05BackGround02");
-
-		obj->GetComponent<Transform>()->SetScale(2.5f, 2.5f, 1.f);
-		obj->GetComponent<Transform>()->SetPosition(-640, 560.f, 600.f);
-
-
-		AddGameObject(obj, eLayerType::BackGround);
-	}
-
-	{
-		GameObject* const obj = GameObjectBuilder::Default2D(L"Chanatown05BackGround03");
-
-		obj->GetComponent<Transform>()->SetScale(2.5f, 2.5f, 1.f);
-		obj->GetComponent<Transform>()->SetPosition(-640, 560.f, 700.f);
-
-		AddGameObject(obj, eLayerType::BackGround);
-	}
-#pragma endregion
-
-#pragma region Editor
-	//{
-	//	GameObject* const testObj = new GameObject();
-	//	testObj->AddComponent<SimpleEditorCollider2D>();
-	//	AddGameObject(testObj, eLayerType::Default);
-	//}
-#pragma endregion
-
-#pragma region WallObj
+void Chinatown01Scene::AddWallObject()
+{
 	{
 		GameObject* const wall = new GameObject();
 		//[RectCollider]
@@ -390,99 +263,77 @@ Chinatown01Scene::Chinatown01Scene()
 		AddGameObject(wall, eLayerType::Platform);
 	}
 
+}
 
+void Chinatown01Scene::AddDoorObject()
+{
+	{
+		GameObject* door = GameObjectBuilder::InstantiateDoor(this);
+		door->GetComponent<Transform>()->SetPosition(-1854, 480, 0);
+	}
 
-#pragma endregion
+	{
+		GameObject* door = GameObjectBuilder::InstantiateDoor(this);
+		door->GetComponent<Transform>()->SetPosition(-1024, 192, 0);
+	}
 
-#pragma region Monster	
+	{
+		GameObject* door = GameObjectBuilder::InstantiateDoor(this);
+		door->GetComponent<Transform>()->SetPosition(-192, 192, 0);
+	}
 
+	{
+		GameObject* door = GameObjectBuilder::InstantiateDoor(this);
+		door->GetComponent<Transform>()->SetPosition(258, 192, 0);
+	}
+}
+
+void Chinatown01Scene::AddMonsterObject()
+{
 	//1類
 	//monster
-	{
-		GameObject* monster = GameObjectBuilder::InstantiateMonster(eMonsterType::Cop, this);
-		monster->GetComponent<Transform>()->SetPosition(-500, 150, 0);
-		monster->GetComponent<Transform>()->SetFlipx(true);
-	}
-
-	{
-		GameObject* monster = GameObjectBuilder::InstantiateMonster(eMonsterType::Shotgun, this);
-		monster->GetComponent<Transform>()->SetPosition(-600, 150, 0);
-		monster->GetComponent<Transform>()->SetFlipx(true);
-	}
-
-	{
-		GameObject* monster = GameObjectBuilder::InstantiateMonster(eMonsterType::Shotgun, this);
-		monster->GetComponent<Transform>()->SetPosition(-700, 150, 0);
-		monster->GetComponent<Transform>()->SetFlipx(true);
-	}
-
-	{
-		GameObject* monster = GameObjectBuilder::InstantiateMonster(eMonsterType::Shield, this);
-		monster->GetComponent<Transform>()->SetPosition(-850, 150, 0);
-		monster->GetComponent<Transform>()->SetFlipx(true);
-	}
-
-	//monster
-	{
-		GameObject* monster = GameObjectBuilder::InstantiateMonster(eMonsterType::Cop, this);
-		monster->GetComponent<Transform>()->SetPosition(100, 150, 0);
-		monster->GetComponent<Transform>()->SetFlipx(true);
-	}
-
-	//monster
-	{
-		GameObject* monster = GameObjectBuilder::InstantiateMonster(eMonsterType::Shield, this);
-		monster->GetComponent<Transform>()->SetPosition(550, 150, 0);
-		monster->GetComponent<Transform>()->SetFlipx(true);
-	}
-
+	InstantiateMonster(eMonsterType::Cop, Vector2(-500, 150), true);
+	InstantiateMonster(eMonsterType::Shotgun, Vector2(-600, 150), true);
+	InstantiateMonster(eMonsterType::Shotgun, Vector2(-700, 150), true);	
+	//InstantiateMonster(eMonsterType::Shield, Vector2(-800, 150), true);
+	InstantiateMonster(eMonsterType::Cop, Vector2(-100, 150), true);	
+	InstantiateMonster(eMonsterType::Shield, Vector2(550, 150), true);
 
 	//2類 豭薹
-	//monster
-	{
-		GameObject* monster = GameObjectBuilder::InstantiateMonster(eMonsterType::Shield, this);
-		monster->GetComponent<Transform>()->SetPosition(-1700, 450, 0);
-		monster->GetComponent<Transform>()->SetFlipx(true);
-	}
-
+	InstantiateMonster(eMonsterType::Shield, Vector2(-1700, 450), true);	
+	
 	//2類 螃艇薹
-	//monster
-	{
-		GameObject* monster = GameObjectBuilder::InstantiateMonster(eMonsterType::Cop, this);
-		monster->GetComponent<Transform>()->SetPosition(0, 450, 0);
-	}
-
-	//monster
-	{
-		GameObject* monster = GameObjectBuilder::InstantiateMonster(eMonsterType::Shotgun, this);
-		monster->GetComponent<Transform>()->SetPosition(350, 450, 0);
-		monster->GetComponent<Transform>()->SetFlipx(true);
-	}
-
+	InstantiateMonster(eMonsterType::Cop, Vector2(0, 450));
+	InstantiateMonster(eMonsterType::Shotgun, Vector2(350, 450), true);
+	
 	//3類
-	{
-		GameObject* monster = GameObjectBuilder::InstantiateMonster(eMonsterType::Cop, this);
-		monster->GetComponent<Transform>()->SetPosition(200, 700, 0);
-	}
+	InstantiateMonster(eMonsterType::Cop, Vector2(0, 700));	
+}
 
-#pragma endregion	
+void Chinatown01Scene::AddObject()
+{
+	GameObject* glass = new GameObject();
+	glass->GetComponent<Transform>()->SetScale(2.f, 2.f, 1.f);
+	glass->GetComponent<Transform>()->SetPosition(-1000, 480, 0);
 
-#pragma region Tile Map
-	//tile map
-	{
-		GameObject* const tile = GameObjectBuilder::Default2D(L"Chanatown01TileMap");
-		/*tile->AddComponent<GridPainter>();
 
-		tile->GetComponent<GridPainter>()->SetCellSize(32);
-		tile->GetComponent<GridPainter>()->SetCellCount(XMUINT2(200, 200));
-		tile->GetComponent<GridPainter>()->SetColor(helper::Color::YELLOW);
-		tile->GetComponent<GridPainter>()->TurnOffDraw();*/
+	glass->AddComponent<RectCollider2D>();
+	glass->AddComponent<Animator2D>();
+	glass->AddComponent<GalssWindow>();
+	glass->AddComponent<RewindComponent>();
 
-		AddGameObject(tile, eLayerType::TileMap);
-	}
-#pragma endregion
+	glass->GetComponent<RectCollider2D>()->SetSize(5.f, 70.f);
 
-#pragma region Light
+	Animator2D* anim = glass->GetComponent<Animator2D>();
+	Texture* atlas = gResourceManager->FindOrNullByEnum<Texture>(eResTexture::Atlas_Particle_particle);
+	anim->CreateAnimation(L"GlassWindow", atlas, 1, XMUINT2(5, 793), XMUINT2(2, 64), XMUINT2(10, 10), XMINT2(0, 0), 0.125f);
+	anim->Play(L"GlassWindow", true);
+
+	AddGameObject(glass, eLayerType::Wall);
+}
+
+void Chinatown01Scene::AddLightObject()
+{
 	{
 		GameObjectBuilder::InstantiateGlobalLight2D(this, eLayerType::Default);
 	}
@@ -560,19 +411,15 @@ Chinatown01Scene::Chinatown01Scene()
 		light->GetComponent<Transform>()->SetPosition(100, 250, 0);
 		AddGameObject(light, eLayerType::Light);
 	}
-#pragma endregion
+}
 
-#pragma region Camera
+void Chinatown01Scene::AddCameraObject()
+{
 	{
-		//GameObjectBuilder::AddUI(this);
 		GameObject* mainCamera = GameObjectBuilder::AddCamera(this);
-
-		//mainCamera->AddComponent<AudioListener>();
-
 		Vector3 pos = mainCamera->GetComponent<Transform>()->GetPosition();
-		mainCamera->GetComponent<Transform>()->SetPosition(-1568, 452, pos.z);		
+		mainCamera->GetComponent<Transform>()->SetPosition(-1568, 452, pos.z);
 	}
-
 
 	//Camera Wall
 	{
@@ -585,7 +432,7 @@ Chinatown01Scene::Chinatown01Scene()
 			wall->GetComponent<Transform>()->SetPosition(-720, -64, 0);
 			wall->GetComponent<RectCollider2D>()->SetSize(Vector2(3232, 192));
 			wall->GetComponent<CameraWall>()->SetCameraWallType(eCameraWallType::Down);
-			
+
 
 			AddGameObject(wall, eLayerType::CameraWall);
 		}
@@ -614,426 +461,346 @@ Chinatown01Scene::Chinatown01Scene()
 			wall->GetComponent<CameraWall>()->SetCameraWallType(eCameraWallType::Right);
 			AddGameObject(wall, eLayerType::CameraWall);
 		}
-
-
 	}
+}
 
-	
-#pragma endregion
-
+void Chinatown01Scene::AddUIObject()
+{
 #pragma region UI
-	{
-		GameObjectBuilder::AddUI(this);
-	}
+	GameObjectBuilder::AddUI(this);
 #pragma endregion
-
-#pragma region Door
-
-	{
-		GameObject* door = GameObjectBuilder::InstantiateDoor(this);
-		door->GetComponent<Transform>()->SetPosition(-1854, 480, 0);
-	}
-
-	{
-		GameObject* door = GameObjectBuilder::InstantiateDoor(this);
-		door->GetComponent<Transform>()->SetPosition(-1024, 192, 0);
-	}
-
-	{
-		GameObject* door = GameObjectBuilder::InstantiateDoor(this);
-		door->GetComponent<Transform>()->SetPosition(-192, 192, 0);
-	}
-
-	{
-		GameObject* door = GameObjectBuilder::InstantiateDoor(this);
-		door->GetComponent<Transform>()->SetPosition(258, 192, 0);
-	}
-	
-
-#pragma endregion
-
-#pragma region Glass
-
-	GameObject* glass = new GameObject();
-	glass->GetComponent<Transform>()->SetScale(2.f, 2.f, 1.f);
-	glass->GetComponent<Transform>()->SetPosition(-1000, 480, 0);
-	
-
-	glass->AddComponent<RectCollider2D>();
-	glass->AddComponent<Animator2D>();		
-	glass->AddComponent<GalssWindow>();
-	glass->AddComponent<RewindComponent>();
-
-	glass->GetComponent<RectCollider2D>()->SetSize(5.f, 70.f);
-
-	Animator2D* anim = glass->GetComponent<Animator2D>();
-	Texture* atlas = gResourceManager->FindOrNullByEnum<Texture>(eResTexture::Atlas_Particle_particle);
-	anim->CreateAnimation(L"GlassWindow", atlas, 1, XMUINT2(5, 793), XMUINT2(2, 64), XMUINT2(10, 10), XMINT2(0, 0), 0.125f);
-	anim->Play(L"GlassWindow", true);
-
-	AddGameObject(glass, eLayerType::Wall);
-#pragma endregion
-
-
-#pragma region PostProcess
-	{
-		GameObject* const postProcess = new GameObject();
-
-		postProcess->AddComponent<SpriteRenderer>();
-
-		postProcess->GetComponent<SpriteRenderer>()->SetMaterial(
-			gResourceManager->FindOrNull<Material>(L"GrayPostProcess"));
-
-		postProcess->GetComponent<SpriteRenderer>()->TurnOffVisiblelity();
-
-		AddGameObject(postProcess, eLayerType::Default);
-	}
-
-	{
-		GameObject* const postProcess = new GameObject();
-
-		postProcess->AddComponent<SpriteRenderer>();
-		postProcess->GetComponent<SpriteRenderer>()->SetMaterial(
-			gResourceManager->FindOrNull<Material>(L"WavePostProcess"));
-
-		AddGameObject(postProcess, eLayerType::Default);
-	}
-#pragma endregion
-
 }
 
-Chinatown01Scene::~Chinatown01Scene()
+void Chinatown01Scene::AddPlayerObject()
 {
-	GameManager::deleteInstance();
-}
-
-void Chinatown01Scene::initialize()
-{
-	GameManager::initialize();
-	GameManager::GetInstance()->GetRewindManager()->SetRewindState(eRewindState::Record);
-	GameManager::GetInstance()->GetRewindManager()->Initialize(this);
-	GameManager::GetInstance()->GetEffectManager()->Initialize(this);
-
-#pragma region Player
 	{
 		GameObject* player = GameObjectBuilder::InstantiatePlayer(this);
 		player->GetComponent<Transform>()->SetPosition(-2000, 450, 0);
 
 		GameManager::GetInstance()->SetPlayer(player);
 	}
-#pragma endregion
-#pragma region PathNode
-		PathInfo* const pathInfo = GameManager::GetInstance()->GetPathInfo();
 
-		{
-			GameObject* const wall = new GameObject();
-			//[LineCollider]
-			wall->AddComponent<LineCollider2D>();
-			wall->AddComponent<PathNode>();
 
-			pathInfo->AddPathNode(wall->GetComponent<PathNode>());
+	PathInfo* const pathInfo = GameManager::GetInstance()->GetPathInfo();
+	{
+		GameObject* const wall = new GameObject();
+		//[LineCollider]
+		wall->AddComponent<LineCollider2D>();
+		wall->AddComponent<PathNode>();
 
-			wall->GetComponent<Transform>()->SetPosition(0.f, 0.f, 0.f);
-			wall->GetComponent<LineCollider2D>()->SetPoints(-2176, 416, -1504, 416);
+		pathInfo->AddPathNode(wall->GetComponent<PathNode>());
 
-			wall->GetComponent<LineCollider2D>()->TurnOnVisible();
-			wall->GetComponent<LineCollider2D>()->SetColor(helper::Color::BLUE);
-			wall->GetComponent<PathNode>()->SetType(eLayerType::Wall);
+		wall->GetComponent<Transform>()->SetPosition(0.f, 0.f, 0.f);
+		wall->GetComponent<LineCollider2D>()->SetPoints(-2176, 416, -1504, 416);
 
-			AddGameObject(wall, eLayerType::PathNode);
-		}
+		wall->GetComponent<LineCollider2D>()->TurnOnVisible();
+		wall->GetComponent<LineCollider2D>()->SetColor(helper::Color::BLUE);
+		wall->GetComponent<PathNode>()->SetType(eLayerType::Wall);
 
-		{
-			GameObject* const wall = new GameObject();
-			//[LineCollider]
-			wall->AddComponent<LineCollider2D>();
-			wall->AddComponent<PathNode>();
+		AddGameObject(wall, eLayerType::PathNode);
+	}
 
-			pathInfo->AddPathNode(wall->GetComponent<PathNode>());
+	{
+		GameObject* const wall = new GameObject();
+		//[LineCollider]
+		wall->AddComponent<LineCollider2D>();
+		wall->AddComponent<PathNode>();
 
-			wall->GetComponent<Transform>()->SetPosition(0.f, 0.f, 0.f);
-			wall->GetComponent<LineCollider2D>()->SetPoints(-1504, 416, -992, 416);
+		pathInfo->AddPathNode(wall->GetComponent<PathNode>());
 
-			wall->GetComponent<LineCollider2D>()->TurnOnVisible();
-			wall->GetComponent<LineCollider2D>()->SetColor(helper::Color::MAGENTA);
-			wall->GetComponent<PathNode>()->SetType(eLayerType::Wall);
+		wall->GetComponent<Transform>()->SetPosition(0.f, 0.f, 0.f);
+		wall->GetComponent<LineCollider2D>()->SetPoints(-1504, 416, -992, 416);
 
-			AddGameObject(wall, eLayerType::PathNode);
+		wall->GetComponent<LineCollider2D>()->TurnOnVisible();
+		wall->GetComponent<LineCollider2D>()->SetColor(helper::Color::MAGENTA);
+		wall->GetComponent<PathNode>()->SetType(eLayerType::Wall);
 
-		}
+		AddGameObject(wall, eLayerType::PathNode);
 
+	}
 
-		{
-			GameObject* const wall = new GameObject();
-			//[LineCollider]
-			wall->AddComponent<LineCollider2D>();
-			wall->AddComponent<PathNode>();
 
-			pathInfo->AddPathNode(wall->GetComponent<PathNode>());
+	{
+		GameObject* const wall = new GameObject();
+		//[LineCollider]
+		wall->AddComponent<LineCollider2D>();
+		wall->AddComponent<PathNode>();
 
-			wall->GetComponent<Transform>()->SetPosition(0.f, 0.f, 0.f);
-			wall->GetComponent<LineCollider2D>()->SetPoints(-1504, 416, -1216, 128);
+		pathInfo->AddPathNode(wall->GetComponent<PathNode>());
 
+		wall->GetComponent<Transform>()->SetPosition(0.f, 0.f, 0.f);
+		wall->GetComponent<LineCollider2D>()->SetPoints(-1504, 416, -1216, 128);
 
-			wall->GetComponent<LineCollider2D>()->TurnOnVisible();
-			wall->GetComponent<LineCollider2D>()->SetColor(helper::Color::YELLOW);
-			wall->GetComponent<PathNode>()->SetType(eLayerType::LeftSlope);
 
-			AddGameObject(wall, eLayerType::PathNode);
-		}
+		wall->GetComponent<LineCollider2D>()->TurnOnVisible();
+		wall->GetComponent<LineCollider2D>()->SetColor(helper::Color::YELLOW);
+		wall->GetComponent<PathNode>()->SetType(eLayerType::LeftSlope);
 
+		AddGameObject(wall, eLayerType::PathNode);
+	}
 
 
-		{
-			GameObject* const wall = new GameObject();
 
-			//[LineCollider]
-			wall->AddComponent<LineCollider2D>();
-			wall->AddComponent<PathNode>();
+	{
+		GameObject* const wall = new GameObject();
 
-			pathInfo->AddPathNode(wall->GetComponent<PathNode>());
+		//[LineCollider]
+		wall->AddComponent<LineCollider2D>();
+		wall->AddComponent<PathNode>();
 
-			wall->GetComponent<Transform>()->SetPosition(0.f, 0.f, 0.f);
-			wall->GetComponent<LineCollider2D>()->SetPoints(-1216, 128, 96, 128);
+		pathInfo->AddPathNode(wall->GetComponent<PathNode>());
 
-			wall->GetComponent<LineCollider2D>()->TurnOnVisible();
-			wall->GetComponent<LineCollider2D>()->SetColor(helper::Color::BLUE);
-			wall->GetComponent<PathNode>()->SetType(eLayerType::Wall);
+		wall->GetComponent<Transform>()->SetPosition(0.f, 0.f, 0.f);
+		wall->GetComponent<LineCollider2D>()->SetPoints(-1216, 128, 96, 128);
 
-			AddGameObject(wall, eLayerType::PathNode);
-		}
+		wall->GetComponent<LineCollider2D>()->TurnOnVisible();
+		wall->GetComponent<LineCollider2D>()->SetColor(helper::Color::BLUE);
+		wall->GetComponent<PathNode>()->SetType(eLayerType::Wall);
 
+		AddGameObject(wall, eLayerType::PathNode);
+	}
 
-		{
-			GameObject* const wall = new GameObject();
 
-			//[LineCollider]
-			wall->AddComponent<LineCollider2D>();
-			wall->AddComponent<PathNode>();
+	{
+		GameObject* const wall = new GameObject();
 
-			pathInfo->AddPathNode(wall->GetComponent<PathNode>());
+		//[LineCollider]
+		wall->AddComponent<LineCollider2D>();
+		wall->AddComponent<PathNode>();
 
-			wall->GetComponent<Transform>()->SetPosition(0.f, 0.f, 0.f);
-			wall->GetComponent<LineCollider2D>()->SetPoints(96, 128, 96, 224);
+		pathInfo->AddPathNode(wall->GetComponent<PathNode>());
 
-			wall->GetComponent<LineCollider2D>()->TurnOnVisible();
-			wall->GetComponent<LineCollider2D>()->SetColor(helper::Color::WHITE);
-			wall->GetComponent<PathNode>()->SetType(eLayerType::Elevator);
+		wall->GetComponent<Transform>()->SetPosition(0.f, 0.f, 0.f);
+		wall->GetComponent<LineCollider2D>()->SetPoints(96, 128, 96, 224);
 
-			AddGameObject(wall, eLayerType::PathNode);
-		}
+		wall->GetComponent<LineCollider2D>()->TurnOnVisible();
+		wall->GetComponent<LineCollider2D>()->SetColor(helper::Color::WHITE);
+		wall->GetComponent<PathNode>()->SetType(eLayerType::Elevator);
 
-		{
-			GameObject* const wall = new GameObject();
+		AddGameObject(wall, eLayerType::PathNode);
+	}
 
-			//[LineCollider]
-			wall->AddComponent<LineCollider2D>();
-			wall->AddComponent<PathNode>();
+	{
+		GameObject* const wall = new GameObject();
 
-			pathInfo->AddPathNode(wall->GetComponent<PathNode>());
+		//[LineCollider]
+		wall->AddComponent<LineCollider2D>();
+		wall->AddComponent<PathNode>();
 
-			wall->GetComponent<Transform>()->SetPosition(0.f, 0.f, 0.f);
-			wall->GetComponent<LineCollider2D>()->SetPoints(96, 128, 864, 128);
+		pathInfo->AddPathNode(wall->GetComponent<PathNode>());
 
-			wall->GetComponent<LineCollider2D>()->TurnOnVisible();
-			wall->GetComponent<LineCollider2D>()->SetColor(helper::Color::MAGENTA);
-			wall->GetComponent<PathNode>()->SetType(eLayerType::Wall);
+		wall->GetComponent<Transform>()->SetPosition(0.f, 0.f, 0.f);
+		wall->GetComponent<LineCollider2D>()->SetPoints(96, 128, 864, 128);
 
-			AddGameObject(wall, eLayerType::PathNode);
-		}
+		wall->GetComponent<LineCollider2D>()->TurnOnVisible();
+		wall->GetComponent<LineCollider2D>()->SetColor(helper::Color::MAGENTA);
+		wall->GetComponent<PathNode>()->SetType(eLayerType::Wall);
 
-		//2類
-		{
-			GameObject* const wall = new GameObject();
+		AddGameObject(wall, eLayerType::PathNode);
+	}
 
-			//[LineCollider]
-			wall->AddComponent<LineCollider2D>();
-			wall->AddComponent<PathNode>();
+	//2類
+	{
+		GameObject* const wall = new GameObject();
 
-			pathInfo->AddPathNode(wall->GetComponent<PathNode>());
+		//[LineCollider]
+		wall->AddComponent<LineCollider2D>();
+		wall->AddComponent<PathNode>();
 
-			wall->GetComponent<Transform>()->SetPosition(0.f, 0.f, 0.f);
-			wall->GetComponent<LineCollider2D>()->SetPoints(-160, 416, 96, 416);
+		pathInfo->AddPathNode(wall->GetComponent<PathNode>());
 
+		wall->GetComponent<Transform>()->SetPosition(0.f, 0.f, 0.f);
+		wall->GetComponent<LineCollider2D>()->SetPoints(-160, 416, 96, 416);
 
-			wall->GetComponent<LineCollider2D>()->TurnOnVisible();
-			wall->GetComponent<LineCollider2D>()->SetColor(helper::Color::MAGENTA);
-			wall->GetComponent<PathNode>()->SetType(eLayerType::Wall);
 
-			AddGameObject(wall, eLayerType::PathNode);
-		}
+		wall->GetComponent<LineCollider2D>()->TurnOnVisible();
+		wall->GetComponent<LineCollider2D>()->SetColor(helper::Color::MAGENTA);
+		wall->GetComponent<PathNode>()->SetType(eLayerType::Wall);
 
-		{
-			GameObject* const wall = new GameObject();
+		AddGameObject(wall, eLayerType::PathNode);
+	}
 
-			//[LineCollider]
-			wall->AddComponent<LineCollider2D>();
-			wall->AddComponent<PathNode>();
+	{
+		GameObject* const wall = new GameObject();
 
-			pathInfo->AddPathNode(wall->GetComponent<PathNode>());
+		//[LineCollider]
+		wall->AddComponent<LineCollider2D>();
+		wall->AddComponent<PathNode>();
 
-			wall->GetComponent<Transform>()->SetPosition(0.f, 0.f, 0.f);
-			wall->GetComponent<LineCollider2D>()->SetPoints(96, 416, 96, 512);
+		pathInfo->AddPathNode(wall->GetComponent<PathNode>());
 
-			wall->GetComponent<LineCollider2D>()->TurnOnVisible();
-			wall->GetComponent<LineCollider2D>()->SetColor(helper::Color::WHITE);
-			wall->GetComponent<PathNode>()->SetType(eLayerType::Elevator);
+		wall->GetComponent<Transform>()->SetPosition(0.f, 0.f, 0.f);
+		wall->GetComponent<LineCollider2D>()->SetPoints(96, 416, 96, 512);
 
-			AddGameObject(wall, eLayerType::PathNode);
-		}
+		wall->GetComponent<LineCollider2D>()->TurnOnVisible();
+		wall->GetComponent<LineCollider2D>()->SetColor(helper::Color::WHITE);
+		wall->GetComponent<PathNode>()->SetType(eLayerType::Elevator);
 
-		{
-			GameObject* const wall = new GameObject();
+		AddGameObject(wall, eLayerType::PathNode);
+	}
 
-			//[LineCollider]
-			wall->AddComponent<LineCollider2D>();
-			wall->AddComponent<PathNode>();
+	{
+		GameObject* const wall = new GameObject();
 
-			pathInfo->AddPathNode(wall->GetComponent<PathNode>());
+		//[LineCollider]
+		wall->AddComponent<LineCollider2D>();
+		wall->AddComponent<PathNode>();
 
-			wall->GetComponent<Transform>()->SetPosition(0.f, 0.f, 0.f);
-			wall->GetComponent<LineCollider2D>()->SetPoints(96, 416, 480, 416);
+		pathInfo->AddPathNode(wall->GetComponent<PathNode>());
 
+		wall->GetComponent<Transform>()->SetPosition(0.f, 0.f, 0.f);
+		wall->GetComponent<LineCollider2D>()->SetPoints(96, 416, 480, 416);
 
-			wall->GetComponent<LineCollider2D>()->TurnOnVisible();
-			wall->GetComponent<LineCollider2D>()->SetColor(helper::Color::BLUE);
-			wall->GetComponent<PathNode>()->SetType(eLayerType::Wall);
 
-			AddGameObject(wall, eLayerType::PathNode);
-		}
+		wall->GetComponent<LineCollider2D>()->TurnOnVisible();
+		wall->GetComponent<LineCollider2D>()->SetColor(helper::Color::BLUE);
+		wall->GetComponent<PathNode>()->SetType(eLayerType::Wall);
 
-		//3類
-		{
-			GameObject* const wall = new GameObject();
+		AddGameObject(wall, eLayerType::PathNode);
+	}
 
-			//[LineCollider]
-			wall->AddComponent<LineCollider2D>();
-			wall->AddComponent<PathNode>();
+	//3類
+	{
+		GameObject* const wall = new GameObject();
 
-			pathInfo->AddPathNode(wall->GetComponent<PathNode>());
+		//[LineCollider]
+		wall->AddComponent<LineCollider2D>();
+		wall->AddComponent<PathNode>();
 
-			wall->GetComponent<Transform>()->SetPosition(0.f, 0.f, 0.f);
-			wall->GetComponent<LineCollider2D>()->SetPoints(-224, 672, 96, 672);
+		pathInfo->AddPathNode(wall->GetComponent<PathNode>());
 
-			wall->GetComponent<LineCollider2D>()->TurnOnVisible();
-			wall->GetComponent<LineCollider2D>()->SetColor(helper::Color::BLUE);
-			wall->GetComponent<PathNode>()->SetType(eLayerType::Wall);
+		wall->GetComponent<Transform>()->SetPosition(0.f, 0.f, 0.f);
+		wall->GetComponent<LineCollider2D>()->SetPoints(-224, 672, 96, 672);
 
-			AddGameObject(wall, eLayerType::PathNode);
-		}
+		wall->GetComponent<LineCollider2D>()->TurnOnVisible();
+		wall->GetComponent<LineCollider2D>()->SetColor(helper::Color::BLUE);
+		wall->GetComponent<PathNode>()->SetType(eLayerType::Wall);
 
-		{
-			GameObject* const wall = new GameObject();
+		AddGameObject(wall, eLayerType::PathNode);
+	}
 
-			//[LineCollider]
-			wall->AddComponent<LineCollider2D>();
-			wall->AddComponent<PathNode>();
+	{
+		GameObject* const wall = new GameObject();
 
-			pathInfo->AddPathNode(wall->GetComponent<PathNode>());
+		//[LineCollider]
+		wall->AddComponent<LineCollider2D>();
+		wall->AddComponent<PathNode>();
 
-			wall->GetComponent<Transform>()->SetPosition(0.f, 0.f, 0.f);
-			wall->GetComponent<LineCollider2D>()->SetPoints(96, 672, 96, 768);
+		pathInfo->AddPathNode(wall->GetComponent<PathNode>());
 
-			wall->GetComponent<LineCollider2D>()->TurnOnVisible();
-			wall->GetComponent<LineCollider2D>()->SetColor(helper::Color::WHITE);
-			wall->GetComponent<PathNode>()->SetType(eLayerType::Elevator);
+		wall->GetComponent<Transform>()->SetPosition(0.f, 0.f, 0.f);
+		wall->GetComponent<LineCollider2D>()->SetPoints(96, 672, 96, 768);
 
-			AddGameObject(wall, eLayerType::PathNode);
-		}
+		wall->GetComponent<LineCollider2D>()->TurnOnVisible();
+		wall->GetComponent<LineCollider2D>()->SetColor(helper::Color::WHITE);
+		wall->GetComponent<PathNode>()->SetType(eLayerType::Elevator);
 
-		{
-			GameObject* const wall = new GameObject();
+		AddGameObject(wall, eLayerType::PathNode);
+	}
 
-			//[LineCollider]
-			wall->AddComponent<LineCollider2D>();
-			wall->AddComponent<PathNode>();
+	{
+		GameObject* const wall = new GameObject();
 
-			pathInfo->AddPathNode(wall->GetComponent<PathNode>());
+		//[LineCollider]
+		wall->AddComponent<LineCollider2D>();
+		wall->AddComponent<PathNode>();
 
-			wall->GetComponent<Transform>()->SetPosition(0.f, 0.f, 0.f);
-			wall->GetComponent<LineCollider2D>()->SetPoints(96, 672, 480, 672);
+		pathInfo->AddPathNode(wall->GetComponent<PathNode>());
 
-			wall->GetComponent<LineCollider2D>()->TurnOnVisible();
-			wall->GetComponent<LineCollider2D>()->SetColor(helper::Color::MAGENTA);
-			wall->GetComponent<PathNode>()->SetType(eLayerType::Wall);
+		wall->GetComponent<Transform>()->SetPosition(0.f, 0.f, 0.f);
+		wall->GetComponent<LineCollider2D>()->SetPoints(96, 672, 480, 672);
 
-			AddGameObject(wall, eLayerType::PathNode);
-		}
+		wall->GetComponent<LineCollider2D>()->TurnOnVisible();
+		wall->GetComponent<LineCollider2D>()->SetColor(helper::Color::MAGENTA);
+		wall->GetComponent<PathNode>()->SetType(eLayerType::Wall);
 
+		AddGameObject(wall, eLayerType::PathNode);
+	}
 
+	//connect Edge
+	//0
+	pathInfo->InsertEdge(0, 1, 1);
+	pathInfo->InsertEdge(0, 2, 1);
 
+	//1
+	pathInfo->InsertEdge(1, 0, 1);
 
+	//2
+	pathInfo->InsertEdge(2, 0, 1);
+	pathInfo->InsertEdge(2, 3, 1);
 
-		//connect Edge
-		//0
-		pathInfo->InsertEdge(0, 1, 1);
-		pathInfo->InsertEdge(0, 2, 1);
+	//3
+	pathInfo->InsertEdge(3, 2, 1);
+	pathInfo->InsertEdge(3, 4, 1);
 
-		//1
-		pathInfo->InsertEdge(1, 0, 1);
+	//4 elevator
+	pathInfo->InsertEdge(4, 3, 1);
+	pathInfo->InsertEdge(4, 5, 1);
+	pathInfo->InsertEdge(4, 7, 1);
 
-		//2
-		pathInfo->InsertEdge(2, 0, 1);
-		pathInfo->InsertEdge(2, 3, 1);
+	//5 
+	pathInfo->InsertEdge(5, 4, 1);
 
-		//3
-		pathInfo->InsertEdge(3, 2, 1);
-		pathInfo->InsertEdge(3, 4, 1);
+	//6
+	pathInfo->InsertEdge(6, 7, 1);
 
-		//4 elevator
-		pathInfo->InsertEdge(4, 3, 1);
-		pathInfo->InsertEdge(4, 5, 1);
-		pathInfo->InsertEdge(4, 7, 1);
+	//7 elevator
+	pathInfo->InsertEdge(7, 6, 1);
+	pathInfo->InsertEdge(7, 8, 1);
+	pathInfo->InsertEdge(7, 4, 1);
+	pathInfo->InsertEdge(7, 10, 1);
 
-		//5 
-		pathInfo->InsertEdge(5, 4, 1);
+	//8
+	pathInfo->InsertEdge(8, 7, 1);
 
-		//6
-		pathInfo->InsertEdge(6, 7, 1);
+	//9 
+	pathInfo->InsertEdge(9, 10, 1);
 
-		//7 elevator
-		pathInfo->InsertEdge(7, 6, 1);
-		pathInfo->InsertEdge(7, 8, 1);
-		pathInfo->InsertEdge(7, 4, 1);
-		pathInfo->InsertEdge(7, 10, 1);
+	//10 elevator
+	pathInfo->InsertEdge(10, 9, 1);
+	pathInfo->InsertEdge(10, 11, 1);
+	pathInfo->InsertEdge(10, 7, 1);
 
-		//8
-		pathInfo->InsertEdge(8, 7, 1);
+	//11 
+	pathInfo->InsertEdge(11, 10, 1);
 
-		//9 
-		pathInfo->InsertEdge(9, 10, 1);
-
-		//10 elevator
-		pathInfo->InsertEdge(10, 9, 1);
-		pathInfo->InsertEdge(10, 11, 1);
-		pathInfo->InsertEdge(10, 7, 1);
-
-		//11 
-		pathInfo->InsertEdge(11, 10, 1);
-
-
-
-	#pragma endregion	
-	Scene::initialize();
-	TimeManager::GetInstance()->ResetTime();
-	//TimeManager::GetInstance()->ResetTime();
 }
 
-void Chinatown01Scene::update()
+void Chinatown01Scene::AddMapObject()
 {
-	Scene::update();
-
-	if (gInput->GetKeyDown(eKeyCode::P))
 	{
-		SceneManager::GetInstance()->RegisterLoadScene(new Chinatown04Scene);
+		GameObject* const obj = GameObjectBuilder::Default2D(L"Chanatown05BackGround01");
+		obj->GetComponent<Transform>()->SetScale(2.f, 2.f, 1.f);
+		obj->GetComponent<Transform>()->SetPosition(-580, 560.f, 500.f);
+		AddGameObject(obj, eLayerType::BackGround);
+	}
+
+	{
+		GameObject* const obj = GameObjectBuilder::Default2D(L"Chanatown05BackGround02");
+		obj->GetComponent<Transform>()->SetScale(2.5f, 2.5f, 1.f);
+		obj->GetComponent<Transform>()->SetPosition(-640, 560.f, 600.f);
+		AddGameObject(obj, eLayerType::BackGround);
+	}
+
+	{
+		GameObject* const obj = GameObjectBuilder::Default2D(L"Chanatown05BackGround03");
+		obj->GetComponent<Transform>()->SetScale(2.5f, 2.5f, 1.f);
+		obj->GetComponent<Transform>()->SetPosition(-640, 560.f, 700.f);
+		AddGameObject(obj, eLayerType::BackGround);
+	}
+
+	{
+		GameObject* const tile = GameObjectBuilder::Default2D(L"Chanatown01TileMap");
+		AddGameObject(tile, eLayerType::TileMap);
 	}
 }
 
-void Chinatown01Scene::lateUpdate()
+Scene* Chinatown01Scene::Clone()
 {
-	Scene::lateUpdate();
-
-	GameManager::GetInstance()->GetRewindManager()->LateUpdate();
-	GameManager::GetInstance()->GetEventManager()->LateUpdate();
+	return new Chinatown01Scene();
 }
 
+Scene* Chinatown01Scene::NextScene()
+{
+	return new Chinatown04Scene;
+}

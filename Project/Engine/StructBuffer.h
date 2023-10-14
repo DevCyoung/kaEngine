@@ -14,6 +14,24 @@ struct /*alignas(16)*/ tCBColorInfo // b1
 	int bColorType;
 	Vector2 Dummy;
 	Vector4 Color;
+
+	int bSetColorR;
+	float R;
+	int bSetColorG;
+	float G;
+	int bSetColorB;
+	float B;
+	int bSetColorA;
+	float A;
+
+	int bMulColorR;
+	float MulR;
+	int bMulColorG;
+	float MulG;
+	int bMulColorB;
+	float MulB;
+	int bMulColorA;
+	float MulA;
 }; // 32 bytes
 
 

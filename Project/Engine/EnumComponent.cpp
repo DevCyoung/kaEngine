@@ -8,6 +8,7 @@
 #include "AudioListener.h"
 #include "AudioSource.h"
 #include "CircleCollider2D.h"
+#include "EngineText.h"
 #include "Light2D.h"
 #include "LineCollider2D.h"
 #include "ParticleSystem.h"
@@ -24,6 +25,7 @@ static constexpr const wchar_t* const ComponentNames[static_cast<UINT>(eComponen
 	L"AudioListener",
 	L"AudioSource",
 	L"CircleCollider2D",
+	L"EngineText",
 	L"Light2D",
 	L"LineCollider2D",
 	L"ParticleSystem",
@@ -56,6 +58,8 @@ Component* CreateComponentByName(const std::wstring& componentName)
 		component = new AudioSource;
 	else if (L"CircleCollider2D" == componentName)
 		component = new CircleCollider2D;
+	else if (L"EngineText" == componentName)
+		component = new EngineText;
 	else if (L"Light2D" == componentName)
 		component = new Light2D;
 	else if (L"LineCollider2D" == componentName)
@@ -99,6 +103,9 @@ Component* CreateComponentByEnum(const eComponentType type)
 		break;
 	case eComponentType::CircleCollider2D:
 		component = new CircleCollider2D;
+		break;
+	case eComponentType::EngineText:
+		component = new EngineText;
 		break;
 	case eComponentType::Light2D:
 		component = new Light2D;

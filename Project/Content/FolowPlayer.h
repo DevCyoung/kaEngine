@@ -15,6 +15,7 @@ public:
 	FolowPlayer& operator=(const FolowPlayer&) = delete;
 
 	void ShakeCamera();
+	void SetFolow(bool bFolow) { mbFolow = bFolow; }
 
 private:
 	virtual void initialize() override final;
@@ -34,4 +35,5 @@ private:
 	float mShakeInterverTime;
 	int mShakeCount;
 	bool mbShake;
+	bool mbFolow;
 };

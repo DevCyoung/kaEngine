@@ -22,5 +22,6 @@ private:
 	Light2D* mLight;
 	GameObject* mPlayer;
 	GameObject* mBattery[11];
+	Vector4 mPrevBackgorundColor;
 	float mTimeScale;
 };

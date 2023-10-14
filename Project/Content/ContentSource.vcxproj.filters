@@ -289,6 +289,75 @@
     <Filter Include="Source\GlassWindow">
       <UniqueIdentifier>{1d25ce4d-bb4a-4ede-9ea9-ef5a9462ae11}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ShaderCode\Animation2D\Func">
+      <UniqueIdentifier>{46deedfb-ba22-4e88-95bb-c97fb76e3859}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ShaderCode\ColorFun">
+      <UniqueIdentifier>{903e7170-e939-465b-abe1-b003ce72f52d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Emotion">
+      <UniqueIdentifier>{dddb7728-15ab-4432-9bbf-4eec6be55dc7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Monster\HeadHunter">
+      <UniqueIdentifier>{ce691067-684e-4315-9fb0-b79f362b1580}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Monster\MonsterFSM">
+      <UniqueIdentifier>{c8b5f6f0-6984-4981-b8cc-445f789eabd2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Monster\MonsterState">
+      <UniqueIdentifier>{9d429bc3-594e-46d5-9e32-76a9b55f47fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Monster\HeadHunter\State">
+      <UniqueIdentifier>{4a59bafa-d671-4b24-8b41-9f305f0f9ed2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Monster\HeadHunter\HeadHunterBullet">
+      <UniqueIdentifier>{ac3fe21c-edd9-4ea2-87e4-1500e4941246}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Monster\HeadHunter\State\BoomShot">
+      <UniqueIdentifier>{79e0fcab-a05f-4bba-8615-058dbf2f2d6b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Monster\HeadHunter\State\Idle">
+      <UniqueIdentifier>{2adfc449-7c31-4e20-a09b-b6b07c429fef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Monster\HeadHunter\State\SwordDash">
+      <UniqueIdentifier>{db3b7e04-4fc9-4a4b-a359-e108d43e5dd0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Monster\HeadHunter\State\Aim">
+      <UniqueIdentifier>{f63c070f-67ac-4ace-b4f3-9d44195a9caf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Monster\HeadHunter\State\Sweep">
+      <UniqueIdentifier>{c56d4e22-b502-40c4-8479-d3297cd6eab8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Monster\HeadHunter\State\TeleportShot">
+      <UniqueIdentifier>{989f1f7a-db9a-4df2-afe2-0ad5117f2ced}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Monster\HeadHunter\State\TelpoertShotGround">
+      <UniqueIdentifier>{3d4ed7c8-14a8-4a07-84c0-52692a77021f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Monster\HeadHunter\State\WallJump">
+      <UniqueIdentifier>{81d9dd3e-81d2-4354-9aa0-7d8405000602}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ShaderCode\AfterImage">
+      <UniqueIdentifier>{0045478e-be68-4b9f-9682-3c4add6b082e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Monster\HeadHunter\State\Roll">
+      <UniqueIdentifier>{34c6e296-d897-45b0-8d8e-c4fe97d3b43e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Monster\Lazer">
+      <UniqueIdentifier>{83346e43-78e9-4dea-9a5f-3cb1ea792c50}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Monster\HeadHunter\State\Hurt">
+      <UniqueIdentifier>{d4c73121-fe5e-49de-b8de-2aa283aea242}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\01. ScriptComponent\TitleController">
+      <UniqueIdentifier>{c854c235-690a-427c-a675-ae1c280e3eb7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ShaderCode\NextScene">
+      <UniqueIdentifier>{5b54fdfb-721b-4509-a6f6-46a87bc3fcc1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\NextScene">
+      <UniqueIdentifier>{68619888-a282-41fa-87ed-ceeddada52e8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -564,6 +633,60 @@
     <ClInclude Include="GlassParticle.h">
       <Filter>Source\GlassWindow</Filter>
     </ClInclude>
+    <ClInclude Include="Emotion.h">
+      <Filter>Source\Emotion</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterState.h">
+      <Filter>Source\Monster\MonsterState</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterFSM.h">
+      <Filter>Source\Monster\MonsterFSM</Filter>
+    </ClInclude>
+    <ClInclude Include="HeadHunterBullet.h">
+      <Filter>Source\Monster\HeadHunter\HeadHunterBullet</Filter>
+    </ClInclude>
+    <ClInclude Include="HeadHunterSwordDash.h">
+      <Filter>Source\Monster\HeadHunter\State\SwordDash</Filter>
+    </ClInclude>
+    <ClInclude Include="HeadHunterIdle.h">
+      <Filter>Source\Monster\HeadHunter\State\Idle</Filter>
+    </ClInclude>
+    <ClInclude Include="HeadHunterBoomShot.h">
+      <Filter>Source\Monster\HeadHunter\State\BoomShot</Filter>
+    </ClInclude>
+    <ClInclude Include="HeadHunterAim.h">
+      <Filter>Source\Monster\HeadHunter\State\Aim</Filter>
+    </ClInclude>
+    <ClInclude Include="HeadHunterAI.h">
+      <Filter>Source\Monster\HeadHunter</Filter>
+    </ClInclude>
+    <ClInclude Include="HeadHunterSweep.h">
+      <Filter>Source\Monster\HeadHunter\State\Sweep</Filter>
+    </ClInclude>
+    <ClInclude Include="HeadHunterTeleport.h">
+      <Filter>Source\Monster\HeadHunter\State\TeleportShot</Filter>
+    </ClInclude>
+    <ClInclude Include="TeleportGround.h">
+      <Filter>Source\Monster\HeadHunter\State\TelpoertShotGround</Filter>
+    </ClInclude>
+    <ClInclude Include="HeadHunterWallJump.h">
+      <Filter>Source\Monster\HeadHunter\State\WallJump</Filter>
+    </ClInclude>
+    <ClInclude Include="HeadHunterRoll.h">
+      <Filter>Source\Monster\HeadHunter\State\Roll</Filter>
+    </ClInclude>
+    <ClInclude Include="HeadHunterLazer.h">
+      <Filter>Source\Monster\Lazer</Filter>
+    </ClInclude>
+    <ClInclude Include="HeadHunterHurt.h">
+      <Filter>Source\Monster\HeadHunter\State\Hurt</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleController.h">
+      <Filter>Source\01. ScriptComponent\TitleController</Filter>
+    </ClInclude>
+    <ClInclude Include="NexeScene.h">
+      <Filter>Source\NextScene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -833,6 +956,60 @@
     <ClCompile Include="GlassParticle.cpp">
       <Filter>Source\GlassWindow</Filter>
     </ClCompile>
+    <ClCompile Include="Emotion.cpp">
+      <Filter>Source\Emotion</Filter>
+    </ClCompile>
+    <ClCompile Include="MonsterState.cpp">
+      <Filter>Source\Monster\MonsterState</Filter>
+    </ClCompile>
+    <ClCompile Include="MonsterFSM.cpp">
+      <Filter>Source\Monster\MonsterFSM</Filter>
+    </ClCompile>
+    <ClCompile Include="HeadHunterBullet.cpp">
+      <Filter>Source\Monster\HeadHunter\HeadHunterBullet</Filter>
+    </ClCompile>
+    <ClCompile Include="HeadHunterSwordDash.cpp">
+      <Filter>Source\Monster\HeadHunter\State\SwordDash</Filter>
+    </ClCompile>
+    <ClCompile Include="HeadHunterIdle.cpp">
+      <Filter>Source\Monster\HeadHunter\State\Idle</Filter>
+    </ClCompile>
+    <ClCompile Include="HeadHunterBoomShot.cpp">
+      <Filter>Source\Monster\HeadHunter\State\BoomShot</Filter>
+    </ClCompile>
+    <ClCompile Include="HeadHunterAim.cpp">
+      <Filter>Source\Monster\HeadHunter\State\Aim</Filter>
+    </ClCompile>
+    <ClCompile Include="HeadHunterAI.cpp">
+      <Filter>Source\Monster\HeadHunter</Filter>
+    </ClCompile>
+    <ClCompile Include="HeadHunterSweep.cpp">
+      <Filter>Source\Monster\HeadHunter\State\Sweep</Filter>
+    </ClCompile>
+    <ClCompile Include="HeadHunterTeleport.cpp">
+      <Filter>Source\Monster\HeadHunter\State\TeleportShot</Filter>
+    </ClCompile>
+    <ClCompile Include="TeleportGround.cpp">
+      <Filter>Source\Monster\HeadHunter\State\TelpoertShotGround</Filter>
+    </ClCompile>
+    <ClCompile Include="HeadHunterWallJump.cpp">
+      <Filter>Source\Monster\HeadHunter\State\WallJump</Filter>
+    </ClCompile>
+    <ClCompile Include="HeadHunterRoll.cpp">
+      <Filter>Source\Monster\HeadHunter\State\Roll</Filter>
+    </ClCompile>
+    <ClCompile Include="HeadHunterLazer.cpp">
+      <Filter>Source\Monster\Lazer</Filter>
+    </ClCompile>
+    <ClCompile Include="HeadHunterHurt.cpp">
+      <Filter>Source\Monster\HeadHunter\State\Hurt</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleController.cpp">
+      <Filter>Source\01. ScriptComponent\TitleController</Filter>
+    </ClCompile>
+    <ClCompile Include="NexeScene.cpp">
+      <Filter>Source\NextScene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Output\bin\Resources\Shader\Header\Struct.fxh">
@@ -939,6 +1116,21 @@
     </None>
     <None Include="..\..\Output\bin\Resources\Shader\VSWave.hlsl">
       <Filter>ShaderCode\PostProcess\Wave</Filter>
+    </None>
+    <None Include="..\..\Output\bin\Resources\Shader\ColorFun.hlsl">
+      <Filter>ShaderCode\ColorFun</Filter>
+    </None>
+    <None Include="..\..\Output\bin\Resources\Shader\PSAfterImage.hlsl">
+      <Filter>ShaderCode\AfterImage</Filter>
+    </None>
+    <None Include="..\..\Output\bin\Resources\Shader\VSAfterImage.hlsl">
+      <Filter>ShaderCode\AfterImage</Filter>
+    </None>
+    <None Include="..\..\Output\bin\Resources\Shader\VSNextScene.hlsl">
+      <Filter>ShaderCode\NextScene</Filter>
+    </None>
+    <None Include="..\..\Output\bin\Resources\Shader\PSNextScene.hlsl">
+      <Filter>ShaderCode\NextScene</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

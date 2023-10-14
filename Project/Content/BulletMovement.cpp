@@ -6,12 +6,18 @@
 #include <Engine/EngineMath.h>
 #include "GameManager.h"
 #include "FolowPlayer.h"
+#include "DoorController.h"
+#include "BasicMonsterAI.h"
 
 BulletMovement::BulletMovement()
     : ScriptComponent(eScriptComponentType::BulletMovement)
 	, mDelay(0.f)
 	, mDir{}
-	, mSpeed(800.f)
+	, mSpeed(1700.f)
+	, mbPlayerBullet(false)
+	, mbScaleMode(true)
+	, mbRotationMode(false)
+	, mBulletType(eBulletType::MonsterBullet)
 {
 }
 
@@ -31,8 +37,11 @@ void BulletMovement::onCollisionEnter(Collider2D* other)
 	
 	gCurrentScene->RegisterEventSetDestroy(GetOwner());*/
 
-	if (other->GetOwner()->GetLayer() == eLayerType::PlayerAttack)
+	eLayerType otherLayer = other->GetOwner()->GetLayer();
+
+	if (otherLayer == eLayerType::PlayerAttack && false == mbPlayerBullet)
 	{
+		mbPlayerBullet = true;
 		gSoundManager->Play(eResAudioClip::slashBullet, 1.f);
 
 		mDir.x *= -1.f;
@@ -47,8 +56,32 @@ void BulletMovement::onCollisionEnter(Collider2D* other)
 
 		Camera* const camera = GetOwner()->GetGameSystem()->GetRenderTargetRenderer()->GetRegisteredRenderCamera(eCameraPriorityType::Main);
 		camera->GetOwner()->GetComponent<FolowPlayer>()->ShakeCamera();
-
 	}
+	else if (otherLayer == eLayerType::Door && other->GetOwner()->GetComponent<DoorController>()->IsOpen())
+	{	
+		return;
+	}
+	else if (otherLayer == eLayerType::Wall || 	
+		otherLayer == eLayerType::Door||
+		otherLayer == eLayerType::LeftSlope ||
+		otherLayer == eLayerType::RightSlope ||
+		(otherLayer == eLayerType::Monster && 
+			mbPlayerBullet && 
+			false == other->GetOwner()->GetComponentOrNull<BasicMonsterAI>()->IsDead())  )
+	{		
+		GetOwner()->GetComponent<Transform>()->SetPosition(10000000.f, 10000000.f, 0.f);
+
+		if (mBulletType == eBulletType::MonsterBullet || 
+			mBulletType == eBulletType::PlayerBullet)
+		{
+			gSoundManager->Play(eResAudioClip::bulletHit1, 0.3f);			
+		}
+		else if (mBulletType == eBulletType::PlayerBeer1 || 
+			mBulletType == eBulletType::PlayerBeer2)
+		{	
+			gSoundManager->Play(eResAudioClip::glassbreak, 0.7f);
+		}		
+	}	
 }
 
 void BulletMovement::onCollisionStay(Collider2D* other)
@@ -91,8 +124,30 @@ void BulletMovement::update()
 		//deg = 180 - deg;
 	}
 
-	GetOwner()->GetComponent<Transform>()->SetRotation(0.f, 0.f, deg);
+	Vector3 rotation = GetOwner()->GetComponent<Transform>()->GetRotation();
 
+	if (mbScaleMode)
+	{
+		rotation.z = deg;
+
+		//GetOwner()->GetComponent<Transform>()->SetRotation(0.f, 0.f, deg);
+
+		float timeScale = TimeManager::GetInstance()->GetTileScale();
+
+		Vector3 scale = GetOwner()->GetComponent<Transform>()->GetScale();
+
+		//default 0.2f;
+		scale.x = timeScale;
+		GetOwner()->GetComponent<Transform>()->SetScale(scale);
+	}	
+
+	if (mbRotationMode)
+	{
+		rotation.z += 360.f * 3.f * gDeltaTime;
+	}
+
+
+	GetOwner()->GetComponent<Transform>()->SetRotation(rotation);
 }
 
 void BulletMovement::lateUpdate()

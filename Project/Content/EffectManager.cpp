@@ -23,10 +23,11 @@ void EffectManager::Initialize(Scene* scene)
 		GameObject* const effectObject = new GameObject();
 
 		effectObject->GetComponent<Transform>()->SetScale(2.f, 2.f, 1.f);
+		effectObject->GetComponent<Transform>()->SetPosition(100000.f, 0.f, 0.f);
 
 		{
 			Texture* const atlas = gResourceManager->FindByEnum<Texture>(eResTexture::Atlas_Effect_effect1);
-			Material* const mat = gResourceManager->FindOrNull<Material>(L"LightAnimation2D");
+			Material* const mat = gResourceManager->FindOrNull<Material>(L"Animation2D");
 
 
 			effectObject->AddComponent<Animator2D>();
@@ -34,6 +35,7 @@ void EffectManager::Initialize(Scene* scene)
 			effectObject->AddComponent<RewindComponent>();
 
 			Animator2D* const anim = effectObject->GetComponent<Animator2D>();
+
 			anim->SetMaterial(mat);
 			anim->TurnOffVisiblelity();
 
@@ -50,7 +52,17 @@ void EffectManager::Initialize(Scene* scene)
 		}		
 
 		{
+			Animator2D* const anim = effectObject->GetComponent<Animator2D>();
+			Texture* const atlas = gResourceManager->FindByEnum<Texture>(eResTexture::Atlas_Effect_gunEffect);
 
+			anim->CreateAnimation(L"GunSmoke1", atlas, 10, XMUINT2(5, 34), XMUINT2(26, 22), XMUINT2(10, 10), XMINT2(0, 0), 0.08f);
+			anim->CreateAnimation(L"GunSmoke2", atlas, 12, XMUINT2(5, 95), XMUINT2(39, 21), XMUINT2(10, 10), XMINT2(0, 0), 0.08f);
+			anim->CreateAnimation(L"GunSmoke3", atlas, 11, XMUINT2(5, 155), XMUINT2(27, 21), XMUINT2(10, 10), XMINT2(0, 0), 0.08f);
+			anim->CreateAnimation(L"GunSpark1", atlas, 8, XMUINT2(5, 215), XMUINT2(42, 42), XMUINT2(10, 10), XMINT2(0, 0), 0.08f);
+			anim->CreateAnimation(L"GunSpark2", atlas, 8, XMUINT2(5, 296), XMUINT2(50, 50), XMUINT2(10, 10), XMINT2(0, 0), 0.08f);
+			anim->CreateAnimation(L"GunSpark3", atlas, 8, XMUINT2(5, 385), XMUINT2(50, 50), XMUINT2(10, 10), XMINT2(0, 0), 0.08f);
+			anim->CreateAnimation(L"ShotGunFloor", atlas, 7, XMUINT2(5, 474), XMUINT2(15, 6), XMUINT2(10, 10), XMINT2(0, 0), 0.08f);
+			anim->CreateAnimation(L"ShotGunFly", atlas, 6, XMUINT2(5, 519), XMUINT2(5, 5), XMUINT2(10, 10), XMINT2(0, 0), 0.08f);
 		}
 
 		mEffects[i] = effectObject;
@@ -75,6 +87,21 @@ void EffectManager::Shot(const std::wstring& str, Vector3 pos)
 	mEffectIdx = (mEffectIdx + 1) % MAX_EFFECT_COUNT;
 }
 
+GameObject* EffectManager::GetShotEffect(const std::wstring& str)
+{
+	GameObject* const effect = mEffects[mEffectIdx];
+
+	effect->GetComponent<Effect2D>()->SetSpeed(0.f);
+	effect->GetComponent<Effect2D>()->SetVelocity(Vector2::Zero);
+
+	effect->GetComponent<Animator2D>()->TurnOnVisiblelity();
+	effect->GetComponent<Animator2D>()->Play(str, false);
+
+	mEffectIdx = (mEffectIdx + 1) % MAX_EFFECT_COUNT;
+
+	return effect;
+}
+
 void EffectManager::Shot(const std::wstring& str, Vector3 pos, bool bFlip)
 {
 	GameObject* const effect = mEffects[mEffectIdx];
@@ -82,6 +109,23 @@ void EffectManager::Shot(const std::wstring& str, Vector3 pos, bool bFlip)
 	effect->GetComponent<Animator2D>()->SetFlipX(bFlip);
 
 	Shot(str, pos);
+}
+
+void EffectManager::Shot(const std::wstring& str, Vector3 pos, GameObject* parent)
+{
+	GameObject* const effect = mEffects[mEffectIdx];
+
+	effect->SetParent(parent);
+
+	Shot(str, pos);
+}
+
+void EffectManager::Shot(const std::wstring& str, Vector3 pos, Vector3 rotation, bool bFlip)
+{
+	GameObject* const effect = mEffects[mEffectIdx];
+
+	effect->GetComponent<Transform>()->SetRotation(rotation);
+	Shot(str, pos, bFlip);
 }
 
 void EffectManager::Shot(const std::wstring& str, Vector3 pos, Vector2 direction, float speed)

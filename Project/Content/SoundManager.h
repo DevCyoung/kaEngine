@@ -42,10 +42,12 @@ public:
 	void PlayInForce(eResAudioClip audioClip, float volume);
 
 	void SetVolume(eResAudioClip audioClip, float volume);
-	void SetPitch(eResAudioClip audioClip, float pitch);
+	void SetPitch(eResAudioClip audioClip, float pitch);	
 
 	void TurnOnSound();
 	void TurnOffSound();
+
+	void SetSoundPitch(float fitch);
 
 private:
 	AudioClip* getClip(eResAudioClip audioClip);
@@ -53,6 +55,8 @@ private:
 private:
 	inline static SoundManager* sInstance = nullptr;
 	bool mbSoundOn;
+	float mPitch;
+	bool mbFitch;
 	GameObject* mMainCamera;
 	Scene* mScene;
 };

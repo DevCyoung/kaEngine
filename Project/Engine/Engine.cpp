@@ -10,6 +10,7 @@
 #include "RenderTargetRenderer.h"
 #include "EngineResourceLoader.h"
 #include "Fmod.h"
+#include "FontManager.h"
 
 Engine::Engine(const HWND hWnd, const UINT renderTargetWidth, const UINT renderTargetHeight)
 	: mHwnd(hWnd)
@@ -20,7 +21,8 @@ Engine::Engine(const HWND hWnd, const UINT renderTargetWidth, const UINT renderT
 	, mGraphicDevice(new GraphicDeviceDX11(mHwnd, mRenderTargetWidth, mRenderTargetHeight))
 {
 	setWindowSize(mRenderTargetWidth, mRenderTargetHeight);
-	Fmod::Initialize();
+	Fmod::Initialize();	
+
 	//TimeManager::initialize();
 	MessageManager::initialize();
 	PathManager::initialize();
@@ -38,8 +40,9 @@ Engine::~Engine()
 	MessageManager::deleteInstance();
 	//TimeManager::deleteInstance();
 	
-	SAFE_DELETE_POINTER(mGraphicDevice);
+	FontManager::deleteInstance();
 	Fmod::Release();
+	SAFE_DELETE_POINTER(mGraphicDevice);	
 }
 
 void Engine::initialize(const HWND hWnd, const UINT renderTargetWidth, const UINT renderTargetHeight)
@@ -49,6 +52,7 @@ void Engine::initialize(const HWND hWnd, const UINT renderTargetWidth, const UIN
 
 	sInstance = new Engine(hWnd, renderTargetWidth, renderTargetHeight);
 
+	FontManager::initialize();
 	EngineResourceLoader::loadResource();
 }
 
@@ -93,7 +97,7 @@ void Engine::render()
 	SceneManager::GetInstance()->render(mRenderTargetWidth,
 				mRenderTargetHeight,				
 				mGraphicDevice->GetRenderTargetViewAddressOf(),
-				mGraphicDevice->GetDepthStencilView());
+				mGraphicDevice->GetDepthStencilView());	
 
 	mGraphicDevice->present();
 }

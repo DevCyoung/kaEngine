@@ -1,7 +1,7 @@
 #pragma once
-#include "KatanaScene.h"
+#include <Engine/Scene.h>
 
-class Chinatown05Scene : public KatanaScene
+class Chinatown05Scene : public Scene
 {
 public:
 	Chinatown05Scene();
@@ -11,5 +11,8 @@ public:
 
 	virtual void initialize() override;
 	virtual void update() override;
+
+	// Scene을(를) 통해 상속됨
+	virtual Scene* Clone() override;
 };
 

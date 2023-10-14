@@ -19,7 +19,7 @@ public:
 	void SetTestColor(const Vector4& color) { mTestColor = color; }
 	
 	const Vector4& GetTestColor() const { return mTestColor; }
-
+	const tSprite2DInfo& GetSprite2DInfo() const { return mSprite2DInfo; }
 	void SetUvOffsetX(float uvOffsetX);
 
 	void SetColorR(float r);

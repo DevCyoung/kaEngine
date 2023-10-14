@@ -93,18 +93,14 @@ void PlayerAttackState::Enter()
 
 
 	Vector3 mpos = mTransform->GetPosition();
-
 	mpos.y += 2.1f;
 	mTransform->SetPosition(mpos);
-
-
 }
 
 void PlayerAttackState::Exit()
 {
-	GameObject* slash = mGameObject->GetComponent<PlayerController>()->GetSlash();
-
-	slash->GetComponent<Transform>()->SetPosition(100000.f, 100000.f, 100000.f);
+	//GameObject* slash = mGameObject->GetComponent<PlayerController>()->GetSlash();
+	//slash->GetComponent<Transform>()->SetPosition(100000.f, 100000.f, 100000.f);
 }
 
 

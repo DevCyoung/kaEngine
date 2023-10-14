@@ -3,6 +3,7 @@
 #include "Components.h"
 #include <Engine/EngineMath.h>
 #include "BulletMovement.h"
+#include "SoundManager.h"
 
 ShieldCop::ShieldCop()
     : BasicMonsterAI(eScriptComponentType::ShieldCop)
@@ -18,6 +19,8 @@ void ShieldCop::aim()
 	GameObject* player = GameManager::GetInstance()->GetPlayer();
 	Vector2 direction = helper::math::GetDirection2D(mHandObject, player);
 	//float distance = helper::math::GetDistance2D(mHandObject, player);
+
+	Vector3 playerPosition = player->GetComponent<Transform>()->GetPosition();
 
 	float deg = Rad2Deg(atan2(direction.y, direction.x));
 
@@ -80,7 +83,7 @@ void ShieldCop::aim()
 	}
 	else
 	{
-		if (mShotDelayTime > 0.5f)
+		if (mShotDelayTime > 0.85f)
 		{
 			mShotDelayTime = 0.f;
 
@@ -88,22 +91,48 @@ void ShieldCop::aim()
 			Scene* scene = GetOwner()->GetGameSystem()->GetScene();
 			GameObject* bullet = new GameObject();
 
+			//bullet->GetComponent<Transform>()->SetScale(Vector3(0.2f, 1.0f, 1.f));
+
 			bullet->AddComponent<BulletMovement>();
-			bullet->AddComponent<SpriteRenderer>();
+			//bullet->AddComponent<SpriteRenderer>();			
+			bullet->AddComponent<Animator2D>();
 			bullet->AddComponent<RewindComponent>();
 			bullet->AddComponent<RectCollider2D>();
 
-			bullet->GetComponent<RectCollider2D>()->SetSize(20.f, 20.f);
+			bullet->GetComponent<RectCollider2D>()->SetSize(20.f, 20.f);			
 
-			bullet->GetComponent<Transform>()->SetScale(Vector3(0.5f, 0.3f, 1.f));
-
-			bullet->GetComponent<SpriteRenderer>()->SetMaterial(gResourceManager->FindOrNull<Material>(L"UITimer"));
-			bullet->GetComponent<SpriteRenderer>()->SetMesh(gResourceManager->FindOrNull<Mesh>(L"FillRect2D"));
-			bullet->GetComponent<BulletMovement>()->mDir = Vector3(direction.x, direction.y, 0.f);
+			//bullet->GetComponent<SpriteRenderer>()->SetMaterial(gResourceManager->FindOrNull<Material>(L"UITimer"));
+			//bullet->GetComponent<SpriteRenderer>()->SetMesh(gResourceManager->FindOrNull<Mesh>(L"FillRect2D"));
 
 
+			Texture* atlas = gResourceManager->FindByEnum<Texture>(eResTexture::Atlas_Particle_particle);			
 
-			bullet->GetComponent<Transform>()->SetPosition(mHandObject->GetComponent<Transform>()->GetWorldMatrix().Translation());
+			bullet->GetComponent<Animator2D>()->CreateAnimation(L"Bullet", atlas, 1, XMUINT2(5, 79), XMUINT2(34, 2), XMUINT2(10, 10)
+				, XMINT2(0, 0), 0.1f);
+
+			bullet->GetComponent<Animator2D>()->Play(L"Bullet", false);
+
+			
+			gSoundManager->Play(eResAudioClip::ShieldCopShot, 0.5f);
+			
+			Vector3 handPos = mHandObject->GetComponent<Transform>()->GetWorldMatrix().Translation();
+			handPos.y += 5.f;
+			//handPos.x += direction.x * 35.f;
+
+			
+			Vector2 direction2 = helper::math::GetDirection2D(handPos, playerPosition);
+			bullet->GetComponent<BulletMovement>()->mDir = Vector3(direction2.x, direction2.y, 0.f);
+
+			handPos.x += direction.x * 35.f;
+			bullet->GetComponent<Transform>()->SetPosition(handPos);
+
+			
+			bool bFlipX = direction2.x < 0.f ? true : false;
+
+			handPos.x += direction2.x * 45.f;
+			gEffectManager->Shot(L"GunSpark1", handPos, bFlipX);
+
+			
 
 			scene->RegisterEventAddGameObject(bullet, eLayerType::Bullet);
 		}

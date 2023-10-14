@@ -65,6 +65,20 @@ public:
 	const std::function<void()>& FindCompleteEvent(const std::wstring animName);
 	const std::function<void()>& FindEndEvent(const std::wstring animName);
 
+
+	void SetColorR(float r);
+	void SetColorG(float g);
+	void SetColorB(float b);
+	void SetColorA(float a);
+	void SetColorReset();
+
+	void MulColorR(float r);
+	void MulColorG(float g);
+	void MulColorB(float b);
+	void MulColorA(float a);
+	void MulColor(float r, float g, float b, float a);
+	void MulColorReset();
+
 private:
 	virtual void initialize() override final;
 	virtual void update() override final;

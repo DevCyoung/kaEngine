@@ -16,15 +16,20 @@
 #include "CursorMovement.h"
 #include "DoorController.h"
 #include "Effect2D.h"
+#include "Emotion.h"
 #include "FolowPlayer.h"
 #include "GalssWindow.h"
 #include "GlassParticle.h"
 #include "GridPainter.h"
+#include "HeadHunterAI.h"
+#include "HeadHunterBullet.h"
+#include "HeadHunterLazer.h"
 #include "HeadMovement.h"
 #include "InputMovementTest.h"
 #include "KissyfaceAI.h"
 #include "LerpTest.h"
 #include "MonsterAttack.h"
+#include "NexeScene.h"
 #include "ParentTest.h"
 #include "PathNode.h"
 #include "PickPixelTest.h"
@@ -39,6 +44,7 @@
 #include "SimpleEditorCollider2D.h"
 #include "SlashComponent.h"
 #include "TestScript.h"
+#include "TitleController.h"
 #include "UIEffect.h"
 
 static constexpr const wchar_t* const ScriptComponentNames[static_cast<UINT>(eScriptComponentType::End)]
@@ -58,15 +64,20 @@ static constexpr const wchar_t* const ScriptComponentNames[static_cast<UINT>(eSc
 	L"CursorMovement",
 	L"DoorController",
 	L"Effect2D",
+	L"Emotion",
 	L"FolowPlayer",
 	L"GalssWindow",
 	L"GlassParticle",
 	L"GridPainter",
+	L"HeadHunterAI",
+	L"HeadHunterBullet",
+	L"HeadHunterLazer",
 	L"HeadMovement",
 	L"InputMovementTest",
 	L"KissyfaceAI",
 	L"LerpTest",
 	L"MonsterAttack",
+	L"NexeScene",
 	L"ParentTest",
 	L"PathNode",
 	L"PickPixelTest",
@@ -81,6 +92,7 @@ static constexpr const wchar_t* const ScriptComponentNames[static_cast<UINT>(eSc
 	L"SimpleEditorCollider2D",
 	L"SlashComponent",
 	L"TestScript",
+	L"TitleController",
 	L"UIEffect",
 };
 
@@ -124,6 +136,8 @@ ScriptComponent* CreateScriptComponentByName(const std::wstring& scriptcomponent
 		scriptcomponent = new DoorController;
 	else if (L"Effect2D" == scriptcomponentName)
 		scriptcomponent = new Effect2D;
+	else if (L"Emotion" == scriptcomponentName)
+		scriptcomponent = new Emotion;
 	else if (L"FolowPlayer" == scriptcomponentName)
 		scriptcomponent = new FolowPlayer;
 	else if (L"GalssWindow" == scriptcomponentName)
@@ -132,6 +146,12 @@ ScriptComponent* CreateScriptComponentByName(const std::wstring& scriptcomponent
 		scriptcomponent = new GlassParticle;
 	else if (L"GridPainter" == scriptcomponentName)
 		scriptcomponent = new GridPainter;
+	else if (L"HeadHunterAI" == scriptcomponentName)
+		scriptcomponent = new HeadHunterAI;
+	else if (L"HeadHunterBullet" == scriptcomponentName)
+		scriptcomponent = new HeadHunterBullet;
+	else if (L"HeadHunterLazer" == scriptcomponentName)
+		scriptcomponent = new HeadHunterLazer;
 	else if (L"HeadMovement" == scriptcomponentName)
 		scriptcomponent = new HeadMovement;
 	else if (L"InputMovementTest" == scriptcomponentName)
@@ -142,6 +162,8 @@ ScriptComponent* CreateScriptComponentByName(const std::wstring& scriptcomponent
 		scriptcomponent = new LerpTest;
 	else if (L"MonsterAttack" == scriptcomponentName)
 		scriptcomponent = new MonsterAttack;
+	else if (L"NexeScene" == scriptcomponentName)
+		scriptcomponent = new NexeScene;
 	else if (L"ParentTest" == scriptcomponentName)
 		scriptcomponent = new ParentTest;
 	else if (L"PathNode" == scriptcomponentName)
@@ -170,6 +192,8 @@ ScriptComponent* CreateScriptComponentByName(const std::wstring& scriptcomponent
 		scriptcomponent = new SlashComponent;
 	else if (L"TestScript" == scriptcomponentName)
 		scriptcomponent = new TestScript;
+	else if (L"TitleController" == scriptcomponentName)
+		scriptcomponent = new TitleController;
 	else if (L"UIEffect" == scriptcomponentName)
 		scriptcomponent = new UIEffect;
 	else
@@ -228,6 +252,9 @@ ScriptComponent* CreateScriptComponentByEnum(const eScriptComponentType type)
 	case eScriptComponentType::Effect2D:
 		scriptcomponent = new Effect2D;
 		break;
+	case eScriptComponentType::Emotion:
+		scriptcomponent = new Emotion;
+		break;
 	case eScriptComponentType::FolowPlayer:
 		scriptcomponent = new FolowPlayer;
 		break;
@@ -239,6 +266,15 @@ ScriptComponent* CreateScriptComponentByEnum(const eScriptComponentType type)
 		break;
 	case eScriptComponentType::GridPainter:
 		scriptcomponent = new GridPainter;
+		break;
+	case eScriptComponentType::HeadHunterAI:
+		scriptcomponent = new HeadHunterAI;
+		break;
+	case eScriptComponentType::HeadHunterBullet:
+		scriptcomponent = new HeadHunterBullet;
+		break;
+	case eScriptComponentType::HeadHunterLazer:
+		scriptcomponent = new HeadHunterLazer;
 		break;
 	case eScriptComponentType::HeadMovement:
 		scriptcomponent = new HeadMovement;
@@ -254,6 +290,9 @@ ScriptComponent* CreateScriptComponentByEnum(const eScriptComponentType type)
 		break;
 	case eScriptComponentType::MonsterAttack:
 		scriptcomponent = new MonsterAttack;
+		break;
+	case eScriptComponentType::NexeScene:
+		scriptcomponent = new NexeScene;
 		break;
 	case eScriptComponentType::ParentTest:
 		scriptcomponent = new ParentTest;
@@ -296,6 +335,9 @@ ScriptComponent* CreateScriptComponentByEnum(const eScriptComponentType type)
 		break;
 	case eScriptComponentType::TestScript:
 		scriptcomponent = new TestScript;
+		break;
+	case eScriptComponentType::TitleController:
+		scriptcomponent = new TitleController;
 		break;
 	case eScriptComponentType::UIEffect:
 		scriptcomponent = new UIEffect;

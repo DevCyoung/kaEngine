@@ -32,6 +32,7 @@ private:
 	virtual void lateUpdate() override final;
 
 	virtual void onCollisionEnter(Collider2D* other) override final;
+	virtual void onCollisionStay(Collider2D* other) override final;
 
 	void idleToRun();
 	void runToIdle();
@@ -40,7 +41,7 @@ private:
 
 	bool mbControl;
 	bool mbinvincibility;
-
+	bool mbDead;
 	PlayerFSM* mPlayerFSM;
 	GameObject* mSlash;
 };

@@ -79,7 +79,9 @@ GameObject* GalssWindow::InstantiateGlass()
 
 void GalssWindow::onCollisionEnter(Collider2D* other)
 {
-    if (other->GetOwner()->GetLayer() == eLayerType::PlayerAttack)
+    eLayerType otherLayer = other->GetOwner()->GetLayer();
+    if (otherLayer == eLayerType::PlayerAttack || 
+        otherLayer == eLayerType::Bullet )
     {
         gSoundManager->Play(eResAudioClip::glassbreak, 1.f);
 

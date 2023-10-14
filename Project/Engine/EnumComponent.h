@@ -12,6 +12,7 @@ enum class eComponentType
 	AudioListener,
 	AudioSource,
 	CircleCollider2D,
+	EngineText,
 	Light2D,
 	LineCollider2D,
 	ParticleSystem,

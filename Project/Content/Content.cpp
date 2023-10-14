@@ -29,7 +29,7 @@ Content::Content()
 	resourceInitialize();
 
 	//Scene* testScene = new Collide2DTestScene;
-	//Scene* testScene = new TItleScene();	
+	//Scene* testScene = new TItleScene();
 	Scene* testScene = new Chinatown01Scene();
 	//Scene* testScene = new Chinatown04Scene();
 	//Scene* testScene = new Chinatown05Scene();
@@ -42,8 +42,6 @@ Content::Content()
 
 	TimeManager::initialize();
 	SceneManager::GetInstance()->LoadScene(testScene);	
-	//TimeManager::GetInstance()->ResetTime();	
-	
 }
 
 Content::~Content()
@@ -54,21 +52,10 @@ Content::~Content()
 
 void Content::resourceInitialize()
 {
-	//Texture* const tex = gResourceManager->Find<Texture>(L"TextureCS");
-	//ComputeShader* const cs = gResourceManager->Find<ComputeShader>(L"StdCS");
-	//
-	//gGraphicDevice->BindCS(cs);
-	//gGraphicDevice->BindUAV(0, tex);
-	//gGraphicDevice->Distpatch(cs);
-	//gGraphicDevice->UnBindUAV(0);
-
-
 	loadTexture();
 	loadShader();
 	loadMaterial();
 
-	//bind Noise
-	//Nose 01, 02, 03
 	Texture* const noiseTexture01 = gResourceManager->FindByEnum<Texture>(eResTexture::Noise_01);
 	gGraphicDevice->BindSRV(eShaderBindType::PS, 7, noiseTexture01);
 }
@@ -89,6 +76,63 @@ void Content::loadShader()
 void Content::loadMaterial()
 {
 
+#pragma region TitleMaterial
+	{
+		Material* const material = MaterialBuilder::Sprite2D(eRenderPriorityType::Opqaue,
+			eResTexture::Title_spr_title_background);
+		gResourceManager->Insert(L"TitleBackGround", material);
+	}
+
+	{
+		Material* const material = MaterialBuilder::Sprite2D(eRenderPriorityType::Opqaue,
+			eResTexture::Title_spr_title_fence);
+		gResourceManager->Insert(L"TitleFence", material);
+	}
+
+	{
+		Material* const material =
+			MaterialBuilder::Sprite2D(eRenderPriorityType::Opqaue, eResTexture::Title_spr_titlegraphic_big2);
+		gResourceManager->Insert(L"TitleGraphic", material);
+	}
+
+	{
+		Material* const material =
+			MaterialBuilder::Sprite2D(eRenderPriorityType::Opqaue, eResTexture::Title_spr_titlegraphic_big_1);
+		gResourceManager->Insert(L"TitleGraphic1", material);
+	}
+
+	{
+		Material* const material =
+			MaterialBuilder::Sprite2D(eRenderPriorityType::Opqaue, eResTexture::Title_spr_titlegraphic_big_2);
+		gResourceManager->Insert(L"TitleGraphic2", material);
+	}
+
+	{
+		Material* const material =
+			MaterialBuilder::Sprite2D(eRenderPriorityType::Opqaue, eResTexture::Title_spr_title_grass);
+		gResourceManager->Insert(L"TitleGrass", material);
+	}
+
+	{
+		Material* const material =
+			MaterialBuilder::Sprite2D(eRenderPriorityType::Opqaue, eResTexture::Title_spr_title_plants_0);
+		gResourceManager->Insert(L"TitlePlant", material);
+	}
+
+	{
+		Material* const material =
+			MaterialBuilder::Sprite2D(eRenderPriorityType::Opqaue, eResTexture::TitleHud);
+		gResourceManager->Insert(L"TitleHud", material);
+	}
+
+	{
+		Material* const material =
+			MaterialBuilder::Sprite2D(eRenderPriorityType::Opqaue, eResTexture::TitleTextHud);
+		gResourceManager->Insert(L"TitleTextHud", material);
+	}
+
+
+#pragma endregion
 #pragma region Chianatown01Material
 	{
 		Material* const material =
@@ -117,6 +161,38 @@ void Content::loadMaterial()
 		gResourceManager->Insert(L"Chanatown01TileMap", material);
 	}
 #pragma endregion
+#pragma region Chianatown02Material
+	{
+		Material* const tileMaterial =
+			MaterialBuilder::LightSprite2D(
+				eRenderPriorityType::Opqaue, eResTexture::Map_Chinatown04_Tilemap);
+		gResourceManager->Insert(L"Chanatown04TileMap", tileMaterial);
+	}
+#pragma endregion
+#pragma region HeadHunterMaterial
+	{
+		Material* const material =
+			MaterialBuilder::LightSprite2D(
+				eRenderPriorityType::Opqaue, eResTexture::Map_HeadHunter_map);
+		gResourceManager->Insert(L"HeadHunterMap", material);
+	}
+
+	{
+		Material* const material =
+			MaterialBuilder::LightSprite2D(
+				eRenderPriorityType::Opqaue, eResTexture::Map_HeadHunter_spr_vaultdoor_open_spr_vaultdoor_open_0);
+
+		gResourceManager->Insert(L"HeadHunterMapDoor", material);
+	}
+
+	{
+		Material* const material =
+			MaterialBuilder::Sprite2D(
+				eRenderPriorityType::Opqaue, eResTexture::layermask);
+		gResourceManager->Insert(L"LazerMask", material);
+	}
+
+#pragma endregion
 
 	//Animation Material
 	{
@@ -126,6 +202,16 @@ void Content::loadMaterial()
 
 		gResourceManager->Insert(L"Animation2D", material);
 	}
+
+	//After
+	{
+		Material* const material =
+			MaterialBuilder::Default2D(
+				eRenderPriorityType::Opqaue, L"AfterImage", eResTexture::door);
+
+		gResourceManager->Insert(L"AfterImage", material);
+	}
+
 
 	//Animation Material
 	{
@@ -145,6 +231,14 @@ void Content::loadMaterial()
 
 			gResourceManager->Insert(L"PlayerAnimation2D", material);
 		}
+	}
+
+	//Effect
+	{
+		Material* const material =
+			MaterialBuilder::Default2D(
+				eRenderPriorityType::PostProcess, L"NextScene", eResTexture::pixel100);
+		gResourceManager->Insert(L"NextScene", material);
 	}
 
 	//PostProcess

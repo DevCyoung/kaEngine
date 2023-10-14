@@ -61,7 +61,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	constexpr UINT KATANA_SCREEN_HEIGHT = 720;
 
 	Engine::initialize(gHwnd, KATANA_SCREEN_WIDTH, KATANA_SCREEN_HEIGHT);
-	Content::initialize();
+	Content::initialize();	
 
 	//Mose Cursor
 	ShowCursor(FALSE);
@@ -86,7 +86,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		}
 	}
 
-	Content::deleteInstance();
+	Content::deleteInstance();	
 	Engine::deleteInstance();
 
 	return static_cast<int>(msg.wParam);

@@ -1,7 +1,7 @@
 #pragma once
 
 //1분 3600
-#define REWIND_TIME 2.5f
+#define REWIND_TIME 0.85f
 #define MAX_REWIND_SECOND 90
 #define MAX_REWIND_FRAME MAX_REWIND_SECOND * 60 + 60
 #define REWIND_FRAME_TIME 0.0166666f //1초에 60장

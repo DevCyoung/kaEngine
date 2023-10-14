@@ -143,3 +143,8 @@ void KissyfaceScene::lateUpdate()
 	GameManager::GetInstance()->GetRewindManager()->LateUpdate();
 	//GameManager::GetInstance()->GetEffectManager()->LateUpdate();
 }
+
+Scene* KissyfaceScene::Clone()
+{
+	return nullptr;
+}

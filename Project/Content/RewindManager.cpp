@@ -36,13 +36,18 @@ RewindManager::~RewindManager()
 
 void RewindManager::Initialize(Scene* Scene)
 {
-	mTimerUI = Scene->GetGameSystem()->FindGameObject(L"UITimer");
+	mTimerUI = Scene->GetGameSystem()->FindGameObjectOrNull(L"UITimer");
 }
 
 //PlayerDeath
 
 void RewindManager::LateUpdate()
 {
+	if (nullptr == mTimerUI)
+	{
+		return;
+	}
+
 	mCurTime += gDeltaTime;
 	float uvX = 1.f - (mCurTime / static_cast<float>(MAX_REWIND_SECOND));	
 	mTimerUI->GetComponent<SpriteRenderer>()->SetUvOffsetX(uvX);
@@ -244,26 +249,38 @@ void RewindManager::Rewind()
 		if (mCurFrameIdx <= 50)
 		{
 			mRewindEvent = eRewindEvent::RewindTVThumb;
+
+			tWaveInfo waveInfo = {};
+
+			waveInfo.WaveXPower = 450.f;
+			waveInfo.WaveYPower = 10.f;
+			waveInfo.WaveSpeed = 1.f;
+
+			gGraphicDevice->PassCB(eCBType::Wave, sizeof(waveInfo), &waveInfo);
+			gGraphicDevice->BindCB(eCBType::Wave, eShaderBindType::PS);
 		}
 	}
 	else if (mRewindEvent == eRewindEvent::RewindTVThumb)
 	{
 		mTVThumTime += gRealDeltaTime;
-		tWaveInfo waveInfo = {};
 
-		waveInfo.WaveXPower = 450.f;
-		waveInfo.WaveYPower = 10.f;
-		waveInfo.WaveSpeed = 1.f;
-
-		gGraphicDevice->PassCB(eCBType::Wave, sizeof(waveInfo), &waveInfo);
-		gGraphicDevice->BindCB(eCBType::Wave, eShaderBindType::PS);
-
-		if (mTVThumTime > 0.25f)
+		if (mTVThumTime > 0.28f)
 		{
 			mRewindEvent = eRewindEvent::RewindEnd;
 			gSoundManager->PlayInForce(eResAudioClip::tvThump, 1.f);
 			gSoundManager->TurnOnSound();
-			SceneManager::GetInstance()->RegisterLoadScene(new Chinatown01Scene);
+
+
+			tWaveInfo waveInfo = {};
+
+			waveInfo.WaveXPower = 0.f;
+			waveInfo.WaveYPower = 0.f;
+			waveInfo.WaveSpeed = 0.f;
+
+			gGraphicDevice->PassCB(eCBType::Wave, sizeof(waveInfo), &waveInfo);
+			gGraphicDevice->BindCB(eCBType::Wave, eShaderBindType::PS);
+
+			SceneManager::GetInstance()->RegisterLoadScene(SceneManager::GetInstance()->GetCurrentScene()->Clone());
 		}
 	}
 
@@ -271,7 +288,7 @@ void RewindManager::Rewind()
 	{
 		mCurFrameIdx = 1;
 	}
-
+	
 	DrawFrame(mCurFrameIdx);
 }
 

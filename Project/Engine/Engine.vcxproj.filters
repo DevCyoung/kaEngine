@@ -223,6 +223,15 @@
     <Filter Include="Source\03. Component\Audio">
       <UniqueIdentifier>{048f2cfa-7937-4795-927e-fed05134cbfd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\01. Manager\06. Font">
+      <UniqueIdentifier>{187005be-8b02-4028-8608-76b19eb5befa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\03. Component\03. Render\Text">
+      <UniqueIdentifier>{43db21eb-7836-4c21-bfd9-9f8702a11762}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\03. Component\03. Render\Dummy">
+      <UniqueIdentifier>{ec2912af-6b45-45e2-b40e-9705b74b457e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Entity.h">
@@ -462,6 +471,12 @@
     <ClInclude Include="AudioSource.h">
       <Filter>Source\03. Component\Audio</Filter>
     </ClInclude>
+    <ClInclude Include="FontManager.h">
+      <Filter>Source\01. Manager\06. Font</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineText.h">
+      <Filter>Source\03. Component\03. Render\Text</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Entity.cpp">
@@ -655,6 +670,12 @@
     </ClCompile>
     <ClCompile Include="AudioSource.cpp">
       <Filter>Source\03. Component\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="FontManager.cpp">
+      <Filter>Source\01. Manager\06. Font</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineText.cpp">
+      <Filter>Source\03. Component\03. Render\Text</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

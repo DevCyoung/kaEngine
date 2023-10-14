@@ -11,6 +11,7 @@ FolowPlayer::FolowPlayer()
 	, mbShake(false)
 	, mbCollideWall{}
 	, mShakeCount(0)
+	, mbFolow(true)
 {
 }
 
@@ -39,7 +40,7 @@ void FolowPlayer::update()
 
 	const Vector3& TARGET_POS = mPlayerTransform->GetPosition();
 	const Vector3& CAMERA_POS = GetOwner()->GetComponent<Transform>()->GetPosition();
-
+	Vector3 NextPos = CAMERA_POS;
 
 	Vector3 direction = TARGET_POS - CAMERA_POS;
 	direction.z = 0.f;
@@ -74,27 +75,20 @@ void FolowPlayer::update()
 		{
 			direction.y = 0.f;
 		}
-	}
+	}	
 
-	Vector3 NextPos = CAMERA_POS;
-
-	if (DISTANCE > 50.f)
+	if (mbFolow)
 	{
-		NextPos += direction * gDeltaTime * 1000.f;
-	}
+		if (DISTANCE > 50.f)
+		{
+			NextPos += direction * gDeltaTime * 1000.f;
+		}
+	}	
 
-
-
-
-
-	//(void)rand;
-
-
-
-	if (gInput->GetKeyDown(eKeyCode::J))
-	{
-		ShakeCamera();
-	}
+	//if (gInput->GetKeyDown(eKeyCode::J))
+	//{
+	//	ShakeCamera();
+	//}
 
 	if (mbShake)
 	{

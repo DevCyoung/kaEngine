@@ -40,10 +40,20 @@ void SlashComponent::initialize()
 			{
 				gSoundManager->Play(eResAudioClip::slash3, 0.7f);
 			}
-			
+
+			GetOwner()->GetComponent<RectCollider2D>()->SetOffset(Vector2(30.f, 0.f));
+
+			//Slash->GetComponent<RectCollider2D>()->SetSize(50.f, 30.f);
+			//Slash->GetComponent<RectCollider2D>()->SetOffset(Vector2(30.f, 0.f));			
+		};
+
+
+		std::function<void()> func2 = [this]() {
+			GetOwner()->GetComponent<RectCollider2D>()->SetOffset(Vector2(-10000000.f, -10000000.f));
 		};
 
 		animation->SetFrameStartEvent(0, func);
+		animation->SetFrameStartEvent(3, func2);
 	}
 }
 

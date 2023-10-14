@@ -14,6 +14,25 @@ cbuffer ColorInfo : register(b1)
 	int B1_ColorType;
 	float2 B1_dummy;	
 	float4 B1_cbColor;
+	
+	int B1_bSetColorR;
+	float B1_R;
+	int B1_bSetColorG;
+	float B1_G;
+	int B1_bSetColorB;
+	float B1_B;
+	int B1_bSetColorA;
+	float B1_A;
+	
+	
+	int B1_bMulColorR;
+	float B1_MulR;
+	int B1_bMulColorG;
+	float B1_MulG;
+	int B1_bMulColorB;
+	float B1_MulB;
+	int B1_bMulColorA;
+	float B1_MulA;
 }
 
 cbuffer DebugInfo : register(b2)

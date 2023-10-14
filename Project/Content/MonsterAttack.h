@@ -15,10 +15,14 @@ public:
 	void SetAttackDirection(const Vector2& attackDirection) { mAttackDirection = attackDirection; }
 	Vector2 GetAttackDirection() const { return mAttackDirection; }
 
+	void SetAttackAble(bool bAttackAble) { mbAttackAble = bAttackAble; }
+	bool GetAttackAble() const { return mbAttackAble; }
 private:
 	virtual void initialize() override final;
 	virtual void update() override final;
 	virtual void lateUpdate() override final;
 
+
 	Vector2 mAttackDirection;
+	bool mbAttackAble;
 };

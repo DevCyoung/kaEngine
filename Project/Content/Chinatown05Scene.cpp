@@ -207,8 +207,6 @@ Chinatown05Scene::Chinatown05Scene()
 
 #pragma endregion
 
-
-
 #pragma region Global
 
 
@@ -222,8 +220,6 @@ Chinatown05Scene::Chinatown05Scene()
 		GameObjectBuilder::AddCamera(this);
 	}
 #pragma endregion
-
-
 }
 
 Chinatown05Scene::~Chinatown05Scene()
@@ -436,14 +432,14 @@ void Chinatown05Scene::initialize()
 
 
 #pragma endregion
-
-
-	KatanaScene::initialize();
+	//KatanaScene::initialize();
 }
 
 void Chinatown05Scene::update()
+{	
+}
+
+Scene* Chinatown05Scene::Clone()
 {
-	KatanaScene::update();
-
-
+	return new Chinatown05Scene();
 }

@@ -2,8 +2,10 @@
 #include "PlayerFSM.h"
 #include "Components.h"
 #include "Rect2DInterpolation.h"
+#include "GameObjectBuilder.h"
 #include <Engine/Physics2D.h>
 #include <Engine/EngineMath.h>
+#include <Engine/SceneManager.h>
 
 PlayerFSM::PlayerFSM(GameObject* const owner)
 	: mOwner(owner)
@@ -120,6 +122,19 @@ void PlayerFSM::GlobalUpdate()
 
 void PlayerFSM::InputUpdate()
 {
+	//if (gInput->GetKeyDown(eKeyCode::RBTN))
+	//{
+	//	Camera* mainCamera = mOwner->GetGameSystem()->GetRenderTargetRenderer()->GetRegisteredRenderCamera(eCameraPriorityType::Main);
+	//	Vector3 mousePos = helper::WindowScreenMouseToWorld3D(mainCamera);
+	//	Vector3 playerPos = mOwner->GetComponent<Transform>()->GetPosition();
+	//	Vector3 dir = mousePos - mOwner->GetComponent<Transform>()->GetPosition();
+	//	dir.z = 0.f;	
+	//	dir.Normalize();
+
+	//	GameObject* bullet = GameObjectBuilder::CreateBullet(dir, playerPos, eBulletType::PlayerBeer1);
+	//	mOwner->GetGameSystem()->GetScene()->RegisterEventAddGameObject(bullet, eLayerType::Bullet);
+	//}
+
 	mCurState->InputUpdate();
 }
 

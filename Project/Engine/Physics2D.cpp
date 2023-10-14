@@ -201,3 +201,16 @@ bool Physics2D::RayCastHit2D(const Vector2& origin,
 
 	return bColliison;
 }
+
+bool Physics2D::RayCastHit2D(const Vector2& origin, 
+	const Vector2& dest, 
+	const eLayerType layerType,
+	RayCast2DHitInfo* const outHitInfo)
+{
+	Vector2 direction = dest - origin;
+	direction.Normalize();
+
+	const float& distance = Vector2::Distance(origin, dest);	
+
+	return RayCastHit2D(origin, direction, distance, layerType, outHitInfo);
+}

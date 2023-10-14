@@ -14,7 +14,8 @@ public:
 
 	void Play();
 	void SetVolume(float volume);
-	void SetPitch(float pitch);
+	void SetPitch(float pitch) ;
+	float GetPitch() const;
 	void SetSpeed(float speed);
 
 	void Stop();

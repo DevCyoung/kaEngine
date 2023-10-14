@@ -301,6 +301,22 @@ namespace helper::math
 		return Vector2(dir.x, dir.y);
 	}
 
+	Vector2 GetDirection2D(Vector2 origin, Vector2 dest)
+	{
+		Vector2 direction = dest - origin;
+
+		direction.Normalize();
+		return direction;
+	}
+
+	Vector2 GetDirection2D(Vector3 origin, Vector3 dest)
+	{
+		Vector2 origin2D = Vector2(origin.x, origin.y);
+		Vector2 dest2D = Vector2(dest.x, dest.y);
+
+		return GetDirection2D(origin2D, dest2D);
+	}	
+
 	float GetDistance3D(const GameObject* const a, const GameObject* const b)
 	{
 		Vector3 pos1 = a->GetComponent<Transform>()->GetWorldMatrix().Translation();

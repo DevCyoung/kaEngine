@@ -12,7 +12,9 @@ ShiftController::ShiftController()
     , mPlayer(nullptr)
     , mBattery{}
     , mTimeScale(1.f)    
+    , mPrevBackgorundColor(Vector4::One)
 {
+    gSoundManager->SetSoundPitch(1.0f);
 }
 
 ShiftController::~ShiftController()
@@ -40,13 +42,27 @@ void ShiftController::update()
 
     //Player Material
     Material* const material = mPlayer->GetComponent<Animator2D>()->GetMaterial();
-
+    Scene* const scene = GetOwner()->GetGameSystem()->GetScene();
     if (gInput->GetKeyDown(eKeyCode::LSHIFT))
     {
-        gSoundManager->Play(eResAudioClip::slomoEngage, 1.f);
-        mLight->SetLightDiffuse(Vector3::One * 0.1f);
-        GetOwner()->GetGameSystem()->GetScene()->SetBackgroundColor(Vector4(0.5294f * 0.1f, 0.5254f * 0.1f, 0.7843f * 0.1f, 1.f));
-        gSoundManager->SetPitch(eResAudioClip::song_chinatown, 0.5f); 
+        
+        mLight->SetLightDiffuse(Vector3::One * 0.1f);       
+
+
+        mPrevBackgorundColor = scene->GetBackgroundColor();
+
+        Vector4 backgroundColor = mPrevBackgorundColor;
+        backgroundColor.x *= 0.1f;
+        backgroundColor.y *= 0.1f;
+        backgroundColor.z *= 0.1f;
+
+        GetOwner()->GetGameSystem()->GetScene()->SetBackgroundColor(backgroundColor);
+
+        
+
+        gSoundManager->SetSoundPitch(0.5f);
+        gSoundManager->SetPitch(eResAudioClip::slomoEngage, 1.0f);
+        gSoundManager->Play(eResAudioClip::slomoEngage, 1.f);        
         mPlayer->GetComponent<AfterImage>()->TurnOffVisiblelity();
 
 
@@ -67,11 +83,19 @@ void ShiftController::update()
     }
     else if (gInput->GetKeyUp(eKeyCode::LSHIFT))
     {
-        gSoundManager->Stop(eResAudioClip::slomoEngage);
+        gSoundManager->Stop(eResAudioClip::slomoEngage);      
+        gSoundManager->SetSoundPitch(1.f);
         gSoundManager->Play(eResAudioClip::slomoDisengage, 1.f);
+        
+
+
         mLight->SetLightDiffuse(Vector3::One);
-        GetOwner()->GetGameSystem()->GetScene()->SetBackgroundColor(Vector4(0.5294f, 0.5254f, 0.7843f, 1.f));
-        gSoundManager->SetPitch(eResAudioClip::song_chinatown, 1.f);
+        GetOwner()->GetGameSystem()->GetScene()->SetBackgroundColor(mPrevBackgorundColor);
+
+        //gSoundManager->SetPitch(eResAudioClip::song_chinatown, 1.f);
+
+        
+
         mPlayer->GetComponent<AfterImage>()->TurnOnVisiblelity();
 
 

@@ -33,6 +33,10 @@
 
 #include "DoorController.h"
 
+#include "BulletMovement.h"
+
+#include "HeadHunterAI.h"
+
 GameObject* GameObjectBuilder::Default2D(const std::wstring& materialName)
 {
 	GameObject* const obj = new GameObject();
@@ -138,8 +142,8 @@ GameObject* GameObjectBuilder::Player()
 
 	//Collider
 	{
-		player->GetComponent<RectCollider2D>()->SetSize(22.f, 44.f);
-		player->GetComponent<RectCollider2D>()->SetOffset(Vector2(0.f, 4.f));
+		player->GetComponent<RectCollider2D>()->SetSize(22.f, 38.f);
+		player->GetComponent<RectCollider2D>()->SetOffset(Vector2(0.f, 1.f));
 	}
 
 	player->GetComponent<Animator2D>()->Play(L"Idle", true);
@@ -172,19 +176,19 @@ GameObject* GameObjectBuilder::InstantiateMonster(const eMonsterType type, Scene
 	case eMonsterType::Ganster:
 		monster->AddComponent<GangsterAI>();
 		break;
-		case eMonsterType::Shield:
+	case eMonsterType::Shield:
 		monster->AddComponent<ShieldCop>();
 		break;
-		case eMonsterType::Cop:
+	case eMonsterType::Cop:
 		monster->AddComponent<CopAI>();
 		break;
-		case eMonsterType::Shotgun:
+	case eMonsterType::Shotgun:
 		monster->AddComponent<ShotGunAI>();
 		break;
 	default:
 		assert(false);
 		break;
-	}	
+	}
 	monster->AddComponent<PlayerPath>();
 	monster->AddComponent<RewindComponent>();
 
@@ -192,12 +196,42 @@ GameObject* GameObjectBuilder::InstantiateMonster(const eMonsterType type, Scene
 	monster->GetComponent<RectCollider2D>()->SetOffset(Vector2(0.f, 4.f));
 
 	monster->GetComponent<Rigidbody2D>()->TurnOnGravity();
-	monster->GetComponent<Rigidbody2D>()->SetGravityAccel(1800.f);
+	monster->GetComponent<Rigidbody2D>()->SetGravityAccel(1800.f);	
 
 	scene->AddGameObject(monster, eLayerType::Monster);
 
 	monster->GetComponentOrNull<BasicMonsterAI>()->CreateAnimation(scene);
 	monster->GetComponentOrNull<BasicMonsterAI>()->CreateGun(scene);
+
+	monster->GetComponentOrNull<BasicMonsterAI>()->SetMonsterType(type);	
+
+	{
+		GameObject* emotion = new GameObject();
+		emotion->SetName(L"Emotion");
+
+		emotion->AddComponent<Animator2D>();
+
+		//emotion->GetComponent<Transform>()->SetScale(2.f, 2.f, 1.f);
+		emotion->GetComponent<Transform>()->SetPosition(10.f, 30.f, 0.f);
+
+		{
+			Animator2D * anim = emotion->GetComponent<Animator2D>();
+
+			Texture* atlas = gResourceManager->FindByEnum<Texture>(eResTexture::Atlas_Emotion_emotion);
+			anim->CreateAnimation(L"Follow", atlas, 3, XMUINT2(5, 703), 
+				XMUINT2(17, 20), XMUINT2(10, 10), XMINT2(0, 0), 0.625f);
+
+			anim->CreateAnimation(L"QuestionFollow", atlas, 3, XMUINT2(5, 703),
+				XMUINT2(17, 20), XMUINT2(10, 10), XMINT2(0, 0), 0.625f);
+
+			anim->CreateAnimation(L"Exclaim", atlas, 3, XMUINT2(5, 703),
+				XMUINT2(17, 20), XMUINT2(10, 10), XMINT2(0, 0), 0.625f);
+
+		}		
+		emotion->SetParent(monster);
+		monster->GetComponentOrNull<BasicMonsterAI>()->SetEmotion(emotion);
+		scene->AddGameObject(emotion, eLayerType::Default);
+	}
 
 	return monster;
 }
@@ -411,6 +445,73 @@ GameObject* GameObjectBuilder::InstantiateKissyface(Scene* const scene)
 	}
 
 	return kissyface;
+}
+
+GameObject* GameObjectBuilder::InstantiateHeadHunter(Scene* const scene)
+{
+	GameObject* const headHunter = new GameObject();
+
+	headHunter->GetComponent<Transform>()->SetPosition(250.f, -220.f, 0.f);
+	headHunter->GetComponent<Transform>()->SetScale(2.0f, 2.0f, 1.f);
+
+	headHunter->SetName(L"HeadHunter");
+	headHunter->AddComponent<Rigidbody2D>();
+	headHunter->AddComponent<Rect2DInterpolation>();
+	headHunter->AddComponent<RectCollider2D>();
+	headHunter->AddComponent<Animator2D>();
+	headHunter->AddComponent<HeadHunterAI>();
+	headHunter->AddComponent<RewindComponent>();
+	headHunter->AddComponent<AfterImage>();
+
+	headHunter->GetComponent<AfterImage>()->SetCreateDeltaTime(0.01f);
+	headHunter->GetComponent<AfterImage>()->SetAlphaTime(1.2f);
+	headHunter->GetComponent<AfterImage>()->SetAlphaMaxTime(2.0f);
+
+	//Collider
+	{
+		headHunter->GetComponent<RectCollider2D>()->SetSize(28.f, 52.f);
+		headHunter->GetComponent<RectCollider2D>()->SetOffset(Vector2(0.f, 4.f));
+	}
+
+	//Rigidbody
+	{
+		headHunter->GetComponent<Rigidbody2D>()->TurnOnGravity();
+		headHunter->GetComponent<Rigidbody2D>()->SetGravityAccel(2500.f);
+		headHunter->GetComponent<Rigidbody2D>()->SetVelocityLimit(10000.f);
+	}
+
+	headHunter->GetComponent<HeadHunterAI>()->CreateAnimation();
+
+	headHunter->GetComponent<Transform>()->SetFlipx(true);
+
+	scene->AddGameObject(headHunter, eLayerType::Monster);
+
+
+	{
+		//Hand
+		GameObject* const hand = headHunter->GetComponent<HeadHunterAI>()->CreateHand();
+		
+		hand->AddComponent<RewindComponent>();		
+		hand->SetParent(headHunter);		
+		headHunter->GetComponent<HeadHunterAI>()->SetHand(hand);
+		scene->AddGameObject(hand, eLayerType::Monster);
+		
+
+		{
+			//Lazer
+
+			//GameObject* const lazerMask = GameObjectBuilder::Default2D(L"LazerMask");
+			//lazerMask->GetComponent<Transform>()->SetPosition(527.f, 3.f, 0.f);
+			//lazerMask->GetComponent<Transform>()->SetScale(1.f, 0.01f, 1.f);
+
+			//lazerMask->SetParent(hand);
+			//scene->AddGameObject(lazerMask, eLayerType::Default);
+		}
+	}
+
+	/**/
+
+	return headHunter;
 }
 
 GameObject* GameObjectBuilder::InstantiateDoor(Scene* const scene)
@@ -784,4 +885,90 @@ GameObject* GameObjectBuilder::AddCamera(Scene* const scene)
 	}
 
 	return result;
+}
+
+GameObject* GameObjectBuilder::CreateBullet(Vector3 direction, Vector3 position)
+{
+	GameObject* bullet = new GameObject();
+
+
+	bullet->AddComponent<BulletMovement>();
+	bullet->AddComponent<RewindComponent>();
+	bullet->AddComponent<RectCollider2D>();
+
+	bullet->GetComponent<BulletMovement>()->mDir = Vector3(direction.x, direction.y, 0.f);
+	bullet->GetComponent<RectCollider2D>()->SetSize(20.f, 20.f);
+	bullet->GetComponent<Transform>()->SetPosition(position);
+
+	return bullet;
+}
+
+GameObject* GameObjectBuilder::CreateBullet(Vector3 direction, Vector3 position, eBulletType type)
+{
+	GameObject* bullet = CreateBullet(direction, position);
+	bullet->AddComponent<Animator2D>();
+
+	BulletMovement* bulletMovement = bullet->GetComponent<BulletMovement>();
+	bulletMovement->SetBulletType(type);
+
+	switch (type)
+	{
+	case eBulletType::MonsterBullet:
+	{
+		Texture* atlas = gResourceManager->FindByEnum<Texture>(eResTexture::Atlas_Particle_particle);
+		bullet->GetComponent<Animator2D>()->CreateAnimation(L"Bullet", atlas, 1, XMUINT2(5, 79), XMUINT2(34, 2), XMUINT2(10, 10), XMINT2(0, 0), 0.1f);
+	}
+	break;
+	case eBulletType::PlayerBullet:
+	{
+		Texture* atlas = gResourceManager->FindByEnum<Texture>(eResTexture::Atlas_Particle_particle);
+		bullet->GetComponent<Animator2D>()->CreateAnimation(L"Bullet", atlas, 1, XMUINT2(5, 79), XMUINT2(34, 2), XMUINT2(10, 10), XMINT2(0, 0), 0.1f);
+		bulletMovement->SetIsPlayerBullet(true);
+		bulletMovement->SetIsRotationMode(true);
+		bulletMovement->SetIsScaleMode(false);		
+	}
+	break;
+	case eBulletType::PlayerBust:
+	{
+		Texture* atlas = gResourceManager->FindByEnum<Texture>(eResTexture::Atlas_Emotion_emotion);
+		bullet->GetComponent<Animator2D>()->CreateAnimation(L"Bullet", atlas, 1, XMUINT2(5, 469), XMUINT2(46, 64), XMUINT2(10, 10), XMINT2(0, 0), 0.125f);
+		bulletMovement->SetIsPlayerBullet(true);
+		bulletMovement->SetIsRotationMode(true);
+		bulletMovement->SetIsScaleMode(false);
+	}
+	break;
+	case eBulletType::PlayerKinfe:
+	{
+		Texture* atlas = gResourceManager->FindByEnum<Texture>(eResTexture::Atlas_Emotion_emotion);
+		bullet->GetComponent<Animator2D>()->CreateAnimation(L"Bullet", atlas, 1, XMUINT2(5, 572), XMUINT2(42, 42), XMUINT2(10, 10), XMINT2(0, 0), 0.125f);
+		bulletMovement->SetIsPlayerBullet(true);
+		bulletMovement->SetIsRotationMode(true);
+		bulletMovement->SetIsScaleMode(false);
+	}
+	break;
+	case eBulletType::PlayerBeer1:
+	{
+		Texture* atlas = gResourceManager->FindByEnum<Texture>(eResTexture::Atlas_Emotion_emotion);
+		bullet->GetComponent<Animator2D>()->CreateAnimation(L"Bullet", atlas, 1, XMUINT2(5, 34), XMUINT2(24, 48), XMUINT2(10, 10), XMINT2(0, 0), 0.125f);
+		bulletMovement->SetIsPlayerBullet(true);
+		bulletMovement->SetIsRotationMode(true);
+		bulletMovement->SetIsScaleMode(false);
+	}
+	break;
+	case eBulletType::PlayerBeer2:
+	{
+		Texture* atlas = gResourceManager->FindByEnum<Texture>(eResTexture::Atlas_Emotion_emotion);
+		bullet->GetComponent<Animator2D>()->CreateAnimation(L"Bullet", atlas, 1, XMUINT2(5, 121), XMUINT2(24, 48), XMUINT2(10, 10), XMINT2(0, 0), 0.125f);
+		bulletMovement->SetIsPlayerBullet(true);
+		bulletMovement->SetIsRotationMode(true);
+		bulletMovement->SetIsScaleMode(false);
+	}
+		break;
+	default:
+		assert(false);
+		break;
+	}	
+
+	bullet->GetComponent<Animator2D>()->Play(L"Bullet", false);
+	return bullet;
 }

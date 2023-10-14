@@ -357,6 +357,34 @@ void EngineResourceLoader::loadShader()
 		gResourceManager->Insert(L"LightAnimation2D", animationShader);
 	}
 
+	//AfterImage
+	{
+		Shader* const animationShader =
+			new Shader(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST,
+				L"\\Shader\\VSAfterImage.hlsl", L"main",
+				L"\\Shader\\PSAfterImage.hlsl", L"main",
+				eSMType::Default,
+				eRSType::CullNone,
+				eDSType::LessEqual,
+				eBSType::AlphaBlend);
+
+		gResourceManager->Insert(L"AfterImage", animationShader);
+	}
+
+	//Next Scene
+	{
+		Shader* const animationShader =
+			new Shader(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST,
+				L"\\Shader\\VSNextScene.hlsl", L"main",
+				L"\\Shader\\PSNextScene.hlsl", L"main",
+				eSMType::Default,
+				eRSType::CullNone,
+				eDSType::LessEqual,
+				eBSType::AlphaBlend);
+
+		gResourceManager->Insert(L"NextScene", animationShader);
+	}
+
 	//Post Process
 	{
 		Shader* const grayPostProcess =
