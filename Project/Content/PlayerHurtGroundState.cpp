@@ -7,8 +7,11 @@
 #include "PlayerFSM.h"
 #include "PlayerController.h"
 
+#include "GameManager.h"
+
 PlayerHurtGroundState::PlayerHurtGroundState(GameObject* const gameObject, PlayerFSM* const owner)
 	: PlayerState(gameObject, owner)
+	, mbInvincibility(false)
 {
 }
 
@@ -24,7 +27,14 @@ void PlayerHurtGroundState::Update()
 {
 	if (gInput->GetKeyDown(eKeyCode::LBTN))
 	{
-		mOwner->ChangeState(mOwner->mPlayerRecoverState);		
+		if (mbInvincibility)
+		{
+			mOwner->ChangeState(mOwner->mPlayerRecoverState);
+		}		
+		else
+		{
+			GameManager::GetInstance()->GetRewindManager()->Rewind();
+		}
 	}
 }
 

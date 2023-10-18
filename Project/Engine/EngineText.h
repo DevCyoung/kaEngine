@@ -18,6 +18,9 @@ public:
 	void SetScale(const float scale) { mScale = scale; }
 	void SetColor(const XMUINT4& color) { mColor = color; }
 
+	void TurnOnCamera() { mbCamera = true; }
+	void TurnOffCamera() { mbCamera = false; }
+
 	const std::wstring& GetText() const { return mText; }
 	const XMUINT2& GetPosition() const { return mPosition; }
 	const float GetScale() const { return mScale; }
@@ -34,4 +37,6 @@ private:
 	XMUINT2 mPosition;
 	float mScale;
 	XMUINT4 mColor;
+
+	bool mbCamera;
 };

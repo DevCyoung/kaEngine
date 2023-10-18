@@ -19,6 +19,7 @@
 #include <Engine/ConstantBuffer.h>
 #include "KissyfaceScene.h"
 Chinatown04Scene::Chinatown04Scene()
+	: KatanaScene(eKatanaSceneType::ChinaTown04)
 {
 }
 
@@ -316,14 +317,14 @@ void Chinatown04Scene::AddDoorObject()
 
 void Chinatown04Scene::AddMonsterObject()
 {
-	{
+	/*{
 		GameObject* monster = GameObjectBuilder::InstantiateMonster(eMonsterType::Ganster, this);
 		monster->GetComponent<Transform>()->SetPosition(-80, 150, 0);
-	}
+	}*/
 
 	{
 		GameObject* monster = GameObjectBuilder::InstantiateMonster(eMonsterType::Ganster, this);
-		monster->GetComponent<Transform>()->SetPosition(-460, 250, 0);
+		monster->GetComponent<Transform>()->SetPosition(-500, 150, 0);
 	}
 }
 
@@ -633,7 +634,7 @@ void Chinatown04Scene::AddCameraObject()
 	{
 		GameObject* mainCamera = GameObjectBuilder::AddCamera(this);
 		Vector3 pos = mainCamera->GetComponent<Transform>()->GetPosition();
-		mainCamera->GetComponent<Transform>()->SetPosition(0, 0, pos.z);
+		mainCamera->GetComponent<Transform>()->SetPosition(-800, 450, pos.z);
 	}
 
 	//CameraWall
@@ -697,7 +698,7 @@ void Chinatown04Scene::AddPlayerObject()
 {
 	{
 		GameObject* player = GameObjectBuilder::InstantiatePlayer(this);
-		player->GetComponent<Transform>()->SetPosition(0, 0, 0);
+		player->GetComponent<Transform>()->SetPosition(-800, 450, 0);
 
 		GameManager::GetInstance()->SetPlayer(player);
 	}
@@ -957,7 +958,7 @@ Scene* Chinatown04Scene::Clone()
 	return new Chinatown04Scene();
 }
 
-Scene* Chinatown04Scene::NextScene()
+KatanaScene* Chinatown04Scene::GetNextScene()
 {
-	return new KissyfaceScene();
+	return nullptr;
 }

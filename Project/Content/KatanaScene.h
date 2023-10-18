@@ -25,15 +25,28 @@
 #include "ShiftController.h"
 #include "SimpleEditorCollider2D.h"
 #include "UIEffect.h"
-#include "NexeScene.h"
+
+
+enum class eKatanaSceneType
+{
+	None,
+	Title,
+	ChinaTown01,
+	ChinaTown04,
+	ChinaTown05,
+	HeadHunter,
+	Kissyface,
+};
 
 class KatanaScene : public Scene
 {
 public:
-	KatanaScene();
+	KatanaScene(const eKatanaSceneType type);
 	virtual ~KatanaScene();
 	KatanaScene(const KatanaScene&) = delete;
 	KatanaScene& operator=(const KatanaScene&) = delete;
+
+	eKatanaSceneType GetKatanaSceneType() const { return mKatanaSceneType; }
 
 	virtual void SetDefaultCollision();
 
@@ -48,17 +61,27 @@ public:
 	virtual void AddPlayerObject() = 0;
 
 	GameObject* InstantiateMonster(eMonsterType type, Vector2 pos, bool bFlipX = false);
-
+	GameObject* InstantiateText(const wchar_t* wstr, XMUINT2 pos, float scale, XMUINT4 color);
 
 	virtual Scene* Clone() = 0;
-	virtual Scene* NextScene() = 0;
+	virtual KatanaScene* GetNextScene() = 0;
+
+	virtual void enter();
+
+
+
+	bool IsClear() { return mEnemyCount == 0; }
+	void AddEnemyCount()  { mEnemyCount++; }
+	void SubEnemyCount()  { mEnemyCount--; }
 
 protected:
 	virtual void initialize() final;
 	virtual void update() final;
 	virtual void lateUpdate() final;
 
+	int mEnemyCount;
+
 	// Scene을(를) 통해 상속됨
-	
+	eKatanaSceneType mKatanaSceneType;
 };
 

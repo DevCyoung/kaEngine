@@ -1,6 +1,7 @@
 #pragma once
 #include <Engine/ScriptComponent.h>
 #include "EnumScriptComponent.h"
+#include "KatanaScene.h"
 
 REGISTER_SCRIPTCOMPONENT_TYPE(NexeScene);
 
@@ -19,10 +20,15 @@ public:
 	NexeScene(const NexeScene&) = delete;
 	NexeScene& operator=(const NexeScene&) = delete;
 
+	void FadeIn();
+	void FadeOut(eKatanaSceneType nextSceneType);
+	void LoadNextScene(eKatanaSceneType sceneType);
+
 private:
 	virtual void initialize() override final;
 	virtual void update() override final;
 	virtual void lateUpdate() override final;
 
-	eNextSceneState mNextSceneState;
+	eNextSceneState mSceneState;
+	eKatanaSceneType mNextSceneType;
 };

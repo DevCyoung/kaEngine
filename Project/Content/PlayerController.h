@@ -26,6 +26,8 @@ public:
 
 	void SetControl(bool bControl) { mbControl = bControl; }
 
+	
+
 private:
 	virtual void initialize() override final;
 	virtual void update() override final;
@@ -33,6 +35,7 @@ private:
 
 	virtual void onCollisionEnter(Collider2D* other) override final;
 	virtual void onCollisionStay(Collider2D* other) override final;
+	void dieEnter();
 
 	void idleToRun();
 	void runToIdle();

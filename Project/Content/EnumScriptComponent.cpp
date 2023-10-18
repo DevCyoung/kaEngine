@@ -10,10 +10,13 @@
 #include "BulletMovement.h"
 #include "CameraInputMoveMent.h"
 #include "CameraWall.h"
+#include "CCTVTextDrawer.h"
 #include "ChildTest.h"
 #include "Chinatown04Controller.h"
+#include "ClearController.h"
 #include "CopAI.h"
 #include "CursorMovement.h"
+#include "DieController.h"
 #include "DoorController.h"
 #include "Effect2D.h"
 #include "Emotion.h"
@@ -58,10 +61,13 @@ static constexpr const wchar_t* const ScriptComponentNames[static_cast<UINT>(eSc
 	L"BulletMovement",
 	L"CameraInputMoveMent",
 	L"CameraWall",
+	L"CCTVTextDrawer",
 	L"ChildTest",
 	L"Chinatown04Controller",
+	L"ClearController",
 	L"CopAI",
 	L"CursorMovement",
+	L"DieController",
 	L"DoorController",
 	L"Effect2D",
 	L"Emotion",
@@ -124,14 +130,20 @@ ScriptComponent* CreateScriptComponentByName(const std::wstring& scriptcomponent
 		scriptcomponent = new CameraInputMoveMent;
 	else if (L"CameraWall" == scriptcomponentName)
 		scriptcomponent = new CameraWall;
+	else if (L"CCTVTextDrawer" == scriptcomponentName)
+		scriptcomponent = new CCTVTextDrawer;
 	else if (L"ChildTest" == scriptcomponentName)
 		scriptcomponent = new ChildTest;
 	else if (L"Chinatown04Controller" == scriptcomponentName)
 		scriptcomponent = new Chinatown04Controller;
+	else if (L"ClearController" == scriptcomponentName)
+		scriptcomponent = new ClearController;
 	else if (L"CopAI" == scriptcomponentName)
 		scriptcomponent = new CopAI;
 	else if (L"CursorMovement" == scriptcomponentName)
 		scriptcomponent = new CursorMovement;
+	else if (L"DieController" == scriptcomponentName)
+		scriptcomponent = new DieController;
 	else if (L"DoorController" == scriptcomponentName)
 		scriptcomponent = new DoorController;
 	else if (L"Effect2D" == scriptcomponentName)
@@ -234,17 +246,26 @@ ScriptComponent* CreateScriptComponentByEnum(const eScriptComponentType type)
 	case eScriptComponentType::CameraWall:
 		scriptcomponent = new CameraWall;
 		break;
+	case eScriptComponentType::CCTVTextDrawer:
+		scriptcomponent = new CCTVTextDrawer;
+		break;
 	case eScriptComponentType::ChildTest:
 		scriptcomponent = new ChildTest;
 		break;
 	case eScriptComponentType::Chinatown04Controller:
 		scriptcomponent = new Chinatown04Controller;
 		break;
+	case eScriptComponentType::ClearController:
+		scriptcomponent = new ClearController;
+		break;
 	case eScriptComponentType::CopAI:
 		scriptcomponent = new CopAI;
 		break;
 	case eScriptComponentType::CursorMovement:
 		scriptcomponent = new CursorMovement;
+		break;
+	case eScriptComponentType::DieController:
+		scriptcomponent = new DieController;
 		break;
 	case eScriptComponentType::DoorController:
 		scriptcomponent = new DoorController;

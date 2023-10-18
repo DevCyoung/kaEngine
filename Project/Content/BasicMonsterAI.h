@@ -99,6 +99,9 @@ protected:
 	virtual GameObject* createBullet(Vector3 direction, Vector3 position);
 	virtual void bleed();
 
+	void dieEnter();
+	void liveEnter();
+
 protected:
 	PathNode* mPrePlayerPathNode;
 	PathNode* mNextElevatorNode;

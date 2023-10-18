@@ -12,6 +12,7 @@
 #include "PlayerController.h"
 
 HeadHunterScene::HeadHunterScene()
+	: KatanaScene(eKatanaSceneType::HeadHunter)
 {
 	SetBackgroundColor(Vector4(0.f, 0.f, 0.f, 1.f));
 }
@@ -127,7 +128,7 @@ Scene* HeadHunterScene::Clone()
 	return new HeadHunterScene;
 }
 
-Scene* HeadHunterScene::NextScene()
+KatanaScene* HeadHunterScene::GetNextScene()
 {
 	return nullptr;
 }

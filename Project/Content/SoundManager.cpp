@@ -11,6 +11,7 @@ SoundManager::SoundManager()
 	, mbSoundOn(true)
 	, mbFitch(false)
 	, mPitch(1.f)
+	, backgroundClip(eResAudioClip::End)
 {
 }
 
@@ -44,13 +45,7 @@ void SoundManager::Play(eResAudioClip audioClip)
 	}	
 }
 
-void SoundManager::BackGround(eResAudioClip audioClip)
-{
-	AudioClip* clip = getClip(audioClip);
 
-	clip->SetLoop(true);
-	clip->Play();
-}
 
 void SoundManager::Play(eResAudioClip audioClip, float volume)
 {
@@ -77,6 +72,8 @@ void SoundManager::Play(eResAudioClip audioClip, float volume, bool loop)
 
 		//clip->SetPitch(mPitch);
 	}
+
+
 }
 
 void SoundManager::Stop(eResAudioClip audioClip)
@@ -86,13 +83,31 @@ void SoundManager::Stop(eResAudioClip audioClip)
 	clip->Stop();
 }
 
-void SoundManager::BackGround(eResAudioClip audioClip, float volume)
+AudioClip* SoundManager::PlayBackGround(eResAudioClip audioClip)
 {
 	AudioClip* clip = getClip(audioClip);
 
+	if (backgroundClip != eResAudioClip::End)
+	{
+		AudioClip* curClip = getClip(backgroundClip);
+
+		curClip->Stop();
+	}
+
+	backgroundClip = audioClip;
 	clip->SetLoop(true);
 	clip->Play();
+
+	return clip;
+}
+
+AudioClip* SoundManager::PlayBackGround(eResAudioClip audioClip, float volume)
+{
+	AudioClip* clip = PlayBackGround(audioClip);
+
 	clip->SetVolume(volume);
+
+	return clip;
 }
 
 void SoundManager::PlayInForce(eResAudioClip audioClip, float volume)

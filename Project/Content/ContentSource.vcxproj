@@ -198,6 +198,10 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="CCTVTextDrawer.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="ChildTest.h">
       <SubType>
       </SubType>
@@ -209,6 +213,10 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
     </ClInclude>
     <ClInclude Include="Chinatown04Scene.h" />
     <ClInclude Include="Chinatown05Scene.h" />
+    <ClInclude Include="ClearController.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Collide2DTestScene.h" />
     <ClInclude Include="Content.h" />
     <ClInclude Include="CopAI.h">
@@ -216,6 +224,10 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
       </SubType>
     </ClInclude>
     <ClInclude Include="CursorMovement.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="DieController.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -296,6 +308,10 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
       </SubType>
     </ClInclude>
     <ClInclude Include="KatanaScene.h" />
+    <ClInclude Include="KatanaZeroSystem.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="KissyfaceAI.h">
       <SubType>
       </SubType>
@@ -414,7 +430,7 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="TItleScene.h" />
+    <ClInclude Include="TitleScene.h" />
     <ClInclude Include="UIEffect.h">
       <SubType>
       </SubType>
@@ -447,6 +463,10 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="CCTVTextDrawer.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="ChildTest.cpp">
       <SubType>
       </SubType>
@@ -458,6 +478,10 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
     </ClCompile>
     <ClCompile Include="Chinatown04Scene.cpp" />
     <ClCompile Include="Chinatown05Scene.cpp" />
+    <ClCompile Include="ClearController.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Collide2DTestScene.cpp" />
     <ClCompile Include="Content.cpp" />
     <ClCompile Include="CopAI.cpp">
@@ -465,6 +489,10 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
       </SubType>
     </ClCompile>
     <ClCompile Include="CursorMovement.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="DieController.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -545,6 +573,10 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
       </SubType>
     </ClCompile>
     <ClCompile Include="KatanaScene.cpp" />
+    <ClCompile Include="KatanaZeroSystem.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="KissyfaceAI.cpp">
       <SubType>
       </SubType>
@@ -669,7 +701,7 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="TItleScene.cpp" />
+    <ClCompile Include="TitleScene.cpp" />
     <ClCompile Include="UIEffect.cpp">
       <SubType>
       </SubType>

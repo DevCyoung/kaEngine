@@ -827,7 +827,7 @@ GameObject* GameObjectBuilder::AddCamera(Scene* const scene)
 		GameObject* const mainCamera = new GameObject();
 		result = mainCamera;
 		mainCamera->AddComponent<Camera>();
-		mainCamera->AddComponent<CameraInputMoveMent>();
+		//mainCamera->AddComponent<CameraInputMoveMent>();
 		mainCamera->AddComponent<FolowPlayer>();
 		mainCamera->AddComponent<RewindComponent>();
 		mainCamera->AddComponent<RectCollider2D>();

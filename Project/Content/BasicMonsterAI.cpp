@@ -10,6 +10,8 @@
 #include "FolowPlayer.h"
 #include "DoorController.h"
 
+#include "KatanaZeroSystem.h"
+
 BasicMonsterAI::BasicMonsterAI(const eScriptComponentType scriptComponentType)
 	: ScriptComponent(scriptComponentType)
 	, mPrePlayerPathNode(nullptr)
@@ -59,6 +61,8 @@ void BasicMonsterAI::initialize()
 	}
 
 	mAnimator2D->Play(L"Idle", true);
+
+	liveEnter();
 }
 
 void BasicMonsterAI::update()
@@ -710,6 +714,7 @@ void BasicMonsterAI::damaged(Collider2D* other, Vector2 pushOutPower)
 			(otherLayerType == eLayerType::Bullet && other->GetOwner()->GetComponent<BulletMovement>()->IsPlayerBullet()))
 		{
 			mbDead = true;
+			dieEnter();
 			mAnimator2D->MulColorReset();
 
 			gSoundManager->Play(eResAudioClip::enemySlice, 1.f);
@@ -811,4 +816,16 @@ void BasicMonsterAI::bleed()
 			}
 		}
 	}
+}
+
+void BasicMonsterAI::dieEnter()
+{	
+	KatanaScene* katanaScene = gKatanaZeroSystem->GetCurrentScene();	
+	katanaScene->SubEnemyCount();
+}
+
+void BasicMonsterAI::liveEnter()
+{
+	KatanaScene* katanaScene = gKatanaZeroSystem->GetCurrentScene();
+	katanaScene->AddEnemyCount();
 }

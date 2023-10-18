@@ -26,8 +26,8 @@ float ramp(float y, float start, float end)
 float stripes(float2 uv)
 {
 	float noi = noise(uv * float2(0.5, 1.0) + float2(1.0, 3.0));
-	float speed = 1.f;
-	return ramp(fmod((1.f - uv.y) * 6.0 + B4_GlobalTime * speed, 1.0), 0.5, 0.6) * noi;	
+	float speed = 1.1f;
+	return ramp(fmod((1.f - uv.y * B5_R) * 6.0 + B4_GlobalTime * speed, 1.0), 0.5, 0.6) * noi;
 }
 
 float3 getVideo(float2 uv)
@@ -86,14 +86,17 @@ float4 main(float4 fragCoord : SV_POSITION) : SV_TARGET
 	float3 col;
 	float x = sin(0.3 * B4_GlobalTime.x + uv.y * 21.0) * sin(0.7 * B4_GlobalTime.x + uv.y * 29.0) * sin(0.3 + 0.33 * B4_GlobalTime.x + uv.y * 31.0) * 0.0017;
 
+	col.r = Rendertarget.Sample(pointSampler, uv).x;
+	col.g = Rendertarget.Sample(pointSampler, uv).y;
+	col.b = Rendertarget.Sample(pointSampler, uv).z;
 
-	col.r = Rendertarget.Sample(pointSampler, float2(x + uv.x + 0.001, uv.y + 0.001)).x + 0.05;
-	col.g = Rendertarget.Sample(pointSampler, float2(x + uv.x + 0.000, uv.y - 0.002)).y + 0.05;
-	col.b = Rendertarget.Sample(pointSampler, float2(x + uv.x - 0.002, uv.y + 0.000)).z + 0.05;
+	//col.r = Rendertarget.Sample(pointSampler, float2(x + uv.x + 0.001, uv.y + 0.001)).x + 0.05;
+	//col.g = Rendertarget.Sample(pointSampler, float2(x + uv.x + 0.000, uv.y - 0.002)).y + 0.05;
+	//col.b = Rendertarget.Sample(pointSampler, float2(x + uv.x - 0.002, uv.y + 0.000)).z + 0.05;
 	
-	col.r += 0.08 * Rendertarget.Sample(pointSampler, 0.75 * float2(x + 0.025, -0.027) + float2(uv.x + 0.001, uv.y + 0.001)).x;
-	col.g += 0.05 * Rendertarget.Sample(pointSampler, 0.75 * float2(x - 0.022, -0.02) + float2(uv.x + 0.000, uv.y - 0.002)).y;
-	col.b += 0.08 * Rendertarget.Sample(pointSampler, 0.75 * float2(x - 0.02, -0.018) + float2(uv.x - 0.002, uv.y + 0.000)).z;
+	//col.r += 0.08 * Rendertarget.Sample(pointSampler, 0.75 * float2(x + 0.025, -0.027) + float2(uv.x + 0.001, uv.y + 0.001)).x;
+	//col.g += 0.05 * Rendertarget.Sample(pointSampler, 0.75 * float2(x - 0.022, -0.02) + float2(uv.x + 0.000, uv.y - 0.002)).y;
+	//col.b += 0.08 * Rendertarget.Sample(pointSampler, 0.75 * float2(x - 0.02, -0.018) + float2(uv.x - 0.002, uv.y + 0.000)).z;
 
 	col = clamp(col * 0.6 + 0.4 * col * col * 1.0, 0.0, 1.0);
 
@@ -101,7 +104,7 @@ float4 main(float4 fragCoord : SV_POSITION) : SV_TARGET
 	col *= pow(vig, 0.3);
 
 	col *= float3(0.95, 1.05, 0.95);
-	col *= 2.8; // ¹à±â
+	col *= 3.8; // ¹à±â
 	
 
 	float scans = clamp(0.35 + 0.35 * sin(3.5 * B4_GlobalTime.x + uv.y * B4_Resolution.y * 1.5), 0.0, 1.0);
@@ -120,7 +123,7 @@ float4 main(float4 fragCoord : SV_POSITION) : SV_TARGET
 	float comp = smoothstep(0.1, 0.9, sin(B4_GlobalTime.x));
  
     // Remove the next line to stop cross-fade between original and postprocess
-    col = lerp(col, oricol, comp);
+    //col = lerp(col, oricol, comp);
 	
 	//col += noise(uv * 2.f) / 2.f;
 	col += stripes(uv);

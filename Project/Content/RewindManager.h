@@ -28,10 +28,11 @@ enum class eRewindState
 	None,
 	Record,
 	RecordSave,
-	Play,
+	CCTV,
 	PlayBack,
 	Pause,
 	Rewind,
+	BlackOut,
 };
 
 enum class eRewindEvent
@@ -41,6 +42,7 @@ enum class eRewindEvent
 	RewindTVThumb,
 	RewindEnd,
 };
+
 
 class RewindManager
 {
@@ -53,21 +55,26 @@ public:
 	void Initialize(Scene* Scene);
 	void LateUpdate();
 	void RegisterRewindObject(GameObject* const obj) { Assert(obj, WCHAR_IS_NULLPTR), mRewindObjects.push_back(obj); };
-
-
-	void Record();
-	void RecordSave();
-	void Play();
-	void BackPlay();
-	void Pause();
-	void Rewind();
-
-	void DrawFrame(int frameIdx);
-
-	void SetRewindState(const eRewindState state) { mState = state; }
+	
 	eRewindState GetRewindState() const { return mState; }
+	void SetRewindState(const eRewindState state) { mState = state; }
+
+	void Rewind();
+	void CCTVPlay();
+	int GetCCTVSpeed() const;
 
 private:
+	void record();
+	void recordSave();
+	void play();
+	void playBack();
+	void pause();
+	void rewind();
+	void blackOut();
+	void DrawFrame(int frameIdx);
+
+	
+
 	eRewindState mState;
 	float mFrameTime;
 	float mCurTime;
@@ -75,7 +82,7 @@ private:
 
 	int mMAXFrameIdx;
 	int mCurFrameIdx;
-
+	int mCCTVSpeedIdx;
 	//1Ка 3600
 
 

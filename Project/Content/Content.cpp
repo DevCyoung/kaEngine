@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "Content.h"
 
-#include "TItleScene.h"
+#include "TitleScene.h"
 #include "Chinatown01Scene.h"
 #include "Chinatown04Scene.h"
 #include "Chinatown05Scene.h"
@@ -24,30 +24,37 @@
 
 
 #include "SoundManager.h"
+#include "KatanaZeroSystem.h"
+
 Content::Content()
 {
 	resourceInitialize();
 
 	//Scene* testScene = new Collide2DTestScene;
-	//Scene* testScene = new TItleScene();
-	Scene* testScene = new Chinatown01Scene();
-	//Scene* testScene = new Chinatown04Scene();
-	//Scene* testScene = new Chinatown05Scene();
-	//Scene* testScene = new HeadHunterScene();
+	KatanaScene* testScene = new TitleScene();
+	//KatanaScene* testScene = new Chinatown01Scene();
+	//KatanaScene* testScene = new Chinatown04Scene();
+	//KatanaScene* testScene = new Chinatown05Scene();
+	//KatanaScene* testScene = new HeadHunterScene();
 	//Scene* testScene = new KissyfaceScene();
 	//Scene* testScene = new TestScene();
+	KatanaZeroSystem::initialize();
+	//KatanaZeroSystem::GetInstance()->SetCurentScene(testScene);
 
 	SoundManager::initialize();
-	SoundManager::GetInstance()->BackGround(eResAudioClip::song_chinatown, 0.2f);
+	//SoundManager::GetInstance()->PlayBackGround(eResAudioClip::song_chinatown, 0.2f);
 
 	TimeManager::initialize();
-	SceneManager::GetInstance()->LoadScene(testScene);	
+
+	//KatanaScene* const currentScene = KatanaZeroSystem::GetInstance()->GetCurrentScene();
+	SceneManager::GetInstance()->LoadScene(testScene);
 }
 
 Content::~Content()
 {
 	TimeManager::deleteInstance();
 	SoundManager::deleteInstance();
+	KatanaZeroSystem::deleteInstance();
 }
 
 void Content::resourceInitialize()
@@ -169,6 +176,28 @@ void Content::loadMaterial()
 		gResourceManager->Insert(L"Chanatown04TileMap", tileMaterial);
 	}
 #pragma endregion
+#pragma region Chinatown05Material
+	{
+		Material* const backgroundMaterial =
+			MaterialBuilder::Sprite2D(
+				eRenderPriorityType::Opqaue, eResTexture::Map_Chinatown05_spr_chinatown_loop_parallax_1);
+		gResourceManager->Insert(L"Chanatown05BackGround01p", backgroundMaterial);
+	}
+
+	{
+		Material* const backgroundMaterial =
+			MaterialBuilder::Sprite2D(
+				eRenderPriorityType::Opqaue, eResTexture::Map_Chinatown05_spr_chinatown_loop_parallax_2);
+		gResourceManager->Insert(L"Chanatown05BackGround02p", backgroundMaterial);
+	}
+
+	{
+		Material* const tileMaterial =
+			MaterialBuilder::Sprite2D(
+				eRenderPriorityType::Opqaue, eResTexture::Map_Chinatown05_Tilemap);
+		gResourceManager->Insert(L"Chanatown05TileMap", tileMaterial);
+	}
+#pragma endregion
 #pragma region HeadHunterMaterial
 	{
 		Material* const material =
@@ -194,6 +223,7 @@ void Content::loadMaterial()
 
 #pragma endregion
 
+
 	//Animation Material
 	{
 		Material* const material =
@@ -201,6 +231,14 @@ void Content::loadMaterial()
 				eRenderPriorityType::Opqaue, L"Animation2D", eResTexture::door);
 
 		gResourceManager->Insert(L"Animation2D", material);
+	}
+
+	{
+		Material* const material =
+			MaterialBuilder::Default2D(
+				eRenderPriorityType::PostProcess, L"Animation2D", eResTexture::door);
+
+		gResourceManager->Insert(L"Text", material);
 	}
 
 	//After
@@ -241,6 +279,20 @@ void Content::loadMaterial()
 		gResourceManager->Insert(L"NextScene", material);
 	}
 
+	//BlackOut
+	{
+		Material* const material = MaterialBuilder::Sprite2D(eRenderPriorityType::Opqaue,
+			eResTexture::pixel100);
+		gResourceManager->Insert(L"BlackOut", material);
+	}
+
+	//BlackOut2
+	{
+		Material* const material = MaterialBuilder::Sprite2D(eRenderPriorityType::Opqaue,
+			eResTexture::pixel100);
+		gResourceManager->Insert(L"BlackOut2", material);
+	}
+
 	//PostProcess
 	{
 		Material* const material =
@@ -257,6 +309,8 @@ void Content::loadMaterial()
 
 		gResourceManager->Insert(L"WavePostProcess", material);
 	}
+
+
 
 	
 	loadUIMaterial();

@@ -12,31 +12,18 @@
 
 
 Chinatown05Scene::Chinatown05Scene()
+	: KatanaScene(eKatanaSceneType::ChinaTown05)
 {
-#pragma region Material
-	{
-		Material* const backgroundMaterial =
-			MaterialBuilder::Sprite2D(
-				eRenderPriorityType::Opqaue, eResTexture::Map_Chinatown05_spr_chinatown_loop_parallax_1);
-		gResourceManager->Insert(L"Chanatown05BackGround01p", backgroundMaterial);
-	}
 
-	{
-		Material* const backgroundMaterial =
-			MaterialBuilder::Sprite2D(
-				eRenderPriorityType::Opqaue, eResTexture::Map_Chinatown05_spr_chinatown_loop_parallax_2);
-		gResourceManager->Insert(L"Chanatown05BackGround02p", backgroundMaterial);
-	}
+	
+}
 
-	{
-		Material* const tileMaterial =
-			MaterialBuilder::Sprite2D(
-				eRenderPriorityType::Opqaue, eResTexture::Map_Chinatown05_Tilemap);
-		gResourceManager->Insert(L"Chanatown05TileMap", tileMaterial);
-	}
-#pragma endregion
+Chinatown05Scene::~Chinatown05Scene()
+{
+}
 
-#pragma region Map
+void Chinatown05Scene::AddMapObject()
+{
 	{
 		GameObject* const backgorund2 = GameObjectBuilder::Default2D(L"Chanatown05BackGround02p");
 
@@ -65,18 +52,10 @@ Chinatown05Scene::Chinatown05Scene()
 
 		AddGameObject(tile, eLayerType::TileMap);
 	}
+}
 
-#pragma endregion
-
-#pragma region Editor
-	/*{
-		GameObject* const testObj = new GameObject();
-		testObj->AddComponent<SimpleEditorCollider2D>();
-		AddGameObject(testObj, eLayerType::Default);
-	}*/
-#pragma endregion
-
-#pragma region Map
+void Chinatown05Scene::AddWallObject()
+{
 	{
 		GameObject* const wall = new GameObject();
 		//[RectCollider]
@@ -195,48 +174,98 @@ Chinatown05Scene::Chinatown05Scene()
 		wall->GetComponent<LineCollider2D>()->SetPoints(416, 64, 512, 64);
 		AddGameObject(wall, eLayerType::Platform);
 	}
-
-
-#pragma endregion
-
-#pragma region Monster
-	{
-		GameObject* monster = GameObjectBuilder::InstantiateMonster(eMonsterType::Ganster, this);
-		monster->GetComponent<Transform>()->SetPosition(-80, 150, -30);
-	}
-
-#pragma endregion
-
-#pragma region Global
-
-
-	{
-		GameObject* lgiht = GameObjectBuilder::InstantiateGlobalLight2D(this, eLayerType::Default);
-		lgiht->GetComponent<Light2D>()->SetLightDiffuse(Vector3::One);
-	}
-
-	{
-		GameObjectBuilder::AddUI(this);
-		GameObjectBuilder::AddCamera(this);
-	}
-#pragma endregion
 }
 
-Chinatown05Scene::~Chinatown05Scene()
+void Chinatown05Scene::AddDoorObject()
 {
 }
 
-void Chinatown05Scene::initialize()
+void Chinatown05Scene::AddMonsterObject()
 {
-	//PathNode
-	GameManager::initialize();
-	GameManager::GetInstance()->GetRewindManager()->SetRewindState(eRewindState::Record);
+	InstantiateMonster(eMonsterType::Ganster, Vector2(-80, 100), true);	
+}
 
+void Chinatown05Scene::AddObject()
+{
+}
+
+void Chinatown05Scene::AddLightObject()
+{
+	{
+		GameObjectBuilder::InstantiateGlobalLight2D(this, eLayerType::Default);
+	}
+}
+
+void Chinatown05Scene::AddCameraObject()
+{
+	GameObject* mainCamera = GameObjectBuilder::AddCamera(this);
+	Vector3 pos = mainCamera->GetComponent<Transform>()->GetPosition();
+	mainCamera->GetComponent<Transform>()->SetPosition(0, -300, pos.z);
+
+	{
+		GameObject* const wall = new GameObject();
+		//[RectCollider]
+		wall->AddComponent<RectCollider2D>();
+		wall->AddComponent<CameraWall>();
+
+		wall->GetComponent<Transform>()->SetPosition(1440, 48, 0);
+		wall->GetComponent<RectCollider2D>()->SetSize(Vector2(128, 1504));
+		wall->GetComponent<CameraWall>()->SetCameraWallType(eCameraWallType::Right);
+
+		AddGameObject(wall, eLayerType::CameraWall);
+	}
+
+	{
+		GameObject* const wall = new GameObject();
+		//[RectCollider]
+		wall->AddComponent<RectCollider2D>();
+		wall->AddComponent<CameraWall>();
+
+		wall->GetComponent<Transform>()->SetPosition(-1008, 32, 0);
+		wall->GetComponent<RectCollider2D>()->SetSize(Vector2(160, 1536));
+		wall->GetComponent<CameraWall>()->SetCameraWallType(eCameraWallType::Left);
+
+		AddGameObject(wall, eLayerType::CameraWall);
+	}
+
+	{
+		GameObject* const wall = new GameObject();
+		//[RectCollider]
+		wall->AddComponent<RectCollider2D>();
+		wall->AddComponent<CameraWall>();
+
+		wall->GetComponent<Transform>()->SetPosition(192, -704, 0);
+		wall->GetComponent<RectCollider2D>()->SetSize(Vector2(2624, 576));
+		wall->GetComponent<CameraWall>()->SetCameraWallType(eCameraWallType::Down);
+
+		AddGameObject(wall, eLayerType::CameraWall);
+	}
+
+	{
+		GameObject* const wall = new GameObject();
+		//[RectCollider]
+		wall->AddComponent<RectCollider2D>();
+		wall->AddComponent<CameraWall>();
+
+		wall->GetComponent<Transform>()->SetPosition(192, 600, 0);
+		wall->GetComponent<RectCollider2D>()->SetSize(Vector2(2624, 352));
+		wall->GetComponent<CameraWall>()->SetCameraWallType(eCameraWallType::Up);
+
+		AddGameObject(wall, eLayerType::CameraWall);
+	}
+
+}
+
+void Chinatown05Scene::AddUIObject()
+{
+	GameObjectBuilder::AddUI(this);
+}
+
+void Chinatown05Scene::AddPlayerObject()
+{
 	{
 		GameObject* player = GameObjectBuilder::InstantiatePlayer(this);
-		player->GetComponent<Transform>()->SetPosition(0, 0, -30);
-
-		//player->GetComponent<Rigidbody2D>()->TurnOffGravity();
+		player->GetComponent<Transform>()->SetPosition(0, -300, 0);
 
 		GameManager::GetInstance()->SetPlayer(player);
 	}
@@ -432,14 +461,14 @@ void Chinatown05Scene::initialize()
 
 
 #pragma endregion
-	//KatanaScene::initialize();
-}
-
-void Chinatown05Scene::update()
-{	
 }
 
 Scene* Chinatown05Scene::Clone()
 {
-	return new Chinatown05Scene();
+	return new Chinatown05Scene;
+}
+
+KatanaScene* Chinatown05Scene::GetNextScene()
+{
+	return nullptr;
 }

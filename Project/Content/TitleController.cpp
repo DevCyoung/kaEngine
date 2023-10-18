@@ -2,6 +2,7 @@
 #include "TitleController.h"
 #include "Components.h"
 #include "GameManager.h"
+#include "KatanaZeroSystem.h"
 
 TitleController::TitleController()
     : ScriptComponent(eScriptComponentType::TitleController)
@@ -47,18 +48,28 @@ void TitleController::cursorMove()
         transform->SetPosition(0.f, 112.f, 0.f);
         gSoundManager->Play(eResAudioClip::Title_Skip, 0.1f);
     }
+    
+    Camera* mainCamera = GetOwner()->GetGameSystem()->
+        GetRenderTargetRenderer()->GetRegisteredRenderCamera(eCameraPriorityType::Main);
+    Transform* cameraTransform = mainCamera->GetOwner()->GetComponent<Transform>();
+    Vector3 position = cameraTransform->GetPosition();
 
-    if (mTitleState == eTitleState::NextScene)
+    if (mTitleState == eTitleState::Start)
     {
-        Camera* mainCamera = GetOwner()->GetGameSystem()->
-            GetRenderTargetRenderer()->GetRegisteredRenderCamera(eCameraPriorityType::Main);
 
-        Transform* cameraTransform = mainCamera->GetOwner()->GetComponent<Transform>();
-        Vector3 position = cameraTransform->GetPosition();
+    }
+    else if (mTitleState == eTitleState::NextScene)
+    {               
         mSpeed +=  600.f * gDeltaTime;
         position.y -= gDeltaTime * mSpeed;
-        cameraTransform->SetPosition(position);
+
+        if (position.y < -2000)
+        {
+            gKatanaZeroSystem->LoadNextScene();
+        }
 	}
+
+    cameraTransform->SetPosition(position);
 }
 
 void TitleController::cursorSelect()

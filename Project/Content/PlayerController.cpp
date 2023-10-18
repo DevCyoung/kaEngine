@@ -7,6 +7,7 @@
 #include "MonsterAttack.h"
 #include "ResourceManager.h"
 #include "FolowPlayer.h"
+#include "DieController.h"
 #include "BulletMovement.h"
 PlayerController::PlayerController()
 	: ScriptComponent(eScriptComponentType::PlayerController)
@@ -188,6 +189,11 @@ void PlayerController::update()
 {
 	Assert(mPlayerFSM, WCHAR_IS_NULLPTR);
 
+	if (GameManager::GetInstance()->GetRewindManager()->GetRewindState() != eRewindState::Record)
+	{
+		return;
+	}
+
 	if (mbControl)
 	{
 		mPlayerFSM->GlobalUpdate();
@@ -230,10 +236,11 @@ void PlayerController::onCollisionEnter(Collider2D* other)
 			gSoundManager->PlayInForce(eResAudioClip::PlayerDie, 1.f);
 
 			Camera* const mainCamera = GetOwner()->GetGameSystem()->GetRenderTargetRenderer()->GetRegisteredRenderCamera(eCameraPriorityType::Main);
-
 			mainCamera->GetOwner()->GetComponent<FolowPlayer>()->ShakeCamera();
 			GameManager::GetInstance()->GetEventManager()->ShotTimeEffect(0.1f, 0.2f);
 
+			//DieEnter
+			dieEnter();
 		}
 	}
 }
@@ -262,9 +269,19 @@ void PlayerController::onCollisionStay(Collider2D* other)
 
 				mainCamera->GetOwner()->GetComponent<FolowPlayer>()->ShakeCamera();
 				GameManager::GetInstance()->GetEventManager()->ShotTimeEffect(0.1f, 0.2f);
+
+
+				dieEnter();
 			}
 		}
 	}	
+}
+
+void PlayerController::dieEnter()
+{
+	GameObject* dieControler = GetOwner()->GetGameSystem()->FindGameObject(L"DieController");
+
+	dieControler->GetComponent<DieController>()->TurnOnDieText();
 }
 
 void PlayerController::idleToRun()

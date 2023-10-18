@@ -36,8 +36,8 @@ public:
 
 	void Stop(eResAudioClip audioClip);
 
-	void BackGround(eResAudioClip audioClip);
-	void BackGround(eResAudioClip audioClip, float volume);
+	AudioClip* PlayBackGround(eResAudioClip audioClip);
+	AudioClip* PlayBackGround(eResAudioClip audioClip, float volume);
 
 	void PlayInForce(eResAudioClip audioClip, float volume);
 
@@ -59,5 +59,7 @@ private:
 	bool mbFitch;
 	GameObject* mMainCamera;
 	Scene* mScene;
+
+	eResAudioClip backgroundClip;
 };
 

@@ -10,6 +10,13 @@
 
 #include <Engine/SceneManager.h>
 #include "Chinatown01Scene.h"
+#include "KatanaZeroSystem.h"
+
+#include <Engine/String.h>
+#include <Engine/Scene.h>
+#include "DieController.h"
+
+int cctvSpeeds[9] = { -8, -4, -2, -1, 1, 2, 4, 8, 0};
 
 RewindManager::RewindManager()
 	: mState(eRewindState::None)
@@ -22,6 +29,7 @@ RewindManager::RewindManager()
 	, mRewindFrameDatasArray{}
 	, mTimerUI(nullptr)
 	, mRewindEvent(eRewindEvent::None)
+	, mCCTVSpeedIdx(4)
 {
 	for (auto& data : mRewindFrameDatasArray)
 	{
@@ -48,10 +56,6 @@ void RewindManager::LateUpdate()
 		return;
 	}
 
-	mCurTime += gDeltaTime;
-	float uvX = 1.f - (mCurTime / static_cast<float>(MAX_REWIND_SECOND));	
-	mTimerUI->GetComponent<SpriteRenderer>()->SetUvOffsetX(uvX);
-
 	//GameManager::GetInstance()->GetEventManager()->
 
 	switch (mState)
@@ -59,19 +63,27 @@ void RewindManager::LateUpdate()
 	case eRewindState::None:
 		break;
 	case eRewindState::Record:
-		Record();
-		break;
+	{
+		mCurTime += gDeltaTime;
+		float uvX = 1.f - (mCurTime / static_cast<float>(MAX_REWIND_SECOND));
+		mTimerUI->GetComponent<SpriteRenderer>()->SetUvOffsetX(uvX);
+	}
+	record();
+	break;
 	case eRewindState::PlayBack:
-		BackPlay();
+		playBack();
 		break;
-	case eRewindState::Play:
-		Play();
+	case eRewindState::CCTV:
+		play();
 		break;
 	case eRewindState::Pause:
-		Pause();
+		pause();
 		break;
 	case eRewindState::Rewind:
-		Rewind();
+		rewind();
+		break;
+	case eRewindState::BlackOut:
+		blackOut();
 		break;
 	default:
 		break;
@@ -99,57 +111,93 @@ void RewindManager::LateUpdate()
 	//button
 	if (gInput->GetKeyDown(eKeyCode::R))
 	{
-		if (mCurFrameIdx <= 60)
-		{
-			return;
-		}		
-		RecordSave();
-
-		mRewindEvent = eRewindEvent::RewindStart;
-		SetRewindState(eRewindState::Rewind);		
-
-		gSoundManager->TurnOffSound();
-
-		gSoundManager->PlayInForce(eResAudioClip::rewind, 1.f);
-		tWaveInfo waveInfo = {};
-		waveInfo.WaveXPower = 200.f;
-		waveInfo.WaveYPower = 0.f;
-		waveInfo.WaveSpeed = 50.f;
-
-		gGraphicDevice->PassCB(eCBType::Wave, sizeof(waveInfo), &waveInfo);
-		gGraphicDevice->BindCB(eCBType::Wave, eShaderBindType::PS);
-
+		Rewind();
 	}
 
 	if (gInput->GetKeyDown(eKeyCode::T))
+	{			
+
+		//CCTVPlay();
+		GameObject* dieControler = SceneManager::GetInstance()->GetCurrentScene()->GetGameSystem()->FindGameObjectOrNull(L"DieController");
+		dieControler->GetComponent<DieController>()->TurnOffDieText();
+		recordSave();
+		mState = eRewindState::BlackOut;
+	}
+
+	if (gInput->GetKeyDown(eKeyCode::LEFT))
 	{
-		if (mCurFrameIdx <= 60)
+		--mCCTVSpeedIdx;
+		mState = eRewindState::CCTV;
+	}
+	else if (gInput->GetKeyDown(eKeyCode::RIGHT))
+	{
+		++mCCTVSpeedIdx;
+		mState = eRewindState::CCTV;
+	}
+
+	if (mCCTVSpeedIdx <= 0)
+	{
+		mCCTVSpeedIdx = 0;
+	}
+	else if (mCCTVSpeedIdx >= 7)
+	{
+		mCCTVSpeedIdx = 7;
+	}
+
+	if (mState == eRewindState::CCTV ||
+		mState == eRewindState::Pause)
+	{		
+		if (gInput->GetKeyDown(eKeyCode::LBTN))
 		{
-			return;
-		}
-
-		RecordSave();
-		mState = eRewindState::Pause;		
-	}
-
-	if (gInput->GetKeyDown(eKeyCode::NUM8))
-	{
-		SetRewindState(eRewindState::PlayBack);
-	}
-
-	if (gInput->GetKeyDown(eKeyCode::NUM9))
-	{
-		SetRewindState(eRewindState::Play);
+			gKatanaZeroSystem->LoadNextScene();
+		}		
 	}
 }
 
-void RewindManager::Record()
+void RewindManager::Rewind()
+{
+	if (mState == eRewindState::Rewind)
+	{
+		return;
+	}
+
+	if (mCurFrameIdx <= 60)
+	{
+		return;
+	}
+	recordSave();
+
+	mRewindEvent = eRewindEvent::RewindStart;
+	SetRewindState(eRewindState::Rewind);
+
+	gSoundManager->TurnOffSound();
+
+	gSoundManager->PlayInForce(eResAudioClip::rewind, 1.f);
+	tWaveInfo waveInfo = {};
+	waveInfo.WaveXPower = 200.f;
+	waveInfo.WaveYPower = 0.f;
+	waveInfo.WaveSpeed = 50.f;
+
+	gGraphicDevice->PassCB(eCBType::Wave, sizeof(waveInfo), &waveInfo);
+	gGraphicDevice->BindCB(eCBType::Wave, eShaderBindType::PS);
+
+
+	GameObject* dieControler = SceneManager::GetInstance()->GetCurrentScene()->GetGameSystem()->FindGameObjectOrNull(L"DieController");
+	dieControler->GetComponent<DieController>()->TurnOffDieText();
+}
+
+int RewindManager::GetCCTVSpeed() const
+{
+	return cctvSpeeds[mCCTVSpeedIdx];
+}
+
+void RewindManager::record()
 {
 	mFrameTime += gDeltaTime;
 
 	if (mCurFrameIdx >= MAX_REWIND_FRAME - 1)
 	{
-		RecordSave();
+		recordSave();
 		return;
 	}
 
@@ -185,27 +233,102 @@ void RewindManager::Record()
 	}
 }
 
-void RewindManager::RecordSave()
+void RewindManager::recordSave()
 {
 	mMAXFrameIdx = mCurFrameIdx;
 	mState = eRewindState::RecordSave;
 
 }
 
-void RewindManager::Play()
+void RewindManager::play()
 {
 	mFrameTime += gDeltaTime;
 
 	if (mFrameTime >= REWIND_FRAME_TIME)
 	{
 		mFrameTime = 0.f;
-		++mCurFrameIdx;
+		mCurFrameIdx += cctvSpeeds[mCCTVSpeedIdx];
+	}
+
+	if (mCurFrameIdx < 0)
+	{
+		mCurFrameIdx = 0;		
+	}
+	else if (mCurFrameIdx > mMAXFrameIdx)
+	{
+		mCurFrameIdx = mMAXFrameIdx;
+	}
+
+	if (cctvSpeeds[mCCTVSpeedIdx] < 0 && mCurFrameIdx <= 0)
+	{
+		mCCTVSpeedIdx = 3;
+		mState = eRewindState::Pause;
+	}
+	else if (cctvSpeeds[mCCTVSpeedIdx] > 0 && mCurFrameIdx >= mMAXFrameIdx)
+	{
+		mCCTVSpeedIdx = 4;
+		mState = eRewindState::Pause;
 	}
 
 	DrawFrame(mCurFrameIdx);
+
+	wchar_t text[256] = {};
+	int cctvSpeed = cctvSpeeds[mCCTVSpeedIdx];
+
+	if (cctvSpeed < -1)
+	{
+		swprintf_s(text, 256, L"REWIND X %d", abs(cctvSpeeds[mCCTVSpeedIdx]));
+	}
+	else if (cctvSpeed == -1)
+	{
+		swprintf_s(text, 256, L"REWIND");		
+	}
+	else if (cctvSpeed == 1)
+	{
+		swprintf_s(text, 256, L"PLAY");	
+	}	
+	else
+	{
+		swprintf_s(text, 256, L"PLAY X %d", cctvSpeeds[mCCTVSpeedIdx]);
+	}
+
+	gKatanaZeroSystem->SetCRTText(text);
+
+
+	if (cctvSpeeds[mCCTVSpeedIdx]  > 0)
+	{
+		gKatanaZeroSystem->PlayCRT();
+	}
+	else if (cctvSpeeds[mCCTVSpeedIdx] < 0)
+	{
+		gKatanaZeroSystem->RewindCRT();
+	}
+	else
+	{
+
+
+	}
+
+	float playTime = (mCurFrameIdx * REWIND_FRAME_TIME);
+
+	int min = static_cast<int>(playTime) / 60;
+	int sec = static_cast<int>(playTime) % 60;
+	int other = static_cast<int>((playTime - static_cast<int>(playTime)) * 100);
+
+	if (other <= 1)
+	{
+		other = 0;
+	}
+
+	wchar_t text2[256] = {};
+	swprintf_s(text2, 256, L"TIME - %02d:%02d:%02d", min, sec, other);
+	gKatanaZeroSystem->SetCRTTextTime(text2);
+
+	float timeline = static_cast<float>(mCurFrameIdx) / static_cast<float>(mMAXFrameIdx);
+	gKatanaZeroSystem->SetCRTTimeLine(timeline);
 }
 
-void RewindManager::BackPlay()
+void RewindManager::playBack()
 {
 	mFrameTime += gDeltaTime;
 
@@ -213,17 +336,44 @@ void RewindManager::BackPlay()
 	{
 		mFrameTime = 0.f;
 		--mCurFrameIdx;
+	}	
+
+	if (mCurFrameIdx <= 1)
+	{
+		mCurFrameIdx = 1;
+	}
+	else if (mCurFrameIdx >= mMAXFrameIdx - 1)
+	{
+		mCurFrameIdx = mCurFrameIdx - 1;
 	}
 
 	DrawFrame(mCurFrameIdx);
 }
 
-void RewindManager::Pause()
+void RewindManager::pause()
 {
-	DrawFrame(mCurFrameIdx - 1);	
+	if (mCurFrameIdx <= 0)
+	{
+		mCurFrameIdx = 0;
+	}
+	else if (mCurFrameIdx >= mMAXFrameIdx)
+	{
+		mCurFrameIdx = mMAXFrameIdx;
+	}
+
+	DrawFrame(mCurFrameIdx);
+
+	wchar_t text[256] = {};	
+	swprintf_s(text, 256, L"PAUSE");
+
+	gKatanaZeroSystem->SetCRTText(text);
+
+	float timeline = static_cast<float>(mCurFrameIdx) / static_cast<float>(mMAXFrameIdx);
+	gKatanaZeroSystem->SetCRTTimeLine(timeline);
+	gKatanaZeroSystem->PauseCRT();
 }
 
-void RewindManager::Rewind()
+void RewindManager::rewind()
 {
 	mFrameTime += gRealDeltaTime;
 
@@ -292,16 +442,45 @@ void RewindManager::Rewind()
 	DrawFrame(mCurFrameIdx);
 }
 
+void RewindManager::blackOut()
+{
+	GameObject* blackOut = gKatanaZeroSystem->GetBlackOut();
+	GameObject* readyText = gKatanaZeroSystem->GetReadyText();
+
+	float a = blackOut->GetComponent<SpriteRenderer>()->GetSprite2DInfo().A;
+	a += gRealDeltaTime * 2.f	;
+
+	readyText->GetComponent<EngineText>()->TurnOnVisiblelity();
+	blackOut->GetComponent<SpriteRenderer>()->TurnOnVisiblelity();
+
+	if (a >= 5.f)
+	{				
+		readyText->GetComponent<EngineText>()->TurnOffVisiblelity();
+		blackOut->GetComponent<SpriteRenderer>()->TurnOffVisiblelity();
+		CCTVPlay();
+	}	
+
+	float na = a;
+	if (na >= 1.f)
+	{
+		na = 1.f;
+	}
+	
+	
+	readyText->GetComponent<EngineText>()->SetColor(XMUINT4(255, 255, 255, static_cast<int>(na * 255)));
+	blackOut->GetComponent<SpriteRenderer>()->SetColorA(a);
+}
+
 void RewindManager::DrawFrame(int frameIdx)
 {
 
-	if (frameIdx <= 1)
+	if (frameIdx <= 0)
 	{
-		frameIdx = 1;
+		frameIdx = 0;
 	}
-	else if (frameIdx >= mMAXFrameIdx - 1)
+	else if (frameIdx >= mMAXFrameIdx)
 	{
-		frameIdx = mMAXFrameIdx - 1;
+		frameIdx = mMAXFrameIdx;
 	}
 		
 
@@ -337,4 +516,24 @@ void RewindManager::DrawFrame(int frameIdx)
 		}
 
 	}
+}
+
+void RewindManager::CCTVPlay()
+{
+	if (mCurFrameIdx <= 60)
+	{
+		return;
+	}
+
+	recordSave();
+	gKatanaZeroSystem->TurnOnCRT();
+	gSoundManager->TurnOffSound();
+	mState = eRewindState::CCTV;
+	mCurFrameIdx = 1;	
+
+
+	Camera* uiCamera =  gKatanaZeroSystem->GetCurrentScene()->
+		GetGameSystem()->GetRenderTargetRenderer()->GetRegisteredRenderCamera(eCameraPriorityType::UI);
+
+	uiCamera->TurnOffAllLayer();
 }

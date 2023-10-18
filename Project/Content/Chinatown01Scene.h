@@ -23,5 +23,5 @@ public:
 	virtual Scene* Clone() override;
 
 	// KatanaScene을(를) 통해 상속됨
-	virtual Scene* NextScene() override;
+	virtual KatanaScene* GetNextScene() override;
 };

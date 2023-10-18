@@ -4,6 +4,7 @@
 #include "GalssWindow.h"
 
 Chinatown01Scene::Chinatown01Scene()
+	: KatanaScene(eKatanaSceneType::ChinaTown01)
 {
 	SetBackgroundColor(Vector4(0.5294f, 0.5254f, 0.7843f, 1.f));
 }
@@ -456,7 +457,7 @@ void Chinatown01Scene::AddCameraObject()
 			wall->AddComponent<RectCollider2D>();
 			wall->AddComponent<CameraWall>();
 
-			wall->GetComponent<Transform>()->SetPosition(864, 624, 0);
+			wall->GetComponent<Transform>()->SetPosition(800, 624, 0);
 			wall->GetComponent<RectCollider2D>()->SetSize(Vector2(64, 1568));
 			wall->GetComponent<CameraWall>()->SetCameraWallType(eCameraWallType::Right);
 			AddGameObject(wall, eLayerType::CameraWall);
@@ -800,7 +801,7 @@ Scene* Chinatown01Scene::Clone()
 	return new Chinatown01Scene();
 }
 
-Scene* Chinatown01Scene::NextScene()
+KatanaScene* Chinatown01Scene::GetNextScene()
 {
 	return new Chinatown04Scene;
 }

@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "TItleScene.h"
+#include "TitleScene.h"
 #include "Components.h"
 #include "ResourceManager.h"
 #include "GameObjectBuilder.h"
@@ -12,44 +12,45 @@
 #include "TitleController.h"
 #include "Chinatown01Scene.h"
 
-TItleScene::TItleScene()
+TitleScene::TitleScene()
+	: KatanaScene(eKatanaSceneType::Title)
 {
 	SetBackgroundColor(helper::Color::BLACK);
 }
-TItleScene::~TItleScene()
+TitleScene::~TitleScene()
 {
 
 }
 
-void TItleScene::AddMapObject()
+void TitleScene::AddMapObject()
 {
 }
 
-void TItleScene::AddWallObject()
+void TitleScene::AddWallObject()
 {
 }
 
-void TItleScene::AddDoorObject()
+void TitleScene::AddDoorObject()
 {
 }
 
-void TItleScene::AddMonsterObject()
+void TitleScene::AddMonsterObject()
 {
 }
 
-void TItleScene::AddObject()
+void TitleScene::AddObject()
 {
 }
 
-void TItleScene::AddLightObject()
+void TitleScene::AddLightObject()
 {
 }
 
-void TItleScene::AddCameraObject()
+void TitleScene::AddCameraObject()
 {
 }
 
-void TItleScene::AddUIObject()
+void TitleScene::AddUIObject()
 {
 #pragma region UI
 	const Vector2& SCREEN_SIZE = gEngine->GetRenderTargetSize();
@@ -225,16 +226,16 @@ void TItleScene::AddUIObject()
 #pragma endregion
 }
 
-void TItleScene::AddPlayerObject()
+void TitleScene::AddPlayerObject()
 {
 }
 
-Scene* TItleScene::Clone()
+Scene* TitleScene::Clone()
 {
 	return nullptr;
 }
 
-Scene* TItleScene::NextScene()
+KatanaScene* TitleScene::GetNextScene()
 {
 	return new Chinatown01Scene();
 }

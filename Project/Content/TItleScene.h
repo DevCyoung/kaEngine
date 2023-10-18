@@ -1,13 +1,13 @@
 #pragma once
 #include "KatanaScene.h"
 
-class TItleScene : public KatanaScene
+class TitleScene : public KatanaScene
 {
 public:
-	TItleScene();
-	virtual ~TItleScene();
-	TItleScene(const TItleScene&) = delete;
-	TItleScene& operator=(const TItleScene&) = delete;
+	TitleScene();
+	virtual ~TitleScene();
+	TitleScene(const TitleScene&) = delete;
+	TitleScene& operator=(const TitleScene&) = delete;
 
 	// KatanaScene을(를) 통해 상속됨
 	virtual void AddMapObject() override;
@@ -22,6 +22,6 @@ public:
 	virtual Scene* Clone() override;
 
 	// KatanaScene을(를) 통해 상속됨
-	virtual Scene* NextScene() override;
+	virtual KatanaScene* GetNextScene() override;
 };
 
