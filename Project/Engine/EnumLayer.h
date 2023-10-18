@@ -25,6 +25,7 @@ enum class eLayerType
 	CameraWall,
 	Camera,	
 	Default,
+	Event,
 	Mouse,
 	Light,
 	UI,

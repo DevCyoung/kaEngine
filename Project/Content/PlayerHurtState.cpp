@@ -28,8 +28,8 @@ void PlayerHurtState::Update()
 
 	RayCast2DHitInfo hitInfo = {};
 	if (physics->RayCastHit2D(position2D, Vector2::Down, 40.f, eLayerType::Wall, &hitInfo)       || 
-		physics->RayCastHit2D(position2D, Vector2::Down, 40.f, eLayerType::LeftSlope, &hitInfo)  ||
-		physics->RayCastHit2D(position2D, Vector2::Down, 40.f, eLayerType::RightSlope, &hitInfo) ||
+		physics->RayCastHit2D(position2D, Vector2::Down, 70.f, eLayerType::LeftSlope, &hitInfo)  ||
+		physics->RayCastHit2D(position2D, Vector2::Down, 70.f, eLayerType::RightSlope, &hitInfo) ||
 		physics->RayCastHit2D(position2D, Vector2::Down, 40.f, eLayerType::Platform, &hitInfo))
 	{
 		(void)position;

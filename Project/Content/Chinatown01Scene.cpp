@@ -313,24 +313,39 @@ void Chinatown01Scene::AddMonsterObject()
 
 void Chinatown01Scene::AddObject()
 {
-	GameObject* glass = new GameObject();
-	glass->GetComponent<Transform>()->SetScale(2.f, 2.f, 1.f);
-	glass->GetComponent<Transform>()->SetPosition(-1000, 480, 0);
+	{
+		GameObject* glass = new GameObject();
+		glass->GetComponent<Transform>()->SetScale(2.f, 2.f, 1.f);
+		glass->GetComponent<Transform>()->SetPosition(-1000, 480, 0);
 
 
-	glass->AddComponent<RectCollider2D>();
-	glass->AddComponent<Animator2D>();
-	glass->AddComponent<GalssWindow>();
-	glass->AddComponent<RewindComponent>();
+		glass->AddComponent<RectCollider2D>();
+		glass->AddComponent<Animator2D>();
+		glass->AddComponent<GalssWindow>();
+		glass->AddComponent<RewindComponent>();
 
-	glass->GetComponent<RectCollider2D>()->SetSize(5.f, 70.f);
+		glass->GetComponent<RectCollider2D>()->SetSize(5.f, 70.f);
 
-	Animator2D* anim = glass->GetComponent<Animator2D>();
-	Texture* atlas = gResourceManager->FindOrNullByEnum<Texture>(eResTexture::Atlas_Particle_particle);
-	anim->CreateAnimation(L"GlassWindow", atlas, 1, XMUINT2(5, 793), XMUINT2(2, 64), XMUINT2(10, 10), XMINT2(0, 0), 0.125f);
-	anim->Play(L"GlassWindow", true);
+		Animator2D* anim = glass->GetComponent<Animator2D>();
+		Texture* atlas = gResourceManager->FindOrNullByEnum<Texture>(eResTexture::Atlas_Particle_particle);
+		anim->CreateAnimation(L"GlassWindow", atlas, 1, XMUINT2(5, 793), XMUINT2(2, 64), XMUINT2(10, 10), XMINT2(0, 0), 0.125f);
+		anim->Play(L"GlassWindow", true);
 
-	AddGameObject(glass, eLayerType::Wall);
+		AddGameObject(glass, eLayerType::Wall);
+	}
+
+	{
+		GameObject* clear = new GameObject();
+
+		clear->AddComponent<RectCollider2D>();
+		clear->AddComponent<ClearController>();
+
+		clear->GetComponent<RectCollider2D>()->SetSize(100.f, 100.f);
+
+		clear->GetComponent<Transform>()->SetPosition(780, 144, 0);
+
+		AddGameObject(clear, eLayerType::Event);
+	}
 }
 
 void Chinatown01Scene::AddLightObject()

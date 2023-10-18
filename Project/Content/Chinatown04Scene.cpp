@@ -323,13 +323,41 @@ void Chinatown04Scene::AddMonsterObject()
 	}*/
 
 	{
-		GameObject* monster = GameObjectBuilder::InstantiateMonster(eMonsterType::Ganster, this);
-		monster->GetComponent<Transform>()->SetPosition(-500, 150, 0);
+		//GameObject* monster = GameObjectBuilder::InstantiateMonster(eMonsterType::Ganster, this);
+		//monster->GetComponent<Transform>()->SetPosition(-500, 150, 0);
+
+		//3Ãþ
+		InstantiateMonster(eMonsterType::Shield, Vector2(-250, 453), true);
+		InstantiateMonster(eMonsterType::Cop, Vector2(-50, 453), true);
+		InstantiateMonster(eMonsterType::Shotgun, Vector2(500, 453), true);
+
+		//2Ãþ
+		InstantiateMonster(eMonsterType::Cop, Vector2(-600, 165), false);
+		InstantiateMonster(eMonsterType::Shotgun, Vector2(-400, 165), false);
+		InstantiateMonster(eMonsterType::Shield, Vector2(50, 165), false);
+
+		//1Ãþ
+		//InstantiateMonster(eMonsterType::Cop, Vector2(-600, 165), true);
+		InstantiateMonster(eMonsterType::Cop, Vector2(0, -100), true);
+		InstantiateMonster(eMonsterType::Shield, Vector2(400, -100), true);
+
 	}
 }
 
 void Chinatown04Scene::AddObject()
 {
+	{
+		GameObject* clear = new GameObject();
+
+		clear->AddComponent<RectCollider2D>();
+		clear->AddComponent<ClearController>();
+
+		clear->GetComponent<RectCollider2D>()->SetSize(100.f, 100.f);
+
+		clear->GetComponent<Transform>()->SetPosition(1000, -144, 0);
+
+		AddGameObject(clear, eLayerType::Event);
+	}
 }
 
 void Chinatown04Scene::AddLightObject()

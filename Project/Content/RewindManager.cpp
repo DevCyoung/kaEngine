@@ -116,12 +116,7 @@ void RewindManager::LateUpdate()
 
 	if (gInput->GetKeyDown(eKeyCode::T))
 	{			
-
-		//CCTVPlay();
-		GameObject* dieControler = SceneManager::GetInstance()->GetCurrentScene()->GetGameSystem()->FindGameObjectOrNull(L"DieController");
-		dieControler->GetComponent<DieController>()->TurnOffDieText();
-		recordSave();
-		mState = eRewindState::BlackOut;
+		GameClear();
 	}
 
 	if (gInput->GetKeyDown(eKeyCode::LEFT))
@@ -536,4 +531,12 @@ void RewindManager::CCTVPlay()
 		GetGameSystem()->GetRenderTargetRenderer()->GetRegisteredRenderCamera(eCameraPriorityType::UI);
 
 	uiCamera->TurnOffAllLayer();
+}
+
+void RewindManager::GameClear()
+{//CCTVPlay();
+	GameObject* dieControler = SceneManager::GetInstance()->GetCurrentScene()->GetGameSystem()->FindGameObjectOrNull(L"DieController");
+	dieControler->GetComponent<DieController>()->TurnOffDieText();
+	recordSave();
+	mState = eRewindState::BlackOut;
 }

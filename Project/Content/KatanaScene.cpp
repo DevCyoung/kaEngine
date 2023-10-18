@@ -21,6 +21,7 @@ void KatanaScene::SetDefaultCollision()
 	mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Player, eLayerType::Wall);
 	mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Player, eLayerType::MonsterAttack);
 	mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Player, eLayerType::Platform);
+	mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Player, eLayerType::Event);
 	mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Monster, eLayerType::LeftSlope);
 	mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Monster, eLayerType::RightSlope);
 	mCollisionManagement2D->TurnOnCollisionLayer(eLayerType::Monster, eLayerType::Wall);
@@ -61,11 +62,11 @@ void KatanaScene::initialize()
 	gGraphicDevice->BindCB(eCBType::Wave, eShaderBindType::PS);
 #pragma endregion
 #pragma region Editor
-	//{
-	//	GameObject* const testObj = new GameObject();
-	//	testObj->AddComponent<SimpleEditorCollider2D>();
-	//	AddGameObject(testObj, eLayerType::Default);
-	//}
+	/*{
+		GameObject* const testObj = new GameObject();
+		testObj->AddComponent<SimpleEditorCollider2D>();
+		AddGameObject(testObj, eLayerType::Default);
+	}*/
 #pragma endregion
 	AddMapObject();
 	AddWallObject();
@@ -267,8 +268,8 @@ void KatanaScene::initialize()
 
 	AddPlayerObject();
 
-	Scene::initialize();
 	TimeManager::GetInstance()->ResetTime();
+	Scene::initialize();	
 
 #pragma region Enter
 	gKatanaZeroSystem->SetCurentScene(this);

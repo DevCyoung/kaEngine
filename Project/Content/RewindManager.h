@@ -61,6 +61,7 @@ public:
 
 	void Rewind();
 	void CCTVPlay();
+	void GameClear();
 	int GetCCTVSpeed() const;
 
 private:

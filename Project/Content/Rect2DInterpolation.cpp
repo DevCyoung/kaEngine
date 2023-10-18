@@ -24,6 +24,8 @@ Rect2DInterpolation::~Rect2DInterpolation()
 
 void Rect2DInterpolation::initialize()
 {
+	Rigidbody2D* const rigidbody = GetOwner()->GetComponent<Rigidbody2D>();
+	rigidbody->TurnOnGround();
 }
 
 void Rect2DInterpolation::update()
@@ -49,10 +51,10 @@ void Rect2DInterpolation::lateUpdate()
 
 void Rect2DInterpolation::lastUpdate()
 {
-	if (GameManager::GetInstance()->GetRewindManager()->GetRewindState() == eRewindState::Rewind)
+	/*if (GameManager::GetInstance()->GetRewindManager()->GetRewindState() == eRewindState::Rewind)
 	{
 		return;
-	}
+	}*/
 
 	//RenderTargetRenderer* const renderer = GetOwner()->GetGameSystem()->GetRenderTargetRenderer();
 	//DebugRenderer2D* const debugRenderer = renderer->GetDebugRenderer2D();

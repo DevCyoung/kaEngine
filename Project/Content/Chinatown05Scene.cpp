@@ -178,15 +178,55 @@ void Chinatown05Scene::AddWallObject()
 
 void Chinatown05Scene::AddDoorObject()
 {
+	float offsetX = -17.f;
+	float offsetY = 48.f;
+	{
+		GameObject* door = GameObjectBuilder::InstantiateClubDoor(this);
+		door->GetComponent<Transform>()->SetPosition(-272 + offsetX, 80 + offsetY, 0);
+	}
+
+	{
+		GameObject* door = GameObjectBuilder::InstantiateClubDoor(this);
+		door->GetComponent<Transform>()->SetPosition(-272 + offsetX, -176 + offsetY, 0);
+	}
+
+	{
+		GameObject* door = GameObjectBuilder::InstantiateDoor(this);
+		door->GetComponent<Transform>()->SetPosition(400 + offsetX, -304 + offsetY, 0);
+	}
 }
 
 void Chinatown05Scene::AddMonsterObject()
 {
-	InstantiateMonster(eMonsterType::Ganster, Vector2(-80, 100), true);	
+	InstantiateMonster(eMonsterType::Cop, Vector2(-650, 100), false);
+	InstantiateMonster(eMonsterType::Shotgun, Vector2(-450, 100), true);
+
+	InstantiateMonster(eMonsterType::Ganster, Vector2(-80, 100), true);
+	InstantiateMonster(eMonsterType::Shield, Vector2(300, 100), true);
+
+
+	InstantiateMonster(eMonsterType::Shield, Vector2(150, -288), true);
+
+
+	InstantiateMonster(eMonsterType::Cop, Vector2(650, -288), true);
+	InstantiateMonster(eMonsterType::Shield, Vector2(850, -288), true);
+	InstantiateMonster(eMonsterType::Shotgun, Vector2(950, -288), true);
 }
 
 void Chinatown05Scene::AddObject()
 {
+	{
+		GameObject* clear = new GameObject();
+
+		clear->AddComponent<RectCollider2D>();
+		clear->AddComponent<ClearController>();
+
+		clear->GetComponent<RectCollider2D>()->SetSize(100.f, 100.f);
+
+		clear->GetComponent<Transform>()->SetPosition(1136, -304, 0);
+
+		AddGameObject(clear, eLayerType::Event);
+	}
 }
 
 void Chinatown05Scene::AddLightObject()
@@ -200,7 +240,7 @@ void Chinatown05Scene::AddCameraObject()
 {
 	GameObject* mainCamera = GameObjectBuilder::AddCamera(this);
 	Vector3 pos = mainCamera->GetComponent<Transform>()->GetPosition();
-	mainCamera->GetComponent<Transform>()->SetPosition(0, -300, pos.z);
+	mainCamera->GetComponent<Transform>()->SetPosition(-288, -56, pos.z);
 
 	{
 		GameObject* const wall = new GameObject();
@@ -208,7 +248,7 @@ void Chinatown05Scene::AddCameraObject()
 		wall->AddComponent<RectCollider2D>();
 		wall->AddComponent<CameraWall>();
 
-		wall->GetComponent<Transform>()->SetPosition(1440, 48, 0);
+		wall->GetComponent<Transform>()->SetPosition(1200, 48, 0);
 		wall->GetComponent<RectCollider2D>()->SetSize(Vector2(128, 1504));
 		wall->GetComponent<CameraWall>()->SetCameraWallType(eCameraWallType::Right);
 
@@ -265,7 +305,7 @@ void Chinatown05Scene::AddPlayerObject()
 {
 	{
 		GameObject* player = GameObjectBuilder::InstantiatePlayer(this);
-		player->GetComponent<Transform>()->SetPosition(0, -300, 0);
+		player->GetComponent<Transform>()->SetPosition(-750, -160, 0);
 
 		GameManager::GetInstance()->SetPlayer(player);
 	}

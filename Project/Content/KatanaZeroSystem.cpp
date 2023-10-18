@@ -200,6 +200,7 @@ void KatanaZeroSystem::CCTVPlayBack()
 
 void KatanaZeroSystem::GameClear()
 {
+	GameManager::GetInstance()->GetRewindManager()->GameClear();
 }
 
 

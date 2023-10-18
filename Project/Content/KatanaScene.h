@@ -25,7 +25,7 @@
 #include "ShiftController.h"
 #include "SimpleEditorCollider2D.h"
 #include "UIEffect.h"
-
+#include "ClearController.h"
 
 enum class eKatanaSceneType
 {

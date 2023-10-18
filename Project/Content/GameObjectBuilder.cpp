@@ -151,6 +151,7 @@ GameObject* GameObjectBuilder::Player()
 	//Rigidbody
 	player->GetComponent<Rigidbody2D>()->TurnOnGravity();
 	player->GetComponent<Rigidbody2D>()->SetGravityAccel(1800.f);
+	player->GetComponent<Rigidbody2D>()->SetGravityVelocityLimit(1300.f);
 
 	//Collider
 	//player->GetComponent<RectCollider2D>()->SetSize(22.f, 44.f);

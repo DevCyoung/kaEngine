@@ -179,21 +179,21 @@ void Content::loadMaterial()
 #pragma region Chinatown05Material
 	{
 		Material* const backgroundMaterial =
-			MaterialBuilder::Sprite2D(
+			MaterialBuilder::LightSprite2D(
 				eRenderPriorityType::Opqaue, eResTexture::Map_Chinatown05_spr_chinatown_loop_parallax_1);
 		gResourceManager->Insert(L"Chanatown05BackGround01p", backgroundMaterial);
 	}
 
 	{
 		Material* const backgroundMaterial =
-			MaterialBuilder::Sprite2D(
+			MaterialBuilder::LightSprite2D(
 				eRenderPriorityType::Opqaue, eResTexture::Map_Chinatown05_spr_chinatown_loop_parallax_2);
 		gResourceManager->Insert(L"Chanatown05BackGround02p", backgroundMaterial);
 	}
 
 	{
 		Material* const tileMaterial =
-			MaterialBuilder::Sprite2D(
+			MaterialBuilder::LightSprite2D(
 				eRenderPriorityType::Opqaue, eResTexture::Map_Chinatown05_Tilemap);
 		gResourceManager->Insert(L"Chanatown05TileMap", tileMaterial);
 	}

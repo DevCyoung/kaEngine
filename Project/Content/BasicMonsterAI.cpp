@@ -247,6 +247,15 @@ bool BasicMonsterAI::isAttackable(const float attackDistacne)
 	{
 		return false;
 	}	*/
+	Vector2 doorRayDirection = Vector2(mTransform->GetRight().x, 0.f);
+	if (physics2D->RayCastHit2D(pos2D, doorRayDirection, 40.f, eLayerType::Door, &hitInfo))
+	{
+		DoorController* doorController = hitInfo.collider->GetOwner()->GetComponent<DoorController>();
+		if (false == doorController->IsOpen())
+		{
+			doorController->Open(GetOwner());
+		}
+	}
 
 	if (false == physics2D->RayCastHit2D(pos2D, direction, distance, eLayerType::Wall, &hitInfo) &&
 		false == physics2D->RayCastHit2D(pos2D, direction, distance, eLayerType::LeftSlope, &hitInfo) &&
@@ -415,7 +424,7 @@ void BasicMonsterAI::trace()
 				if (nextNodePos.y < mTransform->GetPosition().y) //down
 				{
 					rect2DInterpolation->TurnOffPlatform();
-					velocity.y = -mRunSpeed;
+					velocity.y = -mRunSpeed * 2.f;
 				}
 				else // up
 				{
@@ -429,7 +438,7 @@ void BasicMonsterAI::trace()
 				if (nextNodePos.y < mTransform->GetPosition().y) //down
 				{
 					rect2DInterpolation->TurnOffPlatform();
-					velocity.y = -mRunSpeed;
+					velocity.y = -mRunSpeed * 2.f;
 				}
 				else // up
 				{
@@ -468,6 +477,8 @@ void BasicMonsterAI::trace()
 			//mAnimator2D->Play(L"Turn", false);
 			//mTraceState = eTraceState::Turn;
 		}
+
+
 	}
 }
 
@@ -644,7 +655,7 @@ void BasicMonsterAI::search()
 	RayCast2DHitInfo hitInfo = {};
 	Vector3 pos = mTransform->GetPosition();
 
-	float rayDistance = 300.f;
+	float rayDistance = 180.f;
 	GameObject* player = GameManager::GetInstance()->GetPlayer();
 	Vector2 rayDirection = helper::math::GetDirection2D(GetOwner(), player);
 
@@ -757,7 +768,9 @@ void BasicMonsterAI::damaged(Collider2D* other, Vector2 pushOutPower)
 	}
 	else if (otherLayerType == eLayerType::Wall || 
 			 otherLayerType == eLayerType::LeftSlope ||
-			 otherLayerType == eLayerType::RightSlope)
+			 otherLayerType == eLayerType::RightSlope || 
+			 otherLayerType == eLayerType::Platform ||
+			 otherLayerType == eLayerType::Door)
 	{
 		if (mState == eMonsterState::HurtFly)
 		{

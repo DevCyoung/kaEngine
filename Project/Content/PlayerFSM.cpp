@@ -205,13 +205,21 @@ void PlayerFSM::Update()
 				}
 
 			}
-			if (abs(rigidbody2D->GetVelocity().x) < right.x * 370.f)
+
+			float speed = 400.f;
+
+			if (abs(rigidbody2D->GetVelocity().x) < right.x * speed)
 			{
 				rigidbody2D->AddForce(right * dir.x * 4000.f);
 			}
 			else if (gInput->GetKeyDown(eKeyCode::A) || gInput->GetKeyDown(eKeyCode::D))
 			{
-				rigidbody2D->SetVelocity(right * dir.x * 370.f);
+				Vector2 newVelocity = right * dir.x * speed;
+				if (mRect2DInterpolation->IsCollisionWallLeft() || mRect2DInterpolation->IsCollisionWallRight())
+				{
+					newVelocity.y = -600.f;
+				}
+				rigidbody2D->SetVelocity(newVelocity);
 			}
 
 		}
