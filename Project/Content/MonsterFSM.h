@@ -17,6 +17,7 @@ public:
 
 	void AddState(int idx, MonsterState* state);
 	void ChangeState(int idx);
+	int GetCurentStateType() const { return mCurrentState->GetStateType(); }
 
 	GameObject* GetOwner() const { return mOwner; }
 

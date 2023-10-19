@@ -60,4 +60,5 @@ private:
     bool    mbGround;           // 땅 체크    
 
     bool mbFixedUpdate;      // FixedUpdate에서만 사용할 경우 true로 설정
+    bool mbAirFriction;      // 공기 마찰력 사용여부
 };

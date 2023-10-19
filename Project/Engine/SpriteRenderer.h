@@ -25,7 +25,7 @@ public:
 	void SetColorR(float r);
 	void SetColorG(float g);
 	void SetColorB(float b);
-	void SetColorA(float a);	
+	void SetColorA(float a);		
 	void SetColorReset();
 
 	void MulColorR(float r);

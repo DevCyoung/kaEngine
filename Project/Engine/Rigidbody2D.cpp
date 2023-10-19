@@ -15,6 +15,7 @@ Rigidbody2D::Rigidbody2D()
 	, mbGround(false)
 	, mMass(1.f)	
 	, mbFixedUpdate(true)
+	, mbAirFriction(true)
 {
 }
 
@@ -71,7 +72,7 @@ void Rigidbody2D::fixedUpdate()
 	}
 
 	//공기저항 X
-	if (mbGravityUse && !mbGround)
+	if (mbGravityUse && !mbGround && mbAirFriction)
 	{		
 		// 마찰 가속도
 		Vector2 vFriction = -mVelocity;

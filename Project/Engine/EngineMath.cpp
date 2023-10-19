@@ -336,6 +336,16 @@ namespace helper::math
 		return Vector3::Distance(pos1, pos2);
 	}
 
+	float GetAngle2D(Vector3 direction)
+	{		
+		return Rad2Deg(atan2(direction.y, direction.x));
+	}
+
+	float GetAngle2D(Vector2 direction)
+	{
+		return Rad2Deg(atan2(direction.y, direction.x));
+	}
+
 	/*float GetAngle3D(const GameObject* const origin, const GameObject* const dest)
 	{
 		Vector3 direction = GetDirection3D(origin, dest);

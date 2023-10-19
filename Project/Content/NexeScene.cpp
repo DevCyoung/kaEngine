@@ -5,6 +5,7 @@
 #include "KatanaScene.h"
 #include "KatanaZeroSystem.h"
 
+#include "TitleScene.h"
 #include "Chinatown01Scene.h"
 #include "Chinatown04Scene.h"
 #include "Chinatown05Scene.h"
@@ -60,6 +61,9 @@ void NexeScene::LoadNextScene(eKatanaSceneType sceneType)
 {
 	switch (sceneType)
 	{	
+	case eKatanaSceneType::Title:
+		SceneManager::GetInstance()->RegisterLoadScene(new TitleScene());
+		break;
 	case eKatanaSceneType::ChinaTown01:
 		SceneManager::GetInstance()->RegisterLoadScene(new Chinatown01Scene());
 		break;

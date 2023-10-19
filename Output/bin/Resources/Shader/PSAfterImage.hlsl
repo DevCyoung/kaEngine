@@ -98,9 +98,9 @@ float4 animationColor(float2 uv)
 		//138, 43, 226
 		//153,50,204
 		//147,112,219
-		outColor.r = 153.f / 255.f;
-		outColor.g = 50.f / 255.f;
-		outColor.b = 204.f / 255.f;
+		//outColor.r = 153.f / 255.f;
+		//outColor.g = 50.f / 255.f;
+		//outColor.b = 204.f / 255.f;
 		outColor.a = B1_cbColor.a;		
 	}
 	

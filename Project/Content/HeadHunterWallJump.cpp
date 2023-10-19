@@ -36,9 +36,20 @@ void HeadHunterWallJump::Update()
 			mWallJumpState = eWallJumpState::Jump;
 			mAnimator2D->Play(L"WallJump", false);
 			mRigidbody2D->TurnOnGravity();
-			mRigidbody2D->SetVelocity(Vector2(1000.f, 2200.f));
-			gSoundManager->Play(eResAudioClip::HeadHunter_wallShot, 1.f);
+			Vector3 position = mTransform->GetPosition();
 
+			if (position.x < 0.f)
+			{
+				mRigidbody2D->SetVelocity(Vector2(1000.f, 1000.f));
+				gSoundManager->Play(eResAudioClip::HeadHunter_wallShot, 1.f);
+			}
+			else
+			{
+				mRigidbody2D->SetVelocity(Vector2(-1000.f, 1000.f));
+				gSoundManager->Play(eResAudioClip::HeadHunter_wallShot, 1.f);
+			}
+			
+			gSoundManager->Play(eResAudioClip::playerRoll, 0.3f);
 			//GameObjectBuilder::CreateBullet()
 
 			
@@ -64,6 +75,7 @@ void HeadHunterWallJump::Update()
 			velocity.x = 0.f;
 			mRigidbody2D->SetVelocity(velocity);
 			//GetMonsterFSM()->ChangeState(HeadHunterAI::Idle);
+			gSoundManager->PlayInForce(eResAudioClip::playerLand, 0.3f);
 		}
 		else if (mShotTime >= 0.018f && mBulletCount < 24)
 		{
@@ -90,9 +102,10 @@ void HeadHunterWallJump::Update()
 void HeadHunterWallJump::Enter()
 {
 	mRigidbody2D->TurnOffGravity();	
+	mRigidbody2D->SetVelocity(Vector2::Zero);
 
 	mWallJumpState = eWallJumpState::Idle;
-	mAnimator2D->Play(L"WallIdle", true);
+	mAnimator2D->Play(L"WallIdle", true);	
 
 	mJumpTime = 0.f;
 	mShotTime = 0.f;

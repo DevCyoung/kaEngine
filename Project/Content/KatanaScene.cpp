@@ -78,6 +78,9 @@ void KatanaScene::initialize()
 	AddUIObject();
 
 
+#pragma region Slash
+
+#pragma endregion
 
 
 #pragma region PostProcess

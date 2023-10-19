@@ -373,6 +373,12 @@
     <Filter Include="Source\KatanaZero\01. ScriptComponent\DieController">
       <UniqueIdentifier>{ebf54f7e-703d-44e3-8b12-fa37ec0ddfab}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\KatanaZero\Monster\HeadHunter\State\PreJump">
+      <UniqueIdentifier>{45a9cb49-0df6-46ca-ae94-0cb810dbc0be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\KatanaZero\Monster\Bullet">
+      <UniqueIdentifier>{35a816ee-b9cc-45c2-88b5-31e577562eee}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -714,6 +720,12 @@
     <ClInclude Include="DieController.h">
       <Filter>Source\KatanaZero\01. ScriptComponent\DieController</Filter>
     </ClInclude>
+    <ClInclude Include="SlashEffectMovement.h">
+      <Filter>Source\KatanaZero\Slash</Filter>
+    </ClInclude>
+    <ClInclude Include="HeadHunterPreJump.h">
+      <Filter>Source\KatanaZero\Monster\HeadHunter\State\PreJump</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -1048,6 +1060,12 @@
     </ClCompile>
     <ClCompile Include="DieController.cpp">
       <Filter>Source\KatanaZero\01. ScriptComponent\DieController</Filter>
+    </ClCompile>
+    <ClCompile Include="SlashEffectMovement.cpp">
+      <Filter>Source\KatanaZero\Slash</Filter>
+    </ClCompile>
+    <ClCompile Include="HeadHunterPreJump.cpp">
+      <Filter>Source\KatanaZero\Monster\HeadHunter\State\PreJump</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

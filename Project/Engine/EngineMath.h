@@ -52,13 +52,15 @@ namespace helper::math
 	Vector2 GetDirection2D(const GameObject* const origin, const GameObject* const dest);
 
 	Vector2 GetDirection2D(Vector3 origin, Vector3 dest);
-	Vector2 GetDirection2D(Vector2 origin, Vector2 dest);
+	Vector2 GetDirection2D(Vector2 origin, Vector2 dest);	
 
 	float GetDistance3D(const GameObject* const a, const GameObject* const b);
 	float GetDistance2D(const GameObject* const a, const GameObject* const b);
 
-	float GetAngle3D(const GameObject* const origin, const GameObject* const dest);
-	float GetAngle2D(const GameObject* const origin, const GameObject* const dest);
+	float GetAngle2D(Vector3 direction);
+	float GetAngle2D(Vector2 direction);
+
+	
 
 
 

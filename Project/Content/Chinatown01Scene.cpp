@@ -359,6 +359,8 @@ void Chinatown01Scene::AddLightObject()
 
 	{
 		GameObject* const light = new GameObject();
+		light->SetName(L"DefuseLight");
+
 		light->AddComponent<Light2D>();
 
 		light->GetComponent<Light2D>()->SetLightType(Light2D::LIGHT_TYPE::POINT);
@@ -370,6 +372,8 @@ void Chinatown01Scene::AddLightObject()
 
 	{
 		GameObject* const light = new GameObject();
+		light->SetName(L"DefuseLight");
+
 		light->AddComponent<Light2D>();
 
 		light->GetComponent<Light2D>()->SetLightType(Light2D::LIGHT_TYPE::POINT);
@@ -381,6 +385,8 @@ void Chinatown01Scene::AddLightObject()
 
 	{
 		GameObject* const light = new GameObject();
+		light->SetName(L"DefuseLight");
+
 		light->AddComponent<Light2D>();
 
 		light->GetComponent<Light2D>()->SetLightType(Light2D::LIGHT_TYPE::POINT);
@@ -392,6 +398,8 @@ void Chinatown01Scene::AddLightObject()
 
 	{
 		GameObject* const light = new GameObject();
+		light->SetName(L"DefuseLight");
+
 		light->AddComponent<Light2D>();
 
 		light->GetComponent<Light2D>()->SetLightType(Light2D::LIGHT_TYPE::POINT);
@@ -406,6 +414,8 @@ void Chinatown01Scene::AddLightObject()
 
 	{
 		GameObject* const light = new GameObject();
+		light->SetName(L"DefuseLight");
+
 		light->AddComponent<Light2D>();
 
 		light->GetComponent<Light2D>()->SetLightType(Light2D::LIGHT_TYPE::POINT);
@@ -419,6 +429,8 @@ void Chinatown01Scene::AddLightObject()
 	radius = 240.f;
 	{
 		GameObject* const light = new GameObject();
+		light->SetName(L"DefuseLight");
+
 		light->AddComponent<Light2D>();
 
 		light->GetComponent<Light2D>()->SetLightType(Light2D::LIGHT_TYPE::POINT);

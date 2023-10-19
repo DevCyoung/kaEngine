@@ -39,7 +39,7 @@ public:
 	static GameObject* Player();
 	static GameObject* InstantiateMonster(const eMonsterType type, Scene* const scene);
 	static GameObject* InstantiateKissyface(Scene* const scene);
-	static GameObject* InstantiateHeadHunter(Scene* const scene);	
+	static GameObject* InstantiateHeadHunter(Scene* const scene);
 	static GameObject* InstantiateDoor(Scene* const scene);
 	static GameObject* InstantiateClubDoor(Scene* const scene);
 	static GameObject* Slash();	

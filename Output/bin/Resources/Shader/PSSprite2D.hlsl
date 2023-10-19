@@ -7,22 +7,22 @@ float4 setColor(float4 color)
 {
 	if (1 == B5_bSetColorR)
 	{
-		color.r *= B5_R;
+		color.r = B5_R;
 	}
 	
 	if (1 == B5_bSetColorG)
 	{
-		color.g *= B5_G;
+		color.g = B5_G;
 	}
 	
 	if (1 == B5_bSetColorB)
 	{
-		color.b *= B5_B;
+		color.b = B5_B;
 	}
 	
 	if (1 == B5_bSetColorA)
 	{
-		color.a *= B5_A;
+		color.a = B5_A;
 	}
 	
 	return color;

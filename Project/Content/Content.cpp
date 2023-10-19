@@ -31,11 +31,11 @@ Content::Content()
 	resourceInitialize();
 
 	//Scene* testScene = new Collide2DTestScene;
-	KatanaScene* testScene = new TitleScene();
+	//KatanaScene* testScene = new TitleScene();
 	//KatanaScene* testScene = new Chinatown01Scene();
 	//KatanaScene* testScene = new Chinatown04Scene();
 	//KatanaScene* testScene = new Chinatown05Scene();
-	//KatanaScene* testScene = new HeadHunterScene();
+	KatanaScene* testScene = new HeadHunterScene();
 	//Scene* testScene = new KissyfaceScene();
 	//Scene* testScene = new TestScene();
 	KatanaZeroSystem::initialize();
@@ -82,6 +82,23 @@ void Content::loadShader()
 
 void Content::loadMaterial()
 {
+#pragma region HeadHunterBullet
+	{
+		Material* const tileMaterial =
+			MaterialBuilder::Sprite2D(
+				eRenderPriorityType::Opqaue, eResTexture::spr_kissyface_grenade_2x);
+		gResourceManager->Insert(L"HeadHunterBullet", tileMaterial);
+	}
+#pragma endregion
+
+#pragma region HeadHunterBulletCircle
+	{
+		Material* const tileMaterial =
+			MaterialBuilder::Sprite2D(
+				eRenderPriorityType::Opqaue, eResTexture::CircleLine);
+		gResourceManager->Insert(L"HeadHunterBulletCircleLine", tileMaterial);
+	}
+#pragma endregion
 
 #pragma region TitleMaterial
 	{
@@ -291,6 +308,13 @@ void Content::loadMaterial()
 		Material* const material = MaterialBuilder::Sprite2D(eRenderPriorityType::Opqaue,
 			eResTexture::pixel100);
 		gResourceManager->Insert(L"BlackOut2", material);
+	}
+
+	//Slash
+	{
+		Material* const material = MaterialBuilder::Sprite2D(eRenderPriorityType::Opqaue,
+			eResTexture::pixel100);
+		gResourceManager->Insert(L"Slash", material);
 	}
 
 	//PostProcess

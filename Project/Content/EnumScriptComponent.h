@@ -50,6 +50,7 @@ enum class eScriptComponentType
 	SimpleDrawPoint,
 	SimpleEditorCollider2D,
 	SlashComponent,
+	SlashEffectMovement,
 	TestScript,
 	TitleController,
 	UIEffect,

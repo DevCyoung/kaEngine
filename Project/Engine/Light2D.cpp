@@ -10,6 +10,7 @@
 Light2D::Light2D()
 	: Component(eComponentType::Light2D)
 	, mSpotAngle(0.f)
+	, mbOn(true)
 {
 }
 
@@ -27,6 +28,11 @@ void Light2D::update()
 
 void Light2D::lateUpdate()
 {
+	if (false == mbOn)
+	{
+		return;
+	}
+
 	Transform* const transform = GetOwner()->GetComponent<Transform>();
 
 	const Vector3& WORLD_POS = transform->GetWorldMatrix().Translation();
@@ -35,6 +41,6 @@ void Light2D::lateUpdate()
 	m_LightInfo.WorldPos = Vector4(WORLD_POS.x, WORLD_POS.y, WORLD_POS.z, 1.f);	
 	m_LightInfo.WorldDir = Vector4(RIGHT_DIR.x, RIGHT_DIR.y, RIGHT_DIR.z, 1.f);
 	m_LightInfo.Angle = Deg2Rad(mSpotAngle);
-
+	
 	GetOwner()->GetGameSystem()->GetRenderTargetRenderer()->registerLightInfo(m_LightInfo);
 }

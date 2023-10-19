@@ -4,11 +4,18 @@
 #include "ResourceManager.h"
 #include "Effect2D.h"
 #include "RewindComponent.h"
+#include "SlashEffectMovement.h"
+#include <Engine/SceneManager.h>
+#include <Engine/EngineMath.h>
 
+//#include "MonsterAttack.h"
 
 EffectManager::EffectManager()
 	: mEffects{}
+	, mSlashs{}
+	, mMonsterAttacks{}
 	, mEffectIdx(0)
+	, mAttackIdx(0)
 {
 }
 
@@ -49,7 +56,7 @@ void EffectManager::Initialize(Scene* scene)
 			anim->CreateAnimation(L"SpinerBullet", atlas, 5, XMUINT2(5, 545), XMUINT2(70, 64), XMUINT2(10, 10), XMINT2(0, 0), 0.08f);
 			anim->CreateAnimation(L"StomperCloud", atlas, 10, XMUINT2(5, 648), XMUINT2(56, 23), XMUINT2(10, 10), XMINT2(0, 0), 0.06f);
 			anim->CreateAnimation(L"StomperCloud2", atlas, 10, XMUINT2(5, 710), XMUINT2(56, 23), XMUINT2(10, 10), XMINT2(0, 0), 0.06f);
-		}		
+		}
 
 		{
 			Animator2D* const anim = effectObject->GetComponent<Animator2D>();
@@ -65,9 +72,24 @@ void EffectManager::Initialize(Scene* scene)
 			anim->CreateAnimation(L"ShotGunFly", atlas, 6, XMUINT2(5, 519), XMUINT2(5, 5), XMUINT2(10, 10), XMINT2(0, 0), 0.08f);
 		}
 
+		{
+			Animator2D* const anim = effectObject->GetComponent<Animator2D>();
+			Texture* const atlas = gResourceManager->FindByEnum<Texture>(eResTexture::Atlas_Effect_explo);
+
+			anim->CreateAnimation(L"Explosion1", atlas, 11, XMUINT2(5, 34), XMUINT2(48, 56), XMUINT2(10, 10), XMINT2(0, 0), 0.08f);
+		}
+
 		mEffects[i] = effectObject;
 		scene->RegisterEventAddGameObject(effectObject, eLayerType::Effect);
 	}
+
+	//for (int i = 0; i < MAX_SLASH_COUNT; ++i)
+	//{
+	//	GameObject* const monsterAttack = new GameObject();
+
+	//	monsterAttack->AddComponent<RectCollider2D>();
+	//	//monsterAttack->AddComponent<MonsterAttack>();
+	//}
 }
 
 void EffectManager::Shot(const std::wstring& str, Vector3 pos)
@@ -82,7 +104,7 @@ void EffectManager::Shot(const std::wstring& str, Vector3 pos)
 
 	pos.z = 0.f;
 
-	effect->GetComponent<Transform>()->SetPosition(pos);	
+	effect->GetComponent<Transform>()->SetPosition(pos);
 
 	mEffectIdx = (mEffectIdx + 1) % MAX_EFFECT_COUNT;
 }
@@ -135,5 +157,46 @@ void EffectManager::Shot(const std::wstring& str, Vector3 pos, Vector2 direction
 	Shot(str, pos);
 
 	effect->GetComponent<Effect2D>()->SetSpeed(speed);
-	effect->GetComponent<Effect2D>()->SetVelocity(direction);	
+	effect->GetComponent<Effect2D>()->SetVelocity(direction);
 }
+
+void EffectManager::Slash(Vector3 pos, float rotation, float speed)
+{
+	//(void)direction;
+	(void)speed;
+	GameObject* const effectObject = new GameObject();
+	Vector2 direction = Deg2Vec2Dir(rotation);
+
+	//Vector3 pos = effectObject->GetComponent<Transform>()->GetPosition();
+	pos.x -= direction.x * 500.f;
+	pos.y -= direction.y * 500.f;
+	effectObject->GetComponent<Transform>()->SetPosition(pos);
+
+
+	effectObject->GetComponent<Transform>()->SetScale(9.0f, 0.06f, 1.f);
+	//effectObject->GetComponent<Transform>()->SetPosition(pos);
+
+	Vector3 rt = effectObject->GetComponent<Transform>()->GetRotation();
+	rt.z = rotation;
+	effectObject->GetComponent<Transform>()->SetRotation(rt);
+
+	effectObject->AddComponent<SpriteRenderer>();
+	effectObject->AddComponent<SlashEffectMovement>();
+	//effectObject->AddComponent<Rigidbody2D>();
+
+	effectObject->GetComponent<SpriteRenderer>()->SetMaterial(gResourceManager->FindOrNull<Material>(L"Slash"));
+	//effectObject->GetComponent<Rigidbody2D>()->TurnOffGravity();
+	//effectObject->GetComponent<Rigidbody2D>()->SetVelocity(direction);
+
+
+	SceneManager::GetInstance()->GetCurrentScene()->RegisterEventAddGameObject(effectObject, eLayerType::Default);
+}
+
+//void EffectManager::MonsterAttack(Vector3 pos, Vector2 scale, float time)
+//{
+//	GameObject* effectObject = mMonsterAttacks[mAttackIdx % MAX_SLASH_COUNT];
+//
+//	//effectObject->GetComponent<MonsterAttack>()->
+//
+//	//++mAttackIdx;
+//}

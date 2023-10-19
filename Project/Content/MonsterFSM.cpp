@@ -60,6 +60,7 @@ void MonsterFSM::AddState(int idx, MonsterState* state)
 
 	state->mMonsterFSM = this;
 	state->mGameObject = mOwner;
+	state->mType = idx;
 
 	mMonsterStates[idx] = state;
 }

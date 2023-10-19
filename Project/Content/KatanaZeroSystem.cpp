@@ -143,8 +143,8 @@ void KatanaZeroSystem::LoadNextScene()
 		mNextEffect->GetComponent<NexeScene>()->FadeOut(eKatanaSceneType::HeadHunter);
 		//SceneManager::GetInstance()->RegisterLoadScene(new Chinatown01Scene());
 		break;
-	case eKatanaSceneType::HeadHunter:
-		//SceneManager::GetInstance()->RegisterLoadScene(new Chinatown01Scene());
+	case eKatanaSceneType::HeadHunter:		
+		mNextEffect->GetComponent<NexeScene>()->FadeOut(eKatanaSceneType::Title);
 		break;
 	case eKatanaSceneType::Kissyface:
 		//SceneManager::GetInstance()->RegisterLoadScene(new Chinatown01Scene());

@@ -724,8 +724,7 @@ void BasicMonsterAI::damaged(Collider2D* other, Vector2 pushOutPower)
 		if (otherLayerType == eLayerType::PlayerAttack ||
 			(otherLayerType == eLayerType::Bullet && other->GetOwner()->GetComponent<BulletMovement>()->IsPlayerBullet()))
 		{
-			mbDead = true;
-			dieEnter();
+			mbDead = true;			
 			mAnimator2D->MulColorReset();
 
 			gSoundManager->Play(eResAudioClip::enemySlice, 1.f);
@@ -761,9 +760,11 @@ void BasicMonsterAI::damaged(Collider2D* other, Vector2 pushOutPower)
 			}
 
 			Camera* const mainCamera = GetOwner()->GetGameSystem()->GetRenderTargetRenderer()->GetRegisteredRenderCamera(eCameraPriorityType::Main);
-
 			mainCamera->GetOwner()->GetComponent<FolowPlayer>()->ShakeCamera();
-			GameManager::GetInstance()->GetEventManager()->ShotTimeEffect(0.1f, 0.2f);		
+
+			GameManager::GetInstance()->GetEventManager()->ShotTimeEffect(0.1f, 0.2f, eTimeEffectType::Damaged);
+
+			dieEnter();
 		}		
 	}
 	else if (otherLayerType == eLayerType::Wall || 
@@ -835,6 +836,11 @@ void BasicMonsterAI::dieEnter()
 {	
 	KatanaScene* katanaScene = gKatanaZeroSystem->GetCurrentScene();	
 	katanaScene->SubEnemyCount();
+
+	Vector2 direction = mRigidbody2D->GetDirection();
+	float degreeAngle = helper::math::GetAngle2D(direction);
+
+	gEffectManager->Slash(mTransform->GetPosition(), degreeAngle, 0.f);
 }
 
 void BasicMonsterAI::liveEnter()

@@ -33,6 +33,7 @@ private:
 	Transform* mPlayerTransform;
 	float mShakeTime;
 	float mShakeInterverTime;
+	Vector3 mPrevPosition;
 	int mShakeCount;
 	bool mbShake;
 	bool mbFolow;

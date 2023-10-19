@@ -8,6 +8,7 @@ MonsterState::MonsterState()
 	, mRigidbody2D(nullptr)
 	, mMonsterFSM(nullptr)
 	, mGameObject(nullptr)
+	, mType(0)
 {
 }
 

@@ -43,6 +43,71 @@ void AfterImage::initialize()
 	mAnimator = GetOwner()->GetComponent<Animator2D>();	
 }
 
+void AfterImage::SetColorR(float r)
+{
+	mCBColorInfo.bSetColorR = 1;
+	mCBColorInfo.R = r;
+}
+
+void AfterImage::SetColorG(float g)
+{
+	mCBColorInfo.bSetColorG = 1;
+	mCBColorInfo.G = g;
+}
+
+void AfterImage::SetColorB(float b)
+{
+	mCBColorInfo.bSetColorB = 1;
+	mCBColorInfo.B = b;
+}
+
+void AfterImage::SetColorA(float a)
+{
+	mCBColorInfo.bSetColorA = 1;
+	mCBColorInfo.A = a;
+}
+
+void AfterImage::SetColorReset()
+{
+	mCBColorInfo.bSetColorR = 0;
+	mCBColorInfo.bSetColorG = 0;
+	mCBColorInfo.bSetColorB = 0;
+	mCBColorInfo.bSetColorA = 0;
+}
+
+void AfterImage::MulColorR(float r)
+{
+	mCBColorInfo.bMulColorR = 1;
+	mCBColorInfo.R = r;
+}
+
+void AfterImage::MulColorG(float g)
+{
+	mCBColorInfo.bMulColorG = 1;
+	mCBColorInfo.G = g;
+}
+
+void AfterImage::MulColorB(float b)
+{
+	mCBColorInfo.bMulColorB = 1;
+	mCBColorInfo.B = b;
+}
+
+void AfterImage::MulColorA(float a)
+{
+	mCBColorInfo.bMulColorA = 1;
+	mCBColorInfo.A = a;
+}
+
+void AfterImage::MulColorReset()
+{
+	mCBColorInfo.bMulColorR = 0;
+	mCBColorInfo.bMulColorG = 0;
+	mCBColorInfo.bMulColorB = 0;
+	mCBColorInfo.bMulColorA = 0;
+}
+
+
 void AfterImage::update()
 {
 	RenderComponent::update();
@@ -62,7 +127,7 @@ void AfterImage::lateUpdate()
 
 	if (mCurTime >= mCreateDeltaTime)
 	{
-		if (false == rigidbody2D->IsStop())
+		if (rigidbody2D && false == rigidbody2D->IsStop())
 		{
 			tAfterImageInfo info = {};
 			info.CBTransform = mAnimator->GetCBTransform();
@@ -132,11 +197,12 @@ void AfterImage::render(const Camera* const camera)
 			gGraphicDevice->BindCB(eCBType::Animation2DInfo, eShaderBindType::PS);
 		}
 
-		tCBColorInfo CBColorInfo = {};
+		tCBColorInfo CBColorInfo = mCBColorInfo;
 		{
-			CBColorInfo.bUseColor = 1;
 			CBColorInfo.Color = Vector4(0.f, 0.f, 0.f, info.Alpha);
-			CBColorInfo.bColorType = info.colorType;
+			/*CBColorInfo.bUseColor = 1;
+			CBColorInfo.Color = Vector4(0.f, 0.f, 0.f, info.Alpha);
+			CBColorInfo.bColorType = info.colorType;*/
 
 			gGraphicDevice->PassCB(eCBType::ColorInfo, sizeof(CBColorInfo), &CBColorInfo);
 			gGraphicDevice->BindCB(eCBType::ColorInfo, eShaderBindType::PS);

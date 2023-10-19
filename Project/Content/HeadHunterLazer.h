@@ -39,5 +39,6 @@ private:
 	bool mbShoot;
 	bool mbLazerOn;
 	float mInTime;
+	int mUpdateCount;
 	eLazerState mState;
 };

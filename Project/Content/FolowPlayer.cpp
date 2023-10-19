@@ -12,6 +12,7 @@ FolowPlayer::FolowPlayer()
 	, mbCollideWall{}
 	, mShakeCount(0)
 	, mbFolow(true)
+	, mPrevPosition(Vector3::Zero)
 {
 }
 
@@ -21,6 +22,8 @@ FolowPlayer::~FolowPlayer()
 
 void FolowPlayer::ShakeCamera()
 {
+	mPrevPosition = GetOwner()->GetComponent<Transform>()->GetPosition();
+
 	mShakeTime = 0.f;
 	mbShake = true;
 }
@@ -95,7 +98,7 @@ void FolowPlayer::update()
 		mShakeTime += gDeltaTime;
 		mShakeInterverTime += gDeltaTime;
 
-		int power = 8;
+		int power = 10;
 		float interval = 0.01f;
 		float shakeTime = 0.1f;
 
@@ -120,6 +123,11 @@ void FolowPlayer::update()
 		{
 			mShakeCount = 0;
 			mbShake = false;
+
+			if (false == mbFolow)
+			{
+				NextPos = mPrevPosition;
+			}
 		}
 
 	}

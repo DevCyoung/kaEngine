@@ -46,6 +46,7 @@
 #include "SimpleDrawPoint.h"
 #include "SimpleEditorCollider2D.h"
 #include "SlashComponent.h"
+#include "SlashEffectMovement.h"
 #include "TestScript.h"
 #include "TitleController.h"
 #include "UIEffect.h"
@@ -97,6 +98,7 @@ static constexpr const wchar_t* const ScriptComponentNames[static_cast<UINT>(eSc
 	L"SimpleDrawPoint",
 	L"SimpleEditorCollider2D",
 	L"SlashComponent",
+	L"SlashEffectMovement",
 	L"TestScript",
 	L"TitleController",
 	L"UIEffect",
@@ -202,6 +204,8 @@ ScriptComponent* CreateScriptComponentByName(const std::wstring& scriptcomponent
 		scriptcomponent = new SimpleEditorCollider2D;
 	else if (L"SlashComponent" == scriptcomponentName)
 		scriptcomponent = new SlashComponent;
+	else if (L"SlashEffectMovement" == scriptcomponentName)
+		scriptcomponent = new SlashEffectMovement;
 	else if (L"TestScript" == scriptcomponentName)
 		scriptcomponent = new TestScript;
 	else if (L"TitleController" == scriptcomponentName)
@@ -353,6 +357,9 @@ ScriptComponent* CreateScriptComponentByEnum(const eScriptComponentType type)
 		break;
 	case eScriptComponentType::SlashComponent:
 		scriptcomponent = new SlashComponent;
+		break;
+	case eScriptComponentType::SlashEffectMovement:
+		scriptcomponent = new SlashEffectMovement;
 		break;
 	case eScriptComponentType::TestScript:
 		scriptcomponent = new TestScript;

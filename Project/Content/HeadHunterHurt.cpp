@@ -30,8 +30,8 @@ void HeadHunterHurt::Update()
 	if (mHurtState  == eHurtState::HurtFly && physics2D->RayCastHit2D(Vector2(position.x, position.y), Vector2::Down, 50.f, eLayerType::Wall, &hitInfo))
 	{		
 		mAnimator2D->Play(L"Hurt", false);
-		velocity.x = 0.f;
-		mRigidbody2D->SetVelocity(velocity);
+		//velocity.x = 0.f;
+		//mRigidbody2D->SetVelocity(velocity);
 		mHurtState = eHurtState::HurtGround;
 		//GetMonsterFSM()->ChangeState(HeadHunterAI::Idle);		
 	}
@@ -85,6 +85,9 @@ void HeadHunterHurt::Enter()
 	mHurtState = eHurtState::HurtFly;
 
 	mHurtTime = 0.f;
+
+	float direction = mRigidbody2D->GetDirection().x > 0.f ? 1.f : -1.f;	
+	mTransform->SetFlipx(direction > 0.f);
 }
 
 void HeadHunterHurt::Exit()

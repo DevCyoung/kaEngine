@@ -17,12 +17,18 @@ public:
 
 	void SetAttackAble(bool bAttackAble) { mbAttackAble = bAttackAble; }
 	bool GetAttackAble() const { return mbAttackAble; }
+	void Shot(float time, Vector3 position, Vector2 scale);
+
 private:
 	virtual void initialize() override final;
 	virtual void update() override final;
 	virtual void lateUpdate() override final;
 
+	
 
 	Vector2 mAttackDirection;
+	float mShotTime;
+	bool mbShot;
+	bool mbBack;
 	bool mbAttackAble;
 };

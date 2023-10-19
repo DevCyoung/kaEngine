@@ -5,6 +5,8 @@
 #include "GameManager.h"
 #include <Engine/EngineMath.h>
 #include <Engine/AfterImage.h>
+#include "MonsterAttack.h"
+
 HeadHunterSwordDash::HeadHunterSwordDash()
 	: mSwordDashState(eSwordDashState::None)
 	, mDashTime(0.f)
@@ -45,6 +47,8 @@ void HeadHunterSwordDash::Update()
 
 			//mRigidbody2D->SetVelocity(Vector2::Left * 100.f);
 			mAnimator2D->Play(L"Dash", true);
+
+
 		}
 		break;
 	case eSwordDashState::Dash:
@@ -71,6 +75,15 @@ void HeadHunterSwordDash::Update()
 			veolocity.x = 0.f;
 			mRigidbody2D->SetVelocity(veolocity);
 		}
+
+		Vector3 pos = mGameObject->GetComponent<Transform>()->GetPosition();
+
+		GameObject* const monsterAttack = new GameObject();
+		monsterAttack->AddComponent<RectCollider2D>();
+		monsterAttack->AddComponent<MonsterAttack>();
+
+		monsterAttack->GetComponent<MonsterAttack>()->Shot(0.01f, pos, Vector2(30.f, 30.f));
+		mGameObject->GetGameSystem()->GetScene()->RegisterEventAddGameObject(monsterAttack, eLayerType::MonsterAttack);
 	}
 	break;
 	case eSwordDashState::DashEndGround:
@@ -98,12 +111,23 @@ void HeadHunterSwordDash::Enter()
 	mbLeft = direction.x < 0.f;
 	mTransform->SetFlipx(mbLeft);
 
-	mGameObject->GetComponent<AfterImage>()->SetCreateDeltaTime(0.000125f);	
+	mGameObject->GetComponent<AfterImage>()->SetCreateDeltaTime(0.00125f);
+
+
+	mGameObject->GetComponent<AfterImage>()->SetColorR(1.0f);
+	mGameObject->GetComponent<AfterImage>()->SetColorG(0.1f);
+	mGameObject->GetComponent<AfterImage>()->SetColorB(0.1f);
+
 }
 
 void HeadHunterSwordDash::Exit()
 {
 	mGameObject->GetComponent<AfterImage>()->SetCreateDeltaTime(0.01f);
+
+
+	mGameObject->GetComponent<AfterImage>()->SetColorR(153.f / 255.f);
+	mGameObject->GetComponent<AfterImage>()->SetColorG(50.f / 255.f);
+	mGameObject->GetComponent<AfterImage>()->SetColorB(204.f / 255.f);
 }
 
 

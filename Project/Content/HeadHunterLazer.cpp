@@ -5,12 +5,14 @@
 #include <Engine/EngineMath.h>
 #include "MonsterAttack.h"
 #include "GameManager.h"
+#include "FolowPlayer.h"
 HeadHunterLazer::HeadHunterLazer()
 	: ScriptComponent(eScriptComponentType::HeadHunterLazer)
 	, mbShoot(false)
 	, mbLazerOn(false)
 	, mState(eLazerState::None)
 	, mInTime(0.f)
+	, mUpdateCount(0)
 {
 }
 
@@ -24,6 +26,14 @@ void HeadHunterLazer::initialize()
 
 void HeadHunterLazer::update()
 {
+	++mUpdateCount;
+
+
+	if (mUpdateCount == 2)
+	{
+		GetOwner()->GetComponent<SpriteRenderer>()->TurnOnVisiblelity();
+	}
+
 	switch (mState)
 	{
 	case eLazerState::None:
@@ -113,6 +123,11 @@ void HeadHunterLazer::update()
 			//spriteRenderer->TurnOffVisiblelity();
 			mState = eLazerState::InAndOut_IN;
 			scale.y = 1.f;
+
+			//Camera* const mainCamera = GetOwner()->GetGameSystem()->GetRenderTargetRenderer()->GetRegisteredRenderCamera(eCameraPriorityType::Main);
+			//mainCamera->GetOwner()->GetComponent<FolowPlayer>()->ShakeCamera();
+			//GameManager::GetInstance()->GetEventManager()->ShotTimeEffect(0.1f, 0.2f, eTimeEffectType::Damaged);
+
 			transform->SetScale(scale);
 			mInTime = 0.f;
 			GetOwner()->GetComponent<MonsterAttack>()->SetAttackAble(true);

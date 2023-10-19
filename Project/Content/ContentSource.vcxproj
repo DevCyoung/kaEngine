@@ -293,6 +293,7 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="HeadHunterPreJump.h" />
     <ClInclude Include="HeadHunterRoll.h" />
     <ClInclude Include="HeadHunterScene.h" />
     <ClInclude Include="HeadHunterSweep.h" />
@@ -415,6 +416,10 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
       </SubType>
     </ClInclude>
     <ClInclude Include="SlashComponent.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="SlashEffectMovement.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -558,6 +563,7 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="HeadHunterPreJump.cpp" />
     <ClCompile Include="HeadHunterRoll.cpp" />
     <ClCompile Include="HeadHunterScene.cpp" />
     <ClCompile Include="HeadHunterSweep.cpp" />
@@ -686,6 +692,10 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
       </SubType>
     </ClCompile>
     <ClCompile Include="SlashComponent.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="SlashEffectMovement.cpp">
       <SubType>
       </SubType>
     </ClCompile>

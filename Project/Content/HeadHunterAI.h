@@ -22,6 +22,7 @@ public:
 		Aim,
 		BoomShot,
 		LandDash,
+		PreJump,
 		Dead,
 	};
 
@@ -32,8 +33,10 @@ public:
 	HeadHunterAI& operator=(const HeadHunterAI&) = delete;
 
 	void CreateAnimation();
+
 	GameObject* CreateHand();
 	GameObject* CreateLazer();
+	GameObject* CreateBullet();
 
 	void SetHand(GameObject* hand) { mHand = hand; }
 	GameObject* GetHand() const { return mHand; }	

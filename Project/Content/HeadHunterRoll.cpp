@@ -2,7 +2,7 @@
 #include "HeadHunterRoll.h"
 #include "MonsterFSM.h"
 #include "HeadHunterAI.h"
-
+#include <Engine/EngineMath.h>
 HeadHunterRoll::HeadHunterRoll()
 {
 }
@@ -28,8 +28,20 @@ void HeadHunterRoll::Update()
 void HeadHunterRoll::Enter()
 {
 	mAnimator2D->Play(L"Roll", false);
-	Vector2 left = Vector2(-1.f, 0.3f);
-	mRigidbody2D->SetVelocity(left * 600.f);
+	//int rand = helper::rand::RandInt(0, 100000) % 2;
+
+	Vector3 position = mTransform->GetPosition();
+
+	Vector2 left = Vector2::Left;
+
+	if (position.x < 0.f)
+	{
+		left = Vector2::Right;
+	}	
+
+	mTransform->SetFlipx(left.x < 0.f);
+	
+	mRigidbody2D->SetVelocity(left * 700.f);
 }
 
 void HeadHunterRoll::Exit()

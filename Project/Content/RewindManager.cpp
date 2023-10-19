@@ -179,6 +179,9 @@ void RewindManager::Rewind()
 
 	GameObject* dieControler = SceneManager::GetInstance()->GetCurrentScene()->GetGameSystem()->FindGameObjectOrNull(L"DieController");
 	dieControler->GetComponent<DieController>()->TurnOffDieText();
+
+	SceneManager::GetInstance()->GetCurrentScene()->GetGameSystem()->GetRenderTargetRenderer()->GetRegisteredRenderCameraOrNull(
+		eCameraPriorityType::UI)->TurnOffAllLayer();
 }
 
 int RewindManager::GetCCTVSpeed() const

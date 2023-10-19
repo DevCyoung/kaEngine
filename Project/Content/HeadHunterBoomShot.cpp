@@ -22,6 +22,20 @@ void HeadHunterBoomShot::Initialize()
 
 void HeadHunterBoomShot::Update()
 {
+	GameObject* player = GameManager::GetInstance()->GetPlayer();
+	GameObject* handObject = mGameObject;
+
+	Vector2 direction = helper::math::GetDirection2D(handObject, player);
+	Vector3 playerPosition = player->GetComponent<Transform>()->GetPosition();
+
+	float distance = helper::math::GetDistance2D(handObject, player);
+
+	if (distance <= 100.f)
+	{
+		GetMonsterFSM()->ChangeState(HeadHunterAI::Roll);
+		return;
+	}
+
 	switch (mBoomShotState)
 	{
 	case eBoomShotState::None:

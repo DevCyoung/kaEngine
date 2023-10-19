@@ -104,6 +104,59 @@ void HeadHunterScene::AddCameraObject()
 		mainCamera->GetComponent<Transform>()->SetPosition(0, -70, pos.z);
 		mainCamera->GetComponent<FolowPlayer>()->SetFolow(false);
 	}
+
+	//{
+	//	GameObject* const wall = new GameObject();
+	//	//[RectCollider]
+	//	wall->AddComponent<RectCollider2D>();
+	//	wall->AddComponent<CameraWall>();
+
+	//	wall->GetComponent<Transform>()->SetPosition(-736, -96, 0);
+	//	wall->GetComponent<RectCollider2D>()->SetSize(Vector2(192, 896));
+
+	//	wall->GetComponent<CameraWall>()->SetCameraWallType(eCameraWallType::Left);
+	//	AddGameObject(wall, eLayerType::CameraWall);
+	//}
+
+	//{
+	//	GameObject* const wall = new GameObject();
+	//	//[RectCollider]
+	//	wall->AddComponent<RectCollider2D>();
+	//	wall->AddComponent<CameraWall>();
+
+	//	wall->GetComponent<Transform>()->SetPosition(-32, -480, 0);
+	//	wall->GetComponent<RectCollider2D>()->SetSize(Vector2(1600, 128));
+
+	//	wall->GetComponent<CameraWall>()->SetCameraWallType(eCameraWallType::Down);
+	//	AddGameObject(wall, eLayerType::CameraWall);
+	//}
+
+	//{
+	//	GameObject* const wall = new GameObject();
+	//	//[RectCollider]
+	//	wall->AddComponent<RectCollider2D>();
+	//	wall->AddComponent<CameraWall>();
+
+	//	wall->GetComponent<Transform>()->SetPosition(720, -80, 0);
+	//	wall->GetComponent<RectCollider2D>()->SetSize(Vector2(160, 928));
+
+	//	wall->GetComponent<CameraWall>()->SetCameraWallType(eCameraWallType::Right);
+	//	AddGameObject(wall, eLayerType::CameraWall);
+	//}
+
+	//{
+	//	GameObject* const wall = new GameObject();
+	//	//[RectCollider]
+	//	wall->AddComponent<RectCollider2D>();
+	//	wall->AddComponent<CameraWall>();
+
+	//	wall->GetComponent<Transform>()->SetPosition(-16, 352, 0);
+	//	wall->GetComponent<RectCollider2D>()->SetSize(Vector2(1632, 128));
+	//	
+	//	wall->GetComponent<CameraWall>()->SetCameraWallType(eCameraWallType::Up);
+	//	AddGameObject(wall, eLayerType::CameraWall);
+	//}
+
 }
 
 void HeadHunterScene::AddUIObject()
@@ -117,7 +170,7 @@ void HeadHunterScene::AddPlayerObject()
 {
 	{
 		GameObject* player = GameObjectBuilder::InstantiatePlayer(this);
-		player->GetComponent<Transform>()->SetPosition(0, -250, 0);
+		player->GetComponent<Transform>()->SetPosition(-300, -250, 0);
 
 		GameManager::GetInstance()->SetPlayer(player);
 	}

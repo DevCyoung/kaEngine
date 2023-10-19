@@ -66,6 +66,10 @@ GameObject* GameObjectBuilder::Player()
 	player->GetComponent<AfterImage>()->SetAlphaTime(1.2f);
 	player->GetComponent<AfterImage>()->SetAlphaMaxTime(2.0f);
 
+	player->GetComponent<AfterImage>()->SetColorR(0.2f);
+	player->GetComponent<AfterImage>()->SetColorG(0.8f);
+	player->GetComponent<AfterImage>()->SetColorB(0.8f);
+
 
 	//Animation
 	{
@@ -478,7 +482,8 @@ GameObject* GameObjectBuilder::InstantiateHeadHunter(Scene* const scene)
 	{
 		headHunter->GetComponent<Rigidbody2D>()->TurnOnGravity();
 		headHunter->GetComponent<Rigidbody2D>()->SetGravityAccel(2500.f);
-		headHunter->GetComponent<Rigidbody2D>()->SetVelocityLimit(10000.f);
+		headHunter->GetComponent<Rigidbody2D>()->SetGravityVelocityLimit(2500.f);
+		headHunter->GetComponent<Rigidbody2D>()->SetVelocityLimit(2500.f);
 	}
 
 	headHunter->GetComponent<HeadHunterAI>()->CreateAnimation();
@@ -828,7 +833,7 @@ GameObject* GameObjectBuilder::AddCamera(Scene* const scene)
 		GameObject* const mainCamera = new GameObject();
 		result = mainCamera;
 		mainCamera->AddComponent<Camera>();
-		//mainCamera->AddComponent<CameraInputMoveMent>();
+		mainCamera->AddComponent<CameraInputMoveMent>();
 		mainCamera->AddComponent<FolowPlayer>();
 		mainCamera->AddComponent<RewindComponent>();
 		mainCamera->AddComponent<RectCollider2D>();

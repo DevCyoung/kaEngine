@@ -58,7 +58,7 @@ void Engine::initialize(const HWND hWnd, const UINT renderTargetWidth, const UIN
 
 void Engine::run()
 {
-	updateWindowInfo();
+	updateWindowInfo();	
 
 	update();
 

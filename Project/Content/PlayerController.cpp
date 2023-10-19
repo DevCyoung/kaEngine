@@ -237,7 +237,8 @@ void PlayerController::onCollisionEnter(Collider2D* other)
 
 			Camera* const mainCamera = GetOwner()->GetGameSystem()->GetRenderTargetRenderer()->GetRegisteredRenderCamera(eCameraPriorityType::Main);
 			mainCamera->GetOwner()->GetComponent<FolowPlayer>()->ShakeCamera();
-			GameManager::GetInstance()->GetEventManager()->ShotTimeEffect(0.1f, 0.2f);
+
+			GameManager::GetInstance()->GetEventManager()->ShotTimeEffect(0.1f, 0.2f, eTimeEffectType::Damaged);
 
 			//DieEnter
 			dieEnter();
@@ -268,7 +269,7 @@ void PlayerController::onCollisionStay(Collider2D* other)
 				Camera* const mainCamera = GetOwner()->GetGameSystem()->GetRenderTargetRenderer()->GetRegisteredRenderCamera(eCameraPriorityType::Main);
 
 				mainCamera->GetOwner()->GetComponent<FolowPlayer>()->ShakeCamera();
-				GameManager::GetInstance()->GetEventManager()->ShotTimeEffect(0.1f, 0.2f);
+				GameManager::GetInstance()->GetEventManager()->ShotTimeEffect(0.1f, 0.2f, eTimeEffectType::Damaged);
 
 
 				dieEnter();
