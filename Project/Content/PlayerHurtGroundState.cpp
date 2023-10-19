@@ -8,10 +8,11 @@
 #include "PlayerController.h"
 
 #include "GameManager.h"
+#include "KatanaZeroSystem.h"
 
 PlayerHurtGroundState::PlayerHurtGroundState(GameObject* const gameObject, PlayerFSM* const owner)
 	: PlayerState(gameObject, owner)
-	, mbInvincibility(false)
+	, mbInvincibility(true)
 {
 }
 
@@ -27,7 +28,7 @@ void PlayerHurtGroundState::Update()
 {
 	if (gInput->GetKeyDown(eKeyCode::LBTN))
 	{
-		if (mbInvincibility)
+		if (false == KatanaZeroSystem::GetInstance()->IsPlayerDamaged())
 		{
 			mOwner->ChangeState(mOwner->mPlayerRecoverState);
 		}		

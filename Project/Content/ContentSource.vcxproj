@@ -288,6 +288,7 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="HeadHunterDie.h" />
     <ClInclude Include="HeadHunterIdle.h" />
     <ClInclude Include="HeadHunterLazer.h">
       <SubType>
@@ -557,6 +558,7 @@ call ScriptGen.exe ScriptComponent $(SolutionDir)Project\Content $(SolutionDir)P
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="HeadHunterDie.cpp" />
     <ClCompile Include="HeadHunterHurt.cpp" />
     <ClCompile Include="HeadHunterIdle.cpp" />
     <ClCompile Include="HeadHunterLazer.cpp">

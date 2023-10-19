@@ -18,6 +18,7 @@
 #include "HeadHunterRoll.h"
 #include "HeadHunterHurt.h"
 #include "HeadHunterPreJump.h"
+#include "HeadHunterDie.h"
 
 #include "MonsterAttack.h"
 
@@ -34,6 +35,7 @@ HeadHunterAI::HeadHunterAI()
     : ScriptComponent(eScriptComponentType::HeadHunterAI)
     , mFSM(nullptr)
     , mHand(nullptr)
+    , mHP(3)
 {    
 }
 
@@ -51,8 +53,8 @@ void HeadHunterAI::CreateAnimation()
     anim->CreateAnimation(L"spr_headhunter_afterhurt_smoke", atlas, 2, XMUINT2(5, 126), XMUINT2(70, 53), XMUINT2(10, 10), XMINT2(0, 0), 0.125f);    
     anim->CreateAnimation(L"spr_headhunter_bomb_run", atlas, 8, XMUINT2(5, 371), XMUINT2(44, 38), XMUINT2(10, 10), XMINT2(0, 0), 0.125f);
     anim->CreateAnimation(L"spr_headhunter_dead", atlas, 19, XMUINT2(5, 534), XMUINT2(56, 21), XMUINT2(10, 10), XMINT2(0, 0), 0.125f);
-    anim->CreateAnimation(L"spr_headhunter_diefly", atlas, 4, XMUINT2(5, 625), XMUINT2(41, 26), XMUINT2(10, 10), XMINT2(0, 0), 0.125f);
-    anim->CreateAnimation(L"spr_headhunter_dieland", atlas, 8, XMUINT2(5, 690), XMUINT2(58, 41), XMUINT2(10, 10), XMINT2(0, 0), 0.125f);
+    
+    
 
     
 
@@ -75,6 +77,9 @@ void HeadHunterAI::CreateAnimation()
     
     anim->CreateAnimation(L"spr_headhunter_recover", atlas, 4, XMUINT2(5, 2098), XMUINT2(70, 53), XMUINT2(10, 10), XMINT2(0, 0), 0.125f);
     anim->CreateAnimation(L"spr_headhunter_reveal_bomb", atlas, 8, XMUINT2(5, 2190), XMUINT2(38, 43), XMUINT2(10, 10), XMINT2(0, 0), 0.125f);
+
+    anim->CreateAnimation(L"DieFly", atlas, 4, XMUINT2(5, 625), XMUINT2(41, 26), XMUINT2(10, 10), XMINT2(0, 0), 0.125f);
+    anim->CreateAnimation(L"DieLand", atlas, 8, XMUINT2(5, 690), XMUINT2(58, 41), XMUINT2(10, 10), XMINT2(0, -1), 0.125f);
 
     anim->CreateAnimation(L"PreJump", atlas, 3, XMUINT2(5, 1852), XMUINT2(33, 43), XMUINT2(10, 10), XMINT2(0, 0), 0.125f);
     anim->CreateAnimation(L"Jump", atlas, 1, XMUINT2(5, 3953), XMUINT2(27, 44), XMUINT2(10, 10), XMINT2(0, 0), 0.125f);
@@ -220,21 +225,29 @@ void HeadHunterAI::onCollisionEnter(Collider2D* other)
         mFSM->GetCurentStateType() != HeadHunterAI::Hurt &&
         mFSM->GetCurentStateType() != HeadHunterAI::Roll)
     {
-        mFSM->ChangeState(HeadHunterAI::Hurt);
-
+        --mHP;
 
         Camera* const mainCamera = GetOwner()->GetGameSystem()->GetRenderTargetRenderer()->GetRegisteredRenderCamera(eCameraPriorityType::Main);
         mainCamera->GetOwner()->GetComponent<FolowPlayer>()->ShakeCamera();
-        GameManager::GetInstance()->GetEventManager()->ShotTimeEffect(0.1f, 0.2f, eTimeEffectType::Damaged);
 
-        gSoundManager->Play(eResAudioClip::enemySlice, 1.f);
+        Vector2 pushOutPower = Vector2(600.f, 500.f);
 
+        if (mHP <= 0)
+        {
+            mFSM->ChangeState(HeadHunterAI::Die);
+            pushOutPower = Vector2(700.f, 800.f);
+        }
+        else
+        {
+            mFSM->ChangeState(HeadHunterAI::Hurt);            
+            GameManager::GetInstance()->GetEventManager()->ShotTimeEffect(0.1f, 0.2f, eTimeEffectType::Damaged);
 
-
+            gSoundManager->Play(eResAudioClip::enemySlice, 1.f);          
+        }        
 
         Vector3 dir = other->GetOwner()->GetComponent<Transform>()->GetRight();
         eLayerType otherLayerType = other->GetOwner()->GetLayer();
-        Vector2 pushOutPower = Vector2(600.f, 500.f);
+        
 
         float degreeAngle = helper::math::GetAngle2D(dir);
         gEffectManager->Slash(GetOwner()->GetComponent<Transform>()->GetPosition(), degreeAngle, 0.f);
@@ -268,8 +281,7 @@ void HeadHunterAI::initialize()
     mFSM->AddState(HeadHunterAI::Roll, new HeadHunterRoll);
     mFSM->AddState(HeadHunterAI::Hurt, new HeadHunterHurt);
     mFSM->AddState(HeadHunterAI::PreJump, new HeadHunterPreJump);
-
-
+    mFSM->AddState(HeadHunterAI::Die, new HeadHunterDie);
         
     mFSM->Initialize(HeadHunterAI::eState::Idle);
 

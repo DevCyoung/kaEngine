@@ -58,6 +58,9 @@ public:
 	void SetCRTTextTime(const std::wstring& text);
 	void SetCRTTimeLine(float time);
 
+	bool IsPlayerDamaged() const { return mbPlayerDamaged; }
+	void SetPlayerDamaged(const bool bPlayerDamaged) { mbPlayerDamaged = bPlayerDamaged; }
+
 private:
 	eKatanaSceneType mCurrentSceneType;
 	eKatanaSystemState mSystemState;
@@ -73,6 +76,8 @@ private:
 	GameObject* mCRTTimeLineBar;
 	GameObject* mCRTReadyText;
 	GameObject* mCRTBlackOut;
+
+	bool mbPlayerDamaged;
 };
 
 #define gKatanaZeroSystem KatanaZeroSystem::GetInstance()

@@ -5,6 +5,8 @@ enum class eResAudioClip
 	HeadHunter_arlam,
 	HeadHunter_circle,
 	HeadHunter_dash,
+	HeadHunter_defeat,
+	HeadHunter_Die,
 	HeadHunter_explo1,
 	HeadHunter_groundLazer,
 	HeadHunter_headHunterShot,

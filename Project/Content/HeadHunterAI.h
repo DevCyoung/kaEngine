@@ -23,7 +23,7 @@ public:
 		BoomShot,
 		LandDash,
 		PreJump,
-		Dead,
+		Die,		
 	};
 
 public:
@@ -51,4 +51,5 @@ private:
 private:
 	MonsterFSM* mFSM;
 	GameObject* mHand;
+	int mHP;
 };

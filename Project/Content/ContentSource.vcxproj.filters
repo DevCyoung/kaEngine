@@ -379,6 +379,9 @@
     <Filter Include="Source\KatanaZero\Monster\Bullet">
       <UniqueIdentifier>{35a816ee-b9cc-45c2-88b5-31e577562eee}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\KatanaZero\Monster\HeadHunter\State\Die">
+      <UniqueIdentifier>{fed197c8-9669-43aa-817c-d987598a2ff1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -726,6 +729,9 @@
     <ClInclude Include="HeadHunterPreJump.h">
       <Filter>Source\KatanaZero\Monster\HeadHunter\State\PreJump</Filter>
     </ClInclude>
+    <ClInclude Include="HeadHunterDie.h">
+      <Filter>Source\KatanaZero\Monster\HeadHunter\State\Die</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -1066,6 +1072,9 @@
     </ClCompile>
     <ClCompile Include="HeadHunterPreJump.cpp">
       <Filter>Source\KatanaZero\Monster\HeadHunter\State\PreJump</Filter>
+    </ClCompile>
+    <ClCompile Include="HeadHunterDie.cpp">
+      <Filter>Source\KatanaZero\Monster\HeadHunter\State\Die</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

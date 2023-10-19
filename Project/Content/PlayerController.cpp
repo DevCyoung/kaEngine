@@ -9,6 +9,7 @@
 #include "FolowPlayer.h"
 #include "DieController.h"
 #include "BulletMovement.h"
+#include "KatanaZeroSystem.h"
 PlayerController::PlayerController()
 	: ScriptComponent(eScriptComponentType::PlayerController)
 	, mPlayerFSM(nullptr)
@@ -32,6 +33,8 @@ void PlayerController::ChangeHurtState()
 void PlayerController::initialize()
 {
 	mPlayerFSM->Initialize(mPlayerFSM->mPlayerIdleState);
+
+
 
 	Animator2D* const animator = GetOwner()->GetComponent<Animator2D>();
 
@@ -183,11 +186,23 @@ void PlayerController::initialize()
 
 		animation->SetFrameStartEvent(2, func);
 	}
+
+
+
+
+	
+	//GetOwner()->GetComponent<Afterimage>()
 }
 
 void PlayerController::update()
 {
 	Assert(mPlayerFSM, WCHAR_IS_NULLPTR);
+
+	if (gInput->GetKeyDown(eKeyCode::K))
+	{
+		bool bDamaged = KatanaZeroSystem::GetInstance()->IsPlayerDamaged();
+		KatanaZeroSystem::GetInstance()->SetPlayerDamaged(!bDamaged);
+	}
 
 	if (GameManager::GetInstance()->GetRewindManager()->GetRewindState() != eRewindState::Record)
 	{
@@ -280,9 +295,13 @@ void PlayerController::onCollisionStay(Collider2D* other)
 
 void PlayerController::dieEnter()
 {
-	GameObject* dieControler = GetOwner()->GetGameSystem()->FindGameObject(L"DieController");
+	if (KatanaZeroSystem::GetInstance()->IsPlayerDamaged())
+	{
+		GameObject* dieControler = GetOwner()->GetGameSystem()->FindGameObject(L"DieController");
 
-	dieControler->GetComponent<DieController>()->TurnOnDieText();
+		dieControler->GetComponent<DieController>()->TurnOnDieText();
+	}
+	
 }
 
 void PlayerController::idleToRun()

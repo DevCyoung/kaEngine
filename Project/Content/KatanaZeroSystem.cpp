@@ -21,6 +21,7 @@ KatanaZeroSystem::KatanaZeroSystem()
 	, mCRTTimeLine(nullptr)
 	, mCRTReadyText(nullptr)
 	, mCRTBlackOut(nullptr)
+	, mbPlayerDamaged(true)
 {
 }
 

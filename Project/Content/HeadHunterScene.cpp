@@ -25,7 +25,7 @@ void HeadHunterScene::AddMapObject()
 {
 	{
 		GameObject* const tile = GameObjectBuilder::Default2D(L"HeadHunterMap");		
-		tile->GetComponent<Transform>()->SetScale(2.f, 2.f, 1.f);
+		tile->GetComponent<Transform>()->SetScale(2.f, 2.f, 1.f);		
 		AddGameObject(tile, eLayerType::TileMap);
 	}
 
@@ -88,6 +88,28 @@ void HeadHunterScene::AddMonsterObject()
 
 void HeadHunterScene::AddObject()
 {
+	{
+		GameObject* const tile = GameObjectBuilder::Default2D(L"BlackOut");
+		tile->SetName(L"WhiteUI");
+		tile->GetComponent<SpriteRenderer>()->TurnOffVisiblelity();
+
+		tile->GetComponent<Transform>()->SetScale(20.f, 20.f, 1.f);		
+		tile->GetComponent<Transform>()->SetPosition(0.f, 0.f, 0.f);
+
+		tile->GetComponent<SpriteRenderer>()->SetColorA(1.0f);
+		AddGameObject(tile, eLayerType::Forground);
+	}
+
+	{
+		GameObject* const tile = GameObjectBuilder::Default2D(L"BlackOut");
+		tile->SetName(L"BlackUI");
+		tile->GetComponent<SpriteRenderer>()->TurnOffVisiblelity();
+
+		tile->GetComponent<Transform>()->SetScale(10.2f, 10.f, 1.f);		
+		tile->GetComponent<Transform>()->SetPosition(0.f, 236.f, 0.f);
+
+		AddGameObject(tile, eLayerType::Forground);
+	}
 }
 
 void HeadHunterScene::AddLightObject()
