@@ -93,6 +93,50 @@ void HeadHunterScene::AddObject()
 void HeadHunterScene::AddLightObject()
 {
 	GameObjectBuilder::InstantiateGlobalLight2D(this, eLayerType::Default);	
+
+
+	Vector3 difuse = Vector3(0.1f, 1.35f, 1.35f) * 1.4f;
+	//float radius = 120.f;
+	float radius = 240.f;
+
+	{
+		GameObject* const light = new GameObject();
+		light->SetName(L"DefuseLight");
+
+		light->AddComponent<Light2D>();
+
+		light->GetComponent<Light2D>()->SetLightType(Light2D::LIGHT_TYPE::POINT);
+		light->GetComponent<Light2D>()->SetRadius(radius);
+		light->GetComponent<Light2D>()->SetLightDiffuse(difuse);
+		light->GetComponent<Transform>()->SetPosition(0, 100, 0);
+		AddGameObject(light, eLayerType::Light);
+	}
+
+	{
+		GameObject* const light = new GameObject();
+		light->SetName(L"DefuseLight");
+
+		light->AddComponent<Light2D>();
+
+		light->GetComponent<Light2D>()->SetLightType(Light2D::LIGHT_TYPE::POINT);
+		light->GetComponent<Light2D>()->SetRadius(radius);
+		light->GetComponent<Light2D>()->SetLightDiffuse(difuse);
+		light->GetComponent<Transform>()->SetPosition(-300, 100, 0);
+		AddGameObject(light, eLayerType::Light);
+	}
+
+	{
+		GameObject* const light = new GameObject();
+		light->SetName(L"DefuseLight");
+
+		light->AddComponent<Light2D>();
+
+		light->GetComponent<Light2D>()->SetLightType(Light2D::LIGHT_TYPE::POINT);
+		light->GetComponent<Light2D>()->SetRadius(radius);
+		light->GetComponent<Light2D>()->SetLightDiffuse(difuse);
+		light->GetComponent<Transform>()->SetPosition(300, 100, 0);
+		AddGameObject(light, eLayerType::Light);
+	}
 }
 
 void HeadHunterScene::AddCameraObject()

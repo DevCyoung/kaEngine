@@ -234,6 +234,69 @@ void Chinatown05Scene::AddLightObject()
 	{
 		GameObjectBuilder::InstantiateGlobalLight2D(this, eLayerType::Default);
 	}
+
+	Vector3 difuse = Vector3(0.5f, 1.f, 1.f) * 1.0f;
+	//float radius = 120.f;
+	float radius = 240.f;
+
+	{
+		GameObject* const light = new GameObject();
+		light->AddComponent<Light2D>();
+
+		light->GetComponent<Light2D>()->SetLightType(Light2D::LIGHT_TYPE::POINT);
+		light->GetComponent<Light2D>()->SetRadius(radius);
+		light->GetComponent<Light2D>()->SetLightDiffuse(difuse);
+		light->GetComponent<Transform>()->SetPosition(-520, -50, 0);
+		AddGameObject(light, eLayerType::Light);
+	}
+
+	{
+		GameObject* const light = new GameObject();
+		light->AddComponent<Light2D>();
+
+		light->GetComponent<Light2D>()->SetLightType(Light2D::LIGHT_TYPE::POINT);
+		light->GetComponent<Light2D>()->SetRadius(radius);
+		light->GetComponent<Light2D>()->SetLightDiffuse(difuse);
+		light->GetComponent<Transform>()->SetPosition(-520, 180, 0);
+		AddGameObject(light, eLayerType::Light);
+	}
+
+	{
+		GameObject* const light = new GameObject();
+		light->AddComponent<Light2D>();
+
+		light->GetComponent<Light2D>()->SetLightType(Light2D::LIGHT_TYPE::POINT);
+		light->GetComponent<Light2D>()->SetRadius(radius);
+		light->GetComponent<Light2D>()->SetLightDiffuse(difuse);
+		light->GetComponent<Transform>()->SetPosition(-570, 180, 0);
+		AddGameObject(light, eLayerType::Light);
+	}
+
+
+	//asdsadasdasd
+	difuse = Vector3(1.5f, 1.15f, 0.4f) * 1.5f;
+	radius = 250.f;
+	{
+		GameObject* const light = new GameObject();
+		light->AddComponent<Light2D>();
+
+		light->GetComponent<Light2D>()->SetLightType(Light2D::LIGHT_TYPE::POINT);
+		light->GetComponent<Light2D>()->SetRadius(radius);
+		light->GetComponent<Light2D>()->SetLightDiffuse(difuse);
+		light->GetComponent<Transform>()->SetPosition(10, -110, 0);
+		AddGameObject(light, eLayerType::Light);
+	}
+
+	{
+		GameObject* const light = new GameObject();
+		light->AddComponent<Light2D>();
+
+		light->GetComponent<Light2D>()->SetLightType(Light2D::LIGHT_TYPE::POINT);
+		light->GetComponent<Light2D>()->SetRadius(radius);
+		light->GetComponent<Light2D>()->SetLightDiffuse(difuse);
+		light->GetComponent<Transform>()->SetPosition(250, -110, 0);
+		AddGameObject(light, eLayerType::Light);
+	}
 }
 
 void Chinatown05Scene::AddCameraObject()
