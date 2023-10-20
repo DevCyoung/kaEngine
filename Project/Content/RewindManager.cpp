@@ -51,6 +51,10 @@ void RewindManager::Initialize(Scene* Scene)
 
 void RewindManager::LateUpdate()
 {
+	if (gInput->GetKeyDown(eKeyCode::NUM9))
+	{
+		KatanaZeroSystem::GetInstance()->LoadNextScene();
+	}
 	if (nullptr == mTimerUI)
 	{
 		return;

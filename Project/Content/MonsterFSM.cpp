@@ -70,7 +70,7 @@ void MonsterFSM::ChangeState(int idx)
 	Assert(mCurrentState, WCHAR_IS_NULLPTR);
 	Assert(idx < MAX_MONSTER_STATES, WCHAR_IS_INVALID_TYPE);
 	Assert(mMonsterStates[idx], WCHAR_IS_NULLPTR);
-	Assert(!mRegisterEnterState, WCHAR_IS_NOT_NULLPTR);
+	//Assert(!mRegisterEnterState, WCHAR_IS_NOT_NULLPTR);
 
 	mRegisterEnterState = mMonsterStates[idx];
 
