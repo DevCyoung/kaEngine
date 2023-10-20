@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "Textrue.h"
+#include "Texture.h"
 #include "Engine.h"
 #include "GraphicDeviceDx11.h"
 #include "String.h"

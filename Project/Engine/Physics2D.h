@@ -26,6 +26,11 @@ public:
 		const eLayerType layerType,
 		RayCast2DHitInfo* const outHitInfo);
 
+	bool RayCastHit2D(const Vector2& origin,
+		const Vector2& dest,
+		const eLayerType layerType,
+		RayCast2DHitInfo* const outHitInfo);	
+
 	//bool checkCollision2DLineAndBox();
 	//bool checkCollision2DLineAndCircle();
 	//bool checkCollision2DLineAndLine();

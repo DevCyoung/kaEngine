@@ -34,6 +34,7 @@ void PlayerAttackState::Update()
 
 void PlayerAttackState::Enter()
 {
+
 	mAnimator->Play(L"Attack", false);
 
 	RenderTargetRenderer* render = mGameObject->GetGameSystem()->GetRenderTargetRenderer();
@@ -59,7 +60,10 @@ void PlayerAttackState::Enter()
 
 	Vector2 dir2 = Vector2(dir.x, dir.y);
 
-	mRigidbody->SetVelocity(dir2 * 750.f);
+	dir2.x *= 650.f;
+	dir2.y *= 750.f;
+
+	mRigidbody->SetVelocity(dir2);
 
 	if (dir2.x < 0)
 	{
@@ -71,6 +75,7 @@ void PlayerAttackState::Enter()
 	}
 
 	GameObject* slash =  mGameObject->GetComponent<PlayerController>()->GetSlash();
+	slash->GetComponent<Transform>()->SetPosition(Vector3::Zero);
 
 	slash->GetComponent<Animator2D>()->Play(L"Slash", false);
 
@@ -88,15 +93,14 @@ void PlayerAttackState::Enter()
 
 
 	Vector3 mpos = mTransform->GetPosition();
-
 	mpos.y += 2.1f;
 	mTransform->SetPosition(mpos);
-
-
 }
 
 void PlayerAttackState::Exit()
 {
+	//GameObject* slash = mGameObject->GetComponent<PlayerController>()->GetSlash();
+	//slash->GetComponent<Transform>()->SetPosition(100000.f, 100000.f, 100000.f);
 }
 
 

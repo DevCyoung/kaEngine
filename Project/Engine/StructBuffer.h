@@ -8,12 +8,30 @@ struct alignas(16) tCBTransform // b0
 }; // 48 bytes
 
 
-struct alignas(16) tCBColorInfo // b1
+struct /*alignas(16)*/ tCBColorInfo // b1
 {
 	int	bUseColor;
 	int bColorType;
 	Vector2 Dummy;
 	Vector4 Color;
+
+	int bSetColorR;
+	float R;
+	int bSetColorG;
+	float G;
+	int bSetColorB;
+	float B;
+	int bSetColorA;
+	float A;
+
+	int bMulColorR;
+	float MulR;
+	int bMulColorG;
+	float MulG;
+	int bMulColorB;
+	float MulB;
+	int bMulColorA;
+	float MulA;
 }; // 32 bytes
 
 
@@ -92,4 +110,37 @@ struct alignas(16) tParticleInfo //
 	UINT	Light2DCount;
 	UINT	Light3DCount;
 	int		globalpadding;
+};
+
+struct /*alignas(16)*/ tSprite2DInfo // b5
+{
+	Vector2 Dummy;
+	Vector2 UV;
+
+	int bSetColorR;
+	float R;
+	int bSetColorG;
+	float G;
+	int bSetColorB;	
+	float B;	
+	int bSetColorA;
+	float A;
+
+
+	int bMulColorR;
+	float MulR;
+	int bMulColorG;
+	float MulG;
+	int bMulColorB;
+	float MulB;
+	int bMulColorA;
+	float MulA;
+};
+
+struct alignas(16) tWaveInfo // b6
+{
+	float WaveXPower;
+	float WaveYPower;
+	float WaveSpeed;	
+	float dummy2;
 };

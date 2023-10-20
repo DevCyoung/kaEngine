@@ -4,6 +4,7 @@
 #include "PlayerFSM.h"
 #include "Rect2DInterpolation.h"
 
+
 PlayerRecoverState::PlayerRecoverState(GameObject* const gameObject, PlayerFSM* const owner)
 	: PlayerState(gameObject, owner)
 {
@@ -21,7 +22,9 @@ void PlayerRecoverState::Update()
 {
 	if (mAnimator->GetCurAnimationOrNull()->IsFinished())
 	{
-		//mAnimator->Play(L"Recover", false);
+		mAnimator->Play(L"Idle", false);
+		mOwner->ChangeState(mOwner->mPlayerIdleState);
+		mGameObject->GetComponent<PlayerController>()->SetControl(true);
 	}
 }
 

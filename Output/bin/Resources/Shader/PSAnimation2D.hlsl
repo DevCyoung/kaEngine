@@ -3,11 +3,62 @@
 #include "Header//Texture.fxh"
 #include "Header//ConstantBuffer.fxh"
 
-float4 main(tVSOut In) : SV_TARGET
+float4 setColor(float4 color)
 {
-	float4 outColor = In.Color;
+	if (1 == B1_bSetColorR)
+	{
+		color.r = B1_R;
+	}
 	
-	float2 UV = B3_UVBackLeftTop + In.UV * B3_UVBackSIze;
+	if (1 == B1_bSetColorG)
+	{
+		color.g = B1_G;
+	}
+	
+	if (1 == B1_bSetColorB)
+	{
+		color.b = B1_B;
+	}
+	
+	if (1 == B1_bSetColorA)
+	{
+		color.a = B1_A;
+	}
+	
+	return color;
+}
+
+float4 mulColor(float4 color)
+{
+	//Mul
+	if (1 == B1_bMulColorR)
+	{
+		color.r *= B1_MulR;
+	}
+	
+	if (1 == B1_bMulColorG)
+	{
+		color.g *= B1_MulG;
+	}
+	
+	if (1 == B1_bMulColorB)
+	{
+		color.b *= B1_MulB;
+	}
+	
+	if (1 == B1_bMulColorA)
+	{
+		color.a *= B1_MulA;
+	}
+	
+	return color;
+}
+
+float4 animationColor(float2 uv)
+{
+	float4 outColor = float4(1.f, 0.f, 1.f, 1.f);
+	
+	float2 UV = B3_UVBackLeftTop + uv * B3_UVBackSIze;
 	
 	UV.x -= B3_UVOffset.x;
 	UV.y += B3_UVOffset.y;
@@ -31,34 +82,27 @@ float4 main(tVSOut In) : SV_TARGET
 		discard;
 	}
 	
+
 	
-	//To Cyan		
-	//float src = 0.5f;
-	//float dst = 1.f - src;	
+	if (1 == B1_bUseColor)
+	{
+		float src = 0.5f;
+		float dst = 1.f - src;
 	
-	//outColor.r  = 0.f;
-	//outColor.g = outColor.g + outColor.g * src + 1.f * dst;
-	//outColor.b = outColor.b + outColor.b * src + 1.f * dst;
+		outColor.r = 0.f;
+		outColor.g = outColor.g + outColor.g * src + 1.f * dst;
+		outColor.b = outColor.b + outColor.b * src + 1.f * dst;
+	}
+	
+	outColor = setColor(outColor);
+	outColor = mulColor(outColor);		
+	
+	return outColor;	
+}
+
+float4 main(tVSOut In) : SV_TARGET
+{
+	float4 outColor = animationColor(In.UV);
 	
 	return outColor;
 }
-
-	
-	
-	//outColor.r  = 0.f;
-	//outColor.g = outColor.g + outColor.g * src + 1.f * dst;
-	//outColor.b = outColor.b + outColor.b * src + 1.f * dst;
-	
-	//outColor.r = 0.f;
-	//outColor.g = outColor.g + 0.95f * dst;
-	//outColor.b = outColor.b + 1.f * dst;
-	
-	//outColor.r = 0;	
-	//outColor.g = 0;
-	//outColor.b = outColor.r * src + 1.f * dst;
-	
-	//To Gray
-	
-	//outColor.r = 0;
-	//outColor.g = outColor.g * src + 1.f * dst;
-	//outColor.b = outColor.b * src + 1.f * dst;

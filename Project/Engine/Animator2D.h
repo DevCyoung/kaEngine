@@ -1,14 +1,11 @@
 #pragma once
 #include "RenderComponent.h"
-
+#include "StructBuffer.h"
 
 REGISTER_COMPONENT_TYPE(Animator2D);
 
 class Texture;
 class Animation2D;
-
-struct tCBTransform;
-struct tCBAnimationInfo;
 
 class Animator2D : public RenderComponent
 {
@@ -60,11 +57,27 @@ public:
 	Animation2D* GetCurAnimationOrNull() const { return mCurAnimation; }
 
 	void SetBackSize(const XMUINT2& size) { backSize = size; }	
+	void SetFlipX(const bool bFlip) { bFlipX = bFlip; }
+	void SetColorInfo(const tCBColorInfo& colorInfo) { mColorInfo = colorInfo; }
 
 	Events* FindEvents(const std::wstring animName) const;
 	const std::function<void()>& FindStartEvent(const std::wstring animName);
 	const std::function<void()>& FindCompleteEvent(const std::wstring animName);
 	const std::function<void()>& FindEndEvent(const std::wstring animName);
+
+
+	void SetColorR(float r);
+	void SetColorG(float g);
+	void SetColorB(float b);
+	void SetColorA(float a);
+	void SetColorReset();
+
+	void MulColorR(float r);
+	void MulColorG(float g);
+	void MulColorB(float b);
+	void MulColorA(float a);
+	void MulColor(float r, float g, float b, float a);
+	void MulColorReset();
 
 private:
 	virtual void initialize() override final;
@@ -72,9 +85,12 @@ private:
 	virtual void lateUpdate() override final;
 	virtual void render(const Camera* const camera) override final;
 	
+	tCBColorInfo mColorInfo;
+
 	std::unordered_map<std::wstring , Animation2D*>  mAnimationMap;
 	std::unordered_map<std::wstring, Events*> mEvents;
 	Animation2D* mCurAnimation;
 	bool bRepeat;
-	XMUINT2 backSize;
+	bool bFlipX;
+	XMUINT2 backSize;	
 };

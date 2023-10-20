@@ -18,6 +18,7 @@ public:
 
     float GetGravityScale() { return mGravityAccel; }
     float GetGravityVelocityLimit() const { return mGravityLimit; }
+    Vector2 GetDirection()  const  { Vector2 dir = mVelocity; dir.Normalize(); return dir; };
 
     void SetVelocity(Vector2 velocity) { mVelocity = velocity; }
     Vector2 GetVelocity() { return mVelocity; }
@@ -25,6 +26,7 @@ public:
     bool IsGround() const { return mbGround; }
 
     void AddVelocity(Vector2 velocity) { mVelocity += velocity; }
+    bool IsStop() const { return mVelocity == Vector2::Zero; }
 
     void SetFriction(float friction) { mFriction = friction; }
     void SetFrictionScale(float frictionScale) { mFrictionScale = frictionScale; }
@@ -56,4 +58,7 @@ private:
     float   mGravityAccel;      // 중력 가속도 설정
     bool    mbGravityUse;       // 중력 사용여부
     bool    mbGround;           // 땅 체크    
+
+    bool mbFixedUpdate;      // FixedUpdate에서만 사용할 경우 true로 설정
+    bool mbAirFriction;      // 공기 마찰력 사용여부
 };

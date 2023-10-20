@@ -21,6 +21,7 @@ class Scene : public Resource
 public:
 	Scene();
 	virtual ~Scene();
+	virtual Scene* Clone() = 0;
 
 	void RegisterEventAddGameObject(GameObject* const gameObject, const eLayerType layerType,
 		const std::source_location& location = std::source_location::current());

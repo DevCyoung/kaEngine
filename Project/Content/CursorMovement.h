@@ -18,6 +18,7 @@ public:
 private:
 	virtual void initialize() override final;
 	virtual void update() override final;
+	virtual void fixedUpdate() override final;
 	virtual void lateUpdate() override final;	
 
 	Vector3 mPrevClickPos;

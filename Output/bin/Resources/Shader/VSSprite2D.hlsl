@@ -12,7 +12,7 @@ tVSOut main(tVSIn In)
 	float4 proj = mul(view, B0_Projection);
     
 	Out.Pos = proj;
-	Out.UV = In.UV;
+	Out.UV = In.UV ;
 	Out.Color = In.Color;	
 	
 	return Out;

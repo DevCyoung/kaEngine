@@ -211,6 +211,27 @@
     <Filter Include="Source\03. Component\03. Render\03. AfterImage">
       <UniqueIdentifier>{c862b4f1-45ec-4e04-a4ed-31923ef3e6d1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Audio">
+      <UniqueIdentifier>{84b1566b-cbf0-4271-a06b-5c2150a76802}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Audio\AudioClip">
+      <UniqueIdentifier>{b3537df1-108e-4d98-85aa-819b6858ab7b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Audio\Fmod">
+      <UniqueIdentifier>{078e7ef7-4628-403c-821a-b4f1e5b93a9d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\03. Component\Audio">
+      <UniqueIdentifier>{048f2cfa-7937-4795-927e-fed05134cbfd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\01. Manager\06. Font">
+      <UniqueIdentifier>{187005be-8b02-4028-8608-76b19eb5befa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\03. Component\03. Render\Text">
+      <UniqueIdentifier>{43db21eb-7836-4c21-bfd9-9f8702a11762}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\03. Component\03. Render\Dummy">
+      <UniqueIdentifier>{ec2912af-6b45-45e2-b40e-9705b74b457e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Entity.h">
@@ -237,7 +258,7 @@
     <ClInclude Include="EnumFlag.h">
       <Filter>Source\Helper\Include</Filter>
     </ClInclude>
-    <ClInclude Include="Textrue.h">
+    <ClInclude Include="Texture.h">
       <Filter>Source\06. Resource\00. Texture</Filter>
     </ClInclude>
     <ClInclude Include="Shader.h">
@@ -438,6 +459,24 @@
     <ClInclude Include="AfterImage.h">
       <Filter>Source\03. Component\03. Render\03. AfterImage</Filter>
     </ClInclude>
+    <ClInclude Include="AudioClip.h">
+      <Filter>Source\Audio\AudioClip</Filter>
+    </ClInclude>
+    <ClInclude Include="Fmod.h">
+      <Filter>Source\Audio\Fmod</Filter>
+    </ClInclude>
+    <ClInclude Include="AudioListener.h">
+      <Filter>Source\03. Component\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="AudioSource.h">
+      <Filter>Source\03. Component\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="FontManager.h">
+      <Filter>Source\01. Manager\06. Font</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineText.h">
+      <Filter>Source\03. Component\03. Render\Text</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Entity.cpp">
@@ -449,7 +488,7 @@
     <ClCompile Include="InputManager.cpp">
       <Filter>Source\01. Manager\01. Input</Filter>
     </ClCompile>
-    <ClCompile Include="Textrue.cpp">
+    <ClCompile Include="Texture.cpp">
       <Filter>Source\06. Resource\00. Texture</Filter>
     </ClCompile>
     <ClCompile Include="Shader.cpp">
@@ -619,6 +658,24 @@
     </ClCompile>
     <ClCompile Include="AfterImage.cpp">
       <Filter>Source\03. Component\03. Render\03. AfterImage</Filter>
+    </ClCompile>
+    <ClCompile Include="AudioClip.cpp">
+      <Filter>Source\Audio\AudioClip</Filter>
+    </ClCompile>
+    <ClCompile Include="Fmod.cpp">
+      <Filter>Source\Audio\Fmod</Filter>
+    </ClCompile>
+    <ClCompile Include="AudioListener.cpp">
+      <Filter>Source\03. Component\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="AudioSource.cpp">
+      <Filter>Source\03. Component\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="FontManager.cpp">
+      <Filter>Source\01. Manager\06. Font</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineText.cpp">
+      <Filter>Source\03. Component\03. Render\Text</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -8,22 +8,11 @@
 #include <Engine/SceneManager.h>
 #include "ResourceManager.h"
 #include "RewindComponent.h"
+#include "FolowPlayer.h"
+#include <Engine/SceneManager.h>
 
 GangsterAI::GangsterAI()
-	: ScriptComponent(eScriptComponentType::GangsterAI)
-	, mPrePlayerPathNode(nullptr)
-	, mHandObject(nullptr)
-	, mGunObject(nullptr)
-	, mTransform(nullptr)
-	, mAnimator2D(nullptr)
-	, mRigidbody2D(nullptr)
-	, mRunSpeed(300.f)
-	, mPatrolDitance(100.f)
-	, mCurIdleTime(0.f)
-	, mCurWalkTime(0.f)
-	, mShotDelayTime(0.f)
-	, mElevatorTime(0.f)
-	, mState(eGangsterState::Idle)
+	: BasicMonsterAI(eScriptComponentType::GangsterAI)
 {
 }
 
@@ -31,479 +20,54 @@ GangsterAI::~GangsterAI()
 {
 }
 
-void GangsterAI::trace()
+void GangsterAI::CreateAnimation(Scene* scene)
 {
-	const GameObject* const PLAYER_OBJECT = GameManager::GetInstance()->GetPlayer();
-	const Transform* const PLAYER_TRANSFORM = PLAYER_OBJECT->GetComponent<Transform>();
-	const Vector3 PLAYER_POS = PLAYER_TRANSFORM->GetPosition();
+	Animator2D* const anim = GetOwner()->GetComponent<Animator2D>();
+	Texture* atlas = gResourceManager->FindByEnum<Texture>(eResTexture::Atlas_Gangster_gangster);
 
-	Transform* const transform = GetOwner()->GetComponent<Transform>();
-	PathNode* const curStandNode = GetOwner()->GetComponent<PlayerPath>()->GetCurPathNodeOrNull();
+	anim->SetMaterial(gResourceManager->FindOrNull<Material>(L"LightAnimation2D"));	
+	anim->CreateAnimation(L"Fall", atlas, 12, XMUINT2(5, 34), XMUINT2(42, 41), XMUINT2(10, 10), XMINT2(0, 0), 0.08f);
+	anim->CreateAnimation(L"HurtFly", atlas, 2, XMUINT2(5, 114), XMUINT2(38, 34), XMUINT2(10, 10), XMINT2(0, 0), 0.08f);
+	anim->CreateAnimation(L"HurtGround", atlas, 14, XMUINT2(5, 187), XMUINT2(44, 34), XMUINT2(10, 10), XMINT2(0, 0), 0.08f);
+	anim->CreateAnimation(L"Idle", atlas, 8, XMUINT2(5, 304), XMUINT2(49, 50), XMUINT2(10, 10), XMINT2(0, 7), 0.08f);
+	anim->CreateAnimation(L"Run", atlas, 10, XMUINT2(5, 393), XMUINT2(45, 40), XMUINT2(10, 10), XMINT2(0, 2), 0.08f);
+	anim->CreateAnimation(L"Turn", atlas, 6, XMUINT2(5, 472), XMUINT2(48, 42), XMUINT2(10, 10), XMINT2(0, 3), 0.08f);
+	anim->CreateAnimation(L"Walk", atlas, 8, XMUINT2(5, 553), XMUINT2(34, 40), XMUINT2(10, 10), XMINT2(0, 2), 0.08f);
+	anim->CreateAnimation(L"Whip", atlas, 6, XMUINT2(5, 632), XMUINT2(48, 35), XMUINT2(10, 10), XMINT2(2, 0), 0.08f);
+	anim->CreateAnimation(L"Aim", atlas, 1, XMUINT2(5, 754), XMUINT2(42, 50), XMUINT2(10, 10), XMINT2(0, 7), 0.08f);
+	anim->Play(L"Idle", true);
 
-	if (nullptr == curStandNode)
-	{
-		return;
-	}
-
-	Rigidbody2D* const rigidbody2D = GetOwner()->GetComponent<Rigidbody2D>();
-	Vector2 velocity = rigidbody2D->GetVelocity();
-	Vector2 direction = Vector2::Zero;
-
-	if (PLAYER_POS.x < transform->GetPosition().x)
-	{
-		direction.x = -1.f;
-	}
-	else
-	{
-		direction.x = 1.f;
-	}
-
-	if (nullptr == mPrePlayerPathNode)
-	{
-		mPrePlayerPathNode = PLAYER_OBJECT->GetComponent<PlayerPath>()->GetCurPathNodeOrNull();
-	}
-	else if (mPrePlayerPathNode == nullptr || mPrePlayerPathNode != PLAYER_OBJECT->GetComponent<PlayerPath>()->GetCurPathNodeOrNull()) // player node changed
-	{
-		mPrePlayerPathNode = PLAYER_OBJECT->GetComponent<PlayerPath>()->GetCurPathNodeOrNull();
-		PathInfo* const pathInfo = GameManager::GetInstance()->GetPathInfo();
-		mPath = pathInfo->Dijikstra(curStandNode->GetIdx(), mPrePlayerPathNode->GetIdx());
-	}
-
-	if (false == mPath.empty())
-	{
-		PathNode* nextNode = mPath.front();
-
-		if (nextNode == curStandNode && nextNode->GetType() != eLayerType::Elevator)
-		{
-			mPath.pop();
-			return;
-		}
-
-		Vector2 nextNodePos = nextNode->GetPosition();
-		Rect2DInterpolation* const rect2DInterpolation = GetOwner()->GetComponent<Rect2DInterpolation>();
-
-		if (nextNodePos.x < transform->GetPosition().x)
-		{
-			direction.x = -1.f;
-		}
-		else
-		{
-			direction.x = 1.f;
-		}
-
-		switch (nextNode->GetType())
-		{
-		case eLayerType::Wall: //just move direction...
-		{
-			rect2DInterpolation->TurnOnPlatform();
-		}
-		break;
-
-		case eLayerType::Elevator: //elevator
-		{			
-			rect2DInterpolation->TurnOnPlatform();
-
-			Vector3 elevatorPos = Vector3(nextNode->GetPosition().x, nextNode->GetPosition().y, 0.);
-			elevatorPos.z = 0.f;
-			Vector3 pos = transform->GetPosition();
-			pos.z = 0.f;
-
-			if (Vector3::Distance(elevatorPos, pos) < 40.f)
-			{
-				mElevatorTime += gDeltaTime;
-
-				if (mElevatorTime >= 0.5f)
-				{
-					mElevatorTime = 0.f;
-					mPath.pop();
-					nextNode = mPath.front();
-
-					if (!mPath.empty() && nextNode->GetType() == eLayerType::Elevator)
-					{
-						nextNodePos = nextNode->GetPosition();
-						transform->SetPosition(Vector3(nextNodePos.x, nextNodePos.y - 10.f, transform->GetPosition().z));						
-					}
-				}
-
-				return;
-			}
-
-		}
-		break;
-
-		case eLayerType::LeftSlope: // up down ?
-		{
-			if (nextNodePos.y < transform->GetPosition().y) //down
-			{
-				rect2DInterpolation->TurnOffPlatform();
-			}
-			else // up
-			{
-				rect2DInterpolation->TurnOnPlatform();
-			}
-		}
-		break;
-
-		case eLayerType::RightSlope: // up down ?
-		{
-			if (nextNodePos.y < transform->GetPosition().y) //down
-			{
-				rect2DInterpolation->TurnOffPlatform();
-			}
-			else // up
-			{
-				rect2DInterpolation->TurnOnPlatform();
-			}
-		}
-		break;
-
-		default:
-		{
-
-		}
-		break;
-		}
-	}
-	else
-	{
-
-	}
-
-
-	if (direction.x < 0.f)
-	{
-		transform->SetRotation(0.f, 180.f, 0.f);
-	}
-	else
-	{
-		transform->SetRotation(0.f, 0.f, 0.f);
-	}
-
-	velocity.x = direction.x * mRunSpeed;
-	rigidbody2D->SetVelocity(velocity);
+	(void)scene;
 }
 
-void GangsterAI::initialize()
+void GangsterAI::CreateGun(Scene* scene)
 {
-	mTransform = GetOwner()->GetComponent<Transform>();
-	mAnimator2D = GetOwner()->GetComponent<Animator2D>();
-	mRigidbody2D = GetOwner()->GetComponent<Rigidbody2D>();
+	GameObject* const hand = new GameObject();
+	hand->GetComponent<Transform>()->SetPosition(-4.f, 3.f, 0.f);
+	hand->AddComponent<RewindComponent>();	
+	hand->SetName(L"hand");
+	hand->SetParent(GetOwner());
 
-	mGunObject->GetComponent<Animator2D>()->TurnOffVisiblelity();
-
-	mAnimator2D->Play(L"Idle", true);
-
-	//GameManager::GetInstance()->GetRewindManager()->RegisterRewindObject(GetOwner());
-}
-
-void GangsterAI::update()
-{
-
-	if (GameManager::GetInstance()->GetRewindManager()->GetRewindState() != eRewindState::Record)
+	SetHandObject(hand);
+	scene->AddGameObject(hand, eLayerType::Monster);
 	{
-		return;
-	}
+		GameObject* const gun = new GameObject();
+		Texture* atlas = gResourceManager->FindByEnum<Texture>(eResTexture::Atlas_Gangster_gangster);
 
-	mShotDelayTime += gDeltaTime;
+		gun->GetComponent<Transform>()->SetPosition(13.f, 0.f, 0.f);
+		gun->AddComponent<RewindComponent>();
 
-	if (mState == eGangsterState::Aim)
-	{
-		mGunObject->GetComponent<Animator2D>()->TurnOnVisiblelity();
-	}
-	else
-	{
-		mGunObject->GetComponent<Animator2D>()->TurnOffVisiblelity();
-	}
+		gun->AddComponent<Animator2D>();
+		gun->SetName(L"gun");
+		gun->SetParent(hand);
 
-	//search
-	
-	
+		Animator2D* const gunAnim = gun->GetComponent<Animator2D>();
+		gunAnim->SetMaterial(gResourceManager->FindOrNull<Material>(L"LightAnimation2D"));
 
-	switch (mState)
-	{
-	case eGangsterState::Idle:
-		idle();
-		break;
-	case eGangsterState::Walk:
-		walk();
-		break;
-	case eGangsterState::Turn:
-		turn();
-		break;
-	case eGangsterState::Aim:
-		aim();
-		break;
-	case eGangsterState::Whip:
-		whip();
-		break;
-	case eGangsterState::Fall:
-		break;
-	case eGangsterState::HurtFly:
-		break;
-	case eGangsterState::HurtGround:
-		break;
-	case eGangsterState::Dead:
-		break;
-	case eGangsterState::Trace:
-		trace();
+		gunAnim->CreateAnimation(L"Gun", atlas, 1, XMUINT2(5, 706), XMUINT2(33, 9), XMUINT2(10, 10), XMINT2(0, 0), 0.125f);
+		gunAnim->Play(L"Gun", true);
 
-
-		
-		if (isAttackable(300.f))
-		{
-			mState = eGangsterState::Aim;
-			mShotDelayTime = 0.f;
-			mAnimator2D->Play(L"Aim", true);
-		}
-
-		break;
-	default:
-		break;
-	}
-
-	if (mState == eGangsterState::Idle ||
-		mState == eGangsterState::Walk ||
-		mState == eGangsterState::Turn)
-	{
-		if (mState != eGangsterState::Trace)
-		{
-			search();
-		}		
-	}
-}
-
-void GangsterAI::lateUpdate()
-{
-}
-
-bool GangsterAI::isAttackable(const float attackDistacne)
-{
-	RenderTargetRenderer* const renderTargetRenderer = GetOwner()->GetGameSystem()->GetRenderTargetRenderer();
-	DebugRenderer2D* const debugRender2D = renderTargetRenderer->GetDebugRenderer2D();
-
-	Vector3 pos = mHandObject->GetComponent<Transform>()->GetWorldMatrix().Translation();
-	debugRender2D->DrawFillCircle2D(pos, 2.5f, 0.f, helper::Color::YELLOW);
-
-	//Raycast
-	RayCast2DHitInfo hitInfo;
-
-	GameObject* player = GameManager::GetInstance()->GetPlayer();
-	Vector2 direction = helper::math::GetDirection2D(mHandObject, player);
-	float distance = helper::math::GetDistance2D(mHandObject, player);
-
-	Vector2 pos2D = Vector2(pos.x, pos.y);
-
-	Physics2D* const physics2D = GetOwner()->GetGameSystem()->GetPhysics2D();
-	
-	if (false == physics2D->RayCastHit2D(pos2D, direction, distance, eLayerType::Wall, &hitInfo) &&
-		false == physics2D->RayCastHit2D(pos2D, direction, distance, eLayerType::LeftSlope, &hitInfo) &&
-		false == physics2D->RayCastHit2D(pos2D, direction, distance, eLayerType::RightSlope, &hitInfo) &&
-		distance <= attackDistacne)
-	{
-		debugRender2D->DrawLine2D2(pos, direction, distance, 0.f, helper::Color::MAGENTA);
-		return true;
-	}
-	else
-	{
-		debugRender2D->DrawLine2D2(pos, direction, distance, 0.f, helper::Color::YELLOW);		
-	}
-
-	return false;
-}
-
-void GangsterAI::idle()
-{
-	Vector2 velocity = mRigidbody2D->GetVelocity();
-	velocity.x = 0.f;
-	mRigidbody2D->SetVelocity(velocity);
-
-	mCurIdleTime += gDeltaTime;
-
-	if (mCurIdleTime > 2.f)
-	{
-		mCurIdleTime = 0.f;
-		mTransform->SetFlipx(!mTransform->GetFlipX());
-		mAnimator2D->Play(L"Turn", false);
-		mState = eGangsterState::Turn;
-	}
-}
-
-void GangsterAI::walk()
-{	
-	mCurWalkTime += gDeltaTime;
-
-	Vector2 velocity = mRigidbody2D->GetVelocity();
-
-	if (mCurWalkTime > 3.f)
-	{
-		mCurWalkTime = 0.f;
-
-		mAnimator2D->Play(L"Idle", false);
-		mState = eGangsterState::Idle;
-		return;
-	}
-
-	Vector2 direction = Vector2::Right;
-
-	if (mTransform->GetRotation().y != 0.f)
-	{
-		direction = Vector2::Left;
-	}
-
-	velocity.x = direction.x * mRunSpeed * 0.2f;
-	mRigidbody2D->SetVelocity(velocity);
-}
-
-void GangsterAI::turn()
-{
-	Vector2 velocity = mRigidbody2D->GetVelocity();
-	velocity.x = 0.f;
-	mRigidbody2D->SetVelocity(velocity);
-
-	if (mAnimator2D->GetCurAnimationOrNull()->IsFinished())
-	{
-		mAnimator2D->Play(L"Walk", true);
-		mState = eGangsterState::Walk;
-	}	
-}
-
-void GangsterAI::aim()
-{
-	GameObject* player = GameManager::GetInstance()->GetPlayer();
-	Vector2 direction = helper::math::GetDirection2D(mHandObject, player);
-	//float distance = helper::math::GetDistance2D(mHandObject, player);
-
-	float deg = Rad2Deg(atan2(direction.y, direction.x));
-
-	if (direction.x < 0.f)
-	{
-		deg = 180 - deg;
-
-		mTransform->SetRotation(Vector3(0.f, 180.f, 0.f));
-
-	}
-	else
-	{
-		mTransform->SetRotation(Vector3(0.f, 0.f, 0.f));
-	}
-
-	Vector3 handRotation = mHandObject->GetComponent<Transform>()->GetRotation();
-
-	if (abs(handRotation.z - deg) > 0.5f)
-	{
-		mHandObject->GetComponent<Transform>()->SetRotation(Vector3(0.f, 0.f, deg));
-	}
-
-	if (isAttackable(80.f))
-	{
-		mAnimator2D->Play(L"Whip", false);
-		mState = eGangsterState::Whip;
-	}
-	else if (false == isAttackable(500.f))
-	{
-		mAnimator2D->Play(L"Run", true);
-		mState = eGangsterState::Trace;
-	}
-	else
-	{		
-		if (mShotDelayTime > 0.5f)
-		{
-			mShotDelayTime = 0.f;
-
-			//Shot
-			Scene* scene = GetOwner()->GetGameSystem()->GetScene();
-			GameObject* bullet = new GameObject();
-
-			bullet->AddComponent<BulletMovement>();
-			bullet->AddComponent<SpriteRenderer>();
-			bullet->AddComponent<RewindComponent>();
-
-			bullet->GetComponent<Transform>()->SetScale(Vector3(0.5f, 0.3f, 1.f));
-			
-			bullet->GetComponent<SpriteRenderer>()->SetMaterial(gResourceManager->FindOrNull<Material>(L"UITimer"));
-			bullet->GetComponent<SpriteRenderer>()->SetMesh(gResourceManager->FindOrNull<Mesh>(L"FillRect2D"));
-			bullet->GetComponent<BulletMovement>()->mDir = Vector3(direction.x, direction.y, 0.f);
-			
-
-			bullet->GetComponent<Transform>()->SetPosition(mHandObject->GetComponent<Transform>()->GetWorldMatrix().Translation());
-
-			scene->RegisterEventAddGameObject(bullet, eLayerType::Bullet);
-		}
-	}
-
-	mRigidbody2D->SetVelocity(Vector2::Zero);
-}
-
-void GangsterAI::whip()
-{
-	mRigidbody2D->SetVelocity(Vector2::Zero);
-
-	if (mAnimator2D->GetCurAnimationOrNull()->IsFinished())
-	{		
-		mAnimator2D->Play(L"Run", true);
-		mState = eGangsterState::Trace;
-	}
-}
-
-void GangsterAI::search()
-{
-	Physics2D* const physics2D = GetOwner()->GetGameSystem()->GetPhysics2D();
-	DebugRenderer2D* const debugRenderer2D = GetOwner()->GetGameSystem()->GetRenderTargetRenderer()->GetDebugRenderer2D();
-	RayCast2DHitInfo hitInfo = {};
-	Vector3 pos = mTransform->GetPosition();
-
-	float rayDistance = 70.f;
-
-	Vector2 rayDirection = Vector2::Right;
-
-	if (mTransform->GetRotation().y != 0.f)
-	{
-		rayDirection = Vector2::Left;
-	}
-
-	debugRenderer2D->DrawLine2D2(pos, rayDirection, rayDistance, 0.f, helper::Color::MAGENTA);
-
-	/*if (physics2D->RayCastHit2D(Vector2(pos.x, pos.y), rayDirection, rayDistance, eLayerType::Wall, &hitInfo) ||
-		physics2D->RayCastHit2D(Vector2(pos.x, pos.y), rayDirection, rayDistance, eLayerType::Door, &hitInfo))
-	{
-	}
-	else */if (physics2D->RayCastHit2D(Vector2(pos.x, pos.y), rayDirection, rayDistance, eLayerType::Player, &hitInfo))
-	{
-		rayDirection = Vector2::Left;
-		mAnimator2D->Play(L"Run", true);
-		mState = eGangsterState::Trace;
-	}
-}
-
-void GangsterAI::ChangeState(eGangsterState state)
-{
-	if (mState != state)
-	{
-
-	}
-
-}
-
-void GangsterAI::partrol()
-{
-	Physics2D* const physics2D = GetOwner()->GetGameSystem()->GetPhysics2D();
-	DebugRenderer2D* const debugRenderer2D = GetOwner()->GetGameSystem()->GetRenderTargetRenderer()->GetDebugRenderer2D();
-	RayCast2DHitInfo hitInfo = {};
-	Vector3 pos = mTransform->GetPosition();
-
-	float rayDistance = 40.f;
-
-	Vector2 direction = Vector2::Right;
-
-	if (mTransform->GetRotation().y != 0.f)
-	{
-		direction = Vector2::Left;
-	}
-
-	debugRenderer2D->DrawLine2D2(pos, direction, rayDistance, 0.f, helper::Color::MAGENTA);
-
-	if (physics2D->RayCastHit2D(Vector2(pos.x, pos.y), direction, rayDistance, eLayerType::Wall, &hitInfo) ||
-		physics2D->RayCastHit2D(Vector2(pos.x, pos.y), direction, rayDistance, eLayerType::Door, &hitInfo))
-	{
+		SetGunObject(gun);
+		scene->AddGameObject(gun, eLayerType::Monster);
 	}
 }

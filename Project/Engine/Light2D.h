@@ -41,6 +41,9 @@ public:
 	void SetRadius(float _Radius) { m_LightInfo.Radius = _Radius; }
 	void SetAngle(float _Angle) { mSpotAngle = _Angle; }
 
+	void TurnOnLight() { mbOn = true; }
+	void TurnOffLight() { mbOn = false; }
+
 	const tLightInfo& GetLightInfo() { return m_LightInfo; }
 
 
@@ -53,5 +56,6 @@ private:
 private:
 	tLightInfo      m_LightInfo;
 	float			mSpotAngle;
+	bool			mbOn;
 
 };

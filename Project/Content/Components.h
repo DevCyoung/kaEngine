@@ -18,6 +18,10 @@
 #include <Engine/Animation2D.h>
 #include <Engine/Rigidbody2D.h>
 #include <Engine/Light2D.h>
+#include <Engine/AudioSource.h>
+#include <Engine/AudioListener.h>
+#include <Engine/AudioClip.h>
+#include <Engine/EngineText.h>
 
 //Script Component
 #include <Engine/ScriptComponent.h>

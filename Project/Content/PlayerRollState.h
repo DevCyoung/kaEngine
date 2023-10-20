@@ -15,6 +15,8 @@ public:
 	virtual void Exit()  override;
 
 	float time;
+	float effectTime;
+	float dustRange;
 	float prevDirX;
 };
 

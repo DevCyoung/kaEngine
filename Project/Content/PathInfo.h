@@ -17,7 +17,7 @@ public:
 	void InsertEdge(const int from, const int to, const int weight);
 	void clear();
 
-	std::queue<PathNode*> Dijikstra(const int start, const int end);
+	std::vector<PathNode*> Dijikstra(const int start, const int end);
 
 
 private:

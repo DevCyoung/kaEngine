@@ -5,7 +5,10 @@
 #include "Camera.h"
 #include "AfterImage.h"
 #include "Animator2D.h"
+#include "AudioListener.h"
+#include "AudioSource.h"
 #include "CircleCollider2D.h"
+#include "EngineText.h"
 #include "Light2D.h"
 #include "LineCollider2D.h"
 #include "ParticleSystem.h"
@@ -19,7 +22,10 @@ static constexpr const wchar_t* const ComponentNames[static_cast<UINT>(eComponen
 	L"Camera",
 	L"AfterImage",
 	L"Animator2D",
+	L"AudioListener",
+	L"AudioSource",
 	L"CircleCollider2D",
+	L"EngineText",
 	L"Light2D",
 	L"LineCollider2D",
 	L"ParticleSystem",
@@ -46,8 +52,14 @@ Component* CreateComponentByName(const std::wstring& componentName)
 		component = new AfterImage;
 	else if (L"Animator2D" == componentName)
 		component = new Animator2D;
+	else if (L"AudioListener" == componentName)
+		component = new AudioListener;
+	else if (L"AudioSource" == componentName)
+		component = new AudioSource;
 	else if (L"CircleCollider2D" == componentName)
 		component = new CircleCollider2D;
+	else if (L"EngineText" == componentName)
+		component = new EngineText;
 	else if (L"Light2D" == componentName)
 		component = new Light2D;
 	else if (L"LineCollider2D" == componentName)
@@ -83,8 +95,17 @@ Component* CreateComponentByEnum(const eComponentType type)
 	case eComponentType::Animator2D:
 		component = new Animator2D;
 		break;
+	case eComponentType::AudioListener:
+		component = new AudioListener;
+		break;
+	case eComponentType::AudioSource:
+		component = new AudioSource;
+		break;
 	case eComponentType::CircleCollider2D:
 		component = new CircleCollider2D;
+		break;
+	case eComponentType::EngineText:
+		component = new EngineText;
 		break;
 	case eComponentType::Light2D:
 		component = new Light2D;

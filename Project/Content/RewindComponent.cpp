@@ -2,6 +2,7 @@
 #include "RewindComponent.h"
 #include "Components.h"
 #include "GameManager.h"
+#include <Engine/AfterImage.h>
 
 RewindComponent::RewindComponent()
     : ScriptComponent(eScriptComponentType::RewindComponent)
@@ -19,6 +20,19 @@ void RewindComponent::initialize()
 
 void RewindComponent::update()
 {
+    AfterImage* afterImage =  GetOwner()->GetComponentOrNull<AfterImage>();
+
+    if (nullptr != afterImage)
+    {
+        eRewindState state =  GameManager::GetInstance()->GetRewindManager()->GetRewindState();
+
+        if (state == eRewindState::Rewind)
+        {
+            afterImage->TurnOffVisiblelity();
+		}        
+
+    }
+
 }
 
 void RewindComponent::lateUpdate()

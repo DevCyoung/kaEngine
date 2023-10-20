@@ -18,7 +18,6 @@ Material* MaterialBuilder::Default2D(const eRenderPriorityType renderPriorityTyp
 Material* MaterialBuilder::Sprite2D(const eRenderPriorityType renderPriorityType, 
 	const eResTexture textureType)
 {
-
 	return Default2D(renderPriorityType, L"Sprite2D", textureType);
 }
 
@@ -42,10 +41,8 @@ Material* MaterialBuilder::LightSprite2D(const eRenderPriorityType renderPriorit
 
 	material->SetShader(gResourceManager
 		->FindOrNull<Shader>(L"LightSprite2D"));
-
 	material->SetTexture(gResourceManager
 		->FindOrNullByEnum<Texture>(textureType));
-
 	return material;
 	
 }

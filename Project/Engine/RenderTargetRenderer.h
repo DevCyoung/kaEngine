@@ -42,6 +42,7 @@ public:
 
 	void TurnOnAllCamera()  { mCameraMask = 0XFFFFFFFF; }
 	void TurnOffAllCamera() { mCameraMask = 0; }
+	bool IsVisibleDebugRenderer() const { return mbDebugRender; }
 
 	void TurnOnCamera(const eCameraPriorityType priorityType) 
 	{
@@ -68,6 +69,7 @@ private:
 	DebugRenderer2D* mDebugRenderer;
 	Camera* mCameras[static_cast<UINT>(eCameraPriorityType::End)];
 	std::vector<RenderComponent*> mRenderComponentsArray[static_cast<UINT>(eRenderPriorityType::End)];
+	std::vector<RenderComponent*> mPostProcessComponents;
 	std::vector<tLightInfo> mLight2DInfos;
 	bool mbDebugRender;
 	UINT mCameraMask;

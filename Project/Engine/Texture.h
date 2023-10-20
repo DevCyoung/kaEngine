@@ -18,9 +18,11 @@ public:
 	Texture& operator=(const Texture&) = delete;
 public:
 	float GetWidth() const { return static_cast<float>(mWidth); }
-	float GetHeight() const { return static_cast<float>(mHeight); }
+	float GetHeight() const { return static_cast<float>(mHeight); }	
 
 	virtual HRESULT Load(const std::wstring& filePath) override;
+
+	ID3D11Texture2D* GetID3D11Texture2D() const { return mTexture.Get(); }
 
 private:
 	ScratchImage mImage;

@@ -4,6 +4,7 @@
 #include "PlayerFSM.h"
 #include "Rect2DInterpolation.h"
 #include <Engine/EngineMath.h>
+#include "GameManager.h"
 
 PlayerFallState::PlayerFallState(GameObject* const gameObject, PlayerFSM* const owner)
 	: PlayerState(gameObject, owner)
@@ -46,6 +47,12 @@ void PlayerFallState::Update()
 	{
 		mAnimator->Play(L"RunToIdle", false);
 		mOwner->ChangeState(mOwner->mPlayerIdleState);
+
+		gSoundManager->Play(eResAudioClip::playerLand, 0.3f);
+		Vector3 position =  mTransform->GetPosition();
+		position.y -= 22.f;
+		gEffectManager->Shot(L"LandCloud", position);
+
 		return;
 	}
 

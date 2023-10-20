@@ -8,7 +8,7 @@
 #include "Shader.h"
 #include "CBCollection.h"
 #include "StructBuffer.h"
-#include "Textrue.h"
+#include "Texture.h"
 #include "Camera.h"
 #include "Transform.h"
 #include "Animation2D.h"
@@ -19,6 +19,8 @@
 
 #include "EnumSRV.h"
 
+#include "EngineMath.h"
+
 Animator2D::Animator2D()
 	: RenderComponent(eComponentType::Animator2D)
 	, mAnimationMap()
@@ -26,6 +28,8 @@ Animator2D::Animator2D()
 	, mCurAnimation(nullptr)
 	, bRepeat(false)
 	, backSize(XMUINT2(300, 300))
+	, bFlipX(false)
+	, mColorInfo{}
 {
 	SetMaterial(gResourceManager->FindOrNull<Material>(L"Animation2D"));
 	SetMesh(gResourceManager->FindOrNull<Mesh>(L"FillRect2D"));
@@ -173,6 +177,78 @@ const std::function<void()>& Animator2D::FindEndEvent(const std::wstring animNam
 	return events->endEvent.mEvent;
 }
 
+void Animator2D::SetColorR(float r)
+{
+	mColorInfo.bSetColorR = 1;
+	mColorInfo.R = r;
+}
+
+void Animator2D::SetColorG(float g)
+{
+	mColorInfo.bSetColorG = 1;
+	mColorInfo.G = g;
+}
+
+void Animator2D::SetColorB(float b)
+{
+	mColorInfo.bSetColorB = 1;
+	mColorInfo.B = b;
+}
+
+void Animator2D::SetColorA(float a)
+{
+	mColorInfo.bSetColorA = 1;
+	mColorInfo.A = a;	
+}
+
+void Animator2D::SetColorReset()
+{
+	mColorInfo.bSetColorR = 0;
+	mColorInfo.bSetColorG = 0;
+	mColorInfo.bSetColorB = 0;
+	mColorInfo.bSetColorA = 0;
+}
+
+void Animator2D::MulColorR(float r)
+{
+	mColorInfo.bMulColorR = 1;
+	mColorInfo.MulR = r;
+}
+
+void Animator2D::MulColorG(float g)
+{
+	mColorInfo.bMulColorG = 1;
+	mColorInfo.MulG = g;
+}
+
+void Animator2D::MulColorB(float b)
+{
+	mColorInfo.bMulColorB = 1;
+	mColorInfo.MulB = b;
+}
+
+void Animator2D::MulColorA(float a)
+{
+	mColorInfo.bMulColorA = 1;
+	mColorInfo.MulA = a;
+}
+
+void Animator2D::MulColor(float r, float g, float b, float a)
+{
+	MulColorR(r);
+	MulColorG(g);
+	MulColorB(b);
+	MulColorA(a);
+}
+
+void Animator2D::MulColorReset()
+{
+	mColorInfo.bMulColorR = 0;
+	mColorInfo.bMulColorG = 0;
+	mColorInfo.bMulColorB = 0;
+	mColorInfo.bMulColorA = 0;
+}
+
 
 void Animator2D::initialize()
 {
@@ -215,12 +291,32 @@ void Animator2D::render(const Camera* const camera)
 			= Vector3(static_cast<float>(backSize.x), static_cast<float>(backSize.y), 1.f);
 		const Matrix& SCALE_MATRIX = Matrix::CreateScale(SCALE);
 
-		CBTransform.World = SCALE_MATRIX * GetOwner()->GetComponent<Transform>()->GetWorldMatrix();
+		if (bFlipX)
+		{
+			Matrix rotationMatrix = {};
+			rotationMatrix = Matrix::CreateRotationZ(Deg2Rad(0.f));
+			rotationMatrix *= Matrix::CreateRotationY(Deg2Rad(180));
+			rotationMatrix *= Matrix::CreateRotationX(Deg2Rad(0.f));
+
+			CBTransform.World = SCALE_MATRIX * rotationMatrix * GetOwner()->GetComponent<Transform>()->GetWorldMatrix();
+		}
+		else
+		{
+			CBTransform.World = SCALE_MATRIX * GetOwner()->GetComponent<Transform>()->GetWorldMatrix();
+		}
+
+		
 		CBTransform.View = camera->GetView();
 		CBTransform.Proj = camera->GetProjection();
 
 		gGraphicDevice->PassCB(eCBType::Transform, sizeof(CBTransform), &CBTransform);
 		gGraphicDevice->BindCB(eCBType::Transform, eShaderBindType::VS);
+	}
+
+	tCBColorInfo CBColorInfo = mColorInfo;
+	{
+		gGraphicDevice->PassCB(eCBType::ColorInfo, sizeof(CBColorInfo), &CBColorInfo);
+		gGraphicDevice->BindCB(eCBType::ColorInfo, eShaderBindType::PS);
 	}
 
 	gGraphicDevice->BindMesh(mMesh);

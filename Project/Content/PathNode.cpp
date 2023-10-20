@@ -28,6 +28,16 @@ Vector2 PathNode::GetPosition() const
     return Vector2( (outMax.x + outMin.x) / 2.f, (outMax.y + outMin.y) / 2.f);
 }
 
+Vector3 PathNode::GetLineStartPosition() const
+{
+    return GetOwner()->GetComponent<LineCollider2D>()->GetStartPos();
+}
+
+Vector3 PathNode::GetLineEndPosition() const
+{
+    return GetOwner()->GetComponent<LineCollider2D>()->GetEndPos();
+}
+
 void PathNode::initialize()
 {
 }

@@ -36,7 +36,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 #ifdef _DEBUG
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-	//_CrtSetBreakAlloc(1404);
+	//_CrtSetBreakAlloc(18203);
 #endif
 
 	// 전역 문자열을 초기화합니다.
@@ -56,14 +56,18 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	//constexpr UINT EDIT_SCREEN_WIDTH = 1600;
 	//constexpr UINT EDIT_SCREEN_HEIGHT = 900;	
 
+
 	constexpr UINT KATANA_SCREEN_WIDTH = 1280;
 	constexpr UINT KATANA_SCREEN_HEIGHT = 720;
 
 	Engine::initialize(gHwnd, KATANA_SCREEN_WIDTH, KATANA_SCREEN_HEIGHT);
 	Content::initialize();	
 
+	//Mose Cursor
+	ShowCursor(FALSE);
+
 	while (true)
-	{
+	{	
 		if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
 		{
 			if (WM_QUIT == msg.message)
@@ -82,7 +86,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		}
 	}
 
-	Content::deleteInstance();
+	Content::deleteInstance();	
 	Engine::deleteInstance();
 
 	return static_cast<int>(msg.wParam);

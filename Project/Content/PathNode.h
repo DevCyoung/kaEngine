@@ -20,6 +20,9 @@ public:
 
 	Vector2 GetPosition() const;
 
+	Vector3 GetLineStartPosition() const;
+	Vector3 GetLineEndPosition() const;
+
 
 private:
 	virtual void initialize() override final;

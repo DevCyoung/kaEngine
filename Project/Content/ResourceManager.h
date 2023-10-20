@@ -1,7 +1,7 @@
 #pragma once
 #include <Engine/Mesh.h>
 #include <Engine/Material.h>
-#include <Engine/Textrue.h>
+#include <Engine/Texture.h>
 #include <Engine/Material.h>
 #include <Engine/Shader.h>
 #include <Engine/ComputeShader.h>
@@ -16,3 +16,4 @@
 #include "EnumResourceTypeShader.h"
 #include "EnumResourceTypeSound.h"
 #include "EnumResourceTypeTexture.h"
+#include "EnumResourceTypeAudioClip.h"

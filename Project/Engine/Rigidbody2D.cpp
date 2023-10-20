@@ -14,6 +14,8 @@ Rigidbody2D::Rigidbody2D()
 	, mbGravityUse(false)
 	, mbGround(false)
 	, mMass(1.f)	
+	, mbFixedUpdate(true)
+	, mbAirFriction(true)
 {
 }
 
@@ -33,10 +35,17 @@ void Rigidbody2D::fixedUpdate()
 {
 	// F = M x A
 	// 가속도 구하기
+
+	if (false == mbFixedUpdate)
+	{
+		return;
+	}
+
 	Vector2 vAccel = mForce / mMass;
 
 	// 가속도를 이용해서 속도를 증가시킴
-	mVelocity += vAccel * gDeltaTime;
+	float deltaTime = gDeltaTime;
+	mVelocity += vAccel * deltaTime;
 
 	// 중력을 사용하는 경우는, 땅에 있어야 마찰력 적용
 	// 중력을 쓰지 않으면 마찰력 바로 적용
@@ -63,7 +72,7 @@ void Rigidbody2D::fixedUpdate()
 	}
 
 	//공기저항 X
-	if (mbGravityUse && !mbGround)
+	if (mbGravityUse && !mbGround && mbAirFriction)
 	{		
 		// 마찰 가속도
 		Vector2 vFriction = -mVelocity;

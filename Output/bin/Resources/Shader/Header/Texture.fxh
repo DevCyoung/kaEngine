@@ -3,6 +3,8 @@
 
 Texture2D MeshRenderer00 : register(t0);
 
+Texture2D Noise01 : register(t7);
+Texture2D Rendertarget : register(t10);
 Texture2D AtlasAnimation2D : register(t11);
 
 struct tLightColor

@@ -2,8 +2,10 @@
 #include "PlayerFSM.h"
 #include "Components.h"
 #include "Rect2DInterpolation.h"
+#include "GameObjectBuilder.h"
 #include <Engine/Physics2D.h>
 #include <Engine/EngineMath.h>
+#include <Engine/SceneManager.h>
 
 PlayerFSM::PlayerFSM(GameObject* const owner)
 	: mOwner(owner)
@@ -25,6 +27,7 @@ PlayerFSM::PlayerFSM(GameObject* const owner)
 	, mPlayerGlobalState(new PlayerGlobalState(owner, this))
 	, mPlayerRecoverState(new PlayerRecoverState(owner, this))
 	, mPlayerHurtGroundState(new PlayerHurtGroundState(owner, this))
+	, mPlayerHurtState(new PlayerHurtState(owner, this))
 {
 	mCurState = mPlayerIdleState;
 }
@@ -45,6 +48,7 @@ PlayerFSM::~PlayerFSM()
 	SAFE_DELETE_POINTER(mPlayerGlobalState);
 	SAFE_DELETE_POINTER(mPlayerRecoverState);
 	SAFE_DELETE_POINTER(mPlayerHurtGroundState);
+	SAFE_DELETE_POINTER(mPlayerHurtState);
 
 }
 
@@ -69,6 +73,7 @@ void PlayerFSM::Initialize(PlayerState* const startState)
 	mPlayerGlobalState->Initialize();
 	mPlayerRecoverState->Initialize();
 	mPlayerHurtGroundState->Initialize();
+	mPlayerHurtState->Initialize();
 
 
 	mCurState = startState;
@@ -79,14 +84,14 @@ void PlayerFSM::GlobalUpdate()
 {
 	if (gInput->GetKeyDown(eKeyCode::RBTN))
 	{
-		if (mCurState == mPlayerHurtGroundState)
+		/*if (mCurState == mPlayerHurtGroundState)
 		{
 			ChangeState(mPlayerRecoverState);
 		}
 		else
 		{
 			ChangeState(mPlayerHurtGroundState);
-		}
+		}*/
 		
 	}
 	else if (CanChagneToAttackState())
@@ -117,12 +122,31 @@ void PlayerFSM::GlobalUpdate()
 
 void PlayerFSM::InputUpdate()
 {
+	//if (gInput->GetKeyDown(eKeyCode::RBTN))
+	//{
+	//	Camera* mainCamera = mOwner->GetGameSystem()->GetRenderTargetRenderer()->GetRegisteredRenderCamera(eCameraPriorityType::Main);
+	//	Vector3 mousePos = helper::WindowScreenMouseToWorld3D(mainCamera);
+	//	Vector3 playerPos = mOwner->GetComponent<Transform>()->GetPosition();
+	//	Vector3 dir = mousePos - mOwner->GetComponent<Transform>()->GetPosition();
+	//	dir.z = 0.f;	
+	//	dir.Normalize();
+
+	//	GameObject* bullet = GameObjectBuilder::CreateBullet(dir, playerPos, eBulletType::PlayerBeer1);
+	//	mOwner->GetGameSystem()->GetScene()->RegisterEventAddGameObject(bullet, eLayerType::Bullet);
+	//}
+
 	mCurState->InputUpdate();
 }
 
 void PlayerFSM::Update()
 {
 	mCurState->Update();
+
+	//return
+	if (mOwner->GetComponent<PlayerController>()->IsControl() == false)
+	{
+		return;
+	}
 
 	{
 		Transform* const transform = mOwner->GetComponent<Transform>();
@@ -181,13 +205,21 @@ void PlayerFSM::Update()
 				}
 
 			}
-			if (abs(rigidbody2D->GetVelocity().x) < right.x * 370.f)
+
+			float speed = 400.f;
+
+			if (abs(rigidbody2D->GetVelocity().x) < right.x * speed)
 			{
 				rigidbody2D->AddForce(right * dir.x * 4000.f);
 			}
 			else if (gInput->GetKeyDown(eKeyCode::A) || gInput->GetKeyDown(eKeyCode::D))
 			{
-				rigidbody2D->SetVelocity(right * dir.x * 370.f);
+				Vector2 newVelocity = right * dir.x * speed;
+				if (mRect2DInterpolation->IsCollisionWallLeft() || mRect2DInterpolation->IsCollisionWallRight())
+				{
+					newVelocity.y = -600.f;
+				}
+				rigidbody2D->SetVelocity(newVelocity);
 			}
 
 		}

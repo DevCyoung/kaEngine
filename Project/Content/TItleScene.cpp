@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "TItleScene.h"
+#include "TitleScene.h"
 #include "Components.h"
 #include "ResourceManager.h"
 #include "GameObjectBuilder.h"
@@ -9,58 +9,50 @@
 #include <Engine/Color.h>
 #include <Engine/SceneManager.h>
 #include "Chinatown01Scene.h"
+#include "TitleController.h"
+#include "Chinatown01Scene.h"
 
-TItleScene::TItleScene()
+TitleScene::TitleScene()
+	: KatanaScene(eKatanaSceneType::Title)
 {
 	SetBackgroundColor(helper::Color::BLACK);
-	
-#pragma region Material
-	{
-		Material* const material = MaterialBuilder::Sprite2D(eRenderPriorityType::Opqaue,
-			eResTexture::Title_spr_title_background);
-		gResourceManager->Insert(L"TitleBackGround", material);
-	}
+}
+TitleScene::~TitleScene()
+{
 
-	{
-		Material* const material = MaterialBuilder::Sprite2D(eRenderPriorityType::Opqaue,
-			eResTexture::Title_spr_title_fence);
-		gResourceManager->Insert(L"TitleFence", material);
-	}
+}
 
-	{
-		Material* const material =
-			MaterialBuilder::Sprite2D(eRenderPriorityType::Opqaue,				eResTexture::Title_spr_titlegraphic_big2);
-		gResourceManager->Insert(L"TitleGraphic", material);
-	}
+void TitleScene::AddMapObject()
+{
+}
 
-	{
-		Material* const material =
-			MaterialBuilder::Sprite2D(eRenderPriorityType::Opqaue, eResTexture::Title_spr_titlegraphic_big_1);	
-		gResourceManager->Insert(L"TitleGraphic1", material);
-	}
+void TitleScene::AddWallObject()
+{
+}
 
-	{
-		Material* const material =
-			MaterialBuilder::Sprite2D(eRenderPriorityType::Opqaue, eResTexture::Title_spr_titlegraphic_big_2);		
-		gResourceManager->Insert(L"TitleGraphic2", material);
-	}
+void TitleScene::AddDoorObject()
+{
+}
 
-	{
-		Material* const material =
-			MaterialBuilder::Sprite2D(eRenderPriorityType::Opqaue, eResTexture::Title_spr_title_grass);	
-		gResourceManager->Insert(L"TitleGrass", material);
-	}
+void TitleScene::AddMonsterObject()
+{
+}
 
-	{
-		Material* const material =
-			MaterialBuilder::Sprite2D(eRenderPriorityType::Opqaue, eResTexture::Title_spr_title_plants_0);
-		gResourceManager->Insert(L"TitlePlant", material);
-	}
+void TitleScene::AddObject()
+{
+}
 
-#pragma endregion
+void TitleScene::AddLightObject()
+{
+}
 
+void TitleScene::AddCameraObject()
+{
+}
+
+void TitleScene::AddUIObject()
+{
 #pragma region UI
-
 	const Vector2& SCREEN_SIZE = gEngine->GetRenderTargetSize();
 
 	GameObject* const backgroundParent = new GameObject();
@@ -105,11 +97,11 @@ TItleScene::TItleScene()
 			Animator2D* const animator = plants->GetComponent< Animator2D>();
 
 			animator->CreateAnimation(L"TitlePlant", atlas, 12, XMUINT2(5, 34),
-				XMUINT2(640, 360), XMUINT2(10, 10), XMINT2(0, 0), 0.08f);			
+				XMUINT2(640, 360), XMUINT2(10, 10), XMINT2(0, 0), 0.08f);
 
 			animator->SetBackSize(XMUINT2(3000, 3000));
 			animator->Play(L"TitlePlant", true);
-			
+
 			plants->SetParent(backgroundParent);
 			AddGameObject(plants, eLayerType::Default);
 		}
@@ -142,12 +134,65 @@ TItleScene::TItleScene()
 		GameObject* const obj = GameObjectBuilder::Default2D(L"TitleGraphic");
 
 		obj->GetComponent<Transform>()->SetPosition(0.f, 100.f, 31.f);
-		obj->SetParent(graphicParent);
+		obj->SetParent(graphicParent);		
 		AddGameObject(obj, eLayerType::Default);
 	}
 	AddGameObject(graphicParent, eLayerType::Default);
-#pragma endregion
 
+
+	{
+		GameObject* const obj = GameObjectBuilder::Default2D(L"TitleHud");
+		obj->GetComponent<Transform>()->SetPosition(0.f, -170.f, 0.f);
+		obj->GetComponent<SpriteRenderer>()->SetColorR(0.01f);
+		obj->GetComponent<SpriteRenderer>()->SetColorG(0.01f);
+		obj->GetComponent<SpriteRenderer>()->SetColorB(0.01f);
+		obj->GetComponent<SpriteRenderer>()->SetColorA(0.45f);
+
+		AddGameObject(obj, eLayerType::Default);
+
+		//Text
+		{
+			GameObject* const childObj = new GameObject();
+			childObj->AddComponent<EngineText>();
+
+			childObj->GetComponent<EngineText>()->SetScale(25.f);
+			childObj->GetComponent<EngineText>()->SetText(L"새로운 게임");
+			childObj->GetComponent<EngineText>()->SetPosition(XMUINT2(580, 400));
+
+			childObj->SetParent(obj);
+			AddGameObject(childObj, eLayerType::Default);
+		}
+
+		//Text
+		{
+			GameObject* const childObj = new GameObject();
+			childObj->AddComponent<EngineText>();
+
+			childObj->GetComponent<EngineText>()->SetScale(25.f);
+			childObj->GetComponent<EngineText>()->SetText(L"종료");
+			childObj->GetComponent<EngineText>()->SetPosition(XMUINT2(620, 450));
+
+			childObj->SetParent(obj);
+			AddGameObject(childObj, eLayerType::Default);
+		}
+
+		{
+			GameObject* const childObj = GameObjectBuilder::Default2D(L"TitleTextHud");
+
+			childObj->AddComponent<TitleController>();
+
+			childObj->GetComponent<Transform>()->SetPosition(0.f, 112.f, 0.f);
+			childObj->GetComponent<SpriteRenderer>()->SetColorR(0.5f);
+			childObj->GetComponent<SpriteRenderer>()->SetColorG(0.5f);
+			childObj->GetComponent<SpriteRenderer>()->SetColorB(0.5f);
+			childObj->GetComponent<SpriteRenderer>()->SetColorA(0.17f);
+
+			childObj->SetParent(obj);
+			AddGameObject(childObj, eLayerType::Default);
+		}
+	}
+
+#pragma endregion
 #pragma region Camera
 	//Main Camera
 	{
@@ -179,21 +224,18 @@ TItleScene::TItleScene()
 		AddGameObject(uiCamera, eLayerType::Default);
 	}
 #pragma endregion
-
 }
 
-TItleScene::~TItleScene()
+void TitleScene::AddPlayerObject()
 {
-
 }
 
-void TItleScene::update()
+Scene* TitleScene::Clone()
 {
-	Scene::update();
-
-	if (gInput->GetKeyDown(eKeyCode::P))
-	{
-		SceneManager::GetInstance()->RegisterLoadScene(new Chinatown01Scene);
-	}
+	return nullptr;
 }
 
+KatanaScene* TitleScene::GetNextScene()
+{
+	return new Chinatown01Scene();
+}

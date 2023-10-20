@@ -2,14 +2,30 @@
 #include "FolowPlayer.h"
 #include "Components.h"
 #include <Engine/EngineMath.h>
+#include "CameraWall.h"
+
 FolowPlayer::FolowPlayer()
 	: ScriptComponent(eScriptComponentType::FolowPlayer)
 	, mPlayerTransform(nullptr)
+	, mShakeTime(0.f)
+	, mbShake(false)
+	, mbCollideWall{}
+	, mShakeCount(0)
+	, mbFolow(true)
+	, mPrevPosition(Vector3::Zero)
 {
 }
 
 FolowPlayer::~FolowPlayer()
 {
+}
+
+void FolowPlayer::ShakeCamera()
+{
+	mPrevPosition = GetOwner()->GetComponent<Transform>()->GetPosition();
+
+	mShakeTime = 0.f;
+	mbShake = true;
 }
 
 void FolowPlayer::initialize()
@@ -23,53 +39,11 @@ void FolowPlayer::update()
 	{
 		return;
 	}
-	//RenderTargetRenderer* const renderer = GetOwner()->GetGameSystem()->GetRenderTargetRenderer();
-	//DebugRenderer2D* const debugRenderer = renderer->GetDebugRenderer2D();
 
-	//Vector3  cameraPos3D = GetOwner()->GetComponent<Transform>()->GetPosition();
-	//Vector3  playerPos3D = mPlayerTransform->GetPosition();
-
-	//Vector3 cameraToPlayer = playerPos3D - cameraPos3D;
-	//cameraToPlayer.z = 0.f;
-
-	//Camera* const camera = GetOwner()->GetComponent<Camera>();
-	//Physics2D* const physics2D = GetOwner()->GetGameSystem()->GetPhysics2D();
-	//Vector2 camRTSize = camera->GetRenderTargetSize();
-
-	////camera2D
-	//Vector2 cameraPos2D = Vector2(cameraPos3D.x, cameraPos3D.y);
-
-	//RayCast2DHitInfo hitInfo;
-
-	//debugRenderer->DrawLine2D2(cameraPos3D, Vector2::Down, camRTSize.y / 2.f, 0.f, Vector4(1.f, 0.f, 0.f, 1.f));
-	//if (physics2D->RayCastHit2D(cameraPos2D, Vector2::Down, camRTSize.y / 2.f, eLayerType::CamearaWall, &hitInfo))
-	//{
-	//	cameraPos3D.y += hitInfo.hitPos.y;
-	//	GetOwner()->GetComponent<Transform>()->SetPosition(cameraPos3D);
-	//}
-
-
-	//if (cameraToPlayer.Length() <= 100.f)
-	//{
-	//	return;
-	//}
-	//cameraToPlayer.Normalize();
-
-
-
-
-
-	//cameraPos3D += cameraToPlayer * 500.f * gDeltaTime;
-
-	//GetOwner()->GetComponent<Transform>()->SetPosition(cameraPos3D);
-	
 
 	const Vector3& TARGET_POS = mPlayerTransform->GetPosition();
-	const Vector3& CAMERA_POS = GetOwner()->GetComponent<Transform>()->GetPosition();	
-
-	//Camera* const P_CAMERA = GetOwner()->GetComponent<Camera>();
-	//const Vector3& MOUSE_WORLD_POS =  helper::WindowScreenMouseToWorld3D(P_CAMERA);
-	//const Vector3& OFFSET = (MOUSE_WORLD_POS - TARGET_POS) / 6000.f;
+	const Vector3& CAMERA_POS = GetOwner()->GetComponent<Transform>()->GetPosition();
+	Vector3 NextPos = CAMERA_POS;
 
 	Vector3 direction = TARGET_POS - CAMERA_POS;
 	direction.z = 0.f;
@@ -77,60 +51,105 @@ void FolowPlayer::update()
 
 	direction.Normalize();
 
-	
-	Vector3 NextPos = CAMERA_POS;
-
-	if (DISTANCE > 100.f)
+	if (mbCollideWall[static_cast<UINT>(eCameraWallType::Left)])
 	{
-		//NextPos += direction * 1.f * gDeltaTime;
-		
-		NextPos += direction * gDeltaTime * 400.f;
+		if (direction.x < 0.f)
+		{
+			direction.x = 0.f;
+		}
 	}
+	if (mbCollideWall[static_cast<UINT>(eCameraWallType::Right)])
+	{
+		if (direction.x > 0.f)
+		{
+			direction.x = 0.f;
+		}
+	}
+	if (mbCollideWall[static_cast<UINT>(eCameraWallType::Up)])
+	{
+		if (direction.y > 0.f)
+		{
+			direction.y = 0.f;
+		}
+	}
+	if (mbCollideWall[static_cast<UINT>(eCameraWallType::Down)])
+	{
+		if (direction.y < 0.f)
+		{
+			direction.y = 0.f;
+		}
+	}	
+
+	if (mbFolow)
+	{
+		if (DISTANCE > 50.f)
+		{
+			NextPos += direction * gDeltaTime * 1000.f;
+		}
+	}	
+
+	//if (gInput->GetKeyDown(eKeyCode::J))
+	//{
+	//	ShakeCamera();
+	//}
+
+	if (mbShake)
+	{
+		mShakeTime += gDeltaTime;
+		mShakeInterverTime += gDeltaTime;
+
+		int power = 10;
+		float interval = 0.01f;
+		float shakeTime = 0.1f;
+
+		if (mShakeInterverTime > interval)
+		{
+			int offsetX = helper::rand::RandInt(-power, power);
+			int offsetY = helper::rand::RandInt(-power, power);
+
+			NextPos.x += offsetX;
+			NextPos.y += offsetY;
+			mShakeInterverTime = 0.f;
+			mShakeCount++;
+		}
+
+
+		/*if (mShakeTime > shakeTime)
+		{
+			mbShake = false;
+		}*/
+
+		if (mShakeTime > shakeTime)
+		{
+			mShakeCount = 0;
+			mbShake = false;
+
+			if (false == mbFolow)
+			{
+				NextPos = mPrevPosition;
+			}
+		}
+
+	}
+
+
+	/*Camera* mainCamera = GetOwner()->GetGameSystem()->GetRenderTargetRenderer()->GetRegisteredRenderCamera(eCameraPriorityType::Main);
+
+	Vector3 mouseWorldPos = helper::WindowScreenMouseToWorld3D(mainCamera);	
+	Vector3 cameraPos = GetOwner()->GetComponent<Transform>()->GetPosition();
+
+	Vector3 direction2 = mouseWorldPos - cameraPos;	
+	NextPos.x += direction2.x  * gDeltaTime;
+	NextPos.y += direction2.y  * gDeltaTime;*/
+
+
 
 	GetOwner()->GetComponent<Transform>()->SetPosition(NextPos);
 }
 
 void FolowPlayer::fixedUpdate()
 {
-	//RenderTargetRenderer* const renderer = GetOwner()->GetGameSystem()->GetRenderTargetRenderer();
-	//DebugRenderer2D* const debugRenderer = renderer->GetDebugRenderer2D();
 
-	//Vector3  cameraPos3D = GetOwner()->GetComponent<Transform>()->GetPosition();
-	//Vector3  playerPos3D = mPlayerTransform->GetPosition();
-
-	//Vector3 cameraToPlayer = playerPos3D - cameraPos3D;
-	//cameraToPlayer.z = 0.f;
-
-	//Camera* const camera = GetOwner()->GetComponent<Camera>();
-	//Physics2D* const physics2D = GetOwner()->GetGameSystem()->GetPhysics2D();
-	//Vector2 camRTSize = camera->GetRenderTargetSize();
-
-	////camera2D
-	//Vector2 cameraPos2D = Vector2(cameraPos3D.x, cameraPos3D.y);    
-
-	//RayCast2DHitInfo hitInfo;
-
-	//debugRenderer->DrawLine2D2(cameraPos3D, Vector2::Down, camRTSize.y / 2.f, 0.f, Vector4(1.f, 0.f, 0.f, 1.f));
-	//if (physics2D->RayCastHit2D(cameraPos2D, Vector2::Down, camRTSize.y / 2.f, eLayerType::CamearaWall, &hitInfo))
-	//{
-	//    cameraPos3D.y += hitInfo.hitPos.y;
-	//    GetOwner()->GetComponent<Transform>()->SetPosition(cameraPos3D);
-	//}    
-
-
-	//if (cameraToPlayer.Length() <= 100.f)
-	//{
-	//    return;
-	//}
-	//cameraToPlayer.Normalize();
-
-	//
-
-
-	//
-	//cameraPos3D += cameraToPlayer * 500.f * gDeltaTime;
-
-	//GetOwner()->GetComponent<Transform>()->SetPosition(cameraPos3D);
 }
 
 
@@ -143,4 +162,76 @@ void FolowPlayer::lateUpdate()
 void FolowPlayer::lastUpdate()
 {
 
+}
+
+void FolowPlayer::onCollisionEnter(Collider2D* other)
+{
+	(void)other;
+
+	GameObject* wallObject = other->GetOwner();
+
+	if (wallObject->GetLayer() == eLayerType::CameraWall)
+	{
+		CameraWall* cameraWall = wallObject->GetComponent<CameraWall>();
+		eCameraWallType type = cameraWall->GetCameraWallType();
+
+
+		Vector3 cameraPosition = GetOwner()->GetComponent<Transform>()->GetPosition();
+
+		Vector3 wallSize = wallObject->GetComponent<RectCollider2D>()->GetSize();
+		Vector3 wallPosition = wallObject->GetComponent<Transform>()->GetPosition();
+		Vector3 cameraSize = GetOwner()->GetComponent<RectCollider2D>()->GetSize();
+
+		switch (type)
+		{
+		case eCameraWallType::Left:
+		{
+			cameraPosition.x = wallPosition.x + wallSize.x * 0.5f + cameraSize.x * 0.5f;
+		}
+		break;
+		case eCameraWallType::Right:
+			cameraPosition.x = wallPosition.x - wallSize.x * 0.5f - cameraSize.x * 0.5f;
+			break;
+		case eCameraWallType::Down:
+			cameraPosition.y = wallPosition.y + wallSize.y * 0.5f + cameraSize.y * 0.5f;
+			break;
+		case eCameraWallType::Up:
+			break;
+		default:
+			assert(false);
+			break;
+		}
+
+		GetOwner()->GetComponent<Transform>()->SetPosition(cameraPosition);
+
+		mbCollideWall[static_cast<UINT>(type)] = true;
+	}	
+}
+
+void FolowPlayer::onCollisionStay(Collider2D* other)
+{
+	(void)other;
+
+	//GameObject* wallObject = other->GetOwner();
+
+	//if (wallObject->GetLayer() == eLayerType::CameraWall)
+	//{
+	//	CameraWall* cameraWall = wallObject->GetComponent<CameraWall>();
+
+	//	eCameraWallType type = cameraWall->GetCameraWallType();
+
+	//}
+}
+
+void FolowPlayer::onCollisionExit(Collider2D* other)
+{
+	GameObject* wallObject = other->GetOwner();
+
+	if (wallObject->GetLayer() == eLayerType::CameraWall)
+	{
+		CameraWall* cameraWall = wallObject->GetComponent<CameraWall>();
+		eCameraWallType type = cameraWall->GetCameraWallType();
+
+		mbCollideWall[static_cast<UINT>(type)] = false;
+	}
 }

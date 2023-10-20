@@ -4,9 +4,15 @@
 #include "PlayerFSM.h"
 #include "Rect2DInterpolation.h"
 
+#include "PlayerFSM.h"
+#include "PlayerController.h"
+
+#include "GameManager.h"
+#include "KatanaZeroSystem.h"
 
 PlayerHurtGroundState::PlayerHurtGroundState(GameObject* const gameObject, PlayerFSM* const owner)
 	: PlayerState(gameObject, owner)
+	, mbInvincibility(true)
 {
 }
 
@@ -20,6 +26,17 @@ void PlayerHurtGroundState::InputUpdate()
 
 void PlayerHurtGroundState::Update()
 {
+	if (gInput->GetKeyDown(eKeyCode::LBTN))
+	{
+		if (false == KatanaZeroSystem::GetInstance()->IsPlayerDamaged())
+		{
+			mOwner->ChangeState(mOwner->mPlayerRecoverState);
+		}		
+		else
+		{
+			GameManager::GetInstance()->GetRewindManager()->Rewind();
+		}
+	}
 }
 
 void PlayerHurtGroundState::Enter()

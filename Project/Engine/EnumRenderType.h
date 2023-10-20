@@ -5,7 +5,8 @@ enum class eRenderPriorityType
 	Opqaue,
 	CutOut,
 	Transparent,
-	End
+	End,
+	PostProcess,
 };
 
 enum class eCameraPriorityType
