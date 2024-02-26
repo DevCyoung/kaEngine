@@ -3,6 +3,7 @@
 #include "ComponentTrait.h"
 #include "EnumComponent.h"
 #include "EnumLayer.h"
+#include "GetScriptComponent.h"
 
 class ScriptComponent;
 class GameSystem;
@@ -126,7 +127,7 @@ inline T* GameObject::GetComponentOrNull() const
 	{
 		for (ScriptComponent* const script : mUserComponents)
 		{
-			if (script->GetScriptType() == script_component_type<T>::type)
+			if (GetScriptComponent(script) == script_component_type<T>::type)
 			{
 				component = dynamic_cast<T*>(script);
 

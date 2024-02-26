@@ -227,6 +227,7 @@ call ScriptGen.exe Component $(SolutionDir)Project\Engine $(SolutionDir)Project\
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="GetScriptComponent.h" />
     <ClInclude Include="Light2D.h">
       <SubType>
       </SubType>
@@ -349,6 +350,7 @@ call ScriptGen.exe Component $(SolutionDir)Project\Engine $(SolutionDir)Project\
       </SubType>
     </ClCompile>
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="GetScriptComponent.cpp" />
     <ClCompile Include="GraphicDeviceDX11.cpp" />
     <ClCompile Include="Light2D.cpp">
       <SubType>

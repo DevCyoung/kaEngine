@@ -477,6 +477,9 @@
     <ClInclude Include="EngineText.h">
       <Filter>Source\03. Component\03. Render\Text</Filter>
     </ClInclude>
+    <ClInclude Include="GetScriptComponent.h">
+      <Filter>Source\Helper</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Entity.cpp">
@@ -676,6 +679,9 @@
     </ClCompile>
     <ClCompile Include="EngineText.cpp">
       <Filter>Source\03. Component\03. Render\Text</Filter>
+    </ClCompile>
+    <ClCompile Include="GetScriptComponent.cpp">
+      <Filter>Source\Helper</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
